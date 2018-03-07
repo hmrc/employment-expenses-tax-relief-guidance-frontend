@@ -1,6 +1,7 @@
 .*
 
 !.gitignore
+!.g8
 
 .cache
 /.classpath
