@@ -81,6 +81,34 @@ class ConstraintsSpec extends WordSpec with MustMatchers with Constraints {
     }
   }
 
+  "inRange" must {
+
+    "return Valid for a number equal to the bottom threshold" in {
+      val result = inRange(1, 10, "error.outOfRange").apply(1)
+      result mustEqual Valid
+    }
+
+    "return Valid for a number equal to the upper threshold" in {
+      val result = inRange(1, 10, "error.outOfRange").apply(10)
+      result mustEqual Valid
+    }
+
+    "return Valid for a number within range" in {
+      val result = inRange(1, 10, "error.outOfRange").apply(5)
+      result mustEqual Valid
+    }
+
+    "return Invalid for a number below the bottom threshold" in {
+      val result = inRange(1, 10, "error.outOfRange").apply(0)
+      result mustEqual Invalid("error.outOfRange", 1, 10)
+    }
+
+    "return Invalid for a number above the upper threshold" in {
+      val result = inRange(1, 10, "error.outOfRange").apply(11)
+      result mustEqual Invalid("error.outOfRange", 1, 10)
+    }
+  }
+
   "regexp" must {
 
     "return Valid for an input that matches the expression" in {
