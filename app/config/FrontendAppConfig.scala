@@ -16,6 +16,8 @@
 
 package config
 
+import java.util.Base64
+
 import com.google.inject.{Inject, Singleton}
 import play.api.{Configuration, Environment}
 import play.api.i18n.Lang
@@ -48,4 +50,13 @@ class FrontendAppConfig @Inject() (override val runModeConfiguration: Configurat
     "english" -> Lang("en"),
     "cymraeg" -> Lang("cy"))
   def routeToSwitchLanguage = (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
+
+  lazy val whitelistedIps: Seq[String] = Some(
+    new String(Base64.getDecoder.decode(runModeConfiguration.getString("microservice.services.whitelist.ips").getOrElse("")),
+      "UTF-8")
+  ).map(_.split(",")).getOrElse(Array.empty).toSeq
+
+  lazy val whitelistExcluded = Some(
+    new String(Base64.getDecoder.decode(runModeConfiguration.getString("microservice.services.whitelist.excluded").getOrElse("")), "UTF-8"))
+    .map(_.split(",")).getOrElse(Array.empty).toSeq
 }
