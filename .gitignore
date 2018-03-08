@@ -2,6 +2,7 @@
 
 !.gitignore
 !.g8
+!.gitkeep
 
 .cache
 /.classpath
