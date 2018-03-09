@@ -7,3 +7,6 @@ GET        /assets/*file                                controllers.Assets.versi
 GET        /language/:lang                              controllers.LanguageSwitchController.switchToLanguage(lang: String)
 
 GET        /this-service-has-been-reset                 controllers.SessionExpiredController.onPageLoad
+
+GET        /claimant               controllers.ClaimantController.onPageLoad()
+POST       /claimant               controllers.ClaimantController.onSubmit()

@@ -35,3 +35,9 @@ site.yes = Yes
 site.save_and_continue = Save and continue
 site.service_name = employment-expenses-tax-relief-guidance-frontend
 site.textarea.char_limit = (Limit is {0} characters)
+
+claimant.title = Are you claiming expecses for yourself?
+claimant.heading = Are you claiming expecses for yourself?
+claimant.you = Yes
+claimant.someoneElse = No
+claimant.error.required = Please give an answer for claimant
