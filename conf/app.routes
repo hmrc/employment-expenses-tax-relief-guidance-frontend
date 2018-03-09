@@ -10,3 +10,6 @@ GET        /this-service-has-been-reset                 controllers.SessionExpir
 
 GET        /claimant               controllers.ClaimantController.onPageLoad()
 POST       /claimant               controllers.ClaimantController.onSubmit()
+
+GET        /registeredForSelfAssessment                       controllers.RegisteredForSelfAssessmentController.onPageLoad()
+POST       /registeredForSelfAssessment                       controllers.RegisteredForSelfAssessmentController.onSubmit()

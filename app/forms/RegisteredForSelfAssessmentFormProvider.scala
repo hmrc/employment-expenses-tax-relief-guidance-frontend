@@ -14,15 +14,17 @@
  * limitations under the License.
  */
 
-package utils
+package forms
 
-import uk.gov.hmrc.http.cache.client.CacheMap
-import identifiers._
-import models._
+import javax.inject.Inject
 
-class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
-  def registeredForSelfAssessment: Option[Boolean] = cacheMap.getEntry[Boolean](RegisteredForSelfAssessmentId.toString)
+import forms.mappings.Mappings
+import play.api.data.Form
 
-  def claimant: Option[Claimant] = cacheMap.getEntry[Claimant](ClaimantId.toString)
+class RegisteredForSelfAssessmentFormProvider @Inject() extends Mappings {
 
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("registeredForSelfAssessment.error.required")
+    )
 }
