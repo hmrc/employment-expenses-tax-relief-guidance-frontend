@@ -26,7 +26,7 @@ import identifiers._
 class Navigator @Inject()() {
 
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
-
+    ClaimantId -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad())
   )
 
   def nextPage(id: Identifier): UserAnswers => Call =

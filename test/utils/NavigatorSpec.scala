@@ -21,15 +21,27 @@ import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
 import controllers.routes
 import identifiers._
+import models.Claimant
 
 class NavigatorSpec extends SpecBase with MockitoSugar {
 
   val navigator = new Navigator
 
   "Navigator" must {
-    "go to Index from an identifier that doesn't exist in the route map" in {
-      case object UnknownIdentifier extends Identifier
-      navigator.nextPage(UnknownIdentifier)(mock[UserAnswers]) mustBe routes.IndexController.onPageLoad()
+    "go to the Index view" when {
+      "an identifier that doesn't exist in the route map" in {
+        case object UnknownIdentifier extends Identifier
+        navigator.nextPage(UnknownIdentifier)(mock[UserAnswers]) mustBe routes.IndexController.onPageLoad()
+      }
+    }
+    "go to the RegisterForSelfAssessment view" when {
+      "navigating from the claimant view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimant)
+          .thenReturn(Some(Claimant.You))
+
+        navigator.nextPage(ClaimantId)(mock[UserAnswers]) mustBe routes.RegisteredForSelfAssessmentController.onPageLoad()
+      }
     }
   }
 }

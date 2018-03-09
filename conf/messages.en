@@ -42,6 +42,6 @@ claimant.you = Yes
 claimant.someoneElse = No
 claimant.error.required = Select yes if you are claiming expenses for yourself
 
-registeredForSelfAssessment.title = registeredForSelfAssessment
-registeredForSelfAssessment.heading = registeredForSelfAssessment
-registeredForSelfAssessment.error.required = Please give an answer for registeredForSelfAssessment
+registeredForSelfAssessment.title = Are you registered for Self Assessment?
+registeredForSelfAssessment.heading = Are you registered for Self Assessment?
+registeredForSelfAssessment.error.required = Select yes if you are registering for Self Assessment
