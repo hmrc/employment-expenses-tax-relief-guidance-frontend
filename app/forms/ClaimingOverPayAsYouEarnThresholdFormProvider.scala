@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package utils
+package forms
 
-import uk.gov.hmrc.http.cache.client.CacheMap
-import identifiers._
-import models._
+import javax.inject.Inject
 
-class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
-  def claimingOverPayAsYouEarnThreshold: Option[Boolean] = cacheMap.getEntry[Boolean](ClaimingOverPayAsYouEarnThresholdId.toString)
+import forms.mappings.Mappings
+import play.api.data.Form
 
-  def registeredForSelfAssessment: Option[Boolean] = cacheMap.getEntry[Boolean](RegisteredForSelfAssessmentId.toString)
+class ClaimingOverPayAsYouEarnThresholdFormProvider @Inject() extends Mappings {
 
-  def claimant: Option[Claimant] = cacheMap.getEntry[Claimant](ClaimantId.toString)
-
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("claimingOverPayAsYouEarnThreshold.error.required")
+    )
 }

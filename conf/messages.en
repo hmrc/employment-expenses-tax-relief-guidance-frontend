@@ -35,3 +35,17 @@ site.yes = Yes
 site.save_and_continue = Save and continue
 site.service_name = employment-expenses-tax-relief-guidance-frontend
 site.textarea.char_limit = (Limit is {0} characters)
+
+claimant.title = Are you claiming expenses for yourself?
+claimant.heading = Are you claiming expenses for yourself?
+claimant.you = Yes
+claimant.someoneElse = No
+claimant.error.required = Select yes if you are claiming expenses for yourself
+
+registeredForSelfAssessment.title = Are you registered for Self Assessment?
+registeredForSelfAssessment.heading = Are you registered for Self Assessment?
+registeredForSelfAssessment.error.required = Select yes if you are registering for Self Assessment
+
+claimingOverPayAsYouEarnThreshold.title = Are you claiming more than £2,500?
+claimingOverPayAsYouEarnThreshold.heading = Are you claiming more than £2,500?
+claimingOverPayAsYouEarnThreshold.error.required = Select yes if you are claiming more than £2,500

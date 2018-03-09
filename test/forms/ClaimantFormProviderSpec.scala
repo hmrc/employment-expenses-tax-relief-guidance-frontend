@@ -14,23 +14,32 @@
  * limitations under the License.
  */
 
-package utils
+package forms
 
-import javax.inject.{Inject, Singleton}
+import forms.behaviours.OptionFieldBehaviours
+import models.Claimant
+import play.api.data.FormError
 
-import play.api.mvc.Call
-import controllers.routes
-import identifiers._
+class ClaimantFormProviderSpec extends OptionFieldBehaviours {
 
-@Singleton
-class Navigator @Inject()() {
+  val form = new ClaimantFormProvider()()
 
-  private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
-    ClaimantId -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
-    RegisteredForSelfAssessmentId -> (_ => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad())
-  )
+  ".value" must {
 
-  def nextPage(id: Identifier): UserAnswers => Call =
-    routeMap.getOrElse(id, _ => routes.IndexController.onPageLoad())
+    val fieldName = "value"
+    val requiredKey = "claimant.error.required"
 
+    behave like optionsField[Claimant](
+      form,
+      fieldName,
+      validValues  = Claimant.values,
+      invalidError = FormError(fieldName, "error.invalid")
+    )
+
+    behave like mandatoryField(
+      form,
+      fieldName,
+      requiredError = FormError(fieldName, requiredKey)
+    )
+  }
 }

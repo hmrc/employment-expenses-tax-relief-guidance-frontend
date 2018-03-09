@@ -14,17 +14,26 @@
  * limitations under the License.
  */
 
-package utils
+package models
 
-import uk.gov.hmrc.http.cache.client.CacheMap
-import identifiers._
-import models._
+import utils.{Enumerable, RadioOption, WithName}
 
-class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
-  def claimingOverPayAsYouEarnThreshold: Option[Boolean] = cacheMap.getEntry[Boolean](ClaimingOverPayAsYouEarnThresholdId.toString)
+sealed trait Claimant
 
-  def registeredForSelfAssessment: Option[Boolean] = cacheMap.getEntry[Boolean](RegisteredForSelfAssessmentId.toString)
+object Claimant {
 
-  def claimant: Option[Claimant] = cacheMap.getEntry[Claimant](ClaimantId.toString)
+  case object You extends WithName("you") with Claimant
+  case object Someoneelse extends WithName("someoneElse") with Claimant
 
+  val values: Set[Claimant] = Set(
+    You, Someoneelse
+  )
+
+  val options: Set[RadioOption] = values.map {
+    value =>
+      RadioOption("claimant", value.toString)
+  }
+
+  implicit val enumerable: Enumerable[Claimant] =
+    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }
