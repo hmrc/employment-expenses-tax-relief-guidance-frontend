@@ -41,18 +41,28 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimant)
           .thenReturn(Some(Claimant.You))
 
-        navigator.nextPage(ClaimantId)(mock[UserAnswers]) mustBe
+        navigator.nextPage(ClaimantId)(mockAnswers) mustBe
           routes.RegisteredForSelfAssessmentController.onPageLoad()
       }
     }
     "go to the ClaimingOverPayAsYouEarnThreshold view" when {
-      "navigating answering No from the RegisterForSelfAssessment view" in {
+      "answering No from the RegisterForSelfAssessment view" in {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.registeredForSelfAssessment)
           .thenReturn(Some(false))
 
-        navigator.nextPage(RegisteredForSelfAssessmentId)(mock[UserAnswers]) mustBe
+        navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
           routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
+      }
+    }
+    "go to the UseSelfAssessment view" when {
+      "answering Yes from the RegisterForSelfAssessment view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.registeredForSelfAssessment)
+          .thenReturn(Some(true))
+
+        navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
+          routes.UseSelfAssessmentController.onPageLoad()
       }
     }
   }
