@@ -31,7 +31,8 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
     "go to the Index view" when {
       "an identifier that doesn't exist in the route map" in {
         case object UnknownIdentifier extends Identifier
-        navigator.nextPage(UnknownIdentifier)(mock[UserAnswers]) mustBe routes.IndexController.onPageLoad()
+        navigator.nextPage(UnknownIdentifier)(mock[UserAnswers]) mustBe
+          routes.IndexController.onPageLoad()
       }
     }
     "go to the RegisterForSelfAssessment view" when {
@@ -40,7 +41,18 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimant)
           .thenReturn(Some(Claimant.You))
 
-        navigator.nextPage(ClaimantId)(mock[UserAnswers]) mustBe routes.RegisteredForSelfAssessmentController.onPageLoad()
+        navigator.nextPage(ClaimantId)(mock[UserAnswers]) mustBe
+          routes.RegisteredForSelfAssessmentController.onPageLoad()
+      }
+    }
+    "go to the ClaimingOverPayAsYouEarnThreshold view" when {
+      "navigating answering No from the RegisterForSelfAssessment view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.registeredForSelfAssessment)
+          .thenReturn(Some(false))
+
+        navigator.nextPage(RegisteredForSelfAssessmentId)(mock[UserAnswers]) mustBe
+          routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
       }
     }
   }
