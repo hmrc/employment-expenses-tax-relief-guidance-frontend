@@ -49,3 +49,6 @@ registeredForSelfAssessment.error.required = Select yes if you are registering f
 claimingOverPayAsYouEarnThreshold.title = Are you claiming more than £2,500?
 claimingOverPayAsYouEarnThreshold.heading = Are you claiming more than £2,500?
 claimingOverPayAsYouEarnThreshold.error.required = Select yes if you are claiming more than £2,500
+
+useSelfAssessment.title = useSelfAssessment
+useSelfAssessment.heading = useSelfAssessment
