@@ -25,12 +25,17 @@ import identifiers._
 @Singleton
 class Navigator @Inject()() {
 
+  private def registeredForSelfAssessmentControllerRouting(userAnswers: UserAnswers) = userAnswers.registeredForSelfAssessment match {
+    case Some(true) => routes.UseSelfAssessmentController.onPageLoad()
+    case Some(false) => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
+    case None => routes.SessionExpiredController.onPageLoad()
+  }
+
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
     ClaimantId -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
-    RegisteredForSelfAssessmentId -> (_ => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad())
+    RegisteredForSelfAssessmentId -> registeredForSelfAssessmentControllerRouting
   )
 
   def nextPage(id: Identifier): UserAnswers => Call =
     routeMap.getOrElse(id, _ => routes.IndexController.onPageLoad())
-
 }

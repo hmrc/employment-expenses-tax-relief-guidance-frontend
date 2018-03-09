@@ -49,3 +49,7 @@ registeredForSelfAssessment.error.required = Select yes if you are registering f
 claimingOverPayAsYouEarnThreshold.title = Are you claiming more than £2,500?
 claimingOverPayAsYouEarnThreshold.heading = Are you claiming more than £2,500?
 claimingOverPayAsYouEarnThreshold.error.required = Select yes if you are claiming more than £2,500
+
+useSelfAssessment.title = Use Self Assessment to claim expenses
+useSelfAssessment.heading = Use Self Assessment to claim expenses
+useSelfAssessment.link.label = Find out more about Self Assessment tax returns

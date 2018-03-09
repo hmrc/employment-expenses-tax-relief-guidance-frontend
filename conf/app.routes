@@ -16,3 +16,5 @@ POST       /registeredForSelfAssessment                       controllers.Regist
 
 GET        /claimingOverPayAsYouEarnThreshold                       controllers.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
 POST       /claimingOverPayAsYouEarnThreshold                       controllers.ClaimingOverPayAsYouEarnThresholdController.onSubmit()
+
+GET        /useSelfAssessment                       controllers.UseSelfAssessmentController.onPageLoad()
