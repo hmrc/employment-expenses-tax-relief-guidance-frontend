@@ -38,21 +38,20 @@ class ClaimantController @Inject()(
                                         dataCacheConnector: DataCacheConnector,
                                         navigator: Navigator,
                                         getData: DataRetrievalAction,
-                                        requireData: DataRequiredAction,
                                         formProvider: ClaimantFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
 
   val form = formProvider()
 
-  def onPageLoad() = (getData andThen requireData) {
+  def onPageLoad() = getData {
     implicit request =>
-      val preparedForm = request.userAnswers.claimant match {
+      val preparedForm = request.userAnswers.flatMap(_.claimant) match {
         case None => form
         case Some(value) => form.fill(value)
       }
       Ok(claimant(appConfig, preparedForm))
   }
 
-  def onSubmit() = (getData andThen requireData).async {
+  def onSubmit() = getData.async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>

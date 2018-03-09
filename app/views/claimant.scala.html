@@ -34,6 +34,7 @@
 
         @components.input_radio(
             field = form("value"),
+            fieldsetClass = Some("inline"),
             legend = messages("claimant.heading"),
             legendClass = Some("visually-hidden"),
             inputs = Claimant.options.toSeq
