@@ -92,3 +92,9 @@ employerPaidBackExpenses.you.error.required = Select yes if your employer has pa
 employerPaidBackExpenses.someoneElse.title = Has their employer paid back all of their expenses?
 employerPaidBackExpenses.someoneElse.heading = Has their employer paid back all of their expenses?
 employerPaidBackExpenses.someoneElse.error.required = Select yes if their employer has paid back all of their expenses
+
+taxYears.title = What tax years are you claiming for?
+taxYears.heading = What tax years are you claiming for?
+taxYears.thisYear = This Year
+taxYears.lastYear = Last Year
+taxYears.error.required = Please give an answer for taxYears

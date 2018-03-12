@@ -32,3 +32,6 @@ GET        /cannotClaimRelief                       controllers.CannotClaimRelie
 
 GET        /employerPaidBackExpenses                       controllers.EmployerPaidBackExpensesController.onPageLoad()
 POST       /employerPaidBackExpenses                       controllers.EmployerPaidBackExpensesController.onSubmit()
+
+GET        /taxYears               controllers.TaxYearsController.onPageLoad()
+POST       /taxYears               controllers.TaxYearsController.onSubmit()
