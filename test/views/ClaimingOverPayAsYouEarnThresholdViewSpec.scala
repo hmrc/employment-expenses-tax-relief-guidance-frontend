@@ -19,18 +19,21 @@ package views
 import play.api.data.Form
 import controllers.routes
 import forms.ClaimingOverPayAsYouEarnThresholdFormProvider
+import models.Claimant.You
 import views.behaviours.YesNoViewBehaviours
 import views.html.claimingOverPayAsYouEarnThreshold
 
 class ClaimingOverPayAsYouEarnThresholdViewSpec extends YesNoViewBehaviours {
 
-  val messageKeyPrefix = "claimingOverPayAsYouEarnThreshold"
+  val claimant = You
 
-  val form = new ClaimingOverPayAsYouEarnThresholdFormProvider()()
+  val messageKeyPrefix = s"claimingOverPayAsYouEarnThreshold.$claimant"
 
-  def createView = () => claimingOverPayAsYouEarnThreshold(frontendAppConfig, form)(fakeRequest, messages)
+  val form = new ClaimingOverPayAsYouEarnThresholdFormProvider()(claimant)
 
-  def createViewUsingForm = (form: Form[_]) => claimingOverPayAsYouEarnThreshold(frontendAppConfig, form)(fakeRequest, messages)
+  def createView = () => claimingOverPayAsYouEarnThreshold(frontendAppConfig, form, claimant)(fakeRequest, messages)
+
+  def createViewUsingForm = (form: Form[_]) => claimingOverPayAsYouEarnThreshold(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
   "ClaimingOverPayAsYouEarnThreshold view" must {
 
