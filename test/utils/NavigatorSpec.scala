@@ -22,6 +22,7 @@ import org.scalatest.mockito.MockitoSugar
 import controllers.routes
 import identifiers._
 import models.Claimant
+import models.Claimant.{SomeoneElse, You}
 
 class NavigatorSpec extends SpecBase with MockitoSugar {
 
@@ -35,6 +36,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           routes.IndexController.onPageLoad()
       }
     }
+
     "go to the RegisterForSelfAssessment view" when {
       "navigating from the claimant view" in {
         val mockAnswers = mock[UserAnswers]
@@ -45,6 +47,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           routes.RegisteredForSelfAssessmentController.onPageLoad()
       }
     }
+
     "go to the ClaimingOverPayAsYouEarnThreshold view" when {
       "answering No from the RegisterForSelfAssessment view" in {
         val mockAnswers = mock[UserAnswers]
@@ -55,6 +58,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
       }
     }
+
     "go to the UseSelfAssessment view" when {
       "answering Yes from the RegisterForSelfAssessment view" in {
         val mockAnswers = mock[UserAnswers]
@@ -63,6 +67,38 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
         navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
           routes.UseSelfAssessmentController.onPageLoad()
+      }
+    }
+
+    "go to the RegisterForSelfAssessment view" when {
+      "answering Yes from the ClaimingOverPayAsYouEarnThreshold view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingOverPayAsYouEarnThreshold) thenReturn Some(true)
+
+        navigator.nextPage(ClaimingOverPayAsYouEarnThresholdId)(mockAnswers) mustBe
+          routes.RegisterForSelfAssessmentController.onPageLoad()
+      }
+    }
+
+    "go to the UsePrintAndPost view" when {
+      "answering No from the ClaimingOverPayAsYouEarnThreshold view and the claimant is someone else" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingOverPayAsYouEarnThreshold) thenReturn Some(false)
+        when(mockAnswers.claimant) thenReturn Some(SomeoneElse)
+
+        navigator.nextPage(ClaimingOverPayAsYouEarnThresholdId)(mockAnswers) mustBe
+          routes.UsePrintAndPostController.onPageLoad()
+      }
+    }
+
+    "go to MoreThanFiveJobs view" when {
+      "answering No from the ClaimingOverPayAsYouEarnThreshold view and the claimant is you" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingOverPayAsYouEarnThreshold) thenReturn Some(false)
+        when(mockAnswers.claimant) thenReturn Some(You)
+
+        navigator.nextPage(ClaimingOverPayAsYouEarnThresholdId)(mockAnswers) mustBe
+          routes.MoreThanFiveJobsController.onPageLoad()
       }
     }
   }

@@ -21,6 +21,7 @@ import javax.inject.{Inject, Singleton}
 import play.api.mvc.Call
 import controllers.routes
 import identifiers._
+import models.Claimant.{SomeoneElse, You}
 
 @Singleton
 class Navigator @Inject()() {
@@ -31,9 +32,18 @@ class Navigator @Inject()() {
     case None => routes.SessionExpiredController.onPageLoad()
   }
 
+  private def claimingOverPayAsYouEarnThresholdRouting(userAnswers: UserAnswers) =
+    (userAnswers.claimingOverPayAsYouEarnThreshold, userAnswers.claimant) match {
+      case (Some(true), _)                  => routes.RegisterForSelfAssessmentController.onPageLoad()
+      case (Some(false), Some(You))         => routes.MoreThanFiveJobsController.onPageLoad()
+      case (Some(false), Some(SomeoneElse)) => routes.UsePrintAndPostController.onPageLoad()
+      case (_, _)                           => routes.SessionExpiredController.onPageLoad()
+    }
+
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
-    ClaimantId -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
-    RegisteredForSelfAssessmentId -> registeredForSelfAssessmentControllerRouting
+    ClaimantId                          -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
+    RegisteredForSelfAssessmentId       -> registeredForSelfAssessmentControllerRouting,
+    ClaimingOverPayAsYouEarnThresholdId -> claimingOverPayAsYouEarnThresholdRouting
   )
 
   def nextPage(id: Identifier): UserAnswers => Call =

@@ -23,10 +23,10 @@ sealed trait Claimant
 object Claimant {
 
   case object You extends WithName("you") with Claimant
-  case object Someoneelse extends WithName("someoneElse") with Claimant
+  case object SomeoneElse extends WithName("someoneElse") with Claimant
 
   val values: Set[Claimant] = Set(
-    You, Someoneelse
+    You, SomeoneElse
   )
 
   val options: Set[RadioOption] = values.map {
