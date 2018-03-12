@@ -27,3 +27,8 @@ GET        /registerForSelfAssessment                       controllers.Register
 GET        /usePrintAndPost                       controllers.UsePrintAndPostController.onPageLoad()
 
 GET        /claimOnline                       controllers.ClaimOnlineController.onPageLoad()
+
+GET        /cannotClaimRelief                       controllers.CannotClaimReliefController.onPageLoad()
+
+GET        /employerPaidBackExpenses                       controllers.EmployerPaidBackExpensesController.onPageLoad()
+POST       /employerPaidBackExpenses                       controllers.EmployerPaidBackExpensesController.onSubmit()

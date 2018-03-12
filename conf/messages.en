@@ -77,3 +77,10 @@ usePrintAndPost.link.label = Open the print and post claim form
 claimOnline.title = Claim expenses online
 claimOnline.heading = Claim expenses online
 claimOnline.link.label = Open the online claim form
+
+cannotClaimRelief.title = cannotClaimRelief
+cannotClaimRelief.heading = cannotClaimRelief
+
+employerPaidBackExpenses.title = employerPaidBackExpenses
+employerPaidBackExpenses.heading = employerPaidBackExpenses
+employerPaidBackExpenses.error.required = Please give an answer for employerPaidBackExpenses
