@@ -66,3 +66,6 @@ usePrintAndPost.title = Use the print and post form to claim expenses
 usePrintAndPost.heading = Use the print and post form to claim expenses
 usePrintAndPost.guidance = Fill in a separate claim form for each job.
 usePrintAndPost.link.label = Open the print and post claim form
+
+claimOnline.title = claimOnline
+claimOnline.heading = claimOnline
