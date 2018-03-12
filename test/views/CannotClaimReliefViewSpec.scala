@@ -16,16 +16,19 @@
 
 package views
 
+import models.Claimant.You
 import views.behaviours.ViewBehaviours
 import views.html.cannotClaimRelief
 
 class CannotClaimReliefViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "cannotClaimRelief"
+  val claimant = You
 
-  def createView = () => cannotClaimRelief(frontendAppConfig)(fakeRequest, messages)
+  val messageKeyPrefix = s"cannotClaimRelief.$claimant"
+
+  def createView = () => cannotClaimRelief(frontendAppConfig, claimant)(fakeRequest, messages)
 
   "CannotClaimRelief view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, "guidance")
   }
 }
