@@ -19,6 +19,9 @@ package controllers
 import uk.gov.hmrc.http.cache.client.CacheMap
 import base.SpecBase
 import controllers.actions.FakeDataRetrievalAction
+import identifiers.ClaimantId
+import models.Claimant
+import play.api.libs.json.JsString
 
 trait ControllerSpecBase extends SpecBase {
 
@@ -29,4 +32,9 @@ trait ControllerSpecBase extends SpecBase {
   def getEmptyCacheMap = new FakeDataRetrievalAction(Some(emptyCacheMap))
 
   def dontGetAnyData = new FakeDataRetrievalAction(None)
+
+  def getCacheMapWithClaimant(claimant: Claimant) =
+    new FakeDataRetrievalAction(
+      Some(CacheMap(cacheMapId, Map(ClaimantId.toString -> JsString(claimant.toString))))
+    )
 }

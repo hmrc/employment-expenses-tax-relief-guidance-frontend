@@ -17,28 +17,30 @@
 package controllers
 
 import play.api.data.Form
-import play.api.libs.json.JsBoolean
+import play.api.libs.json.{JsBoolean, JsString}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.RegisteredForSelfAssessmentFormProvider
-import identifiers.RegisteredForSelfAssessmentId
+import identifiers.{ClaimantId, RegisteredForSelfAssessmentId}
+import models.Claimant.You
 import views.html.registeredForSelfAssessment
 
 class RegisteredForSelfAssessmentControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
+  val claimant = You
   val formProvider = new RegisteredForSelfAssessmentFormProvider()
-  val form = formProvider()
+  val form = formProvider(claimant)
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
     new RegisteredForSelfAssessmentController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, formProvider)
+      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, formProvider)
 
-  def viewAsString(form: Form[_] = form) = registeredForSelfAssessment(frontendAppConfig, form)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = registeredForSelfAssessment(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
 
   "RegisteredForSelfAssessment Controller" must {
 
@@ -50,7 +52,9 @@ class RegisteredForSelfAssessmentControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(RegisteredForSelfAssessmentId.toString -> JsBoolean(true))
+      val validData = Map(
+        RegisteredForSelfAssessmentId.toString -> JsBoolean(true),
+        ClaimantId.toString -> JsString(claimant.toString))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad()(fakeRequest)
