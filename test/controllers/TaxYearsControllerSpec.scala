@@ -17,7 +17,7 @@
 package controllers
 
 import play.api.data.Form
-import play.api.libs.json.JsString
+import play.api.libs.json.{JsArray, JsString}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
@@ -51,16 +51,16 @@ class TaxYearsControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(TaxYearsId.toString -> JsString(TaxYears.values.head.toString))
+      val validData = Map(TaxYearsId.toString -> JsArray(Seq(JsString(TaxYears.values.head.toString))))
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad()(fakeRequest)
 
-      contentAsString(result) mustBe viewAsString(form.fill(TaxYears.values.head))
+      contentAsString(result) mustBe viewAsString(form.fill(Set(TaxYears.values.head)))
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", TaxYears.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value[0]", TaxYears.options.head.value))
 
       val result = controller().onSubmit()(postRequest)
 

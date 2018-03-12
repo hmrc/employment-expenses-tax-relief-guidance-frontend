@@ -32,8 +32,8 @@ class TaxYearsFormProviderSpec extends OptionFieldBehaviours {
     behave like optionsField[TaxYears](
       form,
       fieldName,
-      validValues  = TaxYears.values,
-      invalidError = FormError(fieldName, "error.invalid")
+      validValues  = TaxYears.values.toSet,
+      invalidError = FormError(fieldName, "taxYears.error.required")
     )
 
     behave like mandatoryField(

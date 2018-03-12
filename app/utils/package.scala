@@ -14,25 +14,17 @@
  * limitations under the License.
  */
 
-package forms
+import play.api.data.Field
 
-import javax.inject.Inject
+package object utils {
 
-import forms.mappings.Mappings
-import play.api.data.{Form, Mapping}
-import play.api.data.Forms.{set, nonEmptyText}
-import models.TaxYears
+  implicit class RichField(field: Field) {
 
-class TaxYearsFormProvider @Inject() extends Mappings {
-
-  def apply(): Form[Set[TaxYears]] =
-    Form(
-      "value" -> taxYearsMapping.verifying("taxYears.error.required", _.nonEmpty)
-    )
-
-  private val taxYearsMapping: Mapping[Set[TaxYears]] = {
-    set(nonEmptyText)
-      .verifying("taxYears.error.invalid", _.forall(TaxYears.mappings.keySet.contains _))
-      .transform(_.map(TaxYears.mappings.apply), _.map(_.toString))
+    def values: Seq[String] = {
+      field.value.toSeq ++ field.indexes.flatMap {
+        i =>
+          field(s"[$i]").value
+      }
+    }
   }
 }

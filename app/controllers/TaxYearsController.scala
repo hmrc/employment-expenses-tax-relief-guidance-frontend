@@ -58,7 +58,7 @@ class TaxYearsController @Inject()(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(taxYears(appConfig, formWithErrors))),
         (value) =>
-          dataCacheConnector.save[TaxYears](request.sessionId, TaxYearsId.toString, value).map(cacheMap =>
+          dataCacheConnector.save[Set[TaxYears]](request.sessionId, TaxYearsId.toString, value).map(cacheMap =>
             Redirect(navigator.nextPage(TaxYearsId)(new UserAnswers(cacheMap))))
       )
   }

@@ -22,18 +22,31 @@ sealed trait TaxYears
 
 object TaxYears {
 
-  case object Thisyear extends WithName("thisYear") with TaxYears
-  case object Lastyear extends WithName("lastYear") with TaxYears
+  case object ThisYear extends WithName("thisYear") with TaxYears
+  case object LastYear extends WithName("lastYear") with TaxYears
+  case object TwoYearsAgo extends WithName("twoYearsAgo") with TaxYears
+  case object ThreeYearsAgo extends WithName("threeYearsAgo") with TaxYears
+  case object FourYearsAgo extends WithName("fourYearsAgo") with TaxYears
+  case object AnotherYear extends WithName("anotherYear") with TaxYears
 
-  val values: Set[TaxYears] = Set(
-    Thisyear, Lastyear
+  val values: List[TaxYears] = List(
+    ThisYear, LastYear, TwoYearsAgo, ThreeYearsAgo, FourYearsAgo, AnotherYear
   )
 
-  val options: Set[RadioOption] = values.map {
+  val options: List[RadioOption] = values.map {
     value =>
       RadioOption("taxYears", value.toString)
   }
 
+  val mappings: Map[String, TaxYears] = Map(
+    ThisYear.toString      -> ThisYear,
+    LastYear.toString      -> LastYear,
+    TwoYearsAgo.toString   -> TwoYearsAgo,
+    ThreeYearsAgo.toString -> ThreeYearsAgo,
+    FourYearsAgo.toString  -> FourYearsAgo,
+    AnotherYear.toString   -> AnotherYear
+  )
+
   implicit val enumerable: Enumerable[TaxYears] =
-    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+    Enumerable(values.map(v => v.toString -> v): _*)
 }

@@ -19,6 +19,7 @@ package views
 import play.api.data.Form
 import forms.TaxYearsFormProvider
 import models.TaxYears
+import utils.RadioOption
 import views.behaviours.ViewBehaviours
 import views.html.taxYears
 
@@ -38,23 +39,22 @@ class TaxYearsViewSpec extends ViewBehaviours {
 
   "TaxYears view" when {
     "rendered" must {
-      "contain radio buttons for the value" in {
+      "contain checkboxes for each option" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- TaxYears.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+        for ((option, index) <- TaxYears.options.zipWithIndex) {
+          assertContainsRadioButton(doc, option.id, s"value[$index]", option.value, false)
         }
       }
     }
 
-    for(option <- TaxYears.options) {
-      s"rendered with a value of '${option.value}'" must {
-        s"have the '${option.value}' radio button selected" in {
-          val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+    for((option, index) <- TaxYears.values.zipWithIndex) {
 
-          for(unselectedOption <- TaxYears.options.filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
-          }
+      s"rendered with a value of '${option.toString}'" must {
+
+        s"have the '${option.toString}' checkbox selected" in {
+          val doc = asDocument(createViewUsingForm(form.fill(Set(option))))
+          val radioOption = RadioOption("taxYears", option.toString)
+          assertContainsRadioButton(doc, radioOption.id, s"value[$index]", option.toString, true)
         }
       }
     }
