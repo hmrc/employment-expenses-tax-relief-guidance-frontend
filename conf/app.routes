@@ -23,3 +23,5 @@ GET        /moreThanFiveJobs                       controllers.MoreThanFiveJobsC
 POST       /moreThanFiveJobs                       controllers.MoreThanFiveJobsController.onSubmit()
 
 GET        /registerForSelfAssessment                       controllers.RegisterForSelfAssessmentController.onPageLoad()
+
+GET        /usePrintAndPost                       controllers.UsePrintAndPostController.onPageLoad()

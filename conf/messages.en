@@ -60,3 +60,6 @@ moreThanFiveJobs.error.required = Please give an answer for moreThanFiveJobs
 
 registerForSelfAssessment.title = registerForSelfAssessment
 registerForSelfAssessment.heading = registerForSelfAssessment
+
+usePrintAndPost.title = usePrintAndPost
+usePrintAndPost.heading = usePrintAndPost
