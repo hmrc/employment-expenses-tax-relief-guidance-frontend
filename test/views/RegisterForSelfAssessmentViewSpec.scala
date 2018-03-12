@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package utils
+package views
 
-import uk.gov.hmrc.http.cache.client.CacheMap
-import identifiers._
-import models._
+import views.behaviours.ViewBehaviours
+import views.html.registerForSelfAssessment
 
-class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
-  def moreThanFiveJobs: Option[Boolean] = cacheMap.getEntry[Boolean](MoreThanFiveJobsId.toString)
+class RegisterForSelfAssessmentViewSpec extends ViewBehaviours {
 
-  def claimingOverPayAsYouEarnThreshold: Option[Boolean] = cacheMap.getEntry[Boolean](ClaimingOverPayAsYouEarnThresholdId.toString)
+  val messageKeyPrefix = "registerForSelfAssessment"
 
-  def registeredForSelfAssessment: Option[Boolean] = cacheMap.getEntry[Boolean](RegisteredForSelfAssessmentId.toString)
+  def createView = () => registerForSelfAssessment(frontendAppConfig)(fakeRequest, messages)
 
-  def claimant: Option[Claimant] = cacheMap.getEntry[Claimant](ClaimantId.toString)
-
+  "RegisterForSelfAssessment view" must {
+    behave like normalPage(createView, messageKeyPrefix)
+  }
 }

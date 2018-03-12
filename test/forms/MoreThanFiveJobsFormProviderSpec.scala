@@ -14,19 +14,32 @@
  * limitations under the License.
  */
 
-package utils
+package forms
 
-import uk.gov.hmrc.http.cache.client.CacheMap
-import identifiers._
-import models._
+import forms.behaviours.BooleanFieldBehaviours
+import play.api.data.FormError
 
-class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
-  def moreThanFiveJobs: Option[Boolean] = cacheMap.getEntry[Boolean](MoreThanFiveJobsId.toString)
+class MoreThanFiveJobsFormProviderSpec extends BooleanFieldBehaviours {
 
-  def claimingOverPayAsYouEarnThreshold: Option[Boolean] = cacheMap.getEntry[Boolean](ClaimingOverPayAsYouEarnThresholdId.toString)
+  val requiredKey = "moreThanFiveJobs.error.required"
+  val invalidKey = "error.boolean"
 
-  def registeredForSelfAssessment: Option[Boolean] = cacheMap.getEntry[Boolean](RegisteredForSelfAssessmentId.toString)
+  val form = new MoreThanFiveJobsFormProvider()()
 
-  def claimant: Option[Claimant] = cacheMap.getEntry[Claimant](ClaimantId.toString)
+  ".value" must {
 
+    val fieldName = "value"
+
+    behave like booleanField(
+      form,
+      fieldName,
+      invalidError = FormError(fieldName, invalidKey)
+    )
+
+    behave like mandatoryField(
+      form,
+      fieldName,
+      requiredError = FormError(fieldName, requiredKey)
+    )
+  }
 }
