@@ -16,12 +16,13 @@
 
 package utils
 
-case class RadioOption(id: String, value: String, messageKey: String)
+case class RadioOption(id: String, value: String, messageKey: String, messageArgs: Any*)
 
 object RadioOption {
-  def apply(keyPrefix: String, option: String): RadioOption = RadioOption(
+  def apply(keyPrefix: String, option: String, messageArgs: Any*): RadioOption = RadioOption(
     s"$keyPrefix.$option",
     option,
-    s"$keyPrefix.$option"
+    s"$keyPrefix.$option",
+    messageArgs
   )
 }

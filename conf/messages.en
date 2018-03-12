@@ -95,6 +95,6 @@ employerPaidBackExpenses.someoneElse.error.required = Select yes if their employ
 
 taxYears.title = What tax years are you claiming for?
 taxYears.heading = What tax years are you claiming for?
-taxYears.thisYear = This Year
-taxYears.lastYear = Last Year
-taxYears.error.required = Please give an answer for taxYears
+taxYears.specificYear = 6 April {0} to 5 April {1}
+taxYears.anotherYear = Another year
+taxYears.error.required = Select what tax years you are claiming for

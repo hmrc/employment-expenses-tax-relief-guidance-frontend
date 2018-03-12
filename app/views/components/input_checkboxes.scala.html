@@ -49,7 +49,7 @@
                 >
 
                 <label class="block-label selection-button-radio" for="@{input.id}">
-                @messages(input.messageKey)
+                @messages(input.messageKey, input.messageArgs:_*)
                 </label>
             </div>
         }

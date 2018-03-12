@@ -30,6 +30,7 @@ private object AppDependencies {
   private val bootstrapVersion = "1.4.0"
   private val scalacheckVersion = "1.13.4"
   private val whitelistVersion = "2.0.0"
+  private val taxYearVersion = "0.4.0"
 
   val compile = Seq(
     ws,
@@ -42,7 +43,8 @@ private object AppDependencies {
     "uk.gov.hmrc" %% "play-conditional-form-mapping" % playConditionalFormMappingVersion,
     "uk.gov.hmrc" %% "bootstrap-play-25" % bootstrapVersion,
     "uk.gov.hmrc" %% "play-language" % playLanguageVersion,
-    "uk.gov.hmrc" %% "play-whitelist-filter" % whitelistVersion
+    "uk.gov.hmrc" %% "play-whitelist-filter" % whitelistVersion,
+    "uk.gov.hmrc" %% "tax-year" % taxYearVersion
   )
 
   trait TestDependencies {
