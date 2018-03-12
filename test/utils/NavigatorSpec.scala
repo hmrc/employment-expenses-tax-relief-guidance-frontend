@@ -80,13 +80,23 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       }
     }
 
-    "go to the UsePrintAndPost view" when {
-      "answering No from the ClaimingOverPayAsYouEarnThreshold view and the claimant is someone else" in {
+    "go to the EmployerPaidBackExpenses view" when {
+      "answering No from the ClaimingOverPayAsYouEarnThreshold view" in {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.claimingOverPayAsYouEarnThreshold) thenReturn Some(false)
-        when(mockAnswers.claimant) thenReturn Some(SomeoneElse)
 
         navigator.nextPage(ClaimingOverPayAsYouEarnThresholdId)(mockAnswers) mustBe
+          routes.EmployerPaidBackExpensesController.onPageLoad()
+      }
+    }
+
+    "go to the UsePrintAndPost view" when {
+      "answering No from the EmployerPaidBackExpenses view and the claimant is someone else" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.employerPaidBackExpenses) thenReturn Some(false)
+        when(mockAnswers.claimant) thenReturn Some(SomeoneElse)
+
+        navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
           routes.UsePrintAndPostController.onPageLoad()
       }
 
@@ -100,12 +110,12 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
     }
 
     "go to MoreThanFiveJobs view" when {
-      "answering No from the ClaimingOverPayAsYouEarnThreshold view and the claimant is you" in {
+      "answering No from the EmployerPaidBackExpenses view and the claimant is you" in {
         val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimingOverPayAsYouEarnThreshold) thenReturn Some(false)
+        when(mockAnswers.employerPaidBackExpenses) thenReturn Some(false)
         when(mockAnswers.claimant) thenReturn Some(You)
 
-        navigator.nextPage(ClaimingOverPayAsYouEarnThresholdId)(mockAnswers) mustBe
+        navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
           routes.MoreThanFiveJobsController.onPageLoad()
       }
     }
@@ -117,6 +127,17 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
         navigator.nextPage(MoreThanFiveJobsId)(mockAnswers) mustBe
           routes.ClaimOnlineController.onPageLoad()
+      }
+    }
+
+    "go to CannotClaimRelief view" when {
+      "answering Yes from the EmployerPaidBackExpenses view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.employerPaidBackExpenses) thenReturn Some(true)
+        when(mockAnswers.claimant) thenReturn Some(You)
+
+        navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
+          routes.CannotClaimReliefController.onPageLoad()
       }
     }
   }
