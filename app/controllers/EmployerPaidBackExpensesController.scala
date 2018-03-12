@@ -32,32 +32,36 @@ import views.html.employerPaidBackExpenses
 import scala.concurrent.Future
 
 class EmployerPaidBackExpensesController @Inject()(appConfig: FrontendAppConfig,
-                                         override val messagesApi: MessagesApi,
-                                         dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: EmployerPaidBackExpensesFormProvider) extends FrontendController with I18nSupport {
+                                                   override val messagesApi: MessagesApi,
+                                                   dataCacheConnector: DataCacheConnector,
+                                                   navigator: Navigator,
+                                                   getData: DataRetrievalAction,
+                                                   requireData: DataRequiredAction,
+                                                   getClaimant: GetClaimantAction,
+                                                    formProvider: EmployerPaidBackExpensesFormProvider)
+  extends FrontendController with I18nSupport {
 
-  val form: Form[Boolean] = formProvider()
+    def onPageLoad() = (getData andThen requireData andThen getClaimant) {
+      implicit request =>
+        val form: Form[Boolean] = formProvider(request.claimant)
 
-  def onPageLoad() = (getData andThen requireData) {
-    implicit request =>
-      val preparedForm = request.userAnswers.employerPaidBackExpenses match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-      Ok(employerPaidBackExpenses(appConfig, preparedForm))
-  }
+        val preparedForm = request.userAnswers.employerPaidBackExpenses match {
+          case None => form
+          case Some(value) => form.fill(value)
+        }
+        Ok(employerPaidBackExpenses(appConfig, preparedForm, request.claimant))
+    }
 
-  def onSubmit() = (getData andThen requireData).async {
-    implicit request =>
-      form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(employerPaidBackExpenses(appConfig, formWithErrors))),
-        (value) =>
-          dataCacheConnector.save[Boolean](request.sessionId, EmployerPaidBackExpensesId.toString, value).map(cacheMap =>
-            Redirect(navigator.nextPage(EmployerPaidBackExpensesId)(new UserAnswers(cacheMap))))
-      )
-  }
+    def onSubmit() = (getData andThen requireData andThen getClaimant).async {
+      implicit request =>
+        val form: Form[Boolean] = formProvider(request.claimant)
+
+        form.bindFromRequest().fold(
+          (formWithErrors: Form[_]) =>
+            Future.successful(BadRequest(employerPaidBackExpenses(appConfig, formWithErrors, request.claimant))),
+          (value) =>
+            dataCacheConnector.save[Boolean](request.sessionId, EmployerPaidBackExpensesId.toString, value).map(cacheMap =>
+              Redirect(navigator.nextPage(EmployerPaidBackExpensesId)(new UserAnswers(cacheMap))))
+        )
+    }
 }

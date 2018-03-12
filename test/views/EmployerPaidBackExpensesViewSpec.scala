@@ -19,18 +19,21 @@ package views
 import play.api.data.Form
 import controllers.routes
 import forms.EmployerPaidBackExpensesFormProvider
+import models.Claimant.You
 import views.behaviours.YesNoViewBehaviours
 import views.html.employerPaidBackExpenses
 
 class EmployerPaidBackExpensesViewSpec extends YesNoViewBehaviours {
 
-  val messageKeyPrefix = "employerPaidBackExpenses"
+  val claimant = You
 
-  val form = new EmployerPaidBackExpensesFormProvider()()
+  val messageKeyPrefix = s"employerPaidBackExpenses.$claimant"
 
-  def createView = () => employerPaidBackExpenses(frontendAppConfig, form)(fakeRequest, messages)
+  val form = new EmployerPaidBackExpensesFormProvider()(claimant)
 
-  def createViewUsingForm = (form: Form[_]) => employerPaidBackExpenses(frontendAppConfig, form)(fakeRequest, messages)
+  def createView = () => employerPaidBackExpenses(frontendAppConfig, form, claimant)(fakeRequest, messages)
+
+  def createViewUsingForm = (form: Form[_]) => employerPaidBackExpenses(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
   "EmployerPaidBackExpenses view" must {
 

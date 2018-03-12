@@ -17,14 +17,16 @@
 package forms
 
 import forms.behaviours.BooleanFieldBehaviours
+import models.Claimant.You
 import play.api.data.FormError
 
 class EmployerPaidBackExpensesFormProviderSpec extends BooleanFieldBehaviours {
 
-  val requiredKey = "employerPaidBackExpenses.error.required"
+  val claimant = You
+  val requiredKey = s"employerPaidBackExpenses.$claimant.error.required"
   val invalidKey = "error.boolean"
 
-  val form = new EmployerPaidBackExpensesFormProvider()()
+  val form = new EmployerPaidBackExpensesFormProvider()(claimant)
 
   ".value" must {
 
