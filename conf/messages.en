@@ -54,12 +54,15 @@ useSelfAssessment.title = Use Self Assessment to claim expenses
 useSelfAssessment.heading = Use Self Assessment to claim expenses
 useSelfAssessment.link.label = Find out more about Self Assessment tax returns
 
-moreThanFiveJobs.title = moreThanFiveJobs
-moreThanFiveJobs.heading = moreThanFiveJobs
-moreThanFiveJobs.error.required = Please give an answer for moreThanFiveJobs
+moreThanFiveJobs.title = Are you claiming for more than 5 jobs?
+moreThanFiveJobs.heading = Are you claiming for more than 5 jobs?
+moreThanFiveJobs.error.required = Select yes if you are claiming for more than 5 jobs
 
-registerForSelfAssessment.title = registerForSelfAssessment
-registerForSelfAssessment.heading = registerForSelfAssessment
+registerForSelfAssessment.title = Register for Self Assessment to claim expenses
+registerForSelfAssessment.heading = Register for Self Assessment to claim expenses
+registerForSelfAssessment.link.label = How to register for Self Assessment
 
-usePrintAndPost.title = usePrintAndPost
-usePrintAndPost.heading = usePrintAndPost
+usePrintAndPost.title = Use the print and post form to claim expenses
+usePrintAndPost.heading = Use the print and post form to claim expenses
+usePrintAndPost.guidance = Fill in a separate claim form for each job.
+usePrintAndPost.link.label = Open the print and post claim form
