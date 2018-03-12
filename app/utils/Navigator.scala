@@ -27,9 +27,9 @@ import models.Claimant.{SomeoneElse, You}
 class Navigator @Inject()() {
 
   private def registeredForSelfAssessmentControllerRouting(userAnswers: UserAnswers) = userAnswers.registeredForSelfAssessment match {
-    case Some(true) => routes.UseSelfAssessmentController.onPageLoad()
+    case Some(true)  => routes.UseSelfAssessmentController.onPageLoad()
     case Some(false) => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
-    case None => routes.SessionExpiredController.onPageLoad()
+    case None        => routes.SessionExpiredController.onPageLoad()
   }
 
   private def claimingOverPayAsYouEarnThresholdRouting(userAnswers: UserAnswers) =
@@ -40,10 +40,17 @@ class Navigator @Inject()() {
       case (_, _)                           => routes.SessionExpiredController.onPageLoad()
     }
 
+  private def moreThanFiveJobsRouting(userAnswers: UserAnswers) = userAnswers.moreThanFiveJobs match {
+    case Some(true)  => routes.UsePrintAndPostController.onPageLoad()
+    case Some(false) => routes.ClaimOnlineController.onPageLoad()
+    case None        => routes.SessionExpiredController.onPageLoad()
+  }
+
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
     ClaimantId                          -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
     RegisteredForSelfAssessmentId       -> registeredForSelfAssessmentControllerRouting,
-    ClaimingOverPayAsYouEarnThresholdId -> claimingOverPayAsYouEarnThresholdRouting
+    ClaimingOverPayAsYouEarnThresholdId -> claimingOverPayAsYouEarnThresholdRouting,
+    MoreThanFiveJobsId                  -> moreThanFiveJobsRouting
   )
 
   def nextPage(id: Identifier): UserAnswers => Call =

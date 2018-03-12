@@ -89,6 +89,14 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         navigator.nextPage(ClaimingOverPayAsYouEarnThresholdId)(mockAnswers) mustBe
           routes.UsePrintAndPostController.onPageLoad()
       }
+
+      "answering Yes from the MoreThanFiveJobs view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.moreThanFiveJobs) thenReturn Some(true)
+
+        navigator.nextPage(MoreThanFiveJobsId)(mockAnswers) mustBe
+          routes.UsePrintAndPostController.onPageLoad()
+      }
     }
 
     "go to MoreThanFiveJobs view" when {
@@ -99,6 +107,16 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
         navigator.nextPage(ClaimingOverPayAsYouEarnThresholdId)(mockAnswers) mustBe
           routes.MoreThanFiveJobsController.onPageLoad()
+      }
+    }
+
+    "go to ClaimOnline view" when {
+      "answering No from the MoreThanFiveJobs view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.moreThanFiveJobs) thenReturn Some(false)
+
+        navigator.nextPage(MoreThanFiveJobsId)(mockAnswers) mustBe
+          routes.ClaimOnlineController.onPageLoad()
       }
     }
   }
