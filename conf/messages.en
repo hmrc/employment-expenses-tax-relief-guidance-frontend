@@ -101,3 +101,19 @@ taxYears.someoneElse.heading = What tax years are they claiming for?
 taxYears.someoneElse.error.required = Select what tax years they are claiming for
 taxYears.specificYear = 6 April {0} to 5 April {1}
 taxYears.anotherYear = Another year
+
+cannotClaimReliefSomeYears.title = cannotClaimReliefSomeYears
+cannotClaimReliefSomeYears.heading = cannotClaimReliefSomeYears
+
+cannotClaimReliefTooLongAgo.title = cannotClaimReliefTooLongAgo
+cannotClaimReliefTooLongAgo.heading = cannotClaimReliefTooLongAgo
+
+howManyYearsWasTaxPaid.title = In how many of the years you are claiming did you pay tax?
+howManyYearsWasTaxPaid.heading = In how many of the years you are claiming did you pay tax?
+howManyYearsWasTaxPaid.all = All
+howManyYearsWasTaxPaid.some = Some
+howManyYearsWasTaxPaid.error.required = Please give an answer for howManyYearsWasTaxPaid
+
+paidTaxInRelevantYear.title = paidTaxInRelevantYear
+paidTaxInRelevantYear.heading = paidTaxInRelevantYear
+paidTaxInRelevantYear.error.required = Please give an answer for paidTaxInRelevantYear

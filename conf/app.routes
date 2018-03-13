@@ -35,3 +35,13 @@ POST       /employerPaidBackExpenses                       controllers.EmployerP
 
 GET        /taxYears               controllers.TaxYearsController.onPageLoad()
 POST       /taxYears               controllers.TaxYearsController.onSubmit()
+
+GET        /cannotClaimReliefSomeYears                       controllers.CannotClaimReliefSomeYearsController.onPageLoad()
+
+GET        /cannotClaimReliefTooLongAgo                       controllers.CannotClaimReliefTooLongAgoController.onPageLoad()
+
+GET        /howManyYearsWasTaxPaid               controllers.HowManyYearsWasTaxPaidController.onPageLoad()
+POST       /howManyYearsWasTaxPaid               controllers.HowManyYearsWasTaxPaidController.onSubmit()
+
+GET        /paidTaxInRelevantYear                       controllers.PaidTaxInRelevantYearController.onPageLoad()
+POST       /paidTaxInRelevantYear                       controllers.PaidTaxInRelevantYearController.onSubmit()
