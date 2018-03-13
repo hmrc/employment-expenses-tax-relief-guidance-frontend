@@ -22,7 +22,7 @@ import play.api.mvc.Call
 import controllers.routes
 import identifiers._
 import models.Claimant.{SomeoneElse, You}
-import models.TaxYears
+import models.{HowManyYearsWasTaxPaid, TaxYears}
 import models.TaxYears.AnotherYear
 
 @Singleton
@@ -65,8 +65,15 @@ class Navigator @Inject()() {
 
   private def paidTaxInRelevantYearRouting(userAnswers: UserAnswers) = userAnswers.paidTaxInRelevantYear match {
     case Some(true)  => routes.RegisteredForSelfAssessmentController.onPageLoad()
-    case Some(false) => routes.SessionExpiredController.onPageLoad() // TODO: Change
+    case Some(false) => routes.NotEntitledController.onPageLoad()
     case None        => routes.SessionExpiredController.onPageLoad()
+  }
+
+  private def howManyYearsWasTaxPaidRouting(userAnswers: UserAnswers) = userAnswers.howManyYearsWasTaxPaid match {
+    case Some(HowManyYearsWasTaxPaid.All)  => routes.RegisteredForSelfAssessmentController.onPageLoad()
+    case Some(HowManyYearsWasTaxPaid.Some) => routes.NotEntitledSomeYearsController.onPageLoad()
+    case Some(HowManyYearsWasTaxPaid.None) => routes.NotEntitledController.onPageLoad()
+    case None                              => routes.SessionExpiredController.onPageLoad()
   }
 
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
@@ -74,6 +81,8 @@ class Navigator @Inject()() {
     TaxYearsId                          -> taxYearsRouting,
     PaidTaxInRelevantYearId             -> paidTaxInRelevantYearRouting,
     CannotClaimReliefSomeYearsId        -> (_ => routes.HowManyYearsWasTaxPaidController.onPageLoad()),
+    HowManyYearsWasTaxPaidId            -> howManyYearsWasTaxPaidRouting,
+    NotEntitledSomeYearsId              -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
     RegisteredForSelfAssessmentId       -> registeredForSelfAssessmentControllerRouting,
     ClaimingOverPayAsYouEarnThresholdId -> claimingOverPayAsYouEarnThresholdRouting,
     MoreThanFiveJobsId                  -> moreThanFiveJobsRouting,
