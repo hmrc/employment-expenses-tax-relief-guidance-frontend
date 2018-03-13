@@ -34,7 +34,7 @@ object TaxYears {
     ThisYear, LastYear, TwoYearsAgo, ThreeYearsAgo, FourYearsAgo, AnotherYear
   )
 
-  val options: List[RadioOption] = List(
+  def options: List[RadioOption] = List(
     taxYearRadioOption(TaxYear.current, ThisYear),
     taxYearRadioOption(TaxYear.current.back(1), LastYear),
     taxYearRadioOption(TaxYear.current.back(2), TwoYearsAgo),

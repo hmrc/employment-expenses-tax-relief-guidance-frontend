@@ -18,6 +18,7 @@ package views
 
 import play.api.data.Form
 import forms.TaxYearsFormProvider
+import models.Claimant.You
 import models.TaxYears
 import utils.RadioOption
 import views.behaviours.ViewBehaviours
@@ -25,13 +26,14 @@ import views.html.taxYears
 
 class TaxYearsViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "taxYears"
+  val claimant = You
+  val messageKeyPrefix = s"taxYears.$claimant"
 
-  val form = new TaxYearsFormProvider()()
+  val form = new TaxYearsFormProvider()(claimant)
 
-  def createView = () => taxYears(frontendAppConfig, form)(fakeRequest, messages)
+  def createView = () => taxYears(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => taxYears(frontendAppConfig, form)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => taxYears(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
   "TaxYears view" must {
     behave like normalPage(createView, messageKeyPrefix)

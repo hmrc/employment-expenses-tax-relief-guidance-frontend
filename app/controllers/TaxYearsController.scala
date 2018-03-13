@@ -32,31 +32,33 @@ import views.html.taxYears
 
 import scala.concurrent.Future
 
-class TaxYearsController @Inject()(
-                                        appConfig: FrontendAppConfig,
-                                        override val messagesApi: MessagesApi,
-                                        dataCacheConnector: DataCacheConnector,
-                                        navigator: Navigator,
-                                        getData: DataRetrievalAction,
-                                        requireData: DataRequiredAction,
-                                        formProvider: TaxYearsFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+class TaxYearsController @Inject()(appConfig: FrontendAppConfig,
+                                   override val messagesApi: MessagesApi,
+                                   dataCacheConnector: DataCacheConnector,
+                                   navigator: Navigator,
+                                   getData: DataRetrievalAction,
+                                   requireData: DataRequiredAction,
+                                   getClaimant: GetClaimantAction,
+                                   formProvider: TaxYearsFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
-
-  def onPageLoad() = (getData andThen requireData) {
+  def onPageLoad() = (getData andThen requireData andThen getClaimant) {
     implicit request =>
+      val form = formProvider(request.claimant)
+
       val preparedForm = request.userAnswers.taxYears match {
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(taxYears(appConfig, preparedForm))
+      Ok(taxYears(appConfig, preparedForm, request.claimant))
   }
 
-  def onSubmit() = (getData andThen requireData).async {
+  def onSubmit() = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
+      val form = formProvider(request.claimant)
+
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(taxYears(appConfig, formWithErrors))),
+          Future.successful(BadRequest(taxYears(appConfig, formWithErrors, request.claimant))),
         (value) =>
           dataCacheConnector.save[Set[TaxYears]](request.sessionId, TaxYearsId.toString, value).map(cacheMap =>
             Redirect(navigator.nextPage(TaxYearsId)(new UserAnswers(cacheMap))))

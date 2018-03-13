@@ -19,10 +19,10 @@
 @import controllers.routes._
 @import models.TaxYears
 
-@(appConfig: FrontendAppConfig, form: Form[_])(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("taxYears.title"),
+    title = messages(s"taxYears.$claimant.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -30,11 +30,11 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("taxYears.heading")
+        @components.heading(s"taxYears.$claimant.heading")
 
         @components.input_checkboxes(
             field = form("value"),
-            legend = messages("taxYears.heading"),
+            legend = messages(s"taxYears.$claimant.heading"),
             legendClass = Some("visually-hidden"),
             inputs = TaxYears.options
         )

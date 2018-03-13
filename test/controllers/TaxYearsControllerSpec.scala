@@ -24,7 +24,8 @@ import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.TaxYearsFormProvider
-import identifiers.TaxYearsId
+import identifiers.{ClaimantId, TaxYearsId}
+import models.Claimant.You
 import models.TaxYears
 import views.html.taxYears
 
@@ -32,14 +33,15 @@ class TaxYearsControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
+  val claimant = You
   val formProvider = new TaxYearsFormProvider()
-  val form = formProvider()
+  val form = formProvider(claimant)
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
     new TaxYearsController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, formProvider)
+      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, formProvider)
 
-  def viewAsString(form: Form[_] = form) = taxYears(frontendAppConfig, form)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = taxYears(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
 
   "TaxYears Controller" must {
 
@@ -51,7 +53,10 @@ class TaxYearsControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(TaxYearsId.toString -> JsArray(Seq(JsString(TaxYears.values.head.toString))))
+      val validData = Map(
+        TaxYearsId.toString -> JsArray(Seq(JsString(TaxYears.values.head.toString))),
+        ClaimantId.toString -> JsString(claimant.toString)
+      )
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad()(fakeRequest)
