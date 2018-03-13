@@ -32,34 +32,37 @@ import views.html.howManyYearsWasTaxPaid
 
 import scala.concurrent.Future
 
-class HowManyYearsWasTaxPaidController @Inject()(
-                                        appConfig: FrontendAppConfig,
-                                        override val messagesApi: MessagesApi,
-                                        dataCacheConnector: DataCacheConnector,
-                                        navigator: Navigator,
-                                        getData: DataRetrievalAction,
-                                        requireData: DataRequiredAction,
-                                        formProvider: HowManyYearsWasTaxPaidFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+class HowManyYearsWasTaxPaidController @Inject()(appConfig: FrontendAppConfig,
+                                                 override val messagesApi: MessagesApi,
+                                                 dataCacheConnector: DataCacheConnector,
+                                                 navigator: Navigator,
+                                                 getData: DataRetrievalAction,
+                                                 requireData: DataRequiredAction,
+                                                 getClaimant: GetClaimantActionImpl,
+                                                 formProvider: HowManyYearsWasTaxPaidFormProvider)
+  extends FrontendController with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+    def onPageLoad() = (getData andThen requireData andThen getClaimant) {
+      implicit request =>
+        val form = formProvider(request.claimant)
 
-  def onPageLoad() = (getData andThen requireData) {
-    implicit request =>
-      val preparedForm = request.userAnswers.howManyYearsWasTaxPaid match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-      Ok(howManyYearsWasTaxPaid(appConfig, preparedForm))
-  }
+        val preparedForm = request.userAnswers.howManyYearsWasTaxPaid match {
+          case None => form
+          case Some(value) => form.fill(value)
+        }
+        Ok(howManyYearsWasTaxPaid(appConfig, preparedForm, request.claimant))
+    }
 
-  def onSubmit() = (getData andThen requireData).async {
-    implicit request =>
-      form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(howManyYearsWasTaxPaid(appConfig, formWithErrors))),
-        (value) =>
-          dataCacheConnector.save[HowManyYearsWasTaxPaid](request.sessionId, HowManyYearsWasTaxPaidId.toString, value).map(cacheMap =>
-            Redirect(navigator.nextPage(HowManyYearsWasTaxPaidId)(new UserAnswers(cacheMap))))
-      )
-  }
+    def onSubmit() = (getData andThen requireData andThen getClaimant).async {
+      implicit request =>
+        val form = formProvider(request.claimant)
+
+        form.bindFromRequest().fold(
+          (formWithErrors: Form[_]) =>
+            Future.successful(BadRequest(howManyYearsWasTaxPaid(appConfig, formWithErrors, request.claimant))),
+          (value) =>
+            dataCacheConnector.save[HowManyYearsWasTaxPaid](request.sessionId, HowManyYearsWasTaxPaidId.toString, value).map(cacheMap =>
+              Redirect(navigator.nextPage(HowManyYearsWasTaxPaidId)(new UserAnswers(cacheMap))))
+        )
+    }
 }

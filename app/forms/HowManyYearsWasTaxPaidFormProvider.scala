@@ -20,12 +20,12 @@ import javax.inject.Inject
 
 import forms.mappings.Mappings
 import play.api.data.Form
-import models.HowManyYearsWasTaxPaid
+import models.{Claimant, HowManyYearsWasTaxPaid}
 
 class HowManyYearsWasTaxPaidFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[HowManyYearsWasTaxPaid] =
+  def apply(claimant: Claimant): Form[HowManyYearsWasTaxPaid] =
     Form(
-      "value" -> enumerable[HowManyYearsWasTaxPaid]("howManyYearsWasTaxPaid.error.required")
+      "value" -> enumerable[HowManyYearsWasTaxPaid](s"howManyYearsWasTaxPaid.$claimant.error.required")
     )
 }

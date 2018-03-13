@@ -24,9 +24,10 @@ object HowManyYearsWasTaxPaid {
 
   case object All extends WithName("all") with HowManyYearsWasTaxPaid
   case object Some extends WithName("some") with HowManyYearsWasTaxPaid
+  case object None extends WithName("none") with HowManyYearsWasTaxPaid
 
   val values: Set[HowManyYearsWasTaxPaid] = Set(
-    All, Some
+    All, Some, None
   )
 
   val options: Set[RadioOption] = values.map {

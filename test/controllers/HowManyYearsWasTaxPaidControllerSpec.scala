@@ -24,7 +24,8 @@ import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.HowManyYearsWasTaxPaidFormProvider
-import identifiers.HowManyYearsWasTaxPaidId
+import identifiers.{ClaimantId, HowManyYearsWasTaxPaidId}
+import models.Claimant.You
 import models.HowManyYearsWasTaxPaid
 import views.html.howManyYearsWasTaxPaid
 
@@ -32,14 +33,15 @@ class HowManyYearsWasTaxPaidControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
+  val claimant = You
   val formProvider = new HowManyYearsWasTaxPaidFormProvider()
-  val form = formProvider()
+  val form = formProvider(claimant)
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
     new HowManyYearsWasTaxPaidController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, formProvider)
+      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, formProvider)
 
-  def viewAsString(form: Form[_] = form) = howManyYearsWasTaxPaid(frontendAppConfig, form)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = howManyYearsWasTaxPaid(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
 
   "HowManyYearsWasTaxPaid Controller" must {
 
@@ -51,7 +53,10 @@ class HowManyYearsWasTaxPaidControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(HowManyYearsWasTaxPaidId.toString -> JsString(HowManyYearsWasTaxPaid.values.head.toString))
+      val validData = Map(
+        HowManyYearsWasTaxPaidId.toString -> JsString(HowManyYearsWasTaxPaid.values.head.toString),
+        ClaimantId.toString -> JsString(claimant.toString)
+      )
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad()(fakeRequest)

@@ -19,10 +19,10 @@
 @import controllers.routes._
 @import models.HowManyYearsWasTaxPaid
 
-@(appConfig: FrontendAppConfig, form: Form[_])(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("howManyYearsWasTaxPaid.title"),
+    title = messages(s"howManyYearsWasTaxPaid.$claimant.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -30,11 +30,11 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("howManyYearsWasTaxPaid.heading")
+        @components.heading(s"howManyYearsWasTaxPaid.$claimant.heading")
 
         @components.input_radio(
             field = form("value"),
-            legend = messages("howManyYearsWasTaxPaid.heading"),
+            legend = messages(s"howManyYearsWasTaxPaid.$claimant.heading"),
             legendClass = Some("visually-hidden"),
             inputs = HowManyYearsWasTaxPaid.options.toSeq
         )

@@ -18,19 +18,22 @@ package views
 
 import play.api.data.Form
 import forms.HowManyYearsWasTaxPaidFormProvider
+import models.Claimant.You
 import models.HowManyYearsWasTaxPaid
 import views.behaviours.ViewBehaviours
 import views.html.howManyYearsWasTaxPaid
 
 class HowManyYearsWasTaxPaidViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "howManyYearsWasTaxPaid"
+  val claimant = You
 
-  val form = new HowManyYearsWasTaxPaidFormProvider()()
+  val messageKeyPrefix = s"howManyYearsWasTaxPaid.$claimant"
 
-  def createView = () => howManyYearsWasTaxPaid(frontendAppConfig, form)(fakeRequest, messages)
+  val form = new HowManyYearsWasTaxPaidFormProvider()(claimant)
 
-  def createViewUsingForm = (form: Form[_]) => howManyYearsWasTaxPaid(frontendAppConfig, form)(fakeRequest, messages)
+  def createView = () => howManyYearsWasTaxPaid(frontendAppConfig, form, claimant)(fakeRequest, messages)
+
+  def createViewUsingForm = (form: Form[_]) => howManyYearsWasTaxPaid(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
   "HowManyYearsWasTaxPaid view" must {
     behave like normalPage(createView, messageKeyPrefix)

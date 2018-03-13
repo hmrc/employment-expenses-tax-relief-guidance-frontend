@@ -17,17 +17,19 @@
 package forms
 
 import forms.behaviours.OptionFieldBehaviours
+import models.Claimant.You
 import models.HowManyYearsWasTaxPaid
 import play.api.data.FormError
 
 class HowManyYearsWasTaxPaidFormProviderSpec extends OptionFieldBehaviours {
 
-  val form = new HowManyYearsWasTaxPaidFormProvider()()
+  val claimant = You
+  val form = new HowManyYearsWasTaxPaidFormProvider()(claimant)
 
   ".value" must {
 
     val fieldName = "value"
-    val requiredKey = "howManyYearsWasTaxPaid.error.required"
+    val requiredKey = s"howManyYearsWasTaxPaid.$claimant.error.required"
 
     behave like optionsField[HowManyYearsWasTaxPaid](
       form,

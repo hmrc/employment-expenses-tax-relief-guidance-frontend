@@ -108,11 +108,15 @@ cannotClaimReliefSomeYears.heading = cannotClaimReliefSomeYears
 cannotClaimReliefTooLongAgo.title = cannotClaimReliefTooLongAgo
 cannotClaimReliefTooLongAgo.heading = cannotClaimReliefTooLongAgo
 
-howManyYearsWasTaxPaid.title = In how many of the years you are claiming did you pay tax?
-howManyYearsWasTaxPaid.heading = In how many of the years you are claiming did you pay tax?
+howManyYearsWasTaxPaid.you.title = In how many of the years you are claiming did you pay tax?
+howManyYearsWasTaxPaid.you.heading = In how many of the years you are claiming did you pay tax?
+howManyYearsWasTaxPaid.error.required = Select how many of the years you are claiming you paid tax
+howManyYearsWasTaxPaid.someoneElse.title = In how many of the years they are claiming did they pay tax?
+howManyYearsWasTaxPaid.someoneElse.heading = In how many of the years they are claiming did they pay tax?
+howManyYearsWasTaxPaid.someoneElse.required = Select how many of the years they are claiming they paid tax
 howManyYearsWasTaxPaid.all = All
 howManyYearsWasTaxPaid.some = Some
-howManyYearsWasTaxPaid.error.required = Please give an answer for howManyYearsWasTaxPaid
+howManyYearsWasTaxPaid.none = None
 
 paidTaxInRelevantYear.title = paidTaxInRelevantYear
 paidTaxInRelevantYear.heading = paidTaxInRelevantYear
