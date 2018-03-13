@@ -23,7 +23,6 @@ import play.api.data.FormError
 class RegisteredForSelfAssessmentFormProviderSpec extends BooleanFieldBehaviours {
 
   val requiredKey = "registeredForSelfAssessment.you.error.required"
-  val invalidKey = "error.boolean"
 
   val form = new RegisteredForSelfAssessmentFormProvider()(You)
 
@@ -34,7 +33,7 @@ class RegisteredForSelfAssessmentFormProviderSpec extends BooleanFieldBehaviours
     behave like booleanField(
       form,
       fieldName,
-      invalidError = FormError(fieldName, invalidKey)
+      invalidError = FormError(fieldName, requiredKey)
     )
 
     behave like mandatoryField(

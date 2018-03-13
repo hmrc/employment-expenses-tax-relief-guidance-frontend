@@ -18,15 +18,20 @@ package forms
 
 import forms.behaviours.BooleanFieldBehaviours
 import models.Claimant.You
+import models.TaxYears
+import models.TaxYears.TwoYearsAgo
 import play.api.data.FormError
 
 class PaidTaxInRelevantYearFormProviderSpec extends BooleanFieldBehaviours {
 
   val claimant = You
   val requiredKey = s"paidTaxInRelevantYear.$claimant.error.required"
-  val invalidKey = "error.boolean"
 
-  val form = new PaidTaxInRelevantYearFormProvider()(claimant)
+  val taxYear = TwoYearsAgo
+  val startYear = TaxYears.startOfYear(taxYear)
+  val endYear = startYear + 1
+
+  val form = new PaidTaxInRelevantYearFormProvider()(claimant, startYear.toString, endYear.toString)
 
   ".value" must {
 
@@ -35,13 +40,13 @@ class PaidTaxInRelevantYearFormProviderSpec extends BooleanFieldBehaviours {
     behave like booleanField(
       form,
       fieldName,
-      invalidError = FormError(fieldName, invalidKey)
+      invalidError = FormError(fieldName, requiredKey, Seq(startYear.toString, endYear.toString))
     )
 
     behave like mandatoryField(
       form,
       fieldName,
-      requiredError = FormError(fieldName, requiredKey)
+      requiredError = FormError(fieldName, requiredKey, Seq(startYear.toString, endYear.toString))
     )
   }
 }

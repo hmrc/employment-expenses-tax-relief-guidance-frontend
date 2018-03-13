@@ -22,7 +22,6 @@ import play.api.data.FormError
 class MoreThanFiveJobsFormProviderSpec extends BooleanFieldBehaviours {
 
   val requiredKey = "moreThanFiveJobs.error.required"
-  val invalidKey = "error.boolean"
 
   val form = new MoreThanFiveJobsFormProvider()()
 
@@ -33,7 +32,7 @@ class MoreThanFiveJobsFormProviderSpec extends BooleanFieldBehaviours {
     behave like booleanField(
       form,
       fieldName,
-      invalidError = FormError(fieldName, invalidKey)
+      invalidError = FormError(fieldName, requiredKey)
     )
 
     behave like mandatoryField(

@@ -17,15 +17,17 @@
 package controllers
 
 import play.api.data.Form
-import play.api.libs.json.{JsBoolean, JsString}
+import play.api.libs.json.{JsArray, JsBoolean, JsString}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.PaidTaxInRelevantYearFormProvider
-import identifiers.{ClaimantId, PaidTaxInRelevantYearId}
+import identifiers.{ClaimantId, PaidTaxInRelevantYearId, TaxYearsId}
 import models.Claimant.You
+import models.TaxYears
+import models.TaxYears.{AnotherYear, LastYear, TwoYearsAgo}
 import views.html.paidTaxInRelevantYear
 
 class PaidTaxInRelevantYearControllerSpec extends ControllerSpecBase {
@@ -33,14 +35,32 @@ class PaidTaxInRelevantYearControllerSpec extends ControllerSpecBase {
   def onwardRoute = routes.IndexController.onPageLoad()
 
   val claimant = You
-  val formProvider = new PaidTaxInRelevantYearFormProvider()
-  val form = formProvider(claimant)
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
+  val taxYear = TwoYearsAgo
+  val startYear = TaxYears.startOfYear(taxYear)
+  val endYear = startYear + 1
+
+  val formProvider = new PaidTaxInRelevantYearFormProvider()
+  val form = formProvider(claimant, startYear.toString, endYear.toString)
+
+  val getValidPrecursorData = new FakeDataRetrievalAction(
+    Some(
+      CacheMap(
+        cacheMapId,
+        Map(
+          ClaimantId.toString -> JsString(claimant.toString),
+          TaxYearsId.toString -> JsArray(Seq(JsString(taxYear.toString)))
+        )
+      )
+    )
+  )
+
+  def controller(dataRetrievalAction: DataRetrievalAction = getValidPrecursorData) =
     new PaidTaxInRelevantYearController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
       dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, formProvider)
 
-  def viewAsString(form: Form[_] = form) = paidTaxInRelevantYear(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) =
+    paidTaxInRelevantYear(frontendAppConfig, form, claimant, startYear.toString, endYear.toString)(fakeRequest, messages).toString
 
   "PaidTaxInRelevantYear Controller" must {
 
@@ -54,6 +74,7 @@ class PaidTaxInRelevantYearControllerSpec extends ControllerSpecBase {
     "populate the view correctly on a GET when the question has previously been answered" in {
       val validData = Map(
         PaidTaxInRelevantYearId.toString -> JsBoolean(true),
+        TaxYearsId.toString -> JsArray(Seq(JsString(taxYear.toString))),
         ClaimantId.toString -> JsString(claimant.toString)
       )
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
@@ -92,6 +113,34 @@ class PaidTaxInRelevantYearControllerSpec extends ControllerSpecBase {
     "redirect to Session Expired for a POST if no existing data is found" in {
       val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
       val result = controller(dontGetAnyData).onSubmit()(postRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+    }
+
+    "redirect to Session Expired when TaxYears has been answered with more than one answer" in {
+      val invalidData = Map(
+        PaidTaxInRelevantYearId.toString -> JsBoolean(true),
+        TaxYearsId.toString -> JsArray(Seq(JsString(taxYear.toString), JsString(LastYear.toString))),
+        ClaimantId.toString -> JsString(claimant.toString)
+      )
+      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, invalidData)))
+
+      val result = controller(getRelevantData).onPageLoad()(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+    }
+
+    "redirect to Session Expired when TaxYears has been answered with AnotherYear" in {
+      val invalidData = Map(
+        PaidTaxInRelevantYearId.toString -> JsBoolean(true),
+        TaxYearsId.toString -> JsArray(Seq(JsString(AnotherYear.toString))),
+        ClaimantId.toString -> JsString(claimant.toString)
+      )
+      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, invalidData)))
+
+      val result = controller(getRelevantData).onPageLoad()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)

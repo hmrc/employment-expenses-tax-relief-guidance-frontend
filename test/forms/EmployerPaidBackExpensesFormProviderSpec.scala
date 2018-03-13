@@ -24,7 +24,6 @@ class EmployerPaidBackExpensesFormProviderSpec extends BooleanFieldBehaviours {
 
   val claimant = You
   val requiredKey = s"employerPaidBackExpenses.$claimant.error.required"
-  val invalidKey = "error.boolean"
 
   val form = new EmployerPaidBackExpensesFormProvider()(claimant)
 
@@ -35,7 +34,7 @@ class EmployerPaidBackExpensesFormProviderSpec extends BooleanFieldBehaviours {
     behave like booleanField(
       form,
       fieldName,
-      invalidError = FormError(fieldName, invalidKey)
+      invalidError = FormError(fieldName, requiredKey)
     )
 
     behave like mandatoryField(

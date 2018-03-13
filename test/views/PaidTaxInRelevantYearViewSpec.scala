@@ -20,6 +20,8 @@ import play.api.data.Form
 import controllers.routes
 import forms.PaidTaxInRelevantYearFormProvider
 import models.Claimant.You
+import models.TaxYears
+import models.TaxYears.TwoYearsAgo
 import views.behaviours.YesNoViewBehaviours
 import views.html.paidTaxInRelevantYear
 
@@ -29,16 +31,41 @@ class PaidTaxInRelevantYearViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = s"paidTaxInRelevantYear.$claimant"
 
-  val form = new PaidTaxInRelevantYearFormProvider()(claimant)
+  val taxYear = TwoYearsAgo
+  val startYear = TaxYears.startOfYear(taxYear)
+  val endYear = startYear + 1
 
-  def createView = () => paidTaxInRelevantYear(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  val form = new PaidTaxInRelevantYearFormProvider()(claimant, startYear.toString, endYear.toString)
 
-  def createViewUsingForm = (form: Form[_]) => paidTaxInRelevantYear(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  def createView = () => paidTaxInRelevantYear(frontendAppConfig, form, claimant, startYear.toString, endYear.toString)(fakeRequest, messages)
+
+  def createViewUsingForm = (form: Form[_]) =>
+    paidTaxInRelevantYear(frontendAppConfig, form, claimant, startYear.toString, endYear.toString)(fakeRequest, messages)
 
   "PaidTaxInRelevantYear view" must {
 
-    behave like normalPage(createView, messageKeyPrefix)
+    "have the correct banner title" in {
+      val doc = asDocument(createView())
+      val nav = doc.getElementById("proposition-menu")
+      val span = nav.children.first
+      span.text mustBe messagesApi("site.service_name")
+    }
 
-    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.PaidTaxInRelevantYearController.onSubmit().url)
+    "display the correct browser title" in {
+      val doc = asDocument(createView())
+      assertEqualsMessage(doc, "title", s"$messageKeyPrefix.title", startYear.toString, endYear.toString)
+    }
+
+    "display the correct page title" in {
+      val doc = asDocument(createView())
+      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", startYear.toString, endYear.toString)
+    }
+
+    behave like yesNoPage(
+      createViewUsingForm,
+      messageKeyPrefix,
+      routes.PaidTaxInRelevantYearController.onSubmit().url,
+      startYear.toString,
+      endYear.toString)
   }
 }

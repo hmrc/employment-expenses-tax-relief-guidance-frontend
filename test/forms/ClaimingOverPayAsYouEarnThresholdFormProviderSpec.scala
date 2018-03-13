@@ -24,7 +24,6 @@ class ClaimingOverPayAsYouEarnThresholdFormProviderSpec extends BooleanFieldBeha
 
   val claimant = You
   val requiredKey = s"claimingOverPayAsYouEarnThreshold.$claimant.error.required"
-  val invalidKey = "error.boolean"
 
   val form = new ClaimingOverPayAsYouEarnThresholdFormProvider()(claimant)
 
@@ -35,7 +34,7 @@ class ClaimingOverPayAsYouEarnThresholdFormProviderSpec extends BooleanFieldBeha
     behave like booleanField(
       form,
       fieldName,
-      invalidError = FormError(fieldName, invalidKey)
+      invalidError = FormError(fieldName, requiredKey)
     )
 
     behave like mandatoryField(

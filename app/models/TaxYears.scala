@@ -63,4 +63,13 @@ object TaxYears {
 
   implicit val enumerable: Enumerable[TaxYears] =
     Enumerable(values.map(v => v.toString -> v): _*)
+
+  def startOfYear(year: TaxYears): Int = year match {
+    case ThisYear      => TaxYear.current.startYear
+    case LastYear      => TaxYear.current.back(1).startYear
+    case TwoYearsAgo   => TaxYear.current.back(2).startYear
+    case ThreeYearsAgo => TaxYear.current.back(3).startYear
+    case FourYearsAgo  => TaxYear.current.back(4).startYear
+    case _             => throw new IllegalArgumentException
+  }
 }

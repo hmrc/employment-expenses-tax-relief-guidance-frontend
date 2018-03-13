@@ -18,10 +18,10 @@
 @import uk.gov.hmrc.play.views.html._
 @import controllers.routes._
 
-@(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant, startOfYear: String, endOfYear: String)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages(s"paidTaxInRelevantYear.$claimant.title"),
+    title = messages(s"paidTaxInRelevantYear.$claimant.title", startOfYear, endOfYear),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -29,11 +29,11 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(s"paidTaxInRelevantYear.$claimant.heading")
+        @components.heading(messages(s"paidTaxInRelevantYear.$claimant.heading", startOfYear, endOfYear))
 
         @components.input_yes_no(
             field = form("value"),
-            label = messages(s"paidTaxInRelevantYear.$claimant.heading"),
+            label = messages(s"paidTaxInRelevantYear.$claimant.heading", startOfYear, endOfYear),
             labelClass = Some("visually-hidden")
         )
 

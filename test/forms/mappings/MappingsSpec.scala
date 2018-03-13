@@ -77,7 +77,7 @@ class MappingsSpec extends WordSpec with MustMatchers with OptionValues with Map
 
     val testForm: Form[Boolean] =
       Form(
-        "value" -> boolean()
+        "value" -> boolean("error.boolean")
       )
 
     "bind true" in {
@@ -97,12 +97,12 @@ class MappingsSpec extends WordSpec with MustMatchers with OptionValues with Map
 
     "not bind an empty value" in {
       val result = testForm.bind(Map("value" -> ""))
-      result.errors must contain(FormError("value", "error.required"))
+      result.errors must contain(FormError("value", "error.boolean"))
     }
 
     "not bind an empty map" in {
       val result = testForm.bind(Map.empty[String, String])
-      result.errors must contain(FormError("value", "error.required"))
+      result.errors must contain(FormError("value", "error.boolean"))
     }
 
     "unbind" in {
