@@ -16,12 +16,16 @@
 
 @import config.FrontendAppConfig
 
-@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("cannotClaimReliefSomeYears.title"),
+    title = messages(s"cannotClaimReliefSomeYears.$claimant.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @components.heading("cannotClaimReliefSomeYears.heading")
+    @components.heading(s"cannotClaimReliefSomeYears.$claimant.heading")
+
+    <p>@messages(s"cannotClaimReliefSomeYears.$claimant.guidance")</p>
+
+    @components.button_link("cannotClaimReliefSomeYears.link.label", nextPage.url)
 }

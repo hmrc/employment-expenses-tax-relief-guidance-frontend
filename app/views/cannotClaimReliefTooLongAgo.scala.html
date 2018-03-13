@@ -16,12 +16,16 @@
 
 @import config.FrontendAppConfig
 
-@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("cannotClaimReliefTooLongAgo.title"),
+    title = messages(s"cannotClaimReliefTooLongAgo.$claimant.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @components.heading("cannotClaimReliefTooLongAgo.heading")
+    @components.heading(s"cannotClaimReliefTooLongAgo.$claimant.heading")
+
+    <p>@messages(s"cannotClaimReliefTooLongAgo.$claimant.guidance")</p>
+
+    <a href="https://www.gov.uk/tax-relief-for-employees">@messages("cannotClaimReliefTooLongAgo.link.label")</a>
 }

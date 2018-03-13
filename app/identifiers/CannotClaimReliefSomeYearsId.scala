@@ -14,24 +14,8 @@
  * limitations under the License.
  */
 
-package views
+package identifiers
 
-import controllers.routes
-import models.Claimant.You
-import views.behaviours.ViewBehaviours
-import views.html.cannotClaimReliefSomeYears
-
-class CannotClaimReliefSomeYearsViewSpec extends ViewBehaviours {
-
-  val claimant = You
-
-  def onwardRoute = routes.IndexController.onPageLoad()
-
-  val messageKeyPrefix = s"cannotClaimReliefSomeYears.$claimant"
-
-  def createView = () => cannotClaimReliefSomeYears(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages)
-
-  "CannotClaimReliefSomeYears view" must {
-    behave like normalPage(createView, messageKeyPrefix)
-  }
+case object CannotClaimReliefSomeYearsId extends Identifier {
+  override def toString: String = "cannotClaimReliefSomeYearsId"
 }

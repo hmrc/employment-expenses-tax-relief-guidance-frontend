@@ -17,15 +17,22 @@
 package controllers
 
 import controllers.actions._
+import models.Claimant.You
 import play.api.test.Helpers._
+import utils.FakeNavigator
 import views.html.cannotClaimReliefSomeYears
 
 class CannotClaimReliefSomeYearsControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new CannotClaimReliefSomeYearsController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl)
+  val claimant = You
 
-  def viewAsString() = cannotClaimReliefSomeYears(frontendAppConfig)(fakeRequest, messages).toString
+  def onwardRoute = routes.IndexController.onPageLoad()
+
+  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
+    new CannotClaimReliefSomeYearsController(frontendAppConfig, messagesApi, new FakeNavigator(desiredRoute = onwardRoute),
+      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl)
+
+  def viewAsString() = cannotClaimReliefSomeYears(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages).toString
 
   "CannotClaimReliefSomeYears Controller" must {
 

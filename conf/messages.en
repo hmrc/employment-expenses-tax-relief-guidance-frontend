@@ -102,11 +102,21 @@ taxYears.someoneElse.error.required = Select what tax years they are claiming fo
 taxYears.specificYear = 6 April {0} to 5 April {1}
 taxYears.anotherYear = Another year
 
-cannotClaimReliefSomeYears.title = cannotClaimReliefSomeYears
-cannotClaimReliefSomeYears.heading = cannotClaimReliefSomeYears
+cannotClaimReliefSomeYears.you.title = You cannot claim tax relief from before 6 April {0}
+cannotClaimReliefSomeYears.you.heading = You cannot claim tax relief from before 6 April {0}
+cannotClaimReliefSomeYears.you.guidance = A claim must happen within 4 years of the end of the tax year that you spent the money.
+cannotClaimReliefSomeYears.someoneElse.title = They cannot claim tax relief from before 6 April {0}
+cannotClaimReliefSomeYears.someoneElse.heading = They cannot claim tax relief from before 6 April {0}
+cannotClaimReliefSomeYears.someoneElse.guidance = A claim must happen within 4 years of the end of the tax year that they spent the money.
+cannotClaimReliefSomeYears.link.label = Claim for other years
 
-cannotClaimReliefTooLongAgo.title = cannotClaimReliefTooLongAgo
-cannotClaimReliefTooLongAgo.heading = cannotClaimReliefTooLongAgo
+cannotClaimReliefTooLongAgo.you.title = You cannot claim tax relief for these expenses
+cannotClaimReliefTooLongAgo.you.heading = You cannot claim tax relief for these expenses
+cannotClaimReliefTooLongAgo.you.guidance = Because your claim is for before 6 April {0}.
+cannotClaimReliefTooLongAgo.someoneElse.title = They cannot claim tax relief for these expenses
+cannotClaimReliefTooLongAgo.someoneElse.heading = They cannot claim tax relief for these expenses
+cannotClaimReliefTooLongAgo.someoneElse.guidance = Because their claim is for before 6 April {0}.
+cannotClaimReliefTooLongAgo.link.label = Read tax relief for employees
 
 howManyYearsWasTaxPaid.you.title = In how many of the years you are claiming did you pay tax?
 howManyYearsWasTaxPaid.you.heading = In how many of the years you are claiming did you pay tax?

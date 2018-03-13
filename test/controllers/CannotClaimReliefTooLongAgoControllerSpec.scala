@@ -17,15 +17,19 @@
 package controllers
 
 import controllers.actions._
+import models.Claimant.You
 import play.api.test.Helpers._
 import views.html.cannotClaimReliefTooLongAgo
 
 class CannotClaimReliefTooLongAgoControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new CannotClaimReliefTooLongAgoController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl)
+  val claimant = You
 
-  def viewAsString() = cannotClaimReliefTooLongAgo(frontendAppConfig)(fakeRequest, messages).toString
+  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
+    new CannotClaimReliefTooLongAgoController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl,
+      new GetClaimantActionImpl)
+
+  def viewAsString() = cannotClaimReliefTooLongAgo(frontendAppConfig, claimant)(fakeRequest, messages).toString
 
   "CannotClaimReliefTooLongAgo Controller" must {
 

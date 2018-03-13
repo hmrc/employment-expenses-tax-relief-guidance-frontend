@@ -22,17 +22,20 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
+import identifiers.CannotClaimReliefSomeYearsId
+import utils.Navigator
 import views.html.cannotClaimReliefSomeYears
 
-import scala.concurrent.Future
-
 class CannotClaimReliefSomeYearsController @Inject()(appConfig: FrontendAppConfig,
-                                         override val messagesApi: MessagesApi,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction) extends FrontendController with I18nSupport {
+                                                     override val messagesApi: MessagesApi,
+                                                     navigator: Navigator,
+                                                     getData: DataRetrievalAction,
+                                                     requireData: DataRequiredAction,
+                                                     getClaimant: GetClaimantAction) extends FrontendController with I18nSupport {
 
-  def onPageLoad = (getData andThen requireData) {
+  def onPageLoad = (getData andThen requireData andThen getClaimant) {
     implicit request =>
-      Ok(cannotClaimReliefSomeYears(appConfig))
+      val nextPage = navigator.nextPage(CannotClaimReliefSomeYearsId)(request.userAnswers)
+      Ok(cannotClaimReliefSomeYears(appConfig, request.claimant, nextPage))
   }
 }

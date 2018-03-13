@@ -16,14 +16,17 @@
 
 package views
 
+import models.Claimant.You
 import views.behaviours.ViewBehaviours
 import views.html.cannotClaimReliefTooLongAgo
 
 class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "cannotClaimReliefTooLongAgo"
+  val claimant = You
 
-  def createView = () => cannotClaimReliefTooLongAgo(frontendAppConfig)(fakeRequest, messages)
+  val messageKeyPrefix = s"cannotClaimReliefTooLongAgo.$claimant"
+
+  def createView = () => cannotClaimReliefTooLongAgo(frontendAppConfig, claimant)(fakeRequest, messages)
 
   "CannotClaimReliefTooLongAgo view" must {
     behave like normalPage(createView, messageKeyPrefix)
