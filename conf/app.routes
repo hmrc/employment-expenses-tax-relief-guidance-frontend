@@ -45,3 +45,7 @@ POST       /howManyYearsWasTaxPaid               controllers.HowManyYearsWasTaxP
 
 GET        /paidTaxInRelevantYear                       controllers.PaidTaxInRelevantYearController.onPageLoad()
 POST       /paidTaxInRelevantYear                       controllers.PaidTaxInRelevantYearController.onSubmit()
+
+GET        /notEntitled                       controllers.NotEntitledController.onPageLoad()
+
+GET        /notEntitledSomeYears                       controllers.NotEntitledSomeYearsController.onPageLoad()

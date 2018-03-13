@@ -134,3 +134,9 @@ paidTaxInRelevantYear.you.error.required = Select yes if you paid tax between 6 
 paidTaxInRelevantYear.someoneElse.title = Did they pay tax between 6 April {0} and 5 April {1}?
 paidTaxInRelevantYear.someoneElse.heading = Did they pay tax between 6 April {0} and 5 April {1}?
 paidTaxInRelevantYear.someoneElse.error.required = Select yes if they paid tax between 6 April {0} and 5 April {1}
+
+notEntitled.title = notEntitled
+notEntitled.heading = notEntitled
+
+notEntitledSomeYears.title = notEntitledSomeYears
+notEntitledSomeYears.heading = notEntitledSomeYears
