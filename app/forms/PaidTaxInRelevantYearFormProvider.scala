@@ -19,12 +19,13 @@ package forms
 import javax.inject.Inject
 
 import forms.mappings.Mappings
+import models.Claimant
 import play.api.data.Form
 
 class PaidTaxInRelevantYearFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[Boolean] =
+  def apply(claimant: Claimant): Form[Boolean] =
     Form(
-      "value" -> boolean("paidTaxInRelevantYear.error.required")
+      "value" -> boolean(s"paidTaxInRelevantYear.$claimant.error.required")
     )
 }

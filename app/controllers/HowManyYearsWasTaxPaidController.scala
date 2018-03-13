@@ -38,7 +38,7 @@ class HowManyYearsWasTaxPaidController @Inject()(appConfig: FrontendAppConfig,
                                                  navigator: Navigator,
                                                  getData: DataRetrievalAction,
                                                  requireData: DataRequiredAction,
-                                                 getClaimant: GetClaimantActionImpl,
+                                                 getClaimant: GetClaimantAction,
                                                  formProvider: HowManyYearsWasTaxPaidFormProvider)
   extends FrontendController with I18nSupport with Enumerable.Implicits {
 

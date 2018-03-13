@@ -17,14 +17,16 @@
 package forms
 
 import forms.behaviours.BooleanFieldBehaviours
+import models.Claimant.You
 import play.api.data.FormError
 
 class PaidTaxInRelevantYearFormProviderSpec extends BooleanFieldBehaviours {
 
-  val requiredKey = "paidTaxInRelevantYear.error.required"
+  val claimant = You
+  val requiredKey = s"paidTaxInRelevantYear.$claimant.error.required"
   val invalidKey = "error.boolean"
 
-  val form = new PaidTaxInRelevantYearFormProvider()()
+  val form = new PaidTaxInRelevantYearFormProvider()(claimant)
 
   ".value" must {
 

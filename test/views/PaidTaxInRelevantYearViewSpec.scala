@@ -19,18 +19,21 @@ package views
 import play.api.data.Form
 import controllers.routes
 import forms.PaidTaxInRelevantYearFormProvider
+import models.Claimant.You
 import views.behaviours.YesNoViewBehaviours
 import views.html.paidTaxInRelevantYear
 
 class PaidTaxInRelevantYearViewSpec extends YesNoViewBehaviours {
 
-  val messageKeyPrefix = "paidTaxInRelevantYear"
+  val claimant = You
 
-  val form = new PaidTaxInRelevantYearFormProvider()()
+  val messageKeyPrefix = s"paidTaxInRelevantYear.$claimant"
 
-  def createView = () => paidTaxInRelevantYear(frontendAppConfig, form)(fakeRequest, messages)
+  val form = new PaidTaxInRelevantYearFormProvider()(claimant)
 
-  def createViewUsingForm = (form: Form[_]) => paidTaxInRelevantYear(frontendAppConfig, form)(fakeRequest, messages)
+  def createView = () => paidTaxInRelevantYear(frontendAppConfig, form, claimant)(fakeRequest, messages)
+
+  def createViewUsingForm = (form: Form[_]) => paidTaxInRelevantYear(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
   "PaidTaxInRelevantYear view" must {
 

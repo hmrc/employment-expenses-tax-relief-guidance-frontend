@@ -17,28 +17,30 @@
 package controllers
 
 import play.api.data.Form
-import play.api.libs.json.JsBoolean
+import play.api.libs.json.{JsBoolean, JsString}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeNavigator
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.PaidTaxInRelevantYearFormProvider
-import identifiers.PaidTaxInRelevantYearId
+import identifiers.{ClaimantId, PaidTaxInRelevantYearId}
+import models.Claimant.You
 import views.html.paidTaxInRelevantYear
 
 class PaidTaxInRelevantYearControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
+  val claimant = You
   val formProvider = new PaidTaxInRelevantYearFormProvider()
-  val form = formProvider()
+  val form = formProvider(claimant)
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
     new PaidTaxInRelevantYearController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, formProvider)
+      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, formProvider)
 
-  def viewAsString(form: Form[_] = form) = paidTaxInRelevantYear(frontendAppConfig, form)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = paidTaxInRelevantYear(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
 
   "PaidTaxInRelevantYear Controller" must {
 
@@ -50,7 +52,10 @@ class PaidTaxInRelevantYearControllerSpec extends ControllerSpecBase {
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(PaidTaxInRelevantYearId.toString -> JsBoolean(true))
+      val validData = Map(
+        PaidTaxInRelevantYearId.toString -> JsBoolean(true),
+        ClaimantId.toString -> JsString(claimant.toString)
+      )
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad()(fakeRequest)
