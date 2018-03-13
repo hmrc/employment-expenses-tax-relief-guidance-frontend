@@ -16,12 +16,16 @@
 
 @import config.FrontendAppConfig
 
-@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("notEntitled.title"),
+    title = messages(s"notEntitled.$claimant.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @components.heading("notEntitled.heading")
+    @components.heading(s"notEntitled.$claimant.heading")
+
+    <p>@messages(s"notEntitled.$claimant.guidance")</p>
+
+    <a href="https://www.gov.uk/tax-relief-for-employees">@messages("notEntitled.link.label")</a>
 }

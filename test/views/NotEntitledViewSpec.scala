@@ -16,14 +16,17 @@
 
 package views
 
+import models.Claimant.You
 import views.behaviours.ViewBehaviours
 import views.html.notEntitled
 
 class NotEntitledViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "notEntitled"
+  val claimant = You
 
-  def createView = () => notEntitled(frontendAppConfig)(fakeRequest, messages)
+  val messageKeyPrefix = s"notEntitled.$claimant"
+
+  def createView = () => notEntitled(frontendAppConfig, claimant)(fakeRequest, messages)
 
   "NotEntitled view" must {
     behave like normalPage(createView, messageKeyPrefix)

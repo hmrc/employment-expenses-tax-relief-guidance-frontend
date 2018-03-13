@@ -16,14 +16,20 @@
 
 package views
 
+import controllers.routes
+import models.Claimant.You
 import views.behaviours.ViewBehaviours
 import views.html.notEntitledSomeYears
 
 class NotEntitledSomeYearsViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "notEntitledSomeYears"
+  val onwardRoute = routes.IndexController.onPageLoad()
 
-  def createView = () => notEntitledSomeYears(frontendAppConfig)(fakeRequest, messages)
+  val claimant = You
+
+  val messageKeyPrefix = s"notEntitledSomeYears.$claimant"
+
+  def createView = () => notEntitledSomeYears(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages)
 
   "NotEntitledSomeYears view" must {
     behave like normalPage(createView, messageKeyPrefix)

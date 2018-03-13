@@ -16,12 +16,14 @@
 
 @import config.FrontendAppConfig
 
-@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("notEntitledSomeYears.title"),
+    title = messages(s"notEntitledSomeYears.$claimant.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @components.heading("notEntitledSomeYears.heading")
+    @components.heading(s"notEntitledSomeYears.$claimant.heading")
+
+    @components.button_link("notEntitledSomeYears.link.label", nextPage.url)
 }

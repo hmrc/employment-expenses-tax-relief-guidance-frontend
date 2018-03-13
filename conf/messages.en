@@ -135,8 +135,16 @@ paidTaxInRelevantYear.someoneElse.title = Did they pay tax between 6 April {0} a
 paidTaxInRelevantYear.someoneElse.heading = Did they pay tax between 6 April {0} and 5 April {1}?
 paidTaxInRelevantYear.someoneElse.error.required = Select yes if they paid tax between 6 April {0} and 5 April {1}
 
-notEntitled.title = notEntitled
-notEntitled.heading = notEntitled
+notEntitled.you.title = You are not entitled to tax relief
+notEntitled.you.heading = You are not entitled to tax relief
+notEntitled.you.guidance = You must have paid tax in the year you spent the money.
+notEntitled.someoneElse.title = They are not entitled to tax relief
+notEntitled.someoneElse.heading = They are not entitled to tax relief
+notEntitled.someoneElse.guidance = They must have paid tax in the year they spent the money.
+notEntitled.link.label = Read tax relief for employees
 
-notEntitledSomeYears.title = notEntitledSomeYears
-notEntitledSomeYears.heading = notEntitledSomeYears
+notEntitledSomeYears.you.title = You are not entitled to tax relief for the years you did not pay tax
+notEntitledSomeYears.you.heading = You are not entitled to tax relief for the years you did not pay tax
+notEntitledSomeYears.someoneElse.title = They are not entitled to tax relief for the years they did not pay tax
+notEntitledSomeYears.someoneElse.heading = They are not entitled to tax relief for the years they did not pay tax
+notEntitledSomeYears.link.label = Claim for other years

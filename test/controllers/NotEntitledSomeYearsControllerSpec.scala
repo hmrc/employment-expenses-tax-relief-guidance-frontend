@@ -17,15 +17,22 @@
 package controllers
 
 import controllers.actions._
+import models.Claimant.You
 import play.api.test.Helpers._
+import utils.FakeNavigator
 import views.html.notEntitledSomeYears
 
 class NotEntitledSomeYearsControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new NotEntitledSomeYearsController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl)
+  val claimant = You
 
-  def viewAsString() = notEntitledSomeYears(frontendAppConfig)(fakeRequest, messages).toString
+  val onwardRoute = routes.IndexController.onPageLoad()
+
+  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
+    new NotEntitledSomeYearsController(frontendAppConfig, messagesApi, new FakeNavigator(desiredRoute = onwardRoute),
+      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl)
+
+  def viewAsString() = notEntitledSomeYears(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages).toString
 
   "NotEntitledSomeYears Controller" must {
 
