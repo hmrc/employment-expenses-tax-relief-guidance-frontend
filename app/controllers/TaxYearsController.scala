@@ -47,7 +47,7 @@ class TaxYearsController @Inject()(appConfig: FrontendAppConfig,
 
       val preparedForm = request.userAnswers.taxYears match {
         case None => form
-        case Some(value) => form.fill(value)
+        case Some(value) => form.fill(value.toSet)
       }
       Ok(taxYears(appConfig, preparedForm, request.claimant))
   }
