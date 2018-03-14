@@ -19,18 +19,20 @@ package views
 import play.api.data.Form
 import controllers.routes
 import forms.RegisteredForSelfAssessmentFormProvider
+import models.Claimant.You
 import views.behaviours.YesNoViewBehaviours
 import views.html.registeredForSelfAssessment
 
 class RegisteredForSelfAssessmentViewSpec extends YesNoViewBehaviours {
 
-  val messageKeyPrefix = "registeredForSelfAssessment"
+  val claimant = You
+  val messageKeyPrefix = s"registeredForSelfAssessment.$claimant"
 
-  val form = new RegisteredForSelfAssessmentFormProvider()()
+  val form = new RegisteredForSelfAssessmentFormProvider()(claimant)
 
-  def createView = () => registeredForSelfAssessment(frontendAppConfig, form)(fakeRequest, messages)
+  def createView = () => registeredForSelfAssessment(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => registeredForSelfAssessment(frontendAppConfig, form)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => registeredForSelfAssessment(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
   "RegisteredForSelfAssessment view" must {
 

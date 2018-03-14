@@ -42,13 +42,20 @@ claimant.you = Yes
 claimant.someoneElse = No
 claimant.error.required = Select yes if you are claiming expenses for yourself
 
-registeredForSelfAssessment.title = Are you registered for Self Assessment?
-registeredForSelfAssessment.heading = Are you registered for Self Assessment?
-registeredForSelfAssessment.error.required = Select yes if you are registering for Self Assessment
+registeredForSelfAssessment.you.title = Are you registered for Self Assessment?
+registeredForSelfAssessment.you.heading = Are you registered for Self Assessment?
+registeredForSelfAssessment.you.error.required = Select yes if you are registering for Self Assessment
+registeredForSelfAssessment.someoneElse.title = Is the person you are claiming for registered for Self Assessment?
+registeredForSelfAssessment.someoneElse.heading = Is the person you are claiming for registered for Self Assessment?
+registeredForSelfAssessment.someoneElse.error.required = Select yes if the person you are claiming for is registering for Self Assessment
 
-claimingOverPayAsYouEarnThreshold.title = Are you claiming more than £2,500?
-claimingOverPayAsYouEarnThreshold.heading = Are you claiming more than £2,500?
-claimingOverPayAsYouEarnThreshold.error.required = Select yes if you are claiming more than £2,500
+claimingOverPayAsYouEarnThreshold.you.title = Are you claiming more than £2,500?
+claimingOverPayAsYouEarnThreshold.you.heading = Are you claiming more than £2,500?
+claimingOverPayAsYouEarnThreshold.you.error.required = Select yes if you are claiming more than £2,500
+claimingOverPayAsYouEarnThreshold.someoneElse.title = Are they claiming more than £2,500?
+claimingOverPayAsYouEarnThreshold.someoneElse.heading = Are they claiming more than £2,500?
+claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if they are claiming more than £2,500
+
 
 useSelfAssessment.title = Use Self Assessment to claim expenses
 useSelfAssessment.heading = Use Self Assessment to claim expenses
