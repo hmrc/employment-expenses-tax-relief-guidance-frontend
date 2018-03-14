@@ -14,26 +14,32 @@
  * limitations under the License.
  */
 
-package models
+package forms
 
-import utils.{Enumerable, RadioOption, WithName}
+import forms.behaviours.BooleanFieldBehaviours
+import play.api.data.FormError
 
-sealed trait Claimant
+class MoreThanFiveJobsFormProviderSpec extends BooleanFieldBehaviours {
 
-object Claimant {
+  val requiredKey = "moreThanFiveJobs.error.required"
+  val invalidKey = "error.boolean"
 
-  case object You extends WithName("you") with Claimant
-  case object SomeoneElse extends WithName("someoneElse") with Claimant
+  val form = new MoreThanFiveJobsFormProvider()()
 
-  val values: Set[Claimant] = Set(
-    You, SomeoneElse
-  )
+  ".value" must {
 
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("claimant", value.toString)
+    val fieldName = "value"
+
+    behave like booleanField(
+      form,
+      fieldName,
+      invalidError = FormError(fieldName, invalidKey)
+    )
+
+    behave like mandatoryField(
+      form,
+      fieldName,
+      requiredError = FormError(fieldName, requiredKey)
+    )
   }
-
-  implicit val enumerable: Enumerable[Claimant] =
-    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }

@@ -14,26 +14,18 @@
  * limitations under the License.
  */
 
-package models
+package views
 
-import utils.{Enumerable, RadioOption, WithName}
+import views.behaviours.ViewBehaviours
+import views.html.registerForSelfAssessment
 
-sealed trait Claimant
+class RegisterForSelfAssessmentViewSpec extends ViewBehaviours {
 
-object Claimant {
+  val messageKeyPrefix = "registerForSelfAssessment"
 
-  case object You extends WithName("you") with Claimant
-  case object SomeoneElse extends WithName("someoneElse") with Claimant
+  def createView = () => registerForSelfAssessment(frontendAppConfig)(fakeRequest, messages)
 
-  val values: Set[Claimant] = Set(
-    You, SomeoneElse
-  )
-
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("claimant", value.toString)
+  "RegisterForSelfAssessment view" must {
+    behave like normalPage(createView, messageKeyPrefix)
   }
-
-  implicit val enumerable: Enumerable[Claimant] =
-    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }

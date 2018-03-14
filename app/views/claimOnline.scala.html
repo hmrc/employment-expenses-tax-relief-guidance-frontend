@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2018 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,28 +12,21 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package models
+@import config.FrontendAppConfig
 
-import utils.{Enumerable, RadioOption, WithName}
+@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
 
-sealed trait Claimant
+@main_template(
+    title = messages("claimOnline.title"),
+    appConfig = appConfig,
+    bodyClasses = None) {
 
-object Claimant {
+    @components.heading("claimOnline.heading")
 
-  case object You extends WithName("you") with Claimant
-  case object SomeoneElse extends WithName("someoneElse") with Claimant
-
-  val values: Set[Claimant] = Set(
-    You, SomeoneElse
-  )
-
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("claimant", value.toString)
-  }
-
-  implicit val enumerable: Enumerable[Claimant] =
-    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+    @components.button_link(
+        "claimOnline.link.label",
+        "https://www.tax.service.gov.uk/forms/form/tax-relief-for-expenses-of-employment/new"
+    )
 }

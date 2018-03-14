@@ -14,26 +14,17 @@
  * limitations under the License.
  */
 
-package models
+package forms
 
-import utils.{Enumerable, RadioOption, WithName}
+import javax.inject.Inject
 
-sealed trait Claimant
+import forms.mappings.Mappings
+import play.api.data.Form
 
-object Claimant {
+class MoreThanFiveJobsFormProvider @Inject() extends Mappings {
 
-  case object You extends WithName("you") with Claimant
-  case object SomeoneElse extends WithName("someoneElse") with Claimant
-
-  val values: Set[Claimant] = Set(
-    You, SomeoneElse
-  )
-
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("claimant", value.toString)
-  }
-
-  implicit val enumerable: Enumerable[Claimant] =
-    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("moreThanFiveJobs.error.required")
+    )
 }

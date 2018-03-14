@@ -53,3 +53,20 @@ claimingOverPayAsYouEarnThreshold.error.required = Select yes if you are claimin
 useSelfAssessment.title = Use Self Assessment to claim expenses
 useSelfAssessment.heading = Use Self Assessment to claim expenses
 useSelfAssessment.link.label = Find out more about Self Assessment tax returns
+
+moreThanFiveJobs.title = Are you claiming for more than 5 jobs?
+moreThanFiveJobs.heading = Are you claiming for more than 5 jobs?
+moreThanFiveJobs.error.required = Select yes if you are claiming for more than 5 jobs
+
+registerForSelfAssessment.title = Register for Self Assessment to claim expenses
+registerForSelfAssessment.heading = Register for Self Assessment to claim expenses
+registerForSelfAssessment.link.label = How to register for Self Assessment
+
+usePrintAndPost.title = Use the print and post form to claim expenses
+usePrintAndPost.heading = Use the print and post form to claim expenses
+usePrintAndPost.guidance = Fill in a separate claim form for each job.
+usePrintAndPost.link.label = Open the print and post claim form
+
+claimOnline.title = Claim expenses online
+claimOnline.heading = Claim expenses online
+claimOnline.link.label = Open the online claim form

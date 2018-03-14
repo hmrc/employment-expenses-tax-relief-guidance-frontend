@@ -14,26 +14,8 @@
  * limitations under the License.
  */
 
-package models
+package identifiers
 
-import utils.{Enumerable, RadioOption, WithName}
-
-sealed trait Claimant
-
-object Claimant {
-
-  case object You extends WithName("you") with Claimant
-  case object SomeoneElse extends WithName("someoneElse") with Claimant
-
-  val values: Set[Claimant] = Set(
-    You, SomeoneElse
-  )
-
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("claimant", value.toString)
-  }
-
-  implicit val enumerable: Enumerable[Claimant] =
-    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+case object MoreThanFiveJobsId extends Identifier {
+  override def toString: String = "moreThanFiveJobs"
 }

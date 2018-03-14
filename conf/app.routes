@@ -18,3 +18,12 @@ GET        /claimingOverPayAsYouEarnThreshold                       controllers.
 POST       /claimingOverPayAsYouEarnThreshold                       controllers.ClaimingOverPayAsYouEarnThresholdController.onSubmit()
 
 GET        /useSelfAssessment                       controllers.UseSelfAssessmentController.onPageLoad()
+
+GET        /moreThanFiveJobs                       controllers.MoreThanFiveJobsController.onPageLoad()
+POST       /moreThanFiveJobs                       controllers.MoreThanFiveJobsController.onSubmit()
+
+GET        /registerForSelfAssessment                       controllers.RegisterForSelfAssessmentController.onPageLoad()
+
+GET        /usePrintAndPost                       controllers.UsePrintAndPostController.onPageLoad()
+
+GET        /claimOnline                       controllers.ClaimOnlineController.onPageLoad()

@@ -14,26 +14,18 @@
  * limitations under the License.
  */
 
-package models
+package views
 
-import utils.{Enumerable, RadioOption, WithName}
+import views.behaviours.ViewBehaviours
+import views.html.claimOnline
 
-sealed trait Claimant
+class ClaimOnlineViewSpec extends ViewBehaviours {
 
-object Claimant {
+  val messageKeyPrefix = "claimOnline"
 
-  case object You extends WithName("you") with Claimant
-  case object SomeoneElse extends WithName("someoneElse") with Claimant
+  def createView = () => claimOnline(frontendAppConfig)(fakeRequest, messages)
 
-  val values: Set[Claimant] = Set(
-    You, SomeoneElse
-  )
-
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("claimant", value.toString)
+  "ClaimOnline view" must {
+    behave like normalPage(createView, messageKeyPrefix)
   }
-
-  implicit val enumerable: Enumerable[Claimant] =
-    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }

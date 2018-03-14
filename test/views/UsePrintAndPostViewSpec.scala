@@ -14,26 +14,18 @@
  * limitations under the License.
  */
 
-package models
+package views
 
-import utils.{Enumerable, RadioOption, WithName}
+import views.behaviours.ViewBehaviours
+import views.html.usePrintAndPost
 
-sealed trait Claimant
+class UsePrintAndPostViewSpec extends ViewBehaviours {
 
-object Claimant {
+  val messageKeyPrefix = "usePrintAndPost"
 
-  case object You extends WithName("you") with Claimant
-  case object SomeoneElse extends WithName("someoneElse") with Claimant
+  def createView = () => usePrintAndPost(frontendAppConfig)(fakeRequest, messages)
 
-  val values: Set[Claimant] = Set(
-    You, SomeoneElse
-  )
-
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("claimant", value.toString)
+  "UsePrintAndPost view" must {
+    behave like normalPage(createView, messageKeyPrefix, "guidance")
   }
-
-  implicit val enumerable: Enumerable[Claimant] =
-    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
 }
