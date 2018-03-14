@@ -77,3 +77,18 @@ usePrintAndPost.link.label = Open the print and post claim form
 claimOnline.title = Claim expenses online
 claimOnline.heading = Claim expenses online
 claimOnline.link.label = Open the online claim form
+
+cannotClaimRelief.you.title = You cannot claim tax relief for these expenses
+cannotClaimRelief.you.heading = You cannot claim tax relief for these expenses
+cannotClaimRelief.you.guidance = Because your employer has already paid back all of your expenses.
+cannotClaimRelief.someoneElse.title = They cannot claim tax relief for these expenses
+cannotClaimRelief.someoneElse.heading = They cannot claim tax relief for these expenses
+cannotClaimRelief.someoneElse.guidance = Because their employer has already paid back all of their expenses.
+cannotClaimRelief.link.label = Read tax relief for employees
+
+employerPaidBackExpenses.you.title = Has your employer paid back all of your expenses?
+employerPaidBackExpenses.you.heading = Has your employer paid back all of your expenses?
+employerPaidBackExpenses.you.error.required = Select yes if your employer has paid back all of your expenses
+employerPaidBackExpenses.someoneElse.title = Has their employer paid back all of their expenses?
+employerPaidBackExpenses.someoneElse.heading = Has their employer paid back all of their expenses?
+employerPaidBackExpenses.someoneElse.error.required = Select yes if their employer has paid back all of their expenses

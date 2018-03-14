@@ -33,11 +33,10 @@ class Navigator @Inject()() {
   }
 
   private def claimingOverPayAsYouEarnThresholdRouting(userAnswers: UserAnswers) =
-    (userAnswers.claimingOverPayAsYouEarnThreshold, userAnswers.claimant) match {
-      case (Some(true), _)                  => routes.RegisterForSelfAssessmentController.onPageLoad()
-      case (Some(false), Some(You))         => routes.MoreThanFiveJobsController.onPageLoad()
-      case (Some(false), Some(SomeoneElse)) => routes.UsePrintAndPostController.onPageLoad()
-      case (_, _)                           => routes.SessionExpiredController.onPageLoad()
+    userAnswers.claimingOverPayAsYouEarnThreshold match {
+      case Some(true)  => routes.RegisterForSelfAssessmentController.onPageLoad()
+      case Some(false) => routes.EmployerPaidBackExpensesController.onPageLoad()
+      case None        => routes.SessionExpiredController.onPageLoad()
     }
 
   private def moreThanFiveJobsRouting(userAnswers: UserAnswers) = userAnswers.moreThanFiveJobs match {
@@ -46,11 +45,20 @@ class Navigator @Inject()() {
     case None        => routes.SessionExpiredController.onPageLoad()
   }
 
+  private def employerPaidBackExpensesRouting(userAnswers: UserAnswers) =
+    (userAnswers.employerPaidBackExpenses, userAnswers.claimant) match {
+      case (Some(true), _)                  => routes.CannotClaimReliefController.onPageLoad()
+      case (Some(false), Some(You))         => routes.MoreThanFiveJobsController.onPageLoad()
+      case (Some(false), Some(SomeoneElse)) => routes.UsePrintAndPostController.onPageLoad()
+      case (_, _)                           => routes.SessionExpiredController.onPageLoad()
+    }
+
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
     ClaimantId                          -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
     RegisteredForSelfAssessmentId       -> registeredForSelfAssessmentControllerRouting,
     ClaimingOverPayAsYouEarnThresholdId -> claimingOverPayAsYouEarnThresholdRouting,
-    MoreThanFiveJobsId                  -> moreThanFiveJobsRouting
+    MoreThanFiveJobsId                  -> moreThanFiveJobsRouting,
+    EmployerPaidBackExpensesId          ->employerPaidBackExpensesRouting
   )
 
   def nextPage(id: Identifier): UserAnswers => Call =
