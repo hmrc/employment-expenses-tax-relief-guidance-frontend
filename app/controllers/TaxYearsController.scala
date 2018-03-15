@@ -26,7 +26,7 @@ import controllers.actions._
 import config.FrontendAppConfig
 import forms.TaxYearsFormProvider
 import identifiers.TaxYearsId
-import models.TaxYears
+import models.ClaimYears
 import utils.{Enumerable, Navigator, UserAnswers}
 import views.html.taxYears
 
@@ -60,7 +60,7 @@ class TaxYearsController @Inject()(appConfig: FrontendAppConfig,
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(taxYears(appConfig, formWithErrors, request.claimant))),
         (value) =>
-          dataCacheConnector.save[Set[TaxYears]](request.sessionId, TaxYearsId.toString, value).map(cacheMap =>
+          dataCacheConnector.save[Set[ClaimYears]](request.sessionId, TaxYearsId.toString, value).map(cacheMap =>
             Redirect(navigator.nextPage(TaxYearsId)(new UserAnswers(cacheMap))))
       )
   }

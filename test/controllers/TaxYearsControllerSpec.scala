@@ -26,7 +26,7 @@ import play.api.test.Helpers._
 import forms.TaxYearsFormProvider
 import identifiers.{ClaimantId, TaxYearsId}
 import models.Claimant.You
-import models.TaxYears
+import models.ClaimYears
 import views.html.taxYears
 
 class TaxYearsControllerSpec extends ControllerSpecBase {
@@ -54,18 +54,18 @@ class TaxYearsControllerSpec extends ControllerSpecBase {
 
     "populate the view correctly on a GET when the question has previously been answered" in {
       val validData = Map(
-        TaxYearsId.toString -> JsArray(Seq(JsString(TaxYears.values.head.toString))),
+        TaxYearsId.toString -> JsArray(Seq(JsString(ClaimYears.values.head.toString))),
         ClaimantId.toString -> JsString(claimant.toString)
       )
       val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
       val result = controller(getRelevantData).onPageLoad()(fakeRequest)
 
-      contentAsString(result) mustBe viewAsString(form.fill(Set(TaxYears.values.head)))
+      contentAsString(result) mustBe viewAsString(form.fill(Set(ClaimYears.values.head)))
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value[0]", TaxYears.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value[0]", ClaimYears.options.head.value))
 
       val result = controller().onSubmit()(postRequest)
 
@@ -91,7 +91,7 @@ class TaxYearsControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", TaxYears.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ClaimYears.options.head.value))
       val result = controller(dontGetAnyData).onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER

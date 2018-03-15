@@ -17,8 +17,8 @@
 package views
 
 import models.Claimant.You
-import models.TaxYears
-import models.TaxYears.FourYearsAgo
+import models.ClaimYears
+import models.ClaimYears.FourYearsAgo
 import views.behaviours.ViewBehaviours
 import views.html.cannotClaimReliefTooLongAgo
 
@@ -26,10 +26,11 @@ class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
 
   val claimant = You
 
-  val fourYearsAgo = TaxYears.startOfYear(FourYearsAgo).toString
+  val fourYearsAgo = ClaimYears.getTaxYear(FourYearsAgo)
+  val startYear = fourYearsAgo.startYear.toString
   val messageKeyPrefix = s"cannotClaimReliefTooLongAgo.$claimant"
 
-  def createView = () => cannotClaimReliefTooLongAgo(frontendAppConfig, claimant, fourYearsAgo)(fakeRequest, messages)
+  def createView = () => cannotClaimReliefTooLongAgo(frontendAppConfig, claimant, startYear)(fakeRequest, messages)
 
   "CannotClaimReliefTooLongAgo view" must {
     "have the correct banner title" in {
@@ -51,7 +52,7 @@ class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
 
     "display the correct guidance" in {
       val doc = asDocument(createView())
-      assertContainsText(doc, messages(s"$messageKeyPrefix.guidance", fourYearsAgo))
+      assertContainsText(doc, messages(s"$messageKeyPrefix.guidance", startYear))
     }
   }
 }

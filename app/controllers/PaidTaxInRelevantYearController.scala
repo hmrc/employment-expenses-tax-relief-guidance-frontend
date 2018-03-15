@@ -26,8 +26,8 @@ import controllers.actions._
 import config.FrontendAppConfig
 import forms.PaidTaxInRelevantYearFormProvider
 import identifiers.PaidTaxInRelevantYearId
-import models.TaxYears
-import models.TaxYears.AnotherYear
+import models.ClaimYears
+import models.ClaimYears.AnotherYear
 import models.requests.ClaimantRequest
 import play.api.mvc.{AnyContent, Result}
 import utils.{Navigator, UserAnswers}
@@ -47,15 +47,15 @@ class PaidTaxInRelevantYearController @Inject()(appConfig: FrontendAppConfig,
   def onPageLoad() = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
       getDatesForYear {
-        (startOfYear, endOfYear) =>
+        (startYear, endYear) =>
 
-          val form: Form[Boolean] = formProvider(request.claimant, startOfYear, endOfYear)
+          val form: Form[Boolean] = formProvider(request.claimant, startYear, endYear)
 
           val preparedForm = request.userAnswers.paidTaxInRelevantYear match {
             case None => form
             case Some(value) => form.fill(value)
           }
-          Future.successful(Ok(paidTaxInRelevantYear(appConfig, preparedForm, request.claimant, startOfYear, endOfYear)))
+          Future.successful(Ok(paidTaxInRelevantYear(appConfig, preparedForm, request.claimant, startYear, endYear)))
       }
 
   }
@@ -63,13 +63,13 @@ class PaidTaxInRelevantYearController @Inject()(appConfig: FrontendAppConfig,
   def onSubmit() = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
       getDatesForYear {
-        (startOfYear, endOfYear) =>
+        (startYear, endYear) =>
 
-          val form: Form[Boolean] = formProvider(request.claimant, startOfYear, endOfYear)
+          val form: Form[Boolean] = formProvider(request.claimant, startYear, endYear)
 
           form.bindFromRequest().fold(
             (formWithErrors: Form[_]) =>
-              Future.successful(BadRequest(paidTaxInRelevantYear(appConfig, formWithErrors, request.claimant, startOfYear, endOfYear))),
+              Future.successful(BadRequest(paidTaxInRelevantYear(appConfig, formWithErrors, request.claimant, startYear, endYear))),
             (value) =>
               dataCacheConnector.save[Boolean](request.sessionId, PaidTaxInRelevantYearId.toString, value).map(cacheMap =>
                 Redirect(navigator.nextPage(PaidTaxInRelevantYearId)(new UserAnswers(cacheMap))))
@@ -84,10 +84,8 @@ class PaidTaxInRelevantYearController @Inject()(appConfig: FrontendAppConfig,
     request.userAnswers.taxYears match {
 
       case Some(List(year)) if year != AnotherYear =>
-        val startOfYear = TaxYears.startOfYear(year)
-        val endOfYear = startOfYear + 1
-
-        block(startOfYear.toString, endOfYear.toString)
+        val taxYear = ClaimYears.getTaxYear(year)
+        block(taxYear.startYear.toString, taxYear.finishYear.toString)
       case _ =>
         Future.successful(Redirect(routes.SessionExpiredController.onPageLoad()))
     }

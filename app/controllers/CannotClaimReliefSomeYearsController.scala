@@ -23,7 +23,7 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
 import identifiers.CannotClaimReliefSomeYearsId
-import models.TaxYears
+import models.ClaimYears
 import utils.Navigator
 import views.html.cannotClaimReliefSomeYears
 
@@ -36,8 +36,8 @@ class CannotClaimReliefSomeYearsController @Inject()(appConfig: FrontendAppConfi
 
   def onPageLoad = (getData andThen requireData andThen getClaimant) {
     implicit request =>
-      val fourYearsAgo = TaxYears.startOfYear(TaxYears.FourYearsAgo).toString
+      val fourYearsAgo = ClaimYears.getTaxYear(ClaimYears.FourYearsAgo)
       val nextPage = navigator.nextPage(CannotClaimReliefSomeYearsId)(request.userAnswers)
-      Ok(cannotClaimReliefSomeYears(appConfig, request.claimant, nextPage, fourYearsAgo))
+      Ok(cannotClaimReliefSomeYears(appConfig, request.claimant, nextPage, fourYearsAgo.startYear.toString))
   }
 }

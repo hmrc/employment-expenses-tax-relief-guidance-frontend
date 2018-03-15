@@ -17,7 +17,7 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
 @import controllers.routes._
-@import models.TaxYears
+@import models.ClaimYears
 
 @(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
@@ -36,7 +36,7 @@
             field = form("value"),
             legend = messages(s"taxYears.$claimant.heading"),
             legendClass = Some("visually-hidden"),
-            inputs = TaxYears.options
+            inputs = ClaimYears.options
         )
 
         @components.submit_button()

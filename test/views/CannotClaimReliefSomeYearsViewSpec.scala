@@ -18,8 +18,8 @@ package views
 
 import controllers.routes
 import models.Claimant.You
-import models.TaxYears
-import models.TaxYears.FourYearsAgo
+import models.ClaimYears
+import models.ClaimYears.FourYearsAgo
 import views.behaviours.ViewBehaviours
 import views.html.cannotClaimReliefSomeYears
 
@@ -27,13 +27,14 @@ class CannotClaimReliefSomeYearsViewSpec extends ViewBehaviours {
 
   val claimant = You
 
-  val fourYearsAgo = TaxYears.startOfYear(FourYearsAgo).toString
+  val fourYearsAgo = ClaimYears.getTaxYear(FourYearsAgo)
+  val startYear = fourYearsAgo.startYear.toString
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
   val messageKeyPrefix = s"cannotClaimReliefSomeYears.$claimant"
 
-  def createView = () => cannotClaimReliefSomeYears(frontendAppConfig, claimant, onwardRoute, fourYearsAgo)(fakeRequest, messages)
+  def createView = () => cannotClaimReliefSomeYears(frontendAppConfig, claimant, onwardRoute, startYear)(fakeRequest, messages)
 
   "CannotClaimReliefSomeYears view" must {
     "have the correct banner title" in {
@@ -45,12 +46,12 @@ class CannotClaimReliefSomeYearsViewSpec extends ViewBehaviours {
 
     "display the correct browser title" in {
       val doc = asDocument(createView())
-      assertEqualsMessage(doc, "title", s"$messageKeyPrefix.title", fourYearsAgo)
+      assertEqualsMessage(doc, "title", s"$messageKeyPrefix.title", startYear)
     }
 
     "display the correct page title" in {
       val doc = asDocument(createView())
-      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", fourYearsAgo)
+      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", startYear)
     }
   }
 }

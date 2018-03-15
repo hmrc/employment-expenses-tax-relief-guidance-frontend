@@ -18,7 +18,7 @@ package forms
 
 import forms.behaviours.OptionFieldBehaviours
 import models.Claimant.You
-import models.TaxYears
+import models.ClaimYears
 import play.api.data.FormError
 
 class TaxYearsFormProviderSpec extends OptionFieldBehaviours {
@@ -31,10 +31,10 @@ class TaxYearsFormProviderSpec extends OptionFieldBehaviours {
     val fieldName = "value"
     val requiredKey = s"taxYears.$claimant.error.required"
 
-    behave like optionsField[TaxYears](
+    behave like optionsField[ClaimYears](
       form,
       fieldName,
-      validValues  = TaxYears.values.toSet,
+      validValues  = ClaimYears.values.toSet,
       invalidError = FormError(fieldName, s"taxYears.$claimant.error.required")
     )
 

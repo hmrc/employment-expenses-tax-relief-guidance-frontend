@@ -24,7 +24,7 @@ import identifiers._
 import models.Claimant
 import models.Claimant.{SomeoneElse, You}
 import models.HowManyYearsWasTaxPaid
-import models.TaxYears._
+import models.ClaimYears._
 
 class NavigatorSpec extends SpecBase with MockitoSugar {
 

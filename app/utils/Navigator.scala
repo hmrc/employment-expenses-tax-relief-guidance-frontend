@@ -22,8 +22,8 @@ import play.api.mvc.Call
 import controllers.routes
 import identifiers._
 import models.Claimant.{SomeoneElse, You}
-import models.{HowManyYearsWasTaxPaid, TaxYears}
-import models.TaxYears.AnotherYear
+import models.{HowManyYearsWasTaxPaid, ClaimYears}
+import models.ClaimYears.AnotherYear
 
 @Singleton
 class Navigator @Inject()() {

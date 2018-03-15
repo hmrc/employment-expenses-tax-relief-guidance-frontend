@@ -21,18 +21,18 @@ import javax.inject.Inject
 import forms.mappings.Mappings
 import play.api.data.{Form, Mapping}
 import play.api.data.Forms.{nonEmptyText, set}
-import models.{Claimant, TaxYears}
+import models.{Claimant, ClaimYears}
 
 class TaxYearsFormProvider @Inject() extends Mappings {
 
-  def apply(claimant: Claimant): Form[Set[TaxYears]] =
+  def apply(claimant: Claimant): Form[Set[ClaimYears]] =
     Form(
       "value" -> taxYearsMapping.verifying(s"taxYears.$claimant.error.required", _.nonEmpty)
     )
 
-  private val taxYearsMapping: Mapping[Set[TaxYears]] = {
+  private val taxYearsMapping: Mapping[Set[ClaimYears]] = {
     set(nonEmptyText)
-      .verifying("taxYears.$claimant.error.invalid", _.forall(TaxYears.mappings.keySet.contains _))
-      .transform(_.map(TaxYears.mappings.apply), _.map(_.toString))
+      .verifying("taxYears.$claimant.error.invalid", _.forall(ClaimYears.mappings.keySet.contains _))
+      .transform(_.map(ClaimYears.mappings.apply), _.map(_.toString))
   }
 }

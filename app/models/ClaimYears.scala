@@ -19,18 +19,18 @@ package models
 import utils.{Enumerable, RadioOption, WithName}
 import uk.gov.hmrc.time.TaxYear
 
-sealed trait TaxYears
+sealed trait ClaimYears
 
-object TaxYears {
+object ClaimYears {
 
-  case object ThisYear extends WithName("thisYear") with TaxYears
-  case object LastYear extends WithName("lastYear") with TaxYears
-  case object TwoYearsAgo extends WithName("twoYearsAgo") with TaxYears
-  case object ThreeYearsAgo extends WithName("threeYearsAgo") with TaxYears
-  case object FourYearsAgo extends WithName("fourYearsAgo") with TaxYears
-  case object AnotherYear extends WithName("anotherYear") with TaxYears
+  case object ThisYear extends WithName("thisYear") with ClaimYears
+  case object LastYear extends WithName("lastYear") with ClaimYears
+  case object TwoYearsAgo extends WithName("twoYearsAgo") with ClaimYears
+  case object ThreeYearsAgo extends WithName("threeYearsAgo") with ClaimYears
+  case object FourYearsAgo extends WithName("fourYearsAgo") with ClaimYears
+  case object AnotherYear extends WithName("anotherYear") with ClaimYears
 
-  val values: List[TaxYears] = List(
+  val values: List[ClaimYears] = List(
     ThisYear, LastYear, TwoYearsAgo, ThreeYearsAgo, FourYearsAgo, AnotherYear
   )
 
@@ -43,7 +43,7 @@ object TaxYears {
     new RadioOption(s"taxYears.$AnotherYear", AnotherYear.toString, "taxYears.anotherYear")
   )
 
-  def taxYearRadioOption(taxYear: TaxYear, option: TaxYears) =
+  def taxYearRadioOption(taxYear: TaxYear, option: ClaimYears) =
     new RadioOption(
       s"taxYears.$option",
       option.toString,
@@ -52,7 +52,7 @@ object TaxYears {
       taxYear.finishYear.toString
     )
 
-  val mappings: Map[String, TaxYears] = Map(
+  val mappings: Map[String, ClaimYears] = Map(
     ThisYear.toString      -> ThisYear,
     LastYear.toString      -> LastYear,
     TwoYearsAgo.toString   -> TwoYearsAgo,
@@ -61,15 +61,15 @@ object TaxYears {
     AnotherYear.toString   -> AnotherYear
   )
 
-  implicit val enumerable: Enumerable[TaxYears] =
+  implicit val enumerable: Enumerable[ClaimYears] =
     Enumerable(values.map(v => v.toString -> v): _*)
 
-  def startOfYear(year: TaxYears): Int = year match {
-    case ThisYear      => TaxYear.current.startYear
-    case LastYear      => TaxYear.current.back(1).startYear
-    case TwoYearsAgo   => TaxYear.current.back(2).startYear
-    case ThreeYearsAgo => TaxYear.current.back(3).startYear
-    case FourYearsAgo  => TaxYear.current.back(4).startYear
-    case _             => throw new IllegalArgumentException
+  def getTaxYear(year: ClaimYears): TaxYear = year match {
+    case ThisYear      => TaxYear.current
+    case LastYear      => TaxYear.current.back(1)
+    case TwoYearsAgo   => TaxYear.current.back(2)
+    case ThreeYearsAgo => TaxYear.current.back(3)
+    case FourYearsAgo  => TaxYear.current.back(4)
+    case AnotherYear   => throw new IllegalArgumentException("Cannot get an exact tax year for Another Year")
   }
 }

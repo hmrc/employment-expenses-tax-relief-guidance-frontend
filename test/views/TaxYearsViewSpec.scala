@@ -19,7 +19,7 @@ package views
 import play.api.data.Form
 import forms.TaxYearsFormProvider
 import models.Claimant.You
-import models.TaxYears
+import models.ClaimYears
 import utils.RadioOption
 import views.behaviours.ViewBehaviours
 import views.html.taxYears
@@ -43,13 +43,13 @@ class TaxYearsViewSpec extends ViewBehaviours {
     "rendered" must {
       "contain checkboxes for each option" in {
         val doc = asDocument(createViewUsingForm(form))
-        for ((option, index) <- TaxYears.options.zipWithIndex) {
+        for ((option, index) <- ClaimYears.options.zipWithIndex) {
           assertContainsRadioButton(doc, option.id, s"value[$index]", option.value, false)
         }
       }
     }
 
-    for((option, index) <- TaxYears.values.zipWithIndex) {
+    for((option, index) <- ClaimYears.values.zipWithIndex) {
 
       s"rendered with a value of '${option.toString}'" must {
 
