@@ -16,29 +16,16 @@
 
 package forms
 
-import forms.behaviours.BooleanFieldBehaviours
-import play.api.data.FormError
+import javax.inject.Inject
 
-class MoreThanFiveJobsFormProviderSpec extends BooleanFieldBehaviours {
+import forms.mappings.Mappings
+import play.api.data.Form
+import models.{Claimant, HowManyYearsWasTaxPaid}
 
-  val requiredKey = "moreThanFiveJobs.error.required"
+class HowManyYearsWasTaxPaidFormProvider @Inject() extends Mappings {
 
-  val form = new MoreThanFiveJobsFormProvider()()
-
-  ".value" must {
-
-    val fieldName = "value"
-
-    behave like booleanField(
-      form,
-      fieldName,
-      invalidError = FormError(fieldName, requiredKey)
+  def apply(claimant: Claimant): Form[HowManyYearsWasTaxPaid] =
+    Form(
+      "value" -> enumerable[HowManyYearsWasTaxPaid](s"howManyYearsWasTaxPaid.$claimant.error.required")
     )
-
-    behave like mandatoryField(
-      form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
-    )
-  }
 }

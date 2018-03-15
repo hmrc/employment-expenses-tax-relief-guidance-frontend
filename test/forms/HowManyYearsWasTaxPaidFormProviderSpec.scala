@@ -16,25 +16,26 @@
 
 package forms
 
-import forms.behaviours.BooleanFieldBehaviours
+import forms.behaviours.OptionFieldBehaviours
 import models.Claimant.You
+import models.HowManyYearsWasTaxPaid
 import play.api.data.FormError
 
-class ClaimingOverPayAsYouEarnThresholdFormProviderSpec extends BooleanFieldBehaviours {
+class HowManyYearsWasTaxPaidFormProviderSpec extends OptionFieldBehaviours {
 
   val claimant = You
-  val requiredKey = s"claimingOverPayAsYouEarnThreshold.$claimant.error.required"
-
-  val form = new ClaimingOverPayAsYouEarnThresholdFormProvider()(claimant)
+  val form = new HowManyYearsWasTaxPaidFormProvider()(claimant)
 
   ".value" must {
 
     val fieldName = "value"
+    val requiredKey = s"howManyYearsWasTaxPaid.$claimant.error.required"
 
-    behave like booleanField(
+    behave like optionsField[HowManyYearsWasTaxPaid](
       form,
       fieldName,
-      invalidError = FormError(fieldName, requiredKey)
+      validValues  = HowManyYearsWasTaxPaid.values,
+      invalidError = FormError(fieldName, "error.invalid")
     )
 
     behave like mandatoryField(

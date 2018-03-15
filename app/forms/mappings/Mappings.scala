@@ -18,6 +18,7 @@ package forms.mappings
 
 import play.api.data.FieldMapping
 import play.api.data.Forms.of
+import play.api.data.Forms._
 import utils.Enumerable
 
 trait Mappings extends Formatters with Constraints {
@@ -30,12 +31,13 @@ trait Mappings extends Formatters with Constraints {
                     nonNumericKey: String = "error.nonNumeric"): FieldMapping[Int] =
     of(intFormatter(requiredKey, wholeNumberKey, nonNumericKey))
 
-  protected def boolean(requiredKey: String = "error.required",
-                        invalidKey: String = "error.boolean"): FieldMapping[Boolean] =
-    of(booleanFormatter(requiredKey, invalidKey))
+  protected def boolean(requiredKey: String,
+                        args: Any*): FieldMapping[Boolean] =
+    of(booleanFormatter(requiredKey, args:_*))
 
 
   protected def enumerable[A](requiredKey: String = "error.required",
                               invalidKey: String = "error.invalid")(implicit ev: Enumerable[A]): FieldMapping[A] =
     of(enumerableFormatter[A](requiredKey, invalidKey))
+
 }

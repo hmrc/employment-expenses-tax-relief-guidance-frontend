@@ -14,33 +14,24 @@
  * limitations under the License.
  */
 
-package forms
+package views
 
-import forms.behaviours.BooleanFieldBehaviours
+import controllers.routes
 import models.Claimant.You
-import play.api.data.FormError
+import views.behaviours.ViewBehaviours
+import views.html.notEntitledSomeYears
 
-class EmployerPaidBackExpensesFormProviderSpec extends BooleanFieldBehaviours {
+class NotEntitledSomeYearsViewSpec extends ViewBehaviours {
+
+  val onwardRoute = routes.IndexController.onPageLoad()
 
   val claimant = You
-  val requiredKey = s"employerPaidBackExpenses.$claimant.error.required"
 
-  val form = new EmployerPaidBackExpensesFormProvider()(claimant)
+  val messageKeyPrefix = s"notEntitledSomeYears.$claimant"
 
-  ".value" must {
+  def createView = () => notEntitledSomeYears(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages)
 
-    val fieldName = "value"
-
-    behave like booleanField(
-      form,
-      fieldName,
-      invalidError = FormError(fieldName, requiredKey)
-    )
-
-    behave like mandatoryField(
-      form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
-    )
+  "NotEntitledSomeYears view" must {
+    behave like normalPage(createView, messageKeyPrefix)
   }
 }

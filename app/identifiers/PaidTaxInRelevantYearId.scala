@@ -14,31 +14,8 @@
  * limitations under the License.
  */
 
-package forms
+package identifiers
 
-import forms.behaviours.BooleanFieldBehaviours
-import play.api.data.FormError
-
-class MoreThanFiveJobsFormProviderSpec extends BooleanFieldBehaviours {
-
-  val requiredKey = "moreThanFiveJobs.error.required"
-
-  val form = new MoreThanFiveJobsFormProvider()()
-
-  ".value" must {
-
-    val fieldName = "value"
-
-    behave like booleanField(
-      form,
-      fieldName,
-      invalidError = FormError(fieldName, requiredKey)
-    )
-
-    behave like mandatoryField(
-      form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
-    )
-  }
+case object PaidTaxInRelevantYearId extends Identifier {
+  override def toString: String = "paidTaxInRelevantYear"
 }

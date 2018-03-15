@@ -1,5 +1,5 @@
 # Add all the application routes to the app.routes file
-->         /employment-expenses-tax-relief-guidance-frontend                    app.Routes
+->         /claim-tax-relief-expenses                    app.Routes
 ->         /                          health.Routes
 ->     	   /template                  template.Routes
 

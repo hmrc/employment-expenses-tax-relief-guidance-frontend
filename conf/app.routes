@@ -8,27 +8,44 @@ GET        /language/:lang                              controllers.LanguageSwit
 
 GET        /this-service-has-been-reset                 controllers.SessionExpiredController.onPageLoad
 
-GET        /claimant               controllers.ClaimantController.onPageLoad()
-POST       /claimant               controllers.ClaimantController.onSubmit()
+GET        /who-claiming-for                            controllers.ClaimantController.onPageLoad()
+POST       /who-claiming-for                            controllers.ClaimantController.onSubmit()
 
-GET        /registeredForSelfAssessment                       controllers.RegisteredForSelfAssessmentController.onPageLoad()
-POST       /registeredForSelfAssessment                       controllers.RegisteredForSelfAssessmentController.onSubmit()
+GET        /registered-self-assessment                  controllers.RegisteredForSelfAssessmentController.onPageLoad()
+POST       /registered-self-assessment                  controllers.RegisteredForSelfAssessmentController.onSubmit()
 
-GET        /claimingOverPayAsYouEarnThreshold                       controllers.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
-POST       /claimingOverPayAsYouEarnThreshold                       controllers.ClaimingOverPayAsYouEarnThresholdController.onSubmit()
+GET        /more-than-2500                              controllers.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
+POST       /more-than-2500                              controllers.ClaimingOverPayAsYouEarnThresholdController.onSubmit()
 
-GET        /useSelfAssessment                       controllers.UseSelfAssessmentController.onPageLoad()
+GET        /use-self-assessment                         controllers.UseSelfAssessmentController.onPageLoad()
 
-GET        /moreThanFiveJobs                       controllers.MoreThanFiveJobsController.onPageLoad()
-POST       /moreThanFiveJobs                       controllers.MoreThanFiveJobsController.onSubmit()
+GET        /more-than-5-jobs                            controllers.MoreThanFiveJobsController.onPageLoad()
+POST       /more-than-5-jobs                            controllers.MoreThanFiveJobsController.onSubmit()
 
-GET        /registerForSelfAssessment                       controllers.RegisterForSelfAssessmentController.onPageLoad()
+GET        /register-self-assessment                    controllers.RegisterForSelfAssessmentController.onPageLoad()
 
-GET        /usePrintAndPost                       controllers.UsePrintAndPostController.onPageLoad()
+GET        /use-print-and-post-form                     controllers.UsePrintAndPostController.onPageLoad()
 
-GET        /claimOnline                       controllers.ClaimOnlineController.onPageLoad()
+GET        /claim-online                                controllers.ClaimOnlineController.onPageLoad()
 
-GET        /cannotClaimRelief                       controllers.CannotClaimReliefController.onPageLoad()
+GET        /cannot-claim-expenses-paid-back             controllers.CannotClaimReliefController.onPageLoad()
 
-GET        /employerPaidBackExpenses                       controllers.EmployerPaidBackExpensesController.onPageLoad()
-POST       /employerPaidBackExpenses                       controllers.EmployerPaidBackExpensesController.onSubmit()
+GET        /employer-paid-back-all-expenses             controllers.EmployerPaidBackExpensesController.onPageLoad()
+POST       /employer-paid-back-all-expenses             controllers.EmployerPaidBackExpensesController.onSubmit()
+
+GET        /what-tax-years                              controllers.TaxYearsController.onPageLoad()
+POST       /what-tax-years                              controllers.TaxYearsController.onSubmit()
+
+GET        /cannot-claim-for-all-years                  controllers.CannotClaimReliefSomeYearsController.onPageLoad()
+
+GET        /cannot-claim-too-long-ago                   controllers.CannotClaimReliefTooLongAgoController.onPageLoad()
+
+GET        /how-many-years-paid-tax                     controllers.HowManyYearsWasTaxPaidController.onPageLoad()
+POST       /how-many-years-paid-tax                     controllers.HowManyYearsWasTaxPaidController.onSubmit()
+
+GET        /pay-tax-in-year                             controllers.PaidTaxInRelevantYearController.onPageLoad()
+POST       /pay-tax-in-year                             controllers.PaidTaxInRelevantYearController.onSubmit()
+
+GET        /did-not-pay-tax-in-year                     controllers.NotEntitledController.onPageLoad()
+
+GET        /claim-years-paid-tax                        controllers.NotEntitledSomeYearsController.onPageLoad()

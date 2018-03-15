@@ -92,3 +92,59 @@ employerPaidBackExpenses.you.error.required = Select yes if your employer has pa
 employerPaidBackExpenses.someoneElse.title = Has their employer paid back all of their expenses?
 employerPaidBackExpenses.someoneElse.heading = Has their employer paid back all of their expenses?
 employerPaidBackExpenses.someoneElse.error.required = Select yes if their employer has paid back all of their expenses
+
+taxYears.you.title = What tax years are you claiming for?
+taxYears.you.heading = What tax years are you claiming for?
+taxYears.you.error.required = Select what tax years you are claiming for
+taxYears.someoneElse.title = What tax years are they claiming for?
+taxYears.someoneElse.heading = What tax years are they claiming for?
+taxYears.someoneElse.error.required = Select what tax years they are claiming for
+taxYears.specificYear = 6 April {0} to 5 April {1}
+taxYears.anotherYear = Another year
+
+cannotClaimReliefSomeYears.you.title = You cannot claim tax relief from before 6 April {0}
+cannotClaimReliefSomeYears.you.heading = You cannot claim tax relief from before 6 April {0}
+cannotClaimReliefSomeYears.you.guidance = A claim must happen within 4 years of the end of the tax year that you spent the money.
+cannotClaimReliefSomeYears.someoneElse.title = They cannot claim tax relief from before 6 April {0}
+cannotClaimReliefSomeYears.someoneElse.heading = They cannot claim tax relief from before 6 April {0}
+cannotClaimReliefSomeYears.someoneElse.guidance = A claim must happen within 4 years of the end of the tax year that they spent the money.
+cannotClaimReliefSomeYears.link.label = Claim for other years
+
+cannotClaimReliefTooLongAgo.you.title = You cannot claim tax relief for these expenses
+cannotClaimReliefTooLongAgo.you.heading = You cannot claim tax relief for these expenses
+cannotClaimReliefTooLongAgo.you.guidance = Because your claim is for before 6 April {0}.
+cannotClaimReliefTooLongAgo.someoneElse.title = They cannot claim tax relief for these expenses
+cannotClaimReliefTooLongAgo.someoneElse.heading = They cannot claim tax relief for these expenses
+cannotClaimReliefTooLongAgo.someoneElse.guidance = Because their claim is for before 6 April {0}.
+cannotClaimReliefTooLongAgo.link.label = Read tax relief for employees
+
+howManyYearsWasTaxPaid.you.title = In how many of the years you are claiming did you pay tax?
+howManyYearsWasTaxPaid.you.heading = In how many of the years you are claiming did you pay tax?
+howManyYearsWasTaxPaid.error.required = Select how many of the years you are claiming you paid tax
+howManyYearsWasTaxPaid.someoneElse.title = In how many of the years they are claiming did they pay tax?
+howManyYearsWasTaxPaid.someoneElse.heading = In how many of the years they are claiming did they pay tax?
+howManyYearsWasTaxPaid.someoneElse.required = Select how many of the years they are claiming they paid tax
+howManyYearsWasTaxPaid.all = All
+howManyYearsWasTaxPaid.some = Some
+howManyYearsWasTaxPaid.none = None
+
+paidTaxInRelevantYear.you.title = Did you pay tax between 6 April {0} and 5 April {1}?
+paidTaxInRelevantYear.you.heading = Did you pay tax between 6 April {0} and 5 April {1}?
+paidTaxInRelevantYear.you.error.required = Select yes if you paid tax between 6 April {0} and 5 April {1}
+paidTaxInRelevantYear.someoneElse.title = Did they pay tax between 6 April {0} and 5 April {1}?
+paidTaxInRelevantYear.someoneElse.heading = Did they pay tax between 6 April {0} and 5 April {1}?
+paidTaxInRelevantYear.someoneElse.error.required = Select yes if they paid tax between 6 April {0} and 5 April {1}
+
+notEntitled.you.title = You are not entitled to tax relief
+notEntitled.you.heading = You are not entitled to tax relief
+notEntitled.you.guidance = You must have paid tax in the year you spent the money.
+notEntitled.someoneElse.title = They are not entitled to tax relief
+notEntitled.someoneElse.heading = They are not entitled to tax relief
+notEntitled.someoneElse.guidance = They must have paid tax in the year they spent the money.
+notEntitled.link.label = Read tax relief for employees
+
+notEntitledSomeYears.you.title = You are not entitled to tax relief for the years you did not pay tax
+notEntitledSomeYears.you.heading = You are not entitled to tax relief for the years you did not pay tax
+notEntitledSomeYears.someoneElse.title = They are not entitled to tax relief for the years they did not pay tax
+notEntitledSomeYears.someoneElse.heading = They are not entitled to tax relief for the years they did not pay tax
+notEntitledSomeYears.link.label = Claim for other years

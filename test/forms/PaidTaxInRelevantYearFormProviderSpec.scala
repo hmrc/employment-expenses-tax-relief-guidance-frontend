@@ -18,14 +18,20 @@ package forms
 
 import forms.behaviours.BooleanFieldBehaviours
 import models.Claimant.You
+import models.ClaimYears
+import models.ClaimYears.TwoYearsAgo
 import play.api.data.FormError
 
-class ClaimingOverPayAsYouEarnThresholdFormProviderSpec extends BooleanFieldBehaviours {
+class PaidTaxInRelevantYearFormProviderSpec extends BooleanFieldBehaviours {
 
   val claimant = You
-  val requiredKey = s"claimingOverPayAsYouEarnThreshold.$claimant.error.required"
+  val requiredKey = s"paidTaxInRelevantYear.$claimant.error.required"
 
-  val form = new ClaimingOverPayAsYouEarnThresholdFormProvider()(claimant)
+  val taxYear = ClaimYears.getTaxYear(TwoYearsAgo)
+  val startYear = taxYear.startYear.toString
+  val finishYear = taxYear.finishYear.toString
+
+  val form = new PaidTaxInRelevantYearFormProvider()(claimant, startYear, finishYear)
 
   ".value" must {
 
@@ -34,13 +40,13 @@ class ClaimingOverPayAsYouEarnThresholdFormProviderSpec extends BooleanFieldBeha
     behave like booleanField(
       form,
       fieldName,
-      invalidError = FormError(fieldName, requiredKey)
+      invalidError = FormError(fieldName, requiredKey, Seq(startYear, finishYear))
     )
 
     behave like mandatoryField(
       form,
       fieldName,
-      requiredError = FormError(fieldName, requiredKey)
+      requiredError = FormError(fieldName, requiredKey, Seq(startYear, finishYear))
     )
   }
 }

@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2018 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,33 +12,20 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package forms
+@import config.FrontendAppConfig
 
-import forms.behaviours.BooleanFieldBehaviours
-import play.api.data.FormError
+@(appConfig: FrontendAppConfig, claimant: Claimant, nextPage: Call, messageArg: String)(implicit request: Request[_], messages: Messages)
 
-class MoreThanFiveJobsFormProviderSpec extends BooleanFieldBehaviours {
+@main_template(
+    title = messages(s"cannotClaimReliefSomeYears.$claimant.title", messageArg),
+    appConfig = appConfig,
+    bodyClasses = None) {
 
-  val requiredKey = "moreThanFiveJobs.error.required"
+    @components.heading(messages(s"cannotClaimReliefSomeYears.$claimant.heading", messageArg))
 
-  val form = new MoreThanFiveJobsFormProvider()()
+    <p>@messages(s"cannotClaimReliefSomeYears.$claimant.guidance")</p>
 
-  ".value" must {
-
-    val fieldName = "value"
-
-    behave like booleanField(
-      form,
-      fieldName,
-      invalidError = FormError(fieldName, requiredKey)
-    )
-
-    behave like mandatoryField(
-      form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
-    )
-  }
+    @components.button_link("cannotClaimReliefSomeYears.link.label", nextPage.url)
 }

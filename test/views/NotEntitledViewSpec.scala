@@ -14,33 +14,21 @@
  * limitations under the License.
  */
 
-package forms
+package views
 
-import forms.behaviours.BooleanFieldBehaviours
 import models.Claimant.You
-import play.api.data.FormError
+import views.behaviours.ViewBehaviours
+import views.html.notEntitled
 
-class ClaimingOverPayAsYouEarnThresholdFormProviderSpec extends BooleanFieldBehaviours {
+class NotEntitledViewSpec extends ViewBehaviours {
 
   val claimant = You
-  val requiredKey = s"claimingOverPayAsYouEarnThreshold.$claimant.error.required"
 
-  val form = new ClaimingOverPayAsYouEarnThresholdFormProvider()(claimant)
+  val messageKeyPrefix = s"notEntitled.$claimant"
 
-  ".value" must {
+  def createView = () => notEntitled(frontendAppConfig, claimant)(fakeRequest, messages)
 
-    val fieldName = "value"
-
-    behave like booleanField(
-      form,
-      fieldName,
-      invalidError = FormError(fieldName, requiredKey)
-    )
-
-    behave like mandatoryField(
-      form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
-    )
+  "NotEntitled view" must {
+    behave like normalPage(createView, messageKeyPrefix)
   }
 }

@@ -14,31 +14,17 @@
  * limitations under the License.
  */
 
-package forms
+import play.api.data.Field
 
-import forms.behaviours.BooleanFieldBehaviours
-import play.api.data.FormError
+package object utils {
 
-class MoreThanFiveJobsFormProviderSpec extends BooleanFieldBehaviours {
+  implicit class RichField(field: Field) {
 
-  val requiredKey = "moreThanFiveJobs.error.required"
-
-  val form = new MoreThanFiveJobsFormProvider()()
-
-  ".value" must {
-
-    val fieldName = "value"
-
-    behave like booleanField(
-      form,
-      fieldName,
-      invalidError = FormError(fieldName, requiredKey)
-    )
-
-    behave like mandatoryField(
-      form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
-    )
+    def values: Seq[String] = {
+      field.value.toSeq ++ field.indexes.flatMap {
+        i =>
+          field(s"[$i]").value
+      }
+    }
   }
 }

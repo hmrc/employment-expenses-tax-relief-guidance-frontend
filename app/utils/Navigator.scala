@@ -22,6 +22,8 @@ import play.api.mvc.Call
 import controllers.routes
 import identifiers._
 import models.Claimant.{SomeoneElse, You}
+import models.HowManyYearsWasTaxPaid
+import models.ClaimYears.AnotherYear
 
 @Singleton
 class Navigator @Inject()() {
@@ -53,12 +55,38 @@ class Navigator @Inject()() {
       case (_, _)                           => routes.SessionExpiredController.onPageLoad()
     }
 
+  private def taxYearsRouting(userAnswers: UserAnswers) = userAnswers.taxYears match {
+    case Some(List(AnotherYear))                    => routes.CannotClaimReliefTooLongAgoController.onPageLoad()
+    case Some(years) if years.size == 1             => routes.PaidTaxInRelevantYearController.onPageLoad()
+    case Some(years) if years.contains(AnotherYear) => routes.CannotClaimReliefSomeYearsController.onPageLoad()
+    case Some(_)                                    => routes.HowManyYearsWasTaxPaidController.onPageLoad()
+    case _ => routes.SessionExpiredController.onPageLoad()
+  }
+
+  private def paidTaxInRelevantYearRouting(userAnswers: UserAnswers) = userAnswers.paidTaxInRelevantYear match {
+    case Some(true)  => routes.RegisteredForSelfAssessmentController.onPageLoad()
+    case Some(false) => routes.NotEntitledController.onPageLoad()
+    case None        => routes.SessionExpiredController.onPageLoad()
+  }
+
+  private def howManyYearsWasTaxPaidRouting(userAnswers: UserAnswers) = userAnswers.howManyYearsWasTaxPaid match {
+    case Some(HowManyYearsWasTaxPaid.All)  => routes.RegisteredForSelfAssessmentController.onPageLoad()
+    case Some(HowManyYearsWasTaxPaid.Some) => routes.NotEntitledSomeYearsController.onPageLoad()
+    case Some(HowManyYearsWasTaxPaid.None) => routes.NotEntitledController.onPageLoad()
+    case None                              => routes.SessionExpiredController.onPageLoad()
+  }
+
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
-    ClaimantId                          -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
+    ClaimantId                          -> (_ => routes.TaxYearsController.onPageLoad()),
+    TaxYearsId                          -> taxYearsRouting,
+    PaidTaxInRelevantYearId             -> paidTaxInRelevantYearRouting,
+    CannotClaimReliefSomeYearsId        -> (_ => routes.HowManyYearsWasTaxPaidController.onPageLoad()),
+    HowManyYearsWasTaxPaidId            -> howManyYearsWasTaxPaidRouting,
+    NotEntitledSomeYearsId              -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
     RegisteredForSelfAssessmentId       -> registeredForSelfAssessmentControllerRouting,
     ClaimingOverPayAsYouEarnThresholdId -> claimingOverPayAsYouEarnThresholdRouting,
     MoreThanFiveJobsId                  -> moreThanFiveJobsRouting,
-    EmployerPaidBackExpensesId          ->employerPaidBackExpensesRouting
+    EmployerPaidBackExpensesId          -> employerPaidBackExpensesRouting
   )
 
   def nextPage(id: Identifier): UserAnswers => Call =
