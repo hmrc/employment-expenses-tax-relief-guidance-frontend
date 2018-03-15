@@ -43,7 +43,7 @@ object ClaimYears {
     new RadioOption(s"taxYears.$AnotherYear", AnotherYear.toString, "taxYears.anotherYear")
   )
 
-  def taxYearRadioOption(taxYear: TaxYear, option: ClaimYears) =
+  private def taxYearRadioOption(taxYear: TaxYear, option: ClaimYears) =
     new RadioOption(
       s"taxYears.$option",
       option.toString,
