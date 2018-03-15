@@ -17,8 +17,8 @@ error.required = Please enter a value
 error.summary.title = There’s been a problem
 error.summary.text = Check the following
 
-index.title = employment-expenses-tax-relief-guidance-frontend
-index.heading = employment-expenses-tax-relief-guidance-frontend
+index.title = Tax relief for employees
+index.heading = Tax relief for employees
 index.guidance = Welcome to your new frontend. Please see the README file for a guide to getting started.
 
 session_expired.title = For your security, this service has been reset
@@ -32,8 +32,8 @@ site.hidden-delete = Delete {0}
 site.hidden-edit = Change {0}
 site.no = No
 site.yes = Yes
-site.save_and_continue = Save and continue
-site.service_name = employment-expenses-tax-relief-guidance-frontend
+site.save_and_continue = Continue
+site.service_name = Tax relief for employees
 site.textarea.char_limit = (Limit is {0} characters)
 
 claimant.title = Are you claiming expenses for yourself?
@@ -69,14 +69,14 @@ registerForSelfAssessment.title = Register for Self Assessment to claim expenses
 registerForSelfAssessment.heading = Register for Self Assessment to claim expenses
 registerForSelfAssessment.link.label = How to register for Self Assessment
 
-usePrintAndPost.title = Use the print and post form to claim expenses
-usePrintAndPost.heading = Use the print and post form to claim expenses
+usePrintAndPost.title = You can claim tax relief for these expenses by post
+usePrintAndPost.heading = You can claim tax relief for these expenses by post
 usePrintAndPost.guidance = Fill in a separate claim form for each job.
-usePrintAndPost.link.label = Open the print and post claim form
+usePrintAndPost.link.label = Open the claim form
 
-claimOnline.title = Claim expenses online
-claimOnline.heading = Claim expenses online
-claimOnline.link.label = Open the online claim form
+claimOnline.title = You can claim tax relief for these expenses online
+claimOnline.heading = You can claim tax relief for these expenses online
+claimOnline.link.label = Claim online
 
 cannotClaimRelief.you.title = You cannot claim tax relief for these expenses
 cannotClaimRelief.you.heading = You cannot claim tax relief for these expenses
@@ -100,7 +100,7 @@ taxYears.someoneElse.title = What tax years are they claiming for?
 taxYears.someoneElse.heading = What tax years are they claiming for?
 taxYears.someoneElse.error.required = Select what tax years they are claiming for
 taxYears.specificYear = 6 April {0} to 5 April {1}
-taxYears.anotherYear = Another year
+taxYears.anotherYear = An earlier year
 
 cannotClaimReliefSomeYears.you.title = You cannot claim tax relief from before 6 April {0}
 cannotClaimReliefSomeYears.you.heading = You cannot claim tax relief from before 6 April {0}
