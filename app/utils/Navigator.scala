@@ -22,7 +22,7 @@ import play.api.mvc.Call
 import controllers.routes
 import identifiers._
 import models.Claimant.{SomeoneElse, You}
-import models.{HowManyYearsWasTaxPaid, ClaimYears}
+import models.HowManyYearsWasTaxPaid
 import models.ClaimYears.AnotherYear
 
 @Singleton
@@ -86,7 +86,7 @@ class Navigator @Inject()() {
     RegisteredForSelfAssessmentId       -> registeredForSelfAssessmentControllerRouting,
     ClaimingOverPayAsYouEarnThresholdId -> claimingOverPayAsYouEarnThresholdRouting,
     MoreThanFiveJobsId                  -> moreThanFiveJobsRouting,
-    EmployerPaidBackExpensesId          ->employerPaidBackExpensesRouting
+    EmployerPaidBackExpensesId          -> employerPaidBackExpensesRouting
   )
 
   def nextPage(id: Identifier): UserAnswers => Call =
