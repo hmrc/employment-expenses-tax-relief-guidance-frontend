@@ -67,12 +67,12 @@ moreThanFiveJobs.title = Are you claiming for more than 5 jobs?
 moreThanFiveJobs.heading = Are you claiming for more than 5 jobs?
 moreThanFiveJobs.error.required = Select yes if you are claiming for more than 5 jobs
 
-registerForSelfAssessment.you.title = You must register for Self Assessment to claim tax relief for these expenses
-registerForSelfAssessment.you.heading = You must register for Self Assessment to claim tax relief for these expenses
-registerForSelfAssessment.you.guidance = This is because you are claiming for more than £2,500.
-registerForSelfAssessment.someoneElse.title = They must register for Self Assessment to claim tax relief for these expenses
-registerForSelfAssessment.someoneElse.heading = They must register for Self Assessment to claim tax relief for these expenses
-registerForSelfAssessment.someoneElse.guidance = This is because they are claiming for more than £2,500.
+registerForSelfAssessment.you.title = You must register for Self Assessment
+registerForSelfAssessment.you.heading = You must register for Self Assessment
+registerForSelfAssessment.you.guidance = This is because you are claiming tax relief for expenses more than £2,500.
+registerForSelfAssessment.someoneElse.title = They must register for Self Assessment
+registerForSelfAssessment.someoneElse.heading = They must register for Self Assessment
+registerForSelfAssessment.someoneElse.guidance = This is because they are claiming tax relief for expenses more than £2,500.
 registerForSelfAssessment.link.label = Find out how to register for Self Assessment
 
 usePrintAndPost.title = You can claim tax relief for these expenses by post
@@ -87,10 +87,10 @@ claimOnline.link.label = Claim online
 
 cannotClaimRelief.you.title = You cannot claim tax relief for these expenses
 cannotClaimRelief.you.heading = You cannot claim tax relief for these expenses
-cannotClaimRelief.you.guidance = Because your employer has already paid back all of your expenses.
+cannotClaimRelief.you.guidance = This is because your employer has already paid back all of your expenses.
 cannotClaimRelief.someoneElse.title = They cannot claim tax relief for these expenses
 cannotClaimRelief.someoneElse.heading = They cannot claim tax relief for these expenses
-cannotClaimRelief.someoneElse.guidance = Because their employer has already paid back all of their expenses.
+cannotClaimRelief.someoneElse.guidance = This is because their employer has already paid back all of their expenses.
 cannotClaimRelief.link.label = Read tax relief for employees
 
 employerPaidBackExpenses.you.title = Has your employer paid back all of your expenses?
