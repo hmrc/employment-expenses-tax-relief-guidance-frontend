@@ -16,14 +16,15 @@
 
 package views
 
+import models.Claimant
 import views.behaviours.ViewBehaviours
 import views.html.registerForSelfAssessment
 
 class RegisterForSelfAssessmentViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "registerForSelfAssessment"
+  val messageKeyPrefix = "registerForSelfAssessment.you"
 
-  def createView = () => registerForSelfAssessment(frontendAppConfig)(fakeRequest, messages)
+  def createView = () => registerForSelfAssessment(frontendAppConfig, Claimant.You)(fakeRequest, messages)
 
   "RegisterForSelfAssessment view" must {
     behave like normalPage(createView, messageKeyPrefix)

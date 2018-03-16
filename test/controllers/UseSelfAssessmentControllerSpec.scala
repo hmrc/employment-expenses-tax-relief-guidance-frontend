@@ -17,15 +17,17 @@
 package controllers
 
 import controllers.actions._
+import models.Claimant
 import play.api.test.Helpers._
 import views.html.useSelfAssessment
 
 class UseSelfAssessmentControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new UseSelfAssessmentController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl)
+  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(Claimant.You)) =
+    new UseSelfAssessmentController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl,
+      new GetClaimantActionImpl)
 
-  def viewAsString() = useSelfAssessment(frontendAppConfig)(fakeRequest, messages).toString
+  def viewAsString() = useSelfAssessment(frontendAppConfig, Claimant.You)(fakeRequest, messages).toString
 
   "UseSelfAssessment Controller" must {
 

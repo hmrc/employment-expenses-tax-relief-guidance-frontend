@@ -16,14 +16,14 @@
 
 @import config.FrontendAppConfig
 
-@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("useSelfAssessment.title"),
+    title = messages(s"useSelfAssessment.$claimant.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @components.heading("useSelfAssessment.heading")
+    @components.heading(s"useSelfAssessment.$claimant.heading")
 
     @components.button_link("useSelfAssessment.link.label", "https://www.gov.uk/self-assessment-tax-returns")
 }
