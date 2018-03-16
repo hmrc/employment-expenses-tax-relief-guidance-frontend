@@ -27,12 +27,13 @@ import views.html.useSelfAssessment
 import scala.concurrent.Future
 
 class UseSelfAssessmentController @Inject()(appConfig: FrontendAppConfig,
-                                         override val messagesApi: MessagesApi,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction) extends FrontendController with I18nSupport {
+                                            override val messagesApi: MessagesApi,
+                                            getData: DataRetrievalAction,
+                                            requireData: DataRequiredAction,
+                                            getClaimant: GetClaimantAction) extends FrontendController with I18nSupport {
 
-  def onPageLoad = (getData andThen requireData) {
+  def onPageLoad = (getData andThen requireData andThen getClaimant) {
     implicit request =>
-      Ok(useSelfAssessment(appConfig))
+      Ok(useSelfAssessment(appConfig, request.claimant))
   }
 }

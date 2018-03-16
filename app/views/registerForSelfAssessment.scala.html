@@ -19,11 +19,11 @@
 @(appConfig: FrontendAppConfig, claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("registerForSelfAssessment.$claimant.title"),
+    title = messages(s"registerForSelfAssessment.$claimant.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @components.heading("registerForSelfAssessment.$claimant.heading")
+    @components.heading(s"registerForSelfAssessment.$claimant.heading")
 
     @components.button_link(
         "registerForSelfAssessment.link.label",
