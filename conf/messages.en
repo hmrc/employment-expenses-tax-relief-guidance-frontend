@@ -44,10 +44,10 @@ claimant.error.required = Select yes if you are claiming expenses for yourself
 
 registeredForSelfAssessment.you.title = Are you registered for Self Assessment?
 registeredForSelfAssessment.you.heading = Are you registered for Self Assessment?
-registeredForSelfAssessment.you.error.required = Select yes if you are registering for Self Assessment
+registeredForSelfAssessment.you.error.required = Select yes if you are registered for Self Assessment
 registeredForSelfAssessment.someoneElse.title = Is the person you are claiming for registered for Self Assessment?
 registeredForSelfAssessment.someoneElse.heading = Is the person you are claiming for registered for Self Assessment?
-registeredForSelfAssessment.someoneElse.error.required = Select yes if the person you are claiming for is registering for Self Assessment
+registeredForSelfAssessment.someoneElse.error.required = Select yes if the person you are claiming for is registered for Self Assessment
 
 claimingOverPayAsYouEarnThreshold.you.title = Are you claiming more than £2,500?
 claimingOverPayAsYouEarnThreshold.you.heading = Are you claiming more than £2,500?
@@ -57,17 +57,21 @@ claimingOverPayAsYouEarnThreshold.someoneElse.heading = Are they claiming more t
 claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if they are claiming more than £2,500
 
 
-useSelfAssessment.title = Use Self Assessment to claim expenses
-useSelfAssessment.heading = Use Self Assessment to claim expenses
+useSelfAssessment.you.title = You must use Self Assessment to claim expenses
+useSelfAssessment.you.heading = You must use Self Assessment to claim expenses
+useSelfAssessment.someoneElse.title = They must use Self Assessment to claim expenses
+useSelfAssessment.someoneElse.heading = They must use Self Assessment to claim expenses
 useSelfAssessment.link.label = Find out more about Self Assessment tax returns
 
 moreThanFiveJobs.title = Are you claiming for more than 5 jobs?
 moreThanFiveJobs.heading = Are you claiming for more than 5 jobs?
 moreThanFiveJobs.error.required = Select yes if you are claiming for more than 5 jobs
 
-registerForSelfAssessment.title = Register for Self Assessment to claim expenses
-registerForSelfAssessment.heading = Register for Self Assessment to claim expenses
-registerForSelfAssessment.link.label = How to register for Self Assessment
+registerForSelfAssessment.you.title = You must register for Self Assessment to claim expenses
+registerForSelfAssessment.you.heading = You must register for Self Assessment to claim expenses
+registerForSelfAssessment.someoneElse.title = They must register for Self Assessment to claim expenses
+registerForSelfAssessment.someoneElse.heading = They must register for Self Assessment to claim expenses
+registerForSelfAssessment.link.label = Find out how to register for Self Assessment
 
 usePrintAndPost.title = You can claim tax relief for these expenses by post
 usePrintAndPost.heading = You can claim tax relief for these expenses by post
