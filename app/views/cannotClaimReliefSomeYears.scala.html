@@ -27,5 +27,5 @@
 
     <p>@messages(s"cannotClaimReliefSomeYears.$claimant.guidance")</p>
 
-    @components.button_link("cannotClaimReliefSomeYears.link.label", nextPage.url)
+    @components.button_link(messages("cannotClaimReliefSomeYears.link.label", messageArg), nextPage.url)
 }
