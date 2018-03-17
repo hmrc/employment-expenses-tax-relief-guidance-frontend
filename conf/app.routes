@@ -49,3 +49,6 @@ POST       /pay-tax-in-year                             controllers.PaidTaxInRel
 GET        /did-not-pay-tax-in-year                     controllers.NotEntitledController.onPageLoad()
 
 GET        /claim-years-paid-tax                        controllers.NotEntitledSomeYearsController.onPageLoad()
+
+GET        /claimingFor               controllers.ClaimingForController.onPageLoad()
+POST       /claimingFor               controllers.ClaimingForController.onSubmit()
