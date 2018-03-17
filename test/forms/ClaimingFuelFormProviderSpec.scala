@@ -17,13 +17,14 @@
 package forms
 
 import forms.behaviours.BooleanFieldBehaviours
+import models.Claimant.You
 import play.api.data.FormError
 
 class ClaimingFuelFormProviderSpec extends BooleanFieldBehaviours {
 
-  val requiredKey = "claimingFuel.error.required"
+  val requiredKey = "claimingFuel.you.error.required"
 
-  val form = new ClaimingFuelFormProvider()()
+  val form = new ClaimingFuelFormProvider()(You)
 
   ".value" must {
 

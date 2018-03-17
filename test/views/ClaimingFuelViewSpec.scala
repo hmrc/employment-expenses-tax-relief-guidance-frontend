@@ -19,18 +19,21 @@ package views
 import play.api.data.Form
 import controllers.routes
 import forms.ClaimingFuelFormProvider
+import models.Claimant.You
 import views.behaviours.YesNoViewBehaviours
 import views.html.claimingFuel
 
 class ClaimingFuelViewSpec extends YesNoViewBehaviours {
 
-  val messageKeyPrefix = "claimingFuel"
+  val claimant = You
 
-  val form = new ClaimingFuelFormProvider()()
+  val messageKeyPrefix = s"claimingFuel.$claimant"
 
-  def createView = () => claimingFuel(frontendAppConfig, form)(fakeRequest, messages)
+  val form = new ClaimingFuelFormProvider()(claimant)
 
-  def createViewUsingForm = (form: Form[_]) => claimingFuel(frontendAppConfig, form)(fakeRequest, messages)
+  def createView = () => claimingFuel(frontendAppConfig, form, claimant)(fakeRequest, messages)
+
+  def createViewUsingForm = (form: Form[_]) => claimingFuel(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
   "ClaimingFuel view" must {
 

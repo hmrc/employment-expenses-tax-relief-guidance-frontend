@@ -32,29 +32,34 @@ import views.html.claimingMileage
 import scala.concurrent.Future
 
 class ClaimingMileageController @Inject()(appConfig: FrontendAppConfig,
-                                         override val messagesApi: MessagesApi,
-                                         dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: ClaimingMileageFormProvider) extends FrontendController with I18nSupport {
+                                          override val messagesApi: MessagesApi,
+                                          dataCacheConnector: DataCacheConnector,
+                                          navigator: Navigator,
+                                          getData: DataRetrievalAction,
+                                          requireData: DataRequiredAction,
+                                          getClaimant: GetClaimantAction,
+                                          formProvider: ClaimingMileageFormProvider) extends FrontendController with I18nSupport {
 
-  val form: Form[Boolean] = formProvider()
-
-  def onPageLoad() = (getData andThen requireData) {
+  def onPageLoad() = (getData andThen requireData andThen getClaimant) {
     implicit request =>
+
+      val form: Form[Boolean] = formProvider(request.claimant)
+
       val preparedForm = request.userAnswers.claimingMileage match {
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(claimingMileage(appConfig, preparedForm))
+      Ok(claimingMileage(appConfig, preparedForm, request.claimant))
   }
 
-  def onSubmit() = (getData andThen requireData).async {
+  def onSubmit() = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
+
+      val form: Form[Boolean] = formProvider(request.claimant)
+
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(claimingMileage(appConfig, formWithErrors))),
+          Future.successful(BadRequest(claimingMileage(appConfig, formWithErrors, request.claimant))),
         (value) =>
           dataCacheConnector.save[Boolean](request.sessionId, ClaimingMileageId.toString, value).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimingMileageId)(new UserAnswers(cacheMap))))

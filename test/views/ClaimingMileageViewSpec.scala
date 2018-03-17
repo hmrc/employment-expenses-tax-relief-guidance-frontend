@@ -19,18 +19,21 @@ package views
 import play.api.data.Form
 import controllers.routes
 import forms.ClaimingMileageFormProvider
+import models.Claimant.You
 import views.behaviours.YesNoViewBehaviours
 import views.html.claimingMileage
 
 class ClaimingMileageViewSpec extends YesNoViewBehaviours {
 
-  val messageKeyPrefix = "claimingMileage"
+  val claimant = You
 
-  val form = new ClaimingMileageFormProvider()()
+  val messageKeyPrefix = s"claimingMileage.$claimant"
 
-  def createView = () => claimingMileage(frontendAppConfig, form)(fakeRequest, messages)
+  val form = new ClaimingMileageFormProvider()(claimant)
 
-  def createViewUsingForm = (form: Form[_]) => claimingMileage(frontendAppConfig, form)(fakeRequest, messages)
+  def createView = () => claimingMileage(frontendAppConfig, form, claimant)(fakeRequest, messages)
+
+  def createViewUsingForm = (form: Form[_]) => claimingMileage(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
   "ClaimingMileage view" must {
 

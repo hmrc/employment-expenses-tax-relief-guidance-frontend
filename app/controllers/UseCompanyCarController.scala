@@ -32,29 +32,34 @@ import views.html.useCompanyCar
 import scala.concurrent.Future
 
 class UseCompanyCarController @Inject()(appConfig: FrontendAppConfig,
-                                         override val messagesApi: MessagesApi,
-                                         dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: UseCompanyCarFormProvider) extends FrontendController with I18nSupport {
+                                        override val messagesApi: MessagesApi,
+                                        dataCacheConnector: DataCacheConnector,
+                                        navigator: Navigator,
+                                        getData: DataRetrievalAction,
+                                        requireData: DataRequiredAction,
+                                        getClaimant: GetClaimantAction,
+                                        formProvider: UseCompanyCarFormProvider) extends FrontendController with I18nSupport {
 
-  val form: Form[Boolean] = formProvider()
-
-  def onPageLoad() = (getData andThen requireData) {
+  def onPageLoad() = (getData andThen requireData andThen getClaimant) {
     implicit request =>
+
+      val form: Form[Boolean] = formProvider(request.claimant)
+
       val preparedForm = request.userAnswers.useCompanyCar match {
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(useCompanyCar(appConfig, preparedForm))
+      Ok(useCompanyCar(appConfig, preparedForm, request.claimant))
   }
 
-  def onSubmit() = (getData andThen requireData).async {
+  def onSubmit() = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
+
+      val form: Form[Boolean] = formProvider(request.claimant)
+
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(useCompanyCar(appConfig, formWithErrors))),
+          Future.successful(BadRequest(useCompanyCar(appConfig, formWithErrors, request.claimant))),
         (value) =>
           dataCacheConnector.save[Boolean](request.sessionId, UseCompanyCarId.toString, value).map(cacheMap =>
             Redirect(navigator.nextPage(UseCompanyCarId)(new UserAnswers(cacheMap))))

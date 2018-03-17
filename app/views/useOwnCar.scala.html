@@ -18,10 +18,10 @@
 @import uk.gov.hmrc.play.views.html._
 @import controllers.routes._
 
-@(appConfig: FrontendAppConfig, form: Form[_])(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("useOwnCar.title"),
+    title = messages(s"useOwnCar.$claimant.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -29,11 +29,11 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("useOwnCar.heading")
+        @components.heading(s"useOwnCar.$claimant.heading")
 
         @components.input_yes_no(
             field = form("value"),
-            label = messages("useOwnCar.heading"),
+            label = messages(s"useOwnCar.$claimant.heading"),
             labelClass = Some("visually-hidden")
         )
 
