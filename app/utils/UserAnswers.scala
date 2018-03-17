@@ -21,7 +21,7 @@ import identifiers._
 import models._
 
 class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
-  def claimingFor: Option[ClaimingFor] = cacheMap.getEntry[ClaimingFor](ClaimingForId.toString)
+  def claimingFor: Option[List[ClaimingFor]] = cacheMap.getEntry[List[ClaimingFor]](ClaimingForId.toString)
 
   def paidTaxInRelevantYear: Option[Boolean] = cacheMap.getEntry[Boolean](PaidTaxInRelevantYearId.toString)
 

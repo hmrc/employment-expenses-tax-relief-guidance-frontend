@@ -39,26 +39,29 @@ class ClaimingForController @Inject()(
                                         navigator: Navigator,
                                         getData: DataRetrievalAction,
                                         requireData: DataRequiredAction,
+                                        getClaimant: GetClaimantAction,
                                         formProvider: ClaimingForFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
-
-  def onPageLoad() = (getData andThen requireData) {
+  def onPageLoad() = (getData andThen requireData andThen getClaimant) {
     implicit request =>
+      val form = formProvider(request.claimant)
+
       val preparedForm = request.userAnswers.claimingFor match {
         case None => form
-        case Some(value) => form.fill(value)
+        case Some(value) => form.fill(value.toSet)
       }
-      Ok(claimingFor(appConfig, preparedForm))
+      Ok(claimingFor(appConfig, preparedForm, request.claimant))
   }
 
-  def onSubmit() = (getData andThen requireData).async {
+  def onSubmit() = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
+      val form = formProvider(request.claimant)
+
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(claimingFor(appConfig, formWithErrors))),
+          Future.successful(BadRequest(claimingFor(appConfig, formWithErrors, request.claimant))),
         (value) =>
-          dataCacheConnector.save[ClaimingFor](request.sessionId, ClaimingForId.toString, value).map(cacheMap =>
+          dataCacheConnector.save[Set[ClaimingFor]](request.sessionId, ClaimingForId.toString, value).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimingForId)(new UserAnswers(cacheMap))))
       )
   }

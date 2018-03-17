@@ -22,18 +22,31 @@ sealed trait ClaimingFor
 
 object ClaimingFor {
 
-  case object Uniformsclothingtools extends WithName("uniformsClothingTools") with ClaimingFor
-  case object Mileagefuel extends WithName("mileageFuel") with ClaimingFor
+  case object UniformsClothingTools extends WithName("uniformsClothingTools") with ClaimingFor
+  case object MileageFuel extends WithName("mileageFuel") with ClaimingFor
+  case object TravelExpenses extends WithName("travelExpenses") with ClaimingFor
+  case object FeesSubscriptions extends WithName("feesSubscriptions") with ClaimingFor
+  case object HomeWorking extends WithName("homeWorking") with ClaimingFor
+  case object BuyingEquipment extends WithName("buyingEquipment") with ClaimingFor
 
-  val values: Set[ClaimingFor] = Set(
-    Uniformsclothingtools, Mileagefuel
+  val values: List[ClaimingFor] = List(
+    UniformsClothingTools, MileageFuel, TravelExpenses, FeesSubscriptions, HomeWorking, BuyingEquipment
   )
 
-  val options: Set[RadioOption] = values.map {
+  val options: List[RadioOption] = values.map {
     value =>
       RadioOption("claimingFor", value.toString)
   }
 
   implicit val enumerable: Enumerable[ClaimingFor] =
     Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+
+  val mappings: Map[String, ClaimingFor] = Map(
+    UniformsClothingTools.toString -> UniformsClothingTools,
+    MileageFuel.toString           -> MileageFuel,
+    TravelExpenses.toString        -> TravelExpenses,
+    FeesSubscriptions.toString     -> FeesSubscriptions,
+    HomeWorking.toString           -> HomeWorking,
+    BuyingEquipment.toString       -> BuyingEquipment
+  )
 }

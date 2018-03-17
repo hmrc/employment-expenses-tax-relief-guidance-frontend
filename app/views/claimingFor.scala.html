@@ -19,10 +19,10 @@
 @import controllers.routes._
 @import models.ClaimingFor
 
-@(appConfig: FrontendAppConfig, form: Form[_])(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("claimingFor.title"),
+    title = messages(s"claimingFor.$claimant.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -30,13 +30,13 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading("claimingFor.heading")
+        @components.heading(s"claimingFor.$claimant.heading")
 
-        @components.input_radio(
+        @components.input_checkboxes(
             field = form("value"),
-            legend = messages("claimingFor.heading"),
+            legend = messages(s"claimingFor.$claimant.heading"),
             legendClass = Some("visually-hidden"),
-            inputs = ClaimingFor.options.toSeq
+            inputs = ClaimingFor.options
         )
 
         @components.submit_button()

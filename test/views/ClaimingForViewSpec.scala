@@ -18,19 +18,22 @@ package views
 
 import play.api.data.Form
 import forms.ClaimingForFormProvider
+import models.Claimant.You
 import models.ClaimingFor
+import utils.RadioOption
 import views.behaviours.ViewBehaviours
 import views.html.claimingFor
 
 class ClaimingForViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "claimingFor"
+  val claimant = You
+  val messageKeyPrefix = s"claimingFor.$claimant"
 
-  val form = new ClaimingForFormProvider()()
+  val form = new ClaimingForFormProvider()(claimant)
 
-  def createView = () => claimingFor(frontendAppConfig, form)(fakeRequest, messages)
+  def createView = () => claimingFor(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => claimingFor(frontendAppConfig, form)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => claimingFor(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
   "ClaimingFor view" must {
     behave like normalPage(createView, messageKeyPrefix)
@@ -38,23 +41,22 @@ class ClaimingForViewSpec extends ViewBehaviours {
 
   "ClaimingFor view" when {
     "rendered" must {
-      "contain radio buttons for the value" in {
+      "contain checkboxes for each option" in {
         val doc = asDocument(createViewUsingForm(form))
-        for (option <- ClaimingFor.options) {
-          assertContainsRadioButton(doc, option.id, "value", option.value, false)
+        for ((option, index) <- ClaimingFor.options.zipWithIndex) {
+          assertContainsRadioButton(doc, option.id, s"value[$index]", option.value, false)
         }
       }
     }
 
-    for(option <- ClaimingFor.options) {
-      s"rendered with a value of '${option.value}'" must {
-        s"have the '${option.value}' radio button selected" in {
-          val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+    for((option, index) <- ClaimingFor.values.zipWithIndex) {
 
-          for(unselectedOption <- ClaimingFor.options.filterNot(o => o == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
-          }
+      s"rendered with a value of '${option.toString}'" must {
+
+        s"have the '${option.toString}' checkbox selected" in {
+          val doc = asDocument(createViewUsingForm(form.fill(Set(option))))
+          val radioOption = RadioOption("claimingFor", option.toString)
+          assertContainsRadioButton(doc, radioOption.id, s"value[$index]", option.toString, true)
         }
       }
     }

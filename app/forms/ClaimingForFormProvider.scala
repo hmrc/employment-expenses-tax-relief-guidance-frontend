@@ -19,13 +19,19 @@ package forms
 import javax.inject.Inject
 
 import forms.mappings.Mappings
-import play.api.data.Form
-import models.ClaimingFor
+import play.api.data.{Form, Mapping}
+import play.api.data.Forms.{nonEmptyText, set}
+import models.{Claimant, ClaimingFor}
 
 class ClaimingForFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[ClaimingFor] =
+  def apply(claimant: Claimant): Form[Set[ClaimingFor]] =
     Form(
-      "value" -> enumerable[ClaimingFor]("claimingFor.error.required")
+      "value" -> claimingForMapping(claimant).verifying(s"claimingFor.$claimant.error.required", _.nonEmpty)
     )
+
+  private def claimingForMapping(claimant: Claimant): Mapping[Set[ClaimingFor]] =
+    set(nonEmptyText)
+        .verifying(s"claimingFor.$claimant.error.required", _.forall(ClaimingFor.mappings.keySet.contains _))
+        .transform(_.map(ClaimingFor.mappings.apply), _.map(_.toString))
 }
