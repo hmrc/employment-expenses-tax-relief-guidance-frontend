@@ -22,7 +22,7 @@ import play.api.mvc.Call
 import controllers.routes
 import identifiers._
 import models.Claimant.{SomeoneElse, You}
-import models.HowManyYearsWasTaxPaid
+import models.{ClaimingFor, HowManyYearsWasTaxPaid}
 import models.ClaimYears.AnotherYear
 
 @Singleton
@@ -47,13 +47,11 @@ class Navigator @Inject()() {
     case None        => routes.SessionExpiredController.onPageLoad()
   }
 
-  private def employerPaidBackExpensesRouting(userAnswers: UserAnswers) =
-    (userAnswers.employerPaidBackExpenses, userAnswers.claimant) match {
-      case (Some(true), _)                  => routes.CannotClaimReliefController.onPageLoad()
-      case (Some(false), Some(You))         => routes.MoreThanFiveJobsController.onPageLoad()
-      case (Some(false), Some(SomeoneElse)) => routes.UsePrintAndPostController.onPageLoad()
-      case (_, _)                           => routes.SessionExpiredController.onPageLoad()
-    }
+  private def employerPaidBackExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackExpenses match {
+    case Some(true)  => routes.CannotClaimReliefController.onPageLoad()
+    case Some(false) => routes.ClaimingForController.onPageLoad()
+    case None        => routes.SessionExpiredController.onPageLoad()
+  }
 
   private def taxYearsRouting(userAnswers: UserAnswers) = userAnswers.taxYears match {
     case Some(List(AnotherYear))                    => routes.CannotClaimReliefTooLongAgoController.onPageLoad()
@@ -76,6 +74,20 @@ class Navigator @Inject()() {
     case None                              => routes.SessionExpiredController.onPageLoad()
   }
 
+  private def claimingForRouting(userAnswers: UserAnswers) =
+    (userAnswers.claimingFor, userAnswers.claimant) match {
+      case (Some(List(ClaimingFor.MileageFuel)), Some(_)) => routes.UseOwnCarController.onPageLoad()
+      case (Some(_), Some(You))                           => routes.MoreThanFiveJobsController.onPageLoad()
+      case (Some(_), Some(SomeoneElse))                   => routes.UsePrintAndPostController.onPageLoad()
+      case _                                              => routes.SessionExpiredController.onPageLoad()
+    }
+
+  private def useOwnCarRouting(userAnswers: UserAnswers) = userAnswers.useOwnCar match {
+    case Some(true)  => routes.ClaimingMileageController.onPageLoad()
+    case Some(false) => routes.UseCompanyCarController.onPageLoad()
+    case None        => routes.SessionExpiredController.onPageLoad()
+  }
+
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
     ClaimantId                          -> (_ => routes.TaxYearsController.onPageLoad()),
     TaxYearsId                          -> taxYearsRouting,
@@ -86,7 +98,10 @@ class Navigator @Inject()() {
     RegisteredForSelfAssessmentId       -> registeredForSelfAssessmentControllerRouting,
     ClaimingOverPayAsYouEarnThresholdId -> claimingOverPayAsYouEarnThresholdRouting,
     MoreThanFiveJobsId                  -> moreThanFiveJobsRouting,
-    EmployerPaidBackExpensesId          -> employerPaidBackExpensesRouting
+    EmployerPaidBackExpensesId          -> employerPaidBackExpensesRouting,
+    ClaimingForId                       -> claimingForRouting,
+    ClaimingMileageId                   -> (_ => routes.UseCompanyCarController.onPageLoad()),
+    UseOwnCarId                         -> useOwnCarRouting
   )
 
   def nextPage(id: Identifier): UserAnswers => Call =
