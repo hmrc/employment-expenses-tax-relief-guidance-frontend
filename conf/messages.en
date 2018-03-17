@@ -165,3 +165,19 @@ claimingFor.travelExpenses =Travel and overnight expenses
 claimingFor.feesSubscriptions = Professional fees and subscriptions
 claimingFor.homeWorking = Working from home
 claimingFor.buyingEquipment = Buying other equipment
+
+claimingFuel.title = claimingFuel
+claimingFuel.heading = claimingFuel
+claimingFuel.error.required = Please give an answer for claimingFuel
+
+claimingMileage.title = claimingMileage
+claimingMileage.heading = claimingMileage
+claimingMileage.error.required = Please give an answer for claimingMileage
+
+useCompanyCar.title = useCompanyCar
+useCompanyCar.heading = useCompanyCar
+useCompanyCar.error.required = Please give an answer for useCompanyCar
+
+useOwnCar.title = useOwnCar
+useOwnCar.heading = useOwnCar
+useOwnCar.error.required = Please give an answer for useOwnCar

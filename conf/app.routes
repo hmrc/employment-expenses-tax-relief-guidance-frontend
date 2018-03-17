@@ -52,3 +52,15 @@ GET        /claim-years-paid-tax                        controllers.NotEntitledS
 
 GET        /claimingFor               controllers.ClaimingForController.onPageLoad()
 POST       /claimingFor               controllers.ClaimingForController.onSubmit()
+
+GET        /claimingFuel                       controllers.ClaimingFuelController.onPageLoad()
+POST       /claimingFuel                       controllers.ClaimingFuelController.onSubmit()
+
+GET        /claimingMileage                       controllers.ClaimingMileageController.onPageLoad()
+POST       /claimingMileage                       controllers.ClaimingMileageController.onSubmit()
+
+GET        /useCompanyCar                       controllers.UseCompanyCarController.onPageLoad()
+POST       /useCompanyCar                       controllers.UseCompanyCarController.onSubmit()
+
+GET        /useOwnCar                       controllers.UseOwnCarController.onPageLoad()
+POST       /useOwnCar                       controllers.UseOwnCarController.onSubmit()
