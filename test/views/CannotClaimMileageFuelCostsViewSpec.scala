@@ -16,14 +16,15 @@
 
 package views
 
+import models.Claimant.You
 import views.behaviours.ViewBehaviours
 import views.html.cannotClaimMileageFuelCosts
 
 class CannotClaimMileageFuelCostsViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "cannotClaimMileageFuelCosts"
+  val messageKeyPrefix = "cannotClaimMileageFuelCosts.you"
 
-  def createView = () => cannotClaimMileageFuelCosts(frontendAppConfig)(fakeRequest, messages)
+  def createView = () => cannotClaimMileageFuelCosts(frontendAppConfig, You)(fakeRequest, messages)
 
   "CannotClaimMileageFuelCosts view" must {
     behave like normalPage(createView, messageKeyPrefix)

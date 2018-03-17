@@ -27,12 +27,13 @@ import views.html.cannotClaimMileageFuelCosts
 import scala.concurrent.Future
 
 class CannotClaimMileageFuelCostsController @Inject()(appConfig: FrontendAppConfig,
-                                         override val messagesApi: MessagesApi,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction) extends FrontendController with I18nSupport {
+                                                      override val messagesApi: MessagesApi,
+                                                      getData: DataRetrievalAction,
+                                                      requireData: DataRequiredAction,
+                                                      getClaimant: GetClaimantAction) extends FrontendController with I18nSupport {
 
-  def onPageLoad = (getData andThen requireData) {
+  def onPageLoad = (getData andThen requireData andThen getClaimant) {
     implicit request =>
-      Ok(cannotClaimMileageFuelCosts(appConfig))
+      Ok(cannotClaimMileageFuelCosts(appConfig, request.claimant))
   }
 }

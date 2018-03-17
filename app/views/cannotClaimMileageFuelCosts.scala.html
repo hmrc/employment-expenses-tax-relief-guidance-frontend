@@ -16,12 +16,22 @@
 
 @import config.FrontendAppConfig
 
-@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("cannotClaimMileageFuelCosts.title"),
+    title = messages(s"cannotClaimMileageFuelCosts.$claimant.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @components.heading("cannotClaimMileageFuelCosts.heading")
+    @components.heading(s"cannotClaimMileageFuelCosts.$claimant.heading")
+
+    <p>@messages(s"cannotClaimMileageFuelCosts.$claimant.guidance")</p>
+    <ul>
+        <li>@messages(s"cannotClaimMileageFuelCosts.$claimant.bullet1")</li>
+        <li>@messages(s"cannotClaimMileageFuelCosts.$claimant.bullet2")</li>
+    </ul>
+
+    <a href="https://www.gov.uk/tax-relief-for-employees/business-mileage-fuel-costs">
+        @messages("cannotClaimMileageFuelCosts.link.label")
+    </a>
 }

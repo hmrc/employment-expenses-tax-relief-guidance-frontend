@@ -17,15 +17,17 @@
 package controllers
 
 import controllers.actions._
+import models.Claimant.You
 import play.api.test.Helpers._
 import views.html.cannotClaimMileageCosts
 
 class CannotClaimMileageCostsControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new CannotClaimMileageCostsController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl)
+  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(You)) =
+    new CannotClaimMileageCostsController(frontendAppConfig, messagesApi, dataRetrievalAction,
+      new DataRequiredActionImpl, new GetClaimantActionImpl)
 
-  def viewAsString() = cannotClaimMileageCosts(frontendAppConfig)(fakeRequest, messages).toString
+  def viewAsString() = cannotClaimMileageCosts(frontendAppConfig, You)(fakeRequest, messages).toString
 
   "CannotClaimMileageCosts Controller" must {
 

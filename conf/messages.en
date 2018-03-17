@@ -195,8 +195,22 @@ useOwnCar.someoneElse.title = Do they use a car for work that they bought or lea
 useOwnCar.someoneElse.heading = Do they use a car for work that they bought or leased with your their money?
 useOwnCar.someoneElse.error.required = Select they if you use a car for work that they bought or leased with their own money
 
-cannotClaimMileageCosts.title = cannotClaimMileageCosts
-cannotClaimMileageCosts.heading = cannotClaimMileageCosts
+cannotClaimMileageCosts.you.title = You cannot claim tax relief for these expenses
+cannotClaimMileageCosts.you.heading = You cannot claim tax relief for these expenses
+cannotClaimMileageCosts.you.guidance = You can only claim Mileage Allowance relief for using your own car for work.
+cannotClaimMileageCosts.someoneElse.title = They cannot claim tax relief for these expenses
+cannotClaimMileageCosts.someoneElse.heading = They cannot claim tax relief for these expenses
+cannotClaimMileageCosts.someoneElse.guidance = They can only claim Mileage Allowance relief for using their own car for work.
+cannotClaimMileageCosts.link.label = Read tax relief for employees
 
-cannotClaimMileageFuelCosts.title = cannotClaimMileageFuelCosts
-cannotClaimMileageFuelCosts.heading = cannotClaimMileageFuelCosts
+cannotClaimMileageFuelCosts.you.title = You cannot claim tax relief on these expenses
+cannotClaimMileageFuelCosts.you.heading = You cannot claim tax relief on these expenses
+cannotClaimMileageFuelCosts.you.guidance = You can only claim:
+cannotClaimMileageFuelCosts.you.bullet1 = Mileage Allowance Relief for using your own car
+cannotClaimMileageFuelCosts.you.bullet2 = fule or electricity for your company car
+cannotClaimMileageFuelCosts.someoneElse.title = They cannot claim tax relief on these expenses
+cannotClaimMileageFuelCosts.someoneElse.heading = They cannot claim tax relief on these expenses
+cannotClaimMileageFuelCosts.someoneElse.guidance = They can only claim:
+cannotClaimMileageFuelCosts.someoneElse.bullet1 = Mileage Allowance Relief for using their own car
+cannotClaimMileageFuelCosts.someoneElse.bullet2 = fule or electricity for their company car
+cannotClaimMileageFuelCosts.link.label = Read tax relief for employees
