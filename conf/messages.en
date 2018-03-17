@@ -194,3 +194,9 @@ useOwnCar.you.error.required = Select yes if you use a car for work that you bou
 useOwnCar.someoneElse.title = Do they use a car for work that they bought or leased with your their money?
 useOwnCar.someoneElse.heading = Do they use a car for work that they bought or leased with your their money?
 useOwnCar.someoneElse.error.required = Select they if you use a car for work that they bought or leased with their own money
+
+cannotClaimMileageCosts.title = cannotClaimMileageCosts
+cannotClaimMileageCosts.heading = cannotClaimMileageCosts
+
+cannotClaimMileageFuelCosts.title = cannotClaimMileageFuelCosts
+cannotClaimMileageFuelCosts.heading = cannotClaimMileageFuelCosts

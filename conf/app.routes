@@ -64,3 +64,7 @@ POST       /useCompanyCar                       controllers.UseCompanyCarControl
 
 GET        /useOwnCar                       controllers.UseOwnCarController.onPageLoad()
 POST       /useOwnCar                       controllers.UseOwnCarController.onSubmit()
+
+GET        /cannotClaimMileageCosts                       controllers.CannotClaimMileageCostsController.onPageLoad()
+
+GET        /cannotClaimMileageFuelCosts                       controllers.CannotClaimMileageFuelCostsController.onPageLoad()
