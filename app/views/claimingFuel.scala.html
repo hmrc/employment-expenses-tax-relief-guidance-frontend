@@ -31,6 +31,13 @@
 
         @components.heading(s"claimingFuel.$claimant.heading")
 
+        <p>@messages(s"claimingFuel.$claimant.guidance")</p>
+
+        <ul class="list list-bullet">
+            <li>@messages(s"claimingFuel.$claimant.bullet1")</li>
+            <li>@messages(s"claimingFuel.$claimant.bullet2")</li>
+        </ul>
+
         @components.input_yes_no(
             field = form("value"),
             label = messages(s"claimingFuel.$claimant.heading"),

@@ -31,6 +31,8 @@
 
         @components.heading(s"claimingMileage.$claimant.heading")
 
+        <p>@messages(s"claimingMileage.$claimant.guidance")</p>
+
         @components.input_yes_no(
             field = form("value"),
             label = messages(s"claimingMileage.$claimant.heading"),

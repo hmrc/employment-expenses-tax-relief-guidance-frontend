@@ -168,16 +168,24 @@ claimingFor.buyingEquipment = Buying other equipment
 
 claimingFuel.you.title = Do you want to claim money you spent on fuel or electricity costs for your company car?
 claimingFuel.you.heading = Do you want to claim money you spent on fuel or electricity costs for your company car?
+claimingFuel.you.guidance = You cannot claim for:
+claimingFuel.you.bullet1 = money you spent to get to and from your normal place of work
+claimingFuel.you.bullet2 = mileage allowance for things like MOTs, tyres and general wear and tear
 claimingFuel.you.error.required = Select yes if you want to claim money you spent on fuel or electricity costs for your company car
 claimingFuel.someoneElse.title = Do they want to claim money they spent on fuel or electricity costs for their company car?
 claimingFuel.someoneElse.heading = Do they want to claim money they spent on fuel or electricity costs for their company car?
+claimingFuel.someoneElse.guidance = They cannot claim for:
+claimingFuel.someoneElse.bullet1 = money they spent to get to and from their normal place of work
+claimingFuel.someoneElse.bullet2 = mileage allowance for things like MOTs, tyres and general wear and tear
 claimingFuel.someoneElse.error.required = Select yes if they want to claim money they spent on fuel or electricity costs for their company car
 
 claimingMileage.you.title = Do you want to claim Mileage Allowance Relief for using this car for work?
 claimingMileage.you.heading = Do you want to claim Mileage Allowance Relief for using this car for work?
+claimingMileage.you.guidance = You cannot claim for money you spent to get to and from your normal place of work.
 claimingMileage.you.error.required = Select yes if you want to claim Mileage Allowance Relief for using this car for work
 claimingMileage.someoneElse.title = Do they want to claim Mileage Allowance Relief for using this car for work?
 claimingMileage.someoneElse.heading = Do they want to claim Mileage Allowance Relief for using this car for work?
+claimingMileage.someoneElse.guidance = They cannot claim for money they spent to get to and from their normal place of work.
 claimingMileage.someoneElse.error.required = Select yes if they want to claim Mileage Allowance Relief for using this car for work
 
 useCompanyCar.you.title = Do you have a car that is owned or leased by your employer?

@@ -37,7 +37,7 @@ class ClaimingFuelViewSpec extends YesNoViewBehaviours {
 
   "ClaimingFuel view" must {
 
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, "guidance", "bullet1", "bullet2")
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.ClaimingFuelController.onSubmit().url)
   }

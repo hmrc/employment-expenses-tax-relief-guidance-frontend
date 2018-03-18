@@ -31,6 +31,8 @@
 
         @components.heading(s"useCompanyCar.$claimant.heading")
 
+        <p>@messages("useCompanyCar.guidance")</p>
+
         @components.input_yes_no(
             field = form("value"),
             label = messages(s"useCompanyCar.$claimant.heading"),
