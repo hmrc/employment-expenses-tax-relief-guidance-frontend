@@ -221,6 +221,37 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         navigator.nextPage(ClaimingForId)(mockAnswers) mustBe
           routes.UsePrintAndPostController.onPageLoad()
       }
+
+      "answering No to UseCompanyCar, having answered Yes to ClaimingMileage, when the claimant is someone else" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.useOwnCar).thenReturn(Some(true))
+        when(mockAnswers.useCompanyCar).thenReturn(Some(false))
+        when(mockAnswers.claimingMileage).thenReturn(Some(true))
+        when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
+
+        navigator.nextPage(UseCompanyCarId)(mockAnswers) mustBe
+          routes.UsePrintAndPostController.onPageLoad()
+      }
+
+      "answering Yes to ClaimingFuel when the claimant is someone else" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFuel).thenReturn(Some(true))
+        when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
+
+        navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
+          routes.UsePrintAndPostController.onPageLoad()
+      }
+
+      "answering No to ClaimingFuel, having previously answered Yes to ClaimingMileage when the claiming is someone else" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.useOwnCar).thenReturn(Some(true))
+        when(mockAnswers.claimingFuel).thenReturn(Some(false))
+        when(mockAnswers.claimingMileage).thenReturn(Some(true))
+        when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
+
+        navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
+          routes.UsePrintAndPostController.onPageLoad()
+      }
     }
 
     "go to ClaimOnline view" when {
@@ -277,6 +308,37 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         navigator.nextPage(ClaimingForId)(mockAnswers) mustBe
           routes.MoreThanFiveJobsController.onPageLoad()
       }
+
+      "answering No to useCompanyCar, having answered Yes to ClaimingMileage, when the claimant is You" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.useCompanyCar).thenReturn(Some(false))
+        when(mockAnswers.useOwnCar).thenReturn(Some(true))
+        when(mockAnswers.claimingMileage).thenReturn(Some(true))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(UseCompanyCarId)(mockAnswers) mustBe
+          routes.MoreThanFiveJobsController.onPageLoad()
+      }
+
+      "answering Yes to ClaimingFuel when the claimant is You" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFuel).thenReturn(Some(true))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
+          routes.MoreThanFiveJobsController.onPageLoad()
+      }
+
+      "answering No to ClaimingFuel, having previously answered Yes to ClaimingMileage, when the claimant is You" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.useOwnCar).thenReturn(Some(true))
+        when(mockAnswers.claimingMileage).thenReturn(Some(true))
+        when(mockAnswers.claimingFuel).thenReturn(Some(false))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
+          routes.MoreThanFiveJobsController.onPageLoad()
+      }
     }
 
     "go to the UseOwnCar view" when {
@@ -315,6 +377,61 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       "navigating from the ClaimingMileage view" in {
         navigator.nextPage(ClaimingMileageId)(mock[UserAnswers]) mustBe
           routes.UseCompanyCarController.onPageLoad()
+      }
+    }
+
+    "go to the CannotClaimMileage view" when {
+      "answering No to UseCompanyCar and having previously answered No to UseOwnCar" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.useOwnCar).thenReturn(Some(false))
+        when(mockAnswers.useCompanyCar).thenReturn(Some(false))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(UseCompanyCarId)(mockAnswers) mustBe
+          routes.CannotClaimMileageCostsController.onPageLoad()
+      }
+
+      "answering No to UseCompanyCar, having previously answered Yes to UseOwnCar and No to ClaimingMileage" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.useOwnCar).thenReturn(Some(true))
+        when(mockAnswers.claimingMileage).thenReturn(Some(false))
+        when(mockAnswers.useCompanyCar).thenReturn(Some(false))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(UseCompanyCarId)(mockAnswers) mustBe
+          routes.CannotClaimMileageCostsController.onPageLoad()
+      }
+    }
+
+    "go to the ClaimingFuel view" when {
+      "answering Yes to UseCompanyCar" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.useCompanyCar).thenReturn(Some(true))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(UseCompanyCarId)(mockAnswers) mustBe
+          routes.ClaimingFuelController.onPageLoad()
+      }
+    }
+
+    "go to the CannotClaimMileageFuelCosts view" when {
+      "answering No to ClaimingFuel, having already answered No to UseOwnCar" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFuel).thenReturn(Some(false))
+        when(mockAnswers.useOwnCar).thenReturn(Some(false))
+
+        navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
+          routes.CannotClaimMileageFuelCostsController.onPageLoad()
+      }
+
+      "answering No to ClaimingFuel, having already answered Yes to UseOwnCar and No to ClaimingMileage" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFuel).thenReturn(Some(false))
+        when(mockAnswers.useOwnCar).thenReturn(Some(true))
+        when(mockAnswers.claimingMileage).thenReturn(Some(false))
+
+        navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
+          routes.CannotClaimMileageFuelCostsController.onPageLoad()
       }
     }
   }

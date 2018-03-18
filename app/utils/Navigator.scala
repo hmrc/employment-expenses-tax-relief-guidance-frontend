@@ -88,6 +88,44 @@ class Navigator @Inject()() {
     case None        => routes.SessionExpiredController.onPageLoad()
   }
 
+  private def useCompanyCarRouting(userAnswers: UserAnswers) = userAnswers.useCompanyCar match {
+    case Some(true)  =>
+      routes.ClaimingFuelController.onPageLoad()
+
+    case Some(false) =>
+      (userAnswers.useOwnCar, userAnswers.claimingMileage, userAnswers.claimant) match {
+        case (Some(true), Some(true), Some(You))          => routes.MoreThanFiveJobsController.onPageLoad()
+        case (Some(true), Some(true), Some(SomeoneElse))  => routes.UsePrintAndPostController.onPageLoad()
+        case (Some(true), Some(false), _)                 => routes.CannotClaimMileageCostsController.onPageLoad()
+        case (Some(false), _, _)                          => routes.CannotClaimMileageCostsController.onPageLoad()
+        case _                                            => routes.SessionExpiredController.onPageLoad()
+      }
+
+    case None
+      => routes.SessionExpiredController.onPageLoad()
+  }
+
+  private def claimingFuelRouting(userAnswers: UserAnswers) = userAnswers.claimingFuel match {
+    case Some(true) =>
+      userAnswers.claimant match {
+        case Some(You)         => routes.MoreThanFiveJobsController.onPageLoad()
+        case Some(SomeoneElse) => routes.UsePrintAndPostController.onPageLoad()
+        case None              => routes.SessionExpiredController.onPageLoad()
+      }
+
+    case Some(false) =>
+      (userAnswers.useOwnCar, userAnswers.claimingMileage, userAnswers.claimant) match {
+        case (Some(false), _, _)                         => routes.CannotClaimMileageFuelCostsController.onPageLoad()
+        case (Some(true), Some(false), _)                => routes.CannotClaimMileageFuelCostsController.onPageLoad()
+        case (Some(true), Some(true), Some(You))         => routes.MoreThanFiveJobsController.onPageLoad()
+        case (Some(true), Some(true), Some(SomeoneElse)) => routes.UsePrintAndPostController.onPageLoad()
+        case _                                           => routes.SessionExpiredController.onPageLoad()
+      }
+
+    case None =>
+      routes.SessionExpiredController.onPageLoad()
+  }
+
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
     ClaimantId                          -> (_ => routes.TaxYearsController.onPageLoad()),
     TaxYearsId                          -> taxYearsRouting,
@@ -101,7 +139,9 @@ class Navigator @Inject()() {
     EmployerPaidBackExpensesId          -> employerPaidBackExpensesRouting,
     ClaimingForId                       -> claimingForRouting,
     ClaimingMileageId                   -> (_ => routes.UseCompanyCarController.onPageLoad()),
-    UseOwnCarId                         -> useOwnCarRouting
+    UseOwnCarId                         -> useOwnCarRouting,
+    UseCompanyCarId                     -> useCompanyCarRouting,
+    ClaimingFuelId                      -> claimingFuelRouting
   )
 
   def nextPage(id: Identifier): UserAnswers => Call =
