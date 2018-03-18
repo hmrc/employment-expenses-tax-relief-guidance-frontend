@@ -68,3 +68,5 @@ POST       /useOwnCar                       controllers.UseOwnCarController.onSu
 GET        /cannotClaimMileageCosts                       controllers.CannotClaimMileageCostsController.onPageLoad()
 
 GET        /cannotClaimMileageFuelCosts                       controllers.CannotClaimMileageFuelCostsController.onPageLoad()
+
+GET        /cannotClaimBuyingEquipment                       controllers.CannotClaimBuyingEquipmentController.onPageLoad()

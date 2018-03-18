@@ -214,3 +214,6 @@ cannotClaimMileageFuelCosts.someoneElse.guidance = They can only claim:
 cannotClaimMileageFuelCosts.someoneElse.bullet1 = Mileage Allowance Relief for using their own car
 cannotClaimMileageFuelCosts.someoneElse.bullet2 = fuel or electricity for their company car
 cannotClaimMileageFuelCosts.link.label = Read tax relief for employees
+
+cannotClaimBuyingEquipment.title = cannotClaimBuyingEquipment
+cannotClaimBuyingEquipment.heading = cannotClaimBuyingEquipment
