@@ -76,10 +76,11 @@ class Navigator @Inject()() {
 
   private def claimingForRouting(userAnswers: UserAnswers) =
     (userAnswers.claimingFor, userAnswers.claimant) match {
-      case (Some(List(ClaimingFor.MileageFuel)), Some(_)) => routes.UseOwnCarController.onPageLoad()
-      case (Some(_), Some(You))                           => routes.MoreThanFiveJobsController.onPageLoad()
-      case (Some(_), Some(SomeoneElse))                   => routes.UsePrintAndPostController.onPageLoad()
-      case _                                              => routes.SessionExpiredController.onPageLoad()
+      case (Some(List(ClaimingFor.MileageFuel)), Some(_))     => routes.UseOwnCarController.onPageLoad()
+      case (Some(List(ClaimingFor.BuyingEquipment)), Some(_)) => routes.CannotClaimBuyingEquipmentController.onPageLoad()
+      case (Some(_), Some(You))                               => routes.MoreThanFiveJobsController.onPageLoad()
+      case (Some(_), Some(SomeoneElse))                       => routes.UsePrintAndPostController.onPageLoad()
+      case _                                                  => routes.SessionExpiredController.onPageLoad()
     }
 
   private def useOwnCarRouting(userAnswers: UserAnswers) = userAnswers.useOwnCar match {

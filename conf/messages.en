@@ -215,5 +215,10 @@ cannotClaimMileageFuelCosts.someoneElse.bullet1 = Mileage Allowance Relief for u
 cannotClaimMileageFuelCosts.someoneElse.bullet2 = fuel or electricity for their company car
 cannotClaimMileageFuelCosts.link.label = Read tax relief for employees
 
-cannotClaimBuyingEquipment.title = cannotClaimBuyingEquipment
-cannotClaimBuyingEquipment.heading = cannotClaimBuyingEquipment
+cannotClaimBuyingEquipment.you.title = You cannot claim tax relief for these expenses
+cannotClaimBuyingEquipment.you.heading = You cannot claim tax relief for these expenses
+cannotClaimBuyingEquipment.you.guidance = You may be able to get an
+cannotClaimBuyingEquipment.someoneElse.title = They cannot claim tax relief for these expenses
+cannotClaimBuyingEquipment.someoneElse.heading = They cannot claim tax relief for these expenses
+cannotClaimBuyingEquipment.someoneElse.guidance = They may be able to get an
+cannotClaimBuyingEquipment.link.label = annual investment allowance

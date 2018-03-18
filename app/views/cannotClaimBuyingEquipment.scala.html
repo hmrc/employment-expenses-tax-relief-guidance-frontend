@@ -16,12 +16,20 @@
 
 @import config.FrontendAppConfig
 
-@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("cannotClaimBuyingEquipment.title"),
+    title = messages(s"cannotClaimBuyingEquipment.$claimant.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @components.heading("cannotClaimBuyingEquipment.heading")
+    @components.heading(s"cannotClaimBuyingEquipment.$claimant.heading")
+
+    <p>
+        @messages(s"cannotClaimBuyingEquipment.$claimant.guidance")
+
+        <a href="https://www.gov.uk/capital-allowances/annual-investment-allowance">
+            @messages("cannotClaimBuyingEquipment.link.label")
+        </a>
+    </p>
 }

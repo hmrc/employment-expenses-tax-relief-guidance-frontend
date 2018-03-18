@@ -16,16 +16,17 @@
 
 package views
 
+import models.Claimant.You
 import views.behaviours.ViewBehaviours
 import views.html.cannotClaimBuyingEquipment
 
 class CannotClaimBuyingEquipmentViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "cannotClaimBuyingEquipment"
+  val messageKeyPrefix = "cannotClaimBuyingEquipment.you"
 
-  def createView = () => cannotClaimBuyingEquipment(frontendAppConfig)(fakeRequest, messages)
+  def createView = () => cannotClaimBuyingEquipment(frontendAppConfig, You)(fakeRequest, messages)
 
   "CannotClaimBuyingEquipment view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView, messageKeyPrefix, "guidance")
   }
 }

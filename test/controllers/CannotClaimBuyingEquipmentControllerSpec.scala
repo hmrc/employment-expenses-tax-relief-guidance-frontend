@@ -17,15 +17,17 @@
 package controllers
 
 import controllers.actions._
+import models.Claimant.You
 import play.api.test.Helpers._
 import views.html.cannotClaimBuyingEquipment
 
 class CannotClaimBuyingEquipmentControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new CannotClaimBuyingEquipmentController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl)
+  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(You)) =
+    new CannotClaimBuyingEquipmentController(frontendAppConfig, messagesApi, dataRetrievalAction,
+      new DataRequiredActionImpl, new GetClaimantActionImpl)
 
-  def viewAsString() = cannotClaimBuyingEquipment(frontendAppConfig)(fakeRequest, messages).toString
+  def viewAsString() = cannotClaimBuyingEquipment(frontendAppConfig, You)(fakeRequest, messages).toString
 
   "CannotClaimBuyingEquipment Controller" must {
 

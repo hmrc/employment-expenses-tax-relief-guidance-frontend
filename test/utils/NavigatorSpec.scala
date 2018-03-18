@@ -24,6 +24,7 @@ import identifiers._
 import models.{Claimant, ClaimingFor, HowManyYearsWasTaxPaid}
 import models.Claimant.{SomeoneElse, You}
 import models.ClaimYears._
+import models.ClaimingFor.BuyingEquipment
 
 class NavigatorSpec extends SpecBase with MockitoSugar {
 
@@ -202,7 +203,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
       "answering anything other than MileageFuel from the ClaimingFor view and the claimant is someone else" in {
         val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.BuyingEquipment)))
+        when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.FeesSubscriptions)))
         when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
 
         navigator.nextPage(ClaimingForId)(mockAnswers) mustBe
@@ -289,7 +290,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
     "go to the MoreThanFiveJobs view" when {
       "answering anything other than MileageFuel from the ClaimingFor view and the claimant is You" in {
         val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.BuyingEquipment)))
+        when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.FeesSubscriptions)))
         when(mockAnswers.claimant).thenReturn(Some(You))
 
         navigator.nextPage(ClaimingForId)(mockAnswers) mustBe
@@ -432,6 +433,17 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
         navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
           routes.CannotClaimMileageFuelCostsController.onPageLoad()
+      }
+    }
+
+    "go to the CannotClaimBuyingEquipment view" when {
+      "choosing only BuyingEquipment from the ClaimingFor view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimant).thenReturn(Some(You))
+        when(mockAnswers.claimingFor).thenReturn(Some(List(BuyingEquipment)))
+
+        navigator.nextPage(ClaimingForId)(mockAnswers) mustBe
+          routes.CannotClaimBuyingEquipmentController.onPageLoad()
       }
     }
   }
