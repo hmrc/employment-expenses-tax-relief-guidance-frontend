@@ -50,23 +50,23 @@ GET        /did-not-pay-tax-in-year                     controllers.NotEntitledC
 
 GET        /claim-years-paid-tax                        controllers.NotEntitledSomeYearsController.onPageLoad()
 
-GET        /claimingFor               controllers.ClaimingForController.onPageLoad()
-POST       /claimingFor               controllers.ClaimingForController.onSubmit()
+GET        /what-claiming-for                           controllers.ClaimingForController.onPageLoad()
+POST       /what-claiming-for                           controllers.ClaimingForController.onSubmit()
 
-GET        /claimingFuel                       controllers.ClaimingFuelController.onPageLoad()
-POST       /claimingFuel                       controllers.ClaimingFuelController.onSubmit()
+GET        /claim-fuel-electricity-costs                controllers.ClaimingFuelController.onPageLoad()
+POST       /claim-fuel-electricity-costs                controllers.ClaimingFuelController.onSubmit()
 
-GET        /claimingMileage                       controllers.ClaimingMileageController.onPageLoad()
-POST       /claimingMileage                       controllers.ClaimingMileageController.onSubmit()
+GET        /claim-mileage-allowance-relief              controllers.ClaimingMileageController.onPageLoad()
+POST       /claim-mileage-allowance-relief              controllers.ClaimingMileageController.onSubmit()
 
-GET        /useCompanyCar                       controllers.UseCompanyCarController.onPageLoad()
-POST       /useCompanyCar                       controllers.UseCompanyCarController.onSubmit()
+GET        /car-owned-leased-employer                   controllers.UseCompanyCarController.onPageLoad()
+POST       /car-owned-leased-employer                   controllers.UseCompanyCarController.onSubmit()
 
-GET        /useOwnCar                       controllers.UseOwnCarController.onPageLoad()
-POST       /useOwnCar                       controllers.UseOwnCarController.onSubmit()
+GET        /car-bought-leased-own-money                 controllers.UseOwnCarController.onPageLoad()
+POST       /car-bought-leased-own-money                 controllers.UseOwnCarController.onSubmit()
 
-GET        /cannotClaimMileageCosts                       controllers.CannotClaimMileageCostsController.onPageLoad()
+GET        /cannot-claim-mileage-costs                  controllers.CannotClaimMileageCostsController.onPageLoad()
 
-GET        /cannotClaimMileageFuelCosts                       controllers.CannotClaimMileageFuelCostsController.onPageLoad()
+GET        /cannot-claim-mileage-fuel-electricity-costs controllers.CannotClaimMileageFuelCostsController.onPageLoad()
 
-GET        /cannotClaimBuyingEquipment                       controllers.CannotClaimBuyingEquipmentController.onPageLoad()
+GET        /cannot-claim-buying-other-equipment         controllers.CannotClaimBuyingEquipmentController.onPageLoad()
