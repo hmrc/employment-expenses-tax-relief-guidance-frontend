@@ -23,5 +23,7 @@ class $className$ViewSpec extends QuestionViewBehaviours[$className$] {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithTextFields(createViewUsingForm, messageKeyPrefix, routes.$className$Controller.onSubmit().url, "field1", "field2")
+
+    behave like pageWithBackLink(createView)
   }
 }
