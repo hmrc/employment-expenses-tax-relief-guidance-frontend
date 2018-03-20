@@ -40,5 +40,7 @@ class ClaimingFuelViewSpec extends YesNoViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix, "guidance", "bullet1", "bullet2")
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.ClaimingFuelController.onSubmit().url)
+
+    behave like pageWithBackLink(createView)
   }
 }
