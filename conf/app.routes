@@ -49,3 +49,24 @@ POST       /pay-tax-in-year                             controllers.PaidTaxInRel
 GET        /did-not-pay-tax-in-year                     controllers.NotEntitledController.onPageLoad()
 
 GET        /claim-years-paid-tax                        controllers.NotEntitledSomeYearsController.onPageLoad()
+
+GET        /what-claiming-for                           controllers.ClaimingForController.onPageLoad()
+POST       /what-claiming-for                           controllers.ClaimingForController.onSubmit()
+
+GET        /claim-fuel-electricity-costs                controllers.ClaimingFuelController.onPageLoad()
+POST       /claim-fuel-electricity-costs                controllers.ClaimingFuelController.onSubmit()
+
+GET        /claim-mileage-allowance-relief              controllers.ClaimingMileageController.onPageLoad()
+POST       /claim-mileage-allowance-relief              controllers.ClaimingMileageController.onSubmit()
+
+GET        /car-owned-leased-employer                   controllers.UseCompanyCarController.onPageLoad()
+POST       /car-owned-leased-employer                   controllers.UseCompanyCarController.onSubmit()
+
+GET        /car-bought-leased-own-money                 controllers.UseOwnCarController.onPageLoad()
+POST       /car-bought-leased-own-money                 controllers.UseOwnCarController.onSubmit()
+
+GET        /cannot-claim-mileage-costs                  controllers.CannotClaimMileageCostsController.onPageLoad()
+
+GET        /cannot-claim-mileage-fuel-electricity-costs controllers.CannotClaimMileageFuelCostsController.onPageLoad()
+
+GET        /cannot-claim-buying-other-equipment         controllers.CannotClaimBuyingEquipmentController.onPageLoad()

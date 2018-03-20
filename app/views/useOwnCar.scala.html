@@ -15,15 +15,28 @@
  *@
 
 @import config.FrontendAppConfig
+@import uk.gov.hmrc.play.views.html._
+@import controllers.routes._
 
-@(appConfig: FrontendAppConfig, claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages(s"notEntitledSomeYears.$claimant.title"),
+    title = messages(s"useOwnCar.$claimant.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
-    @components.heading(s"notEntitledSomeYears.$claimant.heading")
+    @helpers.form(action = UseOwnCarController.onSubmit(), 'autoComplete -> "off") {
 
-    @components.button_link(s"notEntitledSomeYears.$claimant.link.label", nextPage.url, Some("claim"))
+        @components.error_summary(form.errors)
+
+        @components.heading(s"useOwnCar.$claimant.heading")
+
+        @components.input_yes_no(
+            field = form("value"),
+            label = messages(s"useOwnCar.$claimant.heading"),
+            labelClass = Some("visually-hidden")
+        )
+
+        @components.submit_button()
+    }
 }

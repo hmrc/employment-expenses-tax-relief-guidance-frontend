@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2018 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,18 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import config.FrontendAppConfig
+package identifiers
 
-@(appConfig: FrontendAppConfig, claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
-
-@main_template(
-    title = messages(s"notEntitledSomeYears.$claimant.title"),
-    appConfig = appConfig,
-    bodyClasses = None) {
-
-    @components.heading(s"notEntitledSomeYears.$claimant.heading")
-
-    @components.button_link(s"notEntitledSomeYears.$claimant.link.label", nextPage.url, Some("claim"))
+case object ClaimingForId extends Identifier {
+  override def toString: String = "claimingFor"
 }

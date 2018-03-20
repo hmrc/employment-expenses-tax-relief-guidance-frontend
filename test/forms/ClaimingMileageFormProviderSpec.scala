@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2018 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,18 +12,34 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import config.FrontendAppConfig
+package forms
 
-@(appConfig: FrontendAppConfig, claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
+import forms.behaviours.BooleanFieldBehaviours
+import models.Claimant.You
+import play.api.data.FormError
 
-@main_template(
-    title = messages(s"notEntitledSomeYears.$claimant.title"),
-    appConfig = appConfig,
-    bodyClasses = None) {
+class ClaimingMileageFormProviderSpec extends BooleanFieldBehaviours {
 
-    @components.heading(s"notEntitledSomeYears.$claimant.heading")
+  val requiredKey = "claimingMileage.you.error.required"
 
-    @components.button_link(s"notEntitledSomeYears.$claimant.link.label", nextPage.url, Some("claim"))
+  val form = new ClaimingMileageFormProvider()(You)
+
+  ".value" must {
+
+    val fieldName = "value"
+
+    behave like booleanField(
+      form,
+      fieldName,
+      invalidError = FormError(fieldName, requiredKey)
+    )
+
+    behave like mandatoryField(
+      form,
+      fieldName,
+      requiredError = FormError(fieldName, requiredKey)
+    )
+  }
 }

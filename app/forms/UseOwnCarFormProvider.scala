@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2018 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,18 +12,20 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import config.FrontendAppConfig
+package forms
 
-@(appConfig: FrontendAppConfig, claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
+import javax.inject.Inject
 
-@main_template(
-    title = messages(s"notEntitledSomeYears.$claimant.title"),
-    appConfig = appConfig,
-    bodyClasses = None) {
+import forms.mappings.Mappings
+import models.Claimant
+import play.api.data.Form
 
-    @components.heading(s"notEntitledSomeYears.$claimant.heading")
+class UseOwnCarFormProvider @Inject() extends Mappings {
 
-    @components.button_link(s"notEntitledSomeYears.$claimant.link.label", nextPage.url, Some("claim"))
+  def apply(claimant: Claimant): Form[Boolean] =
+    Form(
+      "value" -> boolean(s"useOwnCar.$claimant.error.required")
+    )
 }

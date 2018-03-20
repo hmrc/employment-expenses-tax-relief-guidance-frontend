@@ -21,10 +21,10 @@ import org.mockito.Mockito._
 import org.scalatest.mockito.MockitoSugar
 import controllers.routes
 import identifiers._
-import models.Claimant
+import models.{Claimant, ClaimingFor, HowManyYearsWasTaxPaid}
 import models.Claimant.{SomeoneElse, You}
-import models.HowManyYearsWasTaxPaid
 import models.ClaimYears._
+import models.ClaimingFor.BuyingEquipment
 
 class NavigatorSpec extends SpecBase with MockitoSugar {
 
@@ -193,15 +193,6 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
     }
 
     "go to the UsePrintAndPost view" when {
-      "answering No from the EmployerPaidBackExpenses view and the claimant is someone else" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.employerPaidBackExpenses).thenReturn(Some(false))
-        when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
-
-        navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
-          routes.UsePrintAndPostController.onPageLoad()
-      }
-
       "answering Yes from the MoreThanFiveJobs view" in {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.moreThanFiveJobs).thenReturn(Some(true))
@@ -209,16 +200,58 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         navigator.nextPage(MoreThanFiveJobsId)(mockAnswers) mustBe
           routes.UsePrintAndPostController.onPageLoad()
       }
-    }
 
-    "go to MoreThanFiveJobs view" when {
-      "answering No from the EmployerPaidBackExpenses view and the claimant is you" in {
+      "answering anything other than MileageFuel from the ClaimingFor view and the claimant is someone else" in {
         val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.employerPaidBackExpenses).thenReturn(Some(false))
-        when(mockAnswers.claimant).thenReturn(Some(You))
+        when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.FeesSubscriptions)))
+        when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
 
-        navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
-          routes.MoreThanFiveJobsController.onPageLoad()
+        navigator.nextPage(ClaimingForId)(mockAnswers) mustBe
+          routes.UsePrintAndPostController.onPageLoad()
+      }
+
+      "answering MileageFuel and another option from the ClaimingFor view and the claimant is someone else" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor)
+          .thenReturn(Some(List(
+            ClaimingFor.MileageFuel,
+            ClaimingFor.BuyingEquipment))
+          )
+        when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
+
+        navigator.nextPage(ClaimingForId)(mockAnswers) mustBe
+          routes.UsePrintAndPostController.onPageLoad()
+      }
+
+      "answering No to UseCompanyCar, having answered Yes to ClaimingMileage, when the claimant is someone else" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.useOwnCar).thenReturn(Some(true))
+        when(mockAnswers.useCompanyCar).thenReturn(Some(false))
+        when(mockAnswers.claimingMileage).thenReturn(Some(true))
+        when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
+
+        navigator.nextPage(UseCompanyCarId)(mockAnswers) mustBe
+          routes.UsePrintAndPostController.onPageLoad()
+      }
+
+      "answering Yes to ClaimingFuel when the claimant is someone else" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFuel).thenReturn(Some(true))
+        when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
+
+        navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
+          routes.UsePrintAndPostController.onPageLoad()
+      }
+
+      "answering No to ClaimingFuel, having previously answered Yes to ClaimingMileage when the claiming is someone else" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.useOwnCar).thenReturn(Some(true))
+        when(mockAnswers.claimingFuel).thenReturn(Some(false))
+        when(mockAnswers.claimingMileage).thenReturn(Some(true))
+        when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
+
+        navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
+          routes.UsePrintAndPostController.onPageLoad()
       }
     }
 
@@ -240,6 +273,177 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
         navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
           routes.CannotClaimReliefController.onPageLoad()
+      }
+    }
+
+    "go to the ClaimingFor view" when {
+      "answering No from the EmployerPaidBackExpenses view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.employerPaidBackExpenses).thenReturn(Some(false))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
+          routes.ClaimingForController.onPageLoad()
+      }
+    }
+
+    "go to the MoreThanFiveJobs view" when {
+      "answering anything other than MileageFuel from the ClaimingFor view and the claimant is You" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.FeesSubscriptions)))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(ClaimingForId)(mockAnswers) mustBe
+          routes.MoreThanFiveJobsController.onPageLoad()
+      }
+
+      "answering MileageFuel and another option from the ClaimingFor view and the claimant is You" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor)
+          .thenReturn(Some(List(
+            ClaimingFor.MileageFuel,
+            ClaimingFor.BuyingEquipment))
+          )
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(ClaimingForId)(mockAnswers) mustBe
+          routes.MoreThanFiveJobsController.onPageLoad()
+      }
+
+      "answering No to useCompanyCar, having answered Yes to ClaimingMileage, when the claimant is You" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.useCompanyCar).thenReturn(Some(false))
+        when(mockAnswers.useOwnCar).thenReturn(Some(true))
+        when(mockAnswers.claimingMileage).thenReturn(Some(true))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(UseCompanyCarId)(mockAnswers) mustBe
+          routes.MoreThanFiveJobsController.onPageLoad()
+      }
+
+      "answering Yes to ClaimingFuel when the claimant is You" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFuel).thenReturn(Some(true))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
+          routes.MoreThanFiveJobsController.onPageLoad()
+      }
+
+      "answering No to ClaimingFuel, having previously answered Yes to ClaimingMileage, when the claimant is You" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.useOwnCar).thenReturn(Some(true))
+        when(mockAnswers.claimingMileage).thenReturn(Some(true))
+        when(mockAnswers.claimingFuel).thenReturn(Some(false))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
+          routes.MoreThanFiveJobsController.onPageLoad()
+      }
+    }
+
+    "go to the UseOwnCar view" when {
+      "answering MileageFuel form the ClaimingFor view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.MileageFuel)))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(ClaimingForId)(mockAnswers) mustBe
+          routes.UseOwnCarController.onPageLoad()
+      }
+    }
+
+
+    "go to the ClaimingMileage view" when {
+      "answering Yes from the UseOwnCar view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.useOwnCar).thenReturn(Some(true))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(UseOwnCarId)(mockAnswers) mustBe
+          routes.ClaimingMileageController.onPageLoad()
+      }
+    }
+
+    "go to the UseCompanyCar view" when {
+      "answering No from the UseOwnCar view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.useOwnCar).thenReturn(Some(false))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(UseOwnCarId)(mockAnswers) mustBe
+          routes.UseCompanyCarController.onPageLoad()
+      }
+
+      "navigating from the ClaimingMileage view" in {
+        navigator.nextPage(ClaimingMileageId)(mock[UserAnswers]) mustBe
+          routes.UseCompanyCarController.onPageLoad()
+      }
+    }
+
+    "go to the CannotClaimMileage view" when {
+      "answering No to UseCompanyCar and having previously answered No to UseOwnCar" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.useOwnCar).thenReturn(Some(false))
+        when(mockAnswers.useCompanyCar).thenReturn(Some(false))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(UseCompanyCarId)(mockAnswers) mustBe
+          routes.CannotClaimMileageCostsController.onPageLoad()
+      }
+
+      "answering No to UseCompanyCar, having previously answered Yes to UseOwnCar and No to ClaimingMileage" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.useOwnCar).thenReturn(Some(true))
+        when(mockAnswers.claimingMileage).thenReturn(Some(false))
+        when(mockAnswers.useCompanyCar).thenReturn(Some(false))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(UseCompanyCarId)(mockAnswers) mustBe
+          routes.CannotClaimMileageCostsController.onPageLoad()
+      }
+    }
+
+    "go to the ClaimingFuel view" when {
+      "answering Yes to UseCompanyCar" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.useCompanyCar).thenReturn(Some(true))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(UseCompanyCarId)(mockAnswers) mustBe
+          routes.ClaimingFuelController.onPageLoad()
+      }
+    }
+
+    "go to the CannotClaimMileageFuelCosts view" when {
+      "answering No to ClaimingFuel, having already answered No to UseOwnCar" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFuel).thenReturn(Some(false))
+        when(mockAnswers.useOwnCar).thenReturn(Some(false))
+
+        navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
+          routes.CannotClaimMileageFuelCostsController.onPageLoad()
+      }
+
+      "answering No to ClaimingFuel, having already answered Yes to UseOwnCar and No to ClaimingMileage" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFuel).thenReturn(Some(false))
+        when(mockAnswers.useOwnCar).thenReturn(Some(true))
+        when(mockAnswers.claimingMileage).thenReturn(Some(false))
+
+        navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
+          routes.CannotClaimMileageFuelCostsController.onPageLoad()
+      }
+    }
+
+    "go to the CannotClaimBuyingEquipment view" when {
+      "choosing only BuyingEquipment from the ClaimingFor view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimant).thenReturn(Some(You))
+        when(mockAnswers.claimingFor).thenReturn(Some(List(BuyingEquipment)))
+
+        navigator.nextPage(ClaimingForId)(mockAnswers) mustBe
+          routes.CannotClaimBuyingEquipmentController.onPageLoad()
       }
     }
   }

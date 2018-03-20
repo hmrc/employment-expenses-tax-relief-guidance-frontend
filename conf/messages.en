@@ -152,3 +152,81 @@ notEntitledSomeYears.you.link.label = Claim for years you paid Income Tax
 notEntitledSomeYears.someoneElse.title = They can claim tax relief for expenses for the years they paid Income Tax
 notEntitledSomeYears.someoneElse.heading = They can claim tax relief for expenses for the years they paid Income Tax
 notEntitledSomeYears.someoneElse.link.label = Claim for years they paid Income Tax
+
+claimingFor.you.title = What are you claiming for?
+claimingFor.you.heading = What are you claiming for?
+claimingFor.you.error.required = Select what you are claiming for
+claimingFor.someoneElse.title = What are they claiming for?
+claimingFor.someoneElse.heading = What are they claiming for?
+claimingFor.someoneElse.error.required = Select what they are claiming for
+claimingFor.uniformsClothingTools = Uniforms, work clothing and tools
+claimingFor.mileageFuel = Business mileage, fuel and electricity costs
+claimingFor.travelExpenses =Travel and overnight expenses
+claimingFor.feesSubscriptions = Professional fees and subscriptions
+claimingFor.homeWorking = Working from home
+claimingFor.buyingEquipment = Buying other equipment
+
+claimingFuel.you.title = Do you want to claim money you spent on fuel or electricity costs for your company car?
+claimingFuel.you.heading = Do you want to claim money you spent on fuel or electricity costs for your company car?
+claimingFuel.you.guidance = You cannot claim for:
+claimingFuel.you.bullet1 = money you spent to get to and from your normal place of work
+claimingFuel.you.bullet2 = mileage allowance for things like MOTs, tyres and general wear and tear
+claimingFuel.you.error.required = Select yes if you want to claim money you spent on fuel or electricity costs for your company car
+claimingFuel.someoneElse.title = Do they want to claim money they spent on fuel or electricity costs for their company car?
+claimingFuel.someoneElse.heading = Do they want to claim money they spent on fuel or electricity costs for their company car?
+claimingFuel.someoneElse.guidance = They cannot claim for:
+claimingFuel.someoneElse.bullet1 = money they spent to get to and from their normal place of work
+claimingFuel.someoneElse.bullet2 = mileage allowance for things like MOTs, tyres and general wear and tear
+claimingFuel.someoneElse.error.required = Select yes if they want to claim money they spent on fuel or electricity costs for their company car
+
+claimingMileage.you.title = Do you want to claim Mileage Allowance Relief for using this car for work?
+claimingMileage.you.heading = Do you want to claim Mileage Allowance Relief for using this car for work?
+claimingMileage.you.guidance = You cannot claim for money you spent to get to and from your normal place of work.
+claimingMileage.you.error.required = Select yes if you want to claim Mileage Allowance Relief for using this car for work
+claimingMileage.someoneElse.title = Do they want to claim Mileage Allowance Relief for using this car for work?
+claimingMileage.someoneElse.heading = Do they want to claim Mileage Allowance Relief for using this car for work?
+claimingMileage.someoneElse.guidance = They cannot claim for money they spent to get to and from their normal place of work.
+claimingMileage.someoneElse.error.required = Select yes if they want to claim Mileage Allowance Relief for using this car for work
+
+useCompanyCar.you.title = Do you have a car that is owned or leased by your employer?
+useCompanyCar.you.heading = Do you have a car that is owned or leased by your employer?
+useCompanyCar.you.error.required = Select yes if you have a car that is owned or leased by your employer
+useCompanyCar.someoneElse.title = Do they have a car that is owned or leased by their employer?
+useCompanyCar.someoneElse.heading = Do they have a car that is owned or leased by their employer?
+useCompanyCar.someoneElse.error.required = Select they if you have a car that is owned or leased by their employer
+useCompanyCar.guidance = This is known as a company car.
+
+useOwnCar.you.title = Do you use a car for work that you bought or leased with your own money?
+useOwnCar.you.heading = Do you use a car for work that you bought or leased with your own money?
+useOwnCar.you.error.required = Select yes if you use a car for work that you bought or leased with your own money
+useOwnCar.someoneElse.title = Do they use a car for work that they bought or leased with your their money?
+useOwnCar.someoneElse.heading = Do they use a car for work that they bought or leased with your their money?
+useOwnCar.someoneElse.error.required = Select they if you use a car for work that they bought or leased with their own money
+
+cannotClaimMileageCosts.you.title = You cannot claim tax relief for these expenses
+cannotClaimMileageCosts.you.heading = You cannot claim tax relief for these expenses
+cannotClaimMileageCosts.you.guidance = You can only claim Mileage Allowance relief for using your own car for work.
+cannotClaimMileageCosts.someoneElse.title = They cannot claim tax relief for these expenses
+cannotClaimMileageCosts.someoneElse.heading = They cannot claim tax relief for these expenses
+cannotClaimMileageCosts.someoneElse.guidance = They can only claim Mileage Allowance relief for using their own car for work.
+cannotClaimMileageCosts.link.label = Read tax relief for employees
+
+cannotClaimMileageFuelCosts.you.title = You cannot claim tax relief on these expenses
+cannotClaimMileageFuelCosts.you.heading = You cannot claim tax relief on these expenses
+cannotClaimMileageFuelCosts.you.guidance = You can only claim:
+cannotClaimMileageFuelCosts.you.bullet1 = Mileage Allowance Relief for using your own car
+cannotClaimMileageFuelCosts.you.bullet2 = fuel or electricity for your company car
+cannotClaimMileageFuelCosts.someoneElse.title = They cannot claim tax relief on these expenses
+cannotClaimMileageFuelCosts.someoneElse.heading = They cannot claim tax relief on these expenses
+cannotClaimMileageFuelCosts.someoneElse.guidance = They can only claim:
+cannotClaimMileageFuelCosts.someoneElse.bullet1 = Mileage Allowance Relief for using their own car
+cannotClaimMileageFuelCosts.someoneElse.bullet2 = fuel or electricity for their company car
+cannotClaimMileageFuelCosts.link.label = Read tax relief for employees
+
+cannotClaimBuyingEquipment.you.title = You cannot claim tax relief for these expenses
+cannotClaimBuyingEquipment.you.heading = You cannot claim tax relief for these expenses
+cannotClaimBuyingEquipment.you.guidance = You may be able to get an
+cannotClaimBuyingEquipment.someoneElse.title = They cannot claim tax relief for these expenses
+cannotClaimBuyingEquipment.someoneElse.heading = They cannot claim tax relief for these expenses
+cannotClaimBuyingEquipment.someoneElse.guidance = They may be able to get an
+cannotClaimBuyingEquipment.link.label = annual investment allowance
