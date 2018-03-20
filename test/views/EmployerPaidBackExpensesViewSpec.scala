@@ -40,5 +40,7 @@ class EmployerPaidBackExpensesViewSpec extends YesNoViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.EmployerPaidBackExpensesController.onSubmit().url)
+
+    behave like pageWithBackLink(createView)
   }
 }

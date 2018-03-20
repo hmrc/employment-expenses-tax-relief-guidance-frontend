@@ -33,5 +33,7 @@ class NotEntitledSomeYearsViewSpec extends ViewBehaviours {
 
   "NotEntitledSomeYears view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    behave like pageWithBackLink(createView)
   }
 }

@@ -28,5 +28,7 @@ class UseSelfAssessmentViewSpec extends ViewBehaviours {
 
   "UseSelfAssessment view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    behave like pageWithBackLink(createView)
   }
 }

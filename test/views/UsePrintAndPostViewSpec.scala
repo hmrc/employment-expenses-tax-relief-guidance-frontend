@@ -27,5 +27,7 @@ class UsePrintAndPostViewSpec extends ViewBehaviours {
 
   "UsePrintAndPost view" must {
     behave like normalPage(createView, messageKeyPrefix, "guidance")
+
+    behave like pageWithBackLink(createView)
   }
 }

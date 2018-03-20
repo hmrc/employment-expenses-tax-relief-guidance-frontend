@@ -26,5 +26,7 @@ class IndexViewSpec extends ViewBehaviours {
   "Index view" must {
 
     behave like normalPage(view, "index", "guidance")
+
+    behave like pageWithBackLink(view)
   }
 }

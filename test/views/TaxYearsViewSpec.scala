@@ -37,6 +37,8 @@ class TaxYearsViewSpec extends ViewBehaviours {
 
   "TaxYears view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    behave like pageWithBackLink(createView)
   }
 
   "TaxYears view" when {

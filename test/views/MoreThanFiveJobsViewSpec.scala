@@ -37,5 +37,7 @@ class MoreThanFiveJobsViewSpec extends YesNoViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.MoreThanFiveJobsController.onSubmit().url)
+
+    behave like pageWithBackLink(createView)
   }
 }
