@@ -40,5 +40,7 @@ class ClaimingMileageViewSpec extends YesNoViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.ClaimingMileageController.onSubmit().url)
+
+    behave like pageWithBackLink(createView)
   }
 }
