@@ -28,5 +28,6 @@ class CannotClaimMileageCostsViewSpec extends ViewBehaviours {
 
   "CannotClaimMileageCosts view" must {
     behave like normalPage(createView, messageKeyPrefix)
+    behave like pageWithBackLink(createView)
   }
 }
