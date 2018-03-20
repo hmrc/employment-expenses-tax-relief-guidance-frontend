@@ -34,6 +34,7 @@ class ClaimantViewSpec extends ViewBehaviours {
 
   "Claimant view" must {
     behave like normalPage(createView, messageKeyPrefix)
+    behave like pageWithBackLink(createView)
   }
 
   "Claimant view" when {
