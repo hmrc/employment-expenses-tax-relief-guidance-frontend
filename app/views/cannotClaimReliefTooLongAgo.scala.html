@@ -20,15 +20,13 @@
 @(appConfig: FrontendAppConfig, claimant: Claimant, guidanceArg: String)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages(s"cannotClaimReliefTooLongAgo.$claimant.title"),
+    title = messages(s"cannotClaimReliefTooLongAgo.$claimant.title", guidanceArg),
     appConfig = appConfig,
     bodyClasses = None) {
 
     @back_link()
 
-    @components.heading(s"cannotClaimReliefTooLongAgo.$claimant.heading")
-
-    <p>@messages(s"cannotClaimReliefTooLongAgo.$claimant.guidance", guidanceArg)</p>
+    @components.heading(messages(s"cannotClaimReliefTooLongAgo.$claimant.heading", guidanceArg))
 
     <a href="https://www.gov.uk/tax-relief-for-employees">@messages("cannotClaimReliefTooLongAgo.link.label")</a>
 }
