@@ -67,5 +67,7 @@ class PaidTaxInRelevantYearViewSpec extends YesNoViewBehaviours {
       routes.PaidTaxInRelevantYearController.onSubmit().url,
       startYear,
       finishYear)
+
+    behave like pageWithBackLink(createView)
   }
 }

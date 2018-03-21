@@ -37,6 +37,8 @@ class HowManyYearsWasTaxPaidViewSpec extends ViewBehaviours {
 
   "HowManyYearsWasTaxPaid view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    behave like pageWithBackLink(createView)
   }
 
   "HowManyYearsWasTaxPaid view" when {

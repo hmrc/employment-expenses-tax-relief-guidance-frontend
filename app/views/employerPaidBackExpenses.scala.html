@@ -17,6 +17,7 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
 @import controllers.routes._
+@import components.back_link
 
 @(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
@@ -24,6 +25,8 @@
     title = messages(s"employerPaidBackExpenses.$claimant.title"),
     appConfig = appConfig,
     bodyClasses = None) {
+
+    @back_link()
 
     @helpers.form(action = EmployerPaidBackExpensesController.onSubmit(), 'autoComplete -> "off") {
 

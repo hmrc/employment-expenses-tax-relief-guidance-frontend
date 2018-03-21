@@ -40,6 +40,9 @@ class ClaimingForViewSpec extends ViewBehaviours {
   }
 
   "ClaimingFor view" when {
+
+    behave like pageWithBackLink(createView)
+
     "rendered" must {
       "contain checkboxes for each option" in {
         val doc = asDocument(createViewUsingForm(form))

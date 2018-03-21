@@ -27,5 +27,7 @@ class ClaimOnlineViewSpec extends ViewBehaviours {
 
   "ClaimOnline view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    behave like pageWithBackLink(createView)
   }
 }

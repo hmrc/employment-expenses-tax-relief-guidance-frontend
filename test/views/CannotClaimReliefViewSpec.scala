@@ -30,5 +30,6 @@ class CannotClaimReliefViewSpec extends ViewBehaviours {
 
   "CannotClaimRelief view" must {
     behave like normalPage(createView, messageKeyPrefix, "guidance")
+    behave like pageWithBackLink(createView)
   }
 }

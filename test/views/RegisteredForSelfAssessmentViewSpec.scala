@@ -39,5 +39,7 @@ class RegisteredForSelfAssessmentViewSpec extends YesNoViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.RegisteredForSelfAssessmentController.onSubmit().url)
+
+    behave like pageWithBackLink(createView)
   }
 }

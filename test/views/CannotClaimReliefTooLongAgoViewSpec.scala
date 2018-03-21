@@ -33,6 +33,9 @@ class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
   def createView = () => cannotClaimReliefTooLongAgo(frontendAppConfig, claimant, startYear)(fakeRequest, messages)
 
   "CannotClaimReliefTooLongAgo view" must {
+
+    behave like pageWithBackLink(createView)
+
     "have the correct banner title" in {
       val doc = asDocument(createView())
       val nav = doc.getElementById("proposition-menu")

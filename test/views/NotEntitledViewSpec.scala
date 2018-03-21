@@ -30,5 +30,7 @@ class NotEntitledViewSpec extends ViewBehaviours {
 
   "NotEntitled view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
+    behave like pageWithBackLink(createView)
   }
 }

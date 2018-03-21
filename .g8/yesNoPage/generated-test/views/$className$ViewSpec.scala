@@ -21,5 +21,7 @@ class $className$ViewSpec extends YesNoViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.$className$Controller.onSubmit().url)
+
+    behave like pageWithBackLink(createView)
   }
 }

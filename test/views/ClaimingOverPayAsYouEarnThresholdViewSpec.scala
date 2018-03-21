@@ -40,5 +40,7 @@ class ClaimingOverPayAsYouEarnThresholdViewSpec extends YesNoViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.ClaimingOverPayAsYouEarnThresholdController.onSubmit().url)
+
+    behave like pageWithBackLink(createView)
   }
 }

@@ -28,5 +28,6 @@ class CannotClaimBuyingEquipmentViewSpec extends ViewBehaviours {
 
   "CannotClaimBuyingEquipment view" must {
     behave like normalPage(createView, messageKeyPrefix, "guidance")
+    behave like pageWithBackLink(createView)
   }
 }

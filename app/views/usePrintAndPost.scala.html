@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import components.back_link
 
 @(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
 
@@ -22,6 +23,8 @@
     title = messages("usePrintAndPost.title"),
     appConfig = appConfig,
     bodyClasses = None) {
+
+    @back_link()
 
     @components.heading("usePrintAndPost.heading")
 
