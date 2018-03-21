@@ -45,17 +45,12 @@ class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
 
     "display the correct browser title" in {
       val doc = asDocument(createView())
-      assertEqualsMessage(doc, "title", s"$messageKeyPrefix.title")
+      assertEqualsMessage(doc, "title", s"$messageKeyPrefix.title", fourYearsAgo)
     }
 
     "display the correct page title" in {
       val doc = asDocument(createView())
-      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading")
-    }
-
-    "display the correct guidance" in {
-      val doc = asDocument(createView())
-      assertContainsText(doc, messages(s"$messageKeyPrefix.guidance", startYear))
+      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", fourYearsAgo)
     }
   }
 }
