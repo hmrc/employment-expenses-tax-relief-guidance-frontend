@@ -28,9 +28,10 @@ object ClaimingFor {
   case object FeesSubscriptions extends WithName("feesSubscriptions") with ClaimingFor
   case object HomeWorking extends WithName("homeWorking") with ClaimingFor
   case object BuyingEquipment extends WithName("buyingEquipment") with ClaimingFor
+  case object Other extends WithName("other") with ClaimingFor
 
   val values: List[ClaimingFor] = List(
-    UniformsClothingTools, MileageFuel, TravelExpenses, FeesSubscriptions, HomeWorking, BuyingEquipment
+    UniformsClothingTools, MileageFuel, TravelExpenses, FeesSubscriptions, HomeWorking, BuyingEquipment, Other
   )
 
   val options: List[RadioOption] = values.map {
@@ -47,6 +48,7 @@ object ClaimingFor {
     TravelExpenses.toString        -> TravelExpenses,
     FeesSubscriptions.toString     -> FeesSubscriptions,
     HomeWorking.toString           -> HomeWorking,
-    BuyingEquipment.toString       -> BuyingEquipment
+    BuyingEquipment.toString       -> BuyingEquipment,
+    Other.toString                 -> Other
   )
 }
