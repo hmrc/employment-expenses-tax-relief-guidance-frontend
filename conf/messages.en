@@ -14,8 +14,7 @@ error.integer = Give an answer in whole numbers
 error.non_numeric = Give a value using only numbers
 error.number = Please enter a valid number
 error.required = Please enter a value
-error.summary.title = There’s been a problem
-error.summary.text = Check the following
+error.summary.title = There is a problem
 
 index.title = Tax relief for employees
 index.heading = Tax relief for employees
@@ -125,10 +124,10 @@ cannotClaimReliefTooLongAgo.link.label = Read tax relief for employees
 
 howManyYearsWasTaxPaid.you.title = In how many of the years you are claiming did you pay Income Tax?
 howManyYearsWasTaxPaid.you.heading = In how many of the years you are claiming did you pay Income Tax?
-howManyYearsWasTaxPaid.error.required = Select how many of the years you are claiming you paid Income Tax
+howManyYearsWasTaxPaid.you.error.required = Select how many of the years you are claiming you paid Income Tax
 howManyYearsWasTaxPaid.someoneElse.title = In how many of the years they are claiming did they pay Income Tax?
 howManyYearsWasTaxPaid.someoneElse.heading = In how many of the years they are claiming did they pay Income Tax?
-howManyYearsWasTaxPaid.someoneElse.required = Select how many of the years they are claiming they paid Income Tax
+howManyYearsWasTaxPaid.someoneElse.error.required = Select how many of the years they are claiming they paid Income Tax
 howManyYearsWasTaxPaid.all = All
 howManyYearsWasTaxPaid.some = Some
 howManyYearsWasTaxPaid.none = None
