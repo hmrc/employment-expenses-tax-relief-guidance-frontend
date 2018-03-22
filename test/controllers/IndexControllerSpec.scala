@@ -17,19 +17,15 @@
 package controllers
 
 import play.api.test.Helpers._
-import views.html.index
+import utils.Navigator
 
 class IndexControllerSpec extends ControllerSpecBase {
 
   "Index Controller" must {
-    "return 200 for a GET" in {
-      val result = new IndexController(frontendAppConfig, messagesApi).onPageLoad()(fakeRequest)
-      status(result) mustBe OK
-    }
-
-    "return the correct view for a GET" in {
-      val result = new IndexController(frontendAppConfig, messagesApi).onPageLoad()(fakeRequest)
-      contentAsString(result) mustBe index(frontendAppConfig)(fakeRequest, messages).toString
+    "return Moved Permanently (to Claimant) for a GET" in {
+      val result = new IndexController(frontendAppConfig, messagesApi, new Navigator).onPageLoad()(fakeRequest)
+      status(result) mustBe MOVED_PERMANENTLY
+      redirectLocation(result) mustBe Some(routes.ClaimantController.onPageLoad().url)
     }
   }
 }

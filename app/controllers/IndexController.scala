@@ -22,12 +22,13 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import play.api.mvc.{Action, AnyContent}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import config.FrontendAppConfig
-import views.html.index
+import utils.Navigator
 
 class IndexController @Inject()(val appConfig: FrontendAppConfig,
-                                val messagesApi: MessagesApi) extends FrontendController with I18nSupport {
+                                val messagesApi: MessagesApi,
+                                navigator: Navigator) extends FrontendController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = Action { implicit request =>
-    Ok(index(appConfig))
+    MovedPermanently(navigator.firstPage.url)
   }
 }
