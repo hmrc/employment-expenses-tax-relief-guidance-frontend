@@ -20,9 +20,8 @@ index.title = Tax relief for employees
 index.heading = Tax relief for employees
 index.guidance = Welcome to your new frontend. Please see the README file for a guide to getting started.
 
-session_expired.title = For your security, this service has been reset
-session_expired.heading = For your security, this service has been reset
-session_expired.guidance = The details you have given have been deleted because you did not continue the service for 15 minutes.
+session_expired.title = For your security, we deleted your answers
+session_expired.heading = For your security, we deleted your answers
 
 site.back = Back
 site.delete = Remove
@@ -35,11 +34,11 @@ site.save_and_continue = Continue
 site.service_name = Tax relief for employees
 site.textarea.char_limit = (Limit is {0} characters)
 
-claimant.title = Are you claiming expenses for yourself?
-claimant.heading = Are you claiming expenses for yourself?
+claimant.title = Are you claiming tax relief for your own expenses?
+claimant.heading = Are you claiming tax relief for your own expenses?
 claimant.you = Yes
 claimant.someoneElse = No
-claimant.error.required = Select yes if you are claiming expenses for yourself
+claimant.error.required = Select yes if you are claiming tax relief for your own expenses
 
 registeredForSelfAssessment.you.title = Are you registered for Self Assessment?
 registeredForSelfAssessment.you.heading = Are you registered for Self Assessment?
@@ -62,9 +61,9 @@ useSelfAssessment.someoneElse.title = They must use Self Assessment to claim tax
 useSelfAssessment.someoneElse.heading = They must use Self Assessment to claim tax relief for these expenses
 useSelfAssessment.link.label = Find out more about Self Assessment tax returns
 
-moreThanFiveJobs.title = Are you claiming for more than 5 jobs?
-moreThanFiveJobs.heading = Are you claiming for more than 5 jobs?
-moreThanFiveJobs.error.required = Select yes if you are claiming for more than 5 jobs
+moreThanFiveJobs.title = Are you claiming tax relief for more than 5 different jobs?
+moreThanFiveJobs.heading = Are you claiming tax relief for more than 5 different jobs?
+moreThanFiveJobs.error.required = Select yes if you are claiming tax relief for more than 5 different jobs
 
 registerForSelfAssessment.you.title = You must register for Self Assessment
 registerForSelfAssessment.you.heading = You must register for Self Assessment
@@ -99,12 +98,12 @@ employerPaidBackExpenses.someoneElse.title = Has their employer paid back all of
 employerPaidBackExpenses.someoneElse.heading = Has their employer paid back all of their expenses?
 employerPaidBackExpenses.someoneElse.error.required = Select yes if their employer has paid back all of their expenses
 
-taxYears.you.title = What tax years are you claiming for?
-taxYears.you.heading = What tax years are you claiming for?
-taxYears.you.error.required = Select what tax years you are claiming for
-taxYears.someoneElse.title = What tax years are they claiming for?
-taxYears.someoneElse.heading = What tax years are they claiming for?
-taxYears.someoneElse.error.required = Select what tax years they are claiming for
+taxYears.you.title = What tax years are you claiming tax relief for?
+taxYears.you.heading = What tax years are you claiming tax relief for?
+taxYears.you.error.required = Select what tax years you are claiming tax relief for
+taxYears.someoneElse.title = What tax years are they claiming tax relief for?
+taxYears.someoneElse.heading = What tax years are they claiming tax relief for?
+taxYears.someoneElse.error.required = Select what tax years they are claiming tax relief for
 taxYears.specificYear = 6 April {0} to 5 April {1}
 taxYears.anotherYear = An earlier year
 
@@ -122,12 +121,12 @@ cannotClaimReliefTooLongAgo.someoneElse.title = They cannot claim tax relief for
 cannotClaimReliefTooLongAgo.someoneElse.heading = They cannot claim tax relief for these expenses because their claim is for before 6 April {0}
 cannotClaimReliefTooLongAgo.link.label = Read tax relief for employees
 
-howManyYearsWasTaxPaid.you.title = In how many of the years you are claiming did you pay Income Tax?
-howManyYearsWasTaxPaid.you.heading = In how many of the years you are claiming did you pay Income Tax?
-howManyYearsWasTaxPaid.you.error.required = Select how many of the years you are claiming you paid Income Tax
-howManyYearsWasTaxPaid.someoneElse.title = In how many of the years they are claiming did they pay Income Tax?
-howManyYearsWasTaxPaid.someoneElse.heading = In how many of the years they are claiming did they pay Income Tax?
-howManyYearsWasTaxPaid.someoneElse.error.required = Select how many of the years they are claiming they paid Income Tax
+howManyYearsWasTaxPaid.you.title = In how many of the years you are claiming tax relief did you pay Income Tax?
+howManyYearsWasTaxPaid.you.heading = In how many of the years you are claiming tax relief did you pay Income Tax?
+howManyYearsWasTaxPaid.you.error.required = Select how many of the years you are claiming tax relief you paid Income Tax
+howManyYearsWasTaxPaid.someoneElse.title = In how many of the years they are claiming tax relief did they pay Income Tax?
+howManyYearsWasTaxPaid.someoneElse.heading = In how many of the years they are claiming tax relief did they pay Income Tax?
+howManyYearsWasTaxPaid.someoneElse.error.required = Select how many of the years they are claiming tax relief they paid Income Tax
 howManyYearsWasTaxPaid.all = All
 howManyYearsWasTaxPaid.some = Some
 howManyYearsWasTaxPaid.none = None
@@ -152,12 +151,12 @@ notEntitledSomeYears.someoneElse.title = They can claim tax relief for expenses 
 notEntitledSomeYears.someoneElse.heading = They can claim tax relief for expenses for the years they paid Income Tax
 notEntitledSomeYears.someoneElse.link.label = Claim for years they paid Income Tax
 
-claimingFor.you.title = What are you claiming for?
-claimingFor.you.heading = What are you claiming for?
-claimingFor.you.error.required = Select what you are claiming for
-claimingFor.someoneElse.title = What are they claiming for?
-claimingFor.someoneElse.heading = What are they claiming for?
-claimingFor.someoneElse.error.required = Select what they are claiming for
+claimingFor.you.title = What tax relief are you claiming?
+claimingFor.you.heading = What tax relief are you claiming?
+claimingFor.you.error.required = Select what tax relief you are claiming
+claimingFor.someoneElse.title = What tax relief are they claiming?
+claimingFor.someoneElse.heading = What tax relief are they claiming?
+claimingFor.someoneElse.error.required = Select what tax relief they are claiming
 claimingFor.uniformsClothingTools = Uniforms, work clothing and tools
 claimingFor.mileageFuel = Vehicles you use for work
 claimingFor.travelExpenses =Travel and overnight expenses
@@ -188,12 +187,12 @@ claimingMileage.someoneElse.heading = Do they want to claim the approved mileage
 claimingMileage.someoneElse.guidance = They cannot claim for money they spent to get to and from their normal place of work.
 claimingMileage.someoneElse.error.required = Select yes if they want to claim the approved mileage rate for using their vehicle for work
 
-useCompanyCar.you.title = Do you have a vehicle that is owned or leased by your employer?
-useCompanyCar.you.heading = Do you have a vehicle that is owned or leased by your employer?
-useCompanyCar.you.error.required = Select yes if you have a vehicle that is owned or leased by your employer
-useCompanyCar.someoneElse.title = Do they have a vehicle that is owned or leased by their employer?
-useCompanyCar.someoneElse.heading = Do they have a vehicle that is owned or leased by their employer?
-useCompanyCar.someoneElse.error.required = Select they if you have a vehicle that is owned or leased by their employer
+useCompanyCar.you.title = Do you use a vehicle that is owned or leased by your employer?
+useCompanyCar.you.heading = Do you use a vehicle that is owned or leased by your employer?
+useCompanyCar.you.error.required = Select yes if you use a vehicle that is owned or leased by your employer
+useCompanyCar.someoneElse.title = Do they use a vehicle that is owned or leased by their employer?
+useCompanyCar.someoneElse.heading = Do they use a vehicle that is owned or leased by their employer?
+useCompanyCar.someoneElse.error.required = Select they if you use a vehicle that is owned or leased by their employer
 useCompanyCar.guidance = This is known as a company vehicle or company car.
 
 useOwnCar.you.title = Do you use a vehicle for work that you bought or leased with your own money?
@@ -205,22 +204,22 @@ useOwnCar.someoneElse.error.required = Select they if you use a vehicle for work
 
 cannotClaimMileageCosts.you.title = You cannot claim tax relief for these expenses
 cannotClaimMileageCosts.you.heading = You cannot claim tax relief for these expenses
-cannotClaimMileageCosts.you.guidance = You can only claim the approved mileage rate for using your own vehicle for work.
+cannotClaimMileageCosts.you.guidance = You can only claim the approved mileage rate if you use your own vehicle for work.
 cannotClaimMileageCosts.someoneElse.title = They cannot claim tax relief for these expenses
 cannotClaimMileageCosts.someoneElse.heading = They cannot claim tax relief for these expenses
-cannotClaimMileageCosts.someoneElse.guidance = They can only claim the approved mileage rate for using their own vehicle for work.
+cannotClaimMileageCosts.someoneElse.guidance = They can only claim the approved mileage rate if they use their own vehicle for work.
 cannotClaimMileageCosts.link.label = Read tax relief for employees
 
 cannotClaimMileageFuelCosts.you.title = You cannot claim tax relief on these expenses
 cannotClaimMileageFuelCosts.you.heading = You cannot claim tax relief on these expenses
 cannotClaimMileageFuelCosts.you.guidance = You can only claim:
-cannotClaimMileageFuelCosts.you.bullet1 = the approved mileage rate for using your own vehicle
-cannotClaimMileageFuelCosts.you.bullet2 = fuel, including electricity, for your company vehicle
+cannotClaimMileageFuelCosts.you.bullet1 = the approved mileage rate if you use your own vehicle for work
+cannotClaimMileageFuelCosts.you.bullet2 = fuel, including electricity, if you use a company vehicle
 cannotClaimMileageFuelCosts.someoneElse.title = They cannot claim tax relief on these expenses
 cannotClaimMileageFuelCosts.someoneElse.heading = They cannot claim tax relief on these expenses
 cannotClaimMileageFuelCosts.someoneElse.guidance = They can only claim:
-cannotClaimMileageFuelCosts.someoneElse.bullet1 = the approved mileage rate for using their own vehicle
-cannotClaimMileageFuelCosts.someoneElse.bullet2 = fuel, including electricity, for their company vehicle
+cannotClaimMileageFuelCosts.someoneElse.bullet1 = the approved mileage rate if they use their own vehicle for work
+cannotClaimMileageFuelCosts.someoneElse.bullet2 = fuel, including electricity, if they use a company vehicle
 cannotClaimMileageFuelCosts.link.label = Read tax relief for employees
 
 cannotClaimBuyingEquipment.you.title = You cannot claim tax relief for these expenses
