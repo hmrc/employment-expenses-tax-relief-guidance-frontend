@@ -30,6 +30,12 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
   val navigator = new Navigator
 
+  ".firstPage" must {
+    "go to the Claimant page" in {
+      navigator.firstPage mustBe routes.ClaimantController.onPageLoad()
+    }
+  }
+
   "Navigator" must {
     "go to the Index view" when {
       "an identifier that doesn't exist in the route map" in {
