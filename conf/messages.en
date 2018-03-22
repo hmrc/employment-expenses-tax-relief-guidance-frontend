@@ -61,9 +61,9 @@ useSelfAssessment.someoneElse.title = They must use Self Assessment to claim tax
 useSelfAssessment.someoneElse.heading = They must use Self Assessment to claim tax relief for these expenses
 useSelfAssessment.link.label = Find out more about Self Assessment tax returns
 
-moreThanFiveJobs.title = Are you claiming tax relief from more than 5 jobs?
-moreThanFiveJobs.heading = Are you claiming tax relief from more than 5 jobs?
-moreThanFiveJobs.error.required = Select yes if you are claiming tax relief for more than 5 jobs
+moreThanFiveJobs.title = Are you claiming tax relief for more than 5 different jobs?
+moreThanFiveJobs.heading = Are you claiming tax relief for more than 5 different jobs?
+moreThanFiveJobs.error.required = Select yes if you are claiming tax relief for more than 5 different jobs
 
 registerForSelfAssessment.you.title = You must register for Self Assessment
 registerForSelfAssessment.you.heading = You must register for Self Assessment
