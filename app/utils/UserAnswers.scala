@@ -21,6 +21,8 @@ import identifiers._
 import models._
 
 class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
+  def willPayTax: Option[Boolean] = cacheMap.getEntry[Boolean](WillPayTaxId.toString)
+
   def useOwnCar: Option[Boolean] = cacheMap.getEntry[Boolean](UseOwnCarId.toString)
 
   def useCompanyCar: Option[Boolean] = cacheMap.getEntry[Boolean](UseCompanyCarId.toString)

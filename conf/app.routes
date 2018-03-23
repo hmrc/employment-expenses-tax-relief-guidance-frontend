@@ -70,3 +70,8 @@ GET        /cannot-claim-mileage-costs                  controllers.CannotClaimM
 GET        /cannot-claim-mileage-fuel-electricity-costs controllers.CannotClaimMileageFuelCostsController.onPageLoad()
 
 GET        /cannot-claim-buying-other-equipment         controllers.CannotClaimBuyingEquipmentController.onPageLoad()
+
+GET        /willNotPayTax                       controllers.WillNotPayTaxController.onPageLoad()
+
+GET        /willPayTax                       controllers.WillPayTaxController.onPageLoad()
+POST       /willPayTax                       controllers.WillPayTaxController.onSubmit()

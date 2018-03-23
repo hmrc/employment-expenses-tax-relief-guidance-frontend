@@ -230,3 +230,10 @@ cannotClaimBuyingEquipment.someoneElse.title = They cannot claim tax relief for 
 cannotClaimBuyingEquipment.someoneElse.heading = They cannot claim tax relief for these expenses
 cannotClaimBuyingEquipment.someoneElse.guidance = They may be able to get an
 cannotClaimBuyingEquipment.link.label = annual investment allowance
+
+willNotPayTax.title = willNotPayTax
+willNotPayTax.heading = willNotPayTax
+
+willPayTax.title = willPayTax
+willPayTax.heading = willPayTax
+willPayTax.error.required = Please give an answer for willPayTax
