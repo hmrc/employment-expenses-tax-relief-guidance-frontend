@@ -17,6 +17,8 @@
 package forms
 
 import forms.behaviours.BooleanFieldBehaviours
+import models.ClaimYears
+import models.ClaimYears.ThisYear
 import models.Claimant.You
 import play.api.data.FormError
 
@@ -24,7 +26,12 @@ class WillPayTaxFormProviderSpec extends BooleanFieldBehaviours {
 
   val requiredKey = "willPayTax.you.error.required"
 
-  val form = new WillPayTaxFormProvider()(You)
+  val taxYear = ClaimYears.getTaxYear(ThisYear)
+  val startYear = taxYear.startYear.toString
+  val finishYear = taxYear.finishYear.toString
+
+
+  val form = new WillPayTaxFormProvider()(You, startYear, finishYear)
 
   ".value" must {
 
@@ -33,13 +40,13 @@ class WillPayTaxFormProviderSpec extends BooleanFieldBehaviours {
     behave like booleanField(
       form,
       fieldName,
-      invalidError = FormError(fieldName, requiredKey)
+      invalidError = FormError(fieldName, requiredKey, Seq(startYear, finishYear))
     )
 
     behave like mandatoryField(
       form,
       fieldName,
-      requiredError = FormError(fieldName, requiredKey)
+      requiredError = FormError(fieldName, requiredKey, Seq(startYear, finishYear))
     )
   }
 }

@@ -24,8 +24,8 @@ import play.api.data.Form
 
 class WillPayTaxFormProvider @Inject() extends Mappings {
 
-  def apply(claimant: Claimant): Form[Boolean] =
+  def apply(claimant: Claimant, startYear: String, finishYear: String): Form[Boolean] =
     Form(
-      "value" -> boolean(s"willPayTax.$claimant.error.required")
+      "value" -> boolean(s"willPayTax.$claimant.error.required", startYear, finishYear)
     )
 }

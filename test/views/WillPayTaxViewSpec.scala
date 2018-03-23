@@ -19,6 +19,8 @@ package views
 import play.api.data.Form
 import controllers.routes
 import forms.WillPayTaxFormProvider
+import models.ClaimYears
+import models.ClaimYears.ThisYear
 import models.Claimant.You
 import views.behaviours.YesNoViewBehaviours
 import views.html.willPayTax
@@ -27,17 +29,41 @@ class WillPayTaxViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "willPayTax.you"
 
-  val form = new WillPayTaxFormProvider()(You)
+  val taxYear = ClaimYears.getTaxYear(ThisYear)
+  val startYear = taxYear.startYear.toString
+  val finishYear = taxYear.finishYear.toString
 
-  def createView = () => willPayTax(frontendAppConfig, form, You)(fakeRequest, messages)
+  val form = new WillPayTaxFormProvider()(You, startYear, finishYear)
 
-  def createViewUsingForm = (form: Form[_]) => willPayTax(frontendAppConfig, form, You)(fakeRequest, messages)
+  def createView = () => willPayTax(frontendAppConfig, form, You, startYear, finishYear)(fakeRequest, messages)
+
+  def createViewUsingForm = (form: Form[_]) => willPayTax(frontendAppConfig, form, You, startYear, finishYear)(fakeRequest, messages)
 
   "WillPayTax view" must {
 
-    behave like normalPage(createView, messageKeyPrefix)
+    "have the correct banner title" in {
+      val doc = asDocument(createView())
+      val nav = doc.getElementById("proposition-menu")
+      val span = nav.children.first
+      span.text mustBe messagesApi("site.service_name")
+    }
 
-    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.WillPayTaxController.onSubmit().url)
+    "display the correct browser title" in {
+      val doc = asDocument(createView())
+      assertEqualsMessage(doc, "title", s"$messageKeyPrefix.title", startYear, finishYear)
+    }
+
+    "display the correct page title" in {
+      val doc = asDocument(createView())
+      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", startYear, finishYear)
+    }
+
+    behave like yesNoPage(
+      createViewUsingForm,
+      messageKeyPrefix,
+      routes.WillPayTaxController.onSubmit().url,
+      startYear,
+      finishYear)
 
     behave like pageWithBackLink(createView)
   }

@@ -22,6 +22,11 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
+import models.ClaimYears
+import models.ClaimYears.ThisYear
+import models.requests.ClaimantRequest
+import play.api.mvc.{AnyContent, Result}
+import uk.gov.hmrc.time.TaxYear
 import views.html.willNotPayTax
 
 import scala.concurrent.Future
@@ -32,8 +37,23 @@ class WillNotPayTaxController @Inject()(appConfig: FrontendAppConfig,
                                         requireData: DataRequiredAction,
                                         getClaimant: GetClaimantAction) extends FrontendController with I18nSupport {
 
-  def onPageLoad = (getData andThen requireData andThen getClaimant) {
+  def onPageLoad = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
-      Ok(willNotPayTax(appConfig, request.claimant))
+      getDatesForYear {
+        (taxYear) =>
+          Future.successful(Ok(willNotPayTax(appConfig, request.claimant, taxYear.startYear.toString, taxYear.finishYear.toString)))
+      }
+  }
+
+  private def getDatesForYear(block: TaxYear => Future[Result])
+                             (implicit request: ClaimantRequest[AnyContent]): Future[Result] = {
+
+    request.userAnswers.taxYears match {
+
+      case Some(list) if list.contains(ThisYear) =>
+        block(ClaimYears.getTaxYear(ThisYear))
+      case _ =>
+        Future.successful(Redirect(routes.SessionExpiredController.onPageLoad()))
+    }
   }
 }
