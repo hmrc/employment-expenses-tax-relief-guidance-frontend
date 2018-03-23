@@ -22,17 +22,20 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
+import identifiers.WillNotPayTaxId
 import models.ClaimYears
 import models.ClaimYears.ThisYear
 import models.requests.ClaimantRequest
 import play.api.mvc.{AnyContent, Result}
 import uk.gov.hmrc.time.TaxYear
+import utils.Navigator
 import views.html.willNotPayTax
 
 import scala.concurrent.Future
 
 class WillNotPayTaxController @Inject()(appConfig: FrontendAppConfig,
                                         override val messagesApi: MessagesApi,
+                                        navigator: Navigator,
                                         getData: DataRetrievalAction,
                                         requireData: DataRequiredAction,
                                         getClaimant: GetClaimantAction) extends FrontendController with I18nSupport {
@@ -41,7 +44,11 @@ class WillNotPayTaxController @Inject()(appConfig: FrontendAppConfig,
     implicit request =>
       getDatesForYear {
         (taxYear) =>
-          Future.successful(Ok(willNotPayTax(appConfig, request.claimant, taxYear.startYear.toString, taxYear.finishYear.toString)))
+          val nextPage = navigator.nextPage(WillNotPayTaxId)(request.userAnswers)
+
+          Future.successful(
+            Ok(
+              willNotPayTax(appConfig, request.claimant, taxYear.startYear.toString, taxYear.finishYear.toString, nextPage)))
       }
   }
 

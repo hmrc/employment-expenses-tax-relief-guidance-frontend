@@ -19,16 +19,19 @@ package controllers
 import controllers.actions._
 import identifiers.{ClaimantId, TaxYearsId}
 import models.ClaimYears
-import models.ClaimYears.{LastYear, ThisYear, TwoYearsAgo}
+import models.ClaimYears.{LastYear, ThisYear}
 import models.Claimant.You
 import play.api.libs.json.{JsArray, JsString}
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.FakeNavigator
 import views.html.willNotPayTax
 
 class WillNotPayTaxControllerSpec extends ControllerSpecBase {
 
   val claimant = You
+
+  def onwardRoute = routes.IndexController.onPageLoad()
 
   val taxYear = ClaimYears.getTaxYear(ThisYear)
   val startYear = taxYear.startYear.toString
@@ -46,12 +49,11 @@ class WillNotPayTaxControllerSpec extends ControllerSpecBase {
     )
   )
 
-
   def controller(dataRetrievalAction: DataRetrievalAction = getValidPrecursorData) =
-    new WillNotPayTaxController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl,
+    new WillNotPayTaxController(frontendAppConfig, messagesApi, new FakeNavigator(onwardRoute), dataRetrievalAction, new DataRequiredActionImpl,
       new GetClaimantActionImpl)
 
-  def viewAsString() = willNotPayTax(frontendAppConfig, claimant, startYear, finishYear)(fakeRequest, messages).toString
+  def viewAsString() = willNotPayTax(frontendAppConfig, claimant, startYear, finishYear, onwardRoute)(fakeRequest, messages).toString
 
   "WillNotPayTax Controller" must {
 

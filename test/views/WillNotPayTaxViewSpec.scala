@@ -16,6 +16,7 @@
 
 package views
 
+import controllers.routes
 import models.ClaimYears
 import models.ClaimYears.ThisYear
 import models.Claimant.You
@@ -26,11 +27,13 @@ class WillNotPayTaxViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "willNotPayTax.you"
 
+  def onwardRoute = routes.IndexController.onPageLoad()
+
   val taxYear = ClaimYears.getTaxYear(ThisYear)
   val startYear = taxYear.startYear.toString
   val finishYear = taxYear.finishYear.toString
 
-  def createView = () => willNotPayTax(frontendAppConfig, You, startYear, finishYear)(fakeRequest, messages)
+  def createView = () => willNotPayTax(frontendAppConfig, You, startYear, finishYear, onwardRoute)(fakeRequest, messages)
 
   "WillNotPayTax view" must {
     behave like normalPage(createView, messageKeyPrefix)

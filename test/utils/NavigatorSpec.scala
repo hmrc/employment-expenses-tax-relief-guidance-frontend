@@ -201,6 +201,13 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         navigator.nextPage(WillPayTaxId)(mockAnswers) mustBe
           routes.RegisteredForSelfAssessmentController.onPageLoad()
       }
+
+      "navigating from the WillNotPayTax view" in {
+        val mockAnswers = mock[UserAnswers]
+
+        navigator.nextPage(WillNotPayTaxId)(mockAnswers) mustBe
+          routes.RegisteredForSelfAssessmentController.onPageLoad()
+      }
     }
 
     "go to the RegisterForSelfAssessment view" when {
@@ -230,6 +237,13 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimingOverPayAsYouEarnThreshold).thenReturn(Some(false))
 
         navigator.nextPage(ClaimingOverPayAsYouEarnThresholdId)(mockAnswers) mustBe
+          routes.EmployerPaidBackExpensesController.onPageLoad()
+      }
+
+      "navigating from the RegisterForSelfAssessment view" in {
+        val mockAnswers = mock[UserAnswers]
+
+        navigator.nextPage(RegisterForSelfAssessmentId)(mockAnswers) mustBe
           routes.EmployerPaidBackExpensesController.onPageLoad()
       }
     }

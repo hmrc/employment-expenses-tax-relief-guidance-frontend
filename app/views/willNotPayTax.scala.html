@@ -17,7 +17,7 @@
 @import config.FrontendAppConfig
 @import components.back_link
 
-@(appConfig: FrontendAppConfig, claimant: Claimant, startYear: String, finishYear: String)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, claimant: Claimant, startYear: String, finishYear: String, nextPage: Call)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages(s"willNotPayTax.$claimant.title"),
@@ -32,7 +32,7 @@
 
     <p>
         @messages(s"willNotPayTax.$claimant.guidance1")
-        <a href="">@messages("willNotPayTax.link.continue.label", startYear, finishYear)</a>
+        <a href="@nextPage.url">@messages("willNotPayTax.link.continue.label", startYear, finishYear)</a>
         @messages(s"willNotPayTax.$claimant.guidance2")
     </p>
 

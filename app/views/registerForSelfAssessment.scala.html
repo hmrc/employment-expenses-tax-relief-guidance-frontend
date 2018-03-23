@@ -17,7 +17,7 @@
 @import config.FrontendAppConfig
 @import components.back_link
 
-@(appConfig: FrontendAppConfig, claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages(s"registerForSelfAssessment.$claimant.title"),
@@ -30,7 +30,7 @@
 
     <p>
         @messages(s"registerForSelfAssessment.$claimant.guidance")
-        <a href="">@messages(s"registerForSelfAssessment.$claimant.link.continue.label")</a>.
+        <a href="@nextPage.url">@messages(s"registerForSelfAssessment.$claimant.link.continue.label")</a>.
     </p>
 
     <p>

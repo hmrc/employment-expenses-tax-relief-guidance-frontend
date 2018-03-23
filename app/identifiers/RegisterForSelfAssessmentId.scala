@@ -14,24 +14,8 @@
  * limitations under the License.
  */
 
-package views
+package identifiers
 
-import controllers.routes
-import models.Claimant
-import views.behaviours.ViewBehaviours
-import views.html.registerForSelfAssessment
-
-class RegisterForSelfAssessmentViewSpec extends ViewBehaviours {
-
-  def onwardRoute = routes.IndexController.onPageLoad()
-
-  val messageKeyPrefix = "registerForSelfAssessment.you"
-
-  def createView = () => registerForSelfAssessment(frontendAppConfig, Claimant.You, onwardRoute)(fakeRequest, messages)
-
-  "RegisterForSelfAssessment view" must {
-    behave like normalPage(createView, messageKeyPrefix)
-
-    behave like pageWithBackLink(createView)
-  }
+case object RegisterForSelfAssessmentId extends Identifier {
+  override def toString: String = "registerForSelfAssessment"
 }

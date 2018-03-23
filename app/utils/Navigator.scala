@@ -148,7 +148,9 @@ class Navigator @Inject()() {
     UseOwnCarId                         -> useOwnCarRouting,
     UseCompanyCarId                     -> useCompanyCarRouting,
     ClaimingFuelId                      -> claimingFuelRouting,
-    WillPayTaxId                        -> willPayTaxRouting
+    WillPayTaxId                        -> willPayTaxRouting,
+    WillNotPayTaxId                     -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
+    RegisterForSelfAssessmentId         -> (_ => routes.EmployerPaidBackExpensesController.onPageLoad())
   )
 
   def nextPage(id: Identifier): UserAnswers => Call =
