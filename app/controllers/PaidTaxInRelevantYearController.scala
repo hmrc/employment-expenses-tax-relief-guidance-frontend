@@ -90,6 +90,8 @@ class PaidTaxInRelevantYearController @Inject()(appConfig: FrontendAppConfig,
 
       case Some(List(year)) if year != AnotherYear =>
         block(ClaimYears.getTaxYear(year))
+      case Some(List(aPreviousYear, AnotherYear)) =>
+        block(ClaimYears.getTaxYear(aPreviousYear))
       case _ =>
         Future.successful(Redirect(routes.SessionExpiredController.onPageLoad()))
     }

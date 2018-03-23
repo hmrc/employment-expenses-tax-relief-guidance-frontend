@@ -132,6 +132,19 @@ class PaidTaxInRelevantYearControllerSpec extends ControllerSpecBase {
       redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
     }
 
+    "return OK for a GET when TaxYears has been answered with AnotherYear and exactly one previous year" in {
+      val validData = Map(
+        PaidTaxInRelevantYearId.toString -> JsBoolean(true),
+        TaxYearsId.toString -> JsArray(Seq(JsString(LastYear.toString), JsString(AnotherYear.toString))),
+        ClaimantId.toString -> JsString(claimant.toString)
+      )
+      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+
+      val result = controller(getRelevantData).onPageLoad()(fakeRequest)
+
+      status(result) mustBe OK
+    }
+
     "redirect to Session Expired when TaxYears has been answered with AnotherYear" in {
       val invalidData = Map(
         PaidTaxInRelevantYearId.toString -> JsBoolean(true),
