@@ -30,7 +30,7 @@ class WillNotPayTaxControllerSpec extends ControllerSpecBase {
 
   val claimant = You
 
-  val taxYear = ClaimYears.getTaxYear(TwoYearsAgo)
+  val taxYear = ClaimYears.getTaxYear(ThisYear)
   val startYear = taxYear.startYear.toString
   val finishYear = taxYear.finishYear.toString
 

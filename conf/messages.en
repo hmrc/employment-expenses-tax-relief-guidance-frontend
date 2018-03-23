@@ -48,13 +48,12 @@ registeredForSelfAssessment.someoneElse.title = Is the person you are claiming f
 registeredForSelfAssessment.someoneElse.heading = Is the person you are claiming for registered for Self Assessment?
 registeredForSelfAssessment.someoneElse.error.required = Select yes if the person you are claiming for is registered for Self Assessment
 
-claimingOverPayAsYouEarnThreshold.you.title = Are you claiming more than £2,500?
-claimingOverPayAsYouEarnThreshold.you.heading = Are you claiming more than £2,500?
-claimingOverPayAsYouEarnThreshold.you.error.required = Select yes if you are claiming more than £2,500
-claimingOverPayAsYouEarnThreshold.someoneElse.title = Are they claiming more than £2,500?
-claimingOverPayAsYouEarnThreshold.someoneElse.heading = Are they claiming more than £2,500?
-claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if they are claiming more than £2,500
-
+claimingOverPayAsYouEarnThreshold.you.title = Are you claiming tax relief on expenses over £2,500 in any tax year?
+claimingOverPayAsYouEarnThreshold.you.heading = Are you claiming tax relief on expenses over £2,500 in any tax year?
+claimingOverPayAsYouEarnThreshold.you.error.required = Select yes if you are claiming tax relief on expenses over £2,500 in any tax year
+claimingOverPayAsYouEarnThreshold.someoneElse.title = Are they claiming tax relief on expenses over £2,500 in any tax year?
+claimingOverPayAsYouEarnThreshold.someoneElse.heading = Are they claiming tax relief on expenses over £2,500 in any tax year?
+claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if they are claiming tax relief on expenses over £2,500 in any tax year
 
 useSelfAssessment.you.title = You must use Self Assessment to claim tax relief for these expenses
 useSelfAssessment.you.heading = You must use Self Assessment to claim tax relief for these expenses
@@ -66,13 +65,15 @@ moreThanFiveJobs.title = Are you claiming tax relief for more than 5 different j
 moreThanFiveJobs.heading = Are you claiming tax relief for more than 5 different jobs?
 moreThanFiveJobs.error.required = Select yes if you are claiming tax relief for more than 5 different jobs
 
-registerForSelfAssessment.you.title = You must register for Self Assessment
-registerForSelfAssessment.you.heading = You must register for Self Assessment
-registerForSelfAssessment.you.guidance = This is because you are claiming tax relief for expenses more than £2,500.
-registerForSelfAssessment.someoneElse.title = They must register for Self Assessment
-registerForSelfAssessment.someoneElse.heading = They must register for Self Assessment
-registerForSelfAssessment.someoneElse.guidance = This is because they are claiming tax relief for expenses more than £2,500.
-registerForSelfAssessment.link.label = Find out how to register for Self Assessment
+registerForSelfAssessment.you.title = You must register for Self Assessment to claim tax relief on expenses over £2,500
+registerForSelfAssessment.you.heading = You must register for Self Assessment to claim tax relief on expenses over £2,500
+registerForSelfAssessment.you.guidance = If there are tax years where your expenses are under £2,500,
+registerForSelfAssessment.you.link.continue.label = check if you can claim tax relief
+registerForSelfAssessment.someoneElse.title = They must register for Self Assessment to claim tax relief on expenses over £2,500
+registerForSelfAssessment.someoneElse.heading = They must register for Self Assessment to claim tax relief on expenses over £2,500
+registerForSelfAssessment.someoneElse.guidance = If there are tax years where their expenses are under £2,500,
+registerForSelfAssessment.someoneElse.link.continue.label = check if they can claim tax relief
+registerForSelfAssessment.link.external.label = Find out how to register for Self Assessment
 
 usePrintAndPost.title = You can claim tax relief for these expenses by post
 usePrintAndPost.heading = You can claim tax relief for these expenses by post
@@ -139,10 +140,10 @@ paidTaxInRelevantYear.someoneElse.title = Did they pay Income Tax between 6 Apri
 paidTaxInRelevantYear.someoneElse.heading = Did they pay Income Tax between 6 April {0} and 5 April {1}?
 paidTaxInRelevantYear.someoneElse.error.required = Select yes if they paid Income Tax between 6 April {0} and 5 April {1}
 
-notEntitled.you.title = You must have paid Income Tax in the year you spent the money to claim tax relief
-notEntitled.you.heading = You must have paid Income Tax in the year you spent the money to claim tax relief
-notEntitled.someoneElse.title = They must have paid Income Tax in the year they spent the money to claim tax relief
-notEntitled.someoneElse.heading = They must have paid Income Tax in the year they spent the money to claim tax relief
+notEntitled.you.title = You must have paid Income Tax in the year you spent the money to get tax relief
+notEntitled.you.heading = You must have paid Income Tax in the year you spent the money to get tax relief
+notEntitled.someoneElse.title = They must have paid Income Tax in the year they spent the money to get tax relief
+notEntitled.someoneElse.heading = They must have paid Income Tax in the year they spent the money to get tax relief
 notEntitled.link.label = Read tax relief for employees
 
 notEntitledSomeYears.you.title = You can claim tax relief for expenses for the years you paid Income Tax
@@ -181,12 +182,17 @@ claimingFuel.someoneElse.error.required = Select yes if they want to claim money
 
 claimingMileage.you.title = Do you want to claim the approved mileage rate for using your vehicle for work?
 claimingMileage.you.heading = Do you want to claim the approved mileage rate for using your vehicle for work?
-claimingMileage.you.guidance = You cannot claim for money you spent to get to and from your normal place of work.
+claimingMileage.you.guidance = You cannot claim for money you spent to get to and from your normal place of work.  The approved mileage rate is for things like:
 claimingMileage.you.error.required = Select yes if you want to claim the approved mileage rate for using your vehicle for work
 claimingMileage.someoneElse.title = Do they want to claim the approved mileage rate for using their vehicle for work?
 claimingMileage.someoneElse.heading = Do they want to claim the approved mileage rate for using their vehicle for work?
-claimingMileage.someoneElse.guidance = They cannot claim for money they spent to get to and from their normal place of work.
+claimingMileage.someoneElse.guidance = They cannot claim for money they spent to get to and from their normal place of work.  The approved mileage rate is for things like:
 claimingMileage.someoneElse.error.required = Select yes if they want to claim the approved mileage rate for using their vehicle for work
+claimingMileage.guidance.bullet1 = fuel
+claimingMileage.guidance.bullet2 = electricity
+claimingMileage.guidance.bullet3 = road tax
+claimingMileage.guidance.bullet4 = MOTs
+claimingMileage.guidance.bullet5 = repairs
 
 useCompanyCar.you.title = Do you use a vehicle that is owned or leased by your employer?
 useCompanyCar.you.heading = Do you use a vehicle that is owned or leased by your employer?
@@ -231,14 +237,20 @@ cannotClaimBuyingEquipment.someoneElse.heading = They cannot claim tax relief fo
 cannotClaimBuyingEquipment.someoneElse.guidance = They may be able to get an
 cannotClaimBuyingEquipment.link.label = annual investment allowance
 
-willNotPayTax.you.title = You cannot claim tax relief for these expenses
-willNotPayTax.you.heading = You cannot claim tax relief for these expenses
-willNotPayTax.someoneElse.title = They cannot claim tax relief for these expenses
-willNotPayTax.someoneElse.heading = They cannot claim tax relief for these expenses
+willNotPayTax.you.title = You must have paid or expect to pay Income Tax in the year you spent the money to get tax relief
+willNotPayTax.you.heading = You must have paid or expect to pay Income Tax in the year you spent the money to get tax relief
+willNotPayTax.you.guidance1 = You can still
+willNotPayTax.you.guidance2 = but you will not get tax relief unless you pay Income Tax.
+willNotPayTax.someoneElse.title = They must have paid or expect to pay Income Tax in the year they spent the money to get tax relief
+willNotPayTax.someoneElse.heading = They must have paid or expect to pay Income Tax in the year they spent the money to get tax relief
+willNotPayTax.someoneElse.guidance1 = They can still
+willNotPayTax.someoneElse.guidance2 = but they will not get tax relief unless they pay Income Tax.
+willNotPayTax.link.continue.label = claim tax relief for 6 April {0} to 5 April {1}
+willNotPayTax.link.external.label = Read tax relief for employees
 
-willPayTax.you.title = Have or will you pay income tax between 6 April {0} and 5 April {1}
-willPayTax.you.heading = Have or will you pay income tax between 6 April {0} and 5 April {1}
-willPayTax.you.error.required = Select yes if you have or will pay income tax between 6 April {0} and 5 April {1}
-willPayTax.someoneElse.title = Have or will they pay income tax between 6 April {0} and 5 April {1}
-willPayTax.someoneElse.heading = Have or will they pay income tax between 6 April {0} and 5 April {1}
-willPayTax.someoneElse.error.required = Select yes if they have or will pay income tax between 6 April {0} and 5 April {1}
+willPayTax.you.title = Have you paid or do you expect to pay Income Tax between 6 April {0} and 5 April {1}
+willPayTax.you.heading = Have you paid or do you expect to pay Income Tax between 6 April {0} and 5 April {1}
+willPayTax.you.error.required = Select yes if you have paid or expect to pay Income Tax between 6 April {0} and 5 April {1}
+willPayTax.someoneElse.title = Have they paid or do they expect to pay Income Tax between 6 April {0} and 5 April {1}
+willPayTax.someoneElse.heading = Have they paid or do they expect to pay Income Tax between 6 April {0} and 5 April {1}
+willPayTax.someoneElse.error.required = Select yes if they have paid or expect to pay Income Tax between 6 April {0} and 5 April {1}

@@ -27,4 +27,13 @@
     @back_link()
 
     @components.heading(s"willNotPayTax.$claimant.heading")
+
+    <p><a href="">@messages("willNotPayTax.link.external.label")</a></p>
+
+    <p>
+        @messages(s"willNotPayTax.$claimant.guidance1")
+        <a href="">@messages("willNotPayTax.link.continue.label", startYear, finishYear)</a>
+        @messages(s"willNotPayTax.$claimant.guidance2")
+    </p>
+
 }
