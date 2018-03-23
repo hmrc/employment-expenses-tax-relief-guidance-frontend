@@ -231,9 +231,14 @@ cannotClaimBuyingEquipment.someoneElse.heading = They cannot claim tax relief fo
 cannotClaimBuyingEquipment.someoneElse.guidance = They may be able to get an
 cannotClaimBuyingEquipment.link.label = annual investment allowance
 
-willNotPayTax.title = willNotPayTax
-willNotPayTax.heading = willNotPayTax
+willNotPayTax.you.title = You cannot claim tax relief for these expenses
+willNotPayTax.you.heading = You cannot claim tax relief for these expenses
+willNotPayTax.someoneElse.title = They cannot claim tax relief for these expenses
+willNotPayTax.someoneElse.heading = They cannot claim tax relief for these expenses
 
-willPayTax.title = willPayTax
-willPayTax.heading = willPayTax
-willPayTax.error.required = Please give an answer for willPayTax
+willPayTax.you.title = Have or will you pay income tax
+willPayTax.you.heading = Have or will you pay income tax
+willPayTax.you.error.required = Select yes if you have or will pay income tax
+willPayTax.someoneElse.title = Have or will they pay income tax
+willPayTax.someoneElse.heading = Have or will they pay income tax
+willPayTax.someoneElse.error.required = Select yes if they have or will pay income tax

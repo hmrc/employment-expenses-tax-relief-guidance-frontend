@@ -17,14 +17,14 @@
 @import config.FrontendAppConfig
 @import components.back_link
 
-@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("willNotPayTax.title"),
+    title = messages(s"willNotPayTax.$claimant.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
     @back_link()
 
-    @components.heading("willNotPayTax.heading")
+    @components.heading(s"willNotPayTax.$claimant.heading")
 }

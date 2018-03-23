@@ -17,15 +17,17 @@
 package controllers
 
 import controllers.actions._
+import models.Claimant.You
 import play.api.test.Helpers._
 import views.html.willNotPayTax
 
 class WillNotPayTaxControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new WillNotPayTaxController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl)
+  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(You)) =
+    new WillNotPayTaxController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl,
+      new GetClaimantActionImpl)
 
-  def viewAsString() = willNotPayTax(frontendAppConfig)(fakeRequest, messages).toString
+  def viewAsString() = willNotPayTax(frontendAppConfig, You)(fakeRequest, messages).toString
 
   "WillNotPayTax Controller" must {
 

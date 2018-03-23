@@ -19,18 +19,19 @@ package views
 import play.api.data.Form
 import controllers.routes
 import forms.WillPayTaxFormProvider
+import models.Claimant.You
 import views.behaviours.YesNoViewBehaviours
 import views.html.willPayTax
 
 class WillPayTaxViewSpec extends YesNoViewBehaviours {
 
-  val messageKeyPrefix = "willPayTax"
+  val messageKeyPrefix = "willPayTax.you"
 
-  val form = new WillPayTaxFormProvider()()
+  val form = new WillPayTaxFormProvider()(You)
 
-  def createView = () => willPayTax(frontendAppConfig, form)(fakeRequest, messages)
+  def createView = () => willPayTax(frontendAppConfig, form, You)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => willPayTax(frontendAppConfig, form)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => willPayTax(frontendAppConfig, form, You)(fakeRequest, messages)
 
   "WillPayTax view" must {
 

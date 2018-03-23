@@ -16,14 +16,15 @@
 
 package views
 
+import models.Claimant.You
 import views.behaviours.ViewBehaviours
 import views.html.willNotPayTax
 
 class WillNotPayTaxViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "willNotPayTax"
+  val messageKeyPrefix = "willNotPayTax.you"
 
-  def createView = () => willNotPayTax(frontendAppConfig)(fakeRequest, messages)
+  def createView = () => willNotPayTax(frontendAppConfig, You)(fakeRequest, messages)
 
   "WillNotPayTax view" must {
     behave like normalPage(createView, messageKeyPrefix)

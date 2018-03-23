@@ -32,29 +32,34 @@ import views.html.willPayTax
 import scala.concurrent.Future
 
 class WillPayTaxController @Inject()(appConfig: FrontendAppConfig,
-                                         override val messagesApi: MessagesApi,
-                                         dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: WillPayTaxFormProvider) extends FrontendController with I18nSupport {
+                                     override val messagesApi: MessagesApi,
+                                     dataCacheConnector: DataCacheConnector,
+                                     navigator: Navigator,
+                                     getData: DataRetrievalAction,
+                                     requireData: DataRequiredAction,
+                                     getClaimant: GetClaimantAction,
+                                     formProvider: WillPayTaxFormProvider) extends FrontendController with I18nSupport {
 
-  val form: Form[Boolean] = formProvider()
-
-  def onPageLoad() = (getData andThen requireData) {
+  def onPageLoad() = (getData andThen requireData andThen getClaimant) {
     implicit request =>
+
+      val form: Form[Boolean] = formProvider(request.claimant)
+
       val preparedForm = request.userAnswers.willPayTax match {
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(willPayTax(appConfig, preparedForm))
+      Ok(willPayTax(appConfig, preparedForm, request.claimant))
   }
 
-  def onSubmit() = (getData andThen requireData).async {
+  def onSubmit() = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
+
+      val form: Form[Boolean] = formProvider(request.claimant)
+
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(willPayTax(appConfig, formWithErrors))),
+          Future.successful(BadRequest(willPayTax(appConfig, formWithErrors, request.claimant))),
         (value) =>
           dataCacheConnector.save[Boolean](request.sessionId, WillPayTaxId.toString, value).map(cacheMap =>
             Redirect(navigator.nextPage(WillPayTaxId)(new UserAnswers(cacheMap))))
