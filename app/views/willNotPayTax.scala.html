@@ -32,7 +32,7 @@
 
     <p>
         @messages(s"willNotPayTax.$claimant.guidance1")
-        <a href="@nextPage.url">@messages("willNotPayTax.link.continue.label", startYear, finishYear)</a>
+        <a href="@nextPage.url" id="continue">@messages("willNotPayTax.link.continue.label", startYear, finishYear)</a>
         @messages(s"willNotPayTax.$claimant.guidance2")
     </p>
 
