@@ -123,16 +123,6 @@ cannotClaimReliefTooLongAgo.someoneElse.title = They cannot claim tax relief for
 cannotClaimReliefTooLongAgo.someoneElse.heading = They cannot claim tax relief for these expenses because their claim is for before 6 April {0}
 cannotClaimReliefTooLongAgo.link.label = Read tax relief for employees
 
-howManyYearsWasTaxPaid.you.title = In how many of the years you are claiming tax relief did you pay Income Tax?
-howManyYearsWasTaxPaid.you.heading = In how many of the years you are claiming tax relief did you pay Income Tax?
-howManyYearsWasTaxPaid.you.error.required = Select how many of the years you are claiming tax relief you paid Income Tax
-howManyYearsWasTaxPaid.someoneElse.title = In how many of the years they are claiming tax relief did they pay Income Tax?
-howManyYearsWasTaxPaid.someoneElse.heading = In how many of the years they are claiming tax relief did they pay Income Tax?
-howManyYearsWasTaxPaid.someoneElse.error.required = Select how many of the years they are claiming tax relief they paid Income Tax
-howManyYearsWasTaxPaid.all = All
-howManyYearsWasTaxPaid.some = Some
-howManyYearsWasTaxPaid.none = None
-
 paidTaxInRelevantYear.you.title = Did you pay Income Tax between 6 April {0} and 5 April {1}?
 paidTaxInRelevantYear.you.heading = Did you pay Income Tax between 6 April {0} and 5 April {1}?
 paidTaxInRelevantYear.you.error.required = Select yes if you paid Income Tax between 6 April {0} and 5 April {1}

@@ -40,9 +40,6 @@ GET        /cannot-claim-for-all-years                  controllers.CannotClaimR
 
 GET        /cannot-claim-too-long-ago                   controllers.CannotClaimReliefTooLongAgoController.onPageLoad()
 
-GET        /how-many-years-paid-tax                     controllers.HowManyYearsWasTaxPaidController.onPageLoad()
-POST       /how-many-years-paid-tax                     controllers.HowManyYearsWasTaxPaidController.onSubmit()
-
 GET        /paid-tax-in-year                            controllers.PaidTaxInRelevantYearController.onPageLoad()
 POST       /paid-tax-in-year                            controllers.PaidTaxInRelevantYearController.onSubmit()
 

@@ -22,7 +22,7 @@ import play.api.mvc.Call
 import controllers.routes
 import identifiers._
 import models.Claimant.{SomeoneElse, You}
-import models.{ClaimingFor, HowManyYearsWasTaxPaid}
+import models.ClaimingFor
 import models.ClaimYears.{AnotherYear, ThisYear}
 
 @Singleton
