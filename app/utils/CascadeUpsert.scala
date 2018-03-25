@@ -25,25 +25,49 @@ import identifiers._
 @Singleton
 class CascadeUpsert {
 
-  val funcMap: Map[String, (JsValue, CacheMap) => CacheMap] =
+  val funcMap: Map[Identifier, (JsValue, CacheMap) => CacheMap] =
     Map()
 
-  def apply[A](key: String, value: A, originalCacheMap: CacheMap)(implicit fmt: Format[A]): CacheMap =
-    funcMap.get(key).fold(store(key, value, originalCacheMap)) { fn => fn(Json.toJson(value), originalCacheMap)}
+  def apply[A](key: Identifier, value: A, originalCacheMap: CacheMap)(implicit fmt: Format[A]): CacheMap =
+    funcMap
+      .get(key)
+      .fold(clearDownstreamIfChanged(key, value, originalCacheMap)) {
+        fn =>
+          fn(Json.toJson(value), originalCacheMap)
+      }
 
-  def addRepeatedValue[A](key: String, value: A, originalCacheMap: CacheMap)(implicit fmt: Format[A]): CacheMap = {
-    val values = originalCacheMap.getEntry[Seq[A]](key).getOrElse(Seq()) :+ value
-    originalCacheMap copy(data = originalCacheMap.data + (key -> Json.toJson(values)))
+  def addRepeatedValue[A](key: Identifier, value: A, originalCacheMap: CacheMap)(implicit fmt: Format[A]): CacheMap = {
+    val values = originalCacheMap.getEntry[Seq[A]](key.toString).getOrElse(Seq()) :+ value
+    originalCacheMap copy(data = originalCacheMap.data + (key.toString -> Json.toJson(values)))
   }
 
-  private def store[A](key:String, value: A, cacheMap: CacheMap)(implicit fmt: Format[A]) =
-    cacheMap copy (data = cacheMap.data + (key -> Json.toJson(value)))
+  private def store[A](key: Identifier, value: A, cacheMap: CacheMap)(implicit fmt: Format[A]) =
+    cacheMap copy (data = cacheMap.data + (key.toString -> Json.toJson(value)))
 
-  private def clearIfFalse[A](key: String, value: A, keysToRemove: Set[String], cacheMap: CacheMap)(implicit fmt: Format[A]): CacheMap = {
-    val mapToStore = value match {
-      case JsBoolean(false) => cacheMap copy (data = cacheMap.data.filterKeys(s => !keysToRemove.contains(s)))
-      case _ => cacheMap
+  private def clearDownstreamIfChanged[A](key: Identifier, value: A, cacheMap: CacheMap)(implicit fmt: Format[A]) = {
+    val mapToStore = if (cacheMap.getEntry[A](key.toString).contains(value)) {
+      cacheMap
+    } else {
+      val keysToRemove = orderedIdentifiers.dropWhile(_ != key)
+
+      cacheMap.copy(data = cacheMap.data.filterKeys(s => !keysToRemove.map(_.toString).contains(s)))
     }
+
     store(key, value, mapToStore)
   }
+
+  lazy val orderedIdentifiers = List(
+    ClaimantId,
+    TaxYearsId,
+    WillPayTaxId,
+    PaidTaxInRelevantYearId,
+    RegisteredForSelfAssessmentId,
+    ClaimingOverPayAsYouEarnThresholdId,
+    EmployerPaidBackExpensesId,
+    ClaimingForId,
+    UseOwnCarId,
+    ClaimingMileageId,
+    UseCompanyCarId,
+    ClaimingFuelId,
+    MoreThanFiveJobsId)
 }

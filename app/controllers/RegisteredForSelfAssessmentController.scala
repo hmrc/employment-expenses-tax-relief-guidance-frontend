@@ -58,7 +58,7 @@ class RegisteredForSelfAssessmentController @Inject()(appConfig: FrontendAppConf
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(registeredForSelfAssessment(appConfig, formWithErrors, request.claimant))),
         (value) =>
-          dataCacheConnector.save[Boolean](request.sessionId, RegisteredForSelfAssessmentId.toString, value).map(cacheMap =>
+          dataCacheConnector.save[Boolean](request.sessionId, RegisteredForSelfAssessmentId, value).map(cacheMap =>
             Redirect(navigator.nextPage(RegisteredForSelfAssessmentId)(new UserAnswers(cacheMap))))
       )
   }

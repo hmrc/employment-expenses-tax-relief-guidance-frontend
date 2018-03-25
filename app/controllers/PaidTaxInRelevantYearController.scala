@@ -76,7 +76,7 @@ class PaidTaxInRelevantYearController @Inject()(appConfig: FrontendAppConfig,
             (formWithErrors: Form[_]) =>
               Future.successful(BadRequest(paidTaxInRelevantYear(appConfig, formWithErrors, request.claimant, startYear, finishYear))),
             (value) =>
-              dataCacheConnector.save[Boolean](request.sessionId, PaidTaxInRelevantYearId.toString, value).map(cacheMap =>
+              dataCacheConnector.save[Boolean](request.sessionId, PaidTaxInRelevantYearId, value).map(cacheMap =>
                 Redirect(navigator.nextPage(PaidTaxInRelevantYearId)(new UserAnswers(cacheMap))))
           )
       }

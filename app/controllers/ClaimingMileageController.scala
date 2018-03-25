@@ -61,7 +61,7 @@ class ClaimingMileageController @Inject()(appConfig: FrontendAppConfig,
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(claimingMileage(appConfig, formWithErrors, request.claimant))),
         (value) =>
-          dataCacheConnector.save[Boolean](request.sessionId, ClaimingMileageId.toString, value).map(cacheMap =>
+          dataCacheConnector.save[Boolean](request.sessionId, ClaimingMileageId, value).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimingMileageId)(new UserAnswers(cacheMap))))
       )
   }

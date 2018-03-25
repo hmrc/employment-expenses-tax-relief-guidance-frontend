@@ -61,7 +61,7 @@ class ClaimingForController @Inject()(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(claimingFor(appConfig, formWithErrors, request.claimant))),
         (value) =>
-          dataCacheConnector.save[Set[ClaimingFor]](request.sessionId, ClaimingForId.toString, value).map(cacheMap =>
+          dataCacheConnector.save[Set[ClaimingFor]](request.sessionId, ClaimingForId, value).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimingForId)(new UserAnswers(cacheMap))))
       )
   }

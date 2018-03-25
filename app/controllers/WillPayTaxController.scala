@@ -75,7 +75,7 @@ class WillPayTaxController @Inject()(appConfig: FrontendAppConfig,
             (formWithErrors: Form[_]) =>
               Future.successful(BadRequest(willPayTax(appConfig, formWithErrors, request.claimant, startYear, finishYear))),
             (value) =>
-              dataCacheConnector.save[Boolean](request.sessionId, WillPayTaxId.toString, value).map(cacheMap =>
+              dataCacheConnector.save[Boolean](request.sessionId, WillPayTaxId, value).map(cacheMap =>
                 Redirect(navigator.nextPage(WillPayTaxId)(new UserAnswers(cacheMap))))
           )
       }
