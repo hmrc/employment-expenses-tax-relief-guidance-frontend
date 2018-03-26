@@ -91,7 +91,7 @@ cannotClaimRelief.you.guidance = This is because your employer has already paid 
 cannotClaimRelief.someoneElse.title = They cannot claim tax relief for these expenses
 cannotClaimRelief.someoneElse.heading = They cannot claim tax relief for these expenses
 cannotClaimRelief.someoneElse.guidance = This is because their employer has already paid back all of their expenses.
-cannotClaimRelief.link.label = Read tax relief for employees
+cannotClaimRelief.link.label = Read claim tax relief for your job expenses
 
 employerPaidBackExpenses.you.title = Has your employer paid back all of your expenses?
 employerPaidBackExpenses.you.heading = Has your employer paid back all of your expenses?
@@ -121,7 +121,7 @@ cannotClaimReliefTooLongAgo.you.title = You cannot claim tax relief for these ex
 cannotClaimReliefTooLongAgo.you.heading = You cannot claim tax relief for these expenses because your claim is for before 6 April {0}
 cannotClaimReliefTooLongAgo.someoneElse.title = They cannot claim tax relief for these expenses because their claim is for before 6 April {0}
 cannotClaimReliefTooLongAgo.someoneElse.heading = They cannot claim tax relief for these expenses because their claim is for before 6 April {0}
-cannotClaimReliefTooLongAgo.link.label = Read tax relief for employees
+cannotClaimReliefTooLongAgo.link.label = Read claim tax relief for your job expenses
 
 paidTaxInRelevantYear.you.title = Did you pay Income Tax between 6 April {0} and 5 April {1}?
 paidTaxInRelevantYear.you.heading = Did you pay Income Tax between 6 April {0} and 5 April {1}?
@@ -130,11 +130,11 @@ paidTaxInRelevantYear.someoneElse.title = Did they pay Income Tax between 6 Apri
 paidTaxInRelevantYear.someoneElse.heading = Did they pay Income Tax between 6 April {0} and 5 April {1}?
 paidTaxInRelevantYear.someoneElse.error.required = Select yes if they paid Income Tax between 6 April {0} and 5 April {1}
 
-notEntitled.you.title = You must have paid Income Tax in the year you spent the money to get tax relief
-notEntitled.you.heading = You must have paid Income Tax in the year you spent the money to get tax relief
-notEntitled.someoneElse.title = They must have paid Income Tax in the year they spent the money to get tax relief
-notEntitled.someoneElse.heading = They must have paid Income Tax in the year they spent the money to get tax relief
-notEntitled.link.label = Read tax relief for employees
+notEntitled.you.title = You must have paid Income Tax in the year you spent the money to claim tax relief
+notEntitled.you.heading = You must have paid Income Tax in the year you spent the money to claim tax relief
+notEntitled.someoneElse.title = They must have paid Income Tax in the year they spent the money to claim tax relief
+notEntitled.someoneElse.heading = They must have paid Income Tax in the year they spent the money to claim tax relief
+notEntitled.link.label = Read claim tax relief for your job expenses
 
 notEntitledSomeYears.you.title = You can claim tax relief for expenses for the years you paid Income Tax
 notEntitledSomeYears.you.heading = You can claim tax relief for expenses for the years you paid Income Tax
@@ -205,7 +205,7 @@ cannotClaimMileageCosts.you.guidance = You can only claim the approved mileage r
 cannotClaimMileageCosts.someoneElse.title = They cannot claim tax relief for these expenses
 cannotClaimMileageCosts.someoneElse.heading = They cannot claim tax relief for these expenses
 cannotClaimMileageCosts.someoneElse.guidance = They can only claim the approved mileage rate if they use their own vehicle for work.
-cannotClaimMileageCosts.link.label = Read tax relief for employees
+cannotClaimMileageCosts.link.label = Read claim tax relief for your job expenses
 
 cannotClaimMileageFuelCosts.you.title = You cannot claim tax relief on these expenses
 cannotClaimMileageFuelCosts.you.heading = You cannot claim tax relief on these expenses
@@ -217,7 +217,7 @@ cannotClaimMileageFuelCosts.someoneElse.heading = They cannot claim tax relief o
 cannotClaimMileageFuelCosts.someoneElse.guidance = They can only claim:
 cannotClaimMileageFuelCosts.someoneElse.bullet1 = the approved mileage rate if they use their own vehicle for work
 cannotClaimMileageFuelCosts.someoneElse.bullet2 = fuel, including electricity, if they use a company vehicle
-cannotClaimMileageFuelCosts.link.label = Read tax relief for employees
+cannotClaimMileageFuelCosts.link.label = Read claim tax relief for your job expenses
 
 cannotClaimBuyingEquipment.you.title = You cannot claim tax relief for these expenses
 cannotClaimBuyingEquipment.you.heading = You cannot claim tax relief for these expenses
