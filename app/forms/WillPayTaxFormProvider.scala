@@ -14,24 +14,18 @@
  * limitations under the License.
  */
 
-package views
+package forms
 
-import controllers.routes
+import javax.inject.Inject
+
+import forms.mappings.Mappings
 import models.Claimant
-import views.behaviours.ViewBehaviours
-import views.html.registerForSelfAssessment
+import play.api.data.Form
 
-class RegisterForSelfAssessmentViewSpec extends ViewBehaviours {
+class WillPayTaxFormProvider @Inject() extends Mappings {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
-
-  val messageKeyPrefix = "registerForSelfAssessment.you"
-
-  def createView = () => registerForSelfAssessment(frontendAppConfig, Claimant.You, onwardRoute)(fakeRequest, messages)
-
-  "RegisterForSelfAssessment view" must {
-    behave like normalPage(createView, messageKeyPrefix)
-
-    behave like pageWithBackLink(createView)
-  }
+  def apply(claimant: Claimant, startYear: String, finishYear: String): Form[Boolean] =
+    Form(
+      "value" -> boolean(s"willPayTax.$claimant.error.required", startYear, finishYear)
+    )
 }

@@ -19,15 +19,18 @@ package controllers
 import controllers.actions._
 import models.Claimant
 import play.api.test.Helpers._
+import utils.FakeNavigator
 import views.html.registerForSelfAssessment
 
 class RegisterForSelfAssessmentControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(Claimant.You)) =
-    new RegisterForSelfAssessmentController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl,
-      new GetClaimantActionImpl)
+  def onwardRoute = routes.IndexController.onPageLoad()
 
-  def viewAsString() = registerForSelfAssessment(frontendAppConfig, Claimant.You)(fakeRequest, messages).toString
+  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(Claimant.You)) =
+    new RegisterForSelfAssessmentController(frontendAppConfig, messagesApi, new FakeNavigator(onwardRoute),
+      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl)
+
+  def viewAsString() = registerForSelfAssessment(frontendAppConfig, Claimant.You, onwardRoute)(fakeRequest, messages).toString
 
   "RegisterForSelfAssessment Controller" must {
 

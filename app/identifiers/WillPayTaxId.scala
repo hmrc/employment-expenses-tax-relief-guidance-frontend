@@ -16,6 +16,6 @@
 
 package identifiers
 
-case object HowManyYearsWasTaxPaidId extends Identifier {
-  override def toString: String = "howManyYearsWasTaxPaid"
+case object WillPayTaxId extends Identifier {
+  override def toString: String = "willPayTax"
 }

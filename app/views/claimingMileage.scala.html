@@ -36,6 +36,15 @@
 
         <p>@messages(s"claimingMileage.$claimant.guidance")</p>
 
+
+        <ul class="list list-bullet">
+            <li>@messages("claimingMileage.guidance.bullet1")</li>
+            <li>@messages("claimingMileage.guidance.bullet2")</li>
+            <li>@messages("claimingMileage.guidance.bullet3")</li>
+            <li>@messages("claimingMileage.guidance.bullet4")</li>
+            <li>@messages("claimingMileage.guidance.bullet5")</li>
+        </ul>
+
         @components.input_yes_no(
             field = form("value"),
             label = messages(s"claimingMileage.$claimant.heading"),

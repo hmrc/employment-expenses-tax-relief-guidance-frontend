@@ -17,19 +17,25 @@
 package views
 
 import controllers.routes
-import models.Claimant
+import models.ClaimYears
+import models.ClaimYears.ThisYear
+import models.Claimant.You
 import views.behaviours.ViewBehaviours
-import views.html.registerForSelfAssessment
+import views.html.willNotPayTax
 
-class RegisterForSelfAssessmentViewSpec extends ViewBehaviours {
+class WillNotPayTaxViewSpec extends ViewBehaviours {
+
+  val messageKeyPrefix = "willNotPayTax.you"
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
-  val messageKeyPrefix = "registerForSelfAssessment.you"
+  val taxYear = ClaimYears.getTaxYear(ThisYear)
+  val startYear = taxYear.startYear.toString
+  val finishYear = taxYear.finishYear.toString
 
-  def createView = () => registerForSelfAssessment(frontendAppConfig, Claimant.You, onwardRoute)(fakeRequest, messages)
+  def createView = () => willNotPayTax(frontendAppConfig, You, startYear, finishYear, onwardRoute)(fakeRequest, messages)
 
-  "RegisterForSelfAssessment view" must {
+  "WillNotPayTax view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithBackLink(createView)
