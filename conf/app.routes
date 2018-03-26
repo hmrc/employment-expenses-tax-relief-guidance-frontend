@@ -40,11 +40,8 @@ GET        /cannot-claim-for-all-years                  controllers.CannotClaimR
 
 GET        /cannot-claim-too-long-ago                   controllers.CannotClaimReliefTooLongAgoController.onPageLoad()
 
-GET        /how-many-years-paid-tax                     controllers.HowManyYearsWasTaxPaidController.onPageLoad()
-POST       /how-many-years-paid-tax                     controllers.HowManyYearsWasTaxPaidController.onSubmit()
-
-GET        /pay-tax-in-year                             controllers.PaidTaxInRelevantYearController.onPageLoad()
-POST       /pay-tax-in-year                             controllers.PaidTaxInRelevantYearController.onSubmit()
+GET        /paid-tax-in-year                            controllers.PaidTaxInRelevantYearController.onPageLoad()
+POST       /paid-tax-in-year                            controllers.PaidTaxInRelevantYearController.onSubmit()
 
 GET        /did-not-pay-tax-in-year                     controllers.NotEntitledController.onPageLoad()
 
@@ -70,3 +67,8 @@ GET        /cannot-claim-mileage-costs                  controllers.CannotClaimM
 GET        /cannot-claim-mileage-fuel-electricity-costs controllers.CannotClaimMileageFuelCostsController.onPageLoad()
 
 GET        /cannot-claim-buying-other-equipment         controllers.CannotClaimBuyingEquipmentController.onPageLoad()
+
+GET        /will-not-pay-tax-in-year                    controllers.WillNotPayTaxController.onPageLoad()
+
+GET        /pay-or-will-pay-tax-in-year                 controllers.WillPayTaxController.onPageLoad()
+POST       /pay-or-will-pay-tax-in-year                 controllers.WillPayTaxController.onSubmit()

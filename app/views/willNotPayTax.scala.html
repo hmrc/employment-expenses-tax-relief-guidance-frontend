@@ -17,23 +17,23 @@
 @import config.FrontendAppConfig
 @import components.back_link
 
-@(appConfig: FrontendAppConfig, claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, claimant: Claimant, startYear: String, finishYear: String, nextPage: Call)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages(s"registerForSelfAssessment.$claimant.title"),
+    title = messages(s"willNotPayTax.$claimant.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
     @back_link()
 
-    @components.heading(s"registerForSelfAssessment.$claimant.heading")
+    @components.heading(s"willNotPayTax.$claimant.heading")
+
+    <p><a href="">@messages("willNotPayTax.link.external.label")</a></p>
 
     <p>
-        @messages(s"registerForSelfAssessment.$claimant.guidance")
-        <a href="@nextPage.url">@messages(s"registerForSelfAssessment.$claimant.link.continue.label")</a>.
+        @messages(s"willNotPayTax.$claimant.guidance1")
+        <a href="@nextPage.url" id="continue">@messages("willNotPayTax.link.continue.label", startYear, finishYear)</a>
+        @messages(s"willNotPayTax.$claimant.guidance2")
     </p>
 
-    <p>
-        <a href="https://www.gov.uk/log-in-file-self-assessment-tax-return">@messages("registerForSelfAssessment.link.external.label")</a>
-    </p>
 }

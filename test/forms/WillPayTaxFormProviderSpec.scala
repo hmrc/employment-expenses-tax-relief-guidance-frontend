@@ -16,32 +16,37 @@
 
 package forms
 
-import forms.behaviours.OptionFieldBehaviours
+import forms.behaviours.BooleanFieldBehaviours
+import models.ClaimYears
+import models.ClaimYears.ThisYear
 import models.Claimant.You
-import models.HowManyYearsWasTaxPaid
 import play.api.data.FormError
 
-class HowManyYearsWasTaxPaidFormProviderSpec extends OptionFieldBehaviours {
+class WillPayTaxFormProviderSpec extends BooleanFieldBehaviours {
 
-  val claimant = You
-  val form = new HowManyYearsWasTaxPaidFormProvider()(claimant)
+  val requiredKey = "willPayTax.you.error.required"
+
+  val taxYear = ClaimYears.getTaxYear(ThisYear)
+  val startYear = taxYear.startYear.toString
+  val finishYear = taxYear.finishYear.toString
+
+
+  val form = new WillPayTaxFormProvider()(You, startYear, finishYear)
 
   ".value" must {
 
     val fieldName = "value"
-    val requiredKey = s"howManyYearsWasTaxPaid.$claimant.error.required"
 
-    behave like optionsField[HowManyYearsWasTaxPaid](
+    behave like booleanField(
       form,
       fieldName,
-      validValues  = HowManyYearsWasTaxPaid.values,
-      invalidError = FormError(fieldName, "error.invalid")
+      invalidError = FormError(fieldName, requiredKey, Seq(startYear, finishYear))
     )
 
     behave like mandatoryField(
       form,
       fieldName,
-      requiredError = FormError(fieldName, requiredKey)
+      requiredError = FormError(fieldName, requiredKey, Seq(startYear, finishYear))
     )
   }
 }

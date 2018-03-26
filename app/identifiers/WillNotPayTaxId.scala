@@ -14,18 +14,8 @@
  * limitations under the License.
  */
 
-package forms
+package identifiers
 
-import javax.inject.Inject
-
-import forms.mappings.Mappings
-import play.api.data.Form
-import models.{Claimant, HowManyYearsWasTaxPaid}
-
-class HowManyYearsWasTaxPaidFormProvider @Inject() extends Mappings {
-
-  def apply(claimant: Claimant): Form[HowManyYearsWasTaxPaid] =
-    Form(
-      "value" -> enumerable[HowManyYearsWasTaxPaid](s"howManyYearsWasTaxPaid.$claimant.error.required")
-    )
+case object WillNotPayTaxId extends Identifier {
+  override def toString: String = "willNotPayTax"
 }
