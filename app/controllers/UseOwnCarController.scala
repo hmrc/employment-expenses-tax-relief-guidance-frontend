@@ -61,7 +61,7 @@ class UseOwnCarController @Inject()(appConfig: FrontendAppConfig,
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(useOwnCar(appConfig, formWithErrors, request.claimant))),
         (value) =>
-          dataCacheConnector.save[Boolean](request.sessionId, UseOwnCarId.toString, value).map(cacheMap =>
+          dataCacheConnector.save[Boolean](request.sessionId, UseOwnCarId, value).map(cacheMap =>
             Redirect(navigator.nextPage(UseOwnCarId)(new UserAnswers(cacheMap))))
       )
   }

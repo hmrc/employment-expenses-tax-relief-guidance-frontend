@@ -61,7 +61,7 @@ class ClaimingFuelController @Inject()(appConfig: FrontendAppConfig,
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(claimingFuel(appConfig, formWithErrors, request.claimant))),
         (value) =>
-          dataCacheConnector.save[Boolean](request.sessionId, ClaimingFuelId.toString, value).map(cacheMap =>
+          dataCacheConnector.save[Boolean](request.sessionId, ClaimingFuelId, value).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimingFuelId)(new UserAnswers(cacheMap))))
       )
   }

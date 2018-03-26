@@ -60,7 +60,7 @@ class EmployerPaidBackExpensesController @Inject()(appConfig: FrontendAppConfig,
           (formWithErrors: Form[_]) =>
             Future.successful(BadRequest(employerPaidBackExpenses(appConfig, formWithErrors, request.claimant))),
           (value) =>
-            dataCacheConnector.save[Boolean](request.sessionId, EmployerPaidBackExpensesId.toString, value).map(cacheMap =>
+            dataCacheConnector.save[Boolean](request.sessionId, EmployerPaidBackExpensesId, value).map(cacheMap =>
               Redirect(navigator.nextPage(EmployerPaidBackExpensesId)(new UserAnswers(cacheMap))))
         )
     }

@@ -60,7 +60,7 @@ class ClaimingOverPayAsYouEarnThresholdController @Inject()(appConfig: FrontendA
           (formWithErrors: Form[_]) =>
             Future.successful(BadRequest(claimingOverPayAsYouEarnThreshold(appConfig, formWithErrors, request.claimant))),
           (value) =>
-            dataCacheConnector.save[Boolean](request.sessionId, ClaimingOverPayAsYouEarnThresholdId.toString, value).map(cacheMap =>
+            dataCacheConnector.save[Boolean](request.sessionId, ClaimingOverPayAsYouEarnThresholdId, value).map(cacheMap =>
               Redirect(navigator.nextPage(ClaimingOverPayAsYouEarnThresholdId)(new UserAnswers(cacheMap))))
         )
     }

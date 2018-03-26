@@ -56,7 +56,7 @@ class MoreThanFiveJobsController @Inject()(appConfig: FrontendAppConfig,
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(moreThanFiveJobs(appConfig, formWithErrors))),
         (value) =>
-          dataCacheConnector.save[Boolean](request.sessionId, MoreThanFiveJobsId.toString, value).map(cacheMap =>
+          dataCacheConnector.save[Boolean](request.sessionId, MoreThanFiveJobsId, value).map(cacheMap =>
             Redirect(navigator.nextPage(MoreThanFiveJobsId)(new UserAnswers(cacheMap))))
       )
   }
