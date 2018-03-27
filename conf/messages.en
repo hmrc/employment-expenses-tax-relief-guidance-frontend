@@ -181,12 +181,18 @@ claimingMileage.guidance.bullet3 = road tax
 claimingMileage.guidance.bullet4 = MOTs
 claimingMileage.guidance.bullet5 = repairs
 
-useCompanyCar.you.title = Do you use a vehicle that is owned or leased by your employer?
-useCompanyCar.you.heading = Do you use a vehicle that is owned or leased by your employer?
-useCompanyCar.you.error.required = Select yes if you use a vehicle that is owned or leased by your employer
-useCompanyCar.someoneElse.title = Do they use a vehicle that is owned or leased by their employer?
-useCompanyCar.someoneElse.heading = Do they use a vehicle that is owned or leased by their employer?
-useCompanyCar.someoneElse.error.required = Select they if you use a vehicle that is owned or leased by their employer
+useCompanyCar.you.usingOwnCar.title = Do you also use a vehicle that is owned or leased by your employer?
+useCompanyCar.you.usingOwnCar.heading = Do you also use a vehicle that is owned or leased by your employer?
+useCompanyCar.you.usingOwnCar.error.required = Select yes if you also use a vehicle that is owned or leased by your employer
+useCompanyCar.someoneElse.usingOwnCar.title = Do they also use a vehicle that is owned or leased by their employer?
+useCompanyCar.someoneElse.usingOwnCar.heading = Do they also use a vehicle that is owned or leased by their employer?
+useCompanyCar.someoneElse.usingOwnCar.error.required = Select they if they also use a vehicle that is owned or leased by their employer
+useCompanyCar.you.notUsingOwnCar.title = Do you use a vehicle that is owned or leased by your employer?
+useCompanyCar.you.notUsingOwnCar.heading = Do you use a vehicle that is owned or leased by your employer?
+useCompanyCar.you.notUsingOwnCar.error.required = Select yes if you use a vehicle that is owned or leased by your employer
+useCompanyCar.someoneElse.notUsingOwnCar.title = Do they use a vehicle that is owned or leased by their employer?
+useCompanyCar.someoneElse.notUsingOwnCar.heading = Do they use a vehicle that is owned or leased by their employer?
+useCompanyCar.someoneElse.notUsingOwnCar.error.required = Select they if they use a vehicle that is owned or leased by their employer
 useCompanyCar.guidance = This is known as a company vehicle or company car.
 
 useOwnCar.you.title = Do you use a vehicle for work that you bought or leased with your own money?
