@@ -195,8 +195,8 @@ useCompanyCar.guidance = This is known as a company vehicle or company car.
 useOwnCar.you.title = Do you use a vehicle for work that you bought or leased with your own money?
 useOwnCar.you.heading = Do you use a vehicle for work that you bought or leased with your own money?
 useOwnCar.you.error.required = Select yes if you use a vehicle for work that you bought or leased with your own money
-useOwnCar.someoneElse.title = Do they use a vehicle for work that they bought or leased with your their money?
-useOwnCar.someoneElse.heading = Do they use a vehicle for work that they bought or leased with your their money?
+useOwnCar.someoneElse.title = Do they use a vehicle for work that they bought or leased with their own money?
+useOwnCar.someoneElse.heading = Do they use a vehicle for work that they bought or leased with their own money?
 useOwnCar.someoneElse.error.required = Select they if you use a vehicle for work that they bought or leased with their own money
 
 cannotClaimMileageCosts.you.title = You cannot claim tax relief for these expenses
