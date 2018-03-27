@@ -136,11 +136,11 @@ notEntitled.someoneElse.title = They must have paid Income Tax in the year they 
 notEntitled.someoneElse.heading = They must have paid Income Tax in the year they spent the money to claim tax relief
 notEntitled.link.label = Read claim tax relief for your job expenses
 
-notEntitledSomeYears.you.title = You can claim tax relief for expenses for the years you paid Income Tax
-notEntitledSomeYears.you.heading = You can claim tax relief for expenses for the years you paid Income Tax
+notEntitledSomeYears.you.title = You can get tax relief for expenses for the years you paid Income Tax
+notEntitledSomeYears.you.heading = You can get tax relief for expenses for the years you paid Income Tax
 notEntitledSomeYears.you.link.label = Claim for years you paid Income Tax
-notEntitledSomeYears.someoneElse.title = They can claim tax relief for expenses for the years they paid Income Tax
-notEntitledSomeYears.someoneElse.heading = They can claim tax relief for expenses for the years they paid Income Tax
+notEntitledSomeYears.someoneElse.title = They can get tax relief for expenses for the years they paid Income Tax
+notEntitledSomeYears.someoneElse.heading = They can get tax relief for expenses for the years they paid Income Tax
 notEntitledSomeYears.someoneElse.link.label = Claim for years they paid Income Tax
 
 claimingFor.you.title = What tax relief are you claiming?
