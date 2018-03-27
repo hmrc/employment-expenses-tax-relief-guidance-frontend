@@ -21,6 +21,9 @@ import views.ViewSpecBase
 
 trait ViewBehaviours extends ViewSpecBase {
 
+  protected def getFullTitle(messageKey: String, args: Any*) =
+    messages(messageKey, args: _*) + " – " + messages("site.service_name") + " – " + messages("site.gov.uk")
+
   def normalPage(view: () => HtmlFormat.Appendable,
                  messageKeyPrefix: String,
                  expectedGuidanceKeys: String*) = {
@@ -36,10 +39,11 @@ trait ViewBehaviours extends ViewSpecBase {
 
         "display the correct browser title" in {
           val doc = asDocument(view())
-          assertEqualsMessage(doc, "title", s"$messageKeyPrefix.title")
+          val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title")
+          assertEqualsMessage(doc, "title", expectedFullTitle)
         }
 
-        "display the correct page title" in {
+        "display the correct heading" in {
           val doc = asDocument(view())
           assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading")
         }

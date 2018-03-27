@@ -50,10 +50,11 @@ class WillPayTaxViewSpec extends YesNoViewBehaviours {
 
     "display the correct browser title" in {
       val doc = asDocument(createView())
-      assertEqualsMessage(doc, "title", s"$messageKeyPrefix.title", startYear, finishYear)
+      val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title", startYear, finishYear)
+      assertEqualsMessage(doc, "title", expectedFullTitle)
     }
 
-    "display the correct page title" in {
+    "display the correct heading" in {
       val doc = asDocument(createView())
       assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", startYear, finishYear)
     }

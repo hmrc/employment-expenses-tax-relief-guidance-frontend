@@ -34,8 +34,13 @@
     }
 }
 
+@expandedTitle = @{
+    title + " – " + messages("site.service_name") + " – " + messages("site.gov.uk")
+}
+
+
 @govuk_wrapper(appConfig = appConfig,
-               title = title,
+               title = expandedTitle,
                mainClass = mainClass,
                bodyClasses = bodyClasses,
                sidebar = sidebar,
