@@ -34,6 +34,9 @@
     </p>
 
     <p>
-        <a href="https://www.gov.uk/log-in-file-self-assessment-tax-return">@messages("registerForSelfAssessment.link.external.label")</a>
+        <a href="https://www.gov.uk/log-in-file-self-assessment-tax-return"
+           data-journey-click="link - click:@messages(s"registerForSelfAssessment.$claimant.heading"):@messages("registerForSelfAssessment.link.external.label")">
+            @messages("registerForSelfAssessment.link.external.label")
+        </a>
     </p>
 }

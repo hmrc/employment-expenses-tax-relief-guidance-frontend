@@ -28,5 +28,8 @@
 
     @components.heading(s"notEntitled.$claimant.heading")
 
-    <a href="https://www.gov.uk/tax-relief-for-employees">@messages("notEntitled.link.label")</a>
+    <a href="https://www.gov.uk/tax-relief-for-employees"
+       data-journey-click="link - click:@messages(s"notEntitled.$claimant.heading"):@messages("notEntitled.link.label")">
+        @messages("notEntitled.link.label")
+    </a>
 }

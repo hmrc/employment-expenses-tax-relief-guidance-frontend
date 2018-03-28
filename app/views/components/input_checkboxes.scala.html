@@ -22,7 +22,7 @@
         legend: String,
         legendClass: Option[String] = None,
         hint: Option[String] = None,
-        trackGa: Boolean = false,
+        trackGa: Boolean = true,
         inputs: Seq[RadioOption]
 )(implicit messages: Messages)
 
@@ -45,7 +45,7 @@
                     name="@{field.id}[@index]"
                     value="@{input.value}"
                     @if(field.values.contains(input.value)) { checked }
-                    @if(trackGa){data-journey-click="employment-expenses-tax-relief-guidance-frontend:click:@{input.id}"}
+                    @if(trackGa){data-journey-click="check - select:@legend:@messages(input.messageKey, input.messageArgs:_*)"}
                 >
 
                 <label class="block-label selection-button-radio" for="@{input.id}">
