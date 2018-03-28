@@ -16,10 +16,6 @@ error.number = Please enter a valid number
 error.required = Please enter a value
 error.summary.title = There is a problem
 
-index.title = Tax relief for employees
-index.heading = Tax relief for employees
-index.guidance = Welcome to your new frontend. Please see the README file for a guide to getting started.
-
 session_expired.title = For your security, we deleted your answers
 session_expired.heading = For your security, we deleted your answers
 session_expired.startAgain.link = Start again
@@ -32,8 +28,9 @@ site.hidden-edit = Change {0}
 site.no = No
 site.yes = Yes
 site.save_and_continue = Continue
-site.service_name = Tax relief for employees
+site.service_name = Claim tax relief for your job expenses
 site.textarea.char_limit = (Limit is {0} characters)
+site.gov.uk = GOV.UK
 
 claimant.title = Are you claiming tax relief for your own expenses?
 claimant.heading = Are you claiming tax relief for your own expenses?
