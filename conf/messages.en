@@ -239,7 +239,7 @@ willNotPayTax.someoneElse.heading = They must have paid or expect to pay Income 
 willNotPayTax.someoneElse.guidance1 = They can still
 willNotPayTax.someoneElse.guidance2 = but they will not get tax relief unless they pay Income Tax.
 willNotPayTax.link.continue.label = claim tax relief for 6 April {0} to 5 April {1}
-willNotPayTax.link.external.label = Read tax relief for employees
+willNotPayTax.link.external.label = Read claim tax relief for your job expenses
 
 willPayTax.you.title = Have you paid or do you expect to pay Income Tax between 6 April {0} and 5 April {1}
 willPayTax.you.heading = Have you paid or do you expect to pay Income Tax between 6 April {0} and 5 April {1}

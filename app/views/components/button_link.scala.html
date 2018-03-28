@@ -17,9 +17,14 @@
 @(
 messageKey: String = "",
 href: String,
-id: Option[String] = None
+id: Option[String] = None,
+gaEvent: Option[String] = None
 )(implicit messages: Messages)
 
 <div class="section">
-    <a href="@href" role="button" class="button" @if(id.isDefined){id="@id"}>@messages(messageKey)</a>
+    <a href="@href"
+       role="button"
+       class="button"
+       @if(id.isDefined){id="@id"}
+       @if(gaEvent.isDefined){data-journey-click="@gaEvent"}>@messages(messageKey)</a>
 </div>

@@ -28,5 +28,8 @@
 
     @components.heading(messages(s"cannotClaimReliefTooLongAgo.$claimant.heading", guidanceArg))
 
-    <a href="https://www.gov.uk/tax-relief-for-employees">@messages("cannotClaimReliefTooLongAgo.link.label")</a>
+    <a href="https://www.gov.uk/tax-relief-for-employees"
+       data-journey-click="link - click:@messages(s"cannotClaimReliefTooLongAgo.$claimant.heading", guidanceArg):@messages("cannotClaimReliefTooLongAgo.link.label")">
+        @messages("cannotClaimReliefTooLongAgo.link.label")
+    </a>
 }

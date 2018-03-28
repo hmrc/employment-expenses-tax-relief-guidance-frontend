@@ -32,6 +32,7 @@
 
     @components.button_link(
         "claimOnline.link.label",
-        "https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87#claim-online"
+        "https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87#claim-online",
+        gaEvent = Some("link - click:" + messages(s"claimOnline.heading") + ":" + messages("claimOnline.link.label"))
     )
 }

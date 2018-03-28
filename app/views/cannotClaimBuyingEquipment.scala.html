@@ -31,7 +31,8 @@
     <p>
         @messages(s"cannotClaimBuyingEquipment.$claimant.guidance")
 
-        <a href="https://www.gov.uk/capital-allowances/annual-investment-allowance">
+        <a href="https://www.gov.uk/capital-allowances/annual-investment-allowance"
+           data-journey-click="link - click:@messages(s"cannotClaimBuyingEquipment.$claimant.heading"):@messages("cannotClaimBuyingEquipment.link.label")">
             @messages("cannotClaimBuyingEquipment.link.label")</a>.
     </p>
 }
