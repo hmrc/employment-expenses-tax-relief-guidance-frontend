@@ -18,13 +18,14 @@ package forms
 
 import forms.behaviours.BooleanFieldBehaviours
 import models.Claimant.You
+import models.UsingOwnCar
 import play.api.data.FormError
 
 class UseCompanyCarFormProviderSpec extends BooleanFieldBehaviours {
 
-  val requiredKey = "useCompanyCar.you.error.required"
+  val requiredKey = "useCompanyCar.you.usingOwnCar.error.required"
 
-  val form = new UseCompanyCarFormProvider()(You)
+  val form = new UseCompanyCarFormProvider()(You, UsingOwnCar)
 
   ".value" must {
 

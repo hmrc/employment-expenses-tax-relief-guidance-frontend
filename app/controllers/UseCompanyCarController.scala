@@ -26,6 +26,9 @@ import controllers.actions._
 import config.FrontendAppConfig
 import forms.UseCompanyCarFormProvider
 import identifiers.UseCompanyCarId
+import models.{NotUsingOwnCar, UseOfOwnCar, UsingOwnCar}
+import models.requests.ClaimantRequest
+import play.api.mvc.{AnyContent, Result}
 import utils.{Navigator, UserAnswers}
 import views.html.useCompanyCar
 
@@ -40,29 +43,45 @@ class UseCompanyCarController @Inject()(appConfig: FrontendAppConfig,
                                         getClaimant: GetClaimantAction,
                                         formProvider: UseCompanyCarFormProvider) extends FrontendController with I18nSupport {
 
-  def onPageLoad() = (getData andThen requireData andThen getClaimant) {
+  def onPageLoad() = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
+      getUseOfOwnCar {
+        useOfOwnCar =>
 
-      val form: Form[Boolean] = formProvider(request.claimant)
+          val form: Form[Boolean] = formProvider(request.claimant, useOfOwnCar)
 
-      val preparedForm = request.userAnswers.useCompanyCar match {
-        case None => form
-        case Some(value) => form.fill(value)
+          val preparedForm = request.userAnswers.useCompanyCar match {
+            case None => form
+            case Some(value) => form.fill(value)
+          }
+          Future.successful(Ok(useCompanyCar(appConfig, preparedForm, request.claimant, useOfOwnCar)))
       }
-      Ok(useCompanyCar(appConfig, preparedForm, request.claimant))
   }
 
   def onSubmit() = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
+      getUseOfOwnCar {
+        useOfOwnCar =>
 
-      val form: Form[Boolean] = formProvider(request.claimant)
+          val form: Form[Boolean] = formProvider(request.claimant, useOfOwnCar)
 
-      form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(useCompanyCar(appConfig, formWithErrors, request.claimant))),
-        (value) =>
-          dataCacheConnector.save[Boolean](request.sessionId, UseCompanyCarId, value).map(cacheMap =>
-            Redirect(navigator.nextPage(UseCompanyCarId)(new UserAnswers(cacheMap))))
-      )
+          form.bindFromRequest().fold(
+            (formWithErrors: Form[_]) =>
+              Future.successful(BadRequest(useCompanyCar(appConfig, formWithErrors, request.claimant, useOfOwnCar))),
+            (value) =>
+              dataCacheConnector.save[Boolean](request.sessionId, UseCompanyCarId, value).map(cacheMap =>
+                Redirect(navigator.nextPage(UseCompanyCarId)(new UserAnswers(cacheMap))))
+          )
+      }
+  }
+
+  private def getUseOfOwnCar(block: UseOfOwnCar => Future[Result])
+                            (implicit request: ClaimantRequest[AnyContent]): Future[Result] = {
+
+    request.userAnswers.useOwnCar match {
+      case Some(true)  => block(UsingOwnCar)
+      case Some(false) => block(NotUsingOwnCar)
+      case None        => Future.successful(Redirect(routes.SessionExpiredController.onPageLoad()))
+    }
   }
 }

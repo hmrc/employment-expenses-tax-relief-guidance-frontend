@@ -24,8 +24,9 @@ import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.UseCompanyCarFormProvider
-import identifiers.{ClaimantId, UseCompanyCarId}
+import identifiers.{ClaimantId, UseCompanyCarId, UseOwnCarId}
 import models.Claimant.You
+import models.UsingOwnCar
 import views.html.useCompanyCar
 
 class UseCompanyCarControllerSpec extends ControllerSpecBase {
@@ -33,14 +34,27 @@ class UseCompanyCarControllerSpec extends ControllerSpecBase {
   def onwardRoute = routes.IndexController.onPageLoad()
 
   val claimant = You
+  val useOfOwnCar = UsingOwnCar
   val formProvider = new UseCompanyCarFormProvider()
-  val form = formProvider(claimant)
+  val form = formProvider(claimant, useOfOwnCar)
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
+  val getValidPrecursorData = new FakeDataRetrievalAction(
+    Some(
+      CacheMap(
+        cacheMapId,
+        Map(
+          ClaimantId.toString  -> JsString(claimant.toString),
+          UseOwnCarId.toString -> JsBoolean(true)
+        )
+      )
+    )
+  )
+
+  def controller(dataRetrievalAction: DataRetrievalAction = getValidPrecursorData) =
     new UseCompanyCarController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
       dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, formProvider)
 
-  def viewAsString(form: Form[_] = form) = useCompanyCar(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+  def viewAsString(form: Form[_] = form) = useCompanyCar(frontendAppConfig, form, claimant, useOfOwnCar)(fakeRequest, messages).toString
 
   "UseCompanyCar Controller" must {
 
@@ -53,6 +67,7 @@ class UseCompanyCarControllerSpec extends ControllerSpecBase {
 
     "populate the view correctly on a GET when the question has previously been answered" in {
       val validData = Map(
+        UseOwnCarId.toString -> JsBoolean(true),
         UseCompanyCarId.toString -> JsBoolean(true),
         ClaimantId.toString -> JsString(claimant.toString)
       )

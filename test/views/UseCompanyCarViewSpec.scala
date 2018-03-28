@@ -20,20 +20,22 @@ import play.api.data.Form
 import controllers.routes
 import forms.UseCompanyCarFormProvider
 import models.Claimant.You
+import models.UsingOwnCar
 import views.behaviours.YesNoViewBehaviours
 import views.html.useCompanyCar
 
 class UseCompanyCarViewSpec extends YesNoViewBehaviours {
 
   val claimant = You
+  val useOfOwnCar = UsingOwnCar
 
-  val messageKeyPrefix = s"useCompanyCar.$claimant"
+  val messageKeyPrefix = s"useCompanyCar.$claimant.$useOfOwnCar"
 
-  val form = new UseCompanyCarFormProvider()(claimant)
+  val form = new UseCompanyCarFormProvider()(claimant, useOfOwnCar)
 
-  def createView = () => useCompanyCar(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  def createView = () => useCompanyCar(frontendAppConfig, form, claimant, useOfOwnCar)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => useCompanyCar(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => useCompanyCar(frontendAppConfig, form, claimant, useOfOwnCar)(fakeRequest, messages)
 
   "UseCompanyCar view" must {
 

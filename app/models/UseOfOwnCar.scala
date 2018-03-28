@@ -14,18 +14,10 @@
  * limitations under the License.
  */
 
-package forms
+package models
 
-import javax.inject.Inject
+import utils.WithName
 
-import forms.mappings.Mappings
-import models.{Claimant, UseOfOwnCar}
-import play.api.data.Form
-
-class UseCompanyCarFormProvider @Inject() extends Mappings {
-
-  def apply(claimant: Claimant, useOfOwnCar: UseOfOwnCar): Form[Boolean] =
-    Form(
-      "value" -> boolean(s"useCompanyCar.$claimant.$useOfOwnCar.error.required")
-    )
-}
+sealed trait UseOfOwnCar
+case object UsingOwnCar extends WithName("usingOwnCar") with UseOfOwnCar
+case object NotUsingOwnCar extends WithName("notUsingOwnCar") with UseOfOwnCar
