@@ -72,3 +72,7 @@ GET        /will-not-pay-tax-in-year                    controllers.WillNotPayTa
 
 GET        /pay-or-will-pay-tax-in-year                 controllers.WillPayTaxController.onPageLoad()
 POST       /pay-or-will-pay-tax-in-year                 controllers.WillPayTaxController.onSubmit()
+
+GET        /change-other-expenses                       controllers.ChangeOtherExpensesController.onPageLoad()
+
+GET        /change-uniforms-work-clothing-tools         controllers.ChangeUniformsWorkClothingToolsController.onPageLoad()

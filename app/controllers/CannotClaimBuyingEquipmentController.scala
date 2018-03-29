@@ -22,18 +22,18 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
+import utils.Navigator
 import views.html.cannotClaimBuyingEquipment
-
-import scala.concurrent.Future
 
 class CannotClaimBuyingEquipmentController @Inject()(appConfig: FrontendAppConfig,
                                                      override val messagesApi: MessagesApi,
+                                                     navigator: Navigator,
                                                      getData: DataRetrievalAction,
                                                      requireData: DataRequiredAction,
                                                      getClaimant: GetClaimantAction) extends FrontendController with I18nSupport {
 
   def onPageLoad = (getData andThen requireData andThen getClaimant) {
     implicit request =>
-      Ok(cannotClaimBuyingEquipment(appConfig, request.claimant))
+      Ok(cannotClaimBuyingEquipment(appConfig, request.claimant, navigator.changeOtherExpensesPage, navigator.changeUniformsWorkClothingToolsPage))
   }
 }
