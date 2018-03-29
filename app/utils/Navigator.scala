@@ -140,6 +140,12 @@ class Navigator @Inject()() {
     case None              => routes.SessionExpiredController.onPageLoad()
   }
 
+  private def changeUniformsWorkClothingToolsRouting(userAnswers: UserAnswers) = userAnswers.claimant match {
+    case Some(You)         => routes.MoreThanFiveJobsController.onPageLoad()
+    case Some(SomeoneElse) => routes.UsePrintAndPostController.onPageLoad()
+    case None              => routes.SessionExpiredController.onPageLoad()
+  }
+
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
     ClaimantId                          -> (_ => routes.TaxYearsController.onPageLoad()),
     TaxYearsId                          -> taxYearsRouting,
@@ -158,11 +164,16 @@ class Navigator @Inject()() {
     WillPayTaxId                        -> willPayTaxRouting,
     WillNotPayTaxId                     -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
     RegisterForSelfAssessmentId         -> (_ => routes.EmployerPaidBackExpensesController.onPageLoad()),
-    ChangeOtherExpensesId               -> changeOtherExpensesRouting
+    ChangeOtherExpensesId               -> changeOtherExpensesRouting,
+    ChangeUniformsWorkClothingToolsId   -> changeUniformsWorkClothingToolsRouting
   )
 
   def nextPage(id: Identifier): UserAnswers => Call =
     routeMap.getOrElse(id, _ => routes.IndexController.onPageLoad())
 
   lazy val firstPage: Call = routes.ClaimantController.onPageLoad()
+
+  lazy val changeOtherExpensesPage: Call = routes.ChangeOtherExpensesController.onPageLoad()
+
+  lazy val changeUniformsWorkClothingToolsPage: Call = routes.ChangeUniformsWorkClothingToolsController.onPageLoad()
 }

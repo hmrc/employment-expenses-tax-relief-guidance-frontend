@@ -19,15 +19,19 @@ package controllers
 import controllers.actions._
 import models.Claimant.You
 import play.api.test.Helpers._
+import utils.FakeNavigator
 import views.html.cannotClaimBuyingEquipment
 
 class CannotClaimBuyingEquipmentControllerSpec extends ControllerSpecBase {
 
+  val fakeNavigator = new FakeNavigator()
+
   def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(You)) =
-    new CannotClaimBuyingEquipmentController(frontendAppConfig, messagesApi, dataRetrievalAction,
+    new CannotClaimBuyingEquipmentController(frontendAppConfig, messagesApi, fakeNavigator, dataRetrievalAction,
       new DataRequiredActionImpl, new GetClaimantActionImpl)
 
-  def viewAsString() = cannotClaimBuyingEquipment(frontendAppConfig, You)(fakeRequest, messages).toString
+  def viewAsString() = cannotClaimBuyingEquipment(
+    frontendAppConfig, You, fakeNavigator.changeOtherExpensesPage, fakeNavigator.changeUniformsWorkClothingToolsPage)(fakeRequest, messages).toString
 
   "CannotClaimBuyingEquipment Controller" must {
 

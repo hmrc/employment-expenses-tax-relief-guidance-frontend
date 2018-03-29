@@ -36,6 +36,18 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
     }
   }
 
+  ".changeOtherExpensesPage" must {
+    "go to ChangeOtherExpenses" in {
+      navigator.changeOtherExpensesPage mustBe routes.ChangeOtherExpensesController.onPageLoad()
+    }
+  }
+
+  ".changeUniformsWorkClothingToolsPage" must {
+    "go to ChangeUniformsWorkClothingToolsController" in {
+      navigator.changeUniformsWorkClothingToolsPage mustBe routes.ChangeUniformsWorkClothingToolsController.onPageLoad()
+    }
+  }
+
   "Navigator" must {
     "go to the Index view" when {
       "an identifier that doesn't exist in the route map" in {
@@ -317,6 +329,14 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         navigator.nextPage(ChangeOtherExpensesId)(mockAnswers) mustBe
           routes.UsePrintAndPostController.onPageLoad()
       }
+
+      "using the ChangeUniformsWorkClothingTools route when the claimant is someone else" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
+
+        navigator.nextPage(ChangeUniformsWorkClothingToolsId)(mockAnswers) mustBe
+          routes.UsePrintAndPostController.onPageLoad()
+      }
     }
 
     "go to ClaimOnline view" when {
@@ -410,6 +430,14 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimant).thenReturn(Some(You))
 
         navigator.nextPage(ChangeOtherExpensesId)(mockAnswers) mustBe
+          routes.MoreThanFiveJobsController.onPageLoad()
+      }
+
+      "going via the ChangeUniformsWorkClothingTools route with the claimant is You" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(ChangeUniformsWorkClothingToolsId)(mockAnswers) mustBe
           routes.MoreThanFiveJobsController.onPageLoad()
       }
     }

@@ -19,6 +19,6 @@ package utils
 import play.api.mvc.Call
 import identifiers.Identifier
 
-class FakeNavigator(desiredRoute: Call) extends Navigator {
+class FakeNavigator(desiredRoute: Call = Call("GET", "/")) extends Navigator {
   override def nextPage(controllerId: Identifier): (UserAnswers) => Call = _ => desiredRoute
 }
