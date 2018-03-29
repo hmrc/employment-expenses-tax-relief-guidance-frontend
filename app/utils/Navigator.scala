@@ -127,10 +127,17 @@ class Navigator @Inject()() {
     case Some(_)                                                         => routes.NotEntitledSomeYearsController.onPageLoad()
     case None                                                            => routes.SessionExpiredController.onPageLoad()
   }
+
   private def willPayTaxRouting(userAnswers: UserAnswers) = userAnswers.willPayTax match {
     case Some(true)  => routes.RegisteredForSelfAssessmentController.onPageLoad()
     case Some(false) => routes.WillNotPayTaxController.onPageLoad()
     case None        => routes.SessionExpiredController.onPageLoad()
+  }
+
+  private def changeOtherExpensesRouting(userAnswers: UserAnswers) = userAnswers.claimant match {
+    case Some(You)         => routes.MoreThanFiveJobsController.onPageLoad()
+    case Some(SomeoneElse) => routes.UsePrintAndPostController.onPageLoad()
+    case None              => routes.SessionExpiredController.onPageLoad()
   }
 
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
@@ -150,7 +157,8 @@ class Navigator @Inject()() {
     ClaimingFuelId                      -> claimingFuelRouting,
     WillPayTaxId                        -> willPayTaxRouting,
     WillNotPayTaxId                     -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
-    RegisterForSelfAssessmentId         -> (_ => routes.EmployerPaidBackExpensesController.onPageLoad())
+    RegisterForSelfAssessmentId         -> (_ => routes.EmployerPaidBackExpensesController.onPageLoad()),
+    ChangeOtherExpensesId               -> changeOtherExpensesRouting
   )
 
   def nextPage(id: Identifier): UserAnswers => Call =

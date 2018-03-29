@@ -309,6 +309,14 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
           routes.UsePrintAndPostController.onPageLoad()
       }
+
+      "using the ChangeOtherExpenses route when the claimant is someone else" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
+
+        navigator.nextPage(ChangeOtherExpensesId)(mockAnswers) mustBe
+          routes.UsePrintAndPostController.onPageLoad()
+      }
     }
 
     "go to ClaimOnline view" when {
@@ -394,6 +402,14 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimant).thenReturn(Some(You))
 
         navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
+          routes.MoreThanFiveJobsController.onPageLoad()
+      }
+
+      "going via the ChangeOtherExpenses route with the claimant is You" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(ChangeOtherExpensesId)(mockAnswers) mustBe
           routes.MoreThanFiveJobsController.onPageLoad()
       }
     }
