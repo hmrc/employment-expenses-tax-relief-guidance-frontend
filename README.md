@@ -38,10 +38,6 @@ These steps will open the first page in the service.
 1. Run sbt in interactive mode.
 2. Run `test` to run unit tests
 
-### Journey tests
-
-There is a [separate repository for the service’s browser-driven journey tests](https://github.com/hmrc/employment-expenses-tax-relief-guidance-acceptance-tests). Follow the instructions in that repository’s README to find out how to run them.
-
 ## Licence
 
 This project is licensed under the [Apache 2.0 License](LICENSE).
