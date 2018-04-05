@@ -17,7 +17,7 @@
 @import config.FrontendAppConfig
 @import components.back_link
 
-@(appConfig: FrontendAppConfig, claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, claimant: Claimant, otherExpensesCall: Call, uniformsWorkClothingToolsCall: Call)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages(s"cannotClaimBuyingEquipment.$claimant.title"),
@@ -35,6 +35,17 @@
            data-journey-click="link - click:@messages(s"cannotClaimBuyingEquipment.$claimant.heading"):@messages("cannotClaimBuyingEquipment.link.label")">
             @messages("cannotClaimBuyingEquipment.link.label")</a>.
 
-            @messages(s"cannotClaimBuyingEquipment.$claimant.guidance")
+        @messages(s"cannotClaimBuyingEquipment.$claimant.guidance2")
+    </p>
+
+    <p>
+        @messages("cannotClaimBuyingEquipment.guidance3")
+
+        <a href="@uniformsWorkClothingToolsCall.url">@messages("cannotClaimBuyingEquipment.link.label2")</a>.
+
+        @messages("cannotClaimBuyingEquipment.guidance4")
+
+        <a href="@otherExpensesCall.url">@messages("cannotClaimBuyingEquipment.link.label3")</a>.
+        
     </p>
 }

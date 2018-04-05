@@ -14,11 +14,8 @@
  * limitations under the License.
  */
 
-package utils
+package identifiers
 
-import play.api.mvc.Call
-import identifiers.Identifier
-
-class FakeNavigator(desiredRoute: Call = Call("GET", "/")) extends Navigator {
-  override def nextPage(controllerId: Identifier): (UserAnswers) => Call = _ => desiredRoute
+case object ChangeUniformsWorkClothingToolsId extends Identifier {
+  override def toString: String = "changeUniformsWorkClothingTools"
 }

@@ -17,6 +17,7 @@
 package views
 
 import models.Claimant.You
+import play.api.mvc.Call
 import views.behaviours.ViewBehaviours
 import views.html.cannotClaimBuyingEquipment
 
@@ -24,10 +25,13 @@ class CannotClaimBuyingEquipmentViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "cannotClaimBuyingEquipment.you"
 
-  def createView = () => cannotClaimBuyingEquipment(frontendAppConfig, You)(fakeRequest, messages)
+  val changeOtherExpensesPage = Call("GET", "route1")
+  val changeUniformsWorkClothingToolsPage = Call("GET", "route2")
+
+  def createView = () => cannotClaimBuyingEquipment(frontendAppConfig, You, changeOtherExpensesPage, changeUniformsWorkClothingToolsPage)(fakeRequest, messages)
 
   "CannotClaimBuyingEquipment view" must {
-    behave like normalPage(createView, messageKeyPrefix, "guidance")
+    behave like normalPage(createView, messageKeyPrefix, "guidance", "guidance2")
     behave like pageWithBackLink(createView)
   }
 }
