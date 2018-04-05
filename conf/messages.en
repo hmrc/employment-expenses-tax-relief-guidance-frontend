@@ -45,12 +45,12 @@ registeredForSelfAssessment.someoneElse.title = Is the person you are claiming f
 registeredForSelfAssessment.someoneElse.heading = Is the person you are claiming for registered for Self Assessment?
 registeredForSelfAssessment.someoneElse.error.required = Select yes if the person you are claiming for is registered for Self Assessment
 
-claimingOverPayAsYouEarnThreshold.you.title = Are you claiming tax relief on expenses over £2,500 in any tax year?
-claimingOverPayAsYouEarnThreshold.you.heading = Are you claiming tax relief on expenses over £2,500 in any tax year?
-claimingOverPayAsYouEarnThreshold.you.error.required = Select yes if you are claiming tax relief on expenses over £2,500 in any tax year
-claimingOverPayAsYouEarnThreshold.someoneElse.title = Are they claiming tax relief on expenses over £2,500 in any tax year?
-claimingOverPayAsYouEarnThreshold.someoneElse.heading = Are they claiming tax relief on expenses over £2,500 in any tax year?
-claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if they are claiming tax relief on expenses over £2,500 in any tax year
+claimingOverPayAsYouEarnThreshold.you.title = Are you claiming tax relief on expenses that are £2,500 or more in any tax year?
+claimingOverPayAsYouEarnThreshold.you.heading = Are you claiming tax relief on expenses that are £2,500 or more in any tax year?
+claimingOverPayAsYouEarnThreshold.you.error.required = Select yes if you are claiming tax relief on expenses that are £2,500 or more in any tax year
+claimingOverPayAsYouEarnThreshold.someoneElse.title = Are they claiming tax relief on expenses that are £2,500 or  in any tax year?
+claimingOverPayAsYouEarnThreshold.someoneElse.heading = Are they claiming tax relief on expenses that are £2,500 or more in any tax year?
+claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if they are claiming tax relief on expenses that are £2,500 or more in any tax year
 
 useSelfAssessment.you.title = You must use Self Assessment to claim tax relief for these expenses
 useSelfAssessment.you.heading = You must use Self Assessment to claim tax relief for these expenses
@@ -62,13 +62,13 @@ moreThanFiveJobs.title = Are you claiming tax relief for more than 5 different j
 moreThanFiveJobs.heading = Are you claiming tax relief for more than 5 different jobs?
 moreThanFiveJobs.error.required = Select yes if you are claiming tax relief for more than 5 different jobs
 
-registerForSelfAssessment.you.title = You must register for Self Assessment to claim tax relief on expenses over £2,500
-registerForSelfAssessment.you.heading = You must register for Self Assessment to claim tax relief on expenses over £2,500
-registerForSelfAssessment.you.guidance = If there are tax years where your expenses are under £2,500,
+registerForSelfAssessment.you.title = You must register for Self Assessment to claim tax relief on expenses that are £2,500 or more
+registerForSelfAssessment.you.heading = You must register for Self Assessment to claim tax relief on expenses that are £2,500 or more
+registerForSelfAssessment.you.guidance = If there are tax years where your expenses are less than £2,500,
 registerForSelfAssessment.you.link.continue.label = check if you can claim tax relief
-registerForSelfAssessment.someoneElse.title = They must register for Self Assessment to claim tax relief on expenses over £2,500
-registerForSelfAssessment.someoneElse.heading = They must register for Self Assessment to claim tax relief on expenses over £2,500
-registerForSelfAssessment.someoneElse.guidance = If there are tax years where their expenses are under £2,500,
+registerForSelfAssessment.someoneElse.title = They must register for Self Assessment to claim tax relief on expenses that are £2,500 or more
+registerForSelfAssessment.someoneElse.heading = They must register for Self Assessment to claim tax relief on expenses that are £2,500 or more
+registerForSelfAssessment.someoneElse.guidance = If there are tax years where their expenses are less than £2,500,
 registerForSelfAssessment.someoneElse.link.continue.label = check if they can claim tax relief
 registerForSelfAssessment.link.external.label = Find out how to register for Self Assessment
 
@@ -79,7 +79,6 @@ usePrintAndPost.link.label = Open the claim form
 
 claimOnline.title = You can claim tax relief for these expenses online
 claimOnline.heading = You can claim tax relief for these expenses online
-claimOnline.guidance = You must fill in a separate claim for each tax year.
 claimOnline.link.label = Claim online
 
 cannotClaimRelief.you.title = You cannot claim tax relief for these expenses
