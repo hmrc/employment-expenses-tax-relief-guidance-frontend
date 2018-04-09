@@ -26,7 +26,7 @@ class UsePrintAndPostViewSpec extends ViewBehaviours {
   def createView = () => usePrintAndPost(frontendAppConfig)(fakeRequest, messages)
 
   "UsePrintAndPost view" must {
-    behave like normalPage(createView, messageKeyPrefix, "guidance")
+    behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithBackLink(createView)
   }
