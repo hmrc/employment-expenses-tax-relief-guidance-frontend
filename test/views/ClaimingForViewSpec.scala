@@ -19,7 +19,7 @@ package views
 import play.api.data.Form
 import forms.ClaimingForFormProvider
 import models.Claimant.You
-import models.ClaimingFor
+import models.{Claimant, ClaimingFor}
 import utils.RadioOption
 import views.behaviours.ViewBehaviours
 import views.html.claimingFor
@@ -46,7 +46,7 @@ class ClaimingForViewSpec extends ViewBehaviours {
     "rendered" must {
       "contain checkboxes for each option" in {
         val doc = asDocument(createViewUsingForm(form))
-        for ((option, index) <- ClaimingFor.options.zipWithIndex) {
+        for ((option, index) <- ClaimingFor.options(Claimant.You).zipWithIndex) {
           assertContainsRadioButton(doc, option.id, s"value[$index]", option.value, false)
         }
       }

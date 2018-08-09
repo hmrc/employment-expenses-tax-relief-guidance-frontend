@@ -42,7 +42,7 @@
                 <input id="@{input.id}" type="radio" name="@{field.id}" value="@{input.value}" @if(field.value == Some(input.value)){checked="checked"} @if(trackGa){data-journey-click="employment-expenses-tax-relief-guidance-frontend:click:@{input.id}"} />
 
                 <label class="block-label selection-button-radio" for="@{input.id}">
-                    @messages(input.messageKey)
+                  @input.message.html
                 </label>
             </div>
         }

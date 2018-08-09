@@ -16,7 +16,7 @@
 
 package models
 
-import utils.{Enumerable, RadioOption, WithName}
+import utils.{Enumerable, Message, RadioOption, WithName}
 import uk.gov.hmrc.time.TaxYear
 
 sealed trait ClaimYears
@@ -40,16 +40,14 @@ object ClaimYears {
     taxYearRadioOption(TaxYear.current.back(2), TwoYearsAgo),
     taxYearRadioOption(TaxYear.current.back(3), ThreeYearsAgo),
     taxYearRadioOption(TaxYear.current.back(4), FourYearsAgo),
-    new RadioOption(s"taxYears.$AnotherYear", AnotherYear.toString, "taxYears.anotherYear")
+    new RadioOption(s"taxYears.$AnotherYear", AnotherYear.toString, Message("taxYears.anotherYear"))
   )
 
   private def taxYearRadioOption(taxYear: TaxYear, option: ClaimYears) =
     new RadioOption(
       s"taxYears.$option",
       option.toString,
-      "taxYears.specificYear",
-      taxYear.startYear.toString,
-      taxYear.finishYear.toString
+      Message("taxYears.specificYear", taxYear.startYear.toString, taxYear.finishYear.toString)
     )
 
   val mappings: Map[String, ClaimYears] = Map(

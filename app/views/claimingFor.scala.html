@@ -39,7 +39,7 @@
             field = form("value"),
             legend = messages(s"claimingFor.$claimant.heading"),
             legendClass = Some("visually-hidden"),
-            inputs = ClaimingFor.options
+            inputs = ClaimingFor.options(claimant)
         )
 
         @components.submit_button()

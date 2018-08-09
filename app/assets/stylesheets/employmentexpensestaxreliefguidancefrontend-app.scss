@@ -8,3 +8,13 @@
 @import 'partials/_utilities';
 
 @import 'partials/_shame';
+
+.radio-with-hint {
+  margin-bottom: 0;
+}
+
+.radio-hint {
+  float: left;
+  display: block;
+  margin-left: 13px;
+}

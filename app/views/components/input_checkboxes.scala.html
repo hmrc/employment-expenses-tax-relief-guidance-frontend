@@ -45,12 +45,19 @@
                     name="@{field.id}[@index]"
                     value="@{input.value}"
                     @if(field.values.contains(input.value)) { checked }
-                    @if(trackGa){data-journey-click="check - select:@legend:@messages(input.messageKey, input.messageArgs:_*)"}
+                    @if(trackGa){data-journey-click="check - select:@legend:@input.message.string"}
+                    @if(input.hint.isDefined) { aria-describedby="@{input.id}-hint" }
                 >
 
-                <label class="block-label selection-button-radio" for="@{input.id}">
-                @messages(input.messageKey, input.messageArgs:_*)
+                <label class="block-label selection-button-radio @if(input.hint.isDefined) { radio-with-hint }" for="@{input.id}">
+                  @input.message.html
                 </label>
+
+                @input.hint.map { hint =>
+                  <span id="@{input.id}-hint" class="form-hint radio-hint">
+                    @hint.html
+                  </span>
+                }
             </div>
         }
     </fieldset>
