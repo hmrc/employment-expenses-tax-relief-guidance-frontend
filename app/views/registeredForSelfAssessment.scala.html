@@ -21,6 +21,17 @@
 
 @(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
+@startTag = {
+  <a
+    href="https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
+    data-journey-click="link - click:@messages(s"registeredForSelfAssessment.$claimant.heading"):@messages("registeredForSelfAssessment.hidden.guidance3")"
+    target="_blank">
+}
+
+@endTag = {
+  </a>
+}
+
 @main_template(
     title = messages(s"registeredForSelfAssessment.$claimant.title"),
     appConfig = appConfig,
@@ -33,6 +44,31 @@
         @components.error_summary(form.errors)
 
         @components.heading(s"registeredForSelfAssessment.$claimant.heading")
+
+        <details class="form-field">
+
+          <summary data-journey-click="accordion - click:@messages(s"registeredForSelfAssessment.$claimant.heading"):@messages("registeredForSelfAssessment.hidden.summary")">
+            <span class="summary">
+              @messages("registeredForSelfAssessment.hidden.summary")
+            </span>
+          </summary>
+
+          <div class="panel panel-border-narrow">
+            <p>
+              @messages("registeredForSelfAssessment.hidden.guidance1")
+            </p>
+
+            <p>
+              @messages("registeredForSelfAssessment.hidden.guidance2")
+            </p>
+
+            <p>
+              @Html(messages("registeredForSelfAssessment.hidden.guidance3", startTag, endTag))
+            </p>
+
+          </div>
+
+        </details>
 
         @components.input_yes_no(
             field = form("value"),

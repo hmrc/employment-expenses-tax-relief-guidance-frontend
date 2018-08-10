@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2018 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,20 +12,7 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package utils
-
-import base.SpecBase
-
-class RadioOptionSpec extends SpecBase {
-
-  "Radio Option" must {
-    "build correctly from a key prefix and option" in {
-      val radioOption = RadioOption("prefix", "option")
-      radioOption.id mustBe "prefix.option"
-      radioOption.value mustBe "option"
-      radioOption.message.key mustBe "prefix.option"
-    }
-  }
-}
+@(href: String, eventBody: String)
+<a href="@href" data-journey-click="link - click:@eventBody">

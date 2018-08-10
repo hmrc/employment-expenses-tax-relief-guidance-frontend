@@ -27,7 +27,16 @@
     @back_link()
 
     @components.heading(s"useSelfAssessment.$claimant.heading")
-    
+
+    <p>
+      @messages(s"useSelfAssessment.$claimant.guidance")
+    </p>
+
+    <ul class="list list-bullet">
+      <li>@messages(s"useSelfAssessment.$claimant.bullet1")</li>
+      <li>@messages(s"useSelfAssessment.$claimant.bullet2")</li>
+    </ul>
+
     <a href="https://www.gov.uk/self-assessment-tax-returns"
        data-journey-click="link - click:@messages(s"useSelfAssessment.$claimant.heading"):@messages("useSelfAssessment.link.label")">
         @messages("useSelfAssessment.link.label")

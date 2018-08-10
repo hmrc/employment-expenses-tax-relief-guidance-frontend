@@ -16,6 +16,7 @@
 
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
+@import models.Claimant
 @import controllers.routes._
 @import components.back_link
 
@@ -44,6 +45,52 @@
             <li>@messages("claimingMileage.guidance.bullet4")</li>
             <li>@messages("claimingMileage.guidance.bullet5")</li>
         </ul>
+
+        <p>
+          @messages(s"claimingMileage.$claimant.guidance2")
+        </p>
+
+        <details class="form-field">
+
+          <summary data-journey-click="accordion - click:@messages(s"claimingMileage.$claimant.heading"):@messages("claimingMileage.hidden.summary")">
+            <span class="summary">
+              @messages("claimingMileage.hidden.summary")
+            </span>
+          </summary>
+
+          <div class="panel panel-border-narrow">
+
+            <h2 class="heading-small">
+              @messages("claimingMileage.hidden.cars.heading")
+            </h2>
+
+            <p>
+              @messages("claimingMileage.hidden.cars.guidance1")
+            </p>
+
+            <p>
+              @messages("claimingMileage.hidden.cars.guidance2")
+            </p>
+
+            <h2 class="heading-small">
+              @messages("claimingMileage.hidden.motorcycles.heading")
+            </h2>
+
+            <p>
+              @messages("claimingMileage.hidden.motorcycles.guidance")
+            </p>
+
+            <h2 class="heading-small">
+              @messages("claimingMileage.hidden.bicycles.heading")
+            </h2>
+
+            <p>
+              @messages("claimingMileage.hidden.bicycles.guidance")
+            </p>
+
+          </div>
+
+        </details>
 
         @components.input_yes_no(
             field = form("value"),

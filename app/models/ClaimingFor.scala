@@ -16,7 +16,9 @@
 
 package models
 
-import utils.{Enumerable, RadioOption, WithName}
+import play.api.i18n.Messages
+import utils.{Enumerable, Message, RadioOption, WithName}
+import views.html.components.link_start
 
 sealed trait ClaimingFor
 
@@ -34,9 +36,61 @@ object ClaimingFor {
     UniformsClothingTools, MileageFuel, TravelExpenses, FeesSubscriptions, HomeWorking, BuyingEquipment, Other
   )
 
-  val options: List[RadioOption] = values.map {
-    value =>
-      RadioOption("claimingFor", value.toString)
+  def options(claimant: Claimant)(implicit messages: Messages): List[RadioOption] = {
+
+    val feesOption = {
+
+      val href = "https://www.gov.uk/government/publications/professional-bodies-approved-for-tax-relief-list-3"
+      val eventBody = s"""${messages(s"claimingFor.$claimant.title")}:${messages(s"claimingFor.$FeesSubscriptions")}"""
+      val start = link_start(href, eventBody)
+      val end = "</a>"
+
+      new RadioOption(
+        s"claimingFor.$FeesSubscriptions",
+        FeesSubscriptions.toString,
+        Message(s"claimingFor.$FeesSubscriptions"),
+        Some(Message(s"claimingFor.$FeesSubscriptions.$claimant.description", start, end))
+      )
+    }
+
+    List(
+      new RadioOption(
+        s"claimingFor.$UniformsClothingTools",
+        UniformsClothingTools.toString,
+        Message(s"claimingFor.$UniformsClothingTools"),
+        Some(Message(s"claimingFor.$UniformsClothingTools.$claimant.description"))
+      ),
+      new RadioOption(
+        s"claimingFor.$MileageFuel",
+        MileageFuel.toString,
+        Message(s"claimingFor.$claimant.$MileageFuel"),
+        Some(Message(s"claimingFor.$MileageFuel.$claimant.description"))
+      ),
+      new RadioOption(
+        s"claimingFor.$TravelExpenses",
+        TravelExpenses.toString,
+        Message(s"claimingFor.$TravelExpenses"),
+        Some(Message(s"claimingFor.$TravelExpenses.$claimant.description"))
+      ),
+      feesOption,
+      new RadioOption(
+        s"claimingFor.$HomeWorking",
+        HomeWorking.toString,
+        Message(s"claimingFor.$HomeWorking"),
+        Some(Message(s"claimingFor.$HomeWorking.$claimant.description"))
+      ),
+      new RadioOption(
+        s"claimingFor.$BuyingEquipment",
+        BuyingEquipment.toString,
+        Message(s"claimingFor.$BuyingEquipment"),
+        Some(Message(s"claimingFor.$BuyingEquipment.$claimant.description"))
+      ),
+      new RadioOption(
+        s"claimingFor.$Other",
+        Other.toString,
+        Message(s"claimingFor.$Other")
+      )
+    )
   }
 
   implicit val enumerable: Enumerable[ClaimingFor] =

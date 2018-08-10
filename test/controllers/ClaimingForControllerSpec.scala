@@ -26,7 +26,7 @@ import play.api.test.Helpers._
 import forms.ClaimingForFormProvider
 import identifiers.{ClaimantId, ClaimingForId}
 import models.Claimant.You
-import models.ClaimingFor
+import models.{Claimant, ClaimingFor}
 import views.html.claimingFor
 
 class ClaimingForControllerSpec extends ControllerSpecBase {
@@ -65,7 +65,7 @@ class ClaimingForControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value[0]", ClaimingFor.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value[0]", ClaimingFor.options(Claimant.You).head.value))
 
       val result = controller().onSubmit()(postRequest)
 
@@ -91,7 +91,7 @@ class ClaimingForControllerSpec extends ControllerSpecBase {
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ClaimingFor.options.head.value))
+      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ClaimingFor.options(Claimant.You).head.value))
       val result = controller(dontGetAnyData).onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
