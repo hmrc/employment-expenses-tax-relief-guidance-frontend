@@ -34,6 +34,23 @@
 
         @components.heading(s"employerPaidBackExpenses.$claimant.heading")
 
+        <details>
+
+          <summary data-journey-click="accordion - click:@pageHeading:@messages(s"employerPaidBackExpenses.$claimant.hidden.summary")">
+            <span class="summary">
+              @messages(s"employerPaidBackExpenses.$claimant.hidden.summary")
+            </span>
+          </summary>
+
+          <div class="panel panel-border-narrow">
+            <p>
+              @messages(s"employerPaidBackExpenses.$claimant.hidden.guidance")
+            </p>
+
+          </div>
+
+        </details>
+
         @components.input_yes_no(
             field = form("value"),
             label = messages(s"employerPaidBackExpenses.$claimant.heading"),

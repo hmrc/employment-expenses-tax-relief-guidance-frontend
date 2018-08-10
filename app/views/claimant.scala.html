@@ -35,6 +35,30 @@
 
         @components.heading("claimant.heading")
 
+        <details>
+
+          <summary data-journey-click="accordion - click:@pageHeading:@messages("claimant.hidden.summary")">
+            <span class="summary">
+              @messages("claimant.hidden.summary")
+            </span>
+          </summary>
+
+          <div class="panel panel-border-narrow">
+            <p>
+              @messages("claimant.hidden.guidance1")
+            </p>
+
+            <p>
+              <span class="bold-small">
+                @messages("claimant.hidden.heading")
+              </span><br />
+              @messages("claimant.hidden.guidance2")
+            </p>
+
+          </div>
+
+        </details>
+
         @components.input_radio(
             field = form("value"),
             fieldsetClass = Some("inline"),
