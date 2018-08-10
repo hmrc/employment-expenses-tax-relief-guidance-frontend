@@ -62,10 +62,14 @@ claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if the
 
 useSelfAssessment.you.title = You must use Self Assessment to claim tax relief for these expenses
 useSelfAssessment.you.heading = You must use Self Assessment to claim tax relief for these expenses
-useSelfAssessment.you.guidance = You must have paid tax on your earnings from your job in the year. You must have spent money on an allowable expense you only use for work.
+useSelfAssessment.you.guidance = You must have:
+useSelfAssessment.you.bullet1 = paid tax on your earnings from your job in the year you are claiming
+useSelfAssessment.you.bullet2 = spent money on an allowable expense you only use for work
 useSelfAssessment.someoneElse.title = They must use Self Assessment to claim tax relief for these expenses
 useSelfAssessment.someoneElse.heading = They must use Self Assessment to claim tax relief for these expenses
-useSelfAssessment.someoneElse.guidance = They must have paid tax on their earnings from their job in the year. They must have spent money on an allowable expense they only use for work.
+useSelfAssessment.someoneElse.guidance = They must have:
+useSelfAssessment.someoneElse.bullet1 = paid tax on their earnings from their job in the year they are claiming
+useSelfAssessment.someoneElse.bullet2 = spent money on an allowable expense they only use for work
 useSelfAssessment.link.label = Find out more about Self Assessment tax returns
 
 moreThanFiveJobs.title = Are you claiming tax relief for more than 5 different jobs?
@@ -91,7 +95,7 @@ claimOnline.heading = You can claim tax relief for these expenses online
 claimOnline.link.label = Claim online
 
 cannotClaimRelief.you.title = You cannot claim tax relief for these expenses
-cannotClaimRelief.you.heading = You cannot claim tax relief for these expensesone
+cannotClaimRelief.you.heading = You cannot claim tax relief for these expenses
 cannotClaimRelief.you.guidance = This is because your employer has already paid back all of your expenses.
 cannotClaimRelief.someoneElse.title = They cannot claim tax relief for these expenses
 cannotClaimRelief.someoneElse.heading = They cannot claim tax relief for these expenses
@@ -100,13 +104,13 @@ cannotClaimRelief.link.label = Read claim tax relief for your job expenses
 
 employerPaidBackExpenses.you.title = Has your employer paid back all your work-related expenses?
 employerPaidBackExpenses.you.heading = Has your employer paid back all your work-related expenses?
-employerPaidBackExpenses.you.hidden.summary = What it means if your employer has paid back all your work-related expenses
-employerPaidBackExpenses.you.hidden.guidance = If your employer has paid back all your work-related expenses or provided the things you are claiming for, you cannot claim tax relief for these expenses.
+employerPaidBackExpenses.you.hidden.summary = What it means if your employer paid back all your expenses
+employerPaidBackExpenses.you.hidden.guidance = If your employer paid back all your work-related expenses or provided the things you are claiming for, you cannot claim tax relief for these expenses.
 employerPaidBackExpenses.you.error.required = Select yes if your employer has paid back all your work-related expenses
 employerPaidBackExpenses.someoneElse.title = Has their employer paid back all their work-related expenses?
 employerPaidBackExpenses.someoneElse.heading = Has their employer paid back all their work-related expenses?
-employerPaidBackExpenses.someoneElse.hidden.summary = What it means if their employer has paid back all their work-related expenses
-employerPaidBackExpenses.someoneElse.hidden.guidance = If their employer has paid back all their work-related expenses or provided the things they are claiming for, they cannot claim tax relief for these expenses.
+employerPaidBackExpenses.someoneElse.hidden.summary = What it means if their employer paid back all their expenses
+employerPaidBackExpenses.someoneElse.hidden.guidance = If their employer paid back all their work-related expenses or provided the things they are claiming for, they cannot claim tax relief for these expenses.
 employerPaidBackExpenses.someoneElse.error.required = Select yes if their employer has paid back all their work-related expenses
 
 taxYears.you.title = What tax years are you claiming tax relief for?
