@@ -56,7 +56,7 @@ registeredForSelfAssessment.hidden.guidance3 = {0}Find out who must send a tax r
 claimingOverPayAsYouEarnThreshold.you.title = Are you claiming tax relief on expenses that are £2,500 or more in any tax year?
 claimingOverPayAsYouEarnThreshold.you.heading = Are you claiming tax relief on expenses that are £2,500 or more in any tax year?
 claimingOverPayAsYouEarnThreshold.you.error.required = Select yes if you are claiming tax relief on expenses that are £2,500 or more in any tax year
-claimingOverPayAsYouEarnThreshold.someoneElse.title = Are they claiming tax relief on expenses that are £2,500 or  in any tax year?
+claimingOverPayAsYouEarnThreshold.someoneElse.title = Are they claiming tax relief on expenses that are £2,500 or in any tax year?
 claimingOverPayAsYouEarnThreshold.someoneElse.heading = Are they claiming tax relief on expenses that are £2,500 or more in any tax year?
 claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if they are claiming tax relief on expenses that are £2,500 or more in any tax year
 
