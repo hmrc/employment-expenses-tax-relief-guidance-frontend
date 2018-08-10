@@ -104,12 +104,12 @@ cannotClaimRelief.link.label = Read claim tax relief for your job expenses
 
 employerPaidBackExpenses.you.title = Has your employer paid back all your work-related expenses?
 employerPaidBackExpenses.you.heading = Has your employer paid back all your work-related expenses?
-employerPaidBackExpenses.you.hidden.summary = What it means if your employer paid back all your expenses
+employerPaidBackExpenses.you.hidden.summary = What it means if they paid all your expenses
 employerPaidBackExpenses.you.hidden.guidance = If your employer paid back all your work-related expenses or provided the things you are claiming for, you cannot claim tax relief for these expenses.
 employerPaidBackExpenses.you.error.required = Select yes if your employer has paid back all your work-related expenses
 employerPaidBackExpenses.someoneElse.title = Has their employer paid back all their work-related expenses?
 employerPaidBackExpenses.someoneElse.heading = Has their employer paid back all their work-related expenses?
-employerPaidBackExpenses.someoneElse.hidden.summary = What it means if their employer paid back all their expenses
+employerPaidBackExpenses.someoneElse.hidden.summary = What it means if they paid all their expenses
 employerPaidBackExpenses.someoneElse.hidden.guidance = If their employer paid back all their work-related expenses or provided the things they are claiming for, they cannot claim tax relief for these expenses.
 employerPaidBackExpenses.someoneElse.error.required = Select yes if their employer has paid back all their work-related expenses
 
