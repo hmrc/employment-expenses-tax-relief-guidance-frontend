@@ -16,6 +16,7 @@
 
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
+@import models.Claimant
 @import controllers.routes._
 @import components.back_link
 
@@ -46,12 +47,12 @@
         </ul>
 
         <p>
-          @messages(s"claimingMileage.$claimant.guidance2)
+          @messages(s"claimingMileage.$claimant.guidance2")
         </p>
 
-        <details>
+        <details class="form-field">
 
-          <summary data-journey-click="accordion - click:@pageHeading:@messages("claimingMileage.hidden.summary")">
+          <summary data-journey-click="accordion - click:@messages(s"claimingMileage.$claimant.heading"):@messages("claimingMileage.hidden.summary")">
             <span class="summary">
               @messages("claimingMileage.hidden.summary")
             </span>
@@ -61,25 +62,25 @@
 
             <table>
               <thead>
-                <th scope="col">@messages("claimingMileage.table.th1")</th>
-                <th scope="col">@messages("claimingMileage.table.th2")</th>
-                <th scope="col">@messages("claimingMileage.table.th3")</th>
+                <th scope="col">@messages("claimingMileage.hidden.table.th1")</th>
+                <th scope="col">@messages("claimingMileage.hidden.table.th2")</th>
+                <th scope="col">@messages("claimingMileage.hidden.table.th3")</th>
               </thead>
               <tbody>
                 <tr>
-                  <td>@messages("claimingMileage.table.row1col1")</td>
-                  <td>@messages("claimingMileage.table.row1col2")</td>
-                  <td>@messages("claimingMileage.table.row1col3")</td>
+                  <td>@messages("claimingMileage.hidden.table.row1col1")</td>
+                  <td>@messages("claimingMileage.hidden.table.row1col2")</td>
+                  <td>@messages("claimingMileage.hidden.table.row1col3")</td>
                 </tr>
                 <tr>
-                  <td>@messages("claimingMileage.table.row2col1")</td>
-                  <td>@messages("claimingMileage.table.row2col2")</td>
-                  <td>@messages("claimingMileage.table.row2col3")</td>
+                  <td>@messages("claimingMileage.hidden.table.row2col1")</td>
+                  <td>@messages("claimingMileage.hidden.table.row2col2")</td>
+                  <td>@messages("claimingMileage.hidden.table.row2col3")</td>
                 </tr>
                 <tr>
-                  <td>@messages("claimingMileage.table.row3col1")</td>
-                  <td>@messages("claimingMileage.table.row3col2")</td>
-                  <td>@messages("claimingMileage.table.row3col3")</td>
+                  <td>@messages("claimingMileage.hidden.table.row3col1")</td>
+                  <td>@messages("claimingMileage.hidden.table.row3col2")</td>
+                  <td>@messages("claimingMileage.hidden.table.row3col3")</td>
                 </tr>
               </tbody>
             </table>

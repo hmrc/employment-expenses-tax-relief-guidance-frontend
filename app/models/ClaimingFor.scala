@@ -38,21 +38,6 @@ object ClaimingFor {
 
   def options(claimant: Claimant)(implicit messages: Messages): List[RadioOption] = {
 
-    val mileageOption = {
-
-      val href = "https://www.gov.uk/update-company-car-details"
-      val eventBody = s"""${messages(s"claimingFor.$claimant.title")}:${messages(s"claimingFor.$MileageFuel")}"""
-      val start = link_start(href, eventBody)
-      val end = "</a>"
-
-      new RadioOption(
-        s"claimingFor.$MileageFuel",
-        MileageFuel.toString,
-        Message(s"claimingFor.$MileageFuel"),
-        Some(Message(s"claimingFor.$MileageFuel.$claimant.description", start, end))
-      )
-    }
-
     val feesOption = {
 
       val href = "https://www.gov.uk/government/publications/professional-bodies-approved-for-tax-relief-list-3"
@@ -75,7 +60,12 @@ object ClaimingFor {
         Message(s"claimingFor.$UniformsClothingTools"),
         Some(Message(s"claimingFor.$UniformsClothingTools.$claimant.description"))
       ),
-      mileageOption,
+      new RadioOption(
+        s"claimingFor.$MileageFuel",
+        MileageFuel.toString,
+        Message(s"claimingFor.$claimant.$MileageFuel"),
+        Some(Message(s"claimingFor.$MileageFuel.$claimant.description"))
+      ),
       new RadioOption(
         s"claimingFor.$TravelExpenses",
         TravelExpenses.toString,
