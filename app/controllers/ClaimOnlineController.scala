@@ -16,23 +16,28 @@
 
 package controllers
 
-import javax.inject.Inject
-
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import controllers.actions._
 import config.FrontendAppConfig
+import controllers.actions._
+import javax.inject.Inject
+import models.ClaimingFor.UniformsClothingTools
+import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.{Action, AnyContent}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import views.html.claimOnline
 
-import scala.concurrent.Future
-
 class ClaimOnlineController @Inject()(appConfig: FrontendAppConfig,
-                                         override val messagesApi: MessagesApi,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction) extends FrontendController with I18nSupport {
+                                      override val messagesApi: MessagesApi,
+                                      getData: DataRetrievalAction,
+                                      requireData: DataRequiredAction) extends FrontendController with I18nSupport {
 
-  def onPageLoad = (getData andThen requireData) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      Ok(claimOnline(appConfig))
+
+      request.userAnswers.claimingFor match {
+        case Some(claiming) =>
+          Ok(claimOnline(appConfig, claiming.forall(_ == UniformsClothingTools)))
+        case _ =>
+          Redirect(routes.SessionExpiredController.onPageLoad())
+      }
   }
 }

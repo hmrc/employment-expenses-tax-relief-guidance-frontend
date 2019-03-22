@@ -23,7 +23,7 @@ class ClaimOnlineViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "claimOnline"
 
-  def createView = () => claimOnline(frontendAppConfig)(fakeRequest, messages)
+  def createView = () => claimOnline(frontendAppConfig, false)(fakeRequest, messages)
 
   "ClaimOnline view" must {
     behave like normalPage(createView, messageKeyPrefix)

@@ -22,7 +22,7 @@ import com.google.inject.{Inject, Singleton}
 import play.api.{Configuration, Environment}
 import play.api.i18n.Lang
 import controllers.routes
-import uk.gov.hmrc.play.config.ServicesConfig
+import uk.gov.hmrc.play.config.{ServicesConfig, OptimizelyConfig}
 
 @Singleton
 class FrontendAppConfig @Inject() (override val runModeConfiguration: Configuration, environment: Environment) extends ServicesConfig {
@@ -59,4 +59,6 @@ class FrontendAppConfig @Inject() (override val runModeConfiguration: Configurat
   lazy val whitelistExcluded = Some(
     new String(Base64.getDecoder.decode(runModeConfiguration.getString("microservice.services.whitelist.excluded").getOrElse("")), "UTF-8"))
     .map(_.split(",")).getOrElse(Array.empty).toSeq
+
+  lazy val optimizelyConfig = new OptimizelyConfig(runModeConfiguration)
 }

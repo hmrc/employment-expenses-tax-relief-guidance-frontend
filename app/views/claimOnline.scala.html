@@ -16,21 +16,31 @@
 
 @import config.FrontendAppConfig
 @import components.back_link
+@import uk.gov.hmrc.play.views.html.layouts.OptimizelySnippet
+@import uk.gov.hmrc.play.config.OptimizelyConfig
 
-@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = messages("claimOnline.title"),
-    appConfig = appConfig,
-    bodyClasses = None) {
+@(appConfig: FrontendAppConfig, optimizelyEligible: Boolean)(implicit request: Request[_], messages: Messages)
 
-    @back_link()
+    @optimizelyVariable = @{
+        s"""<script>var employeeExpensesEligible = $optimizelyEligible</script>"""
+    }
 
-    @components.heading("claimOnline.heading")    
+    @main_template(
+        title = messages("claimOnline.title"),
+        appConfig = appConfig,
+        bodyClasses = None,
+        scriptElem = Some(Html(optimizelyVariable))
+    ) {
 
-    @components.button_link(
-        "claimOnline.link.label",
-        "https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87#claim-online",
-        gaEvent = Some("link - click:" + messages(s"claimOnline.heading") + ":" + messages("claimOnline.link.label"))
-    )
-}
+        @back_link()
+
+        @components.heading("claimOnline.heading")
+
+        @components.button_link(
+            messageKey = "claimOnline.link.label",
+            href = "https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87#claim-online",
+            id = Some("claimOnline"),
+            gaEvent = Some("link - click:" + messages(s"claimOnline.heading") + ":" + messages("claimOnline.link.label"))
+        )
+    }
