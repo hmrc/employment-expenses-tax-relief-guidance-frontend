@@ -29,8 +29,7 @@
     @main_template(
         title = messages("claimOnline.title"),
         appConfig = appConfig,
-        bodyClasses = None,
-        scriptElem = Some(Html(optimizelyVariable))
+        headScripts = Some(Html(optimizelyVariable))
     ) {
 
         @back_link()

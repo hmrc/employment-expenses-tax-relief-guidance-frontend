@@ -17,35 +17,39 @@
 @import config.FrontendAppConfig
 
 @(title: String,
-  appConfig: FrontendAppConfig,
-  sidebarLinks: Option[Html] = None,
-  contentHeader: Option[Html] = None,
-  bodyClasses: Option[String] = None,
-  mainClass: Option[String] = None,
-  scriptElem: Option[Html] = None)(mainContent: Html)(implicit request : Request[_], messages: Messages)
+        appConfig: FrontendAppConfig,
+        sidebarLinks: Option[Html] = None,
+        contentHeader: Option[Html] = None,
+        bodyClasses: Option[String] = None,
+        mainClass: Option[String] = None,
+        scriptElem: Option[Html] = None,
+        headScripts: Option[Html] = None
+)(mainContent: Html)(implicit request: Request[_], messages: Messages)
 
-@import uk.gov.hmrc.play.views.html.layouts
+    @import uk.gov.hmrc.play.views.html.layouts
 
-@serviceInfoContent = {}
+    @serviceInfoContent = {}
 
-@sidebar = {
-    @if(sidebarLinks.isDefined) {
-        @layouts.sidebar(sidebarLinks.get, Some("sidebar"))
+    @sidebar = {
+        @if(sidebarLinks.isDefined) {
+            @layouts.sidebar(sidebarLinks.get, Some("sidebar"))
+        }
     }
-}
 
-@expandedTitle = @{
-    title + " – " + messages("site.service_name") + " – " + messages("site.gov.uk")
-}
+    @expandedTitle = @{
+        title + " – " + messages("site.service_name") + " – " + messages("site.gov.uk")
+    }
 
 
-@govuk_wrapper(appConfig = appConfig,
-               title = expandedTitle,
-               mainClass = mainClass,
-               bodyClasses = bodyClasses,
-               sidebar = sidebar,
-               contentHeader = contentHeader,
-               mainContent = layouts.article(mainContent),
-               serviceInfoContent = serviceInfoContent,
-               scriptElem = scriptElem
-)
+    @govuk_wrapper(
+        appConfig = appConfig,
+        title = expandedTitle,
+        mainClass = mainClass,
+        bodyClasses = bodyClasses,
+        sidebar = sidebar,
+        contentHeader = contentHeader,
+        mainContent = layouts.article(mainContent),
+        serviceInfoContent = serviceInfoContent,
+        scriptElem = scriptElem,
+        headScripts = headScripts
+    )
