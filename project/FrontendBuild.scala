@@ -13,7 +13,7 @@ object FrontendBuild extends Build with MicroService {
 private object AppDependencies {
   import play.sbt.PlayImport._
   import play.core.PlayVersion
-  
+
   val compile = Seq(
     ws,
     "uk.gov.hmrc" %% "play-reactivemongo" % "6.2.0",
