@@ -13,38 +13,20 @@ object FrontendBuild extends Build with MicroService {
 private object AppDependencies {
   import play.sbt.PlayImport._
   import play.core.PlayVersion
-
-  private val playHealthVersion = "2.1.0"
-  private val logbackJsonLoggerVersion = "3.1.0"
-  private val govukTemplateVersion = "5.3.0"
-  private val playUiVersion = "7.25.0-play-25"
-  private val hmrcTestVersion = "3.2.0"
-  private val scalaTestVersion = "3.0.4"
-  private val scalaTestPlusPlayVersion = "2.0.1"
-  private val pegdownVersion = "1.6.0"
-  private val mockitoAllVersion = "1.10.19"
-  private val httpCachingClientVersion = "7.1.0"
-  private val playReactivemongoVersion = "6.2.0"
-  private val playConditionalFormMappingVersion = "0.2.0"
-  private val playLanguageVersion = "3.4.0"
-  private val bootstrapVersion = "3.13.0"
-  private val scalacheckVersion = "1.13.4"
-  private val whitelistVersion = "2.0.0"
-  private val taxYearVersion = "0.4.0"
-
+  
   val compile = Seq(
     ws,
-    "uk.gov.hmrc" %% "play-reactivemongo" % playReactivemongoVersion,
-    "uk.gov.hmrc" %% "logback-json-logger" % logbackJsonLoggerVersion,
-    "uk.gov.hmrc" %% "govuk-template" % govukTemplateVersion,
-    "uk.gov.hmrc" %% "play-health" % playHealthVersion,
-    "uk.gov.hmrc" %% "play-ui" % playUiVersion,
-    "uk.gov.hmrc" %% "http-caching-client" % httpCachingClientVersion,
-    "uk.gov.hmrc" %% "play-conditional-form-mapping" % playConditionalFormMappingVersion,
-    "uk.gov.hmrc" %% "bootstrap-play-25" % bootstrapVersion,
-    "uk.gov.hmrc" %% "play-language" % playLanguageVersion,
-    "uk.gov.hmrc" %% "play-whitelist-filter" % whitelistVersion,
-    "uk.gov.hmrc" %% "tax-year" % taxYearVersion
+    "uk.gov.hmrc" %% "play-reactivemongo" % "6.2.0",
+    "uk.gov.hmrc" %% "logback-json-logger" % "4.4.0",
+    "uk.gov.hmrc" %% "govuk-template" % "5.30.0-play-25",
+    "uk.gov.hmrc" %% "play-health" % "3.12.0-play-25",
+    "uk.gov.hmrc" %% "play-ui" % "7.33.0-play-25",
+    "uk.gov.hmrc" %% "http-caching-client" % "8.1.0",
+    "uk.gov.hmrc" %% "play-conditional-form-mapping" % "0.2.0",
+    "uk.gov.hmrc" %% "bootstrap-play-25" % "4.9.0",
+    "uk.gov.hmrc" %% "play-language" % "3.4.0",
+    "uk.gov.hmrc" %% "play-whitelist-filter" % "2.0.0",
+    "uk.gov.hmrc" %% "tax-year" % "0.4.0"
   )
 
   trait TestDependencies {
@@ -55,14 +37,14 @@ private object AppDependencies {
   object Test {
     def apply() = new TestDependencies {
       override lazy val test = Seq(
-        "uk.gov.hmrc" %% "hmrctest" % hmrcTestVersion % scope,
-        "org.scalatest" %% "scalatest" % scalaTestVersion % scope,
-        "org.scalatestplus.play" %% "scalatestplus-play" % scalaTestPlusPlayVersion % scope,
-        "org.pegdown" % "pegdown" % pegdownVersion % scope,
+        "uk.gov.hmrc" %% "hmrctest" % "3.2.0" % scope,
+        "org.scalatest" %% "scalatest" % "3.0.4" % scope,
+        "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.1" % scope,
+        "org.pegdown" % "pegdown" % "1.6.0" % scope,
         "org.jsoup" % "jsoup" % "1.10.3" % scope,
         "com.typesafe.play" %% "play-test" % PlayVersion.current % scope,
-        "org.mockito" % "mockito-all" % mockitoAllVersion % scope,
-        "org.scalacheck" %% "scalacheck" % scalacheckVersion % scope
+        "org.mockito" % "mockito-all" % "1.10.19" % scope,
+        "org.scalacheck" %% "scalacheck" % "1.13.4" % scope
       )
     }.test
   }
