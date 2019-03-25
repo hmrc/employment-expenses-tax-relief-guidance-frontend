@@ -16,24 +16,58 @@
 
 package controllers
 
-import controllers.actions._
+import controllers.actions.{FakeDataRetrievalAction, _}
+import models.ClaimingFor._
+import play.api.libs.json.Json
 import play.api.test.Helpers._
+import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.UserAnswers
 import views.html.claimOnline
 
 class ClaimOnlineControllerSpec extends ControllerSpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller(dataRetrievalAction: DataRetrievalAction) =
     new ClaimOnlineController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl)
 
-  def viewAsString() = claimOnline(frontendAppConfig)(fakeRequest, messages).toString
+  def viewAsString(optimizelyEligible: Boolean) = claimOnline(frontendAppConfig, optimizelyEligible)(fakeRequest, messages).toString
 
   "ClaimOnline Controller" must {
 
-    "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(fakeRequest)
+    "return OK for a GET if some data" in {
+      val userAnswers = new UserAnswers(CacheMap(cacheMapId, Map("claimingFor" -> Json.toJson(Seq(UniformsClothingTools.string)))))
+
+      val dataAction = new FakeDataRetrievalAction(Some(userAnswers.cacheMap))
+
+      val result = controller(dataAction).onPageLoad(fakeRequest)
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe viewAsString(true)
+    }
+
+    "return SEE_OTHER for a GET if no data" in {
+      val result = controller(getEmptyCacheMap).onPageLoad(fakeRequest)
+
+      status(result) mustBe SEE_OTHER
+    }
+
+    "return correct view for a GET when user eligible for employee expenses" in {
+      val userAnswers = new UserAnswers(CacheMap(cacheMapId, Map("claimingFor" -> Json.toJson(Seq(UniformsClothingTools.string)))))
+
+      val dataAction = new FakeDataRetrievalAction(Some(userAnswers.cacheMap))
+
+      val result = controller(dataAction).onPageLoad(fakeRequest)
+
+      contentAsString(result) mustBe viewAsString(true)
+    }
+
+    "return correct view for a GET when user not eligible for employee expenses" in {
+      val userAnswers = new UserAnswers(CacheMap(cacheMapId, Map("claimingFor" -> Json.toJson(Seq(UniformsClothingTools.string, MileageFuel.string)))))
+
+      val dataAction = new FakeDataRetrievalAction(Some(userAnswers.cacheMap))
+
+      val result = controller(dataAction).onPageLoad(fakeRequest)
+
+      contentAsString(result) mustBe viewAsString(false)
     }
   }
 }
