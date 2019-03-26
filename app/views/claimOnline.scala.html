@@ -23,23 +23,23 @@
 @(appConfig: FrontendAppConfig, optimizelyEligible: Boolean)(implicit request: Request[_], messages: Messages)
 
 
-    @buttonId = @{
-         if (optimizelyEligible) Some("employeeExpensesEligible") else None
-    }
+@buttonId = @{
+    if(optimizelyEligible) Some("employeeExpensesEligible") else None
+}
 
-    @main_template(
-        title = messages("claimOnline.title"),
-        appConfig = appConfig
-    ) {
+@main_template(
+    title = messages("claimOnline.title"),
+    appConfig = appConfig
+) {
 
-        @back_link()
+    @back_link()
 
-        @components.heading("claimOnline.heading")
+    @components.heading("claimOnline.heading")
 
-        @components.button_link(
-            messageKey = "claimOnline.link.label",
-            href = "https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87#claim-online",
-            id = buttonId,
-            gaEvent = Some("link - click:" + messages(s"claimOnline.heading") + ":" + messages("claimOnline.link.label"))
-        )
-    }
+    @components.button_link(
+        messageKey = "claimOnline.link.label",
+        href = "https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87#claim-online",
+        id = buttonId,
+        gaEvent = Some("link - click:" + messages(s"claimOnline.heading") + ":" + messages("claimOnline.link.label"))
+    )
+}
