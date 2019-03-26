@@ -22,8 +22,9 @@
 
 @(appConfig: FrontendAppConfig, optimizelyEligible: Boolean)(implicit request: Request[_], messages: Messages)
 
+
     @optimizelyVariable = @{
-        s"""<script type="text/javascript">var window.employeeExpensesEligible = $optimizelyEligible;</script>"""
+        s"""<script type="text/javascript">window.employeeExpensesEligible = $optimizelyEligible;</script>"""
     }
 
     @main_template(
