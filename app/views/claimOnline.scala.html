@@ -22,13 +22,15 @@
 
 @(appConfig: FrontendAppConfig, optimizelyEligible: Boolean)(implicit request: Request[_], messages: Messages)
 
-    @buttonId = @{
+
+    @optimizelyVariable = @{
         s"""<script type="text/javascript">window.employeeExpensesEligible = $optimizelyEligible;</script>"""
     }
 
     @main_template(
         title = messages("claimOnline.title"),
-        appConfig = appConfig
+        appConfig = appConfig,
+        headScripts = Some(Html(optimizelyVariable))
     ) {
 
         @back_link()
