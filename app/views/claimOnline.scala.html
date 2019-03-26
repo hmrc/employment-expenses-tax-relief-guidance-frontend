@@ -23,14 +23,13 @@
 @(appConfig: FrontendAppConfig, optimizelyEligible: Boolean)(implicit request: Request[_], messages: Messages)
 
 
-    @optimizelyVariable = @{
-        s"""<script type="text/javascript">window.employeeExpensesEligible = $optimizelyEligible;</script>"""
+    @buttonId = @{
+         if (optimizelyEligible) Some("employeeExpensesEligible") else None
     }
 
     @main_template(
         title = messages("claimOnline.title"),
-        appConfig = appConfig,
-        headScripts = Some(Html(optimizelyVariable))
+        appConfig = appConfig
     ) {
 
         @back_link()
@@ -40,7 +39,7 @@
         @components.button_link(
             messageKey = "claimOnline.link.label",
             href = "https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87#claim-online",
-            id = Some("claimOnline"),
+            id = buttonId,
             gaEvent = Some("link - click:" + messages(s"claimOnline.heading") + ":" + messages("claimOnline.link.label"))
         )
     }
