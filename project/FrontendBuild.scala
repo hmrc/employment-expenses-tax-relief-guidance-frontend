@@ -16,14 +16,14 @@ private object AppDependencies {
 
   val compile = Seq(
     ws,
-    "uk.gov.hmrc" %% "play-reactivemongo" % "6.2.0",
+    "uk.gov.hmrc" %% "play-reactivemongo" % "6.7.0",
     "uk.gov.hmrc" %% "logback-json-logger" % "4.4.0",
     "uk.gov.hmrc" %% "govuk-template" % "5.30.0-play-25",
-    "uk.gov.hmrc" %% "play-health" % "3.12.0-play-25",
-    "uk.gov.hmrc" %% "play-ui" % "7.33.0-play-25",
-    "uk.gov.hmrc" %% "http-caching-client" % "8.1.0",
+    "uk.gov.hmrc" %% "play-health" % "3.14.0-play-25",
+    "uk.gov.hmrc" %% "play-ui" % "7.39.0-play-25",
+    "uk.gov.hmrc" %% "http-caching-client" % "8.3.0",
     "uk.gov.hmrc" %% "play-conditional-form-mapping" % "0.2.0",
-    "uk.gov.hmrc" %% "bootstrap-play-25" % "4.9.0",
+    "uk.gov.hmrc" %% "bootstrap-play-25" % "4.11.0",
     "uk.gov.hmrc" %% "play-language" % "3.4.0",
     "uk.gov.hmrc" %% "play-whitelist-filter" % "2.0.0",
     "uk.gov.hmrc" %% "tax-year" % "0.4.0"
@@ -37,7 +37,7 @@ private object AppDependencies {
   object Test {
     def apply() = new TestDependencies {
       override lazy val test = Seq(
-        "uk.gov.hmrc" %% "hmrctest" % "3.2.0" % scope,
+        "uk.gov.hmrc" %% "hmrctest" % "3.8.0-play-25" % scope,
         "org.scalatest" %% "scalatest" % "3.0.4" % scope,
         "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.1" % scope,
         "org.pegdown" % "pegdown" % "1.6.0" % scope,
