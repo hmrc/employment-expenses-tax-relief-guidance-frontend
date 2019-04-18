@@ -219,6 +219,7 @@ claimingMileage.hidden.motorcycles.heading = Motorcycles
 claimingMileage.hidden.motorcycles.guidance = The approved mileage rate for all miles is 24p a mile.
 claimingMileage.hidden.bicycles.heading = Bicycles
 claimingMileage.hidden.bicycles.guidance = The approved mileage rate for all miles is 20p a mile.
+
 useCompanyCar.you.usingOwnCar.title = Do you also use a vehicle that is owned or leased by your employer?
 useCompanyCar.you.usingOwnCar.heading = Do you also use a vehicle that is owned or leased by your employer?
 useCompanyCar.you.usingOwnCar.error.required = Select yes if you also use a vehicle that is owned or leased by your employer
