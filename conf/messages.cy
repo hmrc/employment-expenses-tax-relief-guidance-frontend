@@ -92,6 +92,10 @@ usePrintAndPost.link.label = Hawlio drwy’r post
 
 claimOnline.title = Gallwch hawlio rhyddhad treth ar gyfer y treuliau hyn ar-lein
 claimOnline.heading = Gallwch hawlio rhyddhad treth ar gyfer y treuliau hyn ar-lein
+claimOnline.para1 = To claim these expenses, you need a Government Gateway user ID and password. If you do not have a user ID, you can create one when you register.
+claimOnline.para2 = Registering with Government Gateway usually takes about 10 minutes. It works best if you have:
+claimOnline.bullet1 = your National Insurance number
+claimOnline.bullet2 = a recent payslip or P60 or a valid UK passport
 claimOnline.link.label = Hawlio ar-lein
 
 cannotClaimRelief.you.title = Ni allwch hawlio rhyddhad treth ar gyfer y treuliau hyn
