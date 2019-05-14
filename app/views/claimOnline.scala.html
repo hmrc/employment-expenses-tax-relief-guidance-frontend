@@ -36,6 +36,15 @@
 
     @components.heading("claimOnline.heading")
 
+    <p>@messages("claimOnline.para1")</p>
+    <p>
+        @messages("claimOnline.para2")
+        <ul class="list-bullet">
+            <li>@messages("claimOnline.bullet1")</li>
+            <li>@messages("claimOnline.bullet2")</li>
+        </ul>
+    </p>
+
     @components.button_link(
         messageKey = "claimOnline.link.label",
         href = "https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87#claim-online",
