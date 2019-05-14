@@ -28,7 +28,7 @@ site.hidden-edit = Change {0}
 site.no = No
 site.yes = Yes
 site.save_and_continue = Continue
-site.service_name = Claim tax relief for your work‑related expenses
+site.service_name = Check if you can claim work related expenses
 site.textarea.char_limit = (Limit is {0} characters)
 site.gov.uk = GOV.UK
 
