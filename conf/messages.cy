@@ -90,12 +90,12 @@ usePrintAndPost.title = Gallwch hawlio rhyddhad treth ar gyfer y treuliau hyn dr
 usePrintAndPost.heading = Gallwch hawlio rhyddhad treth ar gyfer y treuliau hyn drwy’r post
 usePrintAndPost.link.label = Hawlio drwy’r post
 
-claimOnline.title = Gallwch hawlio rhyddhad treth ar gyfer y treuliau hyn ar-lein
-claimOnline.heading = Gallwch hawlio rhyddhad treth ar gyfer y treuliau hyn ar-lein
-claimOnline.para1 = To claim these expenses, you need a Government Gateway user ID and password. If you do not have a user ID, you can create one when you register.
-claimOnline.para2 = Registering with Government Gateway usually takes about 10 minutes. It works best if you have:
-claimOnline.bullet1 = your National Insurance number
-claimOnline.bullet2 = a recent payslip or P60 or a valid UK passport
+claimOnline.title = Rydych yn gymwys i hawlio’r treuliau swydd hyn ar-lein
+claimOnline.heading = Rydych yn gymwys i hawlio’r treuliau swydd hyn ar-lein
+claimOnline.para1 = Er mwyn hawlio’r treuliau hyn, bydd angen Dynodydd Defnyddiwr a chyfrinair Porth y Llywodraeth arnoch. Os nad oes gennych Ddynodydd Defnyddiwr, gallwch greu un wrth gofrestru.
+claimOnline.para2 = Fel arfer mae’n cymryd tua 10 munud i greu cyfrif Porth y Llywodraeth. Bydd yn gweithio orau os oes gennych y canlynol:
+claimOnline.bullet1 = eich rhif Yswiriant Gwladol
+claimOnline.bullet2 = slip cyflog diweddar, P60 neu basbort dilys y DU
 claimOnline.link.label = Hawlio ar-lein
 
 cannotClaimRelief.you.title = Ni allwch hawlio rhyddhad treth ar gyfer y treuliau hyn
@@ -180,7 +180,7 @@ claimingFor.feesSubscriptions.you.description = Os gwnaethoch dalu ffioedd neu d
 claimingFor.feesSubscriptions.someoneElse.description = Os gwnaeth dalu ffioedd neu danysgrifiadau i {0} gorff proffesiynol cymeradwy (yn agor mewn ffenestr neu dab newydd){1}, efallai y gall hawlio rhyddhad treth. Mae’n rhaid bod ganddo aelodaeth neu mae’n rhaid iddo fod yn gysylltiedig â’i swydd. Os yw’r ffioedd yn danysgrifiadau aelodaeth neu os oes rhywun arall wedi talu amdanynt, ni all hawlio rhyddhad treth.
 claimingFor.homeWorking = Gweithio o gartref
 claimingFor.homeWorking.you.description = Os oes gennych filiau y mae’n rhaid i chi eu talu oherwydd mae’n rhaid i chi weithio gartref yn rheolaidd, efallai eich bod yn gallu hawlio rhyddhad treth. Os ydych yn defnyddio’r pethau ar gyfer defnydd preifat a busnes, neu os ydych yn dewis gweithio o gartref, ni allwch hawlio rhyddhad treth.
-claimingFor.homeWorking.someoneElse.description = Os oes ganddo filiau y mae’n rhaid iddo'u talu oherwydd mae’n rhaid iddo weithio gartref yn rheolaidd, efallai y bydd yn gallu hawlio rhyddhad treth. Os yw’n defnyddio pethau ar gyfer defnydd preifat a busnes, neu os yw’n dewis gweithio o gartref, ni all hawlio rhyddhad treth.
+claimingFor.homeWorking.someoneElse.description = Os oes ganddo filiau y mae’n rhaid iddo’u talu oherwydd mae’n rhaid iddo weithio gartref yn rheolaidd, efallai y bydd yn gallu hawlio rhyddhad treth. Os yw’n defnyddio pethau ar gyfer defnydd preifat a busnes, neu os yw’n dewis gweithio o gartref, ni all hawlio rhyddhad treth.
 claimingFor.buyingEquipment = Prynu cyfarpar arall
 claimingFor.buyingEquipment.you.description = Os oes rhaid i chi brynu cyfarpar sylweddol, er enghraifft cyfrifiadur, i wneud eich gwaith, efallai y byddwch yn gallu hawlio rhyddhad treth ar gost lawn y cyfarpar. Os ydych yn dewis prynu’r cyfarpar, ni allwch hawlio rhyddhad treth.
 claimingFor.buyingEquipment.someoneElse.description = Os oes rhaid iddo brynu cyfarpar sylweddol, er enghraifft cyfrifiadur, i wneud ei waith, efallai y bydd yn gallu hawlio rhyddhad treth ar gost lawn y cyfarpar. Os yw’n dewis prynu’r cyfarpar, ni all hawlio rhyddhad treth.
