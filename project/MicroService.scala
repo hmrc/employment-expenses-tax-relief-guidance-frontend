@@ -68,7 +68,8 @@ trait MicroService {
     .settings(resolvers ++= Seq(
       Resolver.bintrayRepo("hmrc", "releases"),
       Resolver.jcenterRepo,
-      Resolver.bintrayRepo("emueller", "maven")
+      Resolver.bintrayRepo("emueller", "maven"),
+      "hmrc-releases" at "https://artefacts.tax.service.gov.uk/artifactory/hmrc-releases/"
     ))
     .settings(
       // concatenate js
