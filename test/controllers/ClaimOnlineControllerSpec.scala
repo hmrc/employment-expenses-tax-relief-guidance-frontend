@@ -29,7 +29,7 @@ class ClaimOnlineControllerSpec extends ControllerSpecBase {
   def controller(dataRetrievalAction: DataRetrievalAction) =
     new ClaimOnlineController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl)
 
-  def viewAsString(optimizelyEligible: Boolean) = claimOnline(frontendAppConfig, optimizelyEligible)(fakeRequest, messages).toString
+  def viewAsString(eeEligible: Boolean) = claimOnline(frontendAppConfig, eeEligible)(fakeRequest, messages).toString
 
   "ClaimOnline Controller" must {
 
