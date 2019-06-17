@@ -20,11 +20,12 @@
 @import uk.gov.hmrc.play.config.OptimizelyConfig
 
 
-@(appConfig: FrontendAppConfig, optimizelyEligible: Boolean)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, eeEligible: Boolean)(implicit request: Request[_], messages: Messages)
 
 
-@buttonId = @{
-    if(optimizelyEligible) Some("employeeExpensesEligible") else None
+@href = @{
+    if(eeEligible) "https://www.tax.service.gov.uk/employee-expenses"
+    else "https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87#claim-online"
 }
 
 @main_template(
@@ -47,8 +48,7 @@
 
     @components.button_link(
         messageKey = "claimOnline.link.label",
-        href = "https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87#claim-online",
-        id = buttonId,
+        href = href,
         gaEvent = Some("link - click:" + messages(s"claimOnline.heading") + ":" + messages("claimOnline.link.label"))
     )
 }
