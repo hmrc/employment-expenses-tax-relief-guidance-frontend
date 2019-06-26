@@ -42,16 +42,12 @@ claimant.you = Myself
 claimant.someoneElse = Someone else
 claimant.error.required = Select who you are claiming expenses for
 
-registeredForSelfAssessment.you.title = Are you registered for Self Assessment?
-registeredForSelfAssessment.you.heading = Are you registered for Self Assessment?
-registeredForSelfAssessment.you.error.required = Select yes if you are registered for Self Assessment
-registeredForSelfAssessment.someoneElse.title = Is the person you are claiming for registered for Self Assessment?
-registeredForSelfAssessment.someoneElse.heading = Is the person you are claiming for registered for Self Assessment?
-registeredForSelfAssessment.someoneElse.error.required = Select yes if the person you are claiming for is registered for Self Assessment
-registeredForSelfAssessment.hidden.summary = What Self Assessment means
-registeredForSelfAssessment.hidden.guidance1 = Self Assessment is a system HM Revenue and Customs (HMRC) uses to collect Income Tax.
-registeredForSelfAssessment.hidden.guidance2 = Tax is usually deducted automatically from wages, pensions and savings. People and businesses with other income must register for Self Assessment and report their income in a tax return.
-registeredForSelfAssessment.hidden.guidance3 = {0}Find out who must send a tax return (opens in a new window or tab){1}
+registeredForSelfAssessment.you.title = Do you complete Self Assessment returns?
+registeredForSelfAssessment.you.heading = Do you complete Self Assessment returns?
+registeredForSelfAssessment.you.error.required = Select yes if you complete Self Assessment returns
+registeredForSelfAssessment.someoneElse.title = Does the person you are claiming for complete Self Assessment returns?
+registeredForSelfAssessment.someoneElse.heading = Does the person you are claiming for complete Self Assessment returns?
+registeredForSelfAssessment.someoneElse.error.required = Select yes if the person you are claiming for completes Self Assessment returns
 
 claimingOverPayAsYouEarnThreshold.you.title = Are you claiming tax relief on expenses that are £2,500 or more in any tax year?
 claimingOverPayAsYouEarnThreshold.you.heading = Are you claiming tax relief on expenses that are £2,500 or more in any tax year?
