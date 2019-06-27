@@ -60,17 +60,13 @@ claimingOverPayAsYouEarnThreshold.someoneElse.title = Are they claiming tax reli
 claimingOverPayAsYouEarnThreshold.someoneElse.heading = Are they claiming tax relief on expenses that are £2,500 or more in any tax year?
 claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if they are claiming tax relief on expenses that are £2,500 or more in any tax year
 
-useSelfAssessment.you.title = You must use Self Assessment to claim tax relief for these expenses
-useSelfAssessment.you.heading = You must use Self Assessment to claim tax relief for these expenses
-useSelfAssessment.you.guidance = You must have:
-useSelfAssessment.you.bullet1 = paid tax on your earnings from your job in the year you are claiming
-useSelfAssessment.you.bullet2 = spent money on an allowable expense you only use for work
-useSelfAssessment.someoneElse.title = They must use Self Assessment to claim tax relief for these expenses
-useSelfAssessment.someoneElse.heading = They must use Self Assessment to claim tax relief for these expenses
-useSelfAssessment.someoneElse.guidance = They must have:
-useSelfAssessment.someoneElse.bullet1 = paid tax on their earnings from their job in the year they are claiming
-useSelfAssessment.someoneElse.bullet2 = spent money on an allowable expense they only use for work
-useSelfAssessment.link.label = Find out more about Self Assessment tax returns
+useSelfAssessment.you.title = You can only claim these expenses using Self Assessment
+useSelfAssessment.you.heading = You can only claim these expenses using Self Assessment
+useSelfAssessment.you.guidance = You must claim these expenses as part of your {0}.
+useSelfAssessment.someoneElse.title = They can only claim these expenses using Self Assessment
+useSelfAssessment.someoneElse.heading = They can only claim these expenses using Self Assessment
+useSelfAssessment.someoneElse.guidance = They must claim these expenses as part of their {0}.
+useSelfAssessment.link.label =  Self Assessment tax return
 
 moreThanFiveJobs.title = Are you claiming tax relief for more than 5 different jobs?
 moreThanFiveJobs.heading = Are you claiming tax relief for more than 5 different jobs?
