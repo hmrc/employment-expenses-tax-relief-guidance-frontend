@@ -24,7 +24,7 @@ import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.PaidTaxInRelevantYearFormProvider
-import identifiers.{ClaimantId, PaidTaxInRelevantYearId, TaxYearsId}
+import identifiers.{ClaimantId, PaidTaxInRelevantYearId}
 import models.Claimant.You
 import models.ClaimYears
 import models.ClaimYears.{AnotherYear, LastYear, TwoYearsAgo}

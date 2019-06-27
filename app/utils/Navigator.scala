@@ -23,7 +23,6 @@ import controllers.routes
 import identifiers._
 import models.Claimant.{SomeoneElse, You}
 import models.ClaimingFor
-import models.ClaimYears.{AnotherYear, ThisYear}
 
 @Singleton
 class Navigator @Inject()() {
@@ -51,15 +50,6 @@ class Navigator @Inject()() {
     case Some(true)  => routes.CannotClaimReliefController.onPageLoad()
     case Some(false) => routes.ClaimingForController.onPageLoad()
     case None        => routes.SessionExpiredController.onPageLoad()
-  }
-
-  private def taxYearsRouting(userAnswers: UserAnswers) = userAnswers.taxYears match {
-    case Some(List(ThisYear))                       => routes.WillPayTaxController.onPageLoad()
-    case Some(List(AnotherYear))                    => routes.CannotClaimReliefTooLongAgoController.onPageLoad()
-    case Some(years) if years.size == 1             => routes.PaidTaxInRelevantYearController.onPageLoad()
-    case Some(years) if years.contains(AnotherYear) => routes.CannotClaimReliefSomeYearsController.onPageLoad()
-    case Some(_)                                    => routes.NotEntitledSomeYearsController.onPageLoad()
-    case _ => routes.SessionExpiredController.onPageLoad()
   }
 
   private def paidTaxInRelevantYearRouting(userAnswers: UserAnswers) = userAnswers.paidTaxInRelevantYear match {
@@ -121,13 +111,6 @@ class Navigator @Inject()() {
       routes.SessionExpiredController.onPageLoad()
   }
 
-  private def cannotClaimReliefSomeYearsRouting(userAnswers: UserAnswers) = userAnswers.taxYears match {
-    case Some(List(ThisYear, AnotherYear))                               => routes.WillPayTaxController.onPageLoad()
-    case Some(years) if years.size == 2 && years.contains(AnotherYear)   => routes.PaidTaxInRelevantYearController.onPageLoad()
-    case Some(_)                                                         => routes.NotEntitledSomeYearsController.onPageLoad()
-    case None                                                            => routes.SessionExpiredController.onPageLoad()
-  }
-
   private def willPayTaxRouting(userAnswers: UserAnswers) = userAnswers.willPayTax match {
     case Some(true)  => routes.RegisteredForSelfAssessmentController.onPageLoad()
     case Some(false) => routes.WillNotPayTaxController.onPageLoad()
@@ -147,10 +130,8 @@ class Navigator @Inject()() {
   }
 
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
-    ClaimantId                          -> (_ => routes.TaxYearsController.onPageLoad()),
-    TaxYearsId                          -> taxYearsRouting,
+    ClaimantId                          -> (_ => routes.PaidTaxInRelevantYearController.onPageLoad()),
     PaidTaxInRelevantYearId             -> paidTaxInRelevantYearRouting,
-    CannotClaimReliefSomeYearsId        -> cannotClaimReliefSomeYearsRouting,
     NotEntitledSomeYearsId              -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
     RegisteredForSelfAssessmentId       -> registeredForSelfAssessmentControllerRouting,
     ClaimingOverPayAsYouEarnThresholdId -> claimingOverPayAsYouEarnThresholdRouting,

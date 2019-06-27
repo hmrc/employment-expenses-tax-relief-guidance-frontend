@@ -22,7 +22,6 @@ import play.api.i18n.{I18nSupport, MessagesApi}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
-import models.ClaimYears
 import views.html.cannotClaimReliefTooLongAgo
 
 class CannotClaimReliefTooLongAgoController @Inject()(appConfig: FrontendAppConfig,
@@ -33,8 +32,7 @@ class CannotClaimReliefTooLongAgoController @Inject()(appConfig: FrontendAppConf
 
   def onPageLoad = (getData andThen requireData andThen getClaimant) {
     implicit request =>
-      val fourYearsAgo = ClaimYears.getTaxYear(ClaimYears.FourYearsAgo)
 
-      Ok(cannotClaimReliefTooLongAgo(appConfig, request.claimant, fourYearsAgo.startYear.toString))
+      Ok(cannotClaimReliefTooLongAgo(appConfig, request.claimant))
   }
 }

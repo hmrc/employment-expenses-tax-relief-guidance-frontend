@@ -17,7 +17,7 @@
 package controllers
 
 import controllers.actions._
-import identifiers.{ClaimantId, TaxYearsId}
+import identifiers.ClaimantId
 import models.ClaimYears
 import models.ClaimYears.{LastYear, ThisYear}
 import models.Claimant.You

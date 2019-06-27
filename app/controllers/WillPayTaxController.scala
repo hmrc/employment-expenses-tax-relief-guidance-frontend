@@ -26,11 +26,6 @@ import controllers.actions._
 import config.FrontendAppConfig
 import forms.WillPayTaxFormProvider
 import identifiers.WillPayTaxId
-import models.ClaimYears
-import models.ClaimYears.ThisYear
-import models.requests.ClaimantRequest
-import play.api.mvc.{AnyContent, Result}
-import uk.gov.hmrc.time.TaxYear
 import utils.{Navigator, UserAnswers}
 import views.html.willPayTax
 
@@ -47,49 +42,25 @@ class WillPayTaxController @Inject()(appConfig: FrontendAppConfig,
 
   def onPageLoad() = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
-      getDatesForYear {
-        (taxYear) =>
+      val form: Form[Boolean] = formProvider(request.claimant, appConfig.earlistTaxYear)
 
-          val startYear = taxYear.startYear.toString
-          val finishYear = taxYear.finishYear.toString
-          val form: Form[Boolean] = formProvider(request.claimant, startYear, finishYear)
-
-          val preparedForm = request.userAnswers.willPayTax match {
-            case None => form
-            case Some(value) => form.fill(value)
-          }
-          Future.successful(Ok(willPayTax(appConfig, preparedForm, request.claimant, startYear, finishYear)))
+      val preparedForm = request.userAnswers.willPayTax match {
+        case None => form
+        case Some(value) => form.fill(value)
       }
+      Future.successful(Ok(willPayTax(appConfig, preparedForm, request.claimant)))
   }
 
   def onSubmit() = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
-      getDatesForYear {
-        (taxYear) =>
+      val form: Form[Boolean] = formProvider(request.claimant, appConfig.earlistTaxYear)
 
-          val startYear = taxYear.startYear.toString
-          val finishYear = taxYear.finishYear.toString
-          val form: Form[Boolean] = formProvider(request.claimant, startYear, finishYear)
-
-          form.bindFromRequest().fold(
-            (formWithErrors: Form[_]) =>
-              Future.successful(BadRequest(willPayTax(appConfig, formWithErrors, request.claimant, startYear, finishYear))),
-            (value) =>
-              dataCacheConnector.save[Boolean](request.sessionId, WillPayTaxId, value).map(cacheMap =>
-                Redirect(navigator.nextPage(WillPayTaxId)(new UserAnswers(cacheMap))))
-          )
-      }
-  }
-
-  private def getDatesForYear(block: TaxYear => Future[Result])
-                             (implicit request: ClaimantRequest[AnyContent]): Future[Result] = {
-
-    request.userAnswers.taxYears match {
-
-      case Some(list) if list.contains(ThisYear) =>
-        block(ClaimYears.getTaxYear(ThisYear))
-      case _ =>
-        Future.successful(Redirect(routes.SessionExpiredController.onPageLoad()))
-    }
+      form.bindFromRequest().fold(
+        (formWithErrors: Form[_]) =>
+          Future.successful(BadRequest(willPayTax(appConfig, formWithErrors, request.claimant))),
+        (value) =>
+          dataCacheConnector.save[Boolean](request.sessionId, WillPayTaxId, value).map(cacheMap =>
+            Redirect(navigator.nextPage(WillPayTaxId)(new UserAnswers(cacheMap))))
+      )
   }
 }

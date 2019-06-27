@@ -117,15 +117,6 @@ employerPaidBackExpenses.someoneElse.hidden.summary = What it means if they paid
 employerPaidBackExpenses.someoneElse.hidden.guidance = If their employer paid back all their work‑related expenses or provided the things they are claiming for, they cannot claim tax relief for these expenses.
 employerPaidBackExpenses.someoneElse.error.required = Select yes if their employer has paid back all their work‑related expenses
 
-taxYears.you.title = What tax years are you claiming tax relief for?
-taxYears.you.heading = What tax years are you claiming tax relief for?
-taxYears.you.error.required = Select what tax years you are claiming tax relief for
-taxYears.someoneElse.title = What tax years are they claiming tax relief for?
-taxYears.someoneElse.heading = What tax years are they claiming tax relief for?
-taxYears.someoneElse.error.required = Select what tax years they are claiming tax relief for
-taxYears.specificYear = 6 April {0} to 5 April {1}
-taxYears.anotherYear = An earlier year
-
 cannotClaimReliefSomeYears.you.title = You can claim tax relief for expenses from after 5 April {0}
 cannotClaimReliefSomeYears.you.heading = You can claim tax relief for expenses from after 5 April {0}
 cannotClaimReliefSomeYears.you.guidance = A claim must happen within 4 years of the end of the tax year that you spent the money.
@@ -140,12 +131,12 @@ cannotClaimReliefTooLongAgo.someoneElse.title = They cannot claim tax relief for
 cannotClaimReliefTooLongAgo.someoneElse.heading = They cannot claim tax relief for these expenses because their claim is for before 6 April {0}
 cannotClaimReliefTooLongAgo.link.label = Read claim tax relief for your job expenses
 
-paidTaxInRelevantYear.you.title = Did you pay tax between 6 April {0} and 5 April {1}?
-paidTaxInRelevantYear.you.heading = Did you pay tax between 6 April {0} and 5 April {1}?
-paidTaxInRelevantYear.you.error.required = Select yes if you paid tax between 6 April {0} and 5 April {1}
-paidTaxInRelevantYear.someoneElse.title = Did they pay tax between 6 April {0} and 5 April {1}?
-paidTaxInRelevantYear.someoneElse.heading = Did they pay tax between 6 April {0} and 5 April {1}?
-paidTaxInRelevantYear.someoneElse.error.required = Select yes if they paid tax between 6 April {0} and 5 April {1}
+paidTaxInRelevantYear.you.title = Are you claiming for expenses after 5 April {0}?
+paidTaxInRelevantYear.you.heading = Are you claiming for expenses after 5 April {0}?
+paidTaxInRelevantYear.you.error.required = Select yes if you are claiming for expenses after 5 April {0}
+paidTaxInRelevantYear.someoneElse.title = Are they claiming for expenses after 5 April {0}?
+paidTaxInRelevantYear.someoneElse.heading = Are they claiming for expenses after 5 April {0}?
+paidTaxInRelevantYear.someoneElse.error.required = Select yes if they are claiming for expenses after 5 April {0}
 
 notEntitled.you.title = You must have paid tax in the year you spent the money to claim tax relief
 notEntitled.you.heading = You must have paid tax in the year you spent the money to claim tax relief

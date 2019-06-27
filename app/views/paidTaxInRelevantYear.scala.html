@@ -19,10 +19,16 @@
 @import controllers.routes._
 @import components.back_link
 
-@(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant, startOfYear: String, endOfYear: String)(implicit request: Request[_], messages: Messages)
+@(
+        appConfig: FrontendAppConfig,
+        form: Form[_],
+        claimant: Claimant
+)(implicit request: Request[_], messages: Messages)
+
+@year = {@appConfig.earlistTaxYear}
 
 @main_template(
-    title = messages(s"paidTaxInRelevantYear.$claimant.title", startOfYear, endOfYear),
+    title = messages(s"paidTaxInRelevantYear.$claimant.title", year),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -32,11 +38,11 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(messages(s"paidTaxInRelevantYear.$claimant.heading", startOfYear, endOfYear))
+        @components.heading(messages(s"paidTaxInRelevantYear.$claimant.heading", year))
 
         @components.input_yes_no(
             field = form("value"),
-            label = messages(s"paidTaxInRelevantYear.$claimant.heading", startOfYear, endOfYear),
+            label = messages(s"paidTaxInRelevantYear.$claimant.heading", year),
             labelClass = Some("visually-hidden")
         )
 

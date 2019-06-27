@@ -17,7 +17,13 @@
 @import config.FrontendAppConfig
 @import components.back_link
 
-@(appConfig: FrontendAppConfig, claimant: Claimant, startYear: String, finishYear: String, nextPage: Call)(implicit request: Request[_], messages: Messages)
+@(
+        appConfig: FrontendAppConfig,
+        claimant: Claimant,
+        nextPage: Call
+)(implicit request: Request[_], messages: Messages)
+
+@year = {@appConfig.earlistTaxYear}
 
 @main_template(
     title = messages(s"willNotPayTax.$claimant.title"),
@@ -37,7 +43,7 @@
     <p>
         @messages(s"willNotPayTax.$claimant.guidance1")
         <a href="@nextPage.url" id="continue">
-            @messages("willNotPayTax.link.continue.label", startYear, finishYear)
+            @messages("willNotPayTax.link.continue.label", year)
         </a>
         @messages(s"willNotPayTax.$claimant.guidance2")
     </p>

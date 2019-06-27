@@ -23,11 +23,6 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import controllers.actions._
 import config.FrontendAppConfig
 import identifiers.WillNotPayTaxId
-import models.ClaimYears
-import models.ClaimYears.ThisYear
-import models.requests.ClaimantRequest
-import play.api.mvc.{AnyContent, Result}
-import uk.gov.hmrc.time.TaxYear
 import utils.Navigator
 import views.html.willNotPayTax
 
@@ -42,25 +37,10 @@ class WillNotPayTaxController @Inject()(appConfig: FrontendAppConfig,
 
   def onPageLoad = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
-      getDatesForYear {
-        (taxYear) =>
-          val nextPage = navigator.nextPage(WillNotPayTaxId)(request.userAnswers)
+      val nextPage = navigator.nextPage(WillNotPayTaxId)(request.userAnswers)
 
-          Future.successful(
-            Ok(
-              willNotPayTax(appConfig, request.claimant, taxYear.startYear.toString, taxYear.finishYear.toString, nextPage)))
-      }
+      Future.successful(
+        Ok(willNotPayTax(appConfig, request.claimant, nextPage)))
   }
 
-  private def getDatesForYear(block: TaxYear => Future[Result])
-                             (implicit request: ClaimantRequest[AnyContent]): Future[Result] = {
-
-    request.userAnswers.taxYears match {
-
-      case Some(list) if list.contains(ThisYear) =>
-        block(ClaimYears.getTaxYear(ThisYear))
-      case _ =>
-        Future.successful(Redirect(routes.SessionExpiredController.onPageLoad()))
-    }
-  }
 }
