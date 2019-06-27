@@ -19,8 +19,6 @@ package views
 import play.api.data.Form
 import controllers.routes
 import forms.WillPayTaxFormProvider
-import models.ClaimYears
-import models.ClaimYears.ThisYear
 import models.Claimant.You
 import views.behaviours.YesNoViewBehaviours
 import views.html.willPayTax
@@ -29,15 +27,11 @@ class WillPayTaxViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "willPayTax.you"
 
-  val taxYear = ClaimYears.getTaxYear(ThisYear)
-  val startYear = taxYear.startYear.toString
-  val finishYear = taxYear.finishYear.toString
+  val form = new WillPayTaxFormProvider()(You, frontendAppConfig.earlistTaxYear)
 
-  val form = new WillPayTaxFormProvider()(You, startYear, finishYear)
+  def createView = () => willPayTax(frontendAppConfig, form, You)(fakeRequest, messages)
 
-  def createView = () => willPayTax(frontendAppConfig, form, You, startYear, finishYear)(fakeRequest, messages)
-
-  def createViewUsingForm = (form: Form[_]) => willPayTax(frontendAppConfig, form, You, startYear, finishYear)(fakeRequest, messages)
+  def createViewUsingForm = (form: Form[_]) => willPayTax(frontendAppConfig, form, You)(fakeRequest, messages)
 
   "WillPayTax view" must {
 
@@ -50,21 +44,20 @@ class WillPayTaxViewSpec extends YesNoViewBehaviours {
 
     "display the correct browser title" in {
       val doc = asDocument(createView())
-      val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title", startYear, finishYear)
+      val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title")
       assertEqualsMessage(doc, "title", expectedFullTitle)
     }
 
     "display the correct heading" in {
       val doc = asDocument(createView())
-      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", startYear, finishYear)
+      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading")
     }
 
     behave like yesNoPage(
       createViewUsingForm,
       messageKeyPrefix,
-      routes.WillPayTaxController.onSubmit().url,
-      startYear,
-      finishYear)
+      routes.WillPayTaxController.onSubmit().url
+    )
 
     behave like pageWithBackLink(createView)
   }

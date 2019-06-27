@@ -20,8 +20,6 @@ import play.api.data.Form
 import controllers.routes
 import forms.PaidTaxInRelevantYearFormProvider
 import models.Claimant.You
-import models.ClaimYears
-import models.ClaimYears.TwoYearsAgo
 import views.behaviours.YesNoViewBehaviours
 import views.html.paidTaxInRelevantYear
 
@@ -31,16 +29,12 @@ class PaidTaxInRelevantYearViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = s"paidTaxInRelevantYear.$claimant"
 
-  val taxYear = ClaimYears.getTaxYear(TwoYearsAgo)
-  val startYear = taxYear.startYear.toString
-  val finishYear = taxYear.finishYear.toString
+  val form = new PaidTaxInRelevantYearFormProvider()(claimant, frontendAppConfig.earlistTaxYear)
 
-  val form = new PaidTaxInRelevantYearFormProvider()(claimant, taxYear.startYear.toString, taxYear.finishYear.toString)
-
-  def createView = () => paidTaxInRelevantYear(frontendAppConfig, form, claimant, startYear, finishYear)(fakeRequest, messages)
+  def createView = () => paidTaxInRelevantYear(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
   def createViewUsingForm = (form: Form[_]) =>
-    paidTaxInRelevantYear(frontendAppConfig, form, claimant, startYear, finishYear)(fakeRequest, messages)
+    paidTaxInRelevantYear(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
   "PaidTaxInRelevantYear view" must {
 
@@ -53,21 +47,21 @@ class PaidTaxInRelevantYearViewSpec extends YesNoViewBehaviours {
 
     "display the correct browser title" in {
       val doc = asDocument(createView())
-      val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title", startYear, finishYear)
+      val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title", frontendAppConfig.earlistTaxYear)
       assertEqualsMessage(doc, "title", expectedFullTitle)
     }
 
     "display the correct heading" in {
       val doc = asDocument(createView())
-      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", startYear, finishYear)
+      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", frontendAppConfig.earlistTaxYear)
     }
 
     behave like yesNoPage(
       createViewUsingForm,
       messageKeyPrefix,
       routes.PaidTaxInRelevantYearController.onSubmit().url,
-      startYear,
-      finishYear)
+      frontendAppConfig.earlistTaxYear
+    )
 
     behave like pageWithBackLink(createView)
   }

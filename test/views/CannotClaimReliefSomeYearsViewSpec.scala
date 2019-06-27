@@ -18,8 +18,6 @@ package views
 
 import controllers.routes
 import models.Claimant.You
-import models.ClaimYears
-import models.ClaimYears.FourYearsAgo
 import views.behaviours.ViewBehaviours
 import views.html.cannotClaimReliefSomeYears
 
@@ -27,14 +25,11 @@ class CannotClaimReliefSomeYearsViewSpec extends ViewBehaviours {
 
   val claimant = You
 
-  val fourYearsAgo = ClaimYears.getTaxYear(FourYearsAgo)
-  val startYear = fourYearsAgo.startYear.toString
-
   def onwardRoute = routes.IndexController.onPageLoad()
 
   val messageKeyPrefix = s"cannotClaimReliefSomeYears.$claimant"
 
-  def createView = () => cannotClaimReliefSomeYears(frontendAppConfig, claimant, onwardRoute, startYear)(fakeRequest, messages)
+  def createView = () => cannotClaimReliefSomeYears(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages)
 
   "CannotClaimReliefSomeYears view" must {
 
@@ -49,13 +44,13 @@ class CannotClaimReliefSomeYearsViewSpec extends ViewBehaviours {
 
     "display the correct browser title" in {
       val doc = asDocument(createView())
-      val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title", startYear)
+      val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title", frontendAppConfig.earlistTaxYear)
       assertEqualsMessage(doc, "title", expectedFullTitle)
     }
 
     "display the correct heading" in {
       val doc = asDocument(createView())
-      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", startYear)
+      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", frontendAppConfig.earlistTaxYear)
     }
   }
 }

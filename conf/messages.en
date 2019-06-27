@@ -281,9 +281,9 @@ willNotPayTax.someoneElse.guidance2 = but they will not get tax relief unless th
 willNotPayTax.link.continue.label = claim tax relief for 6 April {0} to 5 April {1}
 willNotPayTax.link.external.label = Read claim tax relief for your job expenses
 
-willPayTax.you.title = Have you paid or do you expect to pay tax between 6 April {0} and 5 April {1}
-willPayTax.you.heading = Have you paid or do you expect to pay tax between 6 April {0} and 5 April {1}
-willPayTax.you.error.required = Select yes if you have paid or expect to pay tax between 6 April {0} and 5 April {1}
-willPayTax.someoneElse.title = Have they paid or do they expect to pay tax between 6 April {0} and 5 April {1}
-willPayTax.someoneElse.heading = Have they paid or do they expect to pay tax between 6 April {0} and 5 April {1}
-willPayTax.someoneElse.error.required = Select yes if they have paid or expect to pay tax between 6 April {0} and 5 April {1}
+willPayTax.you.title = Did you pay tax in each of the years you are claiming for?
+willPayTax.you.heading = Did you pay tax in each of the years you are claiming for?
+willPayTax.you.error.required = Select yes if you have paid tax in each of the years you are claiming for
+willPayTax.someoneElse.title = Have they pay tax in each of the years you are claiming for?
+willPayTax.someoneElse.heading = Have they pay tax in each of the years you are claiming for?
+willPayTax.someoneElse.error.required = Select yes if they have paid tax in each of the years you are claiming for
