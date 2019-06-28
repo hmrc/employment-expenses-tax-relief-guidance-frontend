@@ -53,12 +53,12 @@ registeredForSelfAssessment.hidden.guidance1 = Self Assessment is a system HM Re
 registeredForSelfAssessment.hidden.guidance2 = Tax is usually deducted automatically from wages, pensions and savings. People and businesses with other income must register for Self Assessment and report their income in a tax return.
 registeredForSelfAssessment.hidden.guidance3 = {0}Find out who must send a tax return (opens in a new window or tab){1}
 
-claimingOverPayAsYouEarnThreshold.you.title = Are you claiming tax relief on expenses that are £2,500 or more in any tax year?
-claimingOverPayAsYouEarnThreshold.you.heading = Are you claiming tax relief on expenses that are £2,500 or more in any tax year?
-claimingOverPayAsYouEarnThreshold.you.error.required = Select yes if you are claiming tax relief on expenses that are £2,500 or more in any tax year
-claimingOverPayAsYouEarnThreshold.someoneElse.title = Are they claiming tax relief on expenses that are £2,500 or in any tax year?
-claimingOverPayAsYouEarnThreshold.someoneElse.heading = Are they claiming tax relief on expenses that are £2,500 or more in any tax year?
-claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if they are claiming tax relief on expenses that are £2,500 or more in any tax year
+claimingOverPayAsYouEarnThreshold.you.title = Are you claiming expenses of £2,500 or more in a single tax year?
+claimingOverPayAsYouEarnThreshold.you.heading = Are you claiming expenses of £2,500 or more in a single tax year?
+claimingOverPayAsYouEarnThreshold.you.error.required = Select yes if you are claiming expenses of £2,500 or more in any tax year
+claimingOverPayAsYouEarnThreshold.someoneElse.title = Are they claiming expenses of £2,500 or in any tax year?
+claimingOverPayAsYouEarnThreshold.someoneElse.heading = Are they claiming expenses of £2,500 or more in any tax year?
+claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if they are claiming expenses of £2,500 or more in any tax year
 
 useSelfAssessment.you.title = You must use Self Assessment to claim tax relief for these expenses
 useSelfAssessment.you.heading = You must use Self Assessment to claim tax relief for these expenses
@@ -125,11 +125,14 @@ cannotClaimReliefSomeYears.someoneElse.heading = They can claim tax relief for e
 cannotClaimReliefSomeYears.someoneElse.guidance = A claim must happen within 4 years of the end of the tax year that they spent the money.
 cannotClaimReliefSomeYears.link.label = Claim for tax years after 5 April {0}
 
-cannotClaimReliefTooLongAgo.you.title = You cannot claim tax relief for these expenses because your claim is for before 6 April {0}
-cannotClaimReliefTooLongAgo.you.heading = You cannot claim tax relief for these expenses because your claim is for before 6 April {0}
-cannotClaimReliefTooLongAgo.someoneElse.title = They cannot claim tax relief for these expenses because their claim is for before 6 April {0}
-cannotClaimReliefTooLongAgo.someoneElse.heading = They cannot claim tax relief for these expenses because their claim is for before 6 April {0}
+cannotClaimReliefTooLongAgo.you.title = You can claim for expenses after 5 April {0}
+cannotClaimReliefTooLongAgo.you.heading = You can claim for expenses after 5 April {0}
+cannotClaimReliefTooLongAgo.you.guidance = You can only claim for the current tax year (6 April {0} to 5 April {1}) and the 4 previous tax years.
+cannotClaimReliefTooLongAgo.someoneElse.title = They can claim for expenses after 5 April {0}
+cannotClaimReliefTooLongAgo.someoneElse.heading = They can claim for expenses after 5 April {0}
 cannotClaimReliefTooLongAgo.link.label = Read claim tax relief for your job expenses
+cannotClaimReliefTooLongAgo.someoneElse.guidance = They can only claim for the current tax year (6 April {0} to 5 April {1}) and the 4 previous tax years.
+
 
 paidTaxInRelevantYear.you.title = Are you claiming for expenses after 5 April {0}?
 paidTaxInRelevantYear.you.heading = Are you claiming for expenses after 5 April {0}?

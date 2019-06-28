@@ -19,17 +19,21 @@ package controllers
 import controllers.actions._
 import models.Claimant.You
 import play.api.test.Helpers._
+import uk.gov.hmrc.time.TaxYear
 import views.html.cannotClaimReliefTooLongAgo
 
 class CannotClaimReliefTooLongAgoControllerSpec extends ControllerSpecBase {
 
   val claimant = You
 
+  val endYear = TaxYear.current.finishYear.toString
+  val startYear = TaxYear.current.startYear.toString
+
   def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
     new CannotClaimReliefTooLongAgoController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl,
       new GetClaimantActionImpl)
 
-  def viewAsString() = cannotClaimReliefTooLongAgo(frontendAppConfig, claimant)(fakeRequest, messages).toString
+  def viewAsString() = cannotClaimReliefTooLongAgo(frontendAppConfig, claimant, startYear, endYear)(fakeRequest, messages).toString
 
   "CannotClaimReliefTooLongAgo Controller" must {
 

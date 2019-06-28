@@ -17,10 +17,7 @@
 @import config.FrontendAppConfig
 @import components.back_link
 
-@(
-        appConfig: FrontendAppConfig,
-        claimant: Claimant
-)(implicit request: Request[_], messages: Messages)
+@(appConfig: FrontendAppConfig, claimant: Claimant, startYear: String, endYear: String)(implicit request: Request[_], messages: Messages)
 
 @year = {@appConfig.earliestTaxYear}
 
@@ -33,8 +30,11 @@
 
     @components.heading(messages(s"cannotClaimReliefTooLongAgo.$claimant.heading", year))
 
+    <p>@messages(s"cannotClaimReliefTooLongAgo.$claimant.guidance",startYear, endYear)</p>
+
     <a href="https://www.gov.uk/tax-relief-for-employees"
        data-journey-click="link - click:@messages(s"cannotClaimReliefTooLongAgo.$claimant.heading", year):@messages("cannotClaimReliefTooLongAgo.link.label")">
         @messages("cannotClaimReliefTooLongAgo.link.label")
     </a>
+
 }
