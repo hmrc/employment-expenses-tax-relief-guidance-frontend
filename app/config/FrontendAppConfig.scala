@@ -63,7 +63,7 @@ class FrontendAppConfig @Inject() (override val runModeConfiguration: Configurat
 
   lazy val optimizelyConfig = new OptimizelyConfig(runModeConfiguration)
 
-  def earlistTaxYear = {
+  def earliestTaxYear = {
     TaxYear.current.back(4).startYear.toString
   }
 

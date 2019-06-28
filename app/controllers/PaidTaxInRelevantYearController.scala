@@ -42,7 +42,7 @@ class PaidTaxInRelevantYearController @Inject()(appConfig: FrontendAppConfig,
 
   def onPageLoad() = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
-      val form: Form[Boolean] = formProvider(request.claimant, appConfig.earlistTaxYear)
+      val form: Form[Boolean] = formProvider(request.claimant, appConfig.earliestTaxYear)
 
       val preparedForm = request.userAnswers.paidTaxInRelevantYear match {
         case None => form
@@ -53,7 +53,7 @@ class PaidTaxInRelevantYearController @Inject()(appConfig: FrontendAppConfig,
 
   def onSubmit() = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
-      val form: Form[Boolean] = formProvider(request.claimant, appConfig.earlistTaxYear)
+      val form: Form[Boolean] = formProvider(request.claimant, appConfig.earliestTaxYear)
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>

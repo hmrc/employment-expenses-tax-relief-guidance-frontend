@@ -35,7 +35,7 @@ class PaidTaxInRelevantYearControllerSpec extends ControllerSpecBase {
   val claimant = You
 
   val formProvider = new PaidTaxInRelevantYearFormProvider()
-  val form = formProvider(claimant, frontendAppConfig.earlistTaxYear)
+  val form = formProvider(claimant, frontendAppConfig.earliestTaxYear)
 
   val getValidPrecursorData = new FakeDataRetrievalAction(
     Some(

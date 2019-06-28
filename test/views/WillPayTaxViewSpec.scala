@@ -27,7 +27,7 @@ class WillPayTaxViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "willPayTax.you"
 
-  val form = new WillPayTaxFormProvider()(You, frontendAppConfig.earlistTaxYear)
+  val form = new WillPayTaxFormProvider()(You, frontendAppConfig.earliestTaxYear)
 
   def createView = () => willPayTax(frontendAppConfig, form, You)(fakeRequest, messages)
 

@@ -23,7 +23,7 @@
         nextPage: Call
 )(implicit request: Request[_], messages: Messages)
 
-@year = {@appConfig.earlistTaxYear}
+@year = {@appConfig.earliestTaxYear}
 
 @main_template(
     title = messages(s"willNotPayTax.$claimant.title"),

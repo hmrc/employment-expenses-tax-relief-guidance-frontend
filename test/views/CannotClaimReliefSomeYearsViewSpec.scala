@@ -44,13 +44,13 @@ class CannotClaimReliefSomeYearsViewSpec extends ViewBehaviours {
 
     "display the correct browser title" in {
       val doc = asDocument(createView())
-      val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title", frontendAppConfig.earlistTaxYear)
+      val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title", frontendAppConfig.earliestTaxYear)
       assertEqualsMessage(doc, "title", expectedFullTitle)
     }
 
     "display the correct heading" in {
       val doc = asDocument(createView())
-      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", frontendAppConfig.earlistTaxYear)
+      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", frontendAppConfig.earliestTaxYear)
     }
   }
 }

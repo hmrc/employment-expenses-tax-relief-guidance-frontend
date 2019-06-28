@@ -29,7 +29,7 @@ class PaidTaxInRelevantYearViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = s"paidTaxInRelevantYear.$claimant"
 
-  val form = new PaidTaxInRelevantYearFormProvider()(claimant, frontendAppConfig.earlistTaxYear)
+  val form = new PaidTaxInRelevantYearFormProvider()(claimant, frontendAppConfig.earliestTaxYear)
 
   def createView = () => paidTaxInRelevantYear(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
@@ -47,20 +47,20 @@ class PaidTaxInRelevantYearViewSpec extends YesNoViewBehaviours {
 
     "display the correct browser title" in {
       val doc = asDocument(createView())
-      val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title", frontendAppConfig.earlistTaxYear)
+      val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title", frontendAppConfig.earliestTaxYear)
       assertEqualsMessage(doc, "title", expectedFullTitle)
     }
 
     "display the correct heading" in {
       val doc = asDocument(createView())
-      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", frontendAppConfig.earlistTaxYear)
+      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", frontendAppConfig.earliestTaxYear)
     }
 
     behave like yesNoPage(
       createViewUsingForm,
       messageKeyPrefix,
       routes.PaidTaxInRelevantYearController.onSubmit().url,
-      frontendAppConfig.earlistTaxYear
+      frontendAppConfig.earliestTaxYear
     )
 
     behave like pageWithBackLink(createView)
