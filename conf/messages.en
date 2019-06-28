@@ -53,12 +53,12 @@ registeredForSelfAssessment.hidden.guidance1 = Self Assessment is a system HM Re
 registeredForSelfAssessment.hidden.guidance2 = Tax is usually deducted automatically from wages, pensions and savings. People and businesses with other income must register for Self Assessment and report their income in a tax return.
 registeredForSelfAssessment.hidden.guidance3 = {0}Find out who must send a tax return (opens in a new window or tab){1}
 
-claimingOverPayAsYouEarnThreshold.you.title = Are you claiming tax relief on expenses that are £2,500 or more in any tax year?
-claimingOverPayAsYouEarnThreshold.you.heading = Are you claiming tax relief on expenses that are £2,500 or more in any tax year?
-claimingOverPayAsYouEarnThreshold.you.error.required = Select yes if you are claiming tax relief on expenses that are £2,500 or more in any tax year
-claimingOverPayAsYouEarnThreshold.someoneElse.title = Are they claiming tax relief on expenses that are £2,500 or in any tax year?
-claimingOverPayAsYouEarnThreshold.someoneElse.heading = Are they claiming tax relief on expenses that are £2,500 or more in any tax year?
-claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if they are claiming tax relief on expenses that are £2,500 or more in any tax year
+claimingOverPayAsYouEarnThreshold.you.title = Are you claiming expenses of £2,500 or more in a single tax year?
+claimingOverPayAsYouEarnThreshold.you.heading = Are you claiming expenses of £2,500 or more in a single tax year?
+claimingOverPayAsYouEarnThreshold.you.error.required = Select yes if you are claiming expenses that are £2,500 or more in any tax year
+claimingOverPayAsYouEarnThreshold.someoneElse.title = Are they claiming expenses that are £2,500 or in any tax year?
+claimingOverPayAsYouEarnThreshold.someoneElse.heading = Are they claiming expenses that are £2,500 or more in any tax year?
+claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if they are claiming expenses that are £2,500 or more in any tax year
 
 useSelfAssessment.you.title = You must use Self Assessment to claim tax relief for these expenses
 useSelfAssessment.you.heading = You must use Self Assessment to claim tax relief for these expenses
