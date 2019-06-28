@@ -76,15 +76,15 @@ moreThanFiveJobs.title = Are you claiming tax relief for more than 5 different j
 moreThanFiveJobs.heading = Are you claiming tax relief for more than 5 different jobs?
 moreThanFiveJobs.error.required = Select yes if you are claiming tax relief for more than 5 different jobs
 
-registerForSelfAssessment.you.title = You must register for Self Assessment to claim tax relief on expenses that are £2,500 or more
-registerForSelfAssessment.you.heading = You must register for Self Assessment to claim tax relief on expenses that are £2,500 or more
+registerForSelfAssessment.you.title = You can only claim these expenses using Self Assessment
+registerForSelfAssessment.you.heading = You can only claim these expenses using Self Assessment
 registerForSelfAssessment.you.guidance = If there are tax years where your expenses are less than £2,500,
 registerForSelfAssessment.you.link.continue.label = check if you can claim tax relief
-registerForSelfAssessment.someoneElse.title = They must register for Self Assessment to claim tax relief on expenses that are £2,500 or more
-registerForSelfAssessment.someoneElse.heading = They must register for Self Assessment to claim tax relief on expenses that are £2,500 or more
+registerForSelfAssessment.someoneElse.title = They can only claim these expenses using Self Assessment
+registerForSelfAssessment.someoneElse.heading = They can only claim these expenses using Self Assessment
 registerForSelfAssessment.someoneElse.guidance = If there are tax years where their expenses are less than £2,500,
 registerForSelfAssessment.someoneElse.link.continue.label = check if they can claim tax relief
-registerForSelfAssessment.link.external.label = Find out how to register for Self Assessment
+registerForSelfAssessment.link.external.label =  register for and file Self Assessment tax return
 
 usePrintAndPost.title = You can claim tax relief for these expenses by post
 usePrintAndPost.heading = You can claim tax relief for these expenses by post
