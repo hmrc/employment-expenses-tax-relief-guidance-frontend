@@ -22,7 +22,8 @@ import com.google.inject.{Inject, Singleton}
 import play.api.{Configuration, Environment}
 import play.api.i18n.Lang
 import controllers.routes
-import uk.gov.hmrc.play.config.{ServicesConfig, OptimizelyConfig}
+import uk.gov.hmrc.play.config.{OptimizelyConfig, ServicesConfig}
+import uk.gov.hmrc.time.TaxYear
 
 @Singleton
 class FrontendAppConfig @Inject() (override val runModeConfiguration: Configuration, environment: Environment) extends ServicesConfig {
@@ -61,4 +62,9 @@ class FrontendAppConfig @Inject() (override val runModeConfiguration: Configurat
     .map(_.split(",")).getOrElse(Array.empty).toSeq
 
   lazy val optimizelyConfig = new OptimizelyConfig(runModeConfiguration)
+
+  def earliestTaxYear = {
+    TaxYear.current.back(4).startYear.toString
+  }
+
 }
