@@ -55,10 +55,10 @@ registeredForSelfAssessment.hidden.guidance3 = {0}Find out who must send a tax r
 
 claimingOverPayAsYouEarnThreshold.you.title = Are you claiming expenses of £2,500 or more in a single tax year?
 claimingOverPayAsYouEarnThreshold.you.heading = Are you claiming expenses of £2,500 or more in a single tax year?
-claimingOverPayAsYouEarnThreshold.you.error.required = Select yes if you are claiming expenses of £2,500 or more in any tax year
-claimingOverPayAsYouEarnThreshold.someoneElse.title = Are they claiming expenses of £2,500 or in any tax year?
-claimingOverPayAsYouEarnThreshold.someoneElse.heading = Are they claiming expenses of £2,500 or more in any tax year?
-claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if they are claiming expenses of £2,500 or more in any tax year
+claimingOverPayAsYouEarnThreshold.you.error.required = Select yes if you are claiming expenses of £2,500 or more in a single tax year
+claimingOverPayAsYouEarnThreshold.someoneElse.title = Are they claiming expenses of £2,500 or more in a single tax year?
+claimingOverPayAsYouEarnThreshold.someoneElse.heading = Are they claiming expenses of £2,500 or more in a single tax year?
+claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if they are claiming expenses of £2,500 or more in a single tax year
 
 useSelfAssessment.you.title = You must use Self Assessment to claim tax relief for these expenses
 useSelfAssessment.you.heading = You must use Self Assessment to claim tax relief for these expenses
