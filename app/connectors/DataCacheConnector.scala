@@ -16,11 +16,11 @@
 
 package connectors
 
-import com.google.inject.{ImplementedBy, Inject}
 import identifiers.Identifier
+import javax.inject.Inject
 import play.api.libs.json.{Format, Json}
-import uk.gov.hmrc.http.cache.client.CacheMap
 import repositories.SessionRepository
+import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.CascadeUpsert
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -86,7 +86,6 @@ class DataCacheConnectorImpl @Inject()(val sessionRepository: SessionRepository,
   }
 }
 
-@ImplementedBy(classOf[DataCacheConnectorImpl])
 trait DataCacheConnector {
   def save[A](cacheId: String, key: Identifier, value: A)(implicit fmt: Format[A]): Future[CacheMap]
 

@@ -19,7 +19,7 @@ package filters
 import java.util.UUID
 
 import akka.stream.Materializer
-import com.google.inject.Inject
+import javax.inject.Inject
 import play.api.http.HeaderNames
 import play.api.mvc._
 import uk.gov.hmrc.http.{SessionKeys, HeaderNames => HMRCHeaderNames}

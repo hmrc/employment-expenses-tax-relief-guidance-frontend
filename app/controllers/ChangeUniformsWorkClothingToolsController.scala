@@ -28,7 +28,6 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.{Enumerable, Navigator, UserAnswers}
 
 class ChangeUniformsWorkClothingToolsController @Inject()(appConfig: FrontendAppConfig,
-                                                          override val messagesApi: MessagesApi,
                                                           dataCacheConnector: DataCacheConnector,
                                                           navigator: Navigator,
                                                           getData: DataRetrievalAction,

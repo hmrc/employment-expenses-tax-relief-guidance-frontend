@@ -18,17 +18,15 @@ package config
 
 import java.util.Base64
 
-import com.google.inject.{Inject, Singleton}
-import play.api.{Configuration, Environment}
-import play.api.i18n.Lang
 import controllers.routes
-import uk.gov.hmrc.play.config.{OptimizelyConfig, ServicesConfig}
+import javax.inject.Inject
+import play.api.Configuration
+import play.api.i18n.Lang
+import uk.gov.hmrc.play.config.OptimizelyConfig
 import uk.gov.hmrc.time.TaxYear
 
 @Singleton
-class FrontendAppConfig @Inject() (override val runModeConfiguration: Configuration, environment: Environment) extends ServicesConfig {
-
-  override protected def mode = environment.mode
+class FrontendAppConfig @Inject()(runModeConfiguration: Configuration) {
 
   private def loadConfig(key: String) = runModeConfiguration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
 
@@ -42,7 +40,6 @@ class FrontendAppConfig @Inject() (override val runModeConfiguration: Configurat
   lazy val betaFeedbackUrl = s"$contactHost/contact/beta-feedback"
   lazy val betaFeedbackUnauthenticatedUrl = s"$contactHost/contact/beta-feedback-unauthenticated"
 
-  lazy val authUrl = baseUrl("auth")
   lazy val loginUrl = loadConfig("urls.login")
   lazy val loginContinueUrl = loadConfig("urls.loginContinue")
 

@@ -25,7 +25,6 @@ import uk.gov.hmrc.time.TaxYear
 import views.html.cannotClaimReliefTooLongAgo
 
 class CannotClaimReliefTooLongAgoController @Inject()(appConfig: FrontendAppConfig,
-                                                      override val messagesApi: MessagesApi,
                                                       getData: DataRetrievalAction,
                                                       requireData: DataRequiredAction,
                                                       getClaimant: GetClaimantAction) extends FrontendController with I18nSupport {

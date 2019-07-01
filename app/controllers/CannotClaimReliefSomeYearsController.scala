@@ -27,7 +27,6 @@ import utils.Navigator
 import views.html.cannotClaimReliefSomeYears
 
 class CannotClaimReliefSomeYearsController @Inject()(appConfig: FrontendAppConfig,
-                                                     override val messagesApi: MessagesApi,
                                                      navigator: Navigator,
                                                      getData: DataRetrievalAction,
                                                      requireData: DataRequiredAction,

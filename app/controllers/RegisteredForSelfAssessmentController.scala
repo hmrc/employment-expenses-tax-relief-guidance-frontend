@@ -32,7 +32,6 @@ import views.html.registeredForSelfAssessment
 import scala.concurrent.Future
 
 class RegisteredForSelfAssessmentController @Inject()(appConfig: FrontendAppConfig,
-                                                      override val messagesApi: MessagesApi,
                                                       dataCacheConnector: DataCacheConnector,
                                                       navigator: Navigator,
                                                       getData: DataRetrievalAction,

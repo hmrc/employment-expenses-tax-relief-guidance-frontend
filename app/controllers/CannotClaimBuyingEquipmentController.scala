@@ -16,17 +16,15 @@
 
 package controllers
 
-import javax.inject.Inject
-
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import controllers.actions._
 import config.FrontendAppConfig
+import controllers.actions._
+import javax.inject.Inject
+import play.api.i18n.I18nSupport
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import utils.Navigator
 import views.html.cannotClaimBuyingEquipment
 
 class CannotClaimBuyingEquipmentController @Inject()(appConfig: FrontendAppConfig,
-                                                     override val messagesApi: MessagesApi,
                                                      navigator: Navigator,
                                                      getData: DataRetrievalAction,
                                                      requireData: DataRequiredAction,

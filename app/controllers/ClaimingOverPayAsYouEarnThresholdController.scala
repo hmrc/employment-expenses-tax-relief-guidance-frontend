@@ -32,7 +32,6 @@ import views.html.claimingOverPayAsYouEarnThreshold
 import scala.concurrent.Future
 
 class ClaimingOverPayAsYouEarnThresholdController @Inject()(appConfig: FrontendAppConfig,
-                                                            override val messagesApi: MessagesApi,
                                                             dataCacheConnector: DataCacheConnector,
                                                             navigator: Navigator,
                                                             getData: DataRetrievalAction,

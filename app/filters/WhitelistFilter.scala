@@ -17,8 +17,8 @@
 package filters
 
 import akka.stream.Materializer
-import com.google.inject.Inject
 import config.FrontendAppConfig
+import javax.inject.Inject
 import play.api.mvc._
 import uk.gov.hmrc.whitelist._
 
