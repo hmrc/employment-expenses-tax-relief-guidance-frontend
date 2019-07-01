@@ -33,9 +33,6 @@ GET        /cannot-claim-expenses-paid-back             controllers.CannotClaimR
 GET        /employer-paid-back-all-expenses             controllers.EmployerPaidBackExpensesController.onPageLoad()
 POST       /employer-paid-back-all-expenses             controllers.EmployerPaidBackExpensesController.onSubmit()
 
-GET        /what-tax-years                              controllers.TaxYearsController.onPageLoad()
-POST       /what-tax-years                              controllers.TaxYearsController.onSubmit()
-
 GET        /cannot-claim-for-all-years                  controllers.CannotClaimReliefSomeYearsController.onPageLoad()
 
 GET        /cannot-claim-too-long-ago                   controllers.CannotClaimReliefTooLongAgoController.onPageLoad()
