@@ -76,7 +76,7 @@ registerForSelfAssessment.someoneElse.title = They can only claim these expenses
 registerForSelfAssessment.someoneElse.heading = They can only claim these expenses using Self Assessment
 registerForSelfAssessment.someoneElse.guidance = If there are tax years where their expenses are less than £2,500,
 registerForSelfAssessment.someoneElse.link.continue.label = check if they can claim tax relief
-registerForSelfAssessment.link.external.label =  register for and file Self Assessment tax return
+registerForSelfAssessment.link.external.label =  register for and file Self Assessment tax returns
 registerForSelfAssessment.guidance1 = Because your expenses are £2,500 or more in some of the tax years you are claiming for, you must claim them as part of a Self Assessment tax return.
 registerForSelfAssessment.guidance2 = Find out how to
 
