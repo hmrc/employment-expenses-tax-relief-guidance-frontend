@@ -53,6 +53,7 @@ registeredForSelfAssessment.hidden.guidance1 = Self Assessment is a system HM Re
 registeredForSelfAssessment.hidden.guidance2 = Tax is usually deducted automatically from wages, pensions and savings. People and businesses with other income must register for Self Assessment and report their income in a tax return.
 registeredForSelfAssessment.hidden.guidance3 = {0}Find out who must send a tax return (opens in a new window or tab){1}
 
+
 claimingOverPayAsYouEarnThreshold.you.title = Are you claiming tax relief on expenses that are £2,500 or more in any tax year?
 claimingOverPayAsYouEarnThreshold.you.heading = Are you claiming tax relief on expenses that are £2,500 or more in any tax year?
 claimingOverPayAsYouEarnThreshold.you.error.required = Select yes if you are claiming tax relief on expenses that are £2,500 or more in any tax year
@@ -85,6 +86,8 @@ registerForSelfAssessment.someoneElse.heading = They can only claim these expens
 registerForSelfAssessment.someoneElse.guidance = If there are tax years where their expenses are less than £2,500,
 registerForSelfAssessment.someoneElse.link.continue.label = check if they can claim tax relief
 registerForSelfAssessment.link.external.label =  register for and file Self Assessment tax return
+registerForSelfAssessment.guidance1 = Because your expenses are £2,500 or more in some of the tax years you are claiming for, you must claim them as part of a Self Assessment tax return.
+registerForSelfAssessment.guidance2 = Find out how to
 
 usePrintAndPost.title = You can claim tax relief for these expenses by post
 usePrintAndPost.heading = You can claim tax relief for these expenses by post
