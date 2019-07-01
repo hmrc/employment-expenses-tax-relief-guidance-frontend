@@ -45,31 +45,6 @@
 
         @components.heading(s"registeredForSelfAssessment.$claimant.heading")
 
-        <details class="form-group">
-
-          <summary data-journey-click="accordion - click:@messages(s"registeredForSelfAssessment.$claimant.heading"):@messages("registeredForSelfAssessment.hidden.summary")">
-            <span class="summary">
-              @messages("registeredForSelfAssessment.hidden.summary")
-            </span>
-          </summary>
-
-          <div class="panel panel-border-narrow">
-            <p>
-              @messages("registeredForSelfAssessment.hidden.guidance1")
-            </p>
-
-            <p>
-              @messages("registeredForSelfAssessment.hidden.guidance2")
-            </p>
-
-            <p>
-              @Html(messages("registeredForSelfAssessment.hidden.guidance3", startTag, endTag))
-            </p>
-
-          </div>
-
-        </details>
-
         @components.input_yes_no(
             field = form("value"),
             label = messages(s"registeredForSelfAssessment.$claimant.heading"),

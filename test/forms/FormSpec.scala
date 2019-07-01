@@ -18,8 +18,11 @@ package forms
 
 import org.scalatest.{Matchers, OptionValues, WordSpec}
 import play.api.data.{Form, FormError}
+import uk.gov.hmrc.time.TaxYear
 
 trait FormSpec extends WordSpec with OptionValues with Matchers {
+
+  def earliestTaxYear = TaxYear.current.back(4).startYear.toString
 
   def checkForError(form: Form[_], data: Map[String, String], expectedErrors: Seq[FormError]) = {
 

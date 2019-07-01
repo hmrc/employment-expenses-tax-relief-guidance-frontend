@@ -19,26 +19,17 @@
 
 @(appConfig: FrontendAppConfig, claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
+
+@link = {<a href="@appConfig.selfAssessmentTaxReturnsUrl">@messages("useSelfAssessment.link.label")</a>}
+
 @main_template(
-    title = messages(s"useSelfAssessment.$claimant.title"),
-    appConfig = appConfig,
-    bodyClasses = None) {
+  title = messages(s"useSelfAssessment.$claimant.title"),
+  appConfig = appConfig,
+  bodyClasses = None) {
 
-    @back_link()
+  @back_link()
 
-    @components.heading(s"useSelfAssessment.$claimant.heading")
+  @components.heading(s"useSelfAssessment.$claimant.heading")
 
-    <p>
-      @messages(s"useSelfAssessment.$claimant.guidance")
-    </p>
-
-    <ul class="list list-bullet">
-      <li>@messages(s"useSelfAssessment.$claimant.bullet1")</li>
-      <li>@messages(s"useSelfAssessment.$claimant.bullet2")</li>
-    </ul>
-
-    <a href="https://www.gov.uk/self-assessment-tax-returns"
-       data-journey-click="link - click:@messages(s"useSelfAssessment.$claimant.heading"):@messages("useSelfAssessment.link.label")">
-        @messages("useSelfAssessment.link.label")
-    </a>
+  <p>@Html(messages(s"useSelfAssessment.$claimant.guidance", link))</p>
 }

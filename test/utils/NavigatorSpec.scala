@@ -23,7 +23,6 @@ import controllers.routes
 import identifiers._
 import models.{Claimant, ClaimingFor}
 import models.Claimant.{SomeoneElse, You}
-import models.ClaimYears._
 import models.ClaimingFor.BuyingEquipment
 
 class NavigatorSpec extends SpecBase with MockitoSugar {
@@ -57,111 +56,14 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       }
     }
 
-    "go to the TaxYears view" when {
+    "go to the PaidTaxInRelevantYear view" when {
       "navigating from the claimant view" in {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.claimant)
           .thenReturn(Some(Claimant.You))
 
         navigator.nextPage(ClaimantId)(mockAnswers) mustBe
-          routes.TaxYearsController.onPageLoad()
-      }
-    }
-
-    "go to the CannotClaimReliefTooLongAgo view" when {
-      "navigating from TaxYears and selecting Another Year only" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimant).thenReturn(Some(You))
-        when(mockAnswers.taxYears).thenReturn(Some(List(AnotherYear)))
-
-        navigator.nextPage(TaxYearsId)(mockAnswers) mustBe
-          routes.CannotClaimReliefTooLongAgoController.onPageLoad()
-      }
-    }
-
-    "go to the WillPayTax view" when {
-      "navigating from TaxYears and selecting ThisYear only" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimant).thenReturn(Some(You))
-        when(mockAnswers.taxYears).thenReturn(Some(List(ThisYear)))
-
-        navigator.nextPage(TaxYearsId)(mockAnswers) mustBe
-          routes.WillPayTaxController.onPageLoad()
-      }
-
-      "navigating from CannotClaimReliefSomeYearsAgo when ThisYear and AnotherYear were selected" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimant).thenReturn(Some(You))
-        when(mockAnswers.taxYears).thenReturn(Some(List(ThisYear, AnotherYear)))
-
-        navigator.nextPage(CannotClaimReliefSomeYearsId)(mockAnswers) mustBe
-          routes.WillPayTaxController.onPageLoad()
-      }
-    }
-
-    "go to the PaidTaxInRelevantYear view" when {
-      "navigating from TaxYears and selecting one specific previous year" in {
-        val previousYears = Seq(LastYear, TwoYearsAgo, ThreeYearsAgo, FourYearsAgo)
-
-        previousYears.foreach {
-          previousYear =>
-            val mockAnswers = mock[UserAnswers]
-            when(mockAnswers.claimant).thenReturn(Some(You))
-            when(mockAnswers.taxYears).thenReturn(Some(List(previousYear)))
-
-            navigator.nextPage(TaxYearsId)(mockAnswers) mustBe
-              routes.PaidTaxInRelevantYearController.onPageLoad()
-        }
-      }
-
-      "navigating from CannotClaimReliefSomeYears when a Previous yes and AnotherYear were selected" in {
-        val previousYears = Seq(LastYear, TwoYearsAgo, ThreeYearsAgo, FourYearsAgo)
-
-        previousYears.foreach {
-          previousYear =>
-            val mockAnswers = mock[UserAnswers]
-            when(mockAnswers.claimant).thenReturn(Some(You))
-            when(mockAnswers.taxYears).thenReturn(Some(List(previousYear, AnotherYear)))
-
-            navigator.nextPage(CannotClaimReliefSomeYearsId)(mockAnswers) mustBe
-              routes.PaidTaxInRelevantYearController.onPageLoad()
-        }
-      }
-    }
-
-    "go to CannotClaimReliefSomeYears view" when {
-      "navigating from TaxYears and selecting Another Year and at least one specific year" in {
-        val specificYears = Seq(ThisYear, LastYear, TwoYearsAgo, ThreeYearsAgo, FourYearsAgo)
-
-        specificYears.foreach {
-          specificYear =>
-            val mockAnswers = mock[UserAnswers]
-            when(mockAnswers.claimant).thenReturn(Some(You))
-            when(mockAnswers.taxYears).thenReturn(Some(List(specificYear, AnotherYear)))
-
-            navigator.nextPage(TaxYearsId)(mockAnswers) mustBe
-              routes.CannotClaimReliefSomeYearsController.onPageLoad()
-        }
-      }
-    }
-
-    "go to NotEntitledSomeYears view" when {
-      "navigating from TaxYears and selecting multiple specific years" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimant).thenReturn(Some(You))
-        when(mockAnswers.taxYears).thenReturn(Some(List(ThisYear, LastYear)))
-
-        navigator.nextPage(TaxYearsId)(mockAnswers) mustBe
-          routes.NotEntitledSomeYearsController.onPageLoad()
-      }
-
-      "navigating from CannotClaimReliefSomeYears when multiple specific years has been selected" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimant).thenReturn(Some(You))
-        when(mockAnswers.taxYears).thenReturn(Some(List(ThisYear, LastYear, AnotherYear)))
-
-        navigator.nextPage(CannotClaimReliefSomeYearsId)(mockAnswers) mustBe
-          routes.NotEntitledSomeYearsController.onPageLoad()
+          routes.PaidTaxInRelevantYearController.onPageLoad()
       }
     }
 
@@ -232,14 +134,14 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       }
     }
 
-    "go to the NotEntitled view" when {
+    "go to the CannotClaimReliefTooLongAgo view" when {
       "answering No from the PaidTaxInRelevantYear view" in {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.claimant).thenReturn(Some(You))
         when(mockAnswers.paidTaxInRelevantYear).thenReturn(Some(false))
 
         navigator.nextPage(PaidTaxInRelevantYearId)(mockAnswers) mustBe
-          routes.NotEntitledController.onPageLoad()
+          routes.WillNotPayTaxController.onPageLoad()
       }
     }
 
