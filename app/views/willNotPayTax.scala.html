@@ -17,7 +17,13 @@
 @import config.FrontendAppConfig
 @import components.back_link
 
-@(appConfig: FrontendAppConfig, claimant: Claimant, startYear: String, finishYear: String, nextPage: Call)(implicit request: Request[_], messages: Messages)
+@(
+        appConfig: FrontendAppConfig,
+        claimant: Claimant,
+        nextPage: Call
+)(implicit request: Request[_], messages: Messages)
+
+@year = {@appConfig.earliestTaxYear}
 
 @main_template(
     title = messages(s"willNotPayTax.$claimant.title"),
@@ -28,18 +34,8 @@
 
     @components.heading(s"willNotPayTax.$claimant.heading")
 
-    <p>
-        <a href="https://www.gov.uk/tax-relief-for-employees"
-           data-journey-click="link - click:@messages(s"willNotPayTax.$claimant.heading"):@messages("willNotPayTax.link.external.label")">
-        @messages("willNotPayTax.link.external.label")</a>
-    </p>
+    <p>@messages(s"willNotPayTax.$claimant.guidance1")</p>
 
-    <p>
-        @messages(s"willNotPayTax.$claimant.guidance1")
-        <a href="@nextPage.url" id="continue">
-            @messages("willNotPayTax.link.continue.label", startYear, finishYear)
-        </a>
-        @messages(s"willNotPayTax.$claimant.guidance2")
-    </p>
+    @components.button_link("site.save_and_continue", nextPage.url)
 
 }

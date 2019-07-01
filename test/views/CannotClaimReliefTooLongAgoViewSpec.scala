@@ -17,8 +17,6 @@
 package views
 
 import models.Claimant.You
-import models.ClaimYears
-import models.ClaimYears.FourYearsAgo
 import uk.gov.hmrc.time.TaxYear
 import views.behaviours.ViewBehaviours
 import views.html.cannotClaimReliefTooLongAgo
@@ -26,14 +24,12 @@ import views.html.cannotClaimReliefTooLongAgo
 class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
 
   val claimant = You
-
-  val fourYearsAgo = ClaimYears.getTaxYear(FourYearsAgo)
-  val startYearFouryearsAgo = fourYearsAgo.startYear.toString
-  val endYear = TaxYear.current.finishYear.toString
   val startYear = TaxYear.current.startYear.toString
+  val endYear = TaxYear.current.finishYear.toString
+
   val messageKeyPrefix = s"cannotClaimReliefTooLongAgo.$claimant"
 
-  def createView = () => cannotClaimReliefTooLongAgo(frontendAppConfig, claimant,startYearFouryearsAgo, startYear, endYear)(fakeRequest, messages)
+  def createView = () => cannotClaimReliefTooLongAgo(frontendAppConfig, claimant, startYear, endYear)(fakeRequest, messages)
 
   "CannotClaimReliefTooLongAgo view" must {
 
@@ -48,13 +44,13 @@ class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
 
     "display the correct browser title" in {
       val doc = asDocument(createView())
-      val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title", startYearFouryearsAgo)
+      val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title", frontendAppConfig.earliestTaxYear)
       assertEqualsMessage(doc, "title", expectedFullTitle)
     }
 
     "display the correct heading" in {
       val doc = asDocument(createView())
-      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", startYearFouryearsAgo)
+      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", frontendAppConfig.earliestTaxYear)
     }
   }
 }

@@ -18,8 +18,6 @@ package controllers
 
 import controllers.actions._
 import models.Claimant.You
-import models.ClaimYears
-import models.ClaimYears.FourYearsAgo
 import play.api.test.Helpers._
 import utils.FakeNavigator
 import views.html.cannotClaimReliefSomeYears
@@ -30,14 +28,11 @@ class CannotClaimReliefSomeYearsControllerSpec extends ControllerSpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
-  val fourYearsAgo = ClaimYears.getTaxYear(FourYearsAgo)
-  val startYear = fourYearsAgo.startYear.toString
-
   def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
     new CannotClaimReliefSomeYearsController(frontendAppConfig, messagesApi, new FakeNavigator(desiredRoute = onwardRoute),
       dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl)
 
-  def viewAsString() = cannotClaimReliefSomeYears(frontendAppConfig, claimant, onwardRoute, startYear)(fakeRequest, messages).toString
+  def viewAsString() = cannotClaimReliefSomeYears(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages).toString
 
   "CannotClaimReliefSomeYears Controller" must {
 

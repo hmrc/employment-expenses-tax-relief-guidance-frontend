@@ -70,7 +70,6 @@ class CascadeUpsertSpec extends SpecBase {
 
     val fullCacheMap = new CacheMap("id", Map(
       ClaimantId.toString                          -> JsString(Claimant.You.toString),
-      TaxYearsId.toString                          -> JsArray(Seq(JsString(ClaimYears.ThisYear.toString))),
       WillPayTaxId.toString                        -> JsBoolean(true),
       PaidTaxInRelevantYearId.toString             -> JsBoolean(true),
       RegisteredForSelfAssessmentId.toString       -> JsBoolean(false),
@@ -91,17 +90,10 @@ class CascadeUpsertSpec extends SpecBase {
       }
     }
 
-    "the answer for TaxYears is changed" must {
-      "delete data for all later screens" in {
-        val result = cascadeUpsert(TaxYearsId, List(ClaimYears.LastYear.toString), fullCacheMap)
-        result.data.keySet mustEqual Set(ClaimantId.toString, TaxYearsId.toString)
-      }
-    }
-
     "the answer for WillPayTax is changed" must {
       "delete data for all later screens" in {
         val result = cascadeUpsert(WillPayTaxId, false, fullCacheMap)
-        result.data.keySet mustEqual Set(ClaimantId.toString, TaxYearsId.toString, WillPayTaxId.toString)
+        result.data.keySet mustEqual Set(ClaimantId.toString, WillPayTaxId.toString)
       }
     }
 
@@ -111,7 +103,6 @@ class CascadeUpsertSpec extends SpecBase {
         result.data.keySet mustEqual
           Set(
             ClaimantId.toString,
-            TaxYearsId.toString,
             WillPayTaxId.toString,
             PaidTaxInRelevantYearId.toString
           )
@@ -124,7 +115,6 @@ class CascadeUpsertSpec extends SpecBase {
         result.data.keySet mustEqual
           Set(
             ClaimantId.toString,
-            TaxYearsId.toString,
             WillPayTaxId.toString,
             PaidTaxInRelevantYearId.toString,
             RegisteredForSelfAssessmentId.toString
@@ -138,7 +128,6 @@ class CascadeUpsertSpec extends SpecBase {
         result.data.keySet mustEqual
           Set(
             ClaimantId.toString,
-            TaxYearsId.toString,
             WillPayTaxId.toString,
             PaidTaxInRelevantYearId.toString,
             RegisteredForSelfAssessmentId.toString,
@@ -153,7 +142,6 @@ class CascadeUpsertSpec extends SpecBase {
         result.data.keySet mustEqual
           Set(
             ClaimantId.toString,
-            TaxYearsId.toString,
             WillPayTaxId.toString,
             PaidTaxInRelevantYearId.toString,
             RegisteredForSelfAssessmentId.toString,
@@ -169,7 +157,6 @@ class CascadeUpsertSpec extends SpecBase {
         result.data.keySet mustEqual
           Set(
             ClaimantId.toString,
-            TaxYearsId.toString,
             WillPayTaxId.toString,
             PaidTaxInRelevantYearId.toString,
             RegisteredForSelfAssessmentId.toString,
@@ -186,7 +173,6 @@ class CascadeUpsertSpec extends SpecBase {
         result.data.keySet mustEqual
           Set(
             ClaimantId.toString,
-            TaxYearsId.toString,
             WillPayTaxId.toString,
             PaidTaxInRelevantYearId.toString,
             RegisteredForSelfAssessmentId.toString,
@@ -204,7 +190,6 @@ class CascadeUpsertSpec extends SpecBase {
         result.data.keySet mustEqual
           Set(
             ClaimantId.toString,
-            TaxYearsId.toString,
             WillPayTaxId.toString,
             PaidTaxInRelevantYearId.toString,
             RegisteredForSelfAssessmentId.toString,
@@ -223,7 +208,6 @@ class CascadeUpsertSpec extends SpecBase {
         result.data.keySet mustEqual
           Set(
             ClaimantId.toString,
-            TaxYearsId.toString,
             WillPayTaxId.toString,
             PaidTaxInRelevantYearId.toString,
             RegisteredForSelfAssessmentId.toString,
@@ -243,7 +227,6 @@ class CascadeUpsertSpec extends SpecBase {
         result.data.keySet mustEqual
           Set(
             ClaimantId.toString,
-            TaxYearsId.toString,
             WillPayTaxId.toString,
             PaidTaxInRelevantYearId.toString,
             RegisteredForSelfAssessmentId.toString,

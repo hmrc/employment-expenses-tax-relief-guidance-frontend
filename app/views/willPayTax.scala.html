@@ -19,10 +19,14 @@
 @import controllers.routes._
 @import components.back_link
 
-@(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant, startYear: String, finishYear: String)(implicit request: Request[_], messages: Messages)
+@(
+        appConfig: FrontendAppConfig,
+        form: Form[_],
+        claimant: Claimant
+)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages(s"willPayTax.$claimant.title", startYear, finishYear),
+    title = messages(s"willPayTax.$claimant.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
@@ -32,11 +36,11 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(messages(s"willPayTax.$claimant.heading", startYear, finishYear))
+        @components.heading(messages(s"willPayTax.$claimant.heading"))
 
         @components.input_yes_no(
             field = form("value"),
-            label = messages(s"willPayTax.$claimant.heading", startYear, finishYear),
+            label = messages(s"willPayTax.$claimant.heading"),
             labelClass = Some("visually-hidden")
         )
 
