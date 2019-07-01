@@ -28,15 +28,11 @@
 
     @components.heading(s"registerForSelfAssessment.$claimant.heading")
 
-    <p>
-        @messages(s"registerForSelfAssessment.$claimant.guidance")
-        <a href="@nextPage.url">@messages(s"registerForSelfAssessment.$claimant.link.continue.label")</a>.
-    </p>
+    <p>@messages("registerForSelfAssessment.guidance1")</p>
 
-    <p>
+    <p>@messages("registerForSelfAssessment.guidance2")
         <a href="https://www.gov.uk/log-in-file-self-assessment-tax-return"
            data-journey-click="link - click:@messages(s"registerForSelfAssessment.$claimant.heading"):@messages("registerForSelfAssessment.link.external.label")">
-            @messages("registerForSelfAssessment.link.external.label")
-        </a>
+            @messages("registerForSelfAssessment.link.external.label")</a>.
     </p>
 }
