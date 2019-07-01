@@ -30,7 +30,7 @@
 
     <p>@messages(s"cannotClaimRelief.$claimant.guidance")
 
-        <a href="https://www.gov.uk/guidance/job-expenses-for-uniforms-work-clothing-and-tools#if-your-employer-pays-towards-the-costs-of-your-expenses"
+        <a href=@appConfig.taxReliefGuidance
            data-journey-click="link - click:@messages(s"cannotClaimRelief.$claimant.heading"):@messages("cannotClaimRelief.link.label")">@messages("cannotClaimRelief.link.label")</a>.
     </p>
 
