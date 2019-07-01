@@ -16,52 +16,55 @@
 
 package controllers
 
-import javax.inject.Inject
-
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import config.FrontendAppConfig
 import forms.EmployerPaidBackExpensesFormProvider
 import identifiers.EmployerPaidBackExpensesId
+import javax.inject.Inject
+import play.api.data.Form
+import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.MessagesControllerComponents
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Navigator, UserAnswers}
 import views.html.employerPaidBackExpenses
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class EmployerPaidBackExpensesController @Inject()(appConfig: FrontendAppConfig,
-                                                   override val messagesApi: MessagesApi,
-                                                   dataCacheConnector: DataCacheConnector,
-                                                   navigator: Navigator,
-                                                   getData: DataRetrievalAction,
-                                                   requireData: DataRequiredAction,
-                                                   getClaimant: GetClaimantAction,
-                                                    formProvider: EmployerPaidBackExpensesFormProvider)
-  extends FrontendController with I18nSupport {
+class EmployerPaidBackExpensesController @Inject()(
+                                                    appConfig: FrontendAppConfig,
+                                                    override val messagesApi: MessagesApi,
+                                                    dataCacheConnector: DataCacheConnector,
+                                                    navigator: Navigator,
+                                                    getData: DataRetrievalAction,
+                                                    requireData: DataRequiredAction,
+                                                    getClaimant: GetClaimantAction,
+                                                    formProvider: EmployerPaidBackExpensesFormProvider,
+                                                    val controllerComponents: MessagesControllerComponents
+                                                  )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
-    def onPageLoad() = (getData andThen requireData andThen getClaimant) {
-      implicit request =>
-        val form: Form[Boolean] = formProvider(request.claimant)
+  def onPageLoad = (Action andThen getData andThen requireData andThen getClaimant) {
+    implicit request =>
+      val form: Form[Boolean] = formProvider(request.claimant)
 
-        val preparedForm = request.userAnswers.employerPaidBackExpenses match {
-          case None => form
-          case Some(value) => form.fill(value)
-        }
-        Ok(employerPaidBackExpenses(appConfig, preparedForm, request.claimant))
-    }
+      val preparedForm = request.userAnswers.employerPaidBackExpenses match {
+        case None => form
+        case Some(value) => form.fill(value)
+      }
+      Ok(employerPaidBackExpenses(appConfig, preparedForm, request.claimant))
+  }
 
-    def onSubmit() = (getData andThen requireData andThen getClaimant).async {
-      implicit request =>
-        val form: Form[Boolean] = formProvider(request.claimant)
+  def onSubmit = (Action andThen getData andThen requireData andThen getClaimant).async {
+    implicit request =>
+      val form: Form[Boolean] = formProvider(request.claimant)
 
-        form.bindFromRequest().fold(
-          (formWithErrors: Form[_]) =>
-            Future.successful(BadRequest(employerPaidBackExpenses(appConfig, formWithErrors, request.claimant))),
-          (value) =>
-            dataCacheConnector.save[Boolean](request.sessionId, EmployerPaidBackExpensesId, value).map(cacheMap =>
-              Redirect(navigator.nextPage(EmployerPaidBackExpensesId)(new UserAnswers(cacheMap))))
-        )
-    }
+      form.bindFromRequest().fold(
+        (formWithErrors: Form[_]) =>
+          Future.successful(BadRequest(employerPaidBackExpenses(appConfig, formWithErrors, request.claimant))),
+        (value) =>
+          dataCacheConnector.save[Boolean](request.sessionId, EmployerPaidBackExpensesId, value).map(cacheMap =>
+            Redirect(navigator.nextPage(EmployerPaidBackExpensesId)(new UserAnswers(cacheMap)))
+          )
+      )
+  }
 }

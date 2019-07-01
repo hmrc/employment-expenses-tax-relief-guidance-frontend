@@ -16,23 +16,24 @@
 
 package controllers
 
-import javax.inject.Inject
-
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import controllers.actions._
 import config.FrontendAppConfig
+import controllers.actions._
+import javax.inject.Inject
+import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.MessagesControllerComponents
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.cannotClaimRelief
 
-import scala.concurrent.Future
+class CannotClaimReliefController @Inject()(
+                                             appConfig: FrontendAppConfig,
+                                             override val messagesApi: MessagesApi,
+                                             getData: DataRetrievalAction,
+                                             requireData: DataRequiredAction,
+                                             getClaimant: GetClaimantAction,
+                                             val controllerComponents: MessagesControllerComponents
+                                           ) extends FrontendBaseController with I18nSupport {
 
-class CannotClaimReliefController @Inject()(appConfig: FrontendAppConfig,
-                                            override val messagesApi: MessagesApi,
-                                            getData: DataRetrievalAction,
-                                            requireData: DataRequiredAction,
-                                            getClaimant: GetClaimantAction) extends FrontendController with I18nSupport {
-
-  def onPageLoad = (getData andThen requireData andThen getClaimant) {
+  def onPageLoad = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
       Ok(cannotClaimRelief(appConfig, request.claimant))
   }

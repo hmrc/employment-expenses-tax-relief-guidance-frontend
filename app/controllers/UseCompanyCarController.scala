@@ -16,35 +16,38 @@
 
 package controllers
 
-import javax.inject.Inject
-
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import config.FrontendAppConfig
 import forms.UseCompanyCarFormProvider
 import identifiers.UseCompanyCarId
-import models.{NotUsingOwnCar, UseOfOwnCar, UsingOwnCar}
+import javax.inject.Inject
 import models.requests.ClaimantRequest
-import play.api.mvc.{AnyContent, Result}
+import models.{NotUsingOwnCar, UseOfOwnCar, UsingOwnCar}
+import play.api.data.Form
+import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.{AnyContent, MessagesControllerComponents, Result}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Navigator, UserAnswers}
 import views.html.useCompanyCar
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class UseCompanyCarController @Inject()(appConfig: FrontendAppConfig,
-                                        override val messagesApi: MessagesApi,
-                                        dataCacheConnector: DataCacheConnector,
-                                        navigator: Navigator,
-                                        getData: DataRetrievalAction,
-                                        requireData: DataRequiredAction,
-                                        getClaimant: GetClaimantAction,
-                                        formProvider: UseCompanyCarFormProvider) extends FrontendController with I18nSupport {
+class UseCompanyCarController @Inject()(
+                                         appConfig: FrontendAppConfig,
+                                         override val messagesApi: MessagesApi,
+                                         dataCacheConnector: DataCacheConnector,
+                                         navigator: Navigator,
+                                         getData: DataRetrievalAction,
+                                         requireData: DataRequiredAction,
+                                         getClaimant: GetClaimantAction,
+                                         formProvider: UseCompanyCarFormProvider,
+                                         val controllerComponents: MessagesControllerComponents
+                                       )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad() = (getData andThen requireData andThen getClaimant).async {
+  def onPageLoad = (Action andThen getData andThen requireData andThen getClaimant).async {
     implicit request =>
+
       getUseOfOwnCar {
         useOfOwnCar =>
 
@@ -58,8 +61,9 @@ class UseCompanyCarController @Inject()(appConfig: FrontendAppConfig,
       }
   }
 
-  def onSubmit() = (getData andThen requireData andThen getClaimant).async {
+  def onSubmit = (Action andThen getData andThen requireData andThen getClaimant).async {
     implicit request =>
+
       getUseOfOwnCar {
         useOfOwnCar =>
 
@@ -70,7 +74,8 @@ class UseCompanyCarController @Inject()(appConfig: FrontendAppConfig,
               Future.successful(BadRequest(useCompanyCar(appConfig, formWithErrors, request.claimant, useOfOwnCar))),
             (value) =>
               dataCacheConnector.save[Boolean](request.sessionId, UseCompanyCarId, value).map(cacheMap =>
-                Redirect(navigator.nextPage(UseCompanyCarId)(new UserAnswers(cacheMap))))
+                Redirect(navigator.nextPage(UseCompanyCarId)(new UserAnswers(cacheMap)))
+              )
           )
       }
   }
@@ -79,9 +84,9 @@ class UseCompanyCarController @Inject()(appConfig: FrontendAppConfig,
                             (implicit request: ClaimantRequest[AnyContent]): Future[Result] = {
 
     request.userAnswers.useOwnCar match {
-      case Some(true)  => block(UsingOwnCar)
+      case Some(true) => block(UsingOwnCar)
       case Some(false) => block(NotUsingOwnCar)
-      case None        => Future.successful(Redirect(routes.SessionExpiredController.onPageLoad()))
+      case None => Future.successful(Redirect(routes.SessionExpiredController.onPageLoad()))
     }
   }
 }

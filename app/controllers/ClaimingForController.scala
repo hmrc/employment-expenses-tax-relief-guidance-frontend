@@ -16,21 +16,22 @@
 
 package controllers
 
+import akka.http.scaladsl.model.HttpHeader.ParsingResult.Ok
 import javax.inject.Inject
-
 import play.api.data.Form
 import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import uk.gov.hmrc.play.bootstrap.controller.{FrontendBaseController, FrontendController}
 import connectors.DataCacheConnector
 import controllers.actions._
 import config.FrontendAppConfig
 import forms.ClaimingForFormProvider
 import identifiers.ClaimingForId
 import models.ClaimingFor
+import play.api.mvc.MessagesControllerComponents
 import utils.{Enumerable, Navigator, UserAnswers}
 import views.html.claimingFor
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class ClaimingForController @Inject()(
                                         appConfig: FrontendAppConfig,
@@ -40,9 +41,11 @@ class ClaimingForController @Inject()(
                                         getData: DataRetrievalAction,
                                         requireData: DataRequiredAction,
                                         getClaimant: GetClaimantAction,
-                                        formProvider: ClaimingForFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+                                        formProvider: ClaimingForFormProvider,
+                                        val controllerComponents: MessagesControllerComponents
+                                     )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
 
-  def onPageLoad() = (getData andThen requireData andThen getClaimant) {
+  def onPageLoad = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
       val form = formProvider(request.claimant)
 
@@ -53,7 +56,7 @@ class ClaimingForController @Inject()(
       Ok(claimingFor(appConfig, preparedForm, request.claimant))
   }
 
-  def onSubmit() = (getData andThen requireData andThen getClaimant).async {
+  def onSubmit = (Action andThen getData andThen requireData andThen getClaimant).async {
     implicit request =>
       val form = formProvider(request.claimant)
 

@@ -16,19 +16,20 @@
 
 package controllers
 
-import javax.inject.Inject
-
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.{Action, AnyContent}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 import config.FrontendAppConfig
+import javax.inject.Inject
+import play.api.i18n.I18nSupport
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.Navigator
 
-class IndexController @Inject()(val appConfig: FrontendAppConfig,
-                                val messagesApi: MessagesApi,
-                                navigator: Navigator) extends FrontendController with I18nSupport {
+class IndexController @Inject()(
+                                 val appConfig: FrontendAppConfig,
+                                 navigator: Navigator
+                               ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = Action { implicit request =>
-    MovedPermanently(navigator.firstPage.url)
+  def onPageLoad = Action {
+    implicit request =>
+      MovedPermanently(navigator.firstPage.url)
   }
 }
+

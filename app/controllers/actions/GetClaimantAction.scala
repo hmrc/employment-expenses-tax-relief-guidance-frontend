@@ -20,7 +20,7 @@ import controllers.routes
 import javax.inject.Inject
 import models.requests.{ClaimantRequest, DataRequest}
 import play.api.mvc.Results.Redirect
-import play.api.mvc.{ActionRefiner, Result}
+import play.api.mvc.{ActionBuilder, ActionRefiner, AnyContent, Result}
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
 import scala.concurrent.{ExecutionContext, Future}

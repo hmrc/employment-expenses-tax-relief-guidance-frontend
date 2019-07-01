@@ -16,32 +16,35 @@
 
 package controllers
 
-import javax.inject.Inject
-
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import config.FrontendAppConfig
 import forms.MoreThanFiveJobsFormProvider
 import identifiers.MoreThanFiveJobsId
+import javax.inject.Inject
+import play.api.data.Form
+import play.api.i18n.{I18nSupport, MessagesApi}
+import play.api.mvc.MessagesControllerComponents
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Navigator, UserAnswers}
 import views.html.moreThanFiveJobs
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class MoreThanFiveJobsController @Inject()(appConfig: FrontendAppConfig,
-                                         override val messagesApi: MessagesApi,
-                                         dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: MoreThanFiveJobsFormProvider) extends FrontendController with I18nSupport {
+class MoreThanFiveJobsController @Inject()(
+                                            appConfig: FrontendAppConfig,
+                                            override val messagesApi: MessagesApi,
+                                            dataCacheConnector: DataCacheConnector,
+                                            navigator: Navigator,
+                                            getData: DataRetrievalAction,
+                                            requireData: DataRequiredAction,
+                                            formProvider: MoreThanFiveJobsFormProvider,
+                                            val controllerComponents: MessagesControllerComponents
+                                          )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
   val form: Form[Boolean] = formProvider()
 
-  def onPageLoad() = (getData andThen requireData) {
+  def onPageLoad = (Action andThen getData andThen requireData) {
     implicit request =>
       val preparedForm = request.userAnswers.moreThanFiveJobs match {
         case None => form
@@ -50,14 +53,15 @@ class MoreThanFiveJobsController @Inject()(appConfig: FrontendAppConfig,
       Ok(moreThanFiveJobs(appConfig, preparedForm))
   }
 
-  def onSubmit() = (getData andThen requireData).async {
+  def onSubmit= (Action andThen getData andThen requireData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(moreThanFiveJobs(appConfig, formWithErrors))),
         (value) =>
           dataCacheConnector.save[Boolean](request.sessionId, MoreThanFiveJobsId, value).map(cacheMap =>
-            Redirect(navigator.nextPage(MoreThanFiveJobsId)(new UserAnswers(cacheMap))))
+            Redirect(navigator.nextPage(MoreThanFiveJobsId)(new UserAnswers(cacheMap)))
+          )
       )
   }
 }
