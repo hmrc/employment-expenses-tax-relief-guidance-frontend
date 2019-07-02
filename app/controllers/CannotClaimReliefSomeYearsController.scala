@@ -21,7 +21,7 @@ import controllers.actions._
 import identifiers.CannotClaimReliefSomeYearsId
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
-import play.api.mvc.MessagesControllerComponents
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.Navigator
 import views.html.cannotClaimReliefSomeYears
@@ -35,7 +35,7 @@ class CannotClaimReliefSomeYearsController @Inject()(
                                                       val controllerComponents: MessagesControllerComponents
                                                     ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad = (Action andThen getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
       val nextPage = navigator.nextPage(CannotClaimReliefSomeYearsId)(request.userAnswers)
       Ok(cannotClaimReliefSomeYears(appConfig, request.claimant, nextPage))

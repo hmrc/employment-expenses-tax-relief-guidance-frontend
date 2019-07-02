@@ -16,27 +16,26 @@
 
 package controllers
 
-import javax.inject.Inject
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.{FrontendBaseController, FrontendController}
-import controllers.actions._
 import config.FrontendAppConfig
+import controllers.actions._
 import identifiers.RegisterForSelfAssessmentId
-import play.api.mvc.MessagesControllerComponents
+import javax.inject.Inject
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.Navigator
 import views.html.registerForSelfAssessment
 
 class RegisterForSelfAssessmentController @Inject()(
-                                                     appConfig: FrontendAppConfig,
-                                                    override val messagesApi: MessagesApi,
+                                                    appConfig: FrontendAppConfig,
                                                     navigator: Navigator,
                                                     getData: DataRetrievalAction,
                                                     requireData: DataRequiredAction,
                                                     getClaimant: GetClaimantAction,
-                                                     val controllerComponents: MessagesControllerComponents
+                                                    val controllerComponents: MessagesControllerComponents
                                                    ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad = (Action andThen getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
       val nextPage = navigator.nextPage(RegisterForSelfAssessmentId)(request.userAnswers)
       Ok(registerForSelfAssessment(appConfig, request.claimant, nextPage))

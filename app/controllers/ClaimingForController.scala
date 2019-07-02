@@ -16,18 +16,17 @@
 
 package controllers
 
-import akka.http.scaladsl.model.HttpHeader.ParsingResult.Ok
-import javax.inject.Inject
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.{FrontendBaseController, FrontendController}
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import config.FrontendAppConfig
 import forms.ClaimingForFormProvider
 import identifiers.ClaimingForId
+import javax.inject.Inject
 import models.ClaimingFor
-import play.api.mvc.MessagesControllerComponents
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Enumerable, Navigator, UserAnswers}
 import views.html.claimingFor
 
@@ -35,7 +34,6 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class ClaimingForController @Inject()(
                                         appConfig: FrontendAppConfig,
-                                        override val messagesApi: MessagesApi,
                                         dataCacheConnector: DataCacheConnector,
                                         navigator: Navigator,
                                         getData: DataRetrievalAction,
@@ -45,7 +43,7 @@ class ClaimingForController @Inject()(
                                         val controllerComponents: MessagesControllerComponents
                                      )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
 
-  def onPageLoad = (Action andThen getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
       val form = formProvider(request.claimant)
 
@@ -56,14 +54,14 @@ class ClaimingForController @Inject()(
       Ok(claimingFor(appConfig, preparedForm, request.claimant))
   }
 
-  def onSubmit = (Action andThen getData andThen requireData andThen getClaimant).async {
+  def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
     implicit request =>
       val form = formProvider(request.claimant)
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(claimingFor(appConfig, formWithErrors, request.claimant))),
-        (value) =>
+        value =>
           dataCacheConnector.save[Set[ClaimingFor]](request.sessionId, ClaimingForId, value).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimingForId)(new UserAnswers(cacheMap))))
       )

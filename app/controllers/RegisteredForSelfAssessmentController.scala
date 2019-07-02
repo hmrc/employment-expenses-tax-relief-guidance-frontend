@@ -24,7 +24,7 @@ import identifiers.RegisteredForSelfAssessmentId
 import javax.inject.Inject
 import play.api.data.Form
 import play.api.i18n.I18nSupport
-import play.api.mvc.MessagesControllerComponents
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Navigator, UserAnswers}
 import views.html.registeredForSelfAssessment
@@ -42,7 +42,7 @@ class RegisteredForSelfAssessmentController @Inject()(
                                                        val controllerComponents: MessagesControllerComponents
                                                      )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad = (Action andThen getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
       val form: Form[Boolean] = formProvider(request.claimant)
       val preparedForm = request.userAnswers.registeredForSelfAssessment match {
@@ -52,14 +52,14 @@ class RegisteredForSelfAssessmentController @Inject()(
       Ok(registeredForSelfAssessment(appConfig, preparedForm, request.claimant))
   }
 
-  def onSubmit = (Action andThen getData andThen requireData andThen getClaimant).async {
+  def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
     implicit request =>
       val form: Form[Boolean] = formProvider(request.claimant)
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(registeredForSelfAssessment(appConfig, formWithErrors, request.claimant))),
-        (value) =>
+        value =>
           dataCacheConnector.save[Boolean](request.sessionId, RegisteredForSelfAssessmentId, value).map(cacheMap =>
             Redirect(navigator.nextPage(RegisteredForSelfAssessmentId)(new UserAnswers(cacheMap)))
           )

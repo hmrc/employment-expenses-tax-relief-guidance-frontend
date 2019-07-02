@@ -22,8 +22,8 @@ import controllers.actions.{DataRequiredAction, DataRetrievalAction}
 import identifiers.{ChangeOtherExpensesId, ClaimingForId}
 import javax.inject.Inject
 import models.ClaimingFor
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.MessagesControllerComponents
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Enumerable, Navigator, UserAnswers}
 
@@ -31,7 +31,6 @@ import scala.concurrent.ExecutionContext
 
 class ChangeOtherExpensesController @Inject()(
                                                appConfig: FrontendAppConfig,
-                                               override val messagesApi: MessagesApi,
                                                dataCacheConnector: DataCacheConnector,
                                                navigator: Navigator,
                                                getData: DataRetrievalAction,
@@ -39,7 +38,7 @@ class ChangeOtherExpensesController @Inject()(
                                                val controllerComponents: MessagesControllerComponents
                                              )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
 
-  def onPageLoad = (Action andThen getData andThen requireData).async {
+  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData).async {
     implicit request =>
 
       dataCacheConnector.save[Set[ClaimingFor]](request.sessionId, ClaimingForId, Set(ClaimingFor.Other)).map(cacheMap =>

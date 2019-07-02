@@ -20,20 +20,19 @@ import config.FrontendAppConfig
 import controllers.actions._
 import javax.inject.Inject
 import models.ClaimingFor.UniformsClothingTools
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.MessagesControllerComponents
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.claimOnline
 
 class ClaimOnlineController @Inject()(
                                        appConfig: FrontendAppConfig,
-                                       override val messagesApi: MessagesApi,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
                                        val controllerComponents: MessagesControllerComponents
                                      ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad = (Action andThen getData andThen requireData) {
+  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData) {
     implicit request =>
 
       request.userAnswers.claimingFor match {

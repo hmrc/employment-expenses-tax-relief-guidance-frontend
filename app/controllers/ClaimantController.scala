@@ -24,8 +24,8 @@ import identifiers.ClaimantId
 import javax.inject.Inject
 import models.Claimant
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.MessagesControllerComponents
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Enumerable, Navigator, UserAnswers}
 import views.html.claimant
@@ -34,7 +34,6 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class ClaimantController @Inject()(
                                     appConfig: FrontendAppConfig,
-                                    override val messagesApi: MessagesApi,
                                     dataCacheConnector: DataCacheConnector,
                                     navigator: Navigator,
                                     getData: DataRetrievalAction,
@@ -42,9 +41,9 @@ class ClaimantController @Inject()(
                                     val controllerComponents: MessagesControllerComponents
                                   )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[Claimant] = formProvider()
 
-  def onPageLoad = (Action andThen getData) {
+  def onPageLoad: Action[AnyContent] = (Action andThen getData) {
     implicit request =>
       val preparedForm = request.userAnswers.flatMap(_.claimant) match {
         case None => form
@@ -53,12 +52,12 @@ class ClaimantController @Inject()(
       Ok(claimant(appConfig, preparedForm))
   }
 
-  def onSubmit = (Action andThen getData).async {
+  def onSubmit: Action[AnyContent] = (Action andThen getData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(claimant(appConfig, formWithErrors))),
-        (value) =>
+        value =>
           dataCacheConnector.save[Claimant](request.sessionId, ClaimantId, value).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimantId)(new UserAnswers(cacheMap))))
       )

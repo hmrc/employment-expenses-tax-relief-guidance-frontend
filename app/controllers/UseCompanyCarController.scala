@@ -25,8 +25,8 @@ import javax.inject.Inject
 import models.requests.ClaimantRequest
 import models.{NotUsingOwnCar, UseOfOwnCar, UsingOwnCar}
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.{AnyContent, MessagesControllerComponents, Result}
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents, Result}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Navigator, UserAnswers}
 import views.html.useCompanyCar
@@ -35,7 +35,6 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class UseCompanyCarController @Inject()(
                                          appConfig: FrontendAppConfig,
-                                         override val messagesApi: MessagesApi,
                                          dataCacheConnector: DataCacheConnector,
                                          navigator: Navigator,
                                          getData: DataRetrievalAction,
@@ -45,7 +44,7 @@ class UseCompanyCarController @Inject()(
                                          val controllerComponents: MessagesControllerComponents
                                        )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad = (Action andThen getData andThen requireData andThen getClaimant).async {
+  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
     implicit request =>
 
       getUseOfOwnCar {
@@ -61,7 +60,7 @@ class UseCompanyCarController @Inject()(
       }
   }
 
-  def onSubmit = (Action andThen getData andThen requireData andThen getClaimant).async {
+  def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
     implicit request =>
 
       getUseOfOwnCar {
@@ -72,7 +71,7 @@ class UseCompanyCarController @Inject()(
           form.bindFromRequest().fold(
             (formWithErrors: Form[_]) =>
               Future.successful(BadRequest(useCompanyCar(appConfig, formWithErrors, request.claimant, useOfOwnCar))),
-            (value) =>
+            value =>
               dataCacheConnector.save[Boolean](request.sessionId, UseCompanyCarId, value).map(cacheMap =>
                 Redirect(navigator.nextPage(UseCompanyCarId)(new UserAnswers(cacheMap)))
               )

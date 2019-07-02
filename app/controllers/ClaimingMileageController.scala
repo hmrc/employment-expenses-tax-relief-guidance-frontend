@@ -23,8 +23,8 @@ import forms.ClaimingMileageFormProvider
 import identifiers.ClaimingMileageId
 import javax.inject.Inject
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.MessagesControllerComponents
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Navigator, UserAnswers}
 import views.html.claimingMileage
@@ -33,7 +33,6 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class ClaimingMileageController @Inject()(
                                            appConfig: FrontendAppConfig,
-                                           override val messagesApi: MessagesApi,
                                            dataCacheConnector: DataCacheConnector,
                                            navigator: Navigator,
                                            getData: DataRetrievalAction,
@@ -43,7 +42,7 @@ class ClaimingMileageController @Inject()(
                                            val controllerComponents: MessagesControllerComponents
                                          )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad = (Action andThen getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
 
       val form: Form[Boolean] = formProvider(request.claimant)
@@ -55,7 +54,7 @@ class ClaimingMileageController @Inject()(
       Ok(claimingMileage(appConfig, preparedForm, request.claimant))
   }
 
-  def onSubmit = (Action andThen getData andThen requireData andThen getClaimant).async {
+  def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
     implicit request =>
 
       val form: Form[Boolean] = formProvider(request.claimant)
@@ -63,7 +62,7 @@ class ClaimingMileageController @Inject()(
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(claimingMileage(appConfig, formWithErrors, request.claimant))),
-        (value) =>
+        value =>
           dataCacheConnector.save[Boolean](request.sessionId, ClaimingMileageId, value).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimingMileageId)(new UserAnswers(cacheMap)))
           )

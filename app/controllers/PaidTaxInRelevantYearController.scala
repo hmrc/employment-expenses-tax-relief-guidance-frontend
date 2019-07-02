@@ -23,8 +23,8 @@ import forms.PaidTaxInRelevantYearFormProvider
 import identifiers.PaidTaxInRelevantYearId
 import javax.inject.Inject
 import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.MessagesControllerComponents
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Navigator, UserAnswers}
 import views.html.paidTaxInRelevantYear
@@ -32,8 +32,7 @@ import views.html.paidTaxInRelevantYear
 import scala.concurrent.{ExecutionContext, Future}
 
 class PaidTaxInRelevantYearController @Inject()(
-                                                 appConfig: FrontendAppConfig,
-                                                override val messagesApi: MessagesApi,
+                                                appConfig: FrontendAppConfig,
                                                 dataCacheConnector: DataCacheConnector,
                                                 navigator: Navigator,
                                                 getData: DataRetrievalAction,
@@ -43,7 +42,7 @@ class PaidTaxInRelevantYearController @Inject()(
                                                 val controllerComponents: MessagesControllerComponents
                                                )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad = (Action andThen getData andThen requireData andThen getClaimant).async {
+  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
     implicit request =>
       val form: Form[Boolean] = formProvider(request.claimant, appConfig.earliestTaxYear)
 
@@ -54,14 +53,14 @@ class PaidTaxInRelevantYearController @Inject()(
       Future.successful(Ok(paidTaxInRelevantYear(appConfig, preparedForm, request.claimant)))
   }
 
-  def onSubmit = (Action andThen getData andThen requireData andThen getClaimant).async {
+  def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
     implicit request =>
       val form: Form[Boolean] = formProvider(request.claimant, appConfig.earliestTaxYear)
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(paidTaxInRelevantYear(appConfig, formWithErrors, request.claimant))),
-        (value) =>
+        value =>
           dataCacheConnector.save[Boolean](request.sessionId, PaidTaxInRelevantYearId, value).map(cacheMap =>
             Redirect(navigator.nextPage(PaidTaxInRelevantYearId)(new UserAnswers(cacheMap))))
       )

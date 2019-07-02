@@ -19,7 +19,7 @@ package config
 import java.util.Base64
 
 import controllers.routes
-import javax.inject.Inject
+import javax.inject.{Inject, Singleton}
 import play.api.Configuration
 import play.api.i18n.Lang
 import uk.gov.hmrc.play.config.OptimizelyConfig

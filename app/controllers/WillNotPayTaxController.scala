@@ -20,8 +20,8 @@ import config.FrontendAppConfig
 import controllers.actions._
 import identifiers.WillNotPayTaxId
 import javax.inject.Inject
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.MessagesControllerComponents
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.Navigator
 import views.html.willNotPayTax
@@ -30,15 +30,14 @@ import scala.concurrent.Future
 
 class WillNotPayTaxController @Inject()(
                                          appConfig: FrontendAppConfig,
-                                         override val messagesApi: MessagesApi,
                                          navigator: Navigator,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
                                          getClaimant: GetClaimantAction,
-                                         controllerComponents: MessagesControllerComponents
+                                         val controllerComponents: MessagesControllerComponents
                                        ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad = (Action andThen getData andThen requireData andThen getClaimant).async {
+  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
     implicit request =>
 
       val nextPage = navigator.nextPage(WillNotPayTaxId)(request.userAnswers)

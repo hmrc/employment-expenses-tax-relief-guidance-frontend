@@ -23,7 +23,7 @@ import identifiers.{ChangeUniformsWorkClothingToolsId, ClaimingForId}
 import javax.inject.Inject
 import models.ClaimingFor
 import play.api.i18n.I18nSupport
-import play.api.mvc.MessagesControllerComponents
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Enumerable, Navigator, UserAnswers}
 
@@ -36,9 +36,9 @@ class ChangeUniformsWorkClothingToolsController @Inject()(
                                                            getData: DataRetrievalAction,
                                                            requireData: DataRequiredAction,
                                                            val controllerComponents: MessagesControllerComponents
-                                                         )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
+                                                         )(implicit ec: ExecutionContext)extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
 
-  def onPageLoad = (Action andThen getData andThen requireData).async {
+  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData).async {
     implicit request =>
 
       dataCacheConnector.save[Set[ClaimingFor]](request.sessionId, ClaimingForId, Set(ClaimingFor.UniformsClothingTools)).map(cacheMap =>
