@@ -16,19 +16,22 @@
 
 package controllers
 
+import base.SpecBase
 import controllers.actions._
 import models.Claimant
 import play.api.test.Helpers._
 import utils.FakeNavigator
 import views.html.registerForSelfAssessment
 
-class RegisterForSelfAssessmentControllerSpec extends ControllerSpecBase {
+import scala.concurrent.ExecutionContext.Implicits.global
+
+class RegisterForSelfAssessmentControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(Claimant.You)) =
-    new RegisterForSelfAssessmentController(frontendAppConfig, messagesApi, new FakeNavigator(onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl)
+    new RegisterForSelfAssessmentController(frontendAppConfig, new FakeNavigator(onwardRoute),
+      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, controllerComponents)
 
   def viewAsString() = registerForSelfAssessment(frontendAppConfig, Claimant.You, onwardRoute)(fakeRequest, messages).toString
 

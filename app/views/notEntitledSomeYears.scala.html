@@ -20,13 +20,13 @@
 @(appConfig: FrontendAppConfig, claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages(s"notEntitledSomeYears.$claimant.title"),
+    title = messages(s"notEntitledSomeYearsView.$claimant.title"),
     appConfig = appConfig,
     bodyClasses = None) {
 
     @back_link()
 
-    @components.heading(s"notEntitledSomeYears.$claimant.heading")
+    @components.heading(s"notEntitledSomeYearsView.$claimant.heading")
 
-    @components.button_link(s"notEntitledSomeYears.$claimant.link.label", nextPage.url, Some("claim"))
+    @components.button_link(s"notEntitledSomeYearsView.$claimant.link.label", nextPage.url, Some("claim"))
 }

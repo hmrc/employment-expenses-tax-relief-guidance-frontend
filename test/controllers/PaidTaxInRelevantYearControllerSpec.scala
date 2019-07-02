@@ -16,6 +16,7 @@
 
 package controllers
 
+import base.SpecBase
 import play.api.data.Form
 import play.api.libs.json.{JsBoolean, JsString}
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -28,7 +29,9 @@ import identifiers.{ClaimantId, PaidTaxInRelevantYearId}
 import models.Claimant.You
 import views.html.paidTaxInRelevantYear
 
-class PaidTaxInRelevantYearControllerSpec extends ControllerSpecBase {
+import scala.concurrent.ExecutionContext.Implicits.global
+
+class PaidTaxInRelevantYearControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
@@ -49,8 +52,8 @@ class PaidTaxInRelevantYearControllerSpec extends ControllerSpecBase {
   )
 
   def controller(dataRetrievalAction: DataRetrievalAction = getValidPrecursorData) =
-    new PaidTaxInRelevantYearController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, formProvider)
+    new PaidTaxInRelevantYearController(frontendAppConfig, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
+      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, formProvider, controllerComponents)
 
   def viewAsString(form: Form[_] = form) =
     paidTaxInRelevantYear(frontendAppConfig, form, claimant)(fakeRequest, messages).toString

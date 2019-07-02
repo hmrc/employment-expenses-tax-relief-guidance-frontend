@@ -16,21 +16,24 @@
 
 package controllers
 
+import base.SpecBase
 import controllers.actions._
 import models.Claimant.You
 import play.api.test.Helpers._
 import utils.FakeNavigator
 import views.html.cannotClaimReliefSomeYears
 
-class CannotClaimReliefSomeYearsControllerSpec extends ControllerSpecBase {
+import scala.concurrent.ExecutionContext.Implicits.global
+
+class CannotClaimReliefSomeYearsControllerSpec extends SpecBase {
 
   val claimant = You
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
-    new CannotClaimReliefSomeYearsController(frontendAppConfig, messagesApi, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl)
+    new CannotClaimReliefSomeYearsController(frontendAppConfig, new FakeNavigator(desiredRoute = onwardRoute),
+      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, controllerComponents)
 
   def viewAsString() = cannotClaimReliefSomeYears(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages).toString
 

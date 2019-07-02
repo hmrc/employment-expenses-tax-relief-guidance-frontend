@@ -27,7 +27,7 @@ class NotEntitledSomeYearsViewSpec extends ViewBehaviours {
 
   val claimant = You
 
-  val messageKeyPrefix = s"notEntitledSomeYears.$claimant"
+  val messageKeyPrefix = s"notEntitledSomeYearsView.$claimant"
 
   def createView = () => notEntitledSomeYears(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages)
 

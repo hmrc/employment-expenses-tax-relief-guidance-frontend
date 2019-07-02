@@ -1,7 +1,4 @@
 import sbt._
-import uk.gov.hmrc.SbtAutoBuildPlugin
-import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin
-import uk.gov.hmrc.versioning.SbtGitVersioning
 
 object FrontendBuild extends Build with MicroService {
 
@@ -11,10 +8,10 @@ object FrontendBuild extends Build with MicroService {
 }
 
 private object AppDependencies {
-  import play.sbt.PlayImport._
   import play.core.PlayVersion
+  import play.sbt.PlayImport._
 
-  val compile = Seq(
+  val compile: Seq[ModuleID] = Seq(
     ws,
     "uk.gov.hmrc" %% "play-reactivemongo"            % "6.7.0",
     "uk.gov.hmrc" %% "logback-json-logger"           % "4.4.0",
@@ -35,18 +32,18 @@ private object AppDependencies {
   }
 
   object Test {
-    def apply() = new TestDependencies {
-      override lazy val test = Seq(
-        "org.scalatest"          %% "scalatest"          % "3.0.4" % scope,
-        "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.1" % scope,
-        "org.pegdown"            % "pegdown"             % "1.6.0" % scope,
-        "org.jsoup"              % "jsoup"               % "1.10.3" % scope,
-        "com.typesafe.play"      %% "play-test"          % PlayVersion.current % scope,
-        "org.mockito"            % "mockito-all"         % "1.10.19" % scope,
-        "org.scalacheck"         %% "scalacheck"         % "1.13.4" % scope
+    def apply(): Seq[ModuleID] = new TestDependencies {
+      override lazy val test: Seq[ModuleID] = Seq(
+        "org.scalatest"           %% "scalatest"           % "3.0.4",
+        "org.scalatestplus.play"  %% "scalatestplus-play"  % "2.0.1",
+        "org.pegdown"             %  "pegdown"             % "1.6.0",
+        "org.jsoup"               %  "jsoup"               % "1.10.3",
+        "com.typesafe.play"       %% "play-test"           % PlayVersion.current,
+        "org.mockito"             %  "mockito-all"         % "1.10.19",
+        "org.scalacheck"          %% "scalacheck"          % "1.13.4"
       )
     }.test
   }
 
-  def apply() = compile ++ Test()
+  def apply(): Seq[ModuleID] = compile ++ Test()
 }

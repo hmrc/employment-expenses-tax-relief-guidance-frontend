@@ -16,6 +16,7 @@
 
 package controllers
 
+import base.SpecBase
 import controllers.actions._
 import identifiers.ClaimantId
 import models.Claimant.You
@@ -25,7 +26,9 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.FakeNavigator
 import views.html.willNotPayTax
 
-class WillNotPayTaxControllerSpec extends ControllerSpecBase {
+import scala.concurrent.ExecutionContext.Implicits.global
+
+class WillNotPayTaxControllerSpec extends SpecBase {
 
   val claimant = You
 
@@ -43,8 +46,8 @@ class WillNotPayTaxControllerSpec extends ControllerSpecBase {
   )
 
   def controller(dataRetrievalAction: DataRetrievalAction = getValidPrecursorData) =
-    new WillNotPayTaxController(frontendAppConfig, messagesApi, new FakeNavigator(onwardRoute), dataRetrievalAction, new DataRequiredActionImpl,
-      new GetClaimantActionImpl)
+    new WillNotPayTaxController(frontendAppConfig, new FakeNavigator(onwardRoute), dataRetrievalAction, new DataRequiredActionImpl,
+      new GetClaimantActionImpl, controllerComponents)
 
   def viewAsString() = willNotPayTax(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages).toString
 

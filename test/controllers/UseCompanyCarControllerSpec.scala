@@ -16,6 +16,7 @@
 
 package controllers
 
+import base.SpecBase
 import play.api.data.Form
 import play.api.libs.json.{JsBoolean, JsString}
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -29,7 +30,9 @@ import models.Claimant.You
 import models.UsingOwnCar
 import views.html.useCompanyCar
 
-class UseCompanyCarControllerSpec extends ControllerSpecBase {
+import scala.concurrent.ExecutionContext.Implicits.global
+
+class UseCompanyCarControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
@@ -51,8 +54,8 @@ class UseCompanyCarControllerSpec extends ControllerSpecBase {
   )
 
   def controller(dataRetrievalAction: DataRetrievalAction = getValidPrecursorData) =
-    new UseCompanyCarController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, formProvider)
+    new UseCompanyCarController(frontendAppConfig, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
+      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, formProvider, controllerComponents)
 
   def viewAsString(form: Form[_] = form) = useCompanyCar(frontendAppConfig, form, claimant, useOfOwnCar)(fakeRequest, messages).toString
 

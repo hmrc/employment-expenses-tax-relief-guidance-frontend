@@ -17,11 +17,20 @@
 package base
 
 import config.FrontendAppConfig
+import controllers.actions.{DataRequiredAction, DataRequiredActionImpl, DataRequiredActionSpec, DataRetrievalAction, DataRetrievalActionImpl, DataRetrievalActionSpec, FakeDataRetrievalAction, GetClaimantAction, GetClaimantActionImpl}
+import identifiers.ClaimantId
+import models.Claimant
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice._
 import play.api.i18n.{Messages, MessagesApi}
-import play.api.inject.Injector
+import play.api.inject.{Injector, bind}
+import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.libs.json.JsString
+import play.api.mvc.MessagesControllerComponents
 import play.api.test.FakeRequest
+import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.UserAnswers
+
 
 trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
 
@@ -31,7 +40,30 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
 
   def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
 
+  def controllerComponents: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
+
   def fakeRequest = FakeRequest("", "")
 
+  val cacheMapId = "id"
+
+  def emptyCacheMap = CacheMap(cacheMapId, Map())
+
+  def getEmptyCacheMap = new FakeDataRetrievalAction(Some(emptyCacheMap))
+
+  def dontGetAnyData = new FakeDataRetrievalAction(None)
+
+  def getCacheMapWithClaimant(claimant: Claimant) =
+    new FakeDataRetrievalAction(
+      Some(CacheMap(cacheMapId, Map(ClaimantId.toString -> JsString(claimant.toString))))
+    )
   implicit def messages: Messages = messagesApi.preferred(fakeRequest)
+
+  def applicationBuilder(userAnswers: Option[UserAnswers] = None) = {
+    new GuiceApplicationBuilder()
+      .overrides(
+        bind[DataRequiredAction].to[DataRequiredActionImpl],
+        bind[DataRetrievalAction].to[DataRetrievalActionImpl],
+        bind[GetClaimantAction].to[GetClaimantActionImpl]
+      )
+  }
 }

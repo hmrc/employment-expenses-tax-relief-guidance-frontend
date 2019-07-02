@@ -16,21 +16,24 @@
 
 package controllers
 
+import base.SpecBase
 import connectors.FakeDataCacheConnector
 import controllers.actions.DataRequiredActionImpl
 import org.scalatest.OptionValues
 import play.api.test.Helpers._
 import utils.FakeNavigator
 
-class ChangeOtherExpensesControllerSpec extends ControllerSpecBase with OptionValues {
+import scala.concurrent.ExecutionContext.Implicits.global
+
+class ChangeOtherExpensesControllerSpec extends SpecBase with OptionValues {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
   "ChangeOtherExpenses Controller" must {
 
     def controller() = new ChangeOtherExpensesController(
-      frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), getEmptyCacheMap,
-      new DataRequiredActionImpl)
+      frontendAppConfig, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), getEmptyCacheMap,
+      new DataRequiredActionImpl, controllerComponents)
 
     "Redirect to the next page for a GET" in {
       val result = controller().onPageLoad()(fakeRequest)

@@ -16,6 +16,7 @@
 
 package controllers
 
+import base.SpecBase
 import play.api.data.Form
 import play.api.libs.json.JsString
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -27,8 +28,9 @@ import forms.ClaimantFormProvider
 import identifiers.ClaimantId
 import models.Claimant
 import views.html.claimant
+import scala.concurrent.ExecutionContext.Implicits.global
 
-class ClaimantControllerSpec extends ControllerSpecBase {
+class ClaimantControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
@@ -36,8 +38,8 @@ class ClaimantControllerSpec extends ControllerSpecBase {
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new ClaimantController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, formProvider)
+    new ClaimantController(frontendAppConfig, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
+      dataRetrievalAction, formProvider, controllerComponents)
 
   def viewAsString(form: Form[_] = form) = claimant(frontendAppConfig, form)(fakeRequest, messages).toString
 

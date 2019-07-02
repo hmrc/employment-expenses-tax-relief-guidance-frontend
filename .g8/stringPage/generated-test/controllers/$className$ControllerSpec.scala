@@ -11,7 +11,7 @@ import forms.$className$FormProvider
 import identifiers.$className$Id
 import views.html.$className;format="decap"$
 
-class $className$ControllerSpec extends ControllerSpecBase {
+class $className$ControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 

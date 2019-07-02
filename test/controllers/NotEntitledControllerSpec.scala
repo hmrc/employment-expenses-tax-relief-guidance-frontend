@@ -16,18 +16,21 @@
 
 package controllers
 
+import base.SpecBase
 import controllers.actions._
 import models.Claimant.You
 import play.api.test.Helpers._
 import views.html.notEntitled
 
-class NotEntitledControllerSpec extends ControllerSpecBase {
+import scala.concurrent.ExecutionContext.Implicits.global
+
+class NotEntitledControllerSpec extends SpecBase {
 
   val claimant = You
 
   def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
-    new NotEntitledController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl,
-      new GetClaimantActionImpl)
+    new NotEntitledController(frontendAppConfig, dataRetrievalAction, new DataRequiredActionImpl,
+      new GetClaimantActionImpl, controllerComponents)
 
   def viewAsString() = notEntitled(frontendAppConfig, claimant)(fakeRequest, messages).toString
 

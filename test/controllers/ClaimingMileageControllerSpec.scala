@@ -16,6 +16,7 @@
 
 package controllers
 
+import base.SpecBase
 import play.api.data.Form
 import play.api.libs.json.{JsBoolean, JsString}
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -28,7 +29,9 @@ import identifiers.{ClaimantId, ClaimingMileageId}
 import models.Claimant.You
 import views.html.claimingMileage
 
-class ClaimingMileageControllerSpec extends ControllerSpecBase {
+import scala.concurrent.ExecutionContext.Implicits.global
+
+class ClaimingMileageControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
@@ -37,8 +40,8 @@ class ClaimingMileageControllerSpec extends ControllerSpecBase {
   val form = formProvider(claimant)
 
   def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
-    new ClaimingMileageController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, formProvider)
+    new ClaimingMileageController(frontendAppConfig, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
+      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, formProvider, controllerComponents)
 
   def viewAsString(form: Form[_] = form) = claimingMileage(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
 

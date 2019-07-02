@@ -16,14 +16,15 @@
 
 package controllers
 
+import base.SpecBase
 import play.api.test.Helpers._
 import utils.Navigator
 
-class IndexControllerSpec extends ControllerSpecBase {
+class IndexControllerSpec extends SpecBase {
 
   "Index Controller" must {
     "return Moved Permanently (to Claimant) for a GET" in {
-      val result = new IndexController(frontendAppConfig, messagesApi, new Navigator).onPageLoad()(fakeRequest)
+      val result = new IndexController(frontendAppConfig, new Navigator, controllerComponents).onPageLoad()(fakeRequest)
       status(result) mustBe MOVED_PERMANENTLY
       redirectLocation(result) mustBe Some(routes.ClaimantController.onPageLoad().url)
     }

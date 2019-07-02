@@ -1,24 +1,21 @@
+import com.typesafe.sbt.digest.Import._
+import com.typesafe.sbt.uglify.Import.{uglifyCompressOptions, _}
+import com.typesafe.sbt.web.Import._
+import net.ground5hark.sbt.concat.Import._
 import sbt.Keys._
-import sbt.Tests.{Group, SubProcess}
 import sbt._
 import scoverage.ScoverageKeys
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
-import com.typesafe.sbt.web.Import._
-import net.ground5hark.sbt.concat.Import._
-import com.typesafe.sbt.uglify.Import._
-import com.typesafe.sbt.digest.Import._
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
-import uk.gov.hmrc.SbtArtifactory
 
 trait MicroService {
 
   import uk.gov.hmrc._
   import DefaultBuildSettings._
-  import uk.gov.hmrc.{SbtBuildInfo, ShellPrompt, SbtAutoBuildPlugin}
+  import play.sbt.routes.RoutesKeys
+  import uk.gov.hmrc.SbtAutoBuildPlugin
   import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin
   import uk.gov.hmrc.versioning.SbtGitVersioning
-  import play.sbt.routes.RoutesKeys.routesGenerator
-  import play.sbt.routes.RoutesKeys
 
   val appName: String
 
@@ -77,7 +74,7 @@ trait MicroService {
         "javascripts/employmentexpensestaxreliefguidancefrontend-app.js" -> group(Seq("javascripts/show-hide-content.js", "javascripts/employmentexpensestaxreliefguidancefrontend.js"))
       ),
       // prevent removal of unused code which generates warning errors due to use of third-party libs
-      UglifyKeys.compressOptions := Seq("unused=false", "dead_code=false"),
+      uglifyCompressOptions := Seq("unused=false", "dead_code=false"),
       pipelineStages := Seq(digest),
       // below line required to force asset pipeline to operate in dev rather than only prod
       pipelineStages in Assets := Seq(concat, uglify),

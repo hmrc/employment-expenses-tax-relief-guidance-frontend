@@ -16,6 +16,7 @@
 
 package controllers
 
+import base.SpecBase
 import play.api.data.Form
 import play.api.libs.json.JsBoolean
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -27,7 +28,9 @@ import forms.MoreThanFiveJobsFormProvider
 import identifiers.MoreThanFiveJobsId
 import views.html.moreThanFiveJobs
 
-class MoreThanFiveJobsControllerSpec extends ControllerSpecBase {
+import scala.concurrent.ExecutionContext.Implicits.global
+
+class MoreThanFiveJobsControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
@@ -35,8 +38,8 @@ class MoreThanFiveJobsControllerSpec extends ControllerSpecBase {
   val form = formProvider()
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new MoreThanFiveJobsController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, formProvider)
+    new MoreThanFiveJobsController(frontendAppConfig, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
+      dataRetrievalAction, new DataRequiredActionImpl, formProvider, controllerComponents)
 
   def viewAsString(form: Form[_] = form) = moreThanFiveJobs(frontendAppConfig, form)(fakeRequest, messages).toString
 

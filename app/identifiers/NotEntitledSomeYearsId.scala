@@ -17,5 +17,5 @@
 package identifiers
 
 case object NotEntitledSomeYearsId extends Identifier {
-  override def toString: String = "notEntitledSomeYears"
+  override def toString: String = "notEntitledSomeYearsView"
 }

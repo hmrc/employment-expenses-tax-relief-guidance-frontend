@@ -16,6 +16,7 @@
 
 package controllers
 
+import base.SpecBase
 import controllers.actions.{FakeDataRetrievalAction, _}
 import models.ClaimingFor._
 import play.api.libs.json.Json
@@ -24,10 +25,12 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.UserAnswers
 import views.html.claimOnline
 
-class ClaimOnlineControllerSpec extends ControllerSpecBase {
+import scala.concurrent.ExecutionContext.Implicits.global
+
+class ClaimOnlineControllerSpec extends SpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction) =
-    new ClaimOnlineController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl)
+    new ClaimOnlineController(frontendAppConfig, dataRetrievalAction, new DataRequiredActionImpl, controllerComponents)
 
   def viewAsString(eeEligible: Boolean) = claimOnline(frontendAppConfig, eeEligible)(fakeRequest, messages).toString
 

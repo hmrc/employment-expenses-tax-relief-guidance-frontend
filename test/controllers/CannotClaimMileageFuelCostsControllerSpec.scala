@@ -16,16 +16,19 @@
 
 package controllers
 
+import base.SpecBase
 import controllers.actions._
 import models.Claimant.You
 import play.api.test.Helpers._
 import views.html.cannotClaimMileageFuelCosts
 
-class CannotClaimMileageFuelCostsControllerSpec extends ControllerSpecBase {
+import scala.concurrent.ExecutionContext.Implicits.global
+
+class CannotClaimMileageFuelCostsControllerSpec extends SpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(You)) =
-    new CannotClaimMileageFuelCostsController(frontendAppConfig, messagesApi, dataRetrievalAction,
-      new DataRequiredActionImpl, new GetClaimantActionImpl)
+    new CannotClaimMileageFuelCostsController(frontendAppConfig, dataRetrievalAction,
+      new DataRequiredActionImpl, new GetClaimantActionImpl, controllerComponents)
 
   def viewAsString() = cannotClaimMileageFuelCosts(frontendAppConfig, You)(fakeRequest, messages).toString
 

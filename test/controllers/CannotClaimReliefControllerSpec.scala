@@ -16,18 +16,21 @@
 
 package controllers
 
+import base.SpecBase
 import controllers.actions._
 import models.Claimant.You
 import play.api.test.Helpers._
 import views.html.cannotClaimRelief
 
-class CannotClaimReliefControllerSpec extends ControllerSpecBase {
+import scala.concurrent.ExecutionContext.Implicits.global
+
+class CannotClaimReliefControllerSpec extends SpecBase {
 
   val claimant = You
 
   def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
-    new CannotClaimReliefController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl,
-      new GetClaimantActionImpl)
+    new CannotClaimReliefController(frontendAppConfig, dataRetrievalAction, new DataRequiredActionImpl,
+      new GetClaimantActionImpl, controllerComponents)
 
   def viewAsString() = cannotClaimRelief(frontendAppConfig, claimant)(fakeRequest, messages).toString
 

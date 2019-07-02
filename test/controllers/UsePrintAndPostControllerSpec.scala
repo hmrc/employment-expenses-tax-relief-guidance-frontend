@@ -16,14 +16,17 @@
 
 package controllers
 
+import base.SpecBase
 import controllers.actions._
 import play.api.test.Helpers._
 import views.html.usePrintAndPost
 
-class UsePrintAndPostControllerSpec extends ControllerSpecBase {
+import scala.concurrent.ExecutionContext.Implicits.global
+
+class UsePrintAndPostControllerSpec extends SpecBase {
 
   def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new UsePrintAndPostController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl)
+    new UsePrintAndPostController(frontendAppConfig, dataRetrievalAction, new DataRequiredActionImpl, controllerComponents)
 
   def viewAsString() = usePrintAndPost(frontendAppConfig)(fakeRequest, messages).toString
 
