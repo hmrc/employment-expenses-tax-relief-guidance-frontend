@@ -39,7 +39,8 @@ class ClaimingFuelController @Inject()(
                                         requireData: DataRequiredAction,
                                         getClaimant: GetClaimantAction,
                                         formProvider: ClaimingFuelFormProvider,
-                                        val controllerComponents: MessagesControllerComponents
+                                        val controllerComponents: MessagesControllerComponents,
+                                        view: claimingFuel
                                       )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
@@ -51,7 +52,7 @@ class ClaimingFuelController @Inject()(
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(claimingFuel(appConfig, preparedForm, request.claimant))
+      Ok(view(appConfig, preparedForm, request.claimant))
   }
 
   def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
@@ -61,7 +62,7 @@ class ClaimingFuelController @Inject()(
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(claimingFuel(appConfig, formWithErrors, request.claimant))),
+          Future.successful(BadRequest(view(appConfig, formWithErrors, request.claimant))),
         value =>
           dataCacheConnector.save[Boolean](request.sessionId, ClaimingFuelId, value).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimingFuelId)(new UserAnswers(cacheMap)))

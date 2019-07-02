@@ -39,7 +39,8 @@ class ClaimingOverPayAsYouEarnThresholdController @Inject()(
                                                              requireData: DataRequiredAction,
                                                              getClaimant: GetClaimantAction,
                                                              formProvider: ClaimingOverPayAsYouEarnThresholdFormProvider,
-                                                             val controllerComponents: MessagesControllerComponents
+                                                             val controllerComponents: MessagesControllerComponents,
+                                                             view: claimingOverPayAsYouEarnThreshold
                                                            )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
@@ -50,7 +51,7 @@ class ClaimingOverPayAsYouEarnThresholdController @Inject()(
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(claimingOverPayAsYouEarnThreshold(appConfig, preparedForm, request.claimant))
+      Ok(view(appConfig, preparedForm, request.claimant))
   }
 
   def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
@@ -59,7 +60,7 @@ class ClaimingOverPayAsYouEarnThresholdController @Inject()(
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(claimingOverPayAsYouEarnThreshold(appConfig, formWithErrors, request.claimant))),
+          Future.successful(BadRequest(view(appConfig, formWithErrors, request.claimant))),
         value =>
           dataCacheConnector.save[Boolean](request.sessionId, ClaimingOverPayAsYouEarnThresholdId, value).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimingOverPayAsYouEarnThresholdId)(new UserAnswers(cacheMap)))

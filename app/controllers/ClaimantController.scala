@@ -38,7 +38,8 @@ class ClaimantController @Inject()(
                                     navigator: Navigator,
                                     getData: DataRetrievalAction,
                                     formProvider: ClaimantFormProvider,
-                                    val controllerComponents: MessagesControllerComponents
+                                    val controllerComponents: MessagesControllerComponents,
+                                    view: claimant
                                   )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
 
   val form: Form[Claimant] = formProvider()
@@ -49,14 +50,14 @@ class ClaimantController @Inject()(
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(claimant(appConfig, preparedForm))
+      Ok(view(appConfig, preparedForm))
   }
 
   def onSubmit: Action[AnyContent] = (Action andThen getData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(claimant(appConfig, formWithErrors))),
+          Future.successful(BadRequest(view(appConfig, formWithErrors))),
         value =>
           dataCacheConnector.save[Claimant](request.sessionId, ClaimantId, value).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimantId)(new UserAnswers(cacheMap))))

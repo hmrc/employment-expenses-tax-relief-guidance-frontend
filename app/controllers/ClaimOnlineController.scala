@@ -29,7 +29,8 @@ class ClaimOnlineController @Inject()(
                                        appConfig: FrontendAppConfig,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
-                                       val controllerComponents: MessagesControllerComponents
+                                       val controllerComponents: MessagesControllerComponents,
+                                       view: claimOnline
                                      ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData) {
@@ -37,7 +38,7 @@ class ClaimOnlineController @Inject()(
 
       request.userAnswers.claimingFor match {
         case Some(claiming) =>
-          Ok(claimOnline(appConfig, claiming.forall(_ == UniformsClothingTools)))
+          Ok(view(appConfig, claiming.forall(_ == UniformsClothingTools)))
         case _ =>
           Redirect(routes.SessionExpiredController.onPageLoad())
       }

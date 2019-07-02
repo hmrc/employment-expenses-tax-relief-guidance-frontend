@@ -41,7 +41,8 @@ class UseCompanyCarController @Inject()(
                                          requireData: DataRequiredAction,
                                          getClaimant: GetClaimantAction,
                                          formProvider: UseCompanyCarFormProvider,
-                                         val controllerComponents: MessagesControllerComponents
+                                         val controllerComponents: MessagesControllerComponents,
+                                         view: useCompanyCar
                                        )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
@@ -56,7 +57,7 @@ class UseCompanyCarController @Inject()(
             case None => form
             case Some(value) => form.fill(value)
           }
-          Future.successful(Ok(useCompanyCar(appConfig, preparedForm, request.claimant, useOfOwnCar)))
+          Future.successful(Ok(view(appConfig, preparedForm, request.claimant, useOfOwnCar)))
       }
   }
 
@@ -70,7 +71,7 @@ class UseCompanyCarController @Inject()(
 
           form.bindFromRequest().fold(
             (formWithErrors: Form[_]) =>
-              Future.successful(BadRequest(useCompanyCar(appConfig, formWithErrors, request.claimant, useOfOwnCar))),
+              Future.successful(BadRequest(view(appConfig, formWithErrors, request.claimant, useOfOwnCar))),
             value =>
               dataCacheConnector.save[Boolean](request.sessionId, UseCompanyCarId, value).map(cacheMap =>
                 Redirect(navigator.nextPage(UseCompanyCarId)(new UserAnswers(cacheMap)))

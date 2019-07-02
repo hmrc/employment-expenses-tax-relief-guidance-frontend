@@ -28,11 +28,12 @@ class UsePrintAndPostController @Inject()(
                                            appConfig: FrontendAppConfig,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
-                                           val controllerComponents: MessagesControllerComponents
+                                           val controllerComponents: MessagesControllerComponents,
+                                           view: usePrintAndPost
                                          ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData) {
     implicit request =>
-      Ok(usePrintAndPost(appConfig))
+      Ok(view(appConfig))
   }
 }

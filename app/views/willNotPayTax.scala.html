@@ -17,6 +17,10 @@
 @import config.FrontendAppConfig
 @import components.back_link
 
+@this(
+  main_template: main_template
+)
+
 @(
         appConfig: FrontendAppConfig,
         claimant: Claimant,
@@ -26,9 +30,8 @@
 @year = {@appConfig.earliestTaxYear}
 
 @main_template(
-    title = messages(s"willNotPayTax.$claimant.title"),
-    appConfig = appConfig,
-    bodyClasses = None) {
+    title = messages(s"willNotPayTax.$claimant.title")
+) {
 
     @back_link()
 

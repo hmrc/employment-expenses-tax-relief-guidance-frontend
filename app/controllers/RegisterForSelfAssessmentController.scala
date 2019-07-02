@@ -32,12 +32,13 @@ class RegisterForSelfAssessmentController @Inject()(
                                                     getData: DataRetrievalAction,
                                                     requireData: DataRequiredAction,
                                                     getClaimant: GetClaimantAction,
-                                                    val controllerComponents: MessagesControllerComponents
+                                                    val controllerComponents: MessagesControllerComponents,
+                                                    view: registerForSelfAssessment
                                                    ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
       val nextPage = navigator.nextPage(RegisterForSelfAssessmentId)(request.userAnswers)
-      Ok(registerForSelfAssessment(appConfig, request.claimant, nextPage))
+      Ok(view(appConfig, request.claimant, nextPage))
   }
 }

@@ -39,7 +39,8 @@ class RegisteredForSelfAssessmentController @Inject()(
                                                        requireData: DataRequiredAction,
                                                        getClaimant: GetClaimantAction,
                                                        formProvider: RegisteredForSelfAssessmentFormProvider,
-                                                       val controllerComponents: MessagesControllerComponents
+                                                       val controllerComponents: MessagesControllerComponents,
+                                                       view: registeredForSelfAssessment
                                                      )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
@@ -49,7 +50,7 @@ class RegisteredForSelfAssessmentController @Inject()(
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(registeredForSelfAssessment(appConfig, preparedForm, request.claimant))
+      Ok(view(appConfig, preparedForm, request.claimant))
   }
 
   def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
@@ -58,7 +59,7 @@ class RegisteredForSelfAssessmentController @Inject()(
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(registeredForSelfAssessment(appConfig, formWithErrors, request.claimant))),
+          Future.successful(BadRequest(view(appConfig, formWithErrors, request.claimant))),
         value =>
           dataCacheConnector.save[Boolean](request.sessionId, RegisteredForSelfAssessmentId, value).map(cacheMap =>
             Redirect(navigator.nextPage(RegisteredForSelfAssessmentId)(new UserAnswers(cacheMap)))

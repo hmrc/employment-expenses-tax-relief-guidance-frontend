@@ -38,7 +38,8 @@ class MoreThanFiveJobsController @Inject()(
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             formProvider: MoreThanFiveJobsFormProvider,
-                                            val controllerComponents: MessagesControllerComponents
+                                            val controllerComponents: MessagesControllerComponents,
+                                            view: moreThanFiveJobs
                                           )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
   val form: Form[Boolean] = formProvider()
@@ -49,14 +50,14 @@ class MoreThanFiveJobsController @Inject()(
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(moreThanFiveJobs(appConfig, preparedForm))
+      Ok(view(appConfig, preparedForm))
   }
 
   def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(moreThanFiveJobs(appConfig, formWithErrors))),
+          Future.successful(BadRequest(view(appConfig, formWithErrors))),
         value =>
           dataCacheConnector.save[Boolean](request.sessionId, MoreThanFiveJobsId, value).map(cacheMap =>
             Redirect(navigator.nextPage(MoreThanFiveJobsId)(new UserAnswers(cacheMap)))

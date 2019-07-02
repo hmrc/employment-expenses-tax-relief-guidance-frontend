@@ -32,12 +32,13 @@ class CannotClaimReliefSomeYearsController @Inject()(
                                                       getData: DataRetrievalAction,
                                                       requireData: DataRequiredAction,
                                                       getClaimant: GetClaimantAction,
-                                                      val controllerComponents: MessagesControllerComponents
+                                                      val controllerComponents: MessagesControllerComponents,
+                                                      view: cannotClaimReliefSomeYears
                                                     ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
       val nextPage = navigator.nextPage(CannotClaimReliefSomeYearsId)(request.userAnswers)
-      Ok(cannotClaimReliefSomeYears(appConfig, request.claimant, nextPage))
+      Ok(view(appConfig, request.claimant, nextPage))
   }
 }

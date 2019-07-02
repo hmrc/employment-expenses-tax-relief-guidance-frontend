@@ -2,6 +2,7 @@ import com.typesafe.sbt.digest.Import._
 import com.typesafe.sbt.uglify.Import.{uglifyCompressOptions, _}
 import com.typesafe.sbt.web.Import._
 import net.ground5hark.sbt.concat.Import._
+import play.twirl.sbt.Import.TwirlKeys
 import sbt.Keys._
 import sbt._
 import scoverage.ScoverageKeys
@@ -44,8 +45,18 @@ trait MicroService {
   lazy val microservice = Project(appName, file("."))
     .enablePlugins(Seq(play.sbt.PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin, SbtArtifactory) ++ plugins: _*)
     .settings(playSettings: _*)
-    .settings( majorVersion := 0 )
-    .settings(RoutesKeys.routesImport ++= Seq("models._"))
+    .settings(majorVersion := 0)
+    .settings(
+      name := appName,
+      RoutesKeys.routesImport ++= Seq("models._"),
+      TwirlKeys.templateImports ++= Seq(
+        "play.twirl.api.HtmlFormat",
+        "play.twirl.api.HtmlFormat._",
+        "uk.gov.hmrc.play.views.html.helpers._",
+        "uk.gov.hmrc.play.views.html.layouts._",
+        "controllers.routes._",
+        "viewmodels._"
+      ))
     .settings(
       ScoverageKeys.coverageExcludedFiles := scoverageExcludePatterns.mkString("", ";", ""),
       ScoverageKeys.coverageMinimum := 90,

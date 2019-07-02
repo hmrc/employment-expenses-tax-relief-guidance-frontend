@@ -39,7 +39,8 @@ class EmployerPaidBackExpensesController @Inject()(
                                                     requireData: DataRequiredAction,
                                                     getClaimant: GetClaimantAction,
                                                     formProvider: EmployerPaidBackExpensesFormProvider,
-                                                    val controllerComponents: MessagesControllerComponents
+                                                    val controllerComponents: MessagesControllerComponents,
+                                                    view: employerPaidBackExpenses
                                                   )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
@@ -50,7 +51,7 @@ class EmployerPaidBackExpensesController @Inject()(
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(employerPaidBackExpenses(appConfig, preparedForm, request.claimant))
+      Ok(view(appConfig, preparedForm, request.claimant))
   }
 
   def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
@@ -59,7 +60,7 @@ class EmployerPaidBackExpensesController @Inject()(
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(employerPaidBackExpenses(appConfig, formWithErrors, request.claimant))),
+          Future.successful(BadRequest(view(appConfig, formWithErrors, request.claimant))),
         value =>
           dataCacheConnector.save[Boolean](request.sessionId, EmployerPaidBackExpensesId, value).map(cacheMap =>
             Redirect(navigator.nextPage(EmployerPaidBackExpensesId)(new UserAnswers(cacheMap)))

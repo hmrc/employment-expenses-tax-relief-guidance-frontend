@@ -29,11 +29,12 @@ class CannotClaimMileageCostsController @Inject()(
                                                    getData: DataRetrievalAction,
                                                    requireData: DataRequiredAction,
                                                    getClaimant: GetClaimantAction,
-                                                   val controllerComponents: MessagesControllerComponents
+                                                   val controllerComponents: MessagesControllerComponents,
+                                                   view: cannotClaimMileageCosts
                                                  ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
-      Ok(cannotClaimMileageCosts(appConfig, request.claimant))
+      Ok(view(appConfig, request.claimant))
   }
 }

@@ -40,7 +40,8 @@ class ClaimingForController @Inject()(
                                         requireData: DataRequiredAction,
                                         getClaimant: GetClaimantAction,
                                         formProvider: ClaimingForFormProvider,
-                                        val controllerComponents: MessagesControllerComponents
+                                        val controllerComponents: MessagesControllerComponents,
+                                        view: claimingFor
                                      )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
@@ -51,7 +52,7 @@ class ClaimingForController @Inject()(
         case None => form
         case Some(value) => form.fill(value.toSet)
       }
-      Ok(claimingFor(appConfig, preparedForm, request.claimant))
+      Ok(view(appConfig, preparedForm, request.claimant))
   }
 
   def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
@@ -60,7 +61,7 @@ class ClaimingForController @Inject()(
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(claimingFor(appConfig, formWithErrors, request.claimant))),
+          Future.successful(BadRequest(view(appConfig, formWithErrors, request.claimant))),
         value =>
           dataCacheConnector.save[Set[ClaimingFor]](request.sessionId, ClaimingForId, value).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimingForId)(new UserAnswers(cacheMap))))

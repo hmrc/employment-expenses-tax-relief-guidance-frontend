@@ -16,40 +16,44 @@
 
 @import config.FrontendAppConfig
 
+@this(
+    appConfig: FrontendAppConfig,
+    govuk_wrapper: govukWrapper,
+    article: Article,
+    sidebar: Sidebar,
+    serviceInfo: ServiceInfo
+)
+
 @(title: String,
-        appConfig: FrontendAppConfig,
-        sidebarLinks: Option[Html] = None,
-        contentHeader: Option[Html] = None,
-        bodyClasses: Option[String] = None,
-        mainClass: Option[String] = None,
-        scriptElem: Option[Html] = None,
-        headScripts: Option[Html] = None
-)(mainContent: Html)(implicit request: Request[_], messages: Messages)
+  sidebarLinks: Option[Html] = None,
+  contentHeader: Option[Html] = None,
+  bodyClasses: Option[String] = None,
+  mainClass: Option[String] = None,
+  scriptElem: Option[Html] = None)(mainContent: Html)(implicit request : Request[_], messages: Messages)
 
-    @import uk.gov.hmrc.play.views.html.layouts
+@import uk.gov.hmrc.play.views.html.layouts
 
-    @serviceInfoContent = {}
+@serviceInfoContent = {
+    @serviceInfo(
+        betaBanner = HtmlFormat.empty,
+        includeGridWrapper = false,
+        serviceInfoContent = None,
+        includeHMRCBranding = false)
+}
 
-    @sidebar = {
-        @if(sidebarLinks.isDefined) {
-            @layouts.sidebar(sidebarLinks.get, Some("sidebar"))
-        }
+@sidebarContent = {
+    @if(sidebarLinks.isDefined) {
+        @sidebar(sidebarLinks.get, Some("sidebar"))
     }
+}
 
-    @expandedTitle = @{
-        title + " – " + messages("site.service_name") + " – " + messages("site.gov.uk")
-    }
-
-
-    @govuk_wrapper(
-        appConfig = appConfig,
-        title = expandedTitle,
-        mainClass = mainClass,
-        bodyClasses = bodyClasses,
-        sidebar = sidebar,
-        contentHeader = contentHeader,
-        mainContent = layouts.article(mainContent),
-        serviceInfoContent = serviceInfoContent,
-        scriptElem = scriptElem,
-        headScripts = headScripts
-    )
+@govuk_wrapper(appConfig = appConfig,
+               title = title,
+               mainClass = mainClass,
+               bodyClasses = bodyClasses,
+               sidebar = sidebarContent,
+               contentHeader = contentHeader,
+               mainContent = article(mainContent),
+               serviceInfoContent = serviceInfoContent,
+               scriptElem = scriptElem
+)

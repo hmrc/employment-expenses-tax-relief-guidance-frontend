@@ -19,12 +19,15 @@
 @import controllers.routes._
 @import components.back_link
 
+@this(
+  main_template: main_template
+)
+
 @(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages(s"employerPaidBackExpenses.$claimant.title"),
-    appConfig = appConfig,
-    bodyClasses = None) {
+    title = messages(s"employerPaidBackExpenses.$claimant.title")
+) {
 
     @back_link()
 

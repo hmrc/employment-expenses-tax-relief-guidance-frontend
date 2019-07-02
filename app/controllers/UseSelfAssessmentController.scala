@@ -30,11 +30,12 @@ class UseSelfAssessmentController @Inject()(
                                              getData: DataRetrievalAction,
                                              requireData: DataRequiredAction,
                                              getClaimant: GetClaimantAction,
-                                             override val controllerComponents: MessagesControllerComponents
+                                             override val controllerComponents: MessagesControllerComponents,
+                                             view: useSelfAssessment
                                            ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request: ClaimantRequest[_] =>
-      Ok(useSelfAssessment(appConfig, request.claimant))
+      Ok(view(appConfig, request.claimant))
   }
 }

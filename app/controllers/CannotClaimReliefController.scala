@@ -24,16 +24,18 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.cannotClaimRelief
 
+
 class CannotClaimReliefController @Inject()(
                                              appConfig: FrontendAppConfig,
                                              getData: DataRetrievalAction,
                                              requireData: DataRequiredAction,
                                              getClaimant: GetClaimantAction,
-                                             val controllerComponents: MessagesControllerComponents
+                                             val controllerComponents: MessagesControllerComponents,
+                                             view: cannotClaimRelief
                                            ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
-      Ok(cannotClaimRelief(appConfig, request.claimant))
+      Ok(view(appConfig, request.claimant))
   }
 }
