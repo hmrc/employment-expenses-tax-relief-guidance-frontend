@@ -26,6 +26,7 @@ import play.api.mvc.Result
 import utils.UserAnswers
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class DataRequiredActionSpec extends SpecBase with MockitoSugar with ScalaFutures {
 

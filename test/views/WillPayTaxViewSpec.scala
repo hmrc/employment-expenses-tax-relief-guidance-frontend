@@ -20,6 +20,7 @@ import play.api.data.Form
 import controllers.routes
 import forms.WillPayTaxFormProvider
 import models.Claimant.You
+import play.twirl.api.Html
 import views.behaviours.YesNoViewBehaviours
 import views.html.willPayTax
 
@@ -29,17 +30,15 @@ class WillPayTaxViewSpec extends YesNoViewBehaviours {
 
   val form = new WillPayTaxFormProvider()(You, frontendAppConfig.earliestTaxYear)
 
-  def createView = () => willPayTax(frontendAppConfig, form, You)(fakeRequest, messages)
+  def createView: () => Html = () => willPayTax(frontendAppConfig, form, You)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) => willPayTax(frontendAppConfig, form, You)(fakeRequest, messages)
+  def createViewUsingForm: Form[_] => Html = (form: Form[_]) => willPayTax(frontendAppConfig, form, You)(fakeRequest, messages)
 
   "WillPayTax view" must {
 
     "have the correct banner title" in {
       val doc = asDocument(createView())
-      val nav = doc.getElementById("proposition-menu")
-      val span = nav.children.first
-      span.text mustBe messagesApi("site.service_name")
+      assertRenderedById(doc, "pageTitle")
     }
 
     "display the correct browser title" in {

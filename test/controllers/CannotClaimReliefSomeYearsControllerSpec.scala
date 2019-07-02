@@ -19,31 +19,34 @@ package controllers
 import base.SpecBase
 import controllers.actions._
 import models.Claimant.You
+import play.api.mvc.Call
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.FakeNavigator
 import views.html.cannotClaimReliefSomeYears
-
-import scala.concurrent.ExecutionContext.Implicits.global
 
 class CannotClaimReliefSomeYearsControllerSpec extends SpecBase {
 
   val claimant = You
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute: Call = routes.IndexController.onPageLoad()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
-    new CannotClaimReliefSomeYearsController(frontendAppConfig, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, controllerComponents)
+  def dataRetrievalAction: FakeDataRetrievalAction = getCacheMapWithClaimant(claimant)
 
-  def viewAsString() = cannotClaimReliefSomeYears(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages).toString
+  lazy val CannotClaimReliefSomeYearsRoute: String = routes.CannotClaimReliefSomeYearsController.onPageLoad().url
+
+  val view = cannotClaimReliefSomeYears
 
   "CannotClaimReliefSomeYears Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(fakeRequest)
+      val application = applicationBuilder(Some(emptyUserAnswers)).build()
+
+      val request = FakeRequest(GET, CannotClaimReliefSomeYearsRoute)
+
+      val result = route(application, request).value
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+
     }
   }
 }

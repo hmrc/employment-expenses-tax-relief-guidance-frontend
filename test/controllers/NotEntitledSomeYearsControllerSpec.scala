@@ -17,10 +17,13 @@
 package controllers
 
 import base.SpecBase
+import controllers.actions._
 import models.Claimant.You
-import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import utils.FakeNavigator
 import views.html.notEntitledSomeYears
+
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class NotEntitledSomeYearsControllerSpec extends SpecBase {
 
@@ -28,18 +31,19 @@ class NotEntitledSomeYearsControllerSpec extends SpecBase {
 
   val onwardRoute = routes.IndexController.onPageLoad()
 
+  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
+    new NotEntitledSomeYearsController(frontendAppConfig, new FakeNavigator(desiredRoute = onwardRoute),
+      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, controllerComponents)
+
+  def viewAsString() = notEntitledSomeYears(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages).toString
+
   "NotEntitledSomeYears Controller" must {
 
     "return OK and the correct view for a GET" in {
+      val result = controller().onPageLoad(fakeRequest)
 
-      val application = applicationBuilder(Some(emptyUserAnswers)).build()
-
-      val request = FakeRequest(GET, routes.NotEntitledSomeYearsController.onPageLoad().url)
-
-      val result = route(application, request).value
-
-      val view = application.injector.instanceOf[notEntitledSomeYears]
-
+      status(result) mustBe OK
+      contentAsString(result) mustBe viewAsString()
 
     }
   }

@@ -48,6 +48,8 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
 
   def emptyCacheMap = CacheMap(cacheMapId, Map())
 
+  def emptyUserAnswers = new UserAnswers(emptyCacheMap)
+
   def getEmptyCacheMap = new FakeDataRetrievalAction(Some(emptyCacheMap))
 
   def dontGetAnyData = new FakeDataRetrievalAction(None)
@@ -58,12 +60,11 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
     )
   implicit def messages: Messages = messagesApi.preferred(fakeRequest)
 
-  def applicationBuilder(userAnswers: Option[UserAnswers] = None) = {
+  protected def applicationBuilder(userAnswers: Option[UserAnswers] = None): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
         bind[DataRequiredAction].to[DataRequiredActionImpl],
-        bind[DataRetrievalAction].to[DataRetrievalActionImpl],
-        bind[GetClaimantAction].to[GetClaimantActionImpl]
-      )
-  }
+        bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(Some(emptyCacheMap))),
+        bind[GetClaimantAction].to[GetClaimantActionImpl])
+
 }
