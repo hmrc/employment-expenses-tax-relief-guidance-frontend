@@ -97,7 +97,7 @@ cannotClaimRelief.you.heading = You cannot claim these expenses
 cannotClaimRelief.you.guidance = You cannot claim these expenses because they have
 cannotClaimRelief.someoneElse.title = They cannot claim for these expenses
 cannotClaimRelief.someoneElse.heading = They cannot claim for these expenses
-cannotClaimRelief.someoneElse.guidance = They cannot claim these expenses because they have
+cannotClaimRelief.someoneElse.guidance = They cannot claim for these expenses because they have
 cannotClaimRelief.link.you.label = all been paid back by your employer.
 cannotClaimRelief.link.someoneElse.label = all been paid back by their employer.
 
