@@ -141,7 +141,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.paidTaxInRelevantYear).thenReturn(Some(false))
 
         navigator.nextPage(PaidTaxInRelevantYearId)(mockAnswers) mustBe
-          routes.WillNotPayTaxController.onPageLoad()
+          routes.CannotClaimReliefTooLongAgoController.onPageLoad()
       }
     }
 
