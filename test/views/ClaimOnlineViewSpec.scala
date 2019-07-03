@@ -16,6 +16,7 @@
 
 package views
 
+import play.twirl.api.Html
 import views.behaviours.ViewBehaviours
 import views.html.claimOnline
 
@@ -23,7 +24,11 @@ class ClaimOnlineViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "claimOnline"
 
-  def createView = () => claimOnline(frontendAppConfig, false)(fakeRequest, messages)
+  val application = applicationBuilder().build
+
+  val view = application.injector.instanceOf[claimOnline]
+
+  def createView: Html = view.apply(frontendAppConfig, eeEligible = false)(fakeRequest, messages)
 
   "ClaimOnline view" must {
     behave like normalPage(createView, messageKeyPrefix)

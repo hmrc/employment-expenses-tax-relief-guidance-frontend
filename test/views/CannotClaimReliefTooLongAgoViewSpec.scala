@@ -24,30 +24,35 @@ import views.html.cannotClaimReliefTooLongAgo
 class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
 
   val claimant = You
+
   val startYear = TaxYear.current.startYear.toString
+
   val endYear = TaxYear.current.finishYear.toString
 
   val messageKeyPrefix = s"cannotClaimReliefTooLongAgo.$claimant"
 
-  def createView = () => cannotClaimReliefTooLongAgo(frontendAppConfig, claimant, startYear, endYear)(fakeRequest, messages)
+  val application = applicationBuilder().build
+  val view = application.injector.instanceOf[cannotClaimReliefTooLongAgo]
+
+  def createView= view.apply(frontendAppConfig, claimant, startYear, endYear)(fakeRequest, messages)
 
   "CannotClaimReliefTooLongAgo view" must {
 
     behave like pageWithBackLink(createView)
 
     "have the correct banner title" in {
-      val doc = asDocument(createView())
+      val doc = asDocument(createView)
       assertRenderedById(doc, "pageTitle")
     }
 
     "display the correct browser title" in {
-      val doc = asDocument(createView())
+      val doc = asDocument(createView)
       val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title", frontendAppConfig.earliestTaxYear)
       assertEqualsMessage(doc, "title", expectedFullTitle)
     }
 
     "display the correct heading" in {
-      val doc = asDocument(createView())
+      val doc = asDocument(createView)
       assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", frontendAppConfig.earliestTaxYear)
     }
   }

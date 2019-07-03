@@ -17,15 +17,20 @@
 package views
 
 import controllers.routes
+import play.twirl.api.Html
 import views.behaviours.ViewBehaviours
 import views.html.session_expired
 
 class SessionExpiredViewSpec extends ViewBehaviours {
 
-  def view = () => session_expired(frontendAppConfig, routes.ClaimantController.onPageLoad())(fakeRequest, messages)
+  val application = applicationBuilder().build
+
+  val view = application.injector.instanceOf[session_expired]
+
+  def createView: Html = view.apply(frontendAppConfig, routes.ClaimantController.onPageLoad())(fakeRequest, messages)
 
   "Session Expired view" must {
 
-    behave like normalPage(view, "session_expired")
+    behave like normalPage(createView, "session_expired")
   }
 }

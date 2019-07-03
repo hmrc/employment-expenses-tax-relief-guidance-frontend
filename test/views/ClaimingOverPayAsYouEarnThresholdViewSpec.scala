@@ -20,6 +20,7 @@ import play.api.data.Form
 import controllers.routes
 import forms.ClaimingOverPayAsYouEarnThresholdFormProvider
 import models.Claimant.You
+import play.twirl.api.Html
 import views.behaviours.YesNoViewBehaviours
 import views.html.claimingOverPayAsYouEarnThreshold
 
@@ -29,18 +30,20 @@ class ClaimingOverPayAsYouEarnThresholdViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = s"claimingOverPayAsYouEarnThreshold.$claimant"
 
+  val application = applicationBuilder().build
+
+  val view = application.injector.instanceOf[claimingOverPayAsYouEarnThreshold]
+
   val form = new ClaimingOverPayAsYouEarnThresholdFormProvider()(claimant)
 
-  def createView = () => claimingOverPayAsYouEarnThreshold(frontendAppConfig, form, claimant)(fakeRequest, messages)
-
-  def createViewUsingForm = (form: Form[_]) => claimingOverPayAsYouEarnThreshold(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]): Html = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
   "ClaimingOverPayAsYouEarnThreshold view" must {
 
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView(form), messageKeyPrefix)
 
-    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.ClaimingOverPayAsYouEarnThresholdController.onSubmit().url)
+    behave like yesNoPage(createView, messageKeyPrefix, routes.ClaimingOverPayAsYouEarnThresholdController.onSubmit().url)
 
-    behave like pageWithBackLink(createView)
+    behave like pageWithBackLink(createView(form))
   }
 }

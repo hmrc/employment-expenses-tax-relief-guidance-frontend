@@ -26,18 +26,20 @@ class MoreThanFiveJobsViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = "moreThanFiveJobs"
 
+  val application = applicationBuilder().build
+
+  val view = application.injector.instanceOf[moreThanFiveJobs]
+
   val form = new MoreThanFiveJobsFormProvider()()
 
-  def createView = () => moreThanFiveJobs(frontendAppConfig, form)(fakeRequest, messages)
-
-  def createViewUsingForm = (form: Form[_]) => moreThanFiveJobs(frontendAppConfig, form)(fakeRequest, messages)
+  def createView(form: Form[_]) = view.apply(frontendAppConfig, form)(fakeRequest, messages)
 
   "MoreThanFiveJobs view" must {
 
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView(form), messageKeyPrefix)
 
-    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.MoreThanFiveJobsController.onSubmit().url)
+    behave like yesNoPage(createView, messageKeyPrefix, routes.MoreThanFiveJobsController.onSubmit().url)
 
-    behave like pageWithBackLink(createView)
+    behave like pageWithBackLink(createView(form))
   }
 }

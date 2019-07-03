@@ -24,7 +24,11 @@ class CannotClaimMileageCostsViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "cannotClaimMileageCosts.you"
 
-  def createView = () => cannotClaimMileageCosts(frontendAppConfig, You)(fakeRequest, messages)
+  val application = applicationBuilder().build
+
+  val view = application.injector.instanceOf[cannotClaimMileageCosts]
+
+  def createView = view.apply(frontendAppConfig, You)(fakeRequest, messages)
 
   "CannotClaimMileageCosts view" must {
     behave like normalPage(createView, messageKeyPrefix)

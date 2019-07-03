@@ -20,6 +20,7 @@ import play.api.data.Form
 import controllers.routes
 import forms.PaidTaxInRelevantYearFormProvider
 import models.Claimant.You
+import play.twirl.api.Html
 import views.behaviours.YesNoViewBehaviours
 import views.html.paidTaxInRelevantYear
 
@@ -29,38 +30,40 @@ class PaidTaxInRelevantYearViewSpec extends YesNoViewBehaviours {
 
   val messageKeyPrefix = s"paidTaxInRelevantYear.$claimant"
 
+  val application = applicationBuilder().build
+
+  val view = application.injector.instanceOf[paidTaxInRelevantYear]
+
   val form = new PaidTaxInRelevantYearFormProvider()(claimant, frontendAppConfig.earliestTaxYear)
 
-  def createView = () => paidTaxInRelevantYear(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]): Html = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
-  def createViewUsingForm = (form: Form[_]) =>
-    paidTaxInRelevantYear(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
   "PaidTaxInRelevantYear view" must {
 
     "have the correct banner title" in {
-      val doc = asDocument(createView())
+      val doc = asDocument(createView(form))
       assertRenderedById(doc, "pageTitle")
     }
 
     "display the correct browser title" in {
-      val doc = asDocument(createView())
+      val doc = asDocument(createView(form))
       val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title", frontendAppConfig.earliestTaxYear)
       assertEqualsMessage(doc, "title", expectedFullTitle)
     }
 
     "display the correct heading" in {
-      val doc = asDocument(createView())
+      val doc = asDocument(createView(form))
       assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", frontendAppConfig.earliestTaxYear)
     }
 
     behave like yesNoPage(
-      createViewUsingForm,
+      createView,
       messageKeyPrefix,
       routes.PaidTaxInRelevantYearController.onSubmit().url,
       frontendAppConfig.earliestTaxYear
     )
 
-    behave like pageWithBackLink(createView)
+    behave like pageWithBackLink(createView(form))
   }
 }

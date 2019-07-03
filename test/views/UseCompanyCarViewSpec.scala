@@ -27,22 +27,25 @@ import views.html.useCompanyCar
 class UseCompanyCarViewSpec extends YesNoViewBehaviours {
 
   val claimant = You
+
   val useOfOwnCar = UsingOwnCar
 
   val messageKeyPrefix = s"useCompanyCar.$claimant.$useOfOwnCar"
 
+  val application = applicationBuilder().build
+
+  val view = application.injector.instanceOf[useCompanyCar]
+
   val form = new UseCompanyCarFormProvider()(claimant, useOfOwnCar)
 
-  def createView = () => useCompanyCar(frontendAppConfig, form, claimant, useOfOwnCar)(fakeRequest, messages)
-
-  def createViewUsingForm = (form: Form[_]) => useCompanyCar(frontendAppConfig, form, claimant, useOfOwnCar)(fakeRequest, messages)
+  def createView(form: Form[_]) = view.apply(frontendAppConfig, form, You, useOfOwnCar)(fakeRequest, messages)
 
   "UseCompanyCar view" must {
 
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView(form), messageKeyPrefix)
 
-    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.UseCompanyCarController.onSubmit().url)
+    behave like yesNoPage(createView, messageKeyPrefix, routes.UseCompanyCarController.onSubmit().url)
 
-    behave like pageWithBackLink(createView)
+    behave like pageWithBackLink(createView(form))
   }
 }

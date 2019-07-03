@@ -29,25 +29,29 @@ class CannotClaimReliefSomeYearsViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = s"cannotClaimReliefSomeYears.$claimant"
 
-  def createView = () => cannotClaimReliefSomeYears(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages)
+  val application = applicationBuilder().build
+
+  val view = application.injector.instanceOf[cannotClaimReliefSomeYears]
+
+  def createView= view.apply(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages)
 
   "CannotClaimReliefSomeYears view" must {
 
     behave like pageWithBackLink(createView)
 
     "have the correct banner title" in {
-      val doc = asDocument(createView())
+      val doc = asDocument(createView)
       assertRenderedById(doc, "pageTitle")
     }
 
     "display the correct browser title" in {
-      val doc = asDocument(createView())
+      val doc = asDocument(createView)
       val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title", frontendAppConfig.earliestTaxYear)
       assertEqualsMessage(doc, "title", expectedFullTitle)
     }
 
     "display the correct heading" in {
-      val doc = asDocument(createView())
+      val doc = asDocument(createView)
       assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", frontendAppConfig.earliestTaxYear)
     }
   }

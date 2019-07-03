@@ -24,46 +24,46 @@ trait ViewBehaviours extends ViewSpecBase {
   protected def getFullTitle(messageKey: String, args: Any*) =
     messages(messageKey, args: _*) + " – " + messages("site.service_name") + " – " + messages("site.gov.uk")
 
-  def normalPage(view: () => HtmlFormat.Appendable,
+  def normalPage(view: HtmlFormat.Appendable,
                  messageKeyPrefix: String,
                  expectedGuidanceKeys: String*) = {
 
     "behave like a normal page" when {
       "rendered" must {
         "have the correct banner title" in {
-          val doc = asDocument(view())
+          val doc = asDocument(view)
           assertRenderedById(doc, "pageTitle")
         }
 
         "display the correct browser title" in {
-          val doc = asDocument(view())
+          val doc = asDocument(view)
           val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title")
           assertEqualsMessage(doc, "title", expectedFullTitle)
         }
 
         "display the correct heading" in {
-          val doc = asDocument(view())
+          val doc = asDocument(view)
           assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading")
         }
 
         "display the correct guidance" in {
-          val doc = asDocument(view())
+          val doc = asDocument(view)
           for (key <- expectedGuidanceKeys) assertContainsText(doc, messages(s"$messageKeyPrefix.$key"))
         }
 
         "display language toggles" in {
-          val doc = asDocument(view())
+          val doc = asDocument(view)
           assertRenderedById(doc, "cymraeg-switch")
         }
       }
     }
   }
 
-  def pageWithBackLink(view: () => HtmlFormat.Appendable) = {
+  def pageWithBackLink(view: HtmlFormat.Appendable) = {
 
     "behave like a page with a back link" must {
       "have a back link" in {
-        val doc = asDocument(view())
+        val doc = asDocument(view)
         assertRenderedById(doc, "back-link")
       }
     }

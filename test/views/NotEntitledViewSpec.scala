@@ -17,6 +17,7 @@
 package views
 
 import models.Claimant.You
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.notEntitled
 
@@ -26,7 +27,11 @@ class NotEntitledViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = s"notEntitled.$claimant"
 
-  def createView = () => notEntitled(frontendAppConfig, claimant)(fakeRequest, messages)
+  val application = applicationBuilder().build
+
+  val view = application.injector.instanceOf[notEntitled]
+
+  def createView: HtmlFormat.Appendable = view.apply(frontendAppConfig, claimant)(fakeRequest, messages)
 
   "NotEntitled view" must {
     behave like normalPage(createView, messageKeyPrefix)

@@ -17,17 +17,23 @@
 package views
 
 import controllers.routes
-import models.Claimant
+import models.Claimant.You
 import views.behaviours.ViewBehaviours
 import views.html.registerForSelfAssessment
 
 class RegisterForSelfAssessmentViewSpec extends ViewBehaviours {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  val claimant = You
 
   val messageKeyPrefix = "registerForSelfAssessment.you"
 
-  def createView = () => registerForSelfAssessment(frontendAppConfig, Claimant.You, onwardRoute)(fakeRequest, messages)
+  val application = applicationBuilder().build
+
+  val view = application.injector.instanceOf[registerForSelfAssessment]
+
+  def onwardRoute = routes.IndexController.onPageLoad()
+
+  def createView = view.apply(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages)
 
   "RegisterForSelfAssessment view" must {
     behave like normalPage(createView, messageKeyPrefix)

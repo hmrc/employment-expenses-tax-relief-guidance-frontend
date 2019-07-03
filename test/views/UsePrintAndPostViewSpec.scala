@@ -23,7 +23,11 @@ class UsePrintAndPostViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "usePrintAndPost"
 
-  def createView = () => usePrintAndPost(frontendAppConfig)(fakeRequest, messages)
+  val application = applicationBuilder().build
+
+  val view = application.injector.instanceOf[usePrintAndPost]
+
+  def createView = view.apply(frontendAppConfig)(fakeRequest, messages)
 
   "UsePrintAndPost view" must {
     behave like normalPage(createView, messageKeyPrefix)

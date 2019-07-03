@@ -27,25 +27,28 @@ import views.html.claimingFor
 class ClaimingForViewSpec extends ViewBehaviours {
 
   val claimant = You
+
   val messageKeyPrefix = s"claimingFor.$claimant"
+
+  val application = applicationBuilder().build
+
+  val view = application.injector.instanceOf[claimingFor]
 
   val form = new ClaimingForFormProvider()(claimant)
 
-  def createView = () => claimingFor(frontendAppConfig, form, claimant)(fakeRequest, messages)
-
-  def createViewUsingForm = (form: Form[_]) => claimingFor(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]) = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
   "ClaimingFor view" must {
-   // behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView(form), messageKeyPrefix)
   }
 
   "ClaimingFor view" when {
 
-    behave like pageWithBackLink(createView)
+    behave like pageWithBackLink(createView(form))
 
     "rendered" must {
       "contain checkboxes for each option" in {
-        val doc = asDocument(createViewUsingForm(form))
+        val doc = asDocument(createView(form))
         for ((option, index) <- ClaimingFor.options(Claimant.You).zipWithIndex) {
           assertContainsRadioButton(doc, option.id, s"value[$index]", option.value, false)
         }
@@ -57,7 +60,7 @@ class ClaimingForViewSpec extends ViewBehaviours {
       s"rendered with a value of '${option.toString}'" must {
 
         s"have the '${option.toString}' checkbox selected" in {
-          val doc = asDocument(createViewUsingForm(form.fill(Set(option))))
+          val doc = asDocument(createView(form.fill(Set(option))))
           val radioOption = RadioOption("claimingFor", option.toString)
           assertContainsRadioButton(doc, radioOption.id, s"value[$index]", option.toString, true)
         }

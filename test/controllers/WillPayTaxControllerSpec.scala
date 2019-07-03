@@ -20,13 +20,14 @@ import base.SpecBase
 import play.api.data.Form
 import play.api.libs.json.{JsArray, JsBoolean, JsString}
 import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
+import utils.{FakeNavigator, UserAnswers}
 import connectors.FakeDataCacheConnector
 import controllers.actions._
 import play.api.test.Helpers._
 import forms.WillPayTaxFormProvider
 import identifiers.{ClaimantId, WillPayTaxId}
 import models.Claimant.You
+import play.api.test.FakeRequest
 import views.html.willPayTax
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -51,61 +52,100 @@ class WillPayTaxControllerSpec extends SpecBase {
     )
   )
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getValidPrecursorData) =
-    new WillPayTaxController(frontendAppConfig, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, formProvider, controllerComponents)
-
-  def viewAsString(form: Form[_] = form) = willPayTax(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
 
   "WillPayTax Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
+      val application = applicationBuilder().build
+
+      val view = application.injector.instanceOf[willPayTax]
+
+      def viewAsString(form: Form[_] = form) = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+
+      val request = FakeRequest(GET, routes.WillNotPayTaxController.onPageLoad().url)
+
+      val result = route(application, request).value
 
       status(result) mustBe OK
+
       contentAsString(result) mustBe viewAsString()
+
+      application.stop
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
       val validData = Map(
         ClaimantId.toString -> JsString(claimant.toString),
-        WillPayTaxId.toString -> JsBoolean(true))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+        WillPayTaxId.toString -> JsBoolean(true)
+      )
 
-      val result = controller(getRelevantData).onPageLoad()(fakeRequest)
+      val userAnswers = new UserAnswers(new CacheMap(cacheMapId, validData))
+
+      val application = applicationBuilder(Some(userAnswers)).build
+
+      val view = application.injector.instanceOf[willPayTax]
+
+      def viewAsString(form: Form[_] = form) = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+
+      val request = FakeRequest(GET, routes.WillNotPayTaxController.onPageLoad().url)
+
+      val result = route(application, request).value
 
       contentAsString(result) mustBe viewAsString(form.fill(true))
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+      val application = applicationBuilder().build
 
-      val result = controller().onSubmit()(postRequest)
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+      val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
+
       redirectLocation(result) mustBe Some(onwardRoute.url)
+
+      application.stop
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-      val boundForm = form.bind(Map("value" -> "invalid value"))
 
-      val result = controller().onSubmit()(postRequest)
+      val application = applicationBuilder().build
+
+      val view = application.injector.instanceOf[willPayTax]
+
+      def viewAsString(form: Form[_] = form) = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+
+      val result = route(application, request).value
+
+      val boundForm = form.bind(Map("value" -> "invalid value"))
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe viewAsString(boundForm)
+
+      application.stop
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+
+      val application = applicationBuilder().build
+
+      val request = FakeRequest(GET, routes.WillNotPayTaxController.onPageLoad().url)
+
+      val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val result = controller(dontGetAnyData).onSubmit()(postRequest)
+      val request = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+
+      val application = applicationBuilder().build
+
+      val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
