@@ -28,13 +28,8 @@
 
     @components.heading(s"cannotClaimRelief.$claimant.heading")
 
-    <p>@messages(s"cannotClaimRelief.$claimant.guidance")</p>
-
-    <p>
-        <a href="https://www.gov.uk/tax-relief-for-employees"
-           data-journey-click="link - click:@messages(s"cannotClaimRelief.$claimant.heading"):@messages("cannotClaimRelief.link.label")">
-            @messages("cannotClaimRelief.link.label")
-        </a>
+    <p>@messages(s"cannotClaimRelief.$claimant.guidance")
+        <a href=@appConfig.cannotClaimReliefUrl data-journey-click="link - click:@messages(s"cannotClaimRelief.$claimant.heading"):@messages("cannotClaimRelief.link.label")">@messages(s"cannotClaimRelief.link.$claimant.label")</a>
     </p>
 
 }
