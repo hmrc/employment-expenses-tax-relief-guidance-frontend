@@ -45,7 +45,7 @@ class FrontendAppConfig @Inject() (override val runModeConfiguration: Configurat
   lazy val authUrl = baseUrl("auth")
   lazy val loginUrl = loadConfig("urls.login")
   lazy val loginContinueUrl = loadConfig("urls.loginContinue")
-  lazy val taxReliefGuidance = loadConfig("urls.taxReliefGuidance")
+  lazy val cannotClaimReliefUrl = loadConfig("urls.cannotClaimRelief")
 
   lazy val selfAssessmentTaxReturnsUrl = loadConfig("urls.selfAssessmentTaxReturn")
 
