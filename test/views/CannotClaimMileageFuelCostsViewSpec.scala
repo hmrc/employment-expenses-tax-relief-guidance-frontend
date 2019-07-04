@@ -34,4 +34,6 @@ class CannotClaimMileageFuelCostsViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
     behave like pageWithBackLink(createView)
   }
+
+  application.stop
 }

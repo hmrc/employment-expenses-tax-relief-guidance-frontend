@@ -34,4 +34,6 @@ class UsePrintAndPostViewSpec extends ViewBehaviours {
 
     behave like pageWithBackLink(createView)
   }
+
+  application.stop
 }

@@ -38,4 +38,6 @@ class NotEntitledViewSpec extends ViewBehaviours {
 
     behave like pageWithBackLink(createView)
   }
+
+  application.stop
 }

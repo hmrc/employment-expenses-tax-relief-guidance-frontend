@@ -39,4 +39,6 @@ class CannotClaimBuyingEquipmentViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix, "guidance", "guidance2")
     behave like pageWithBackLink(createView)
   }
+
+  application.stop
 }

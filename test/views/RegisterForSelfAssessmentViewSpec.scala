@@ -40,4 +40,6 @@ class RegisterForSelfAssessmentViewSpec extends ViewBehaviours {
 
     behave like pageWithBackLink(createView)
   }
+
+  application.stop
 }

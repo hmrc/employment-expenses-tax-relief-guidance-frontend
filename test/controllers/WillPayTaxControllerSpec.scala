@@ -92,6 +92,7 @@ class WillPayTaxControllerSpec extends SpecBase {
       val result = route(application, request).value
 
       contentAsString(result) mustBe viewAsString(form.fill(true))
+      application.stop
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -138,6 +139,7 @@ class WillPayTaxControllerSpec extends SpecBase {
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      application.stop
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
@@ -149,6 +151,7 @@ class WillPayTaxControllerSpec extends SpecBase {
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      application.stop
     }
   }
 }

@@ -62,4 +62,6 @@ class ClaimantViewSpec extends ViewBehaviours {
       }
     }
   }
+
+  application.stop
 }

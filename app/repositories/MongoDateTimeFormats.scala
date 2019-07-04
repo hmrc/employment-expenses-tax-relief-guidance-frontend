@@ -14,19 +14,22 @@
  * limitations under the License.
  */
 
-package controllers
+package repositories
 
-import base.SpecBase
-import play.api.test.Helpers._
-import utils.Navigator
+import org.joda.time.{DateTime, DateTimeZone}
+import play.api.libs.json.{JsValue, Json, Reads, Writes}
 
-class IndexControllerSpec extends SpecBase {
+trait MongoDateTimeFormats {
+  import play.api.libs.json.__
 
-  "Index Controller" must {
-    "return Moved Permanently (to Claimant) for a GET" in {
-      val result = new IndexController(frontendAppConfig, new Navigator, controllerComponents).onPageLoad()(fakeRequest)
-      status(result) mustBe MOVED_PERMANENTLY
-      redirectLocation(result) mustBe Some(routes.ClaimantController.onPageLoad().url)
+  implicit val localDateTimeRead: Reads[DateTime] =
+    (__ \ "$date").read[Long].map {
+      millis:Long => new DateTime(millis, DateTimeZone.UTC)
     }
+
+  implicit val localDateTimeWrite: Writes[DateTime] = new Writes[DateTime] {
+    def writes(dateTime: DateTime): JsValue = Json.obj(
+      "$date" -> dateTime.toInstant.getMillis
+    )
   }
 }

@@ -35,4 +35,6 @@ class CannotClaimReliefViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix, "guidance")
     behave like pageWithBackLink(createView)
   }
+
+  application.stop
 }

@@ -56,4 +56,6 @@ class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
       assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", frontendAppConfig.earliestTaxYear)
     }
   }
+
+  application.stop
 }

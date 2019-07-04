@@ -41,4 +41,6 @@ class NotEntitledSomeYearsViewSpec extends ViewBehaviours {
 
     behave like pageWithBackLink(createView)
   }
+
+  application.stop
 }

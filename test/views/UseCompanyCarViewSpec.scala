@@ -48,4 +48,6 @@ class UseCompanyCarViewSpec extends YesNoViewBehaviours {
 
     behave like pageWithBackLink(createView(form))
   }
+
+  application.stop
 }

@@ -66,4 +66,6 @@ class PaidTaxInRelevantYearViewSpec extends YesNoViewBehaviours {
 
     behave like pageWithBackLink(createView(form))
   }
+
+  application.stop
 }

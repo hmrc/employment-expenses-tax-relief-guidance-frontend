@@ -46,4 +46,6 @@ class ClaimingMileageViewSpec extends YesNoViewBehaviours {
 
     behave like pageWithBackLink(createView(form))
   }
+
+  application.stop
 }

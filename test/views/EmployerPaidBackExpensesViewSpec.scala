@@ -38,7 +38,6 @@ class EmployerPaidBackExpensesViewSpec extends YesNoViewBehaviours {
 
   def createView(form: Form[_]): Html = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
-
   "EmployerPaidBackExpenses view" must {
 
     behave like normalPage(createView(form), messageKeyPrefix)
@@ -47,4 +46,6 @@ class EmployerPaidBackExpensesViewSpec extends YesNoViewBehaviours {
 
     behave like pageWithBackLink(createView(form))
   }
+
+  application.stop
 }

@@ -35,4 +35,6 @@ class ClaimOnlineViewSpec extends ViewBehaviours {
 
     behave like pageWithBackLink(createView)
   }
+
+  application.stop
 }
