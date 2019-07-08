@@ -17,6 +17,7 @@
 package controllers
 
 import config.FrontendAppConfig
+import controllers.actions.{DataRequiredAction, DataRetrievalAction, GetClaimantAction}
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -27,6 +28,9 @@ import views.html.session_expired
 class SessionExpiredController @Inject()(
                                           val appConfig: FrontendAppConfig,
                                           navigator: Navigator,
+                                          getData: DataRetrievalAction,
+                                          requireData: DataRequiredAction,
+                                          getClaimant: GetClaimantAction,
                                           val controllerComponents: MessagesControllerComponents,
                                           view: session_expired
                                         ) extends FrontendBaseController with I18nSupport {

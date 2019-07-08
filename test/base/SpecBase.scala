@@ -17,6 +17,7 @@
 package base
 
 import config.FrontendAppConfig
+import connectors.{DataCacheConnector, DataCacheConnectorImpl}
 import controllers.actions.{DataRequiredAction, DataRequiredActionImpl, DataRequiredActionSpec, DataRetrievalAction, DataRetrievalActionImpl, DataRetrievalActionSpec, FakeDataRetrievalAction, GetClaimantAction, GetClaimantActionImpl}
 import identifiers.ClaimantId
 import models.Claimant
@@ -60,10 +61,12 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
     )
   implicit def messages: Messages = messagesApi.preferred(fakeRequest)
 
-  protected def applicationBuilder(userAnswers: Option[UserAnswers] = None): GuiceApplicationBuilder =
+  protected def applicationBuilder(cacheMap: Option[CacheMap] = None): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()
       .overrides(
         bind[DataRequiredAction].to[DataRequiredActionImpl],
-        bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(Some(emptyCacheMap))),
-        bind[GetClaimantAction].to[GetClaimantActionImpl])
+        bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(cacheMap)),
+        bind[GetClaimantAction].to[GetClaimantActionImpl],
+        bind[DataCacheConnector].to[DataCacheConnectorImpl]
+      )
 }

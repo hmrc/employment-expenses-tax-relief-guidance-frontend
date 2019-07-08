@@ -43,8 +43,10 @@ class WillPayTaxController @Inject()(
                                       view: willPayTax
                                     )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
+
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
     implicit request =>
+
       val form: Form[Boolean] = formProvider(request.claimant, appConfig.earliestTaxYear)
 
       val preparedForm = request.userAnswers.willPayTax match {
