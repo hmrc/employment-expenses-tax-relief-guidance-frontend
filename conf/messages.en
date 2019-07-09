@@ -51,10 +51,10 @@ registeredForSelfAssessment.someoneElse.error.required = Select yes if the perso
 
 claimingOverPayAsYouEarnThreshold.you.title = Are you claiming expenses of £2,500 or more in a single tax year?
 claimingOverPayAsYouEarnThreshold.you.heading = Are you claiming expenses of £2,500 or more in a single tax year?
-claimingOverPayAsYouEarnThreshold.you.error.required = Select yes if you are claiming expenses of £2,500 or more in any tax year
-claimingOverPayAsYouEarnThreshold.someoneElse.title = Are they claiming expenses of £2,500 or in any tax year?
-claimingOverPayAsYouEarnThreshold.someoneElse.heading = Are they claiming expenses of £2,500 or more in any tax year?
-claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if they are claiming expenses of £2,500 or more in any tax year
+claimingOverPayAsYouEarnThreshold.you.error.required = Select yes if you are claiming expenses of £2,500 or more in a single tax year
+claimingOverPayAsYouEarnThreshold.someoneElse.title = Are they claiming expenses of £2,500 or more in a single tax year?
+claimingOverPayAsYouEarnThreshold.someoneElse.heading = Are they claiming expenses of £2,500 or more in a single tax year?
+claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if they are claiming expenses of £2,500 or more in a single tax year
 
 useSelfAssessment.you.title = You can only claim these expenses using Self Assessment
 useSelfAssessment.you.heading = You can only claim these expenses using Self Assessment
@@ -68,15 +68,17 @@ moreThanFiveJobs.title = Are you claiming tax relief for more than 5 different j
 moreThanFiveJobs.heading = Are you claiming tax relief for more than 5 different jobs?
 moreThanFiveJobs.error.required = Select yes if you are claiming tax relief for more than 5 different jobs
 
-registerForSelfAssessment.you.title = You must register for Self Assessment to claim tax relief on expenses that are £2,500 or more
-registerForSelfAssessment.you.heading = You must register for Self Assessment to claim tax relief on expenses that are £2,500 or more
+registerForSelfAssessment.you.title = You can only claim these expenses using Self Assessment
+registerForSelfAssessment.you.heading = You can only claim these expenses using Self Assessment
 registerForSelfAssessment.you.guidance = If there are tax years where your expenses are less than £2,500,
 registerForSelfAssessment.you.link.continue.label = check if you can claim tax relief
-registerForSelfAssessment.someoneElse.title = They must register for Self Assessment to claim tax relief on expenses that are £2,500 or more
-registerForSelfAssessment.someoneElse.heading = They must register for Self Assessment to claim tax relief on expenses that are £2,500 or more
+registerForSelfAssessment.someoneElse.title = They can only claim these expenses using Self Assessment
+registerForSelfAssessment.someoneElse.heading = They can only claim these expenses using Self Assessment
 registerForSelfAssessment.someoneElse.guidance = If there are tax years where their expenses are less than £2,500,
 registerForSelfAssessment.someoneElse.link.continue.label = check if they can claim tax relief
-registerForSelfAssessment.link.external.label = Find out how to register for Self Assessment
+registerForSelfAssessment.link.external.label =  register for and file Self Assessment tax returns
+registerForSelfAssessment.guidance1 = Because your expenses are £2,500 or more in some of the tax years you are claiming for, you must claim them as part of a Self Assessment tax return.
+registerForSelfAssessment.guidance2 = Find out how to
 
 usePrintAndPost.title = You can claim tax relief for these expenses by post
 usePrintAndPost.heading = You can claim tax relief for these expenses by post
@@ -90,13 +92,14 @@ claimOnline.bullet1 = your National Insurance number
 claimOnline.bullet2 = a recent payslip or P60 or a valid UK passport
 claimOnline.link.label = Claim online
 
-cannotClaimRelief.you.title = You cannot claim tax relief for these expenses
-cannotClaimRelief.you.heading = You cannot claim tax relief for these expenses
-cannotClaimRelief.you.guidance = This is because your employer has already paid back all of your expenses.
-cannotClaimRelief.someoneElse.title = They cannot claim tax relief for these expenses
-cannotClaimRelief.someoneElse.heading = They cannot claim tax relief for these expenses
-cannotClaimRelief.someoneElse.guidance = This is because their employer has already paid back all of their expenses.
-cannotClaimRelief.link.label = Read claim tax relief for your job expenses
+cannotClaimRelief.you.title = You cannot claim these expenses
+cannotClaimRelief.you.heading = You cannot claim these expenses
+cannotClaimRelief.you.guidance = You cannot claim these expenses because they have
+cannotClaimRelief.someoneElse.title = They cannot claim for these expenses
+cannotClaimRelief.someoneElse.heading = They cannot claim for these expenses
+cannotClaimRelief.someoneElse.guidance = They cannot claim for these expenses because they have
+cannotClaimRelief.link.you.label = all been paid back by your employer.
+cannotClaimRelief.link.someoneElse.label = all been paid back by their employer.
 
 employerPaidBackExpenses.you.title = Has your employer paid back all your work‑related expenses?
 employerPaidBackExpenses.you.heading = Has your employer paid back all your work‑related expenses?
