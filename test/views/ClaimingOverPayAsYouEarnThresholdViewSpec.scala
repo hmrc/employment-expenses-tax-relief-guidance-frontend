@@ -26,8 +26,6 @@ import views.html.claimingOverPayAsYouEarnThreshold
 
 class ClaimingOverPayAsYouEarnThresholdViewSpec extends YesNoViewBehaviours {
 
-  val claimant = You
-
   val messageKeyPrefix = s"claimingOverPayAsYouEarnThreshold.$claimant"
 
   val application = applicationBuilder().build

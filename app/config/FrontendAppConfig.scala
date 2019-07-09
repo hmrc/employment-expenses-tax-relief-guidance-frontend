@@ -30,7 +30,7 @@ class FrontendAppConfig @Inject()(runModeConfiguration: Configuration) {
 
   private def loadConfig(key: String) = runModeConfiguration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
 
-  private lazy val contactHost = runModeConfiguration.getString("contact-frontend.host").getOrElse("")
+  private lazy val contactHost = runModeConfiguration.get[String]("contact-frontend.host")
   private val contactFormServiceIdentifier = "employmentexpensestaxreliefguidancefrontend"
 
   lazy val analyticsToken = loadConfig(s"google-analytics.token")
@@ -45,7 +45,7 @@ class FrontendAppConfig @Inject()(runModeConfiguration: Configuration) {
 
   lazy val selfAssessmentTaxReturnsUrl = loadConfig("urls.selfAssessmentTaxReturn")
 
-  lazy val languageTranslationEnabled = runModeConfiguration.getBoolean("microservice.services.features.welsh-translation").getOrElse(true)
+  lazy val languageTranslationEnabled = runModeConfiguration.get[Boolean]("microservice.services.features.welsh-translation")
   def languageMap: Map[String, Lang] = Map(
     "english" -> Lang("en"),
     "cymraeg" -> Lang("cy"))

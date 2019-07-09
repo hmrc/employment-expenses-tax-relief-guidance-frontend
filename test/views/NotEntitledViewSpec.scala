@@ -23,8 +23,6 @@ import views.html.notEntitled
 
 class NotEntitledViewSpec extends ViewBehaviours {
 
-  val claimant = You
-
   val messageKeyPrefix = s"notEntitled.$claimant"
 
   val application = applicationBuilder().build

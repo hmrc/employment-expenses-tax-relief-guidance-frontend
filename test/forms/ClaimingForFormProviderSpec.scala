@@ -23,7 +23,6 @@ import play.api.data.FormError
 
 class ClaimingForFormProviderSpec extends OptionFieldBehaviours {
 
-  val claimant = You
   val form = new ClaimingForFormProvider()(claimant)
 
   ".value" must {

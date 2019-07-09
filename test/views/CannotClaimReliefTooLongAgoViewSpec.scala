@@ -23,8 +23,6 @@ import views.html.cannotClaimReliefTooLongAgo
 
 class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
 
-  val claimant = You
-
   val startYear = TaxYear.current.startYear.toString
 
   val endYear = TaxYear.current.finishYear.toString

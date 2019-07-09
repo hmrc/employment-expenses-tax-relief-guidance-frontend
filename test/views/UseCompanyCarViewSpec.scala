@@ -26,8 +26,6 @@ import views.html.useCompanyCar
 
 class UseCompanyCarViewSpec extends YesNoViewBehaviours {
 
-  val claimant = You
-
   val useOfOwnCar = UsingOwnCar
 
   val messageKeyPrefix = s"useCompanyCar.$claimant.$useOfOwnCar"

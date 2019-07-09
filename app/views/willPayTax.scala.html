@@ -22,7 +22,6 @@
 @this(
   main_template: main_template,
   formHelper: FormWithCSRF
-
 )
 
 @(
@@ -38,7 +37,6 @@
     @back_link()
 
     @formHelper(action = WillPayTaxController.onSubmit(), 'autoComplete -> "off") {
-
         @components.error_summary(form.errors)
 
         @components.heading(messages(s"willPayTax.$claimant.heading"))

@@ -26,8 +26,6 @@ import views.html.claimingMileage
 
 class ClaimingMileageViewSpec extends YesNoViewBehaviours {
 
-  val claimant = You
-
   val messageKeyPrefix = s"claimingMileage.$claimant"
 
   val application = applicationBuilder().build

@@ -21,6 +21,7 @@ import connectors.{DataCacheConnector, DataCacheConnectorImpl}
 import controllers.actions.{DataRequiredAction, DataRequiredActionImpl, DataRequiredActionSpec, DataRetrievalAction, DataRetrievalActionImpl, DataRetrievalActionSpec, FakeDataRetrievalAction, GetClaimantAction, GetClaimantActionImpl}
 import identifiers.ClaimantId
 import models.Claimant
+import models.Claimant.You
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice._
 import play.api.i18n.{Messages, MessagesApi}
@@ -47,7 +48,9 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
 
   val cacheMapId = "id"
 
-  def emptyCacheMap = CacheMap(cacheMapId, Map())
+  val claimant = You
+
+  def emptyCacheMap = CacheMap(cacheMapId, Map(ClaimantId.toString -> JsString(claimant.toString)))
 
   def emptyUserAnswers = new UserAnswers(emptyCacheMap)
 

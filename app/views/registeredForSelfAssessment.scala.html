@@ -20,7 +20,8 @@
 @import components.back_link
 
 @this(
-  main_template: main_template
+  main_template: main_template,
+  formHelper: FormWithCSRF
 )
 
 @(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
@@ -42,7 +43,7 @@
 
     @back_link()
 
-    @helpers.form(action = RegisteredForSelfAssessmentController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = RegisteredForSelfAssessmentController.onSubmit(), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 

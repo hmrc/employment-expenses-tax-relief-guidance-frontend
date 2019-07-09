@@ -26,8 +26,6 @@ import views.html.paidTaxInRelevantYear
 
 class PaidTaxInRelevantYearViewSpec extends YesNoViewBehaviours {
 
-  val claimant = You
-
   val messageKeyPrefix = s"paidTaxInRelevantYear.$claimant"
 
   val application = applicationBuilder().build

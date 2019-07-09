@@ -23,8 +23,6 @@ import views.html.registerForSelfAssessment
 
 class RegisterForSelfAssessmentViewSpec extends ViewBehaviours {
 
-  val claimant = You
-
   val messageKeyPrefix = "registerForSelfAssessment.you"
 
   val application = applicationBuilder().build

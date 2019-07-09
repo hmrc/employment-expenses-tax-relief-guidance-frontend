@@ -26,8 +26,6 @@ import views.html.registeredForSelfAssessment
 
 class RegisteredForSelfAssessmentViewSpec extends YesNoViewBehaviours {
 
-  val claimant = You
-
   val messageKeyPrefix = s"registeredForSelfAssessment.$claimant"
 
   val application = applicationBuilder().build

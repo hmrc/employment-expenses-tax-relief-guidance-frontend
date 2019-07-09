@@ -26,8 +26,6 @@ class NotEntitledSomeYearsViewSpec extends ViewBehaviours {
 
   val onwardRoute = routes.IndexController.onPageLoad()
 
-  val claimant = You
-
   val messageKeyPrefix = s"notEntitledSomeYearsView.$claimant"
 
   val application = applicationBuilder().build

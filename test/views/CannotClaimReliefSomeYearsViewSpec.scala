@@ -23,8 +23,6 @@ import views.html.cannotClaimReliefSomeYears
 
 class CannotClaimReliefSomeYearsViewSpec extends ViewBehaviours {
 
-  val claimant = You
-
   def onwardRoute = routes.IndexController.onPageLoad()
 
   val messageKeyPrefix = s"cannotClaimReliefSomeYears.$claimant"

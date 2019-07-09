@@ -20,7 +20,8 @@
 @import components.back_link
 
 @this(
-  main_template: main_template
+  main_template: main_template,
+  formHelper: FormWithCSRF
 )
 
 @(
@@ -37,7 +38,7 @@
 
     @back_link()
 
-    @helpers.form(action = PaidTaxInRelevantYearController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = PaidTaxInRelevantYearController.onSubmit(), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 

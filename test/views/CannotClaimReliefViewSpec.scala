@@ -22,8 +22,6 @@ import views.html.cannotClaimRelief
 
 class CannotClaimReliefViewSpec extends ViewBehaviours {
 
-  val claimant = You
-
   val messageKeyPrefix = s"cannotClaimRelief.$claimant"
 
   val application = applicationBuilder().build

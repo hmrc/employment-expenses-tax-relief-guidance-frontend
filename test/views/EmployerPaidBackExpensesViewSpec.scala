@@ -26,8 +26,6 @@ import views.html.employerPaidBackExpenses
 
 class EmployerPaidBackExpensesViewSpec extends YesNoViewBehaviours {
 
-  val claimant = You
-
   val messageKeyPrefix = s"employerPaidBackExpenses.$claimant"
 
   val application = applicationBuilder().build

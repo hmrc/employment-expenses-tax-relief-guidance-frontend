@@ -25,8 +25,6 @@ import views.html.claimingFuel
 
 class ClaimingFuelViewSpec extends YesNoViewBehaviours {
 
-  val claimant = You
-
   val messageKeyPrefix = s"claimingFuel.$claimant"
 
   val application = applicationBuilder().build

@@ -26,8 +26,6 @@ import views.html.claimingFor
 
 class ClaimingForViewSpec extends ViewBehaviours {
 
-  val claimant = You
-
   val messageKeyPrefix = s"claimingFor.$claimant"
 
   val application = applicationBuilder().build
