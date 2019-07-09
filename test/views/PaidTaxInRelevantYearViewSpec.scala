@@ -41,8 +41,10 @@ class PaidTaxInRelevantYearViewSpec extends YesNoViewBehaviours {
 
     "have the correct banner title" in {
       val doc = asDocument(createView(form))
-      assertRenderedById(doc, "pageTitle")
-    }
+      val nav = doc.getElementById("proposition-menu")
+      val span = nav.children.first
+
+      span.text mustEqual messages("site.service_name")    }
 
     "display the correct browser title" in {
       val doc = asDocument(createView(form))

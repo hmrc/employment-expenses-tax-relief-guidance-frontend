@@ -16,7 +16,6 @@
 
 package views
 
-import models.Claimant.You
 import uk.gov.hmrc.time.TaxYear
 import views.behaviours.ViewBehaviours
 import views.html.cannotClaimReliefTooLongAgo
@@ -32,7 +31,7 @@ class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
   val application = applicationBuilder().build
   val view = application.injector.instanceOf[cannotClaimReliefTooLongAgo]
 
-  def createView= view.apply(frontendAppConfig, claimant, startYear, endYear)(fakeRequest, messages)
+  def createView = view.apply(frontendAppConfig, claimant, startYear, endYear)(fakeRequest, messages)
 
   "CannotClaimReliefTooLongAgo view" must {
 
@@ -40,7 +39,10 @@ class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
 
     "have the correct banner title" in {
       val doc = asDocument(createView)
-      assertRenderedById(doc, "pageTitle")
+      val nav = doc.getElementById("proposition-menu")
+      val span = nav.children.first
+
+      span.text mustEqual messages("site.service_name")
     }
 
     "display the correct browser title" in {

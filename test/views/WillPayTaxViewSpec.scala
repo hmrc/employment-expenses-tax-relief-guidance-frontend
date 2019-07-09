@@ -16,10 +16,10 @@
 
 package views
 
-import play.api.data.Form
 import controllers.routes
 import forms.WillPayTaxFormProvider
 import models.Claimant.You
+import play.api.data.Form
 import views.behaviours.YesNoViewBehaviours
 import views.html.willPayTax
 
@@ -37,23 +37,9 @@ class WillPayTaxViewSpec extends YesNoViewBehaviours {
 
     def createView(form: Form[_]) = view.apply(frontendAppConfig, form, You)(fakeRequest, messages)
 
-    "have the correct banner title" in {
-      val doc = asDocument(createView(form))
-      assertRenderedById(doc, "pageTitle")
-    }
-
-    "display the correct browser title" in {
-      val doc = asDocument(createView(form))
-      val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title")
-      assertEqualsMessage(doc, "title", expectedFullTitle)
-    }
-
-    "display the correct heading" in {
-      val doc = asDocument(createView(form))
-      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading")
-    }
-
     application.stop()
+
+    behave like normalPage(createView(form), messageKeyPrefix)
 
     behave like yesNoPage(
         createView,
@@ -62,6 +48,5 @@ class WillPayTaxViewSpec extends YesNoViewBehaviours {
     )
 
     behave like pageWithBackLink(createView(form))
-
   }
 }

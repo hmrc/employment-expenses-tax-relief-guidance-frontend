@@ -22,15 +22,16 @@ import views.html.useSelfAssessment
 
 class UseSelfAssessmentViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "useSelAssessment.you"
+  val messageKeyPrefix = "useSelfAssessment.you"
 
   val application = applicationBuilder().build
 
-  val view = application.asInstanceOf[useSelfAssessment]
+  val view = application.injector.instanceOf[useSelfAssessment]
 
   def createView = view.apply(frontendAppConfig, You)(fakeRequest, messages)
 
   "UseSelfAssessment view" must {
+
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithBackLink(createView)
