@@ -18,15 +18,16 @@ package base
 
 import config.FrontendAppConfig
 import connectors.{DataCacheConnector, DataCacheConnectorImpl}
-import controllers.actions.{DataRequiredAction, DataRequiredActionImpl, DataRequiredActionSpec, DataRetrievalAction, DataRetrievalActionImpl, DataRetrievalActionSpec, FakeDataRetrievalAction, GetClaimantAction, GetClaimantActionImpl}
+import controllers.actions._
+import controllers.routes
 import identifiers.ClaimantId
 import models.Claimant
 import models.Claimant.You
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice._
 import play.api.i18n.{Messages, MessagesApi}
-import play.api.inject.{Injector, bind}
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.inject.{Injector, bind}
 import play.api.libs.json.JsString
 import play.api.mvc.MessagesControllerComponents
 import play.api.test.FakeRequest
@@ -46,15 +47,17 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
 
   def fakeRequest = FakeRequest("", "")
 
+  def sessionExpiredUrl = routes.SessionExpiredController.onPageLoad().url
+
   val cacheMapId = "id"
 
   val claimant = You
 
-  def emptyCacheMap = CacheMap(cacheMapId, Map(ClaimantId.toString -> JsString(claimant.toString)))
+  def claimantIdCacheMap = CacheMap(cacheMapId, Map(ClaimantId.toString -> JsString(claimant.toString)))
 
-  def emptyUserAnswers = new UserAnswers(emptyCacheMap)
+  def emptyUserAnswers = new UserAnswers(claimantIdCacheMap)
 
-  def getEmptyCacheMap = new FakeDataRetrievalAction(Some(emptyCacheMap))
+  def getclaimantIdCacheMap = new FakeDataRetrievalAction(Some(claimantIdCacheMap))
 
   def dontGetAnyData = new FakeDataRetrievalAction(None)
 

@@ -51,7 +51,7 @@ class GetClaimantActionSpec extends SpecBase with MockitoSugar with ScalaFutures
 
           case Left(httpResult) =>
             httpResult.header.status mustEqual SEE_OTHER
-            httpResult.header.headers(LOCATION) mustEqual routes.SessionExpiredController.onPageLoad().url
+            httpResult.header.headers(LOCATION) mustEqual sessionExpiredUrl
 
           case Right(_) =>
             fail("Expected left but got right")

@@ -17,19 +17,29 @@
 package controllers
 
 import base.SpecBase
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.Navigator
+import views.html.cannotClaimRelief
 
-class IndexControllerSpec extends SpecBase {
+class CannotClaimReliefControllerSpec extends SpecBase {
 
-  "Index Controller" must {
-    "return Moved Permanently (to Claimant) for a GET" in {
+  "CannotClaimRelief Controller" must {
 
-      val result = new IndexController(frontendAppConfig, new Navigator, controllerComponents).onPageLoad()(fakeRequest)
+    "return OK and the correct view for a GET" in {
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
 
-      status(result) mustBe MOVED_PERMANENTLY
+      val request = FakeRequest(GET, routes.CannotClaimReliefController.onPageLoad().url)
 
-      redirectLocation(result) mustBe Some(routes.ClaimantController.onPageLoad().url)
+      val result = route(application, request).value
+
+      val view = application.injector.instanceOf[cannotClaimRelief]
+
+      status(result) mustEqual OK
+
+      contentAsString(result) mustEqual
+        view(frontendAppConfig, claimant)(fakeRequest, messages).toString
+
+      application.stop
     }
   }
 }

@@ -6,7 +6,7 @@ import views.html.$className;format="decap"$
 
 class $className$ControllerSpec extends SpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller(dataRetrievalAction: DataRetrievalAction = getclaimantIdCacheMap) =
     new $className$Controller(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl)
 
   def viewAsString() = $className;format="decap"$(frontendAppConfig)(fakeRequest, messages).toString

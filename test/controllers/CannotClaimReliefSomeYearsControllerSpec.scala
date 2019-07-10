@@ -19,32 +19,29 @@ package controllers
 import base.SpecBase
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.Navigator
-import views.html.session_expired
+import views.html.cannotClaimReliefSomeYears
 
-class SessionExpiredControllerSpec extends SpecBase {
+class CannotClaimReliefSomeYearsControllerSpec extends SpecBase {
 
-  "SessionExpired Controller" must {
-    "Return OK and correct view for get" in {
+  def onwardRoute = routes.IndexController.onPageLoad()
 
-      val application = applicationBuilder(Some(new CacheMap(cacheMapId, Map()))).build()
+  "CannotClaimReliefSomeYears Controller" must {
 
-      val request = FakeRequest(GET, routes.SessionExpiredController.onPageLoad().url)
+    "return OK and the correct view for a GET" in {
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
+
+      val request = FakeRequest(GET, routes.CannotClaimReliefSomeYearsController.onPageLoad().url)
 
       val result = route(application, request).value
 
-      val view = application.injector.instanceOf[session_expired]
+      val view = application.injector.instanceOf[cannotClaimReliefSomeYears]
 
       status(result) mustEqual OK
 
-      val nav = new Navigator
-
       contentAsString(result) mustEqual
-        view(frontendAppConfig, nav.firstPage)(fakeRequest, messages).toString
+        view(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages).toString
 
-      application.stop()
-
+      application.stop
     }
   }
 }

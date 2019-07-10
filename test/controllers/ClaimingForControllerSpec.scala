@@ -17,35 +17,35 @@
 package controllers
 
 import base.SpecBase
-import forms.WillPayTaxFormProvider
-import identifiers.{ClaimantId, WillPayTaxId}
-import org.scalatest.concurrent.ScalaFutures
+import forms.ClaimingForFormProvider
+import identifiers.{ClaimantId, ClaimingForId}
+import models.Claimant
+import models.ClaimingFor._
 import play.api.inject.bind
-import play.api.libs.json.{JsBoolean, JsString}
-import play.api.mvc.Call
+import play.api.libs.json.{JsArray, JsString}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.willPayTax
+import views.html.claimingFor
 
-class WillPayTaxControllerSpec extends SpecBase with ScalaFutures {
+class ClaimingForControllerSpec extends SpecBase {
 
-  def onwardRoute = Call("GET", "/foo")
-  def willPayTaxRoute = routes.WillPayTaxController.onPageLoad().url
+  def onwardRoute = routes.IndexController.onPageLoad
 
-  private val formProvider = new WillPayTaxFormProvider()
-  private val form = formProvider(claimant, frontendAppConfig.earliestTaxYear)
+  def claimingForRoute = routes.ClaimingForController.onPageLoad.url
 
+  private val formProvider = new ClaimingForFormProvider()
+  private val form = formProvider(claimant)
 
-  "WillPayTax Controller" must {
+  "ClaimingFor Controller" must {
 
     "return OK and the correct view for a GET" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap)).build
-      val request = FakeRequest(GET, willPayTaxRoute)
+      val request = FakeRequest(GET, claimingForRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[willPayTax]
+      val view = application.injector.instanceOf[claimingFor]
 
       status(result) mustBe OK
       contentAsString(result) mustBe view(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
@@ -53,34 +53,32 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures {
       application.stop
     }
 
-    "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val validData = new CacheMap(
-        cacheMapId,
-        Map(
-          ClaimantId.toString -> JsString(claimant.toString),
-          WillPayTaxId.toString -> JsBoolean(true)
-        )
+    "populate the view correctly on a GET when the question has previously been answered" in {
+      val validData = Map(
+        ClaimingForId.toString -> JsArray(Seq(JsString(values.head.toString))),
+        ClaimantId.toString -> JsString(claimant.toString)
       )
 
-      val application = applicationBuilder(Some(validData)).build
-      val view = application.injector.instanceOf[willPayTax]
-      val request = FakeRequest(GET, willPayTaxRoute)
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val request = FakeRequest(GET, claimingForRoute)
       val result = route(application, request).value
+      val view = application.injector.instanceOf[claimingFor]
 
       contentAsString(result) mustBe
-        view.apply(frontendAppConfig, form.fill(true), claimant)(fakeRequest, messages).toString
+        view(frontendAppConfig, form.fill(Set(values.head)), claimant)(fakeRequest, messages).toString
 
       application.stop
     }
+
 
     "redirect to the next page when valid data is submitted" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap))
         .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
         .build
-      val request = FakeRequest(POST, willPayTaxRoute)
-        .withFormUrlEncodedBody(("value", "true"))
+      val request = FakeRequest(POST, claimingForRoute)
+        .withFormUrlEncodedBody(("value[0]", options(Claimant.You).head.value))
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
@@ -89,18 +87,21 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures {
       application.stop
     }
 
+
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
-      val view = application.injector.instanceOf[willPayTax]
-      val request = FakeRequest(POST, willPayTaxRoute)
+      val application = applicationBuilder(Some(claimantIdCacheMap))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .build
+      val boundForm = form.bind(Map("value" -> "invalid value"))
+      val request = FakeRequest(POST, claimingForRoute)
         .withFormUrlEncodedBody(("value", "invalid value"))
       val result = route(application, request).value
-      val boundForm = form.bind(Map("value" -> "invalid value"))
+      val view = application.injector.instanceOf[claimingFor]
+
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe
-        view.apply(frontendAppConfig, boundForm, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(frontendAppConfig, boundForm, claimant)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -108,7 +109,7 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures {
     "redirect to Session Expired for a GET if no existing data is found" in {
 
       val application = applicationBuilder().build
-      val request = FakeRequest(GET, routes.WillNotPayTaxController.onPageLoad().url)
+      val request = FakeRequest(GET, claimingForRoute)
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
@@ -117,11 +118,11 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures {
       application.stop
     }
 
+
     "redirect to Session Expired for a POST if no existing data is found" in {
 
       val application = applicationBuilder().build
-      val request = FakeRequest(POST, willPayTaxRoute)
-        .withFormUrlEncodedBody(("value", "true"))
+      val request = FakeRequest(GET, claimingForRoute)
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER

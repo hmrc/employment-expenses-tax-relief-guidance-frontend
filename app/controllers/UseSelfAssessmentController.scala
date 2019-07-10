@@ -35,7 +35,7 @@ class UseSelfAssessmentController @Inject()(
                                            ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
-    implicit request: ClaimantRequest[_] =>
+    implicit request =>
       Ok(view(appConfig, request.claimant))
   }
 }
