@@ -17,33 +17,32 @@
 package controllers
 
 import base.SpecBase
-import forms.ClaimingFuelFormProvider
-import identifiers.{ClaimantId, ClaimingFuelId}
+import forms.ClaimingMileageFormProvider
+import identifiers.{ClaimantId, ClaimingMileageId}
 import play.api.inject.bind
 import play.api.libs.json.{JsBoolean, JsString}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.claimingFuel
+import views.html.claimingMileage
 
-class ClaimingFuelControllerSpec extends SpecBase {
+class ClaimingMileageControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
+  def claimingMileageRoute = routes.ClaimingMileageController.onPageLoad().url
 
-  def claimingFuelRoute = routes.ClaimingFuelController.onPageLoad().url
+  private val formProvider = new ClaimingMileageFormProvider()
+  private val form = formProvider(claimant)
 
-  val formProvider = new ClaimingFuelFormProvider()
-  val form = formProvider(claimant)
-
-   "ClaimingFuel Controller" must {
+  "ClaimingMileage Controller" must {
 
     "return OK and the correct view for a GET" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap)).build
-      val request = FakeRequest(GET, claimingFuelRoute)
+      val request = FakeRequest(GET, claimingMileageRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[claimingFuel]
+      val view = application.injector.instanceOf[claimingMileage]
 
       status(result) mustBe OK
       contentAsString(result) mustBe view(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
@@ -53,20 +52,13 @@ class ClaimingFuelControllerSpec extends SpecBase {
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val validData = Map(
-        ClaimingFuelId.toString -> JsBoolean(true),
-        ClaimantId.toString -> JsString(claimant.toString)
-      )
-
+      val validData = Map(ClaimantId.toString -> JsString(claimant.toString), ClaimingMileageId.toString -> JsBoolean(true))
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
-      val request = FakeRequest(GET, claimingFuelRoute)
-        .withFormUrlEncodedBody(("value", "true"))
+      val request = FakeRequest(GET, claimingMileageRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[claimingFuel]
+      val view = application.injector.instanceOf[claimingMileage]
 
-      status(result) mustBe OK
-      contentAsString(result) mustBe
-        view(frontendAppConfig, form.fill(true), claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustEqual view(frontendAppConfig, form.fill(true), claimant)(fakeRequest, messages).toString()
 
       application.stop
     }
@@ -76,25 +68,23 @@ class ClaimingFuelControllerSpec extends SpecBase {
       val application = applicationBuilder(Some(claimantIdCacheMap))
         .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
         .build
-      val request = FakeRequest(POST, claimingFuelRoute)
-        .withFormUrlEncodedBody(("value", "true"))
+      val request = FakeRequest(POST, claimingMileageRoute)
+        .withFormUrlEncodedBody("value" -> "true")
       val result = route(application, request).value
 
-      status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustEqual onwardRoute.url
 
       application.stop
     }
 
-
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap)).build
       val boundForm = form.bind(Map("value" -> "invalid value"))
-      val request = FakeRequest(POST, claimingFuelRoute)
-        .withFormUrlEncodedBody(("value", "invalid value"))
+      val request = FakeRequest(POST, claimingMileageRoute)
+        .withFormUrlEncodedBody("value" -> "invalid value")
       val result = route(application, request).value
-      val view = application.injector.instanceOf[claimingFuel]
+      val view = application.injector.instanceOf[claimingMileage]
 
       status(result) mustEqual BAD_REQUEST
       contentAsString(result) mustBe view(frontendAppConfig, boundForm, claimant)(fakeRequest, messages).toString
@@ -104,24 +94,24 @@ class ClaimingFuelControllerSpec extends SpecBase {
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val application = applicationBuilder().build
-      val request = FakeRequest(GET, claimingFuelRoute)
+      val application = applicationBuilder().build()
+      val request = FakeRequest(GET, claimingMileageRoute)
       val result = route(application, request).value
 
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual sessionExpiredUrl
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result).value mustBe sessionExpiredUrl
 
       application.stop
-
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
-      val application = applicationBuilder().build
-      val request = FakeRequest(POST, claimingFuelRoute)
+
+      val application = applicationBuilder().build()
+      val request = FakeRequest(POST, claimingMileageRoute)
       val result = route(application, request).value
 
-      status(result) mustEqual SEE_OTHER
-      redirectLocation(result).value mustEqual sessionExpiredUrl
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result).value mustBe sessionExpiredUrl
 
       application.stop
     }
