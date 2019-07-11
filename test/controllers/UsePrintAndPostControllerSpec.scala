@@ -16,28 +16,28 @@
 
 package controllers
 
-import controllers.actions._
-import models.Claimant.You
+import base.SpecBase
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import views.html.notEntitled
+import views.html.usePrintAndPost
 
-class NotEntitledControllerSpec extends ControllerSpecBase {
+class UsePrintAndPostControllerSpec extends SpecBase {
 
-  val claimant = You
+  def usePrintAndPostRoute = routes.UsePrintAndPostController.onPageLoad().url
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
-    new NotEntitledController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl,
-      new GetClaimantActionImpl)
-
-  def viewAsString() = notEntitled(frontendAppConfig, claimant)(fakeRequest, messages).toString
-
-  "NotEntitled Controller" must {
+  "UsePrintAndPost Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(fakeRequest)
+
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val request = FakeRequest(GET, usePrintAndPostRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[usePrintAndPost]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe view(frontendAppConfig)(fakeRequest, messages).toString
+
+      application.stop
     }
   }
 }
