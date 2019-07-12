@@ -20,12 +20,10 @@ import base.SpecBase
 import forms.UseCompanyCarFormProvider
 import identifiers.{ClaimantId, UseCompanyCarId, UseOwnCarId}
 import models.UsingOwnCar
-import org.scalatest.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.libs.json.{JsBoolean, JsString}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import repositories.ReactiveMongoRepository
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
 import views.html.useCompanyCar

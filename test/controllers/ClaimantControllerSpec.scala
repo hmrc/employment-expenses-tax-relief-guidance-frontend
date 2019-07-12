@@ -17,19 +17,11 @@
 package controllers
 
 import base.SpecBase
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.{FakeNavigator, Navigator}
-import connectors.FakeDataCacheConnector
-import controllers.actions._
-import play.api.test.Helpers._
 import forms.ClaimantFormProvider
-import identifiers.ClaimantId
-import models.Claimant
-import models.Claimant.SomeoneElse
 import play.api.inject.bind
 import play.api.test.FakeRequest
+import play.api.test.Helpers._
+import utils.{FakeNavigator, Navigator}
 import views.html.claimant
 
 class ClaimantControllerSpec extends SpecBase {
@@ -41,12 +33,6 @@ class ClaimantControllerSpec extends SpecBase {
   val formProvider = new ClaimantFormProvider()
   val form = formProvider()
 
-  /*def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new ClaimantController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, formProvider)
-
-  def viewAsString(form: Form[_] = form) = claimant(frontendAppConfig, form)(fakeRequest, messages).toString
-*/
   "Claimant Controller" must {
 
     "return OK and the correct view for a GET" in {
@@ -66,7 +52,6 @@ class ClaimantControllerSpec extends SpecBase {
 
       application.stop
     }
-
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 

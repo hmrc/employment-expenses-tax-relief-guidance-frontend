@@ -58,7 +58,6 @@ class ClaimOnlineControllerSpec extends SpecBase {
       application.stop
     }
 
-
     "redirect for a GET if no data" in {
 
       val application = applicationBuilder().build

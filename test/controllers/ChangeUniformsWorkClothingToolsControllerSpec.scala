@@ -22,8 +22,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.{FakeNavigator, Navigator}
 
-class
-ChangeUniformsWorkClothingToolsControllerSpec extends SpecBase {
+class ChangeUniformsWorkClothingToolsControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
