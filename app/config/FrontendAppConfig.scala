@@ -25,6 +25,7 @@ import uk.gov.hmrc.time.TaxYear
 
 @Singleton
 class FrontendAppConfig @Inject()(configuration: Configuration) {
+  lazy val serviceName = configuration.get[String]("appName")
 
   private lazy val contactHost = configuration.get[String]("contact-frontend.host")
   private val contactFormServiceIdentifier = "employmentexpensestaxreliefguidancefrontend"
@@ -38,6 +39,8 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
 
   lazy val loginUrl = configuration.get[String]("urls.login")
   lazy val loginContinueUrl = configuration.get[String]("urls.loginContinue")
+
+  lazy val mongo_ttl = configuration.get[Int]("mongodb.timeToLiveInSeconds")
 
   lazy val selfAssessmentTaxReturnsUrl = configuration.get[String]("urls.selfAssessmentTaxReturn")
 

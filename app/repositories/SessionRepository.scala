@@ -16,10 +16,12 @@
 
 package repositories
 
+import com.google.inject.Singleton
+import config.FrontendAppConfig
 import javax.inject.Inject
 import org.joda.time.{DateTime, DateTimeZone}
+import play.api.Logger
 import play.api.libs.json.{JsValue, Json}
-import play.api.{Configuration, Logger}
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.api.indexes.{Index, IndexType}
 import reactivemongo.bson.BSONDocument
@@ -29,10 +31,6 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import com.google.inject.Singleton
-
-
-
 
 case class DatedCacheMap(id: String,
                          data: Map[String, JsValue],
@@ -47,14 +45,14 @@ object DatedCacheMap extends MongoDateTimeFormats {
 }
 
 @Singleton
-class ReactiveMongoRepository @Inject()(mongo: ReactiveMongoApi, config: Configuration) {
+class ReactiveMongoRepository @Inject()(mongo: ReactiveMongoApi, appConfig: FrontendAppConfig) {
 
-  private val collectionName = config.get[String]("appName")
+  private val collectionName = appConfig.serviceName
 
   val fieldName = "lastUpdated"
   val createdIndexName = "userAnswersExpiry"
   val expireAfterSeconds = "expireAfterSeconds"
-  val timeToLiveInSeconds: Int = config.get[Int]("mongodb.timeToLiveInSeconds")
+  val timeToLiveInSeconds = appConfig.mongo_ttl
 
   createIndex(fieldName, createdIndexName, timeToLiveInSeconds)
 
