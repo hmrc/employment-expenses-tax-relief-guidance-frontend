@@ -16,26 +16,28 @@
 
 package controllers
 
-import controllers.actions._
-import models.Claimant
+import base.SpecBase
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import views.html.useSelfAssessment
 
-class UseSelfAssessmentControllerSpec extends ControllerSpecBase {
+class UseSelfAssessmentControllerSpec extends SpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(Claimant.You)) =
-    new UseSelfAssessmentController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl,
-      new GetClaimantActionImpl)
-
-  def viewAsString() = useSelfAssessment(frontendAppConfig, Claimant.You)(fakeRequest, messages).toString
+  def useSelfAssessmentRoute = routes.UseSelfAssessmentController.onPageLoad().url
 
   "UseSelfAssessment Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(fakeRequest)
+
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val request = FakeRequest(GET, useSelfAssessmentRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[useSelfAssessment]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe view(frontendAppConfig, claimant)(fakeRequest, messages).toString
+
+      application.stop
     }
   }
 }

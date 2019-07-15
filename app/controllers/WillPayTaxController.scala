@@ -16,51 +16,57 @@
 
 package controllers
 
-import javax.inject.Inject
-
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import config.FrontendAppConfig
 import forms.WillPayTaxFormProvider
 import identifiers.WillPayTaxId
+import javax.inject.Inject
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Navigator, UserAnswers}
 import views.html.willPayTax
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class WillPayTaxController @Inject()(appConfig: FrontendAppConfig,
-                                     override val messagesApi: MessagesApi,
-                                     dataCacheConnector: DataCacheConnector,
-                                     navigator: Navigator,
-                                     getData: DataRetrievalAction,
-                                     requireData: DataRequiredAction,
-                                     getClaimant: GetClaimantAction,
-                                     formProvider: WillPayTaxFormProvider) extends FrontendController with I18nSupport {
+class WillPayTaxController @Inject()(
+                                      appConfig: FrontendAppConfig,
+                                      dataCacheConnector: DataCacheConnector,
+                                      navigator: Navigator,
+                                      getData: DataRetrievalAction,
+                                      requireData: DataRequiredAction,
+                                      getClaimant: GetClaimantAction,
+                                      formProvider: WillPayTaxFormProvider,
+                                      val controllerComponents: MessagesControllerComponents,
+                                      view: willPayTax
+                                    )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad() = (getData andThen requireData andThen getClaimant).async {
+
+  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
     implicit request =>
+
       val form: Form[Boolean] = formProvider(request.claimant, appConfig.earliestTaxYear)
 
       val preparedForm = request.userAnswers.willPayTax match {
         case None => form
         case Some(value) => form.fill(value)
       }
-      Future.successful(Ok(willPayTax(appConfig, preparedForm, request.claimant)))
+      Future.successful(Ok(view(appConfig, preparedForm, request.claimant)))
   }
 
-  def onSubmit() = (getData andThen requireData andThen getClaimant).async {
+  def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
     implicit request =>
       val form: Form[Boolean] = formProvider(request.claimant, appConfig.earliestTaxYear)
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(willPayTax(appConfig, formWithErrors, request.claimant))),
-        (value) =>
+          Future.successful(BadRequest(view(appConfig, formWithErrors, request.claimant))),
+        value =>
           dataCacheConnector.save[Boolean](request.sessionId, WillPayTaxId, value).map(cacheMap =>
-            Redirect(navigator.nextPage(WillPayTaxId)(new UserAnswers(cacheMap))))
+            Redirect(navigator.nextPage(WillPayTaxId)(new UserAnswers(cacheMap)))
+          )
       )
   }
 }

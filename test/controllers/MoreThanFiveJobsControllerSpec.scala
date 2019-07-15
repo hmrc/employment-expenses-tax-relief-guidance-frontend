@@ -16,80 +16,104 @@
 
 package controllers
 
-import play.api.data.Form
-import play.api.libs.json.JsBoolean
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import connectors.FakeDataCacheConnector
-import controllers.actions._
-import play.api.test.Helpers._
+import base.SpecBase
 import forms.MoreThanFiveJobsFormProvider
-import identifiers.MoreThanFiveJobsId
+import identifiers.{ClaimantId, MoreThanFiveJobsId}
+import play.api.inject.bind
+import play.api.libs.json.{JsBoolean, JsString}
+import play.api.test.FakeRequest
+import play.api.test.Helpers._
+import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.{FakeNavigator, Navigator}
 import views.html.moreThanFiveJobs
 
-class MoreThanFiveJobsControllerSpec extends ControllerSpecBase {
+class MoreThanFiveJobsControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
+
+  def moreThanFiveJobsRoute = routes.MoreThanFiveJobsController.onPageLoad().url
 
   val formProvider = new MoreThanFiveJobsFormProvider()
   val form = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new MoreThanFiveJobsController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, formProvider)
-
-  def viewAsString(form: Form[_] = form) = moreThanFiveJobs(frontendAppConfig, form)(fakeRequest, messages).toString
 
   "MoreThanFiveJobs Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val request = FakeRequest(GET, moreThanFiveJobsRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[moreThanFiveJobs]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe view(frontendAppConfig, form)(fakeRequest, messages).toString
+
+      application.stop
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(MoreThanFiveJobsId.toString -> JsBoolean(true))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val validData = Map(
+        MoreThanFiveJobsId.toString -> JsBoolean(true),
+        ClaimantId.toString -> JsString(claimant.toString))
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val request = FakeRequest(GET, moreThanFiveJobsRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[moreThanFiveJobs]
 
-      val result = controller(getRelevantData).onPageLoad()(fakeRequest)
+      contentAsString(result) mustEqual view(frontendAppConfig, form.fill(true))(fakeRequest, messages).toString()
 
-      contentAsString(result) mustBe viewAsString(form.fill(true))
+      application.stop
+
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = controller().onSubmit()(postRequest)
+      val application = applicationBuilder(Some(claimantIdCacheMap))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .build
+      val request = FakeRequest(POST, moreThanFiveJobsRoute)
+        .withFormUrlEncodedBody("value" -> "true")
+      val result = route(application, request).value
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
+      redirectLocation(result).value mustEqual onwardRoute.url
+
+      application.stop
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build
       val boundForm = form.bind(Map("value" -> "invalid value"))
+      val request = FakeRequest(POST, moreThanFiveJobsRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[moreThanFiveJobs]
 
-      val result = controller().onSubmit()(postRequest)
+      status(result) mustEqual BAD_REQUEST
+      contentAsString(result) mustEqual view(frontendAppConfig, boundForm)(fakeRequest, messages).toString
 
-      status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm)
+      application.stop
+
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+      val application = applicationBuilder().build
+      val request = FakeRequest(GET, moreThanFiveJobsRoute)
+      val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result).value mustBe sessionExpiredUrl
+
+      application.stop
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val result = controller(dontGetAnyData).onSubmit()(postRequest)
+      val application = applicationBuilder().build
+      val request = FakeRequest(POST, moreThanFiveJobsRoute)
+      val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result).value mustBe sessionExpiredUrl
+
+      application.stop
     }
   }
 }

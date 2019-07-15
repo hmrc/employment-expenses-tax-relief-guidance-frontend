@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-package filters
+package config
 
-import com.google.inject.Inject
-import play.api.http.DefaultHttpFilters
-import uk.gov.hmrc.play.bootstrap.filters.FrontendFilters
+import com.google.inject.AbstractModule
+import connectors.{DataCacheConnector, DataCacheConnectorImpl}
+import controllers.actions._
 
-class Filters @Inject() (
-                          sessionIdFilter: SessionIdFilter,
-                          frontendFilters: FrontendFilters
-                        ) extends DefaultHttpFilters(frontendFilters.filters :+ sessionIdFilter: _*)
+class Module extends AbstractModule {
+
+  override def configure(): Unit = {
+    bind(classOf[DataRetrievalAction]).to(classOf[DataRetrievalActionImpl]).asEagerSingleton()
+    bind(classOf[DataRequiredAction]).to(classOf[DataRequiredActionImpl]).asEagerSingleton()
+    bind(classOf[GetClaimantAction]).to(classOf[GetClaimantActionImpl]).asEagerSingleton()
+    bind(classOf[DataCacheConnector]).to(classOf[DataCacheConnectorImpl]).asEagerSingleton()
+  }
+}

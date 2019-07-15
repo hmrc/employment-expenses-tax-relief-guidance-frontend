@@ -22,7 +22,6 @@ import play.api.data.FormError
 
 class PaidTaxInRelevantYearFormProviderSpec extends BooleanFieldBehaviours {
 
-  val claimant = You
   val requiredKey = s"paidTaxInRelevantYear.$claimant.error.required"
 
   val form = new PaidTaxInRelevantYearFormProvider()(claimant, earliestTaxYear)

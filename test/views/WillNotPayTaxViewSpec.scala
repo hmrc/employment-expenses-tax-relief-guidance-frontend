@@ -25,9 +25,15 @@ class WillNotPayTaxViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "willNotPayTax.you"
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  val application = applicationBuilder().build
 
-  def createView = () => willNotPayTax(frontendAppConfig, You, onwardRoute)(fakeRequest, messages)
+  val view = application.injector.instanceOf[willNotPayTax]
+
+  def onwardRoute = routes.IndexController.onPageLoad
+
+  def createView= view.apply(frontendAppConfig, You, onwardRoute)(fakeRequest, messages)
+
+  application.stop
 
   "WillNotPayTax view" must {
     behave like normalPage(createView, messageKeyPrefix)

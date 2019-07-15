@@ -16,80 +16,92 @@
 
 package controllers
 
-import play.api.data.Form
-import play.api.libs.json.JsString
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import connectors.FakeDataCacheConnector
-import controllers.actions._
-import play.api.test.Helpers._
+import base.SpecBase
 import forms.ClaimantFormProvider
-import identifiers.ClaimantId
-import models.Claimant
+import play.api.inject.bind
+import play.api.test.FakeRequest
+import play.api.test.Helpers._
+import utils.{FakeNavigator, Navigator}
 import views.html.claimant
 
-class ClaimantControllerSpec extends ControllerSpecBase {
+class ClaimantControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
+
+  def claimantRoute = routes.ClaimantController.onPageLoad()
 
   val formProvider = new ClaimantFormProvider()
   val form = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new ClaimantController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, formProvider)
-
-  def viewAsString(form: Form[_] = form) = claimant(frontendAppConfig, form)(fakeRequest, messages).toString
-
   "Claimant Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
 
-      status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      val application = applicationBuilder().build()
+
+      val request = FakeRequest(GET, claimantRoute.url)
+
+      val result = route(application, request).value
+
+      val view = application.injector.instanceOf[claimant]
+
+      status(result) mustEqual OK
+
+      contentAsString(result) mustEqual
+        view(frontendAppConfig, form)(fakeRequest, messages).toString
+
+      application.stop
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(ClaimantId.toString -> JsString(Claimant.values.head.toString))
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
-      val result = controller(getRelevantData).onPageLoad()(fakeRequest)
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
 
-      contentAsString(result) mustBe viewAsString(form.fill(Claimant.values.head))
+      val request = FakeRequest(GET, claimantRoute.url)
+        .withFormUrlEncodedBody(("value", claimant.toString))
+
+      val result = route(application, request).value
+
+      val view = application.injector.instanceOf[claimant]
+
+      status(result) mustEqual OK
+
+      contentAsString(result) mustEqual
+        view(frontendAppConfig, form.fill(claimant))(fakeRequest, messages).toString
+
+      application.stop
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", Claimant.options.head.value))
+      val application = applicationBuilder()
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .build()
 
-      val result = controller().onSubmit()(postRequest)
+      val request = FakeRequest(POST, claimantRoute.url)
+        .withFormUrlEncodedBody(("value", claimant.toString))
+
+      val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
+
       redirectLocation(result) mustBe Some(onwardRoute.url)
+
+      application.stop
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val view = application.injector.instanceOf[claimant]
+      val request = FakeRequest(POST, claimantRoute.url)
+        .withFormUrlEncodedBody(("value", "invalid value"))
+      val result = route(application, request).value
       val boundForm = form.bind(Map("value" -> "invalid value"))
 
-      val result = controller().onSubmit()(postRequest)
-
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm)
-    }
+      contentAsString(result) mustBe
+        view.apply(frontendAppConfig, boundForm)(fakeRequest, messages).toString
 
-    "redirect to OK for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
-
-      status(result) mustBe OK
-    }
-
-    "redirect to onward page for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", Claimant.options.head.value))
-      val result = controller(dontGetAnyData).onSubmit()(postRequest)
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
+      application.stop
     }
   }
 }

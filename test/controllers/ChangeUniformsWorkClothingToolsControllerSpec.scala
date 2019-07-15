@@ -16,27 +16,32 @@
 
 package controllers
 
-import connectors.FakeDataCacheConnector
-import controllers.actions.DataRequiredActionImpl
-import org.scalatest.OptionValues
+import base.SpecBase
+import play.api.inject.bind
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.FakeNavigator
+import utils.{FakeNavigator, Navigator}
 
-class ChangeUniformsWorkClothingToolsControllerSpec extends ControllerSpecBase with OptionValues {
+class ChangeUniformsWorkClothingToolsControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
   "ChangeUniformsWorkClothingTools Controller" must {
 
-    def controller() = new ChangeUniformsWorkClothingToolsController(
-      frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute), getEmptyCacheMap,
-      new DataRequiredActionImpl)
-
     "Redirect to the next page for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
+
+      val application = applicationBuilder(Some(claimantIdCacheMap))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .build
+
+      val request = FakeRequest(GET, routes.ChangeUniformsWorkClothingToolsController.onPageLoad().url)
+
+      val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result).value mustBe onwardRoute.url
+      redirectLocation(result) mustBe Some(onwardRoute.url)
+
+      application.stop
     }
   }
 }

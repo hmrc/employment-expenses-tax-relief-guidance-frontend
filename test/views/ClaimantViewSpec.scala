@@ -26,21 +26,23 @@ class ClaimantViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = "claimant"
 
+  val application = applicationBuilder().build
+
+  val view = application.injector.instanceOf[claimant]
+
   val form = new ClaimantFormProvider()()
 
-  def createView = () => claimant(frontendAppConfig, form)(fakeRequest, messages)
-
-  def createViewUsingForm = (form: Form[_]) => claimant(frontendAppConfig, form)(fakeRequest, messages)
+  def createView(form: Form[_]) = view.apply(frontendAppConfig, form)(fakeRequest, messages)
 
   "Claimant view" must {
-    behave like normalPage(createView, messageKeyPrefix)
-    behave like pageWithBackLink(createView)
+    behave like normalPage(createView(form), messageKeyPrefix)
+    behave like pageWithBackLink(createView(form))
   }
 
   "Claimant view" when {
     "rendered" must {
       "contain radio buttons for the value" in {
-        val doc = asDocument(createViewUsingForm(form))
+        val doc = asDocument(createView(form))
         for (option <- Claimant.options) {
           assertContainsRadioButton(doc, option.id, "value", option.value, false)
         }
@@ -50,7 +52,7 @@ class ClaimantViewSpec extends ViewBehaviours {
     for(option <- Claimant.options) {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
-          val doc = asDocument(createViewUsingForm(form.bind(Map("value" -> s"${option.value}"))))
+          val doc = asDocument(createView(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, true)
 
           for(unselectedOption <- Claimant.options.filterNot(o => o == option)) {
@@ -60,4 +62,6 @@ class ClaimantViewSpec extends ViewBehaviours {
       }
     }
   }
+
+  application.stop
 }

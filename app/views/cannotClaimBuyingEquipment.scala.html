@@ -17,12 +17,15 @@
 @import config.FrontendAppConfig
 @import components.back_link
 
+@this(
+  main_template: main_template
+)
+
 @(appConfig: FrontendAppConfig, claimant: Claimant, otherExpensesCall: Call, uniformsWorkClothingToolsCall: Call)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages(s"cannotClaimBuyingEquipment.$claimant.title"),
-    appConfig = appConfig,
-    bodyClasses = None) {
+    title = messages(s"cannotClaimBuyingEquipment.$claimant.title")
+) {
 
     @back_link()
 

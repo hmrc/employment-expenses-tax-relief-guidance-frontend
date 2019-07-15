@@ -16,28 +16,30 @@
 
 package controllers
 
-import controllers.actions._
-import models.Claimant.You
+import base.SpecBase
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import views.html.cannotClaimRelief
 
-class CannotClaimReliefControllerSpec extends ControllerSpecBase {
-
-  val claimant = You
-
-  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
-    new CannotClaimReliefController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl,
-      new GetClaimantActionImpl)
-
-  def viewAsString() = cannotClaimRelief(frontendAppConfig, claimant)(fakeRequest, messages).toString
+class CannotClaimReliefControllerSpec extends SpecBase {
 
   "CannotClaimRelief Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(fakeRequest)
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
 
-      status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      val request = FakeRequest(GET, routes.CannotClaimReliefController.onPageLoad().url)
+
+      val result = route(application, request).value
+
+      val view = application.injector.instanceOf[cannotClaimRelief]
+
+      status(result) mustEqual OK
+
+      contentAsString(result) mustEqual
+        view(frontendAppConfig, claimant)(fakeRequest, messages).toString
+
+      application.stop
     }
   }
 }

@@ -20,16 +20,20 @@
 @import models.ClaimingFor
 @import components.back_link
 
+@this(
+  main_template: main_template,
+  formHelper: FormWithCSRF
+)
+
 @(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages(s"claimingFor.$claimant.title"),
-    appConfig = appConfig,
-    bodyClasses = None) {
+    title = messages(s"claimingFor.$claimant.title")
+) {
 
     @back_link()
 
-    @helpers.form(action = ClaimingForController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = ClaimingForController.onSubmit(), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 

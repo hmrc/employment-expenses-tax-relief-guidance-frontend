@@ -16,31 +16,32 @@
 
 package controllers
 
-import controllers.actions._
-import models.Claimant.You
+import base.SpecBase
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.FakeNavigator
 import views.html.cannotClaimReliefSomeYears
 
-class CannotClaimReliefSomeYearsControllerSpec extends ControllerSpecBase {
-
-  val claimant = You
+class CannotClaimReliefSomeYearsControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
-
-  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
-    new CannotClaimReliefSomeYearsController(frontendAppConfig, messagesApi, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl)
-
-  def viewAsString() = cannotClaimReliefSomeYears(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages).toString
 
   "CannotClaimReliefSomeYears Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(fakeRequest)
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
 
-      status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      val request = FakeRequest(GET, routes.CannotClaimReliefSomeYearsController.onPageLoad().url)
+
+      val result = route(application, request).value
+
+      val view = application.injector.instanceOf[cannotClaimReliefSomeYears]
+
+      status(result) mustEqual OK
+
+      contentAsString(result) mustEqual
+        view(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages).toString
+
+      application.stop
     }
   }
 }

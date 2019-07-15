@@ -16,26 +16,29 @@
 
 package controllers
 
-import javax.inject.Inject
-
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import controllers.actions._
 import config.FrontendAppConfig
+import controllers.actions._
 import identifiers.NotEntitledSomeYearsId
+import javax.inject.Inject
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.Navigator
 import views.html.notEntitledSomeYears
 
-class NotEntitledSomeYearsController @Inject()(appConfig: FrontendAppConfig,
-                                               override val messagesApi: MessagesApi,
-                                               navigator: Navigator,
-                                               getData: DataRetrievalAction,
-                                               requireData: DataRequiredAction,
-                                               getClaimant: GetClaimantAction) extends FrontendController with I18nSupport {
+class NotEntitledSomeYearsController @Inject()(
+                                                appConfig: FrontendAppConfig,
+                                                navigator: Navigator,
+                                                getData: DataRetrievalAction,
+                                                requireData: DataRequiredAction,
+                                                getClaimant: GetClaimantAction,
+                                                val controllerComponents: MessagesControllerComponents,
+                                                view: notEntitledSomeYears
+                                              ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad = (getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
       val nextPage = navigator.nextPage(NotEntitledSomeYearsId)(request.userAnswers)
-      Ok(notEntitledSomeYears(appConfig, request.claimant, nextPage))
+      Ok(view(appConfig, request.claimant, nextPage))
   }
 }

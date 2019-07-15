@@ -16,29 +16,32 @@
 
 package controllers
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions.{DataRequiredAction, DataRetrievalAction}
 import identifiers.{ChangeUniformsWorkClothingToolsId, ClaimingForId}
+import javax.inject.Inject
 import models.ClaimingFor
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Enumerable, Navigator, UserAnswers}
 
-class ChangeUniformsWorkClothingToolsController @Inject()(appConfig: FrontendAppConfig,
-                                                          override val messagesApi: MessagesApi,
-                                                          dataCacheConnector: DataCacheConnector,
-                                                          navigator: Navigator,
-                                                          getData: DataRetrievalAction,
-                                                          requireData: DataRequiredAction)
-  extends FrontendController with I18nSupport with Enumerable.Implicits {
+import scala.concurrent.ExecutionContext
 
-    def onPageLoad() = (getData andThen requireData).async {
-      implicit request =>
+class ChangeUniformsWorkClothingToolsController @Inject()(
+                                                           appConfig: FrontendAppConfig,
+                                                           dataCacheConnector: DataCacheConnector,
+                                                           navigator: Navigator,
+                                                           getData: DataRetrievalAction,
+                                                           requireData: DataRequiredAction,
+                                                           val controllerComponents: MessagesControllerComponents
+                                                         )(implicit ec: ExecutionContext)extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
 
-        dataCacheConnector.save[Set[ClaimingFor]](request.sessionId, ClaimingForId, Set(ClaimingFor.UniformsClothingTools)).map(cacheMap =>
-          Redirect(navigator.nextPage(ChangeUniformsWorkClothingToolsId)(new UserAnswers(cacheMap))))
+  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData).async {
+    implicit request =>
+
+      dataCacheConnector.save[Set[ClaimingFor]](request.sessionId, ClaimingForId, Set(ClaimingFor.UniformsClothingTools)).map(cacheMap =>
+        Redirect(navigator.nextPage(ChangeUniformsWorkClothingToolsId)(new UserAnswers(cacheMap))))
   }
 }

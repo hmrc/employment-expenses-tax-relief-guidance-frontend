@@ -16,28 +16,33 @@
 
 package controllers
 
-import javax.inject.Inject
-
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions.{DataRequiredAction, DataRetrievalAction}
 import identifiers.{ChangeOtherExpensesId, ClaimingForId}
+import javax.inject.Inject
 import models.ClaimingFor
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Enumerable, Navigator, UserAnswers}
 
-class ChangeOtherExpensesController @Inject()(appConfig: FrontendAppConfig,
-                                              override val messagesApi: MessagesApi,
-                                              dataCacheConnector: DataCacheConnector,
-                                              navigator: Navigator,
-                                              getData: DataRetrievalAction,
-                                              requireData: DataRequiredAction) extends FrontendController with I18nSupport with Enumerable.Implicits {
+import scala.concurrent.ExecutionContext
 
-  def onPageLoad() = (getData andThen requireData).async {
+class ChangeOtherExpensesController @Inject()(
+                                               appConfig: FrontendAppConfig,
+                                               dataCacheConnector: DataCacheConnector,
+                                               navigator: Navigator,
+                                               getData: DataRetrievalAction,
+                                               requireData: DataRequiredAction,
+                                               val controllerComponents: MessagesControllerComponents
+                                             )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
+
+  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData).async {
     implicit request =>
 
       dataCacheConnector.save[Set[ClaimingFor]](request.sessionId, ClaimingForId, Set(ClaimingFor.Other)).map(cacheMap =>
-        Redirect(navigator.nextPage(ChangeOtherExpensesId)(new UserAnswers(cacheMap))))
+        Redirect(navigator.nextPage(ChangeOtherExpensesId)(new UserAnswers(cacheMap)))
+      )
   }
 }

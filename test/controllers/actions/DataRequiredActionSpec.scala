@@ -26,6 +26,7 @@ import play.api.mvc.Result
 import utils.UserAnswers
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class DataRequiredActionSpec extends SpecBase with MockitoSugar with ScalaFutures {
 
@@ -48,7 +49,7 @@ class DataRequiredActionSpec extends SpecBase with MockitoSugar with ScalaFuture
 
           case Left(httpResult) =>
             httpResult.header.status mustBe SEE_OTHER
-            httpResult.header.headers(LOCATION) mustEqual routes.SessionExpiredController.onPageLoad().url
+            httpResult.header.headers(LOCATION) mustEqual sessionExpiredUrl
             
           case Right(_) =>
             fail("Expected left but got right")

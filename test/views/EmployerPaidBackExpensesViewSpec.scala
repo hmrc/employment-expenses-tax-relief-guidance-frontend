@@ -20,27 +20,30 @@ import play.api.data.Form
 import controllers.routes
 import forms.EmployerPaidBackExpensesFormProvider
 import models.Claimant.You
+import play.twirl.api.Html
 import views.behaviours.YesNoViewBehaviours
 import views.html.employerPaidBackExpenses
 
 class EmployerPaidBackExpensesViewSpec extends YesNoViewBehaviours {
 
-  val claimant = You
-
   val messageKeyPrefix = s"employerPaidBackExpenses.$claimant"
+
+  val application = applicationBuilder().build
+
+  val view = application.injector.instanceOf[employerPaidBackExpenses]
 
   val form = new EmployerPaidBackExpensesFormProvider()(claimant)
 
-  def createView = () => employerPaidBackExpenses(frontendAppConfig, form, claimant)(fakeRequest, messages)
-
-  def createViewUsingForm = (form: Form[_]) => employerPaidBackExpenses(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]): Html = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
   "EmployerPaidBackExpenses view" must {
 
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView(form), messageKeyPrefix)
 
-    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.EmployerPaidBackExpensesController.onSubmit().url)
+    behave like yesNoPage(createView, messageKeyPrefix, routes.EmployerPaidBackExpensesController.onSubmit().url)
 
-    behave like pageWithBackLink(createView)
+    behave like pageWithBackLink(createView(form))
   }
+
+  application.stop
 }

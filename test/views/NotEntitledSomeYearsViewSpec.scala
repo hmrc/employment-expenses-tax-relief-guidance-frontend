@@ -18,6 +18,7 @@ package views
 
 import controllers.routes
 import models.Claimant.You
+import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.notEntitledSomeYears
 
@@ -25,15 +26,19 @@ class NotEntitledSomeYearsViewSpec extends ViewBehaviours {
 
   val onwardRoute = routes.IndexController.onPageLoad()
 
-  val claimant = You
-
   val messageKeyPrefix = s"notEntitledSomeYears.$claimant"
 
-  def createView = () => notEntitledSomeYears(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages)
+  val application = applicationBuilder().build
+
+  val view = application.injector.instanceOf[notEntitledSomeYears]
+
+  def createView: HtmlFormat.Appendable = view.apply(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages)
 
   "NotEntitledSomeYears view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithBackLink(createView)
   }
+
+  application.stop
 }

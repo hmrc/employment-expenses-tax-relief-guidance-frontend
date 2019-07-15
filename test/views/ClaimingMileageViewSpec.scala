@@ -20,27 +20,30 @@ import play.api.data.Form
 import controllers.routes
 import forms.ClaimingMileageFormProvider
 import models.Claimant.You
+import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
 import views.html.claimingMileage
 
 class ClaimingMileageViewSpec extends YesNoViewBehaviours {
 
-  val claimant = You
-
   val messageKeyPrefix = s"claimingMileage.$claimant"
+
+  val application = applicationBuilder().build
+
+  val view = application.injector.instanceOf[claimingMileage]
 
   val form = new ClaimingMileageFormProvider()(claimant)
 
-  def createView = () => claimingMileage(frontendAppConfig, form, claimant)(fakeRequest, messages)
-
-  def createViewUsingForm = (form: Form[_]) => claimingMileage(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]): HtmlFormat.Appendable = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
   "ClaimingMileage view" must {
 
-    behave like normalPage(createView, messageKeyPrefix)
+    behave like normalPage(createView(form), messageKeyPrefix)
 
-    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.ClaimingMileageController.onSubmit().url)
+    behave like yesNoPage(createView, messageKeyPrefix, routes.ClaimingMileageController.onSubmit().url)
 
-    behave like pageWithBackLink(createView)
+    behave like pageWithBackLink(createView(form))
   }
+
+  application.stop
 }

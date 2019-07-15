@@ -16,58 +16,58 @@
 
 package controllers
 
-import controllers.actions.{FakeDataRetrievalAction, _}
+import base.SpecBase
 import models.ClaimingFor._
 import play.api.libs.json.Json
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.UserAnswers
 import views.html.claimOnline
 
-class ClaimOnlineControllerSpec extends ControllerSpecBase {
+class ClaimOnlineControllerSpec extends SpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction) =
-    new ClaimOnlineController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl)
-
-  def viewAsString(eeEligible: Boolean) = claimOnline(frontendAppConfig, eeEligible)(fakeRequest, messages).toString
+  def claimOnlineRoute = routes.ClaimOnlineController.onPageLoad.url
 
   "ClaimOnline Controller" must {
 
-    "return OK for a GET if some data" in {
-      val userAnswers = new UserAnswers(CacheMap(cacheMapId, Map("claimingFor" -> Json.toJson(Seq(UniformsClothingTools.string)))))
+    "return OK and correct view for a GET when user eligible for employee expenses" in {
 
-      val dataAction = new FakeDataRetrievalAction(Some(userAnswers.cacheMap))
-
-      val result = controller(dataAction).onPageLoad(fakeRequest)
+      val validCacheMap = CacheMap(cacheMapId, Map("claimingFor" -> Json.toJson(Seq(UniformsClothingTools.string))))
+      val application = applicationBuilder(Some(validCacheMap)).build
+      val request = FakeRequest(GET, claimOnlineRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[claimOnline]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString(true)
+      contentAsString(result) mustBe view(frontendAppConfig, true)(fakeRequest, messages).toString
+
+      application.stop
     }
 
-    "return SEE_OTHER for a GET if no data" in {
-      val result = controller(getEmptyCacheMap).onPageLoad(fakeRequest)
+    "return OK and correct view for a GET when user not eligible for employee expenses" in {
+
+      val validCacheMap = CacheMap(cacheMapId, Map("claimingFor" -> Json.toJson(Seq(UniformsClothingTools.string, MileageFuel.string))))
+      val application = applicationBuilder(Some(validCacheMap)).build
+      val request = FakeRequest(GET, claimOnlineRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[claimOnline]
+
+      status(result) mustBe OK
+      contentAsString(result) mustBe view(frontendAppConfig, false)(fakeRequest, messages).toString
+
+      application.stop
+    }
+
+    "redirect for a GET if no data" in {
+
+      val application = applicationBuilder().build
+      val request = FakeRequest(GET, claimOnlineRoute)
+      val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
-    }
+      redirectLocation(result) mustBe Some(sessionExpiredUrl)
 
-    "return correct view for a GET when user eligible for employee expenses" in {
-      val userAnswers = new UserAnswers(CacheMap(cacheMapId, Map("claimingFor" -> Json.toJson(Seq(UniformsClothingTools.string)))))
-
-      val dataAction = new FakeDataRetrievalAction(Some(userAnswers.cacheMap))
-
-      val result = controller(dataAction).onPageLoad(fakeRequest)
-
-      contentAsString(result) mustBe viewAsString(true)
-    }
-
-    "return correct view for a GET when user not eligible for employee expenses" in {
-      val userAnswers = new UserAnswers(CacheMap(cacheMapId, Map("claimingFor" -> Json.toJson(Seq(UniformsClothingTools.string, MileageFuel.string)))))
-
-      val dataAction = new FakeDataRetrievalAction(Some(userAnswers.cacheMap))
-
-      val result = controller(dataAction).onPageLoad(fakeRequest)
-
-      contentAsString(result) mustBe viewAsString(false)
+      application.stop
     }
   }
 }

@@ -16,10 +16,10 @@
 
 package views
 
-import play.api.data.Form
 import controllers.routes
 import forms.WillPayTaxFormProvider
 import models.Claimant.You
+import play.api.data.Form
 import views.behaviours.YesNoViewBehaviours
 import views.html.willPayTax
 
@@ -29,36 +29,24 @@ class WillPayTaxViewSpec extends YesNoViewBehaviours {
 
   val form = new WillPayTaxFormProvider()(You, frontendAppConfig.earliestTaxYear)
 
-  def createView = () => willPayTax(frontendAppConfig, form, You)(fakeRequest, messages)
-
-  def createViewUsingForm = (form: Form[_]) => willPayTax(frontendAppConfig, form, You)(fakeRequest, messages)
-
   "WillPayTax view" must {
 
-    "have the correct banner title" in {
-      val doc = asDocument(createView())
-      val nav = doc.getElementById("proposition-menu")
-      val span = nav.children.first
-      span.text mustBe messagesApi("site.service_name")
-    }
+    val application = applicationBuilder().build
 
-    "display the correct browser title" in {
-      val doc = asDocument(createView())
-      val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title")
-      assertEqualsMessage(doc, "title", expectedFullTitle)
-    }
+    val view = application.injector.instanceOf[willPayTax]
 
-    "display the correct heading" in {
-      val doc = asDocument(createView())
-      assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading")
-    }
+    def createView(form: Form[_]) = view.apply(frontendAppConfig, form, You)(fakeRequest, messages)
+
+    application.stop()
+
+    behave like normalPage(createView(form), messageKeyPrefix)
 
     behave like yesNoPage(
-      createViewUsingForm,
-      messageKeyPrefix,
-      routes.WillPayTaxController.onSubmit().url
+        createView,
+        messageKeyPrefix,
+        routes.WillPayTaxController.onSubmit().url
     )
 
-    behave like pageWithBackLink(createView)
+    behave like pageWithBackLink(createView(form))
   }
 }

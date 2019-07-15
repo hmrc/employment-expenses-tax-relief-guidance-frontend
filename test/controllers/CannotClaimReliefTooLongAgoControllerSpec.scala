@@ -16,32 +16,34 @@
 
 package controllers
 
-import controllers.actions._
-import models.Claimant.You
+import base.SpecBase
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.time.TaxYear
 import views.html.cannotClaimReliefTooLongAgo
 
-class CannotClaimReliefTooLongAgoControllerSpec extends ControllerSpecBase {
+class CannotClaimReliefTooLongAgoControllerSpec extends SpecBase {
 
-  val claimant = You
-
-  val endYear = TaxYear.current.finishYear.toString
-  val startYear = TaxYear.current.startYear.toString
-
-  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
-    new CannotClaimReliefTooLongAgoController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl,
-      new GetClaimantActionImpl)
-
-  def viewAsString() = cannotClaimReliefTooLongAgo(frontendAppConfig, claimant, startYear, endYear)(fakeRequest, messages).toString
+  private val endYear = TaxYear.current.finishYear.toString
+  private val startYear = TaxYear.current.startYear.toString
 
   "CannotClaimReliefTooLongAgo Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(fakeRequest)
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
 
-      status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      val request = FakeRequest(GET, routes.CannotClaimReliefTooLongAgoController.onPageLoad().url)
+
+      val result = route(application, request).value
+
+      val view = application.injector.instanceOf[cannotClaimReliefTooLongAgo]
+
+      status(result) mustEqual OK
+
+      contentAsString(result) mustEqual
+        view(frontendAppConfig, claimant, startYear, endYear)(fakeRequest, messages).toString
+
+      application.stop
     }
   }
 }

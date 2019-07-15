@@ -16,24 +16,28 @@
 
 package controllers
 
-import controllers.actions._
+import base.SpecBase
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import views.html.usePrintAndPost
 
-class UsePrintAndPostControllerSpec extends ControllerSpecBase {
+class UsePrintAndPostControllerSpec extends SpecBase {
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
-    new UsePrintAndPostController(frontendAppConfig, messagesApi, dataRetrievalAction, new DataRequiredActionImpl)
-
-  def viewAsString() = usePrintAndPost(frontendAppConfig)(fakeRequest, messages).toString
+  def usePrintAndPostRoute = routes.UsePrintAndPostController.onPageLoad().url
 
   "UsePrintAndPost Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(fakeRequest)
+
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val request = FakeRequest(GET, usePrintAndPostRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[usePrintAndPost]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe view(frontendAppConfig)(fakeRequest, messages).toString
+
+      application.stop
     }
   }
 }

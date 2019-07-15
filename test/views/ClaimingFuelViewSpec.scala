@@ -25,22 +25,24 @@ import views.html.claimingFuel
 
 class ClaimingFuelViewSpec extends YesNoViewBehaviours {
 
-  val claimant = You
-
   val messageKeyPrefix = s"claimingFuel.$claimant"
+
+  val application = applicationBuilder().build
+
+  val view = application.injector.instanceOf[claimingFuel]
 
   val form = new ClaimingFuelFormProvider()(claimant)
 
-  def createView = () => claimingFuel(frontendAppConfig, form, claimant)(fakeRequest, messages)
-
-  def createViewUsingForm = (form: Form[_]) => claimingFuel(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]) = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages)
 
   "ClaimingFuel view" must {
 
-    behave like normalPage(createView, messageKeyPrefix, "guidance", "bullet1", "bullet2")
+    behave like normalPage(createView(form), messageKeyPrefix, "guidance", "bullet1", "bullet2")
 
-    behave like yesNoPage(createViewUsingForm, messageKeyPrefix, routes.ClaimingFuelController.onSubmit().url)
+    behave like yesNoPage(createView, messageKeyPrefix, routes.ClaimingFuelController.onSubmit().url)
 
-    behave like pageWithBackLink(createView)
+    behave like pageWithBackLink(createView(form))
   }
+
+  application.stop
 }

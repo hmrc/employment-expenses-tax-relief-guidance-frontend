@@ -16,31 +16,34 @@
 
 package controllers
 
-import javax.inject.Inject
-
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import config.FrontendAppConfig
 import forms.ClaimingMileageFormProvider
 import identifiers.ClaimingMileageId
+import javax.inject.Inject
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Navigator, UserAnswers}
 import views.html.claimingMileage
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class ClaimingMileageController @Inject()(appConfig: FrontendAppConfig,
-                                          override val messagesApi: MessagesApi,
-                                          dataCacheConnector: DataCacheConnector,
-                                          navigator: Navigator,
-                                          getData: DataRetrievalAction,
-                                          requireData: DataRequiredAction,
-                                          getClaimant: GetClaimantAction,
-                                          formProvider: ClaimingMileageFormProvider) extends FrontendController with I18nSupport {
+class ClaimingMileageController @Inject()(
+                                           appConfig: FrontendAppConfig,
+                                           dataCacheConnector: DataCacheConnector,
+                                           navigator: Navigator,
+                                           getData: DataRetrievalAction,
+                                           requireData: DataRequiredAction,
+                                           getClaimant: GetClaimantAction,
+                                           formProvider: ClaimingMileageFormProvider,
+                                           val controllerComponents: MessagesControllerComponents,
+                                           view: claimingMileage
+                                         )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad() = (getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
 
       val form: Form[Boolean] = formProvider(request.claimant)
@@ -49,20 +52,21 @@ class ClaimingMileageController @Inject()(appConfig: FrontendAppConfig,
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(claimingMileage(appConfig, preparedForm, request.claimant))
+      Ok(view(appConfig, preparedForm, request.claimant))
   }
 
-  def onSubmit() = (getData andThen requireData andThen getClaimant).async {
+  def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
     implicit request =>
 
       val form: Form[Boolean] = formProvider(request.claimant)
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(claimingMileage(appConfig, formWithErrors, request.claimant))),
-        (value) =>
+          Future.successful(BadRequest(view(appConfig, formWithErrors, request.claimant))),
+        value =>
           dataCacheConnector.save[Boolean](request.sessionId, ClaimingMileageId, value).map(cacheMap =>
-            Redirect(navigator.nextPage(ClaimingMileageId)(new UserAnswers(cacheMap))))
+            Redirect(navigator.nextPage(ClaimingMileageId)(new UserAnswers(cacheMap)))
+          )
       )
   }
 }

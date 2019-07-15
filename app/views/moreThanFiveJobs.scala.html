@@ -19,16 +19,20 @@
 @import controllers.routes._
 @import components.back_link
 
+@this(
+  main_template: main_template,
+  formHelper: FormWithCSRF
+)
+
 @(appConfig: FrontendAppConfig, form: Form[_])(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages("moreThanFiveJobs.title"),
-    appConfig = appConfig,
-    bodyClasses = None) {
+  title = messages("moreThanFiveJobs.title")
+) {
 
     @back_link()
 
-    @helpers.form(action = MoreThanFiveJobsController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = MoreThanFiveJobsController.onSubmit(), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 

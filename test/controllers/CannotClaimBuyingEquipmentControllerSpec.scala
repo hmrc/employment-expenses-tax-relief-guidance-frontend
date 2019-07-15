@@ -16,30 +16,39 @@
 
 package controllers
 
-import controllers.actions._
-import models.Claimant.You
+import base.SpecBase
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.FakeNavigator
 import views.html.cannotClaimBuyingEquipment
 
-class CannotClaimBuyingEquipmentControllerSpec extends ControllerSpecBase {
+class CannotClaimBuyingEquipmentControllerSpec extends SpecBase {
 
-  val fakeNavigator = new FakeNavigator()
-
-  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(You)) =
-    new CannotClaimBuyingEquipmentController(frontendAppConfig, messagesApi, fakeNavigator, dataRetrievalAction,
-      new DataRequiredActionImpl, new GetClaimantActionImpl)
-
-  def viewAsString() = cannotClaimBuyingEquipment(
-    frontendAppConfig, You, fakeNavigator.changeOtherExpensesPage, fakeNavigator.changeUniformsWorkClothingToolsPage)(fakeRequest, messages).toString
+  private val fakeNavigator = new FakeNavigator()
 
   "CannotClaimBuyingEquipment Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(fakeRequest)
 
-      status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
+
+      val request = FakeRequest(GET, routes.CannotClaimBuyingEquipmentController.onPageLoad().url)
+
+      val result = route(application, request).value
+
+      val view = application.injector.instanceOf[cannotClaimBuyingEquipment]
+
+      status(result) mustEqual OK
+
+      contentAsString(result) mustEqual
+        view(
+          frontendAppConfig,
+          claimant,
+          fakeNavigator.changeOtherExpensesPage,
+          fakeNavigator.changeUniformsWorkClothingToolsPage
+        )(fakeRequest, messages).toString
+
+      application.stop
     }
   }
 }

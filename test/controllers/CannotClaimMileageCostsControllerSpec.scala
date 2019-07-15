@@ -16,26 +16,31 @@
 
 package controllers
 
-import controllers.actions._
-import models.Claimant.You
+import base.SpecBase
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import views.html.cannotClaimMileageCosts
 
-class CannotClaimMileageCostsControllerSpec extends ControllerSpecBase {
-
-  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(You)) =
-    new CannotClaimMileageCostsController(frontendAppConfig, messagesApi, dataRetrievalAction,
-      new DataRequiredActionImpl, new GetClaimantActionImpl)
-
-  def viewAsString() = cannotClaimMileageCosts(frontendAppConfig, You)(fakeRequest, messages).toString
+class CannotClaimMileageCostsControllerSpec extends SpecBase {
 
   "CannotClaimMileageCosts Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(fakeRequest)
 
-      status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
+
+      val request = FakeRequest(GET, routes.CannotClaimMileageCostsController.onPageLoad().url)
+
+      val result = route(application, request).value
+
+      val view = application.injector.instanceOf[cannotClaimMileageCosts]
+
+      status(result) mustEqual OK
+
+      contentAsString(result) mustEqual
+        view(frontendAppConfig, claimant)(fakeRequest, messages).toString
+
+      application.stop
     }
   }
 }

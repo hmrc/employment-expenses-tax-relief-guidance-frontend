@@ -16,17 +16,19 @@
 
 package controllers.actions
 
-import com.google.inject.{ImplementedBy, Inject}
-import play.api.mvc.{ActionBuilder, ActionTransformer, Request}
 import connectors.DataCacheConnector
-import utils.UserAnswers
+import javax.inject.Inject
 import models.requests.OptionalDataRequest
+import play.api.mvc.{ActionTransformer, Request}
 import uk.gov.hmrc.play.HeaderCarrierConverter
+import utils.UserAnswers
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class DataRetrievalActionImpl @Inject()(val dataCacheConnector: DataCacheConnector) extends DataRetrievalAction {
+class DataRetrievalActionImpl @Inject()(
+                                         val dataCacheConnector: DataCacheConnector
+                                       )(implicit val executionContext: ExecutionContext) extends DataRetrievalAction {
 
   override protected def transform[A](request: Request[A]): Future[OptionalDataRequest[A]] = {
     implicit val hc = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
@@ -42,5 +44,4 @@ class DataRetrievalActionImpl @Inject()(val dataCacheConnector: DataCacheConnect
   }
 }
 
-@ImplementedBy(classOf[DataRetrievalActionImpl])
-trait DataRetrievalAction extends ActionTransformer[Request, OptionalDataRequest] with ActionBuilder[OptionalDataRequest]
+trait DataRetrievalAction extends ActionTransformer[Request, OptionalDataRequest]

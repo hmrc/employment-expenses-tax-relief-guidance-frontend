@@ -16,29 +16,34 @@
 
 package controllers
 
-import controllers.actions._
-import models.Claimant
+import base.SpecBase
+import play.api.inject.bind
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.FakeNavigator
+import utils.{FakeNavigator, Navigator}
 import views.html.registerForSelfAssessment
 
-class RegisterForSelfAssessmentControllerSpec extends ControllerSpecBase {
+class RegisterForSelfAssessmentControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(Claimant.You)) =
-    new RegisterForSelfAssessmentController(frontendAppConfig, messagesApi, new FakeNavigator(onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl)
-
-  def viewAsString() = registerForSelfAssessment(frontendAppConfig, Claimant.You, onwardRoute)(fakeRequest, messages).toString
+  def registerForSARoute = routes.RegisterForSelfAssessmentController.onPageLoad().url
 
   "RegisterForSelfAssessment Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(fakeRequest)
+
+      val application = applicationBuilder(Some(claimantIdCacheMap))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .build
+      val request = FakeRequest(GET, registerForSARoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[registerForSelfAssessment]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe view(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages).toString
+
+      application.stop
     }
   }
 }

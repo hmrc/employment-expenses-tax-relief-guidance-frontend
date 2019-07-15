@@ -16,55 +16,41 @@
 
 package config
 
-import java.util.Base64
-
-import com.google.inject.{Inject, Singleton}
-import play.api.{Configuration, Environment}
-import play.api.i18n.Lang
 import controllers.routes
-import uk.gov.hmrc.play.config.{OptimizelyConfig, ServicesConfig}
+import javax.inject.{Inject, Singleton}
+import play.api.Configuration
+import play.api.i18n.Lang
+import uk.gov.hmrc.play.config.OptimizelyConfig
 import uk.gov.hmrc.time.TaxYear
 
 @Singleton
-class FrontendAppConfig @Inject() (override val runModeConfiguration: Configuration, environment: Environment) extends ServicesConfig {
+class FrontendAppConfig @Inject()(configuration: Configuration) {
+  lazy val serviceName = configuration.get[String]("appName")
 
-  override protected def mode = environment.mode
-
-  private def loadConfig(key: String) = runModeConfiguration.getString(key).getOrElse(throw new Exception(s"Missing configuration key: $key"))
-
-  private lazy val contactHost = runModeConfiguration.getString("contact-frontend.host").getOrElse("")
+  private lazy val contactHost = configuration.get[String]("contact-frontend.host")
   private val contactFormServiceIdentifier = "employmentexpensestaxreliefguidancefrontend"
 
-  lazy val analyticsToken = loadConfig(s"google-analytics.token")
-  lazy val analyticsHost = loadConfig(s"google-analytics.host")
+  lazy val analyticsToken = configuration.get[String](s"google-analytics.token")
+  lazy val analyticsHost = configuration.get[String](s"google-analytics.host")
   lazy val reportAProblemPartialUrl = s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
   lazy val reportAProblemNonJSUrl = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
   lazy val betaFeedbackUrl = s"$contactHost/contact/beta-feedback"
   lazy val betaFeedbackUnauthenticatedUrl = s"$contactHost/contact/beta-feedback-unauthenticated"
 
-  lazy val authUrl = baseUrl("auth")
-  lazy val loginUrl = loadConfig("urls.login")
-  lazy val loginContinueUrl = loadConfig("urls.loginContinue")
-  lazy val cannotClaimReliefUrl = loadConfig("urls.cannotClaimRelief")
+  lazy val loginUrl = configuration.get[String]("urls.login")
+  lazy val loginContinueUrl = configuration.get[String]("urls.loginContinue")
 
-  lazy val selfAssessmentTaxReturnsUrl = loadConfig("urls.selfAssessmentTaxReturn")
+  lazy val mongo_ttl = configuration.get[Int]("mongodb.timeToLiveInSeconds")
 
-  lazy val languageTranslationEnabled = runModeConfiguration.getBoolean("microservice.services.features.welsh-translation").getOrElse(true)
+  lazy val selfAssessmentTaxReturnsUrl = configuration.get[String]("urls.selfAssessmentTaxReturn")
+
+  lazy val languageTranslationEnabled = configuration.get[Boolean]("microservice.services.features.welsh-translation")
   def languageMap: Map[String, Lang] = Map(
     "english" -> Lang("en"),
     "cymraeg" -> Lang("cy"))
   def routeToSwitchLanguage = (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
 
-  lazy val whitelistedIps: Seq[String] = Some(
-    new String(Base64.getDecoder.decode(runModeConfiguration.getString("microservice.services.whitelist.ips").getOrElse("")),
-      "UTF-8")
-  ).map(_.split(",")).getOrElse(Array.empty).toSeq
-
-  lazy val whitelistExcluded = Some(
-    new String(Base64.getDecoder.decode(runModeConfiguration.getString("microservice.services.whitelist.excluded").getOrElse("")), "UTF-8"))
-    .map(_.split(",")).getOrElse(Array.empty).toSeq
-
-  lazy val optimizelyConfig = new OptimizelyConfig(runModeConfiguration)
+  lazy val optimizelyConfig = new OptimizelyConfig(configuration)
 
   def earliestTaxYear = {
     TaxYear.current.back(4).startYear.toString

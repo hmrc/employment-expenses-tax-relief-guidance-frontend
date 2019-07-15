@@ -16,23 +16,24 @@
 
 package controllers
 
-import javax.inject.Inject
-
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
-import controllers.actions._
 import config.FrontendAppConfig
+import controllers.actions._
+import javax.inject.Inject
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.usePrintAndPost
 
-import scala.concurrent.Future
+class UsePrintAndPostController @Inject()(
+                                           appConfig: FrontendAppConfig,
+                                           getData: DataRetrievalAction,
+                                           requireData: DataRequiredAction,
+                                           val controllerComponents: MessagesControllerComponents,
+                                           view: usePrintAndPost
+                                         ) extends FrontendBaseController with I18nSupport {
 
-class UsePrintAndPostController @Inject()(appConfig: FrontendAppConfig,
-                                         override val messagesApi: MessagesApi,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction) extends FrontendController with I18nSupport {
-
-  def onPageLoad = (getData andThen requireData) {
+  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData) {
     implicit request =>
-      Ok(usePrintAndPost(appConfig))
+      Ok(view(appConfig))
   }
 }

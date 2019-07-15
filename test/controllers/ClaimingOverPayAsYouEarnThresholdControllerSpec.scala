@@ -16,85 +16,108 @@
 
 package controllers
 
-import play.api.data.Form
-import play.api.libs.json.{JsBoolean, JsString}
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import connectors.FakeDataCacheConnector
-import controllers.actions._
-import play.api.test.Helpers._
+import base.SpecBase
 import forms.ClaimingOverPayAsYouEarnThresholdFormProvider
 import identifiers.{ClaimantId, ClaimingOverPayAsYouEarnThresholdId}
-import models.Claimant.You
+import play.api.inject.bind
+import play.api.libs.json.{JsBoolean, JsString}
+import play.api.test.FakeRequest
+import play.api.test.Helpers._
+import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.{FakeNavigator, Navigator}
 import views.html.claimingOverPayAsYouEarnThreshold
 
-class ClaimingOverPayAsYouEarnThresholdControllerSpec extends ControllerSpecBase {
+class ClaimingOverPayAsYouEarnThresholdControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
+  def claimingOverRoute = routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad().url
 
-  val claimant = You
-  val formProvider = new ClaimingOverPayAsYouEarnThresholdFormProvider()
-  val form = formProvider(claimant)
-
-  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
-    new ClaimingOverPayAsYouEarnThresholdController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, formProvider)
-
-  def viewAsString(form: Form[_] = form) = claimingOverPayAsYouEarnThreshold(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+  private val formProvider = new ClaimingOverPayAsYouEarnThresholdFormProvider()
+  private val form = formProvider(claimant)
 
   "ClaimingOverPayAsYouEarnThreshold Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
+
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val request = FakeRequest(GET, claimingOverRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[claimingOverPayAsYouEarnThreshold]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe view(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+
+      application.stop
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
+
       val validData = Map(
         ClaimingOverPayAsYouEarnThresholdId.toString -> JsBoolean(true),
         ClaimantId.toString -> JsString(claimant.toString)
       )
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val request = FakeRequest(GET, claimingOverRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[claimingOverPayAsYouEarnThreshold]
 
-      val result = controller(getRelevantData).onPageLoad()(fakeRequest)
+      contentAsString(result) mustBe view(frontendAppConfig, form.fill(true), claimant)(fakeRequest, messages).toString
 
-      contentAsString(result) mustBe viewAsString(form.fill(true))
+      application.stop
     }
 
-    "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
 
-      val result = controller().onSubmit()(postRequest)
+    "redirect to the next page when valid data is submitted" in {
+      val application = applicationBuilder(Some(claimantIdCacheMap))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .build
+      val request = FakeRequest(POST, claimingOverRoute)
+        .withFormUrlEncodedBody(("value", "true"))
+      val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
+
+      application.stop
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-      val boundForm = form.bind(Map("value" -> "invalid value"))
 
-      val result = controller().onSubmit()(postRequest)
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val request = FakeRequest(POST, claimingOverRoute)
+      val boundForm = form.bind(Map("value" -> "invalid value"))
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[claimingOverPayAsYouEarnThreshold]
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm)
+      contentAsString(result) mustBe view(frontendAppConfig, boundForm, claimant)(fakeRequest, messages).toString
+
+      application.stop
+
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+
+      val application = applicationBuilder().build
+      val request = FakeRequest(GET, claimingOverRoute)
+      val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(sessionExpiredUrl)
+
+      application.stop
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val result = controller(dontGetAnyData).onSubmit()(postRequest)
+
+      val application = applicationBuilder().build
+      val request = FakeRequest(POST, claimingOverRoute)
+      val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(sessionExpiredUrl)
+
+      application.stop
     }
   }
 }

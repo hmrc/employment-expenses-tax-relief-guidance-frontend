@@ -16,45 +16,33 @@
 
 package controllers
 
-import controllers.actions._
-import identifiers.ClaimantId
-import models.Claimant.You
-import play.api.libs.json.{JsArray, JsString}
+import base.SpecBase
+import play.api.inject.bind
+import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
+import utils.{FakeNavigator, Navigator}
 import views.html.willNotPayTax
 
-class WillNotPayTaxControllerSpec extends ControllerSpecBase {
-
-  val claimant = You
+class WillNotPayTaxControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
-  val getValidPrecursorData = new FakeDataRetrievalAction(
-    Some(
-      CacheMap(
-        cacheMapId,
-        Map(
-          ClaimantId.toString -> JsString(claimant.toString)
-        )
-      )
-    )
-  )
-
-  def controller(dataRetrievalAction: DataRetrievalAction = getValidPrecursorData) =
-    new WillNotPayTaxController(frontendAppConfig, messagesApi, new FakeNavigator(onwardRoute), dataRetrievalAction, new DataRequiredActionImpl,
-      new GetClaimantActionImpl)
-
-  def viewAsString() = willNotPayTax(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages).toString
+  def willNotPayRoute = routes.WillNotPayTaxController.onPageLoad().url
 
   "WillNotPayTax Controller" must {
-
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad(fakeRequest)
+
+      val application = applicationBuilder(Some(claimantIdCacheMap))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .build
+      val request = FakeRequest(GET, willNotPayRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[willNotPayTax]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe view(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages).toString
+
+      application.stop
     }
   }
 }

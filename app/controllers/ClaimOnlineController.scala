@@ -20,22 +20,25 @@ import config.FrontendAppConfig
 import controllers.actions._
 import javax.inject.Inject
 import models.ClaimingFor.UniformsClothingTools
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.{Action, AnyContent}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.claimOnline
 
-class ClaimOnlineController @Inject()(appConfig: FrontendAppConfig,
-                                      override val messagesApi: MessagesApi,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction) extends FrontendController with I18nSupport {
+class ClaimOnlineController @Inject()(
+                                       appConfig: FrontendAppConfig,
+                                       getData: DataRetrievalAction,
+                                       requireData: DataRequiredAction,
+                                       val controllerComponents: MessagesControllerComponents,
+                                       view: claimOnline
+                                     ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
+  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData) {
     implicit request =>
 
       request.userAnswers.claimingFor match {
         case Some(claiming) =>
-          Ok(claimOnline(appConfig, claiming.forall(_ == UniformsClothingTools)))
+          Ok(view(appConfig, claiming.forall(_ == UniformsClothingTools)))
         case _ =>
           Redirect(routes.SessionExpiredController.onPageLoad())
       }

@@ -12,14 +12,14 @@ import identifiers.$className$Id
 import models.$className$
 import views.html.$className;format="decap"$
 
-class $className$ControllerSpec extends ControllerSpecBase {
+class $className$ControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
   val formProvider = new $className$FormProvider()
   val form = formProvider()
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getEmptyCacheMap) =
+  def controller(dataRetrievalAction: DataRetrievalAction = getclaimantIdCacheMap) =
     new $className$Controller(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
       dataRetrievalAction, new DataRequiredActionImpl, formProvider)
 
@@ -66,7 +66,7 @@ class $className$ControllerSpec extends ControllerSpecBase {
       val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(sessionExpiredUrl)
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
@@ -74,7 +74,7 @@ class $className$ControllerSpec extends ControllerSpecBase {
       val result = controller(dontGetAnyData).onSubmit()(postRequest)
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(sessionExpiredUrl)
     }
   }
 }

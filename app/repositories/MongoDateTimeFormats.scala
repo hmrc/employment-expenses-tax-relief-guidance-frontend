@@ -14,14 +14,22 @@
  * limitations under the License.
  */
 
-package filters
+package repositories
 
-import com.google.inject.Inject
-import play.api.http.DefaultHttpFilters
-import uk.gov.hmrc.play.bootstrap.filters.FrontendFilters
+import org.joda.time.{DateTime, DateTimeZone}
+import play.api.libs.json.{JsValue, Json, Reads, Writes}
 
-class FiltersWithWhitelist @Inject()(
-                                      frontendFilters: FrontendFilters,
-                                      whitelistFilter: WhitelistFilter,
-                                      sessionIdFilter: SessionIdFilter
-                                    ) extends DefaultHttpFilters(frontendFilters.filters :+ whitelistFilter :+ sessionIdFilter: _*)
+trait MongoDateTimeFormats {
+  import play.api.libs.json.__
+
+  implicit val localDateTimeRead: Reads[DateTime] =
+    (__ \ "$date").read[Long].map {
+      millis:Long => new DateTime(millis, DateTimeZone.UTC)
+    }
+
+  implicit val localDateTimeWrite: Writes[DateTime] = new Writes[DateTime] {
+    def writes(dateTime: DateTime): JsValue = Json.obj(
+      "$date" -> dateTime.toInstant.getMillis
+    )
+  }
+}

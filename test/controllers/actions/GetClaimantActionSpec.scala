@@ -19,12 +19,14 @@ package controllers.actions
 import base.SpecBase
 import controllers.routes
 import models.Claimant.You
-import models.requests.{ClaimantRequest, DataRequest}
-import org.scalatest.concurrent.ScalaFutures
+import models.requests.DataRequest
 import org.mockito.Mockito._
+import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
 import play.api.test.Helpers._
 import utils.UserAnswers
+
+import scala.concurrent.ExecutionContext.Implicits.global
 
 class GetClaimantActionSpec extends SpecBase with MockitoSugar with ScalaFutures {
 
@@ -49,7 +51,7 @@ class GetClaimantActionSpec extends SpecBase with MockitoSugar with ScalaFutures
 
           case Left(httpResult) =>
             httpResult.header.status mustEqual SEE_OTHER
-            httpResult.header.headers(LOCATION) mustEqual routes.SessionExpiredController.onPageLoad().url
+            httpResult.header.headers(LOCATION) mustEqual sessionExpiredUrl
 
           case Right(_) =>
             fail("Expected left but got right")

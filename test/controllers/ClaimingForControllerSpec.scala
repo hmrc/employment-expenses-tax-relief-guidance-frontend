@@ -16,86 +16,119 @@
 
 package controllers
 
-import play.api.data.Form
-import play.api.libs.json.{JsArray, JsString}
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import connectors.FakeDataCacheConnector
-import controllers.actions._
-import play.api.test.Helpers._
+import base.SpecBase
 import forms.ClaimingForFormProvider
 import identifiers.{ClaimantId, ClaimingForId}
-import models.Claimant.You
-import models.{Claimant, ClaimingFor}
+import models.Claimant
+import models.ClaimingFor._
+import play.api.inject.bind
+import play.api.libs.json.{JsArray, JsString}
+import play.api.test.FakeRequest
+import play.api.test.Helpers._
+import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.{FakeNavigator, Navigator}
 import views.html.claimingFor
 
-class ClaimingForControllerSpec extends ControllerSpecBase {
+class ClaimingForControllerSpec extends SpecBase {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute = routes.IndexController.onPageLoad
 
-  val claimant = You
-  val formProvider = new ClaimingForFormProvider()
-  val form = formProvider(claimant)
+  def claimingForRoute = routes.ClaimingForController.onPageLoad.url
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
-    new ClaimingForController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, formProvider)
-
-  def viewAsString(form: Form[_] = form) = claimingFor(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+  private val formProvider = new ClaimingForFormProvider()
+  private val form = formProvider(claimant)
 
   "ClaimingFor Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
+
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val request = FakeRequest(GET, claimingForRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[claimingFor]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe view(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+
+      application.stop
     }
+
 
     "populate the view correctly on a GET when the question has previously been answered" in {
       val validData = Map(
-        ClaimingForId.toString -> JsArray(Seq(JsString(ClaimingFor.values.head.toString))),
+        ClaimingForId.toString -> JsArray(Seq(JsString(values.head.toString))),
         ClaimantId.toString -> JsString(claimant.toString)
       )
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
 
-      val result = controller(getRelevantData).onPageLoad()(fakeRequest)
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val request = FakeRequest(GET, claimingForRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[claimingFor]
 
-      contentAsString(result) mustBe viewAsString(form.fill(Set(ClaimingFor.values.head)))
+      contentAsString(result) mustBe
+        view(frontendAppConfig, form.fill(Set(values.head)), claimant)(fakeRequest, messages).toString
+
+      application.stop
     }
 
-    "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value[0]", ClaimingFor.options(Claimant.You).head.value))
 
-      val result = controller().onSubmit()(postRequest)
+    "redirect to the next page when valid data is submitted" in {
+
+      val application = applicationBuilder(Some(claimantIdCacheMap))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .build
+      val request = FakeRequest(POST, claimingForRoute)
+        .withFormUrlEncodedBody(("value[0]", options(Claimant.You).head.value))
+      val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
+
+      application.stop
     }
 
-    "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
-      val boundForm = form.bind(Map("value" -> "invalid value"))
 
-      val result = controller().onSubmit()(postRequest)
+    "return a Bad Request and errors when invalid data is submitted" in {
+
+      val application = applicationBuilder(Some(claimantIdCacheMap))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .build
+      val boundForm = form.bind(Map("value" -> "invalid value"))
+      val request = FakeRequest(POST, claimingForRoute)
+        .withFormUrlEncodedBody(("value", "invalid value"))
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[claimingFor]
+
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm)
+      contentAsString(result) mustBe view(frontendAppConfig, boundForm, claimant)(fakeRequest, messages).toString
+
+      application.stop
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+
+      val application = applicationBuilder().build
+      val request = FakeRequest(GET, claimingForRoute)
+      val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(sessionExpiredUrl)
+
+      application.stop
     }
 
+
     "redirect to Session Expired for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", ClaimingFor.options(Claimant.You).head.value))
-      val result = controller(dontGetAnyData).onSubmit()(postRequest)
+
+      val application = applicationBuilder().build
+      val request = FakeRequest(GET, claimingForRoute)
+      val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(sessionExpiredUrl)
+
+      application.stop
     }
   }
 }

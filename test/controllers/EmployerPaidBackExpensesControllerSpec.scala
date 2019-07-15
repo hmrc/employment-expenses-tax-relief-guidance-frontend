@@ -16,85 +16,102 @@
 
 package controllers
 
-import play.api.data.Form
-import play.api.libs.json.{JsBoolean, JsString}
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import connectors.FakeDataCacheConnector
-import controllers.actions._
-import play.api.test.Helpers._
+import base.SpecBase
 import forms.EmployerPaidBackExpensesFormProvider
 import identifiers.{ClaimantId, EmployerPaidBackExpensesId}
-import models.Claimant.You
+import play.api.inject.bind
+import play.api.libs.json.{JsBoolean, JsString}
+import play.api.test.FakeRequest
+import play.api.test.Helpers._
+import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.{FakeNavigator, Navigator}
 import views.html.employerPaidBackExpenses
 
-class EmployerPaidBackExpensesControllerSpec extends ControllerSpecBase {
+class EmployerPaidBackExpensesControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
-  val claimant = You
+  def employerPaidBackExpensesRoute = routes.EmployerPaidBackExpensesController.onPageLoad().url
+
   val formProvider = new EmployerPaidBackExpensesFormProvider()
   val form = formProvider(claimant)
-
-  def controller(dataRetrievalAction: DataRetrievalAction = getCacheMapWithClaimant(claimant)) =
-    new EmployerPaidBackExpensesController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, formProvider)
-
-  def viewAsString(form: Form[_] = form) = employerPaidBackExpenses(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
 
   "EmployerPaidBackExpenses Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val request = FakeRequest(GET, employerPaidBackExpensesRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[employerPaidBackExpenses]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe view(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+
+      application.stop
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
       val validData = Map(
         EmployerPaidBackExpensesId.toString -> JsBoolean(true),
-        ClaimantId.toString -> JsString(claimant.toString)
-      )
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+        ClaimantId.toString -> JsString(claimant.toString))
 
-      val result = controller(getRelevantData).onPageLoad()(fakeRequest)
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val request = FakeRequest(GET, employerPaidBackExpensesRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[employerPaidBackExpenses]
 
-      contentAsString(result) mustBe viewAsString(form.fill(true))
+      contentAsString(result) mustEqual view(frontendAppConfig, form.fill(true), claimant)(fakeRequest, messages).toString()
+
+      application.stop
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+      val application = applicationBuilder(Some(claimantIdCacheMap))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .build
+      val request = FakeRequest(POST, employerPaidBackExpensesRoute)
+        .withFormUrlEncodedBody("value" -> "true")
+      val result = route(application, request).value
 
-      val result = controller().onSubmit()(postRequest)
+      redirectLocation(result).value mustEqual onwardRoute.url
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
+      application.stop
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val boundForm = form.bind(Map("value" -> "invalid value"))
+      val request = FakeRequest(POST, employerPaidBackExpensesRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[employerPaidBackExpenses]
 
-      val result = controller().onSubmit()(postRequest)
+      status(result) mustEqual BAD_REQUEST
+      contentAsString(result) mustEqual view(frontendAppConfig, boundForm, claimant)(fakeRequest, messages).toString
 
-      status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm)
+      application.stop
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+      val application = applicationBuilder().build
+      val request = FakeRequest(GET, employerPaidBackExpensesRoute)
+      val result = route(application, request).value
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result).value mustBe sessionExpiredUrl
+
+      application.stop
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val result = controller(dontGetAnyData).onSubmit()(postRequest)
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      val application = applicationBuilder().build
+      val request = FakeRequest(POST, employerPaidBackExpensesRoute)
+      val result = route(application, request).value
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result).value mustBe sessionExpiredUrl
+
+      application.stop
     }
   }
 }

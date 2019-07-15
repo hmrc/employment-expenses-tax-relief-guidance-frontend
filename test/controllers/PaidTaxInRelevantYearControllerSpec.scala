@@ -16,23 +16,23 @@
 
 package controllers
 
-import play.api.data.Form
-import play.api.libs.json.{JsBoolean, JsString}
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.FakeNavigator
-import connectors.FakeDataCacheConnector
+import base.SpecBase
 import controllers.actions._
-import play.api.test.Helpers._
 import forms.PaidTaxInRelevantYearFormProvider
 import identifiers.{ClaimantId, PaidTaxInRelevantYearId}
-import models.Claimant.You
+import play.api.inject.bind
+import play.api.libs.json.{JsBoolean, JsString}
+import play.api.test.FakeRequest
+import play.api.test.Helpers._
+import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.{FakeNavigator, Navigator}
 import views.html.paidTaxInRelevantYear
 
-class PaidTaxInRelevantYearControllerSpec extends ControllerSpecBase {
+class PaidTaxInRelevantYearControllerSpec extends SpecBase {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
-  val claimant = You
+  def paidTaxInRelevantYearRoute = routes.PaidTaxInRelevantYearController.onPageLoad().url
 
   val formProvider = new PaidTaxInRelevantYearFormProvider()
   val form = formProvider(claimant, frontendAppConfig.earliestTaxYear)
@@ -48,66 +48,79 @@ class PaidTaxInRelevantYearControllerSpec extends ControllerSpecBase {
     )
   )
 
-  def controller(dataRetrievalAction: DataRetrievalAction = getValidPrecursorData) =
-    new PaidTaxInRelevantYearController(frontendAppConfig, messagesApi, FakeDataCacheConnector, new FakeNavigator(desiredRoute = onwardRoute),
-      dataRetrievalAction, new DataRequiredActionImpl, new GetClaimantActionImpl, formProvider)
-
-  def viewAsString(form: Form[_] = form) =
-    paidTaxInRelevantYear(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
-
   "PaidTaxInRelevantYear Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val result = controller().onPageLoad()(fakeRequest)
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val request = FakeRequest(GET, paidTaxInRelevantYearRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[paidTaxInRelevantYear]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe viewAsString()
+      contentAsString(result) mustBe view(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+
+      application.stop
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(
-        PaidTaxInRelevantYearId.toString -> JsBoolean(true),
-        ClaimantId.toString -> JsString(claimant.toString)
-      )
-      val getRelevantData = new FakeDataRetrievalAction(Some(CacheMap(cacheMapId, validData)))
+      val validData = Map(ClaimantId.toString -> JsString(claimant.toString), PaidTaxInRelevantYearId.toString -> JsBoolean(true))
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val request = FakeRequest(GET, paidTaxInRelevantYearRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[paidTaxInRelevantYear]
 
-      val result = controller(getRelevantData).onPageLoad()(fakeRequest)
+      contentAsString(result) mustEqual view(frontendAppConfig, form.fill(true), claimant)(fakeRequest, messages).toString()
 
-      contentAsString(result) mustBe viewAsString(form.fill(true))
+      application.stop
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
+      val application = applicationBuilder(Some(claimantIdCacheMap))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .build
+      val request = FakeRequest(POST, paidTaxInRelevantYearRoute)
+        .withFormUrlEncodedBody("value" -> "true")
+      val result = route(application, request).value
 
-      val result = controller().onSubmit()(postRequest)
+      redirectLocation(result).value mustEqual onwardRoute.url
 
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(onwardRoute.url)
+      application.stop
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "invalid value"))
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build
       val boundForm = form.bind(Map("value" -> "invalid value"))
-
-      val result = controller().onSubmit()(postRequest)
+      val request = FakeRequest(POST, paidTaxInRelevantYearRoute)
+        .withFormUrlEncodedBody("value" -> "invalid value")
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[paidTaxInRelevantYear]
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe viewAsString(boundForm)
+      contentAsString(result) mustBe view(frontendAppConfig, boundForm, claimant)(fakeRequest, messages).toString
+
+      application.stop
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
-      val result = controller(dontGetAnyData).onPageLoad()(fakeRequest)
+      val application = applicationBuilder().build
+      val request = FakeRequest(GET, paidTaxInRelevantYearRoute)
+      val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result).value mustBe sessionExpiredUrl
+
+      application.stop
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
-      val postRequest = fakeRequest.withFormUrlEncodedBody(("value", "true"))
-      val result = controller(dontGetAnyData).onSubmit()(postRequest)
+      val application = applicationBuilder().build
+      val request = FakeRequest(POST, paidTaxInRelevantYearRoute)
+      val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result).value mustBe sessionExpiredUrl
+
+      application.stop
     }
   }
 }

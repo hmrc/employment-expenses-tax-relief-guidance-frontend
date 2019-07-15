@@ -16,20 +16,20 @@
 
 package controllers.actions
 
-import com.google.inject.{ImplementedBy, Inject}
-import play.api.mvc.{ActionRefiner, Result}
-import play.api.mvc.Results.Redirect
 import controllers.routes
+import javax.inject.Inject
 import models.requests.{ClaimantRequest, DataRequest}
+import play.api.mvc.Results.Redirect
+import play.api.mvc.{ActionRefiner, Result}
+import uk.gov.hmrc.http.HeaderCarrier
 import uk.gov.hmrc.play.HeaderCarrierConverter
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class GetClaimantActionImpl @Inject() extends GetClaimantAction {
+class GetClaimantActionImpl @Inject()(implicit val executionContext: ExecutionContext) extends GetClaimantAction {
 
   override protected def refine[A](request: DataRequest[A]): Future[Either[Result, ClaimantRequest[A]]] = {
-    implicit val hc = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
+    implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
 
     request.userAnswers.claimant match {
       case None => Future.successful(Left(Redirect(routes.SessionExpiredController.onPageLoad())))
@@ -38,5 +38,4 @@ class GetClaimantActionImpl @Inject() extends GetClaimantAction {
   }
 }
 
-@ImplementedBy(classOf[GetClaimantActionImpl])
 trait GetClaimantAction extends ActionRefiner[DataRequest, ClaimantRequest]

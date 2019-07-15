@@ -16,47 +16,49 @@
 
 package controllers
 
-import javax.inject.Inject
-
-import play.api.data.Form
-import play.api.i18n.{I18nSupport, MessagesApi}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import config.FrontendAppConfig
 import forms.ClaimantFormProvider
 import identifiers.ClaimantId
+import javax.inject.Inject
 import models.Claimant
+import play.api.data.Form
+import play.api.i18n.I18nSupport
+import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Enumerable, Navigator, UserAnswers}
 import views.html.claimant
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class ClaimantController @Inject()(
-                                        appConfig: FrontendAppConfig,
-                                        override val messagesApi: MessagesApi,
-                                        dataCacheConnector: DataCacheConnector,
-                                        navigator: Navigator,
-                                        getData: DataRetrievalAction,
-                                        formProvider: ClaimantFormProvider) extends FrontendController with I18nSupport with Enumerable.Implicits {
+                                    appConfig: FrontendAppConfig,
+                                    dataCacheConnector: DataCacheConnector,
+                                    navigator: Navigator,
+                                    getData: DataRetrievalAction,
+                                    formProvider: ClaimantFormProvider,
+                                    val controllerComponents: MessagesControllerComponents,
+                                    view: claimant
+                                  )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
 
-  val form = formProvider()
+  val form: Form[Claimant] = formProvider()
 
-  def onPageLoad() = getData {
+  def onPageLoad: Action[AnyContent] = (Action andThen getData) {
     implicit request =>
       val preparedForm = request.userAnswers.flatMap(_.claimant) match {
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(claimant(appConfig, preparedForm))
+      Ok(view(appConfig, preparedForm))
   }
 
-  def onSubmit() = getData.async {
+  def onSubmit: Action[AnyContent] = (Action andThen getData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(claimant(appConfig, formWithErrors))),
-        (value) =>
+          Future.successful(BadRequest(view(appConfig, formWithErrors))),
+        value =>
           dataCacheConnector.save[Claimant](request.sessionId, ClaimantId, value).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimantId)(new UserAnswers(cacheMap))))
       )
