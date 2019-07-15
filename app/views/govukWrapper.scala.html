@@ -86,14 +86,13 @@
 
 @mainContentHeader = {
 
-  @*
     @if(appConfig.languageTranslationEnabled) {
-      @language_selection(
+      @components.language_selection(
         appConfig.languageMap,
         appConfig.routeToSwitchLanguage,
-        Some("translate u-align--right"))
-         }
-*@
+        Some("translate u-align--right")
+      )
+    }
     @if(contentHeader.isDefined) {
         @main_content_header(contentHeader = contentHeader.get)
     }
