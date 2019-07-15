@@ -44,6 +44,8 @@ class ChangeOtherExpensesControllerSpec extends SpecBase {
           status(result) mustBe SEE_OTHER
           redirectLocation(result) mustBe Some(onwardRoute.url)
       }
+
+      application.stop
     }
   }
 }

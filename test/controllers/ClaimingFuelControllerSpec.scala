@@ -60,7 +60,6 @@ class ClaimingFuelControllerSpec extends SpecBase {
 
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
       val request = FakeRequest(GET, claimingFuelRoute)
-        .withFormUrlEncodedBody(("value", "true"))
       val result = route(application, request).value
       val view = application.injector.instanceOf[claimingFuel]
 
