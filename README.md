@@ -38,6 +38,3 @@ These steps will open the first page in the service.
 1. Run sbt in interactive mode.
 2. Run `test` to run unit tests
 
-## Licence
-
-This project is licensed under the [Apache 2.0 License](LICENSE).
