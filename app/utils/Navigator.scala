@@ -54,7 +54,7 @@ class Navigator @Inject()() {
 
   private def paidTaxInRelevantYearRouting(userAnswers: UserAnswers) = userAnswers.paidTaxInRelevantYear match {
     case Some(true)  => routes.RegisteredForSelfAssessmentController.onPageLoad()
-    case Some(false) => routes.WillNotPayTaxController.onPageLoad()
+    case Some(false) => routes.CannotClaimReliefTooLongAgoController.onPageLoad()
     case None        => routes.SessionExpiredController.onPageLoad()
   }
 
