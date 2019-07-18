@@ -71,4 +71,17 @@ trait ViewBehaviours extends ViewSpecBase {
       }
     }
   }
+
+  def pageWithBodyText(view: HtmlFormat.Appendable, messageKey: String*): Unit = {
+
+    "behave like a page with body text" must {
+
+      "display content" in {
+        val doc = asDocument(view)
+        for (key <- messageKey) {
+          assertContainsMessages(doc, key)
+        }
+      }
+    }
+  }
 }

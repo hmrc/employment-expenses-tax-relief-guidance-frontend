@@ -268,16 +268,17 @@ cannotClaimBuyingEquipment.link.label = annual investment allowance
 cannotClaimBuyingEquipment.link.label2 = uniforms, work clothing and tools
 cannotClaimBuyingEquipment.link.label3 = other expenses
 
-willNotPayTax.you.title = You can only claim for years you paid tax in
-willNotPayTax.you.heading = You can only claim for years you paid tax in
-willNotPayTax.you.guidance1 = To claim these expenses, you must have paid (or expect to pay) tax in each year you want to claim for.
-willNotPayTax.you.guidance2 = but you will not get tax relief unless you pay tax.
-willNotPayTax.someoneElse.title = They can only claim for years they paid tax in
-willNotPayTax.someoneElse.heading = They can only claim for years they paid tax in
-willNotPayTax.someoneElse.guidance1 = To claim these expenses, they must have paid (or expect to pay) tax in each year they want to claim for.
-willNotPayTax.someoneElse.guidance2 = but they will not get tax relief unless they pay tax.
-willNotPayTax.link.continue.label = claim tax relief for 6 April {0} to 5 April {1}
-willNotPayTax.link.external.label = Read claim tax relief for your job expenses
+willNotPayTax.you.title =  You cannot claim these expenses
+willNotPayTax.you.heading =  You cannot claim these expenses
+willNotPayTax.you.guidance1 = You can only claim these expenses if you {0}.
+willNotPayTax.you.guidance2 = You can still {0} but you will not get any expenses back unless you pay tax.
+willNotPayTax.someoneElse.title =  They cannot claim these expenses
+willNotPayTax.someoneElse.heading =  You cannot claim these expenses
+willNotPayTax.someoneElse.guidance1 = They can only claim these expenses if they {0}.
+willNotPayTax.someoneElse.guidance2 = They can still {0} but they will not get any expenses back unless they pay tax.
+willNotPayTax.you.link1 = paid tax in each tax year you are claiming for
+willNotPayTax.someoneElse.link1 = paid tax in each tax year they are claiming for
+willNotPayTax.link2 = claim expenses for the current tax year (6 April {0} to 5 April {1})
 
 willPayTax.you.title = Did you pay tax in each of the years you are claiming for?
 willPayTax.you.heading = Did you pay tax in each of the years you are claiming for?
