@@ -5,7 +5,7 @@
 
 @(appConfig: FrontendAppConfig, form: Form[_])(implicit request: Request[_], messages: Messages)
 
-@main_template(
+@MainTemplate(
     title = messages("$className;format="decap"$.title"),
     appConfig = appConfig,
     bodyClasses = None) {

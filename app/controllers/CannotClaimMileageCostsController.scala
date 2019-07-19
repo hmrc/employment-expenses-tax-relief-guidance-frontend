@@ -22,7 +22,7 @@ import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import views.html.cannotClaimMileageCosts
+import views.html.CannotClaimMileageCostsView
 
 class CannotClaimMileageCostsController @Inject()(
                                                    appConfig: FrontendAppConfig,
@@ -30,7 +30,7 @@ class CannotClaimMileageCostsController @Inject()(
                                                    requireData: DataRequiredAction,
                                                    getClaimant: GetClaimantAction,
                                                    val controllerComponents: MessagesControllerComponents,
-                                                   view: cannotClaimMileageCosts
+                                                   view: CannotClaimMileageCostsView
                                                  ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
