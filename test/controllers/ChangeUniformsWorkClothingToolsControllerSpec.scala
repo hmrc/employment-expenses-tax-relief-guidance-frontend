@@ -17,12 +17,29 @@
 package controllers
 
 import base.SpecBase
+import connectors.DataCacheConnector
+import org.mockito.Matchers.any
+import org.mockito.Mockito.{reset, when}
+import org.scalatest.BeforeAndAfterEach
+import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
+import org.scalatest.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
 
-class ChangeUniformsWorkClothingToolsControllerSpec extends SpecBase {
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
+
+class ChangeUniformsWorkClothingToolsControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach
+  with ScalaFutures with IntegrationPatience {
+
+  private val mockDataCacheConnector = mock[DataCacheConnector]
+  override def beforeEach(): Unit = {
+    reset(mockDataCacheConnector)
+    when(mockDataCacheConnector.save(any(),any(),any())(any())) thenReturn Future(new CacheMap("id", Map()))
+  }
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
@@ -31,8 +48,11 @@ class ChangeUniformsWorkClothingToolsControllerSpec extends SpecBase {
     "Redirect to the next page for a GET" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap))
-        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
-        .build
+        .overrides(
+          bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
+          bind[DataCacheConnector].toInstance(mockDataCacheConnector)
+
+        ).build
 
       val request = FakeRequest(GET, routes.ChangeUniformsWorkClothingToolsController.onPageLoad().url)
 

@@ -17,18 +17,34 @@
 package controllers
 
 import base.SpecBase
+import connectors.DataCacheConnector
 import forms.ClaimantFormProvider
+import org.mockito.Matchers.any
+import org.mockito.Mockito.{reset, when}
+import org.scalatest.BeforeAndAfterEach
+import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
+import org.scalatest.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
 import views.html.claimant
 
-class ClaimantControllerSpec extends SpecBase {
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
+
+class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
   def claimantRoute = routes.ClaimantController.onPageLoad()
+
+  private val mockDataCacheConnector = mock[DataCacheConnector]
+  override def beforeEach(): Unit = {
+    reset(mockDataCacheConnector)
+    when(mockDataCacheConnector.save(any(),any(),any())(any())) thenReturn Future(new CacheMap("id", Map()))
+  }
 
   val formProvider = new ClaimantFormProvider()
   val form = formProvider()
@@ -74,8 +90,10 @@ class ClaimantControllerSpec extends SpecBase {
 
     "redirect to the next page when valid data is submitted" in {
       val application = applicationBuilder()
-        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
-        .build()
+        .overrides(
+          bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
+          bind[DataCacheConnector].toInstance(mockDataCacheConnector)
+      ).build()
 
       val request = FakeRequest(POST, claimantRoute.url)
         .withFormUrlEncodedBody(("value", claimant.toString))

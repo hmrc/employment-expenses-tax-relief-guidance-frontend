@@ -17,8 +17,14 @@
 package controllers
 
 import base.SpecBase
+import connectors.DataCacheConnector
 import forms.ClaimingFuelFormProvider
 import identifiers.{ClaimantId, ClaimingFuelId}
+import org.mockito.Matchers.any
+import org.mockito.Mockito.{reset, when}
+import org.scalatest.BeforeAndAfterEach
+import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
+import org.scalatest.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.libs.json.{JsBoolean, JsString}
 import play.api.test.FakeRequest
@@ -27,11 +33,20 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
 import views.html.claimingFuel
 
-class ClaimingFuelControllerSpec extends SpecBase {
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
+
+class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
   def claimingFuelRoute = routes.ClaimingFuelController.onPageLoad().url
+
+  private val mockDataCacheConnector = mock[DataCacheConnector]
+  override def beforeEach(): Unit = {
+    reset(mockDataCacheConnector)
+    when(mockDataCacheConnector.save(any(),any(),any())(any())) thenReturn Future(new CacheMap("id", Map()))
+  }
 
   val formProvider = new ClaimingFuelFormProvider()
   val form = formProvider(claimant)
@@ -73,8 +88,11 @@ class ClaimingFuelControllerSpec extends SpecBase {
     "redirect to the next page when valid data is submitted" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap))
-        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
-        .build
+        .overrides(
+          bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
+          bind[DataCacheConnector].toInstance(mockDataCacheConnector)
+        ).build
+
       val request = FakeRequest(POST, claimingFuelRoute)
         .withFormUrlEncodedBody(("value", "true"))
       val result = route(application, request).value
