@@ -51,7 +51,6 @@ class ChangeUniformsWorkClothingToolsControllerSpec extends SpecBase with Mockit
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
-
         ).build
 
       val request = FakeRequest(GET, routes.ChangeUniformsWorkClothingToolsController.onPageLoad().url)
