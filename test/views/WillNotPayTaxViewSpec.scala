@@ -18,6 +18,8 @@ package views
 
 import controllers.routes
 import models.Claimant.You
+import play.twirl.api.Html
+import uk.gov.hmrc.time.TaxYear
 import views.behaviours.ViewBehaviours
 import views.html.willNotPayTax
 
@@ -39,5 +41,15 @@ class WillNotPayTaxViewSpec extends ViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithBackLink(createView)
+
+    val link1 = s"""<a href="${frontendAppConfig.taxReliefForEmployeesUrl}">${messages(s"willNotPayTax.$claimant.link1")}</a>"""
+
+    val link2 = Html(s"""<a href="${routes.RegisteredForSelfAssessmentController.onPageLoad}">${messages("willNotPayTax.link2", TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)}</a>""")
+
+    behave like pageWithBodyText(
+      createView,
+      Html(messages(s"willNotPayTax.$claimant.guidance1", link1)).toString,
+      Html(messages(s"willNotPayTax.$claimant.guidance2", link2)).toString
+    )
   }
 }
