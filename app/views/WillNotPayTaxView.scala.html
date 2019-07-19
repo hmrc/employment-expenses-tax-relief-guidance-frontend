@@ -16,6 +16,8 @@
 
 @import config.FrontendAppConfig
 @import components.back_link
+@import uk.gov.hmrc.time.TaxYear
+@import controllers.routes._
 
 @this(
   main_template: main_template
@@ -27,7 +29,9 @@
         nextPage: Call
 )(implicit request: Request[_], messages: Messages)
 
-@year = {@appConfig.earliestTaxYear}
+@link1 = {<a href="@appConfig.taxReliefForEmployeesUrl">@messages(s"willNotPayTax.$claimant.link1")</a>}
+
+@link2 = {<a href="@routes.RegisteredForSelfAssessmentController.onPageLoad()">@messages("willNotPayTax.link2", TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)</a>}
 
 @main_template(
     title = messages(s"willNotPayTax.$claimant.title")
@@ -37,8 +41,7 @@
 
     @components.heading(s"willNotPayTax.$claimant.heading")
 
-    <p>@messages(s"willNotPayTax.$claimant.guidance1")</p>
+    <p>@Html(messages(s"willNotPayTax.$claimant.guidance1", link1))</p>
 
-    @components.button_link("site.save_and_continue", nextPage.url)
-
+    <p>@Html(messages(s"willNotPayTax.$claimant.guidance2", link2))</p>
 }
