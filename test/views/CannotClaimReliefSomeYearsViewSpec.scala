@@ -18,7 +18,7 @@ package views
 
 import controllers.routes
 import views.behaviours.ViewBehaviours
-import views.html.cannotClaimReliefSomeYears
+import views.html.CannotClaimReliefSomeYearsView
 
 class CannotClaimReliefSomeYearsViewSpec extends ViewBehaviours {
 
@@ -28,7 +28,7 @@ class CannotClaimReliefSomeYearsViewSpec extends ViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[cannotClaimReliefSomeYears]
+  val view = application.injector.instanceOf[CannotClaimReliefSomeYearsView]
 
   def createView= view.apply(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages)
 

@@ -18,7 +18,7 @@ package views
 
 import models.Claimant.You
 import views.behaviours.ViewBehaviours
-import views.html.cannotClaimMileageCosts
+import views.html.CannotClaimMileageCostsView
 
 class CannotClaimMileageCostsViewSpec extends ViewBehaviours {
 
@@ -26,7 +26,7 @@ class CannotClaimMileageCostsViewSpec extends ViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[cannotClaimMileageCosts]
+  val view = application.injector.instanceOf[CannotClaimMileageCostsView]
 
   def createView = view.apply(frontendAppConfig, You)(fakeRequest, messages)
 

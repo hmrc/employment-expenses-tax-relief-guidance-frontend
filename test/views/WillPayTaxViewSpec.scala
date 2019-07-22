@@ -21,7 +21,7 @@ import forms.WillPayTaxFormProvider
 import models.Claimant.You
 import play.api.data.Form
 import views.behaviours.YesNoViewBehaviours
-import views.html.willPayTax
+import views.html.WillPayTaxView
 
 class WillPayTaxViewSpec extends YesNoViewBehaviours {
 
@@ -33,7 +33,7 @@ class WillPayTaxViewSpec extends YesNoViewBehaviours {
 
     val application = applicationBuilder().build
 
-    val view = application.injector.instanceOf[willPayTax]
+    val view = application.injector.instanceOf[WillPayTaxView]
 
     def createView(form: Form[_]) = view.apply(frontendAppConfig, form, You)(fakeRequest, messages)
 

@@ -19,13 +19,13 @@ package views
 import controllers.routes
 import play.twirl.api.Html
 import views.behaviours.ViewBehaviours
-import views.html.session_expired
+import views.html.SessionExpiredView
 
 class SessionExpiredViewSpec extends ViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[session_expired]
+  val view = application.injector.instanceOf[SessionExpiredView]
 
   def createView: Html = view.apply(frontendAppConfig, routes.ClaimantController.onPageLoad())(fakeRequest, messages)
 

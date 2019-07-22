@@ -21,7 +21,7 @@ import controllers.routes
 import forms.UseOwnCarFormProvider
 import models.Claimant.You
 import views.behaviours.YesNoViewBehaviours
-import views.html.useOwnCar
+import views.html.UseOwnCarView
 
 class UseOwnCarViewSpec extends YesNoViewBehaviours {
 
@@ -29,7 +29,7 @@ class UseOwnCarViewSpec extends YesNoViewBehaviours {
 
   private val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[useOwnCar]
+  val view = application.injector.instanceOf[UseOwnCarView]
 
   val form = new UseOwnCarFormProvider()(claimant)
 

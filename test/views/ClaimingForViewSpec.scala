@@ -22,7 +22,7 @@ import models.Claimant.You
 import models.{Claimant, ClaimingFor}
 import utils.RadioOption
 import views.behaviours.ViewBehaviours
-import views.html.claimingFor
+import views.html.ClaimingForView
 
 class ClaimingForViewSpec extends ViewBehaviours {
 
@@ -30,7 +30,7 @@ class ClaimingForViewSpec extends ViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[claimingFor]
+  val view = application.injector.instanceOf[ClaimingForView]
 
   val form = new ClaimingForFormProvider()(claimant)
 

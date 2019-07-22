@@ -19,7 +19,7 @@ package views
 import models.Claimant.You
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.notEntitled
+import views.html.NotEntitledView
 
 class NotEntitledViewSpec extends ViewBehaviours {
 
@@ -27,7 +27,7 @@ class NotEntitledViewSpec extends ViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[notEntitled]
+  val view = application.injector.instanceOf[NotEntitledView]
 
   def createView: HtmlFormat.Appendable = view.apply(frontendAppConfig, claimant)(fakeRequest, messages)
 

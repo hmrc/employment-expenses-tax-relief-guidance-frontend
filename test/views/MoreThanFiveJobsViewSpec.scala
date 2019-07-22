@@ -20,7 +20,7 @@ import play.api.data.Form
 import controllers.routes
 import forms.MoreThanFiveJobsFormProvider
 import views.behaviours.YesNoViewBehaviours
-import views.html.moreThanFiveJobs
+import views.html.MoreThanFiveJobsView
 
 class MoreThanFiveJobsViewSpec extends YesNoViewBehaviours {
 
@@ -28,7 +28,7 @@ class MoreThanFiveJobsViewSpec extends YesNoViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[moreThanFiveJobs]
+  val view = application.injector.instanceOf[MoreThanFiveJobsView]
 
   val form = new MoreThanFiveJobsFormProvider()()
 

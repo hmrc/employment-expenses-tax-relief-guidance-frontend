@@ -22,7 +22,7 @@ import forms.RegisteredForSelfAssessmentFormProvider
 import models.Claimant.You
 import play.twirl.api.Html
 import views.behaviours.YesNoViewBehaviours
-import views.html.registeredForSelfAssessment
+import views.html.RegisteredForSelfAssessmentView
 
 class RegisteredForSelfAssessmentViewSpec extends YesNoViewBehaviours {
 
@@ -30,7 +30,7 @@ class RegisteredForSelfAssessmentViewSpec extends YesNoViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[registeredForSelfAssessment]
+  val view = application.injector.instanceOf[RegisteredForSelfAssessmentView]
 
   val form = new RegisteredForSelfAssessmentFormProvider()(claimant)
 

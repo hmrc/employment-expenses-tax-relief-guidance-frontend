@@ -18,7 +18,7 @@ package views
 
 import uk.gov.hmrc.time.TaxYear
 import views.behaviours.ViewBehaviours
-import views.html.cannotClaimReliefTooLongAgo
+import views.html.CannotClaimReliefTooLongAgoView
 
 class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
 
@@ -29,7 +29,7 @@ class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
   val messageKeyPrefix = s"cannotClaimReliefTooLongAgo.$claimant"
 
   val application = applicationBuilder().build
-  val view = application.injector.instanceOf[cannotClaimReliefTooLongAgo]
+  val view = application.injector.instanceOf[CannotClaimReliefTooLongAgoView]
 
   def createView = view.apply(frontendAppConfig, claimant, startYear, endYear)(fakeRequest, messages)
 

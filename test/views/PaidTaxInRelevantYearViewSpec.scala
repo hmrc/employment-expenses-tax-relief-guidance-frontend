@@ -22,7 +22,7 @@ import forms.PaidTaxInRelevantYearFormProvider
 import models.Claimant.You
 import play.twirl.api.Html
 import views.behaviours.YesNoViewBehaviours
-import views.html.paidTaxInRelevantYear
+import views.html.PaidTaxInRelevantYearView
 
 class PaidTaxInRelevantYearViewSpec extends YesNoViewBehaviours {
 
@@ -30,7 +30,7 @@ class PaidTaxInRelevantYearViewSpec extends YesNoViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[paidTaxInRelevantYear]
+  val view = application.injector.instanceOf[PaidTaxInRelevantYearView]
 
   val form = new PaidTaxInRelevantYearFormProvider()(claimant, frontendAppConfig.earliestTaxYear)
 

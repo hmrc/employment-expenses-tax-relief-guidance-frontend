@@ -18,14 +18,14 @@ package views
 
 import models.Claimant.You
 import views.behaviours.ViewBehaviours
-import views.html.cannotClaimRelief
+import views.html.CannotClaimReliefView
 
 class CannotClaimReliefViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = s"cannotClaimRelief.$claimant"
 
   val application = applicationBuilder().build
-  val view = application.injector.instanceOf[cannotClaimRelief]
+  val view = application.injector.instanceOf[CannotClaimReliefView]
 
   def createView = view.apply(frontendAppConfig, claimant)(fakeRequest, messages)
 

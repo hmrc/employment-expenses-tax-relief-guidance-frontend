@@ -20,7 +20,7 @@ import controllers.routes
 import models.Claimant.You
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
-import views.html.notEntitledSomeYears
+import views.html.NotEntitledSomeYearsView
 
 class NotEntitledSomeYearsViewSpec extends ViewBehaviours {
 
@@ -30,7 +30,7 @@ class NotEntitledSomeYearsViewSpec extends ViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[notEntitledSomeYears]
+  val view = application.injector.instanceOf[NotEntitledSomeYearsView]
 
   def createView: HtmlFormat.Appendable = view.apply(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages)
 

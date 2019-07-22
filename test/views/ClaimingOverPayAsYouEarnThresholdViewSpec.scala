@@ -22,7 +22,7 @@ import forms.ClaimingOverPayAsYouEarnThresholdFormProvider
 import models.Claimant.You
 import play.twirl.api.Html
 import views.behaviours.YesNoViewBehaviours
-import views.html.claimingOverPayAsYouEarnThreshold
+import views.html.ClaimingOverPayAsYouEarnThresholdView
 
 class ClaimingOverPayAsYouEarnThresholdViewSpec extends YesNoViewBehaviours {
 
@@ -30,7 +30,7 @@ class ClaimingOverPayAsYouEarnThresholdViewSpec extends YesNoViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[claimingOverPayAsYouEarnThreshold]
+  val view = application.injector.instanceOf[ClaimingOverPayAsYouEarnThresholdView]
 
   val form = new ClaimingOverPayAsYouEarnThresholdFormProvider()(claimant)
 
