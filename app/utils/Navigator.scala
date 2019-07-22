@@ -30,32 +30,32 @@ class Navigator @Inject()() {
   private def registeredForSelfAssessmentControllerRouting(userAnswers: UserAnswers) = userAnswers.registeredForSelfAssessment match {
     case Some(true)  => routes.UseSelfAssessmentController.onPageLoad()
     case Some(false) => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
-    case None        => routes.SessionExpiredController.onPageLoad()
+    case _           => routes.SessionExpiredController.onPageLoad()
   }
 
   private def claimingOverPayAsYouEarnThresholdRouting(userAnswers: UserAnswers) =
     userAnswers.claimingOverPayAsYouEarnThreshold match {
       case Some(true)  => routes.RegisterForSelfAssessmentController.onPageLoad()
       case Some(false) => routes.EmployerPaidBackExpensesController.onPageLoad()
-      case None        => routes.SessionExpiredController.onPageLoad()
+      case _        => routes.SessionExpiredController.onPageLoad()
     }
 
   private def moreThanFiveJobsRouting(userAnswers: UserAnswers) = userAnswers.moreThanFiveJobs match {
     case Some(true)  => routes.UsePrintAndPostController.onPageLoad()
     case Some(false) => routes.ClaimOnlineController.onPageLoad()
-    case None        => routes.SessionExpiredController.onPageLoad()
+    case _        => routes.SessionExpiredController.onPageLoad()
   }
 
   private def employerPaidBackExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackExpenses match {
     case Some(true)  => routes.CannotClaimReliefController.onPageLoad()
     case Some(false) => routes.ClaimingForController.onPageLoad()
-    case None        => routes.SessionExpiredController.onPageLoad()
+    case _        => routes.SessionExpiredController.onPageLoad()
   }
 
   private def paidTaxInRelevantYearRouting(userAnswers: UserAnswers) = userAnswers.paidTaxInRelevantYear match {
-    case Some(true)  => routes.RegisteredForSelfAssessmentController.onPageLoad()
+    case Some(true)  => routes.WillPayTaxController.onPageLoad()
     case Some(false) => routes.CannotClaimReliefTooLongAgoController.onPageLoad()
-    case None        => routes.SessionExpiredController.onPageLoad()
+    case _        => routes.SessionExpiredController.onPageLoad()
   }
 
   private def claimingForRouting(userAnswers: UserAnswers) =
@@ -70,7 +70,7 @@ class Navigator @Inject()() {
   private def useOwnCarRouting(userAnswers: UserAnswers) = userAnswers.useOwnCar match {
     case Some(true)  => routes.ClaimingMileageController.onPageLoad()
     case Some(false) => routes.UseCompanyCarController.onPageLoad()
-    case None        => routes.SessionExpiredController.onPageLoad()
+    case _        => routes.SessionExpiredController.onPageLoad()
   }
 
   private def useCompanyCarRouting(userAnswers: UserAnswers) = userAnswers.useCompanyCar match {
@@ -86,7 +86,7 @@ class Navigator @Inject()() {
         case _                                            => routes.SessionExpiredController.onPageLoad()
       }
 
-    case None
+    case _
       => routes.SessionExpiredController.onPageLoad()
   }
 
@@ -95,7 +95,7 @@ class Navigator @Inject()() {
       userAnswers.claimant match {
         case Some(You)         => routes.MoreThanFiveJobsController.onPageLoad()
         case Some(SomeoneElse) => routes.UsePrintAndPostController.onPageLoad()
-        case None              => routes.SessionExpiredController.onPageLoad()
+        case _              => routes.SessionExpiredController.onPageLoad()
       }
 
     case Some(false) =>
@@ -107,26 +107,26 @@ class Navigator @Inject()() {
         case _                                           => routes.SessionExpiredController.onPageLoad()
       }
 
-    case None =>
+    case _ =>
       routes.SessionExpiredController.onPageLoad()
   }
 
   private def willPayTaxRouting(userAnswers: UserAnswers) = userAnswers.willPayTax match {
     case Some(true)  => routes.RegisteredForSelfAssessmentController.onPageLoad()
     case Some(false) => routes.WillNotPayTaxController.onPageLoad()
-    case None        => routes.SessionExpiredController.onPageLoad()
+    case _        => routes.SessionExpiredController.onPageLoad()
   }
 
   private def changeOtherExpensesRouting(userAnswers: UserAnswers) = userAnswers.claimant match {
     case Some(You)         => routes.MoreThanFiveJobsController.onPageLoad()
     case Some(SomeoneElse) => routes.UsePrintAndPostController.onPageLoad()
-    case None              => routes.SessionExpiredController.onPageLoad()
+    case _              => routes.SessionExpiredController.onPageLoad()
   }
 
   private def changeUniformsWorkClothingToolsRouting(userAnswers: UserAnswers) = userAnswers.claimant match {
     case Some(You)         => routes.MoreThanFiveJobsController.onPageLoad()
     case Some(SomeoneElse) => routes.UsePrintAndPostController.onPageLoad()
-    case None              => routes.SessionExpiredController.onPageLoad()
+    case _              => routes.SessionExpiredController.onPageLoad()
   }
 
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
