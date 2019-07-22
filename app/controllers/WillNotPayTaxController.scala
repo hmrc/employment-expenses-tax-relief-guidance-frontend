@@ -24,7 +24,7 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.Navigator
-import views.html.willNotPayTax
+import views.html.WillNotPayTaxView
 
 import scala.concurrent.Future
 
@@ -35,7 +35,7 @@ class WillNotPayTaxController @Inject()(
                                          requireData: DataRequiredAction,
                                          getClaimant: GetClaimantAction,
                                          val controllerComponents: MessagesControllerComponents,
-                                         view: willNotPayTax
+                                         view: WillNotPayTaxView
                                        ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {

@@ -23,7 +23,7 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import uk.gov.hmrc.time.TaxYear
-import views.html.cannotClaimReliefTooLongAgo
+import views.html.CannotClaimReliefTooLongAgoView
 
 class CannotClaimReliefTooLongAgoController @Inject()(
                                                        appConfig: FrontendAppConfig,
@@ -31,7 +31,7 @@ class CannotClaimReliefTooLongAgoController @Inject()(
                                                        requireData: DataRequiredAction,
                                                        getClaimant: GetClaimantAction,
                                                        val controllerComponents: MessagesControllerComponents,
-                                                       view: cannotClaimReliefTooLongAgo
+                                                       view: CannotClaimReliefTooLongAgoView
                                                      ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {

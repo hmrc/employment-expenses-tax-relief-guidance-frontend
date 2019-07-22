@@ -23,7 +23,7 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.Navigator
-import views.html.session_expired
+import views.html.SessionExpiredView
 
 class SessionExpiredController @Inject()(
                                           val appConfig: FrontendAppConfig,
@@ -32,7 +32,7 @@ class SessionExpiredController @Inject()(
                                           requireData: DataRequiredAction,
                                           getClaimant: GetClaimantAction,
                                           val controllerComponents: MessagesControllerComponents,
-                                          view: session_expired
+                                          view: SessionExpiredView
                                         ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = Action {

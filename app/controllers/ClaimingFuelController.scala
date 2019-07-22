@@ -27,7 +27,7 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Navigator, UserAnswers}
-import views.html.claimingFuel
+import views.html.ClaimingFuelView
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -40,7 +40,7 @@ class ClaimingFuelController @Inject()(
                                         getClaimant: GetClaimantAction,
                                         formProvider: ClaimingFuelFormProvider,
                                         val controllerComponents: MessagesControllerComponents,
-                                        view: claimingFuel
+                                        view: ClaimingFuelView
                                       )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {

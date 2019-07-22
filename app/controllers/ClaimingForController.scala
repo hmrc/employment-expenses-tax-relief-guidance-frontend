@@ -28,7 +28,7 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Enumerable, Navigator, UserAnswers}
-import views.html.claimingFor
+import views.html.ClaimingForView
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -41,7 +41,7 @@ class ClaimingForController @Inject()(
                                         getClaimant: GetClaimantAction,
                                         formProvider: ClaimingForFormProvider,
                                         val controllerComponents: MessagesControllerComponents,
-                                        view: claimingFor
+                                        view: ClaimingForView
                                      )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {

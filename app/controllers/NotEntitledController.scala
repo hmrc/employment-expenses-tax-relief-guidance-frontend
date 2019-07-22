@@ -22,7 +22,7 @@ import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import views.html.notEntitled
+import views.html.NotEntitledView
 
 class NotEntitledController @Inject()(
                                        appConfig: FrontendAppConfig,
@@ -30,7 +30,7 @@ class NotEntitledController @Inject()(
                                        requireData: DataRequiredAction,
                                        getClaimant: GetClaimantAction,
                                        val controllerComponents: MessagesControllerComponents,
-                                       view: notEntitled
+                                       view: NotEntitledView
                                      ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {

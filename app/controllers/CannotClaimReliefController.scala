@@ -22,7 +22,7 @@ import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import views.html.cannotClaimRelief
+import views.html.CannotClaimReliefView
 
 
 class CannotClaimReliefController @Inject()(
@@ -31,7 +31,7 @@ class CannotClaimReliefController @Inject()(
                                              requireData: DataRequiredAction,
                                              getClaimant: GetClaimantAction,
                                              val controllerComponents: MessagesControllerComponents,
-                                             view: cannotClaimRelief
+                                             view: CannotClaimReliefView
                                            ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {

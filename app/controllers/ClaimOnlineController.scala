@@ -23,14 +23,14 @@ import models.ClaimingFor.UniformsClothingTools
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import views.html.claimOnline
+import views.html.ClaimOnlineView
 
 class ClaimOnlineController @Inject()(
                                        appConfig: FrontendAppConfig,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
                                        val controllerComponents: MessagesControllerComponents,
-                                       view: claimOnline
+                                       view: ClaimOnlineView
                                      ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData) {

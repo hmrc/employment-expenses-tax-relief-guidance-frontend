@@ -27,7 +27,7 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Navigator, UserAnswers}
-import views.html.willPayTax
+import views.html.WillPayTaxView
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -40,7 +40,7 @@ class WillPayTaxController @Inject()(
                                       getClaimant: GetClaimantAction,
                                       formProvider: WillPayTaxFormProvider,
                                       val controllerComponents: MessagesControllerComponents,
-                                      view: willPayTax
+                                      view: WillPayTaxView
                                     )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
 

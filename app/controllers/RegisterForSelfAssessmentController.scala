@@ -24,7 +24,7 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.Navigator
-import views.html.registerForSelfAssessment
+import views.html.RegisterForSelfAssessmentView
 
 class RegisterForSelfAssessmentController @Inject()(
                                                     appConfig: FrontendAppConfig,
@@ -33,7 +33,7 @@ class RegisterForSelfAssessmentController @Inject()(
                                                     requireData: DataRequiredAction,
                                                     getClaimant: GetClaimantAction,
                                                     val controllerComponents: MessagesControllerComponents,
-                                                    view: registerForSelfAssessment
+                                                    view: RegisterForSelfAssessmentView
                                                    ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
