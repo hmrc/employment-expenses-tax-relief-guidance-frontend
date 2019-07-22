@@ -26,7 +26,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.useCompanyCar
+import views.html.UseCompanyCarView
 
 class UseCompanyCarControllerSpec extends SpecBase {
 
@@ -48,7 +48,7 @@ class UseCompanyCarControllerSpec extends SpecBase {
       val application = applicationBuilder(Some(validCacheMap)).build
       val request = FakeRequest(GET, useCompanyCarRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[useCompanyCar]
+      val view = application.injector.instanceOf[UseCompanyCarView]
 
       status(result) mustBe OK
       contentAsString(result) mustBe view(frontendAppConfig, form, claimant, useOfOwnCar)(fakeRequest, messages).toString
@@ -66,7 +66,7 @@ class UseCompanyCarControllerSpec extends SpecBase {
       val application = applicationBuilder(Some(validCacheMap)).build
       val request = FakeRequest(GET, useCompanyCarRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[useCompanyCar]
+      val view = application.injector.instanceOf[UseCompanyCarView]
 
       status(result) mustBe OK
       contentAsString(result) mustBe view(frontendAppConfig, form.fill(true), claimant, useOfOwnCar)(fakeRequest, messages).toString
@@ -102,7 +102,7 @@ class UseCompanyCarControllerSpec extends SpecBase {
         .withFormUrlEncodedBody(("value", "invalid value"))
       val result = route(application, request).value
       val boundForm = form.bind(Map("value" -> "invalid value"))
-      val view = application.injector.instanceOf[useCompanyCar]
+      val view = application.injector.instanceOf[UseCompanyCarView]
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe view(frontendAppConfig, boundForm, claimant, useOfOwnCar)(fakeRequest, messages).toString

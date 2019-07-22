@@ -22,7 +22,7 @@ import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.{FakeNavigator, Navigator}
-import views.html.claimant
+import views.html.ClaimantView
 
 class ClaimantControllerSpec extends SpecBase {
 
@@ -43,7 +43,7 @@ class ClaimantControllerSpec extends SpecBase {
 
       val result = route(application, request).value
 
-      val view = application.injector.instanceOf[claimant]
+      val view = application.injector.instanceOf[ClaimantView]
 
       status(result) mustEqual OK
 
@@ -62,7 +62,7 @@ class ClaimantControllerSpec extends SpecBase {
 
       val result = route(application, request).value
 
-      val view = application.injector.instanceOf[claimant]
+      val view = application.injector.instanceOf[ClaimantView]
 
       status(result) mustEqual OK
 
@@ -91,7 +91,7 @@ class ClaimantControllerSpec extends SpecBase {
 
     "return a Bad Request and errors when invalid data is submitted" in {
       val application = applicationBuilder(Some(claimantIdCacheMap)).build
-      val view = application.injector.instanceOf[claimant]
+      val view = application.injector.instanceOf[ClaimantView]
       val request = FakeRequest(POST, claimantRoute.url)
         .withFormUrlEncodedBody(("value", "invalid value"))
       val result = route(application, request).value

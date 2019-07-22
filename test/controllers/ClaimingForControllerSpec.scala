@@ -27,7 +27,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.claimingFor
+import views.html.ClaimingForView
 
 class ClaimingForControllerSpec extends SpecBase {
 
@@ -45,7 +45,7 @@ class ClaimingForControllerSpec extends SpecBase {
       val application = applicationBuilder(Some(claimantIdCacheMap)).build
       val request = FakeRequest(GET, claimingForRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[claimingFor]
+      val view = application.injector.instanceOf[ClaimingForView]
 
       status(result) mustBe OK
       contentAsString(result) mustBe view(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
@@ -63,7 +63,7 @@ class ClaimingForControllerSpec extends SpecBase {
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
       val request = FakeRequest(GET, claimingForRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[claimingFor]
+      val view = application.injector.instanceOf[ClaimingForView]
 
       contentAsString(result) mustBe
         view(frontendAppConfig, form.fill(Set(values.head)), claimant)(fakeRequest, messages).toString
@@ -97,7 +97,7 @@ class ClaimingForControllerSpec extends SpecBase {
       val request = FakeRequest(POST, claimingForRoute)
         .withFormUrlEncodedBody(("value", "invalid value"))
       val result = route(application, request).value
-      val view = application.injector.instanceOf[claimingFor]
+      val view = application.injector.instanceOf[ClaimingForView]
 
 
       status(result) mustBe BAD_REQUEST

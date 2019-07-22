@@ -25,7 +25,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.claimingOverPayAsYouEarnThreshold
+import views.html.ClaimingOverPayAsYouEarnThresholdView
 
 class ClaimingOverPayAsYouEarnThresholdControllerSpec extends SpecBase {
 
@@ -42,7 +42,7 @@ class ClaimingOverPayAsYouEarnThresholdControllerSpec extends SpecBase {
       val application = applicationBuilder(Some(claimantIdCacheMap)).build
       val request = FakeRequest(GET, claimingOverRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[claimingOverPayAsYouEarnThreshold]
+      val view = application.injector.instanceOf[ClaimingOverPayAsYouEarnThresholdView]
 
       status(result) mustBe OK
       contentAsString(result) mustBe view(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
@@ -59,7 +59,7 @@ class ClaimingOverPayAsYouEarnThresholdControllerSpec extends SpecBase {
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
       val request = FakeRequest(GET, claimingOverRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[claimingOverPayAsYouEarnThreshold]
+      val view = application.injector.instanceOf[ClaimingOverPayAsYouEarnThresholdView]
 
       contentAsString(result) mustBe view(frontendAppConfig, form.fill(true), claimant)(fakeRequest, messages).toString
 
@@ -87,7 +87,7 @@ class ClaimingOverPayAsYouEarnThresholdControllerSpec extends SpecBase {
       val request = FakeRequest(POST, claimingOverRoute)
       val boundForm = form.bind(Map("value" -> "invalid value"))
       val result = route(application, request).value
-      val view = application.injector.instanceOf[claimingOverPayAsYouEarnThreshold]
+      val view = application.injector.instanceOf[ClaimingOverPayAsYouEarnThresholdView]
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe view(frontendAppConfig, boundForm, claimant)(fakeRequest, messages).toString

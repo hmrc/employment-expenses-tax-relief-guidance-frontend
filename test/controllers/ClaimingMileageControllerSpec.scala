@@ -25,7 +25,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.claimingMileage
+import views.html.ClaimingMileageView
 
 class ClaimingMileageControllerSpec extends SpecBase {
 
@@ -42,7 +42,7 @@ class ClaimingMileageControllerSpec extends SpecBase {
       val application = applicationBuilder(Some(claimantIdCacheMap)).build
       val request = FakeRequest(GET, claimingMileageRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[claimingMileage]
+      val view = application.injector.instanceOf[ClaimingMileageView]
 
       status(result) mustBe OK
       contentAsString(result) mustBe view(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
@@ -56,7 +56,7 @@ class ClaimingMileageControllerSpec extends SpecBase {
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
       val request = FakeRequest(GET, claimingMileageRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[claimingMileage]
+      val view = application.injector.instanceOf[ClaimingMileageView]
 
       contentAsString(result) mustEqual view(frontendAppConfig, form.fill(true), claimant)(fakeRequest, messages).toString()
 
@@ -84,7 +84,7 @@ class ClaimingMileageControllerSpec extends SpecBase {
       val request = FakeRequest(POST, claimingMileageRoute)
         .withFormUrlEncodedBody("value" -> "invalid value")
       val result = route(application, request).value
-      val view = application.injector.instanceOf[claimingMileage]
+      val view = application.injector.instanceOf[ClaimingMileageView]
 
       status(result) mustEqual BAD_REQUEST
       contentAsString(result) mustBe view(frontendAppConfig, boundForm, claimant)(fakeRequest, messages).toString

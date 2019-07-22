@@ -25,7 +25,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.moreThanFiveJobs
+import views.html.MoreThanFiveJobsView
 
 class MoreThanFiveJobsControllerSpec extends SpecBase {
 
@@ -43,7 +43,7 @@ class MoreThanFiveJobsControllerSpec extends SpecBase {
       val application = applicationBuilder(Some(claimantIdCacheMap)).build
       val request = FakeRequest(GET, moreThanFiveJobsRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[moreThanFiveJobs]
+      val view = application.injector.instanceOf[MoreThanFiveJobsView]
 
       status(result) mustBe OK
       contentAsString(result) mustBe view(frontendAppConfig, form)(fakeRequest, messages).toString
@@ -58,7 +58,7 @@ class MoreThanFiveJobsControllerSpec extends SpecBase {
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
       val request = FakeRequest(GET, moreThanFiveJobsRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[moreThanFiveJobs]
+      val view = application.injector.instanceOf[MoreThanFiveJobsView]
 
       contentAsString(result) mustEqual view(frontendAppConfig, form.fill(true))(fakeRequest, messages).toString()
 
@@ -85,7 +85,7 @@ class MoreThanFiveJobsControllerSpec extends SpecBase {
       val boundForm = form.bind(Map("value" -> "invalid value"))
       val request = FakeRequest(POST, moreThanFiveJobsRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[moreThanFiveJobs]
+      val view = application.injector.instanceOf[MoreThanFiveJobsView]
 
       status(result) mustEqual BAD_REQUEST
       contentAsString(result) mustEqual view(frontendAppConfig, boundForm)(fakeRequest, messages).toString

@@ -19,7 +19,7 @@ package controllers
 import base.SpecBase
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import views.html.cannotClaimRelief
+import views.html.CannotClaimReliefView
 
 class CannotClaimReliefControllerSpec extends SpecBase {
 
@@ -32,7 +32,7 @@ class CannotClaimReliefControllerSpec extends SpecBase {
 
       val result = route(application, request).value
 
-      val view = application.injector.instanceOf[cannotClaimRelief]
+      val view = application.injector.instanceOf[CannotClaimReliefView]
 
       status(result) mustEqual OK
 
