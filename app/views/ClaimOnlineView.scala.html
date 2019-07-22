@@ -27,8 +27,7 @@
 
 
 @href = @{
-    if(eeEligible) "https://www.tax.service.gov.uk/employee-expenses"
-    else "https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87#claim-online"
+    if(eeEligible) appConfig.employeeExpensesUrl else appConfig.employeeExpensesClaimOnlineUrl
 }
 
 @main_template(

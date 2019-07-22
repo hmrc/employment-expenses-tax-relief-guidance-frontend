@@ -35,7 +35,7 @@
 
     <p>@messages(s"cannotClaimReliefTooLongAgo.$claimant.guidance",startYear, endYear)</p>
 
-    <a href="https://www.gov.uk/tax-relief-for-employees"
+    <a href=@appConfig.taxReliefForEmployeesUrl
        data-journey-click="link - click:@messages(s"cannotClaimReliefTooLongAgo.$claimant.heading", year):@messages("cannotClaimReliefTooLongAgo.link.label")">
         @messages("cannotClaimReliefTooLongAgo.link.label")
     </a>

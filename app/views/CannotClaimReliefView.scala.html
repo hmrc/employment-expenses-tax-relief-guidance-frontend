@@ -34,7 +34,7 @@
     <p>@messages(s"cannotClaimRelief.$claimant.guidance")</p>
 
     <p>
-        <a href="https://www.gov.uk/tax-relief-for-employees"
+        <a href=@appConfig.taxReliefForEmployeesUrl
            data-journey-click="link - click:@messages(s"cannotClaimRelief.$claimant.heading"):@messages("cannotClaimRelief.link.label")">
             @messages("cannotClaimRelief.link.label")
         </a>

@@ -33,7 +33,7 @@
 
     @components.button_link(
         "usePrintAndPost.link.label",
-        "https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87#claim-by-post",
+        appConfig.employeeExpensesClaimByPostUrl,
         gaEvent = Some("link - click:" + messages(s"usePrintAndPost.heading") + ":" + messages("usePrintAndPost.link.label"))
     )
 }
