@@ -33,7 +33,7 @@ class CannotClaimBuyingEquipmentViewSpec extends ViewBehaviours {
 
   val view = application.injector.instanceOf[CannotClaimBuyingEquipmentView]
 
-  def createView = view.apply(frontendAppConfig, You, changeOtherExpensesPage, changeUniformsWorkClothingToolsPage)(fakeRequest, messages)
+  def createView = view.apply(You, changeOtherExpensesPage, changeUniformsWorkClothingToolsPage)(fakeRequest, messages)
 
   "CannotClaimBuyingEquipment view" must {
     behave like normalPage(createView, messageKeyPrefix, "guidance", "guidance2")

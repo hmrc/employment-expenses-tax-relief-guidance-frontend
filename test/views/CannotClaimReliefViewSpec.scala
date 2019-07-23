@@ -27,7 +27,7 @@ class CannotClaimReliefViewSpec extends ViewBehaviours {
   val application = applicationBuilder().build
   val view = application.injector.instanceOf[CannotClaimReliefView]
 
-  def createView = view.apply(frontendAppConfig, claimant)(fakeRequest, messages)
+  def createView = view.apply(claimant)(fakeRequest, messages)
 
   "CannotClaimRelief view" must {
     behave like normalPage(createView, messageKeyPrefix, "guidance")

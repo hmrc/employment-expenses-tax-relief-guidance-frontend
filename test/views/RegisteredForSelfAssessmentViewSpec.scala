@@ -34,7 +34,7 @@ class RegisteredForSelfAssessmentViewSpec extends YesNoViewBehaviours {
 
   val form = new RegisteredForSelfAssessmentFormProvider()(claimant)
 
-  def createView(form: Form[_]): Html = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]): Html = view.apply(form, claimant)(fakeRequest, messages)
 
   "RegisteredForSelfAssessment view" must {
 

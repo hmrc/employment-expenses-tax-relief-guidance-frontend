@@ -34,7 +34,7 @@ class EmployerPaidBackExpensesViewSpec extends YesNoViewBehaviours {
 
   val form = new EmployerPaidBackExpensesFormProvider()(claimant)
 
-  def createView(form: Form[_]): Html = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]): Html = view.apply(form, claimant)(fakeRequest, messages)
 
   "EmployerPaidBackExpenses view" must {
 

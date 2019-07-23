@@ -27,7 +27,6 @@ import utils.Navigator
 import views.html.RegisterForSelfAssessmentView
 
 class RegisterForSelfAssessmentController @Inject()(
-                                                    appConfig: FrontendAppConfig,
                                                     navigator: Navigator,
                                                     getData: DataRetrievalAction,
                                                     requireData: DataRequiredAction,
@@ -39,6 +38,6 @@ class RegisterForSelfAssessmentController @Inject()(
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
       val nextPage = navigator.nextPage(RegisterForSelfAssessmentId)(request.userAnswers)
-      Ok(view(appConfig, request.claimant, nextPage))
+      Ok(view(request.claimant, nextPage))
   }
 }

@@ -25,7 +25,6 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.UsePrintAndPostView
 
 class UsePrintAndPostController @Inject()(
-                                           appConfig: FrontendAppConfig,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            val controllerComponents: MessagesControllerComponents,
@@ -34,6 +33,6 @@ class UsePrintAndPostController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData) {
     implicit request =>
-      Ok(view(appConfig))
+      Ok(view())
   }
 }

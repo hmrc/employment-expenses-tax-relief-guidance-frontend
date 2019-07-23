@@ -40,7 +40,7 @@ class WillNotPayTaxControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[WillNotPayTaxView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(claimant, onwardRoute)(fakeRequest, messages).toString
 
       application.stop
     }

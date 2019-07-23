@@ -26,7 +26,6 @@ import utils.Navigator
 import views.html.SessionExpiredView
 
 class SessionExpiredController @Inject()(
-                                          val appConfig: FrontendAppConfig,
                                           navigator: Navigator,
                                           getData: DataRetrievalAction,
                                           requireData: DataRequiredAction,
@@ -38,6 +37,6 @@ class SessionExpiredController @Inject()(
   def onPageLoad: Action[AnyContent] = Action {
     implicit request =>
 
-      Ok(view(appConfig, navigator.firstPage))
+      Ok(view(navigator.firstPage))
   }
 }

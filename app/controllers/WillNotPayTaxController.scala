@@ -29,7 +29,6 @@ import views.html.WillNotPayTaxView
 import scala.concurrent.Future
 
 class WillNotPayTaxController @Inject()(
-                                         appConfig: FrontendAppConfig,
                                          navigator: Navigator,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
@@ -44,7 +43,7 @@ class WillNotPayTaxController @Inject()(
       val nextPage = navigator.nextPage(WillNotPayTaxId)(request.userAnswers)
 
       Future.successful(
-        Ok(view(appConfig, request.claimant, nextPage)))
+        Ok(view(request.claimant, nextPage)))
   }
 
 }

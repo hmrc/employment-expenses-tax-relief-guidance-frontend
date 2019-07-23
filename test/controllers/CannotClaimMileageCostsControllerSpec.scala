@@ -38,7 +38,7 @@ class CannotClaimMileageCostsControllerSpec extends SpecBase {
       status(result) mustEqual OK
 
       contentAsString(result) mustEqual
-        view(frontendAppConfig, claimant)(fakeRequest, messages).toString
+        view(claimant)(fakeRequest, messages).toString
 
       application.stop
     }

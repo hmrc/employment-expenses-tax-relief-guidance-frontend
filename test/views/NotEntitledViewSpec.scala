@@ -29,7 +29,7 @@ class NotEntitledViewSpec extends ViewBehaviours {
 
   val view = application.injector.instanceOf[NotEntitledView]
 
-  def createView: HtmlFormat.Appendable = view.apply(frontendAppConfig, claimant)(fakeRequest, messages)
+  def createView: HtmlFormat.Appendable = view.apply(claimant)(fakeRequest, messages)
 
   "NotEntitled view" must {
     behave like normalPage(createView, messageKeyPrefix)

@@ -32,7 +32,6 @@ import views.html.MoreThanFiveJobsView
 import scala.concurrent.{ExecutionContext, Future}
 
 class MoreThanFiveJobsController @Inject()(
-                                            appConfig: FrontendAppConfig,
                                             dataCacheConnector: DataCacheConnector,
                                             navigator: Navigator,
                                             getData: DataRetrievalAction,
@@ -50,14 +49,14 @@ class MoreThanFiveJobsController @Inject()(
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(view(appConfig, preparedForm))
+      Ok(view(preparedForm))
   }
 
   def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(appConfig, formWithErrors))),
+          Future.successful(BadRequest(view(formWithErrors))),
         value =>
           dataCacheConnector.save[Boolean](request.sessionId, MoreThanFiveJobsId, value).map(cacheMap =>
             Redirect(navigator.nextPage(MoreThanFiveJobsId)(new UserAnswers(cacheMap)))

@@ -35,7 +35,7 @@ class WillPayTaxViewSpec extends YesNoViewBehaviours {
 
     val view = application.injector.instanceOf[WillPayTaxView]
 
-    def createView(form: Form[_]) = view.apply(frontendAppConfig, form, You)(fakeRequest, messages)
+    def createView(form: Form[_]) = view.apply(form, You)(fakeRequest, messages)
 
     application.stop()
 

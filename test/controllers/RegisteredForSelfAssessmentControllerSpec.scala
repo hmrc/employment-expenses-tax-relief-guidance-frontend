@@ -45,7 +45,7 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[RegisteredForSelfAssessmentView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form, claimant)(fakeRequest, messages).toString
 
       application.stop
 
@@ -58,7 +58,7 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase {
       val result = route(application, request).value
       val view = application.injector.instanceOf[RegisteredForSelfAssessmentView]
 
-      contentAsString(result) mustEqual view(frontendAppConfig, form.fill(true), claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustEqual view(form.fill(true), claimant)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -85,7 +85,7 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[RegisteredForSelfAssessmentView]
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe view(frontendAppConfig, boundForm, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(boundForm, claimant)(fakeRequest, messages).toString
 
       application.stop
     }

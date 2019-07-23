@@ -26,7 +26,6 @@ import views.html.CannotClaimReliefView
 
 
 class CannotClaimReliefController @Inject()(
-                                             appConfig: FrontendAppConfig,
                                              getData: DataRetrievalAction,
                                              requireData: DataRequiredAction,
                                              getClaimant: GetClaimantAction,
@@ -36,6 +35,6 @@ class CannotClaimReliefController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
-      Ok(view(appConfig, request.claimant))
+      Ok(view(request.claimant))
   }
 }

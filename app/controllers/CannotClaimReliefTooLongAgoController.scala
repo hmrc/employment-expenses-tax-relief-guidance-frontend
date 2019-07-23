@@ -26,7 +26,6 @@ import uk.gov.hmrc.time.TaxYear
 import views.html.CannotClaimReliefTooLongAgoView
 
 class CannotClaimReliefTooLongAgoController @Inject()(
-                                                       appConfig: FrontendAppConfig,
                                                        getData: DataRetrievalAction,
                                                        requireData: DataRequiredAction,
                                                        getClaimant: GetClaimantAction,
@@ -39,6 +38,6 @@ class CannotClaimReliefTooLongAgoController @Inject()(
       val startYear = TaxYear.current.startYear.toString
       val endYear = TaxYear.current.finishYear.toString
 
-      Ok(view(appConfig, request.claimant, startYear, endYear))
+      Ok(view(request.claimant, startYear, endYear))
   }
 }

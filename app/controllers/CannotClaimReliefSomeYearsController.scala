@@ -27,7 +27,6 @@ import utils.Navigator
 import views.html.CannotClaimReliefSomeYearsView
 
 class CannotClaimReliefSomeYearsController @Inject()(
-                                                      appConfig: FrontendAppConfig,
                                                       navigator: Navigator,
                                                       getData: DataRetrievalAction,
                                                       requireData: DataRequiredAction,
@@ -39,6 +38,6 @@ class CannotClaimReliefSomeYearsController @Inject()(
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
       val nextPage = navigator.nextPage(CannotClaimReliefSomeYearsId)(request.userAnswers)
-      Ok(view(appConfig, request.claimant, nextPage))
+      Ok(view(request.claimant, nextPage))
   }
 }

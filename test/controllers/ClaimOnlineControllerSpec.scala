@@ -39,7 +39,7 @@ class ClaimOnlineControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[ClaimOnlineView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(frontendAppConfig, true)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(true)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -53,7 +53,7 @@ class ClaimOnlineControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[ClaimOnlineView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(frontendAppConfig, false)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(false)(fakeRequest, messages).toString
 
       application.stop
     }

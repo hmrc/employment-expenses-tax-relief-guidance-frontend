@@ -48,7 +48,7 @@ class ClaimantControllerSpec extends SpecBase {
       status(result) mustEqual OK
 
       contentAsString(result) mustEqual
-        view(frontendAppConfig, form)(fakeRequest, messages).toString
+        view(form)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -67,7 +67,7 @@ class ClaimantControllerSpec extends SpecBase {
       status(result) mustEqual OK
 
       contentAsString(result) mustEqual
-        view(frontendAppConfig, form.fill(claimant))(fakeRequest, messages).toString
+        view(form.fill(claimant))(fakeRequest, messages).toString
 
       application.stop
     }
@@ -99,7 +99,7 @@ class ClaimantControllerSpec extends SpecBase {
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe
-        view.apply(frontendAppConfig, boundForm)(fakeRequest, messages).toString
+        view.apply(boundForm)(fakeRequest, messages).toString
 
       application.stop
     }

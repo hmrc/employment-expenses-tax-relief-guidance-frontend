@@ -18,10 +18,11 @@
 @import components.back_link
 
 @this(
-  main_template: MainTemplate
+  main_template: MainTemplate,
+  appConfig: FrontendAppConfig
 )
 
-@(appConfig: FrontendAppConfig, claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@(claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages(s"cannotClaimMileageFuelCosts.$claimant.title")

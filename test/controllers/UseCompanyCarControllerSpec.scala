@@ -51,7 +51,7 @@ class UseCompanyCarControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[UseCompanyCarView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(frontendAppConfig, form, claimant, useOfOwnCar)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form, claimant, useOfOwnCar)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -69,7 +69,7 @@ class UseCompanyCarControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[UseCompanyCarView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(frontendAppConfig, form.fill(true), claimant, useOfOwnCar)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form.fill(true), claimant, useOfOwnCar)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -105,7 +105,7 @@ class UseCompanyCarControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[UseCompanyCarView]
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe view(frontendAppConfig, boundForm, claimant, useOfOwnCar)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(boundForm, claimant, useOfOwnCar)(fakeRequest, messages).toString
 
       application.stop
     }

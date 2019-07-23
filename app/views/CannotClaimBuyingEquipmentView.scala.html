@@ -21,7 +21,7 @@
   main_template: MainTemplate
 )
 
-@(appConfig: FrontendAppConfig, claimant: Claimant, otherExpensesCall: Call, uniformsWorkClothingToolsCall: Call)(implicit request: Request[_], messages: Messages)
+@(claimant: Claimant, otherExpensesCall: Call, uniformsWorkClothingToolsCall: Call)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages(s"cannotClaimBuyingEquipment.$claimant.title")

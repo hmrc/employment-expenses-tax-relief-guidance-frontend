@@ -30,7 +30,7 @@ class CannotClaimReliefSomeYearsViewSpec extends ViewBehaviours {
 
   val view = application.injector.instanceOf[CannotClaimReliefSomeYearsView]
 
-  def createView= view.apply(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages)
+  def createView= view.apply(claimant, onwardRoute)(fakeRequest, messages)
 
   "CannotClaimReliefSomeYears view" must {
 

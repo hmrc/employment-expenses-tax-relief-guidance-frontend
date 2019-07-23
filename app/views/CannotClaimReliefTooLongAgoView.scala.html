@@ -18,10 +18,11 @@
 @import components.back_link
 
 @this(
-  main_template: MainTemplate
+  main_template: MainTemplate,
+  appConfig: FrontendAppConfig
 )
 
-@(appConfig: FrontendAppConfig, claimant: Claimant, startYear: String, endYear: String)(implicit request: Request[_], messages: Messages)
+@(claimant: Claimant, startYear: String, endYear: String)(implicit request: Request[_], messages: Messages)
 
 @year = {@appConfig.earliestTaxYear}
 

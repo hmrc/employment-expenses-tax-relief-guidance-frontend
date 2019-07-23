@@ -34,7 +34,7 @@ class ClaimingForViewSpec extends ViewBehaviours {
 
   val form = new ClaimingForFormProvider()(claimant)
 
-  def createView(form: Form[_]) = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]) = view.apply(form, claimant)(fakeRequest, messages)
 
   "ClaimingFor view" must {
     behave like normalPage(createView(form), messageKeyPrefix)

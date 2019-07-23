@@ -53,7 +53,7 @@ class WillPayTaxController @Inject()(
         case None => form
         case Some(value) => form.fill(value)
       }
-      Future.successful(Ok(view(appConfig, preparedForm, request.claimant)))
+      Future.successful(Ok(view(preparedForm, request.claimant)))
   }
 
   def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
@@ -62,7 +62,7 @@ class WillPayTaxController @Inject()(
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(appConfig, formWithErrors, request.claimant))),
+          Future.successful(BadRequest(view(formWithErrors, request.claimant))),
         value =>
           dataCacheConnector.save[Boolean](request.sessionId, WillPayTaxId, value).map(cacheMap =>
             Redirect(navigator.nextPage(WillPayTaxId)(new UserAnswers(cacheMap)))

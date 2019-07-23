@@ -32,7 +32,6 @@ import views.html.ClaimingOverPayAsYouEarnThresholdView
 import scala.concurrent.{ExecutionContext, Future}
 
 class ClaimingOverPayAsYouEarnThresholdController @Inject()(
-                                                             appConfig: FrontendAppConfig,
                                                              dataCacheConnector: DataCacheConnector,
                                                              navigator: Navigator,
                                                              getData: DataRetrievalAction,
@@ -51,7 +50,7 @@ class ClaimingOverPayAsYouEarnThresholdController @Inject()(
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(view(appConfig, preparedForm, request.claimant))
+      Ok(view( preparedForm, request.claimant))
   }
 
   def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
@@ -60,7 +59,7 @@ class ClaimingOverPayAsYouEarnThresholdController @Inject()(
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(appConfig, formWithErrors, request.claimant))),
+          Future.successful(BadRequest(view(formWithErrors, request.claimant))),
         value =>
           dataCacheConnector.save[Boolean](request.sessionId, ClaimingOverPayAsYouEarnThresholdId, value).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimingOverPayAsYouEarnThresholdId)(new UserAnswers(cacheMap)))

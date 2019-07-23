@@ -32,7 +32,7 @@ class NotEntitledSomeYearsViewSpec extends ViewBehaviours {
 
   val view = application.injector.instanceOf[NotEntitledSomeYearsView]
 
-  def createView: HtmlFormat.Appendable = view.apply(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages)
+  def createView: HtmlFormat.Appendable = view.apply(claimant, onwardRoute)(fakeRequest, messages)
 
   "NotEntitledSomeYears view" must {
     behave like normalPage(createView, messageKeyPrefix)

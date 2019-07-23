@@ -33,7 +33,7 @@ class WillNotPayTaxViewSpec extends ViewBehaviours {
 
   def onwardRoute = routes.IndexController.onPageLoad
 
-  def createView= view.apply(frontendAppConfig, You, onwardRoute)(fakeRequest, messages)
+  def createView = view.apply(You, onwardRoute)(fakeRequest, messages)
 
   application.stop
 

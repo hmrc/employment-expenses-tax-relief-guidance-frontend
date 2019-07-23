@@ -26,7 +26,6 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.ClaimOnlineView
 
 class ClaimOnlineController @Inject()(
-                                       appConfig: FrontendAppConfig,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
                                        val controllerComponents: MessagesControllerComponents,
@@ -38,7 +37,7 @@ class ClaimOnlineController @Inject()(
 
       request.userAnswers.claimingFor match {
         case Some(claiming) =>
-          Ok(view(appConfig, claiming.forall(_ == UniformsClothingTools)))
+          Ok(view(claiming.forall(_ == UniformsClothingTools)))
         case _ =>
           Redirect(routes.SessionExpiredController.onPageLoad())
       }

@@ -34,7 +34,7 @@ class ClaimingMileageViewSpec extends YesNoViewBehaviours {
 
   val form = new ClaimingMileageFormProvider()(claimant)
 
-  def createView(form: Form[_]): HtmlFormat.Appendable = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]): HtmlFormat.Appendable = view.apply(form, claimant)(fakeRequest, messages)
 
   "ClaimingMileage view" must {
 

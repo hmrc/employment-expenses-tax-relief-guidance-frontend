@@ -20,10 +20,11 @@
 @import uk.gov.hmrc.play.config.OptimizelyConfig
 
 @this(
-  main_template: MainTemplate
+  main_template: MainTemplate,
+  appConfig: FrontendAppConfig
 )
 
-@(appConfig: FrontendAppConfig, eeEligible: Boolean)(implicit request: Request[_], messages: Messages)
+@(eeEligible: Boolean)(implicit request: Request[_], messages: Messages)
 
 
 @href = @{

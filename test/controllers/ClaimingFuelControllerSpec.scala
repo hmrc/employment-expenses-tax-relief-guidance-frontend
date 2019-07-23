@@ -46,7 +46,7 @@ class ClaimingFuelControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[ClaimingFuelView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form, claimant)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -65,7 +65,7 @@ class ClaimingFuelControllerSpec extends SpecBase {
 
       status(result) mustBe OK
       contentAsString(result) mustBe
-        view(frontendAppConfig, form.fill(true), claimant)(fakeRequest, messages).toString
+        view(form.fill(true), claimant)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -96,7 +96,7 @@ class ClaimingFuelControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[ClaimingFuelView]
 
       status(result) mustEqual BAD_REQUEST
-      contentAsString(result) mustBe view(frontendAppConfig, boundForm, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(boundForm, claimant)(fakeRequest, messages).toString
 
       application.stop
     }

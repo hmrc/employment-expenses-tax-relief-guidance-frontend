@@ -28,7 +28,7 @@ class ClaimOnlineViewSpec extends ViewBehaviours {
 
   val view = application.injector.instanceOf[ClaimOnlineView]
 
-  def createView: Html = view.apply(frontendAppConfig, eeEligible = false)(fakeRequest, messages)
+  def createView: Html = view.apply(eeEligible = false)(fakeRequest, messages)
 
   "ClaimOnline view" must {
     behave like normalPage(createView, messageKeyPrefix)

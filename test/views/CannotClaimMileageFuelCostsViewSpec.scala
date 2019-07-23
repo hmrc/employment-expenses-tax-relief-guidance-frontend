@@ -28,7 +28,7 @@ class CannotClaimMileageFuelCostsViewSpec extends ViewBehaviours {
 
   val view = application.injector.instanceOf[CannotClaimMileageFuelCostsView]
 
-  def createView = view.apply(frontendAppConfig, You)(fakeRequest, messages)
+  def createView = view.apply(You)(fakeRequest, messages)
 
   "CannotClaimMileageFuelCosts view" must {
     behave like normalPage(createView, messageKeyPrefix)

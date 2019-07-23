@@ -30,7 +30,6 @@ import utils.{Enumerable, Navigator, UserAnswers}
 import scala.concurrent.ExecutionContext
 
 class ChangeOtherExpensesController @Inject()(
-                                               appConfig: FrontendAppConfig,
                                                dataCacheConnector: DataCacheConnector,
                                                navigator: Navigator,
                                                getData: DataRetrievalAction,

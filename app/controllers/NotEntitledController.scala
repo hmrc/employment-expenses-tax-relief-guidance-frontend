@@ -25,7 +25,6 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import views.html.NotEntitledView
 
 class NotEntitledController @Inject()(
-                                       appConfig: FrontendAppConfig,
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
                                        getClaimant: GetClaimantAction,
@@ -35,6 +34,6 @@ class NotEntitledController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
-      Ok(view(appConfig, request.claimant))
+      Ok(view(request.claimant))
   }
 }

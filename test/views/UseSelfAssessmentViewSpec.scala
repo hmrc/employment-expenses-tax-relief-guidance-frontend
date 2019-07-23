@@ -28,7 +28,7 @@ class UseSelfAssessmentViewSpec extends ViewBehaviours {
 
   val view = application.injector.instanceOf[UseSelfAssessmentView]
 
-  def createView = view.apply(frontendAppConfig, You)(fakeRequest, messages)
+  def createView = view.apply(You)(fakeRequest, messages)
 
   "UseSelfAssessment view" must {
 

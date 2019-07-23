@@ -24,7 +24,6 @@ import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.Navigator
 
 class IndexController @Inject()(
-                                 val appConfig: FrontendAppConfig,
                                  navigator: Navigator,
                                  val controllerComponents: MessagesControllerComponents
                                ) extends FrontendBaseController with I18nSupport {

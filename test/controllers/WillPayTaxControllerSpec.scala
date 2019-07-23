@@ -48,7 +48,7 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures {
       val view = application.injector.instanceOf[WillPayTaxView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form, claimant)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -69,7 +69,7 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures {
       val result = route(application, request).value
 
       contentAsString(result) mustBe
-        view.apply(frontendAppConfig, form.fill(true), claimant)(fakeRequest, messages).toString
+        view.apply(form.fill(true), claimant)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -100,7 +100,7 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures {
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe
-        view.apply(frontendAppConfig, boundForm, claimant)(fakeRequest, messages).toString
+        view.apply(boundForm, claimant)(fakeRequest, messages).toString
 
       application.stop
     }

@@ -46,7 +46,7 @@ class MoreThanFiveJobsControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[MoreThanFiveJobsView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(frontendAppConfig, form)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -60,7 +60,7 @@ class MoreThanFiveJobsControllerSpec extends SpecBase {
       val result = route(application, request).value
       val view = application.injector.instanceOf[MoreThanFiveJobsView]
 
-      contentAsString(result) mustEqual view(frontendAppConfig, form.fill(true))(fakeRequest, messages).toString()
+      contentAsString(result) mustEqual view(form.fill(true))(fakeRequest, messages).toString()
 
       application.stop
 
@@ -88,7 +88,7 @@ class MoreThanFiveJobsControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[MoreThanFiveJobsView]
 
       status(result) mustEqual BAD_REQUEST
-      contentAsString(result) mustEqual view(frontendAppConfig, boundForm)(fakeRequest, messages).toString
+      contentAsString(result) mustEqual view(boundForm)(fakeRequest, messages).toString
 
       application.stop
 

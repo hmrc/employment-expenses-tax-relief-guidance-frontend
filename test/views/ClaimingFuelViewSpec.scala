@@ -33,7 +33,7 @@ class ClaimingFuelViewSpec extends YesNoViewBehaviours {
 
   val form = new ClaimingFuelFormProvider()(claimant)
 
-  def createView(form: Form[_]) = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]) = view.apply(form, claimant)(fakeRequest, messages)
 
   "ClaimingFuel view" must {
 

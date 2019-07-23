@@ -31,7 +31,7 @@ class RegisterForSelfAssessmentViewSpec extends ViewBehaviours {
 
   def onwardRoute = routes.IndexController.onPageLoad()
 
-  def createView = view.apply(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages)
+  def createView = view.apply(claimant, onwardRoute)(fakeRequest, messages)
 
   "RegisterForSelfAssessment view" must {
     behave like normalPage(createView, messageKeyPrefix)

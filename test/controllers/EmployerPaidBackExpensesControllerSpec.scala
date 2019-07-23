@@ -45,7 +45,7 @@ class EmployerPaidBackExpensesControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[EmployerPaidBackExpensesView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form, claimant)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -60,7 +60,7 @@ class EmployerPaidBackExpensesControllerSpec extends SpecBase {
       val result = route(application, request).value
       val view = application.injector.instanceOf[EmployerPaidBackExpensesView]
 
-      contentAsString(result) mustEqual view(frontendAppConfig, form.fill(true), claimant)(fakeRequest, messages).toString()
+      contentAsString(result) mustEqual view(form.fill(true), claimant)(fakeRequest, messages).toString()
 
       application.stop
     }
@@ -86,7 +86,7 @@ class EmployerPaidBackExpensesControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[EmployerPaidBackExpensesView]
 
       status(result) mustEqual BAD_REQUEST
-      contentAsString(result) mustEqual view(frontendAppConfig, boundForm, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustEqual view(boundForm, claimant)(fakeRequest, messages).toString
 
       application.stop
     }

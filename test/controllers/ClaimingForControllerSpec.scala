@@ -48,7 +48,7 @@ class ClaimingForControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[ClaimingForView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form, claimant)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -66,7 +66,7 @@ class ClaimingForControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[ClaimingForView]
 
       contentAsString(result) mustBe
-        view(frontendAppConfig, form.fill(Set(values.head)), claimant)(fakeRequest, messages).toString
+        view(form.fill(Set(values.head)), claimant)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -101,7 +101,7 @@ class ClaimingForControllerSpec extends SpecBase {
 
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe view(frontendAppConfig, boundForm, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(boundForm, claimant)(fakeRequest, messages).toString
 
       application.stop
     }

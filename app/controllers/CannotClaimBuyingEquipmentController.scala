@@ -26,7 +26,6 @@ import utils.Navigator
 import views.html.CannotClaimBuyingEquipmentView
 
 class CannotClaimBuyingEquipmentController @Inject()(
-                                                     appConfig: FrontendAppConfig,
                                                      navigator: Navigator,
                                                      getData: DataRetrievalAction,
                                                      requireData: DataRequiredAction,
@@ -37,6 +36,6 @@ class CannotClaimBuyingEquipmentController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
-      Ok(view(appConfig, request.claimant, navigator.changeOtherExpensesPage, navigator.changeUniformsWorkClothingToolsPage))
+      Ok(view(request.claimant, navigator.changeOtherExpensesPage, navigator.changeUniformsWorkClothingToolsPage))
   }
 }

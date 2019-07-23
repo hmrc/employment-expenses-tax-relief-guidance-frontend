@@ -21,10 +21,11 @@
 
 @this(
   main_template: MainTemplate,
-  formHelper: FormWithCSRF
+  formHelper: FormWithCSRF,
+  appConfig: FrontendAppConfig
 )
 
-@(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages(s"useOwnCar.$claimant.title")

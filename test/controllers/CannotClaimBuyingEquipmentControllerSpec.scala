@@ -42,7 +42,6 @@ class CannotClaimBuyingEquipmentControllerSpec extends SpecBase {
 
       contentAsString(result) mustEqual
         view(
-          frontendAppConfig,
           claimant,
           fakeNavigator.changeOtherExpensesPage,
           fakeNavigator.changeUniformsWorkClothingToolsPage

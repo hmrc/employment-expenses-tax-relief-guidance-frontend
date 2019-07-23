@@ -33,7 +33,6 @@ import views.html.ClaimingForView
 import scala.concurrent.{ExecutionContext, Future}
 
 class ClaimingForController @Inject()(
-                                        appConfig: FrontendAppConfig,
                                         dataCacheConnector: DataCacheConnector,
                                         navigator: Navigator,
                                         getData: DataRetrievalAction,
@@ -52,7 +51,7 @@ class ClaimingForController @Inject()(
         case None => form
         case Some(value) => form.fill(value.toSet)
       }
-      Ok(view(appConfig, preparedForm, request.claimant))
+      Ok(view(preparedForm, request.claimant))
   }
 
   def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
@@ -61,7 +60,7 @@ class ClaimingForController @Inject()(
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(appConfig, formWithErrors, request.claimant))),
+          Future.successful(BadRequest(view(formWithErrors, request.claimant))),
         value =>
           dataCacheConnector.save[Set[ClaimingFor]](request.sessionId, ClaimingForId, value).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimingForId)(new UserAnswers(cacheMap))))
