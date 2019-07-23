@@ -72,7 +72,6 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
       .overrides(
         bind[DataRequiredAction].to[DataRequiredActionImpl],
         bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(cacheMap)),
-        bind[GetClaimantAction].to[GetClaimantActionImpl],
-        bind[DataCacheConnector].to[DataCacheConnectorImpl]
+        bind[GetClaimantAction].to[GetClaimantActionImpl]
       )
 }
