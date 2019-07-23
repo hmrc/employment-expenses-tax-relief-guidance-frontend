@@ -29,9 +29,12 @@ class CannotClaimReliefViewSpec extends ViewBehaviours {
 
   def createView = view.apply(claimant)(fakeRequest, messages)
 
+  val taxReliefForEmployeesUrl = frontendAppConfig.taxReliefForEmployeesUrl
+
   "CannotClaimRelief view" must {
     behave like normalPage(createView, messageKeyPrefix, "guidance")
     behave like pageWithBackLink(createView)
+    behave like pageWithHyperLink(createView, taxReliefForEmployeesUrl)
   }
 
   application.stop

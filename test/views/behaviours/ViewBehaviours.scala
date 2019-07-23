@@ -84,4 +84,16 @@ trait ViewBehaviours extends ViewSpecBase {
       }
     }
   }
+
+  def pageWithHyperLink(view: HtmlFormat.Appendable,
+                        url: String,
+                        id: String = "link"): Unit = {
+
+    "behave like a page with a url link" must {
+      "display link" in {
+        val doc = asDocument(view)
+        doc.getElementById(id).attr("href") mustBe url
+      }
+    }
+  }
 }

@@ -35,9 +35,12 @@ class CannotClaimBuyingEquipmentViewSpec extends ViewBehaviours {
 
   def createView = view.apply(You, changeOtherExpensesPage, changeUniformsWorkClothingToolsPage)(fakeRequest, messages)
 
+  val annualInvestmentAllowanceUrl = frontendAppConfig.annualInvestmentAllowanceUrl
+
   "CannotClaimBuyingEquipment view" must {
     behave like normalPage(createView, messageKeyPrefix, "guidance", "guidance2")
     behave like pageWithBackLink(createView)
+    behave like pageWithHyperLink(createView, annualInvestmentAllowanceUrl)
   }
 
   application.stop

@@ -51,6 +51,7 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   lazy val employeeExpensesClaimByPostUrl = configuration.get[String]("urls.employeeExpensesClaimByPostUrl")
   lazy val whoMustSendATaxReturnUrl = configuration.get[String]("urls.whoMustSendATaxReturnUrl")
   lazy val fileSelfAssessmentLoginUrl = configuration.get[String]("urls.fileSelfAssessmentLoginUrl")
+  lazy val annualInvestmentAllowanceUrl = configuration.get[String]("urls.annualInvestmentAllowanceUrl")
 
   lazy val languageTranslationEnabled = configuration.get[Boolean]("microservice.services.features.welsh-translation")
   def languageMap: Map[String, Lang] = Map(

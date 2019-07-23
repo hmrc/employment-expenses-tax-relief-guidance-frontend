@@ -33,9 +33,12 @@ class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
 
   def createView = view.apply(claimant, startYear, endYear)(fakeRequest, messages)
 
+  val taxReliefForEmployeesUrl = frontendAppConfig.taxReliefForEmployeesUrl
+
   "CannotClaimReliefTooLongAgo view" must {
 
     behave like pageWithBackLink(createView)
+    behave like pageWithHyperLink(createView, taxReliefForEmployeesUrl)
 
     "have the correct banner title" in {
       val doc = asDocument(createView)

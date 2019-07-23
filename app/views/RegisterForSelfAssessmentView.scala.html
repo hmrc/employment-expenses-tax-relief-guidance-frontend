@@ -35,7 +35,7 @@
     <p>@messages("registerForSelfAssessment.guidance1")</p>
 
     <p>@messages("registerForSelfAssessment.guidance2")
-        <a href=@appConfig.fileSelfAssessmentLoginUrl
+        <a id="link" href=@appConfig.fileSelfAssessmentLoginUrl
            data-journey-click="link - click:@messages(s"registerForSelfAssessment.$claimant.heading"):@messages("registerForSelfAssessment.link.external.label")">
             @messages("registerForSelfAssessment.link.external.label")</a>.
     </p>

@@ -32,7 +32,7 @@
 
     @components.heading(s"notEntitled.$claimant.heading")
 
-    <a href=@appConfig.taxReliefForEmployeesUrl
+    <a id="link" href=@appConfig.taxReliefForEmployeesUrl
        data-journey-click="link - click:@messages(s"notEntitled.$claimant.heading"):@messages("notEntitled.link.label")">
         @messages("notEntitled.link.label")
     </a>

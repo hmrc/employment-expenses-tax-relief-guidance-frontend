@@ -30,9 +30,12 @@ class CannotClaimMileageCostsViewSpec extends ViewBehaviours {
 
   def createView = view.apply(You)(fakeRequest, messages)
 
+  val buisnessMileageFuelCostsUrl = frontendAppConfig.buisnessMileageFuelCostsUrl
+
   "CannotClaimMileageCosts view" must {
     behave like normalPage(createView, messageKeyPrefix)
     behave like pageWithBackLink(createView)
+    behave like pageWithHyperLink(createView, buisnessMileageFuelCostsUrl)
   }
 
   application.stop

@@ -20,6 +20,7 @@ import controllers.routes
 import models.Claimant.You
 import views.behaviours.ViewBehaviours
 import views.html.RegisterForSelfAssessmentView
+import play.twirl.api.Html
 
 class RegisterForSelfAssessmentViewSpec extends ViewBehaviours {
 
@@ -34,9 +35,10 @@ class RegisterForSelfAssessmentViewSpec extends ViewBehaviours {
   def createView = view.apply(claimant, onwardRoute)(fakeRequest, messages)
 
   "RegisterForSelfAssessment view" must {
-    behave like normalPage(createView, messageKeyPrefix)
 
+    behave like normalPage(createView, messageKeyPrefix)
     behave like pageWithBackLink(createView)
+    behave like pageWithHyperLink(createView, frontendAppConfig.fileSelfAssessmentLoginUrl)
   }
 
   application.stop

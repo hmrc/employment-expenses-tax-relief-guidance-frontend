@@ -18,7 +18,8 @@
 @import components.back_link
 
 @this(
-  main_template: MainTemplate
+  main_template: MainTemplate,
+  appConfig: FrontendAppConfig
 )
 
 @(claimant: Claimant, otherExpensesCall: Call, uniformsWorkClothingToolsCall: Call)(implicit request: Request[_], messages: Messages)
@@ -34,7 +35,7 @@
     <p>
         @messages(s"cannotClaimBuyingEquipment.$claimant.guidance")
 
-        <a href="https://www.gov.uk/capital-allowances/annual-investment-allowance"
+        <a id="link" href=@appConfig.annualInvestmentAllowanceUrl
            data-journey-click="link - click:@messages(s"cannotClaimBuyingEquipment.$claimant.heading"):@messages("cannotClaimBuyingEquipment.link.label")">
             @messages("cannotClaimBuyingEquipment.link.label")</a>.
 

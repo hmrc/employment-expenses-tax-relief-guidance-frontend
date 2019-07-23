@@ -31,10 +31,12 @@ class NotEntitledViewSpec extends ViewBehaviours {
 
   def createView: HtmlFormat.Appendable = view.apply(claimant)(fakeRequest, messages)
 
+  val taxReliefForEmployeesUrl = frontendAppConfig.taxReliefForEmployeesUrl
+
   "NotEntitled view" must {
     behave like normalPage(createView, messageKeyPrefix)
-
     behave like pageWithBackLink(createView)
+    behave like pageWithHyperLink(createView, taxReliefForEmployeesUrl)
   }
 
   application.stop
