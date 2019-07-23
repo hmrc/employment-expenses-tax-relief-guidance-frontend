@@ -22,7 +22,7 @@ import forms.ClaimingMileageFormProvider
 import models.Claimant.You
 import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
-import views.html.claimingMileage
+import views.html.ClaimingMileageView
 
 class ClaimingMileageViewSpec extends YesNoViewBehaviours {
 
@@ -30,11 +30,11 @@ class ClaimingMileageViewSpec extends YesNoViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[claimingMileage]
+  val view = application.injector.instanceOf[ClaimingMileageView]
 
   val form = new ClaimingMileageFormProvider()(claimant)
 
-  def createView(form: Form[_]): HtmlFormat.Appendable = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]): HtmlFormat.Appendable = view.apply(form, claimant)(fakeRequest, messages)
 
   "ClaimingMileage view" must {
 

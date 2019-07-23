@@ -27,19 +27,18 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Navigator, UserAnswers}
-import views.html.moreThanFiveJobs
+import views.html.MoreThanFiveJobsView
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class MoreThanFiveJobsController @Inject()(
-                                            appConfig: FrontendAppConfig,
                                             dataCacheConnector: DataCacheConnector,
                                             navigator: Navigator,
                                             getData: DataRetrievalAction,
                                             requireData: DataRequiredAction,
                                             formProvider: MoreThanFiveJobsFormProvider,
                                             val controllerComponents: MessagesControllerComponents,
-                                            view: moreThanFiveJobs
+                                            view: MoreThanFiveJobsView
                                           )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
   val form: Form[Boolean] = formProvider()
@@ -50,14 +49,14 @@ class MoreThanFiveJobsController @Inject()(
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(view(appConfig, preparedForm))
+      Ok(view(preparedForm))
   }
 
   def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(appConfig, formWithErrors))),
+          Future.successful(BadRequest(view(formWithErrors))),
         value =>
           dataCacheConnector.save[Boolean](request.sessionId, MoreThanFiveJobsId, value).map(cacheMap =>
             Redirect(navigator.nextPage(MoreThanFiveJobsId)(new UserAnswers(cacheMap)))

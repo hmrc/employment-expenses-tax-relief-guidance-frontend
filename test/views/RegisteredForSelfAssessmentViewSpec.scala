@@ -22,7 +22,7 @@ import forms.RegisteredForSelfAssessmentFormProvider
 import models.Claimant.You
 import play.twirl.api.Html
 import views.behaviours.YesNoViewBehaviours
-import views.html.registeredForSelfAssessment
+import views.html.RegisteredForSelfAssessmentView
 
 class RegisteredForSelfAssessmentViewSpec extends YesNoViewBehaviours {
 
@@ -30,18 +30,16 @@ class RegisteredForSelfAssessmentViewSpec extends YesNoViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[registeredForSelfAssessment]
+  val view = application.injector.instanceOf[RegisteredForSelfAssessmentView]
 
   val form = new RegisteredForSelfAssessmentFormProvider()(claimant)
 
-  def createView(form: Form[_]): Html = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]): Html = view.apply(form, claimant)(fakeRequest, messages)
 
   "RegisteredForSelfAssessment view" must {
 
     behave like normalPage(createView(form), messageKeyPrefix)
-
     behave like yesNoPage(createView, messageKeyPrefix, routes.RegisteredForSelfAssessmentController.onSubmit().url)
-
     behave like pageWithBackLink(createView(form))
   }
 

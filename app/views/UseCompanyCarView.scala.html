@@ -17,33 +17,34 @@
 @import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
 @import controllers.routes._
-@import models.ClaimingFor
 @import components.back_link
 
 @this(
-  main_template: main_template,
-  formHelper: FormWithCSRF
+  main_template: MainTemplate,
+  formHelper: FormWithCSRF,
+  appConfig: FrontendAppConfig
 )
 
-@(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], claimant: Claimant, useOfOwnCar: UseOfOwnCar)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages(s"claimingFor.$claimant.title")
+    title = messages(s"useCompanyCar.$claimant.$useOfOwnCar.title")
 ) {
 
     @back_link()
 
-    @formHelper(action = ClaimingForController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = UseCompanyCarController.onSubmit(), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-        @components.heading(s"claimingFor.$claimant.heading")
+        @components.heading(s"useCompanyCar.$claimant.$useOfOwnCar.heading")
 
-        @components.input_checkboxes(
+        <p>@messages("useCompanyCar.guidance")</p>
+
+        @components.input_yes_no(
             field = form("value"),
-            legend = messages(s"claimingFor.$claimant.heading"),
-            legendClass = Some("visually-hidden"),
-            inputs = ClaimingFor.options(claimant)
+            label = messages(s"useCompanyCar.$claimant.$useOfOwnCar.heading"),
+            labelClass = Some("visually-hidden")
         )
 
         @components.submit_button()

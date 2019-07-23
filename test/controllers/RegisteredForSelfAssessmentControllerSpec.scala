@@ -31,7 +31,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.registeredForSelfAssessment
+import views.html.RegisteredForSelfAssessmentView
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -58,10 +58,10 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase with MockitoSug
       val application = applicationBuilder(Some(claimantIdCacheMap)).build
       val request = FakeRequest(GET, registeredForSelfAssessmentRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[registeredForSelfAssessment]
+      val view = application.injector.instanceOf[RegisteredForSelfAssessmentView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form, claimant)(fakeRequest, messages).toString
 
       application.stop
 
@@ -72,9 +72,9 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase with MockitoSug
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
       val request = FakeRequest(GET, registeredForSelfAssessmentRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[registeredForSelfAssessment]
+      val view = application.injector.instanceOf[RegisteredForSelfAssessmentView]
 
-      contentAsString(result) mustEqual view(frontendAppConfig, form.fill(true), claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustEqual view(form.fill(true), claimant)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -101,10 +101,10 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase with MockitoSug
       val request = FakeRequest(POST, registeredForSelfAssessmentRoute)
         .withFormUrlEncodedBody("value" -> "invalid value")
       val result = route(application, request).value
-      val view = application.injector.instanceOf[registeredForSelfAssessment]
+      val view = application.injector.instanceOf[RegisteredForSelfAssessmentView]
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe view(frontendAppConfig, boundForm, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(boundForm, claimant)(fakeRequest, messages).toString
 
       application.stop
     }

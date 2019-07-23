@@ -24,21 +24,20 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.Navigator
-import views.html.cannotClaimReliefSomeYears
+import views.html.CannotClaimReliefSomeYearsView
 
 class CannotClaimReliefSomeYearsController @Inject()(
-                                                      appConfig: FrontendAppConfig,
                                                       navigator: Navigator,
                                                       getData: DataRetrievalAction,
                                                       requireData: DataRequiredAction,
                                                       getClaimant: GetClaimantAction,
                                                       val controllerComponents: MessagesControllerComponents,
-                                                      view: cannotClaimReliefSomeYears
+                                                      view: CannotClaimReliefSomeYearsView
                                                     ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
       val nextPage = navigator.nextPage(CannotClaimReliefSomeYearsId)(request.userAnswers)
-      Ok(view(appConfig, request.claimant, nextPage))
+      Ok(view(request.claimant, nextPage))
   }
 }

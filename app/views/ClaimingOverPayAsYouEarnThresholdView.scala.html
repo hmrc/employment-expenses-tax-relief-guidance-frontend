@@ -20,27 +20,28 @@
 @import components.back_link
 
 @this(
-  main_template: main_template,
-  formHelper: FormWithCSRF
+  main_template: MainTemplate,
+  formHelper: FormWithCSRF,
+  appConfig: FrontendAppConfig
 )
 
-@(appConfig: FrontendAppConfig, form: Form[_])(implicit request: Request[_], messages: Messages)
+@(form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-  title = messages("moreThanFiveJobs.title")
+    title = messages(s"claimingOverPayAsYouEarnThreshold.$claimant.title")
 ) {
 
     @back_link()
 
-    @formHelper(action = MoreThanFiveJobsController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = ClaimingOverPayAsYouEarnThresholdController.onSubmit(), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-        @components.heading("moreThanFiveJobs.heading")
+        @components.heading(s"claimingOverPayAsYouEarnThreshold.$claimant.heading")
 
         @components.input_yes_no(
             field = form("value"),
-            label = messages("moreThanFiveJobs.heading"),
+            label = messages(s"claimingOverPayAsYouEarnThreshold.$claimant.heading"),
             labelClass = Some("visually-hidden")
         )
 

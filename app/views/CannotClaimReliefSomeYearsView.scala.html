@@ -18,18 +18,23 @@
 @import components.back_link
 
 @this(
-  main_template: main_template
+  main_template: MainTemplate,
+  appConfig: FrontendAppConfig
 )
 
-@(appConfig: FrontendAppConfig, claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
+@(claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
+
+@year = {@appConfig.earliestTaxYear}
 
 @main_template(
-    title = messages(s"notEntitledSomeYears.$claimant.title")
+    title = messages(s"cannotClaimReliefSomeYears.$claimant.title", year)
 ) {
 
     @back_link()
 
-    @components.heading(s"notEntitledSomeYears.$claimant.heading")
+    @components.heading(messages(s"cannotClaimReliefSomeYears.$claimant.heading", year))
 
-    @components.button_link(s"notEntitledSomeYears.$claimant.link.label", nextPage.url, Some("claim"))
+    <p>@messages(s"cannotClaimReliefSomeYears.$claimant.guidance")</p>
+
+    @components.button_link(messages("cannotClaimReliefSomeYears.link.label", year), nextPage.url, Some("claim"))
 }

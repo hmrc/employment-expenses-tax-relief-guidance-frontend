@@ -23,19 +23,18 @@ import models.requests.ClaimantRequest
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import views.html.useSelfAssessment
+import views.html.UseSelfAssessmentView
 
 class UseSelfAssessmentController @Inject()(
-                                             appConfig: FrontendAppConfig,
                                              getData: DataRetrievalAction,
                                              requireData: DataRequiredAction,
                                              getClaimant: GetClaimantAction,
                                              override val controllerComponents: MessagesControllerComponents,
-                                             view: useSelfAssessment
+                                             view: UseSelfAssessmentView
                                            ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
     implicit request =>
-      Ok(view(appConfig, request.claimant))
+      Ok(view(request.claimant))
   }
 }

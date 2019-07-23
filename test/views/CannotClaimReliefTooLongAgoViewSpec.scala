@@ -18,7 +18,7 @@ package views
 
 import uk.gov.hmrc.time.TaxYear
 import views.behaviours.ViewBehaviours
-import views.html.cannotClaimReliefTooLongAgo
+import views.html.CannotClaimReliefTooLongAgoView
 
 class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
 
@@ -29,13 +29,16 @@ class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
   val messageKeyPrefix = s"cannotClaimReliefTooLongAgo.$claimant"
 
   val application = applicationBuilder().build
-  val view = application.injector.instanceOf[cannotClaimReliefTooLongAgo]
+  val view = application.injector.instanceOf[CannotClaimReliefTooLongAgoView]
 
-  def createView = view.apply(frontendAppConfig, claimant, startYear, endYear)(fakeRequest, messages)
+  def createView = view.apply(claimant, startYear, endYear)(fakeRequest, messages)
+
+  val taxReliefForEmployeesUrl = frontendAppConfig.taxReliefForEmployeesUrl
 
   "CannotClaimReliefTooLongAgo view" must {
 
     behave like pageWithBackLink(createView)
+    behave like pageWithHyperLink(createView, taxReliefForEmployeesUrl)
 
     "have the correct banner title" in {
       val doc = asDocument(createView)

@@ -20,38 +20,35 @@
 @import components.back_link
 
 @this(
-  main_template: main_template,
-  formHelper: FormWithCSRF
-)
+  main_template: MainTemplate,
+  formHelper: FormWithCSRF,
+  appConfig: FrontendAppConfig
+ )
 
-@(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
-
-@startTag = {
-  <a
-    href="https://www.gov.uk/self-assessment-tax-returns/who-must-send-a-tax-return"
-    data-journey-click="link - click:@messages(s"registeredForSelfAssessment.$claimant.heading"):@messages("registeredForSelfAssessment.hidden.guidance3")"
-    target="_blank">
-}
-
-@endTag = {
-  </a>
-}
+@(form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages(s"registeredForSelfAssessment.$claimant.title")
+    title = messages(s"claimingFuel.$claimant.title")
 ) {
 
     @back_link()
 
-    @formHelper(action = RegisteredForSelfAssessmentController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = ClaimingFuelController.onSubmit(), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
 
-        @components.heading(s"registeredForSelfAssessment.$claimant.heading")
+        @components.heading(s"claimingFuel.$claimant.heading")
+
+        <p>@messages(s"claimingFuel.$claimant.guidance")</p>
+
+        <ul class="list list-bullet">
+            <li>@messages(s"claimingFuel.$claimant.bullet1")</li>
+            <li>@messages(s"claimingFuel.$claimant.bullet2")</li>
+        </ul>
 
         @components.input_yes_no(
             field = form("value"),
-            label = messages(s"registeredForSelfAssessment.$claimant.heading"),
+            label = messages(s"claimingFuel.$claimant.heading"),
             labelClass = Some("visually-hidden")
         )
 

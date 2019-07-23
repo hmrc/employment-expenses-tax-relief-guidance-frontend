@@ -29,7 +29,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.claimant
+import views.html.ClaimantView
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -59,12 +59,12 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
 
       val result = route(application, request).value
 
-      val view = application.injector.instanceOf[claimant]
+      val view = application.injector.instanceOf[ClaimantView]
 
       status(result) mustEqual OK
 
       contentAsString(result) mustEqual
-        view(frontendAppConfig, form)(fakeRequest, messages).toString
+        view(form)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -78,12 +78,12 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
 
       val result = route(application, request).value
 
-      val view = application.injector.instanceOf[claimant]
+      val view = application.injector.instanceOf[ClaimantView]
 
       status(result) mustEqual OK
 
       contentAsString(result) mustEqual
-        view(frontendAppConfig, form.fill(claimant))(fakeRequest, messages).toString
+        view(form.fill(claimant))(fakeRequest, messages).toString
 
       application.stop
     }
@@ -109,7 +109,7 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
 
     "return a Bad Request and errors when invalid data is submitted" in {
       val application = applicationBuilder(Some(claimantIdCacheMap)).build
-      val view = application.injector.instanceOf[claimant]
+      val view = application.injector.instanceOf[ClaimantView]
       val request = FakeRequest(POST, claimantRoute.url)
         .withFormUrlEncodedBody(("value", "invalid value"))
       val result = route(application, request).value
@@ -117,7 +117,7 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe
-        view.apply(frontendAppConfig, boundForm)(fakeRequest, messages).toString
+        view.apply(boundForm)(fakeRequest, messages).toString
 
       application.stop
     }

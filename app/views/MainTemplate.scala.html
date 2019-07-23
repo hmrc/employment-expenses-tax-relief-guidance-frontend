@@ -18,7 +18,7 @@
 
 @this(
     appConfig: FrontendAppConfig,
-    govuk_wrapper: govukWrapper,
+    govuk_wrapper: GovukWrapper,
     article: Article,
     sidebar: Sidebar,
     serviceInfo: ServiceInfo
@@ -31,7 +31,7 @@
   mainClass: Option[String] = None,
   scriptElem: Option[Html] = None)(mainContent: Html)(implicit request : Request[_], messages: Messages)
 
-@import uk.gov.hmrc.play.views.html.layouts
+
 
 @serviceInfoContent = {
     @serviceInfo(
@@ -51,8 +51,7 @@
     title + " – " + messages("site.service_name") + " – " + messages("site.gov.uk")
 }
 
-@govuk_wrapper(appConfig = appConfig,
-               title = expandedTitle,
+@govuk_wrapper(title = expandedTitle,
                mainClass = mainClass,
                bodyClasses = bodyClasses,
                sidebar = sidebarContent,

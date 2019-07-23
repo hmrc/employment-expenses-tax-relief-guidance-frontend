@@ -20,14 +20,11 @@
 @import controllers.routes._
 
 @this(
-  main_template: main_template
+  main_template: MainTemplate,
+  appConfig: FrontendAppConfig
 )
 
-@(
-        appConfig: FrontendAppConfig,
-        claimant: Claimant,
-        nextPage: Call
-)(implicit request: Request[_], messages: Messages)
+@(claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
 
 @link1 = {<a href="@appConfig.taxReliefForEmployeesUrl">@messages(s"willNotPayTax.$claimant.link1")</a>}
 

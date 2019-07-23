@@ -20,7 +20,7 @@ import play.api.data.Form
 import forms.ClaimantFormProvider
 import models.Claimant
 import views.behaviours.ViewBehaviours
-import views.html.claimant
+import views.html.ClaimantView
 
 class ClaimantViewSpec extends ViewBehaviours {
 
@@ -28,11 +28,11 @@ class ClaimantViewSpec extends ViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[claimant]
+  val view = application.injector.instanceOf[ClaimantView]
 
   val form = new ClaimantFormProvider()()
 
-  def createView(form: Form[_]) = view.apply(frontendAppConfig, form)(fakeRequest, messages)
+  def createView(form: Form[_]) = view.apply(form)(fakeRequest, messages)
 
   "Claimant view" must {
     behave like normalPage(createView(form), messageKeyPrefix)

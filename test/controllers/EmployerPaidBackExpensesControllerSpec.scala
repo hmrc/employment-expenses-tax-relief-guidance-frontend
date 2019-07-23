@@ -31,7 +31,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.employerPaidBackExpenses
+import views.html.EmployerPaidBackExpensesView
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -58,10 +58,10 @@ class EmployerPaidBackExpensesControllerSpec extends SpecBase with MockitoSugar 
       val application = applicationBuilder(Some(claimantIdCacheMap)).build
       val request = FakeRequest(GET, employerPaidBackExpensesRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[employerPaidBackExpenses]
+      val view = application.injector.instanceOf[EmployerPaidBackExpensesView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form, claimant)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -74,9 +74,9 @@ class EmployerPaidBackExpensesControllerSpec extends SpecBase with MockitoSugar 
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
       val request = FakeRequest(GET, employerPaidBackExpensesRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[employerPaidBackExpenses]
+      val view = application.injector.instanceOf[EmployerPaidBackExpensesView]
 
-      contentAsString(result) mustEqual view(frontendAppConfig, form.fill(true), claimant)(fakeRequest, messages).toString()
+      contentAsString(result) mustEqual view(form.fill(true), claimant)(fakeRequest, messages).toString()
 
       application.stop
     }
@@ -102,10 +102,10 @@ class EmployerPaidBackExpensesControllerSpec extends SpecBase with MockitoSugar 
       val boundForm = form.bind(Map("value" -> "invalid value"))
       val request = FakeRequest(POST, employerPaidBackExpensesRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[employerPaidBackExpenses]
+      val view = application.injector.instanceOf[EmployerPaidBackExpensesView]
 
       status(result) mustEqual BAD_REQUEST
-      contentAsString(result) mustEqual view(frontendAppConfig, boundForm, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustEqual view(boundForm, claimant)(fakeRequest, messages).toString
 
       application.stop
     }

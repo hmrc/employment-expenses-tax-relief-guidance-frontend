@@ -22,7 +22,7 @@ import forms.UseCompanyCarFormProvider
 import models.Claimant.You
 import models.UsingOwnCar
 import views.behaviours.YesNoViewBehaviours
-import views.html.useCompanyCar
+import views.html.UseCompanyCarView
 
 class UseCompanyCarViewSpec extends YesNoViewBehaviours {
 
@@ -32,11 +32,11 @@ class UseCompanyCarViewSpec extends YesNoViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[useCompanyCar]
+  val view = application.injector.instanceOf[UseCompanyCarView]
 
   val form = new UseCompanyCarFormProvider()(claimant, useOfOwnCar)
 
-  def createView(form: Form[_]) = view.apply(frontendAppConfig, form, You, useOfOwnCar)(fakeRequest, messages)
+  def createView(form: Form[_]) = view.apply(form, You, useOfOwnCar)(fakeRequest, messages)
 
   "UseCompanyCar view" must {
 

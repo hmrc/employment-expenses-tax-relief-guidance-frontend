@@ -20,7 +20,7 @@ import base.SpecBase
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.FakeNavigator
-import views.html.session_expired
+import views.html.SessionExpiredView
 
 class SessionExpiredControllerSpec extends SpecBase {
 
@@ -33,11 +33,11 @@ class SessionExpiredControllerSpec extends SpecBase {
       val application = applicationBuilder().build()
       val request = FakeRequest(GET, routes.SessionExpiredController.onPageLoad().url)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[session_expired]
+      val view = application.injector.instanceOf[SessionExpiredView]
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual
-        view(frontendAppConfig, fakeNavigataor.firstPage)(fakeRequest, messages).toString
+        view(fakeNavigataor.firstPage)(fakeRequest, messages).toString
 
       application.stop
     }

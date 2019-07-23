@@ -17,7 +17,7 @@
 package views
 
 import views.behaviours.ViewBehaviours
-import views.html.usePrintAndPost
+import views.html.UsePrintAndPostView
 
 class UsePrintAndPostViewSpec extends ViewBehaviours {
 
@@ -25,9 +25,9 @@ class UsePrintAndPostViewSpec extends ViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[usePrintAndPost]
+  val view = application.injector.instanceOf[UsePrintAndPostView]
 
-  def createView = view.apply(frontendAppConfig)(fakeRequest, messages)
+  def createView = view.apply()(fakeRequest, messages)
 
   "UsePrintAndPost view" must {
     behave like normalPage(createView, messageKeyPrefix)

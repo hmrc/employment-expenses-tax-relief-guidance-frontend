@@ -19,7 +19,7 @@ package controllers
 import base.SpecBase
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import views.html.useSelfAssessment
+import views.html.UseSelfAssessmentView
 
 class UseSelfAssessmentControllerSpec extends SpecBase {
 
@@ -32,10 +32,10 @@ class UseSelfAssessmentControllerSpec extends SpecBase {
       val application = applicationBuilder(Some(claimantIdCacheMap)).build
       val request = FakeRequest(GET, useSelfAssessmentRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[useSelfAssessment]
+      val view = application.injector.instanceOf[UseSelfAssessmentView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(frontendAppConfig, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(claimant)(fakeRequest, messages).toString
 
       application.stop
     }

@@ -18,22 +18,22 @@
 @import components.back_link
 
 @this(
-  main_template: main_template
+  main_template: MainTemplate,
+  appConfig: FrontendAppConfig
 )
 
-@(appConfig: FrontendAppConfig)(implicit request: Request[_], messages: Messages)
+@(claimant: Claimant)(implicit request: Request[_], messages: Messages)
+
+
+@link = {<a id="link" href="@appConfig.selfAssessmentTaxReturnsUrl">@messages("useSelfAssessment.link.label")</a>}
 
 @main_template(
-    title = messages("usePrintAndPost.title")
+  title = messages(s"useSelfAssessment.$claimant.title")
 ) {
 
-    @back_link()
+  @back_link()
 
-    @components.heading("usePrintAndPost.heading")    
+  @components.heading(s"useSelfAssessment.$claimant.heading")
 
-    @components.button_link(
-        "usePrintAndPost.link.label",
-        "https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87#claim-by-post",
-        gaEvent = Some("link - click:" + messages(s"usePrintAndPost.heading") + ":" + messages("usePrintAndPost.link.label"))
-    )
+  <p>@Html(messages(s"useSelfAssessment.$claimant.guidance", link))</p>
 }

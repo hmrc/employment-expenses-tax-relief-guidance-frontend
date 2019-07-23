@@ -30,7 +30,6 @@ import utils.{Enumerable, Navigator, UserAnswers}
 import scala.concurrent.ExecutionContext
 
 class ChangeUniformsWorkClothingToolsController @Inject()(
-                                                           appConfig: FrontendAppConfig,
                                                            dataCacheConnector: DataCacheConnector,
                                                            navigator: Navigator,
                                                            getData: DataRetrievalAction,

@@ -22,18 +22,17 @@ import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import views.html.usePrintAndPost
+import views.html.UsePrintAndPostView
 
 class UsePrintAndPostController @Inject()(
-                                           appConfig: FrontendAppConfig,
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            val controllerComponents: MessagesControllerComponents,
-                                           view: usePrintAndPost
+                                           view: UsePrintAndPostView
                                          ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData) {
     implicit request =>
-      Ok(view(appConfig))
+      Ok(view())
   }
 }

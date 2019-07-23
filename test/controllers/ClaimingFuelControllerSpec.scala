@@ -31,7 +31,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.claimingFuel
+import views.html.ClaimingFuelView
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -58,10 +58,10 @@ class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeA
       val application = applicationBuilder(Some(claimantIdCacheMap)).build
       val request = FakeRequest(GET, claimingFuelRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[claimingFuel]
+      val view = application.injector.instanceOf[ClaimingFuelView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form, claimant)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -76,11 +76,11 @@ class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeA
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
       val request = FakeRequest(GET, claimingFuelRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[claimingFuel]
+      val view = application.injector.instanceOf[ClaimingFuelView]
 
       status(result) mustBe OK
       contentAsString(result) mustBe
-        view(frontendAppConfig, form.fill(true), claimant)(fakeRequest, messages).toString
+        view(form.fill(true), claimant)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -111,10 +111,10 @@ class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeA
       val request = FakeRequest(POST, claimingFuelRoute)
         .withFormUrlEncodedBody(("value", "invalid value"))
       val result = route(application, request).value
-      val view = application.injector.instanceOf[claimingFuel]
+      val view = application.injector.instanceOf[ClaimingFuelView]
 
       status(result) mustEqual BAD_REQUEST
-      contentAsString(result) mustBe view(frontendAppConfig, boundForm, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(boundForm, claimant)(fakeRequest, messages).toString
 
       application.stop
     }

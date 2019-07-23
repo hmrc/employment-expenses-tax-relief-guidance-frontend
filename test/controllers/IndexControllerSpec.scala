@@ -25,7 +25,7 @@ class IndexControllerSpec extends SpecBase {
   "Index Controller" must {
     "return Moved Permanently (to Claimant) for a GET" in {
 
-      val result = new IndexController(frontendAppConfig, new Navigator, controllerComponents).onPageLoad()(fakeRequest)
+      val result = new IndexController(new Navigator, controllerComponents).onPageLoad()(fakeRequest)
 
       status(result) mustBe MOVED_PERMANENTLY
 

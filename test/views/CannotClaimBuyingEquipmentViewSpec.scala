@@ -19,7 +19,7 @@ package views
 import models.Claimant.You
 import play.api.mvc.Call
 import views.behaviours.ViewBehaviours
-import views.html.cannotClaimBuyingEquipment
+import views.html.CannotClaimBuyingEquipmentView
 
 class CannotClaimBuyingEquipmentViewSpec extends ViewBehaviours {
 
@@ -31,13 +31,16 @@ class CannotClaimBuyingEquipmentViewSpec extends ViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[cannotClaimBuyingEquipment]
+  val view = application.injector.instanceOf[CannotClaimBuyingEquipmentView]
 
-  def createView = view.apply(frontendAppConfig, You, changeOtherExpensesPage, changeUniformsWorkClothingToolsPage)(fakeRequest, messages)
+  def createView = view.apply(You, changeOtherExpensesPage, changeUniformsWorkClothingToolsPage)(fakeRequest, messages)
+
+  val annualInvestmentAllowanceUrl = frontendAppConfig.annualInvestmentAllowanceUrl
 
   "CannotClaimBuyingEquipment view" must {
     behave like normalPage(createView, messageKeyPrefix, "guidance", "guidance2")
     behave like pageWithBackLink(createView)
+    behave like pageWithHyperLink(createView, annualInvestmentAllowanceUrl)
   }
 
   application.stop

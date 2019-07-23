@@ -18,21 +18,25 @@
 @import components.back_link
 
 @this(
-  main_template: main_template
+  main_template: MainTemplate,
+  appConfig: FrontendAppConfig
 )
 
-@(appConfig: FrontendAppConfig, claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@(claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages(s"notEntitled.$claimant.title")
+    title = messages(s"registerForSelfAssessment.$claimant.title")
 ) {
 
     @back_link()
 
-    @components.heading(s"notEntitled.$claimant.heading")
+    @components.heading(s"registerForSelfAssessment.$claimant.heading")
 
-    <a href="https://www.gov.uk/tax-relief-for-employees"
-       data-journey-click="link - click:@messages(s"notEntitled.$claimant.heading"):@messages("notEntitled.link.label")">
-        @messages("notEntitled.link.label")
-    </a>
+    <p>@messages("registerForSelfAssessment.guidance1")</p>
+
+    <p>@messages("registerForSelfAssessment.guidance2")
+        <a id="link" href=@appConfig.fileSelfAssessmentLoginUrl
+           data-journey-click="link - click:@messages(s"registerForSelfAssessment.$claimant.heading"):@messages("registerForSelfAssessment.link.external.label")">
+            @messages("registerForSelfAssessment.link.external.label")</a>.
+    </p>
 }

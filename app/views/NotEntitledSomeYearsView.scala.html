@@ -18,21 +18,19 @@
 @import components.back_link
 
 @this(
-  main_template: main_template
+  main_template: MainTemplate,
+  appConfig: FrontendAppConfig
 )
 
-@(appConfig: FrontendAppConfig, claimant: Claimant)(implicit request: Request[_], messages: Messages)
-
-
-@link = {<a href="@appConfig.selfAssessmentTaxReturnsUrl">@messages("useSelfAssessment.link.label")</a>}
+@(claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-  title = messages(s"useSelfAssessment.$claimant.title")
+    title = messages(s"notEntitledSomeYears.$claimant.title")
 ) {
 
-  @back_link()
+    @back_link()
 
-  @components.heading(s"useSelfAssessment.$claimant.heading")
+    @components.heading(s"notEntitledSomeYears.$claimant.heading")
 
-  <p>@Html(messages(s"useSelfAssessment.$claimant.guidance", link))</p>
+    @components.button_link(s"notEntitledSomeYears.$claimant.link.label", nextPage.url, Some("claim"))
 }

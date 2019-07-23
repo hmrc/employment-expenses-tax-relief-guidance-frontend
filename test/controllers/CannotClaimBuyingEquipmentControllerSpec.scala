@@ -20,7 +20,7 @@ import base.SpecBase
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.FakeNavigator
-import views.html.cannotClaimBuyingEquipment
+import views.html.CannotClaimBuyingEquipmentView
 
 class CannotClaimBuyingEquipmentControllerSpec extends SpecBase {
 
@@ -36,13 +36,12 @@ class CannotClaimBuyingEquipmentControllerSpec extends SpecBase {
 
       val result = route(application, request).value
 
-      val view = application.injector.instanceOf[cannotClaimBuyingEquipment]
+      val view = application.injector.instanceOf[CannotClaimBuyingEquipmentView]
 
       status(result) mustEqual OK
 
       contentAsString(result) mustEqual
         view(
-          frontendAppConfig,
           claimant,
           fakeNavigator.changeOtherExpensesPage,
           fakeNavigator.changeUniformsWorkClothingToolsPage

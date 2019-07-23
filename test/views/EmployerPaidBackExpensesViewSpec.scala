@@ -22,7 +22,7 @@ import forms.EmployerPaidBackExpensesFormProvider
 import models.Claimant.You
 import play.twirl.api.Html
 import views.behaviours.YesNoViewBehaviours
-import views.html.employerPaidBackExpenses
+import views.html.EmployerPaidBackExpensesView
 
 class EmployerPaidBackExpensesViewSpec extends YesNoViewBehaviours {
 
@@ -30,11 +30,11 @@ class EmployerPaidBackExpensesViewSpec extends YesNoViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[employerPaidBackExpenses]
+  val view = application.injector.instanceOf[EmployerPaidBackExpensesView]
 
   val form = new EmployerPaidBackExpensesFormProvider()(claimant)
 
-  def createView(form: Form[_]): Html = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]): Html = view.apply(form, claimant)(fakeRequest, messages)
 
   "EmployerPaidBackExpenses view" must {
 

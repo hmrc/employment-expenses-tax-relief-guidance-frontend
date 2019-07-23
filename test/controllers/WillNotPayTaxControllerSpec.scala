@@ -21,7 +21,7 @@ import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.{FakeNavigator, Navigator}
-import views.html.willNotPayTax
+import views.html.WillNotPayTaxView
 
 class WillNotPayTaxControllerSpec extends SpecBase {
 
@@ -37,10 +37,10 @@ class WillNotPayTaxControllerSpec extends SpecBase {
         .build
       val request = FakeRequest(GET, willNotPayRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[willNotPayTax]
+      val view = application.injector.instanceOf[WillNotPayTaxView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(frontendAppConfig, claimant, onwardRoute)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(claimant, onwardRoute)(fakeRequest, messages).toString
 
       application.stop
     }

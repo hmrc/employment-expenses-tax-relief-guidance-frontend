@@ -18,7 +18,7 @@ package views
 
 import models.Claimant.You
 import views.behaviours.ViewBehaviours
-import views.html.useSelfAssessment
+import views.html.UseSelfAssessmentView
 
 class UseSelfAssessmentViewSpec extends ViewBehaviours {
 
@@ -26,9 +26,9 @@ class UseSelfAssessmentViewSpec extends ViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[useSelfAssessment]
+  val view = application.injector.instanceOf[UseSelfAssessmentView]
 
-  def createView = view.apply(frontendAppConfig, You)(fakeRequest, messages)
+  def createView = view.apply(You)(fakeRequest, messages)
 
   "UseSelfAssessment view" must {
 

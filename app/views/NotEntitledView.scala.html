@@ -15,35 +15,25 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html._
-@import controllers.routes._
 @import components.back_link
 
 @this(
-  main_template: main_template,
-  formHelper: FormWithCSRF
+  main_template: MainTemplate,
+  appConfig: FrontendAppConfig
 )
 
-@(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@(claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages(s"useOwnCar.$claimant.title")
+    title = messages(s"notEntitled.$claimant.title")
 ) {
 
     @back_link()
 
-    @formHelper(action = UseOwnCarController.onSubmit(), 'autoComplete -> "off") {
+    @components.heading(s"notEntitled.$claimant.heading")
 
-        @components.error_summary(form.errors)
-
-        @components.heading(s"useOwnCar.$claimant.heading")
-
-        @components.input_yes_no(
-            field = form("value"),
-            label = messages(s"useOwnCar.$claimant.heading"),
-            labelClass = Some("visually-hidden")
-        )
-
-        @components.submit_button()
-    }
+    <a id="link" href=@appConfig.taxReliefForEmployeesUrl
+       data-journey-click="link - click:@messages(s"notEntitled.$claimant.heading"):@messages("notEntitled.link.label")">
+        @messages("notEntitled.link.label")
+    </a>
 }

@@ -21,7 +21,7 @@ import controllers.routes
 import forms.ClaimingFuelFormProvider
 import models.Claimant.You
 import views.behaviours.YesNoViewBehaviours
-import views.html.claimingFuel
+import views.html.ClaimingFuelView
 
 class ClaimingFuelViewSpec extends YesNoViewBehaviours {
 
@@ -29,11 +29,11 @@ class ClaimingFuelViewSpec extends YesNoViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[claimingFuel]
+  val view = application.injector.instanceOf[ClaimingFuelView]
 
   val form = new ClaimingFuelFormProvider()(claimant)
 
-  def createView(form: Form[_]) = view.apply(frontendAppConfig, form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]) = view.apply(form, claimant)(fakeRequest, messages)
 
   "ClaimingFuel view" must {
 

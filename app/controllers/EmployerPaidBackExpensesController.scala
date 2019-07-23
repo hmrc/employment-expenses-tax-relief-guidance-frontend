@@ -27,12 +27,11 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Navigator, UserAnswers}
-import views.html.employerPaidBackExpenses
+import views.html.EmployerPaidBackExpensesView
 
 import scala.concurrent.{ExecutionContext, Future}
 
 class EmployerPaidBackExpensesController @Inject()(
-                                                    appConfig: FrontendAppConfig,
                                                     dataCacheConnector: DataCacheConnector,
                                                     navigator: Navigator,
                                                     getData: DataRetrievalAction,
@@ -40,7 +39,7 @@ class EmployerPaidBackExpensesController @Inject()(
                                                     getClaimant: GetClaimantAction,
                                                     formProvider: EmployerPaidBackExpensesFormProvider,
                                                     val controllerComponents: MessagesControllerComponents,
-                                                    view: employerPaidBackExpenses
+                                                    view: EmployerPaidBackExpensesView
                                                   )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
@@ -51,7 +50,7 @@ class EmployerPaidBackExpensesController @Inject()(
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(view(appConfig, preparedForm, request.claimant))
+      Ok(view(preparedForm, request.claimant))
   }
 
   def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
@@ -60,7 +59,7 @@ class EmployerPaidBackExpensesController @Inject()(
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(appConfig, formWithErrors, request.claimant))),
+          Future.successful(BadRequest(view(formWithErrors, request.claimant))),
         value =>
           dataCacheConnector.save[Boolean](request.sessionId, EmployerPaidBackExpensesId, value).map(cacheMap =>
             Redirect(navigator.nextPage(EmployerPaidBackExpensesId)(new UserAnswers(cacheMap)))

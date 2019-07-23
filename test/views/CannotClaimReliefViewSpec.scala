@@ -18,20 +18,23 @@ package views
 
 import models.Claimant.You
 import views.behaviours.ViewBehaviours
-import views.html.cannotClaimRelief
+import views.html.CannotClaimReliefView
 
 class CannotClaimReliefViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = s"cannotClaimRelief.$claimant"
 
   val application = applicationBuilder().build
-  val view = application.injector.instanceOf[cannotClaimRelief]
+  val view = application.injector.instanceOf[CannotClaimReliefView]
 
-  def createView = view.apply(frontendAppConfig, claimant)(fakeRequest, messages)
+  def createView = view.apply(claimant)(fakeRequest, messages)
+
+  val taxReliefForEmployeesUrl = frontendAppConfig.taxReliefForEmployeesUrl
 
   "CannotClaimRelief view" must {
     behave like normalPage(createView, messageKeyPrefix, "guidance")
     behave like pageWithBackLink(createView)
+    behave like pageWithHyperLink(createView, taxReliefForEmployeesUrl)
   }
 
   application.stop

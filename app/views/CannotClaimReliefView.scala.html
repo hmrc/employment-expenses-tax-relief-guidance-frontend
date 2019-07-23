@@ -18,22 +18,27 @@
 @import components.back_link
 
 @this(
-  main_template: main_template
+  main_template: MainTemplate,
+  appConfig: FrontendAppConfig
 )
 
-@(appConfig: FrontendAppConfig, claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
-
-@year = {@appConfig.earliestTaxYear}
+@(claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages(s"cannotClaimReliefSomeYears.$claimant.title", year)
+    title = messages(s"cannotClaimRelief.$claimant.title")
 ) {
 
     @back_link()
 
-    @components.heading(messages(s"cannotClaimReliefSomeYears.$claimant.heading", year))
+    @components.heading(s"cannotClaimRelief.$claimant.heading")
 
-    <p>@messages(s"cannotClaimReliefSomeYears.$claimant.guidance")</p>
+    <p>@messages(s"cannotClaimRelief.$claimant.guidance")</p>
 
-    @components.button_link(messages("cannotClaimReliefSomeYears.link.label", year), nextPage.url, Some("claim"))
+    <p>
+        <a id="link" href=@appConfig.taxReliefForEmployeesUrl
+           data-journey-click="link - click:@messages(s"cannotClaimRelief.$claimant.heading"):@messages("cannotClaimRelief.link.label")">
+            @messages("cannotClaimRelief.link.label")
+        </a>
+    </p>
+
 }

@@ -27,7 +27,7 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Navigator, UserAnswers}
-import views.html.paidTaxInRelevantYear
+import views.html.PaidTaxInRelevantYearView
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -40,7 +40,7 @@ class PaidTaxInRelevantYearController @Inject()(
                                                 getClaimant: GetClaimantAction,
                                                 formProvider: PaidTaxInRelevantYearFormProvider,
                                                 val controllerComponents: MessagesControllerComponents,
-                                                view: paidTaxInRelevantYear
+                                                view: PaidTaxInRelevantYearView
                                                )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
@@ -51,7 +51,7 @@ class PaidTaxInRelevantYearController @Inject()(
         case None => form
         case Some(value) => form.fill(value)
       }
-      Future.successful(Ok(view(appConfig, preparedForm, request.claimant)))
+      Future.successful(Ok(view(preparedForm, request.claimant)))
   }
 
   def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
@@ -60,7 +60,7 @@ class PaidTaxInRelevantYearController @Inject()(
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(appConfig, formWithErrors, request.claimant))),
+          Future.successful(BadRequest(view(formWithErrors, request.claimant))),
         value =>
           dataCacheConnector.save[Boolean](request.sessionId, PaidTaxInRelevantYearId, value).map(cacheMap =>
             Redirect(navigator.nextPage(PaidTaxInRelevantYearId)(new UserAnswers(cacheMap))))

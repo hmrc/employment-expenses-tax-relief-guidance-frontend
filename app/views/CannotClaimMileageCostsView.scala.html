@@ -18,10 +18,11 @@
 @import components.back_link
 
 @this(
-  main_template: main_template
+  main_template: MainTemplate,
+  appConfig: FrontendAppConfig
 )
 
-@(appConfig: FrontendAppConfig, claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@(claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
     title = messages(s"cannotClaimMileageCosts.$claimant.title")
@@ -33,7 +34,7 @@
 
     <p>@messages(s"cannotClaimMileageCosts.$claimant.guidance")</p>
 
-    <a href="https://www.gov.uk/tax-relief-for-employees/business-mileage-fuel-costs"
+    <a id="link" href=@appConfig.buisnessMileageFuelCostsUrl
        data-journey-click="link - click:@messages(s"cannotClaimMileageCosts.$claimant.heading"):@messages("cannotClaimMileageCosts.link.label")">
         @messages("cannotClaimMileageCosts.link.label")
     </a>

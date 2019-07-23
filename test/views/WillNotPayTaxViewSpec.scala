@@ -21,7 +21,7 @@ import models.Claimant.You
 import play.twirl.api.Html
 import uk.gov.hmrc.time.TaxYear
 import views.behaviours.ViewBehaviours
-import views.html.willNotPayTax
+import views.html.WillNotPayTaxView
 
 class WillNotPayTaxViewSpec extends ViewBehaviours {
 
@@ -29,11 +29,11 @@ class WillNotPayTaxViewSpec extends ViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[willNotPayTax]
+  val view = application.injector.instanceOf[WillNotPayTaxView]
 
   def onwardRoute = routes.IndexController.onPageLoad
 
-  def createView= view.apply(frontendAppConfig, You, onwardRoute)(fakeRequest, messages)
+  def createView = view.apply(You, onwardRoute)(fakeRequest, messages)
 
   application.stop
 

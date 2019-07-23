@@ -18,7 +18,7 @@ package views
 
 import models.Claimant.You
 import views.behaviours.ViewBehaviours
-import views.html.cannotClaimMileageFuelCosts
+import views.html.CannotClaimMileageFuelCostsView
 
 class CannotClaimMileageFuelCostsViewSpec extends ViewBehaviours {
 
@@ -26,13 +26,16 @@ class CannotClaimMileageFuelCostsViewSpec extends ViewBehaviours {
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[cannotClaimMileageFuelCosts]
+  val view = application.injector.instanceOf[CannotClaimMileageFuelCostsView]
 
-  def createView = view.apply(frontendAppConfig, You)(fakeRequest, messages)
+  def createView = view.apply(You)(fakeRequest, messages)
+
+  val buisnessMileageFuelCostsUrl = frontendAppConfig.buisnessMileageFuelCostsUrl
 
   "CannotClaimMileageFuelCosts view" must {
     behave like normalPage(createView, messageKeyPrefix)
     behave like pageWithBackLink(createView)
+    behave like pageWithHyperLink(createView, buisnessMileageFuelCostsUrl)
   }
 
   application.stop

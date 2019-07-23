@@ -31,7 +31,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.useOwnCar
+import views.html.UseOwnCarView
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -58,10 +58,10 @@ class UseOwnCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndA
       val application = applicationBuilder(Some(claimantIdCacheMap)).build
       val request = FakeRequest(GET, useOwnCarRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[useOwnCar]
+      val view = application.injector.instanceOf[UseOwnCarView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(frontendAppConfig, form, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form, claimant)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -75,9 +75,9 @@ class UseOwnCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndA
       val application = applicationBuilder(Some(validCacheMap)).build
       val request = FakeRequest(GET, useOwnCarRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[useOwnCar]
+      val view = application.injector.instanceOf[UseOwnCarView]
 
-      contentAsString(result) mustBe view(frontendAppConfig, form.fill(true), claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form.fill(true), claimant)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -107,9 +107,9 @@ class UseOwnCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndA
         .withFormUrlEncodedBody(("value", "invalid data"))
       val boundForm = form.bind(Map("value" -> "invalid value"))
       val result = route(application, request).value
-      val view = application.injector.instanceOf[useOwnCar]
+      val view = application.injector.instanceOf[UseOwnCarView]
 
-      contentAsString(result) mustBe view(frontendAppConfig, boundForm, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(boundForm, claimant)(fakeRequest, messages).toString
 
       application.stop
     }

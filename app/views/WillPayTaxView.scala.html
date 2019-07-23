@@ -20,29 +20,27 @@
 @import components.back_link
 
 @this(
-  main_template: main_template,
-  formHelper: FormWithCSRF
+  main_template: MainTemplate,
+  formHelper: FormWithCSRF,
+  appConfig: FrontendAppConfig
 )
 
-@(appConfig: FrontendAppConfig, form: Form[_], claimant: Claimant, useOfOwnCar: UseOfOwnCar)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages(s"useCompanyCar.$claimant.$useOfOwnCar.title")
+    title = messages(s"willPayTax.$claimant.title")
 ) {
 
     @back_link()
 
-    @formHelper(action = UseCompanyCarController.onSubmit(), 'autoComplete -> "off") {
-
+    @formHelper(action = WillPayTaxController.onSubmit(), 'autoComplete -> "off") {
         @components.error_summary(form.errors)
 
-        @components.heading(s"useCompanyCar.$claimant.$useOfOwnCar.heading")
-
-        <p>@messages("useCompanyCar.guidance")</p>
+        @components.heading(messages(s"willPayTax.$claimant.heading"))
 
         @components.input_yes_no(
             field = form("value"),
-            label = messages(s"useCompanyCar.$claimant.$useOfOwnCar.heading"),
+            label = messages(s"willPayTax.$claimant.heading"),
             labelClass = Some("visually-hidden")
         )
 
