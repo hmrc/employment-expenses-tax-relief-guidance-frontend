@@ -49,11 +49,15 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
   val formProvider = new ClaimantFormProvider()
   val form = formProvider()
 
+  implicit lazy val materializer = app.materializer
+
   "Claimant Controller" must {
 
     "return OK and the correct view for a GET" in {
 
       val application = applicationBuilder().build()
+
+      implicit lazy val materializer = application.materializer
 
       val request = FakeRequest(GET, claimantRoute.url)
 
