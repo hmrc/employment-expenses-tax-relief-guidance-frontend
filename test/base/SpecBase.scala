@@ -17,7 +17,6 @@
 package base
 
 import config.FrontendAppConfig
-import connectors.{DataCacheConnector, DataCacheConnectorImpl}
 import controllers.actions._
 import controllers.routes
 import identifiers.ClaimantId
@@ -29,7 +28,7 @@ import play.api.i18n.{Messages, MessagesApi}
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.inject.{Injector, bind}
 import play.api.libs.json.JsString
-import play.api.mvc.MessagesControllerComponents
+import play.api.mvc.{AnyContentAsEmpty, MessagesControllerComponents}
 import play.api.test.FakeRequest
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.UserAnswers
@@ -45,25 +44,26 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
 
   def controllerComponents: MessagesControllerComponents = injector.instanceOf[MessagesControllerComponents]
 
-  def fakeRequest = FakeRequest("", "")
+  def fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
 
-  def sessionExpiredUrl = routes.SessionExpiredController.onPageLoad().url
+  def sessionExpiredUrl: String = routes.SessionExpiredController.onPageLoad().url
 
   val cacheMapId = "id"
 
-  val claimant = You
+  val claimant: Claimant.You.type = You
 
   def claimantIdCacheMap = CacheMap(cacheMapId, Map(ClaimantId.toString -> JsString(claimant.toString)))
 
   def emptyUserAnswers = new UserAnswers(claimantIdCacheMap)
 
-  def getclaimantIdCacheMap = new FakeDataRetrievalAction(Some(claimantIdCacheMap))
+  def getclaimantIdCacheMap = new FakeDataRetrievalAction(Some(claimantIdCacheMap), controllerComponents)
 
-  def dontGetAnyData = new FakeDataRetrievalAction(None)
+  def dontGetAnyData = new FakeDataRetrievalAction(None, controllerComponents)
 
   def getCacheMapWithClaimant(claimant: Claimant) =
     new FakeDataRetrievalAction(
-      Some(CacheMap(cacheMapId, Map(ClaimantId.toString -> JsString(claimant.toString))))
+      Some(CacheMap(cacheMapId, Map(ClaimantId.toString -> JsString(claimant.toString)))),
+      controllerComponents
     )
   implicit def messages: Messages = messagesApi.preferred(fakeRequest)
 
@@ -71,7 +71,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
     new GuiceApplicationBuilder()
       .overrides(
         bind[DataRequiredAction].to[DataRequiredActionImpl],
-        bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(cacheMap)),
+        bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(cacheMap, controllerComponents)),
         bind[GetClaimantAction].to[GetClaimantActionImpl]
       )
 }

@@ -31,7 +31,7 @@ class UsePrintAndPostController @Inject()(
                                            view: UsePrintAndPostView
                                          ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
       Ok(view())
   }

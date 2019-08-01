@@ -42,7 +42,7 @@ class ClaimingMileageController @Inject()(
                                            view: ClaimingMileageView
                                          )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
     implicit request =>
 
       val form: Form[Boolean] = formProvider(request.claimant)
@@ -54,7 +54,7 @@ class ClaimingMileageController @Inject()(
       Ok(view(preparedForm, request.claimant))
   }
 
-  def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
+  def onSubmit: Action[AnyContent] = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
 
       val form: Form[Boolean] = formProvider(request.claimant)

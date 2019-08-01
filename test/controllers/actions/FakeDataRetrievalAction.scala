@@ -16,17 +16,17 @@
 
 package controllers.actions
 
+import javax.inject.Inject
 import models.requests.OptionalDataRequest
-import play.api.mvc.{AnyContent, BodyParser, Request}
+import play.api.mvc.{AnyContent, BodyParser, MessagesControllerComponents, PlayBodyParsers, Request}
 import play.api.test.Helpers
 import uk.gov.hmrc.http.cache.client.CacheMap
-
 import utils.UserAnswers
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
-class FakeDataRetrievalAction(cacheMapToReturn: Option[CacheMap]) extends DataRetrievalAction {
+class FakeDataRetrievalAction @Inject()(cacheMapToReturn: Option[CacheMap], mcc: MessagesControllerComponents) extends DataRetrievalAction {
   override protected def transform[A](request: Request[A]): Future[OptionalDataRequest[A]] =
     cacheMapToReturn match {
       case None => Future(OptionalDataRequest(request, "id", None))
@@ -36,6 +36,6 @@ class FakeDataRetrievalAction(cacheMapToReturn: Option[CacheMap]) extends DataRe
   override protected implicit val executionContext: ExecutionContext =
     scala.concurrent.ExecutionContext.Implicits.global
 
-  override def parser: BodyParser[AnyContent] = Helpers.
-    Helpers.stubBodyParser[AnyContent]()
+
+  override def parser: BodyParser[AnyContent] = mcc.parsers.anyContent//Helpers.stubBodyParser[AnyContent]()
 }

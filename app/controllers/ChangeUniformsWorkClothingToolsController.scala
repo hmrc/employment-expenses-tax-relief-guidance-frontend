@@ -37,7 +37,7 @@ class ChangeUniformsWorkClothingToolsController @Inject()(
                                                            val controllerComponents: MessagesControllerComponents
                                                          )(implicit ec: ExecutionContext)extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
 
-  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData).async {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData).async {
     implicit request =>
 
       dataCacheConnector.save[Set[ClaimingFor]](request.sessionId, ClaimingForId, Set(ClaimingFor.UniformsClothingTools)).map(cacheMap =>

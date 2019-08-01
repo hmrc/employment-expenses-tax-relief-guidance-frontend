@@ -43,7 +43,7 @@ class MoreThanFiveJobsController @Inject()(
 
   val form: Form[Boolean] = formProvider()
 
-  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
       val preparedForm = request.userAnswers.moreThanFiveJobs match {
         case None => form
@@ -52,7 +52,7 @@ class MoreThanFiveJobsController @Inject()(
       Ok(view(preparedForm))
   }
 
-  def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData).async {
+  def onSubmit: Action[AnyContent] = (getData andThen requireData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>

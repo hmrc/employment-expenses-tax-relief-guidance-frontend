@@ -16,7 +16,6 @@
 
 package controllers
 
-import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.RegisteredForSelfAssessmentFormProvider
@@ -42,7 +41,7 @@ class RegisteredForSelfAssessmentController @Inject()(
                                                        view: RegisteredForSelfAssessmentView
                                                      )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
     implicit request =>
       val form: Form[Boolean] = formProvider(request.claimant)
       val preparedForm = request.userAnswers.registeredForSelfAssessment match {
@@ -52,7 +51,7 @@ class RegisteredForSelfAssessmentController @Inject()(
       Ok(view(preparedForm, request.claimant))
   }
 
-  def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
+  def onSubmit: Action[AnyContent] = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
       val form: Form[Boolean] = formProvider(request.claimant)
 

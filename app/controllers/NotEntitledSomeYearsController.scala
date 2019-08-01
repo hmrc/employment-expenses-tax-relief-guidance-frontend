@@ -35,7 +35,7 @@ class NotEntitledSomeYearsController @Inject()(
                                                 view: NotEntitledSomeYearsView
                                               ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
     implicit request =>
       val nextPage = navigator.nextPage(NotEntitledSomeYearsId)(request.userAnswers)
       Ok(view(request.claimant, nextPage))

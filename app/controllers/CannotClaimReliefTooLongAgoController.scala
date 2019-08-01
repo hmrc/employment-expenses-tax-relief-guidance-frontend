@@ -33,7 +33,7 @@ class CannotClaimReliefTooLongAgoController @Inject()(
                                                        view: CannotClaimReliefTooLongAgoView
                                                      ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
     implicit request =>
       val startYear = TaxYear.current.startYear.toString
       val endYear = TaxYear.current.finishYear.toString
