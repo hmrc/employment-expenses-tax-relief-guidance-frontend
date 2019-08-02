@@ -43,7 +43,7 @@ class ClaimingForController @Inject()(
                                         view: ClaimingForView
                                      )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
 
-  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
     implicit request =>
       val form = formProvider(request.claimant)
 
@@ -54,7 +54,7 @@ class ClaimingForController @Inject()(
       Ok(view(preparedForm, request.claimant))
   }
 
-  def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
+  def onSubmit: Action[AnyContent] = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
       val form = formProvider(request.claimant)
 

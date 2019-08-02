@@ -44,7 +44,7 @@ class UseCompanyCarController @Inject()(
                                          view: UseCompanyCarView
                                        )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
 
       getUseOfOwnCar {
@@ -60,7 +60,7 @@ class UseCompanyCarController @Inject()(
       }
   }
 
-  def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
+  def onSubmit: Action[AnyContent] = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
 
       getUseOfOwnCar {

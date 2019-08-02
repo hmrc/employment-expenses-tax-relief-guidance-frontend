@@ -60,7 +60,8 @@ class PaidTaxInRelevantYearControllerSpec extends SpecBase with MockitoSugar wit
           ClaimantId.toString -> JsString(claimant.toString)
         )
       )
-    )
+    ),
+    controllerComponents
   )
 
   "PaidTaxInRelevantYear Controller" must {

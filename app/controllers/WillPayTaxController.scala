@@ -44,7 +44,7 @@ class WillPayTaxController @Inject()(
                                     )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
 
-  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
 
       val form: Form[Boolean] = formProvider(request.claimant, appConfig.earliestTaxYear)
@@ -56,7 +56,7 @@ class WillPayTaxController @Inject()(
       Future.successful(Ok(view(preparedForm, request.claimant)))
   }
 
-  def onSubmit: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant).async {
+  def onSubmit: Action[AnyContent] = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
       val form: Form[Boolean] = formProvider(request.claimant, appConfig.earliestTaxYear)
 

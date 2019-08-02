@@ -32,7 +32,7 @@ class CannotClaimMileageCostsController @Inject()(
                                                    view: CannotClaimMileageCostsView
                                                  ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
     implicit request =>
       Ok(view(request.claimant))
   }

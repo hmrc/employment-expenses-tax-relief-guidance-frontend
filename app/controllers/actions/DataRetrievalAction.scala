@@ -16,10 +16,10 @@
 
 package controllers.actions
 
+import com.google.inject.{ImplementedBy, Inject}
 import connectors.DataCacheConnector
-import javax.inject.Inject
 import models.requests.OptionalDataRequest
-import play.api.mvc.{ActionTransformer, Request}
+import play.api.mvc._
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import utils.UserAnswers
 
@@ -27,7 +27,8 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 class DataRetrievalActionImpl @Inject()(
-                                         val dataCacheConnector: DataCacheConnector
+                                         val dataCacheConnector: DataCacheConnector,
+                                         controllerComponents: MessagesControllerComponents
                                        )(implicit val executionContext: ExecutionContext) extends DataRetrievalAction {
 
   override protected def transform[A](request: Request[A]): Future[OptionalDataRequest[A]] = {
@@ -42,6 +43,9 @@ class DataRetrievalActionImpl @Inject()(
         }
     }
   }
+
+  override def parser: BodyParser[AnyContent] = controllerComponents.parsers.anyContent
 }
 
-trait DataRetrievalAction extends ActionTransformer[Request, OptionalDataRequest]
+@ImplementedBy(classOf[DataRetrievalActionImpl])
+trait DataRetrievalAction extends ActionBuilder[OptionalDataRequest, AnyContent] with ActionTransformer[Request, OptionalDataRequest]

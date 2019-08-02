@@ -32,7 +32,7 @@ class ClaimOnlineController @Inject()(
                                        view: ClaimOnlineView
                                      ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (Action andThen getData andThen requireData) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
 
       request.userAnswers.claimingFor match {
