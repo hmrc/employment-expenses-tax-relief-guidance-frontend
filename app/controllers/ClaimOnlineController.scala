@@ -23,6 +23,7 @@ import models.ClaimingFor.UniformsClothingTools
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
+import viewmodels.OnwardJourney
 import views.html.ClaimOnlineView
 
 class ClaimOnlineController @Inject()(
@@ -37,7 +38,7 @@ class ClaimOnlineController @Inject()(
 
       request.userAnswers.claimingFor match {
         case Some(claiming) =>
-          Ok(view(claiming.forall(_ == UniformsClothingTools)))
+          Ok(view(if (claiming.forall(_ == UniformsClothingTools)) OnwardJourney.FixedRateExpenses else OnwardJourney.IForm))
         case _ =>
           Redirect(routes.SessionExpiredController.onPageLoad())
       }
