@@ -22,6 +22,7 @@ import play.api.libs.json.Json
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
+import viewmodels.OnwardJourney
 import views.html.ClaimOnlineView
 
 class ClaimOnlineControllerSpec extends SpecBase {
@@ -39,7 +40,7 @@ class ClaimOnlineControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[ClaimOnlineView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(true)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(OnwardJourney.FixedRateExpenses)(fakeRequest, messages).toString
 
       application.stop
     }
@@ -53,7 +54,7 @@ class ClaimOnlineControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[ClaimOnlineView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(false)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(OnwardJourney.IForm)(fakeRequest, messages).toString
 
       application.stop
     }

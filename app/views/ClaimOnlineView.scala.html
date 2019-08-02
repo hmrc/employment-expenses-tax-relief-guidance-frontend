@@ -18,17 +18,17 @@
 @import components.back_link
 @import uk.gov.hmrc.play.views.html.layouts.OptimizelySnippet
 @import uk.gov.hmrc.play.config.OptimizelyConfig
+@import viewmodels.OnwardJourney
 
 @this(
   main_template: MainTemplate,
   appConfig: FrontendAppConfig
 )
-
-@(eeEligible: Boolean)(implicit request: Request[_], messages: Messages)
+@(onwardJourney: OnwardJourney)(implicit request: Request[_], messages: Messages)
 
 
 @href = @{
-    if(eeEligible) appConfig.employeeExpensesUrl else appConfig.employeeExpensesClaimOnlineUrl
+    if(onwardJourney == OnwardJourney.FixedRateExpenses) appConfig.employeeExpensesUrl else appConfig.employeeExpensesClaimOnlineUrl
 }
 
 @main_template(
@@ -51,6 +51,7 @@
     @components.button_link(
         messageKey = "claimOnline.link.label",
         href = href,
+        additionalClasses = if (onwardJourney == OnwardJourney.ProfessionalSubscriptions) Seq("optimizely-target") else Nil,
         gaEvent = Some("link - click:" + messages(s"claimOnline.heading") + ":" + messages("claimOnline.link.label"))
     )
 }

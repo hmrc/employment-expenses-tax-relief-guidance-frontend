@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,20 +12,14 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(
-messageKey: String = "",
-href: String,
-id: Option[String] = None,
-gaEvent: Option[String] = None,
-        additionalClasses: Seq[String] = Nil
-)(implicit messages: Messages)
+package viewmodels
 
-<div class="section">
-    <a href="@href"
-       role="button"
-       class="@{("button" +: additionalClasses).mkString(" ")}"
-       @if(id.isDefined){id="@id"}
-       @if(gaEvent.isDefined){data-journey-click="@gaEvent"}>@messages(messageKey)</a>
-</div>
+sealed trait OnwardJourney
+
+object OnwardJourney {
+  case object IForm extends OnwardJourney
+  case object ProfessionalSubscriptions extends OnwardJourney
+  case object FixedRateExpenses extends OnwardJourney
+}
