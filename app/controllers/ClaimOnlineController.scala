@@ -19,7 +19,7 @@ package controllers
 import config.FrontendAppConfig
 import controllers.actions._
 import javax.inject.Inject
-import models.ClaimingFor.UniformsClothingTools
+import models.ClaimingFor.{FeesSubscriptions, UniformsClothingTools}
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
@@ -38,7 +38,12 @@ class ClaimOnlineController @Inject()(
 
       request.userAnswers.claimingFor match {
         case Some(claiming) =>
-          Ok(view(if (claiming.forall(_ == UniformsClothingTools)) OnwardJourney.FixedRateExpenses else OnwardJourney.IForm))
+          val onwardJourney =
+            if (claiming.forall(_ == UniformsClothingTools)) OnwardJourney.FixedRateExpenses
+            else if (claiming.forall(_ == FeesSubscriptions)) OnwardJourney.ProfessionalSubscriptions
+            else OnwardJourney.IForm
+
+          Ok(view(onwardJourney))
         case _ =>
           Redirect(routes.SessionExpiredController.onPageLoad())
       }
