@@ -45,7 +45,21 @@ class ClaimOnlineControllerSpec extends SpecBase {
       application.stop
     }
 
-    "return OK and correct view for a GET when user not eligible for employee expenses" in {
+    "return OK and correct view for a GET when user eligible for professional subscriptions" in {
+
+      val validCacheMap = CacheMap(cacheMapId, Map("claimingFor" -> Json.toJson(Seq(FeesSubscriptions.string))))
+      val application = applicationBuilder(Some(validCacheMap)).build
+      val request = FakeRequest(GET, claimOnlineRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[ClaimOnlineView]
+
+      status(result) mustBe OK
+      contentAsString(result) mustBe view(OnwardJourney.ProfessionalSubscriptions)(fakeRequest, messages).toString
+
+      application.stop
+    }
+
+    "return OK and correct view for a GET when user not eligible for either employee expenses or professional subscriptions" in {
 
       val validCacheMap = CacheMap(cacheMapId, Map("claimingFor" -> Json.toJson(Seq(UniformsClothingTools.string, MileageFuel.string))))
       val application = applicationBuilder(Some(validCacheMap)).build
