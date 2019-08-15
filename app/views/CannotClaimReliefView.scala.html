@@ -18,27 +18,26 @@
 @import components.back_link
 
 @this(
-  main_template: MainTemplate,
-  appConfig: FrontendAppConfig
+        main_template: MainTemplate,
+        appConfig: FrontendAppConfig
 )
 
 @(claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = messages(s"cannotClaimRelief.$claimant.title")
-) {
+    @main_template(
+        title = messages(s"cannotClaimRelief.$claimant.title")
+    ) {
 
-    @back_link()
+        @back_link()
 
-    @components.heading(s"cannotClaimRelief.$claimant.heading")
+        @components.heading(s"cannotClaimRelief.$claimant.heading")
 
-    <p>@messages(s"cannotClaimRelief.$claimant.guidance")</p>
+        <p>@messages(s"cannotClaimRelief.$claimant.guidance")
+            <a id="link" href=@appConfig.taxReliefForEmployeesUrl
+                data-journey-click="link - click:
+                @messages(s"cannotClaimRelief.$claimant.heading")
+                :@messages(s"cannotClaimRelief.link.$claimant.label")">@messages(s"cannotClaimRelief.link.$claimant.label")
+            </a>
+        </p>
 
-    <p>
-        <a id="link" href=@appConfig.taxReliefForEmployeesUrl
-           data-journey-click="link - click:@messages(s"cannotClaimRelief.$claimant.heading"):@messages("cannotClaimRelief.link.label")">
-            @messages("cannotClaimRelief.link.label")
-        </a>
-    </p>
-
-}
+    }
