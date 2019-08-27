@@ -14,5 +14,5 @@
  * limitations under the License.
  *@
 
-@(href: String, eventBody: String)
-<a href="@href" data-journey-click="link - click:@eventBody">
+@(href: String, eventBody: String, newWindow: Boolean = false)
+<a href="@href" data-journey-click="link - click:@eventBody" @if(newWindow){target="_blank"}>

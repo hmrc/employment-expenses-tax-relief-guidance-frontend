@@ -42,7 +42,7 @@ object ClaimingFor {
 
       val href = "https://www.gov.uk/government/publications/professional-bodies-approved-for-tax-relief-list-3"
       val eventBody = s"""${messages(s"claimingFor.$claimant.title")}:${messages(s"claimingFor.$FeesSubscriptions")}"""
-      val start = link_start(href, eventBody)
+      val start = link_start(href, eventBody, newWindow = true)
       val end = "</a>"
 
       new RadioOption(
