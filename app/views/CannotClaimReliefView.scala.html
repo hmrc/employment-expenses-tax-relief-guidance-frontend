@@ -32,11 +32,12 @@
 
         @components.heading(s"cannotClaimRelief.$claimant.heading")
 
-        <p>@messages(s"cannotClaimRelief.$claimant.guidance")
+        <p>
             <a id="link" href=@appConfig.taxReliefForEmployeesUrl
                 data-journey-click="link - click:
                 @messages(s"cannotClaimRelief.$claimant.heading")
-                :@messages(s"cannotClaimRelief.link.$claimant.label")">@messages(s"cannotClaimRelief.link.$claimant.label")
+                :@messages(s"cannotClaimRelief.link.$claimant.label")">
+                @messages(s"cannotClaimRelief.$claimant.guidance")
             </a>
         </p>
 

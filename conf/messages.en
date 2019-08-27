@@ -94,12 +94,10 @@ claimOnline.link.label = Claim online
 
 cannotClaimRelief.you.title = You cannot claim these expenses
 cannotClaimRelief.you.heading = You cannot claim these expenses
-cannotClaimRelief.you.guidance = You cannot claim these expenses because they have
+cannotClaimRelief.you.guidance = You cannot claim these expenses because they have all been paid back by your employer.
 cannotClaimRelief.someoneElse.title = They cannot claim for these expenses
 cannotClaimRelief.someoneElse.heading = They cannot claim for these expenses
-cannotClaimRelief.someoneElse.guidance = They cannot claim for these expenses because they have
-cannotClaimRelief.link.you.label = all been paid back by your employer.
-cannotClaimRelief.link.someoneElse.label = all been paid back by their employer.
+cannotClaimRelief.someoneElse.guidance = They cannot claim for these expenses because they have all been paid back by their employer.
 
 employerPaidBackExpenses.you.title = Has your employer paid back all your work‑related expenses?
 employerPaidBackExpenses.you.heading = Has your employer paid back all your work‑related expenses?
@@ -270,14 +268,12 @@ cannotClaimBuyingEquipment.link.label3 = other expenses
 
 willNotPayTax.you.title =  You cannot claim these expenses
 willNotPayTax.you.heading =  You cannot claim these expenses
-willNotPayTax.you.guidance1 = You can only claim these expenses if you {0}.
+willNotPayTax.you.guidance1 = You can only claim these expenses if you paid tax in each tax year you are claiming for.
 willNotPayTax.you.guidance2 = You can still {0} but you will not get any expenses back unless you pay tax.
 willNotPayTax.someoneElse.title =  They cannot claim these expenses
-willNotPayTax.someoneElse.heading =  You cannot claim these expenses
-willNotPayTax.someoneElse.guidance1 = They can only claim these expenses if they {0}.
+willNotPayTax.someoneElse.heading =  They cannot claim these expenses
+willNotPayTax.someoneElse.guidance1 = They can only claim these expenses if they paid tax in each tax year they are claiming for.
 willNotPayTax.someoneElse.guidance2 = They can still {0} but they will not get any expenses back unless they pay tax.
-willNotPayTax.you.link1 = paid tax in each tax year you are claiming for
-willNotPayTax.someoneElse.link1 = paid tax in each tax year they are claiming for
 willNotPayTax.link2 = claim expenses for the current tax year (6 April {0} to 5 April {1})
 
 willPayTax.you.title = Did you pay tax in each of the years you are claiming for?
