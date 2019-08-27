@@ -48,12 +48,11 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(s"registeredForSelfAssessment.$claimant.heading")
-
         @components.input_yes_no(
             field = form("value"),
             label = messages(s"registeredForSelfAssessment.$claimant.heading"),
-            labelClass = Some("visually-hidden")
+            labelClass = Some("heading-large"),
+            headingIsLegend = true
         )
 
         @components.submit_button()

@@ -38,13 +38,12 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(s"claimingFor.$claimant.heading")
-
         @components.input_checkboxes(
             field = form("value"),
             legend = messages(s"claimingFor.$claimant.heading"),
-            legendClass = Some("visually-hidden"),
-            inputs = ClaimingFor.options(claimant)
+            legendClass = Some("heading-large"),
+            inputs = ClaimingFor.options(claimant),
+            headingIsLegend = true
         )
 
         @components.submit_button()

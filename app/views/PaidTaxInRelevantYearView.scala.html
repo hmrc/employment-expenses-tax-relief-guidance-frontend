@@ -42,12 +42,11 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(messages(s"paidTaxInRelevantYear.$claimant.heading", year))
-
         @components.input_yes_no(
             field = form("value"),
             label = messages(s"paidTaxInRelevantYear.$claimant.heading", year),
-            labelClass = Some("visually-hidden")
+            labelClass = Some("heading-large"),
+            headingIsLegend = true
         )
 
         @components.submit_button()

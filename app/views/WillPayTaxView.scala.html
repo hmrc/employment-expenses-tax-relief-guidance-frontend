@@ -36,12 +36,11 @@
     @formHelper(action = WillPayTaxController.onSubmit(), 'autoComplete -> "off") {
         @components.error_summary(form.errors)
 
-        @components.heading(messages(s"willPayTax.$claimant.heading"))
-
         @components.input_yes_no(
             field = form("value"),
             label = messages(s"willPayTax.$claimant.heading"),
-            labelClass = Some("visually-hidden")
+            labelClass = Some("heading-large"),
+            headingIsLegend = true
         )
 
         @components.submit_button()
