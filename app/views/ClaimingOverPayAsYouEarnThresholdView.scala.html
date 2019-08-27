@@ -37,12 +37,11 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(s"claimingOverPayAsYouEarnThreshold.$claimant.heading")
-
         @components.input_yes_no(
             field = form("value"),
             label = messages(s"claimingOverPayAsYouEarnThreshold.$claimant.heading"),
-            labelClass = Some("visually-hidden")
+            labelClass = Some("heading-large"),
+            headingIsLegend = true
         )
 
         @components.submit_button()

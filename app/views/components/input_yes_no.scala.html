@@ -22,7 +22,8 @@
         hint: Option[String] = None,
         yesAssoc: Option[String] = None,
         noAssoc: Option[String] = None,
-        labelClass: Option[String] = None
+        labelClass: Option[String] = None,
+        headingIsLegend: Boolean = false
 )(implicit messages: Messages)
 
 
@@ -30,7 +31,12 @@
     <fieldset class="inline" id="@{field.id}">
 
         <legend>
-            <span @if(labelClass.nonEmpty){class="@labelClass"}>@label</span>
+            @if(headingIsLegend){
+                <h1 @if(labelClass.nonEmpty){class="@labelClass" }else{class="heading-xlarge"}>@label</h1>
+            } else {
+                <span @if(labelClass.nonEmpty){class="@labelClass" }>@label</span>
+            }
+
             @if(hint.nonEmpty){
                 <span class="form-hint">@hint</span>
             }

@@ -37,14 +37,12 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(s"useCompanyCar.$claimant.$useOfOwnCar.heading")
-
-        <p>@messages("useCompanyCar.guidance")</p>
-
         @components.input_yes_no(
             field = form("value"),
+            hint = Some(messages("useCompanyCar.guidance")),
             label = messages(s"useCompanyCar.$claimant.$useOfOwnCar.heading"),
-            labelClass = Some("visually-hidden")
+            labelClass = Some("heading-large"),
+            headingIsLegend = true
         )
 
         @components.submit_button()
