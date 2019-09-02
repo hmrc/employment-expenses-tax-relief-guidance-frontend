@@ -1,12 +1,17 @@
 $(document).ready(function() {
+  var showHideContent, mediaQueryList;
 
   // =====================================================
   // Initialise show-hide-content
   // Toggles additional content based on radio/checkbox input state
   // =====================================================
-  var showHideContent, mediaQueryList;
   showHideContent = new GOVUK.ShowHideContent()
   showHideContent.init()
+
+  // =====================================================
+  // Initialise details polyfill
+  // =====================================================
+ GOVUK.details.addDetailsPolyfill();
 
   // =====================================================
   // Handle number inputs
