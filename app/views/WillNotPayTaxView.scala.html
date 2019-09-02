@@ -26,9 +26,7 @@
 
 @(claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
 
-@link1 = {<a href="@appConfig.taxReliefForEmployeesUrl">@messages(s"willNotPayTax.$claimant.link1")</a>}
-
-@link2 = {<a href="@routes.RegisteredForSelfAssessmentController.onPageLoad()">@messages("willNotPayTax.link2", TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)</a>}
+@link = {<a href="@routes.RegisteredForSelfAssessmentController.onPageLoad()">@messages("willNotPayTax.link2", TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)</a>}
 
 @main_template(
     title = messages(s"willNotPayTax.$claimant.title")
@@ -38,7 +36,7 @@
 
     @components.heading(s"willNotPayTax.$claimant.heading")
 
-    <p>@Html(messages(s"willNotPayTax.$claimant.guidance1", link1))</p>
+    <p><a href="@appConfig.taxReliefForEmployeesUrl">@messages(s"willNotPayTax.$claimant.guidance1")</a></p>
 
-    <p>@Html(messages(s"willNotPayTax.$claimant.guidance2", link2))</p>
+    <p>@Html(messages(s"willNotPayTax.$claimant.guidance2", link))</p>
 }
