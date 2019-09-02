@@ -14,3 +14,8 @@
       display: revert;
     }
   }
+
+// undo AF 3.11 where details polyfill is added
+details .arrow {
+  display: none!important;
+}
