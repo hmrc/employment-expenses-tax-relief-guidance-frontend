@@ -28,7 +28,7 @@
 @(form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = messages(s"claimingFuel.$claimant.title")
+    title = s"${errorPrefix(form)} ${messages(s"claimingFuel.$claimant.title")}"
 ) {
 
     @back_link()

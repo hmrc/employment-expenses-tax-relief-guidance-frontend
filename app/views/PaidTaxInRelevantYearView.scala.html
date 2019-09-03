@@ -33,7 +33,7 @@
 @year = {@appConfig.earliestTaxYear}
 
 @main_template(
-    title = messages(s"paidTaxInRelevantYear.$claimant.title", year)
+    title = s"${errorPrefix(form)} ${messages(s"paidTaxInRelevantYear.$claimant.title", year)}"
 ) {
 
     @back_link()

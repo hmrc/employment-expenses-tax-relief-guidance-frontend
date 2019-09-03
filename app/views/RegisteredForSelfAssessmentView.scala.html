@@ -39,7 +39,7 @@
 }
 
 @main_template(
-    title = messages(s"registeredForSelfAssessment.$claimant.title")
+    title = s"${errorPrefix(form)} ${messages(s"registeredForSelfAssessment.$claimant.title")}"
 ) {
 
     @back_link()

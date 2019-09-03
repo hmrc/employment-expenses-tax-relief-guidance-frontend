@@ -21,6 +21,7 @@ lazy val root = (project in file("."))
       "play.twirl.api.HtmlFormat._",
       "uk.gov.hmrc.play.views.html.helpers._",
       "uk.gov.hmrc.play.views.html.layouts._",
+      "views.ViewUtils._",
       "controllers.routes._"
     ),
     PlayKeys.playDefaultPort := 8787,
