@@ -54,7 +54,7 @@ class ClaimOnlineViewSpec extends ViewBehaviours {
       val doc = asDocument(view(OnwardJourney.ProfessionalSubscriptions)(fakeRequest, messages))
       val buttons: Elements = doc.select("a.button")
       buttons.size() must be (1)
-      buttons.first().attr("href") must be("https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87#claim-online")
+      buttons.first().attr("href") must be("https://www.tax.service.gov.uk/professional-subscriptions")
       buttons.first().classNames() must contain ("optimizely-target")
     }
 

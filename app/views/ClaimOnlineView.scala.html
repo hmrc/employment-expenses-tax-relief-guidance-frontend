@@ -28,7 +28,11 @@
 
 
 @href = @{
-    if(onwardJourney == OnwardJourney.FixedRateExpenses) appConfig.employeeExpensesUrl else appConfig.employeeExpensesClaimOnlineUrl
+    onwardJourney match {
+        case OnwardJourney.FixedRateExpenses => appConfig.employeeExpensesUrl
+        case OnwardJourney.ProfessionalSubscriptions => appConfig.professionalSubscriptionsUrl
+        case OnwardJourney.IForm => appConfig.employeeExpensesClaimOnlineUrl
+    }
 }
 
 @main_template(
