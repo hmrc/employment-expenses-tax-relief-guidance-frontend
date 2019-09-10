@@ -50,6 +50,18 @@ registeredForSelfAssessment.someoneElse.title = Does the person you are claiming
 registeredForSelfAssessment.someoneElse.heading = Does the person you are claiming for complete Self Assessment returns?
 registeredForSelfAssessment.someoneElse.error.required = Select yes if the person you are claiming for completes Self Assessment returns
 
+registeredForSelfAssessment.hidden.summary = What is a Self Assessment tax return?
+registeredForSelfAssessment.you.hidden.guidance1 = You must complete a Self Assessment tax return if, in the last tax year (6 April to 5 April), you were:
+registeredForSelfAssessment.someoneElse.hidden.guidance1 = They must complete a Self Assessment tax return if, in the last tax year (6 April to 5 April), you were:
+registeredForSelfAssessment.hidden.list1.item1 = self-employed as a ‘sole trader’ and earned more than £1,000
+registeredForSelfAssessment.hidden.list1.item2 = a partner in a business partnership
+registeredForSelfAssessment.you.hidden.guidance2 = You will not usually need to send a return if your only income is from your wages or pension. But you may need to send one if you have any other untaxed income, such as:
+registeredForSelfAssessment.someoneElse.hidden.guidance2 = They will not usually need to send a return if their only income is from their wages or pension. But they may need to send one if they have any other untaxed income, such as:
+registeredForSelfAssessment.hidden.list2.item1 = money from renting out a property
+registeredForSelfAssessment.hidden.list2.item2 = tips and commission
+registeredForSelfAssessment.hidden.list2.item3 = income from savings, investments and dividends
+registeredForSelfAssessment.hidden.list2.item4 = foreign income
+
 claimingOverPayAsYouEarnThreshold.you.title = Are you claiming expenses of £2,500 or more in a single tax year?
 claimingOverPayAsYouEarnThreshold.you.heading = Are you claiming expenses of £2,500 or more in a single tax year?
 claimingOverPayAsYouEarnThreshold.you.error.required = Select yes if you are claiming expenses of £2,500 or more in a single tax year
