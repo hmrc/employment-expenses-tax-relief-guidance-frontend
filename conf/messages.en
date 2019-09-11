@@ -91,7 +91,7 @@ claimOnline.para1 = To claim these expenses, you need a Government Gateway user 
 claimOnline.para2 = Registering with Government Gateway usually takes about 10 minutes. It works best if you have:
 claimOnline.bullet1 = your National Insurance number
 claimOnline.bullet2 = a recent payslip or P60 or a valid UK passport
-claimOnline.link.label = Claim online
+claimOnline.link.label = Claim your expenses online
 
 cannotClaimRelief.you.title = You cannot claim these expenses
 cannotClaimRelief.you.heading = You cannot claim these expenses
