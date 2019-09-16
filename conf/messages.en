@@ -85,13 +85,14 @@ usePrintAndPost.title = You can claim tax relief for these expenses by post
 usePrintAndPost.heading = You can claim tax relief for these expenses by post
 usePrintAndPost.link.label = Claim by post
 
-claimOnline.title = You are eligible to claim these job expenses
-claimOnline.heading = You are eligible to claim these job expenses
-claimOnline.para1 =  To claim these expenses, you need a Government Gateway user ID and password. You can create a user Id If you do not already have one.
+claimOnline.title = You are eligible to claim these job expenses online
+claimOnline.heading = You are eligible to claim these job expenses online
+claimOnline.para1 =  To claim these expenses, you need a Government Gateway user ID and password. You can create a user ID if you do not already have one.
 claimOnline.para2 = Creating a Government Gateway ID usually takes about 10 minutes. It works best if you have:
 claimOnline.bullet1 = your National Insurance number
 claimOnline.bullet2 = a recent payslip or P60 or a valid UK passport
 claimOnline.link.label = Claim your expenses online
+claimOnline.hidden.guidance = list of 2 items
 
 cannotClaimRelief.you.title = You cannot claim these expenses
 cannotClaimRelief.you.heading = You cannot claim these expenses
