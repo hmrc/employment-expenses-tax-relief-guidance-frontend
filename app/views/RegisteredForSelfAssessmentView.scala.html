@@ -48,11 +48,36 @@
 
         @components.error_summary(form.errors)
 
+        @components.heading(s"registeredForSelfAssessment.$claimant.heading")
+
+        <details class="form-group">
+            <summary data-journey-click="accordion - click:@messages(s"registeredForSelfAssessment.$claimant.heading"):@messages(s"registeredForSelfAssessment.accordion.summary")">
+                <span class="summary">@messages(s"registeredForSelfAssessment.accordion.summary")</span>
+            </summary>
+
+            <div class="panel panel-border-narrow">
+                <p>@messages(s"registeredForSelfAssessment.$claimant.accordion.guidance1")</p>
+
+                <ul class="list list-bullet">
+                    <li>@messages(s"registeredForSelfAssessment.accordion.list1.item1")</li>
+                    <li>@messages(s"registeredForSelfAssessment.accordion.list1.item2")</li>
+                </ul>
+
+                <p>@messages(s"registeredForSelfAssessment.$claimant.accordion.guidance2")</p>
+
+                <ul class="list list-bullet">
+                    <li>@messages(s"registeredForSelfAssessment.accordion.list2.item1")</li>
+                    <li>@messages(s"registeredForSelfAssessment.accordion.list2.item2")</li>
+                    <li>@messages(s"registeredForSelfAssessment.accordion.list2.item3")</li>
+                    <li>@messages(s"registeredForSelfAssessment.accordion.list2.item4")</li>
+                </ul>
+            </div>
+        </details>
+
         @components.input_yes_no(
             field = form("value"),
             label = messages(s"registeredForSelfAssessment.$claimant.heading"),
-            labelClass = Some("heading-large"),
-            headingIsLegend = true
+            labelClass = Some("visually-hidden")
         )
 
         @components.submit_button()

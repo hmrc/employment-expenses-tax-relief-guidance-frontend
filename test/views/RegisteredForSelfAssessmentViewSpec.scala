@@ -41,6 +41,17 @@ class RegisteredForSelfAssessmentViewSpec extends YesNoViewBehaviours {
     behave like normalPage(createView(form), messageKeyPrefix)
     behave like yesNoPage(createView, messageKeyPrefix, routes.RegisteredForSelfAssessmentController.onSubmit().url)
     behave like pageWithBackLink(createView(form))
+    behave like pageWithBodyText(
+      createView(form),
+      "registeredForSelfAssessment.accordion.list1.item1",
+      "registeredForSelfAssessment.you.accordion.guidance1",
+      "registeredForSelfAssessment.accordion.list1.item2",
+      "registeredForSelfAssessment.accordion.list2.item1",
+      "registeredForSelfAssessment.you.accordion.guidance2",
+      "registeredForSelfAssessment.accordion.list2.item2",
+      "registeredForSelfAssessment.accordion.list2.item3",
+      "registeredForSelfAssessment.accordion.list2.item4"
+    )
   }
 
   application.stop
