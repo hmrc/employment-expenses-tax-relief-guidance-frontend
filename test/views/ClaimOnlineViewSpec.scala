@@ -16,7 +16,7 @@
 
 package views
 
-import org.jsoup.select.Elements
+import org.jsoup.nodes.Element
 import play.twirl.api.Html
 import viewmodels.OnwardJourney
 import views.behaviours.ViewBehaviours
@@ -36,26 +36,22 @@ class ClaimOnlineViewSpec extends ViewBehaviours {
     "When the onward journey is IForm Include a call to action button with the correct link" in {
       val view = application.injector.instanceOf[ClaimOnlineView]
       val doc = asDocument(view(OnwardJourney.IForm)(fakeRequest, messages))
-      val buttons: Elements = doc.select("a.button")
-      buttons.size() must be (1)
-      buttons.first().attr("href") must be("https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87#claim-online")
+      val button: Element = doc.getElementById("continue")
+      button.attr("href") must be("https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87#claim-online")
     }
 
     "When the onward journey is Employee Expenses Include a call to action button with the correct link" in {
       val view = application.injector.instanceOf[ClaimOnlineView]
       val doc = asDocument(view(OnwardJourney.FixedRateExpenses)(fakeRequest, messages))
-      val buttons: Elements = doc.select("a.button")
-      buttons.size() must be (1)
-      buttons.first().attr("href") must be("https://www.tax.service.gov.uk/employee-expenses")
+      val button: Element = doc.getElementById("continue")
+      button.attr("href") must be("https://www.tax.service.gov.uk/employee-expenses")
     }
 
     "When the onward journey is Professional Subscriptions Include a call to action button with a link to the IForm which can be replaced by Optimizely" in {
       val view = application.injector.instanceOf[ClaimOnlineView]
       val doc = asDocument(view(OnwardJourney.ProfessionalSubscriptions)(fakeRequest, messages))
-      val buttons: Elements = doc.select("a.button")
-      buttons.size() must be (1)
-      buttons.first().attr("href") must be("https://www.tax.service.gov.uk/professional-subscriptions")
-      buttons.first().classNames() must contain ("optimizely-target")
+      val button: Element = doc.getElementById("continue")
+      button.attr("href") must be("https://www.tax.service.gov.uk/professional-subscriptions")
     }
 
     behave like normalPage(createView, messageKeyPrefix)

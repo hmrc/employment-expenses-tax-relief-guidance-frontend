@@ -54,7 +54,7 @@
     @components.button_link(
         messageKey = "claimOnline.link.label",
         href = href,
-        additionalClasses = if (onwardJourney == OnwardJourney.ProfessionalSubscriptions) Seq("optimizely-target") else Nil,
+        id = Some("continue"),
         gaEvent = Some("link - click:" + messages(s"claimOnline.heading") + ":" + messages("claimOnline.link.label"))
     )
 }
