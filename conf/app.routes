@@ -73,3 +73,5 @@ POST       /pay-or-will-pay-tax-in-year                 controllers.WillPayTaxCo
 GET        /change-other-expenses                       controllers.ChangeOtherExpensesController.onPageLoad()
 
 GET        /change-uniforms-work-clothing-tools         controllers.ChangeUniformsWorkClothingToolsController.onPageLoad()
+
+GET        /accessibility-statement                     controllers.AccessibilityStatementController.onPageLoad()
