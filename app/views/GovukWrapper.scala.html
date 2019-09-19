@@ -75,7 +75,12 @@
 }
 
 @footerTop = {}
-@footerLinks = {}
+
+@footerLinks = {
+    @footer_links(
+        accessibilityFooterUrl = Some("???")
+    )
+}
 
 @banner = {
     @betaBanner(
@@ -122,4 +127,4 @@
       sidebar = sidebar)
 }
 
-@hmrcGovUkTemplate(Some(title), bodyClasses)(headContent, bodyEnd, insideHeader, afterHeader, footerTop, Some(footer_links()), true)(content)
+@hmrcGovUkTemplate(Some(title), bodyClasses)(headContent, bodyEnd, insideHeader, afterHeader, footerTop, Some(footerLinks), true)(content)
