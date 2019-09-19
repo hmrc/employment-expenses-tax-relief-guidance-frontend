@@ -54,6 +54,9 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   lazy val fileSelfAssessmentLoginUrl = configuration.get[String]("urls.fileSelfAssessmentLoginUrl")
   lazy val annualInvestmentAllowanceUrl = configuration.get[String]("urls.annualInvestmentAllowanceUrl")
 
+  lazy val accessibilityStatementEnabled = configuration.get[Boolean]("accessibilityStatement.enabled")
+  lazy val accessibilityStatementUrl = configuration.get[String]("accessibilityStatement.url")
+
   lazy val languageTranslationEnabled = configuration.get[Boolean]("microservice.services.features.welsh-translation")
   def languageMap: Map[String, Lang] = Map(
     "english" -> Lang("en"),

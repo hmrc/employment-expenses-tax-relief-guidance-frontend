@@ -78,7 +78,7 @@
 
 @footerLinks = {
     @footer_links(
-        accessibilityFooterUrl = Some("???")
+        accessibilityFooterUrl = if(appConfig.accessibilityStatementEnabled) Some(appConfig.accessibilityStatementUrl) else None
     )
 }
 
