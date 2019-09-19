@@ -78,7 +78,11 @@
 
 @footerLinks = {
     @footer_links(
-        accessibilityFooterUrl = if(appConfig.accessibilityStatementEnabled) Some(appConfig.accessibilityStatementUrl) else None
+        accessibilityFooterUrl = if(appConfig.accessibilityStatementEnabled) {
+            Some(routes.AccessibilityStatementController.onPageLoad().url)
+        } else {
+            None
+        }
     )
 }
 
