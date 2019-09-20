@@ -34,8 +34,13 @@ class AccessibilityStatementControllerSpec extends SpecBase {
       val result = route(application, request).value
       val view = application.injector.instanceOf[AccessibilityStatementView]
 
+      val indexUrl = "/claim-tax-relief-expenses"
+
       status(result) mustBe OK
-      contentAsString(result) mustBe view()(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(
+        serviceUrl = indexUrl,
+        subDomain = "claim-tax-relief-expenses",
+        fullyCompliant = false)(fakeRequest, messages).toString
 
       application.stop
     }
