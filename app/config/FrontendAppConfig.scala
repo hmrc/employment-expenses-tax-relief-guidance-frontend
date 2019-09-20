@@ -56,17 +56,17 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   lazy val fileSelfAssessmentLoginUrl = configuration.get[String]("urls.fileSelfAssessmentLoginUrl")
   lazy val annualInvestmentAllowanceUrl = configuration.get[String]("urls.annualInvestmentAllowanceUrl")
 
-  lazy val accessibilityStatementEnabled: Boolean = configuration.get[Boolean]("accessibilityStatement.enabled")
-  lazy val accessibilityStatementUrl: String = configuration.get[String]("accessibilityStatement.govAccessibilityStatementUrl")
-  lazy val abilityNettUrl: String = configuration.get[String]("accessibilityStatement.abilityNetUrl")
-  lazy val w3StandardsUrl: String = configuration.get[String]("accessibilityStatement.w3StandardsUrl")
-  lazy val equalityAdvisoryServiceUrl: String = configuration.get[String]("accessibilityStatement.equalityAdvisoryServiceUrl")
-  lazy val equalityNIUrl: String = configuration.get[String]("accessibilityStatement.equalityNIUrl")
-  lazy val dealingHmrcAdditionalNeedsUrl: String = configuration.get[String]("accessibilityStatement.dealingHmrcAdditionalNeedsUrl")
-  lazy val dacUrl: String = configuration.get[String]("accessibilityStatement.dacUrl")
-  lazy val accessibilityStatementLastTested: String = configuration.get[String]("accessibilityStatement.lastTested")
-  lazy val accessibilityStatementFirstPublished: String = configuration.get[String]("accessibilityStatement.firstPublished")
-
+  val accessibilityStatementUrl: String = configuration.get[String]("accessibilityStatement.govAccessibilityStatementUrl")
+  val abilityNettUrl: String = configuration.get[String]("accessibilityStatement.abilityNetUrl")
+  val w3StandardsUrl: String = configuration.get[String]("accessibilityStatement.w3StandardsUrl")
+  val equalityAdvisoryServiceUrl: String = configuration.get[String]("accessibilityStatement.equalityAdvisoryServiceUrl")
+  val equalityNIUrl: String = configuration.get[String]("accessibilityStatement.equalityNIUrl")
+  val dealingHmrcAdditionalNeedsUrl: String = configuration.get[String]("accessibilityStatement.dealingHmrcAdditionalNeedsUrl")
+  val dacUrl: String = configuration.get[String]("accessibilityStatement.dacUrl")
+  val contactUsEmailAddress = configuration.get[String]("accessibilityStatement.contactUsEmailAddress")
+  val accessibilityStatementLastTested: String = configuration.get[String]("accessibilityStatement.lastTested")
+  val accessibilityStatementFirstPublished: String = configuration.get[String]("accessibilityStatement.firstPublished")
+  val accessibilityStatementEnabled: Boolean = configuration.get[Boolean]("accessibilityStatement.enabled")
 
   lazy val languageTranslationEnabled = configuration.get[Boolean]("microservice.services.features.welsh-translation")
   def languageMap: Map[String, Lang] = Map(

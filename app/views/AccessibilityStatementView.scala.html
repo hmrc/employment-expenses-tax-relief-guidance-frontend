@@ -41,7 +41,7 @@
         <a href=@appConfig.w3StandardsUrl>@messages("accessibilityStatement.howAccessibleThisServiceIs.paragraph1.linkText")</a>}
 
     @reportingAccessibilityProblemsWithThisServiceLink = {
-        <a href=@appConfig.reportAProblemNonJSUrl>@messages("accessibilityStatement.reportingAccessibilityProblemsWithThisService.paragraph1.linkText")</a>}
+        <a href="mailto:@appConfig.contactUsEmailAddress">@appConfig.contactUsEmailAddress</a>}
 
     @whatToDoIfYouAreNotHappyWithHowWeRespondToYourComplaintLink1 = {
         <a href=@appConfig.equalityAdvisoryServiceUrl>@messages("accessibilityStatement.whatToDoIfYouAreNotHappyWithHowWeRespondToYourComplaint.paragraph1.linkText1")</a>}
@@ -75,6 +75,7 @@
     <div id="using-this-service">
         <h2 class="heading-large">@messages("accessibilityStatement.usingThisService.heading")</h2>
         <p>@messages("accessibilityStatement.usingThisService.aboutTheService")</p>
+        <p>@messages("accessibilityStatement.usingThisService.aboutTheService2")</p>
         <p>@messages("accessibilityStatement.usingThisService.paragraph1")</p>
         <ul class="list list-bullet">
             <li>@messages("accessibilityStatement.usingThisService.listItem1")</li>
@@ -90,10 +91,12 @@
     <div id="how-accessible-this-service-is">
         <h2 class="heading-large">@messages("accessibilityStatement.howAccessibleThisServiceIs.heading")</h2>
         <p>@Html(messages("accessibilityStatement.howAccessibleThisServiceIs.paragraph1", howAccessibleThisServiceIsLink))</p>
+        <p>@messages("accessibilityStatement.howAccessibleThisServiceIs.paragraph2")</p>
     </div>
 
     <div id="what-to-do-if-you-have-difficulty-using-this-service">
         <h2 class="heading-large">@messages("accessibilityStatement.whatToDoIfYouHaveDifficultyUsingThisService.heading")</h2>
+        <p>@messages("accessibilityStatement.reportingAccessibilityProblemsWithThisService.paragraph")</p>
     </div>
 
     <div id="reporting-accessibility-problems-with-this-service">

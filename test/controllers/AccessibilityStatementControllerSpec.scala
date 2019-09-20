@@ -39,7 +39,7 @@ class AccessibilityStatementControllerSpec extends SpecBase {
       status(result) mustBe OK
       contentAsString(result) mustBe view(
         serviceUrl = indexUrl,
-        subDomain = "claim-tax-relief-expenses",
+        subDomain = "www.tax.service.gov.uk/claim-tax-relief-expenses",
         fullyCompliant = false)(fakeRequest, messages).toString
 
       application.stop
