@@ -25,6 +25,8 @@ import uk.gov.hmrc.time.TaxYear
 
 @Singleton
 class FrontendAppConfig @Inject()(configuration: Configuration) {
+
+  lazy val serviceTitle = "Check if you can claim work related expenses"
   lazy val serviceName = configuration.get[String]("appName")
 
   private lazy val contactHost = configuration.get[String]("contact-frontend.host")
@@ -54,12 +56,23 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   lazy val fileSelfAssessmentLoginUrl = configuration.get[String]("urls.fileSelfAssessmentLoginUrl")
   lazy val annualInvestmentAllowanceUrl = configuration.get[String]("urls.annualInvestmentAllowanceUrl")
 
-  lazy val accessibilityStatementEnabled = configuration.get[Boolean]("accessibilityStatement.enabled")
+  val accessibilityStatementUrl: String = configuration.get[String]("accessibilityStatement.govAccessibilityStatementUrl")
+  val abilityNettUrl: String = configuration.get[String]("accessibilityStatement.abilityNetUrl")
+  val w3StandardsUrl: String = configuration.get[String]("accessibilityStatement.w3StandardsUrl")
+  val equalityAdvisoryServiceUrl: String = configuration.get[String]("accessibilityStatement.equalityAdvisoryServiceUrl")
+  val equalityNIUrl: String = configuration.get[String]("accessibilityStatement.equalityNIUrl")
+  val dealingHmrcAdditionalNeedsUrl: String = configuration.get[String]("accessibilityStatement.dealingHmrcAdditionalNeedsUrl")
+  val dacUrl: String = configuration.get[String]("accessibilityStatement.dacUrl")
+  val contactUsEmailAddress = configuration.get[String]("accessibilityStatement.contactUsEmailAddress")
+  val accessibilityStatementLastTested: String = configuration.get[String]("accessibilityStatement.lastTested")
+  val accessibilityStatementFirstPublished: String = configuration.get[String]("accessibilityStatement.firstPublished")
+  val accessibilityStatementEnabled: Boolean = configuration.get[Boolean]("accessibilityStatement.enabled")
 
   lazy val languageTranslationEnabled = configuration.get[Boolean]("microservice.services.features.welsh-translation")
   def languageMap: Map[String, Lang] = Map(
     "english" -> Lang("en"),
     "cymraeg" -> Lang("cy"))
+
   def routeToSwitchLanguage = (lang: String) => routes.LanguageSwitchController.switchToLanguage(lang)
 
   lazy val optimizelyConfig = new OptimizelyConfig(configuration)

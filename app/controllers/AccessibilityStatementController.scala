@@ -32,6 +32,6 @@ class AccessibilityStatementController @Inject()(
 
   def onPageLoad: Action[AnyContent] = getData {
     implicit request =>
-      Ok(view())
+      Ok(view(routes.IndexController.onPageLoad().url, "www.tax.service.gov.uk/claim-tax-relief-expenses", true))
   }
 }
