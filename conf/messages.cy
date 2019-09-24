@@ -28,7 +28,7 @@ site.hidden-edit = Newid {0}
 site.no = Na
 site.yes = Iawn
 site.save_and_continue = Yn eich blaen
-site.service_name = Hawlio rhyddhad treth ar gyfer eich treuliau sy’n gysylltiedig â gwaith
+site.service_name = Gwirio a allwch hawlio treuliau sy'n ymwneud â gwaith
 site.textarea.char_limit = (Y terfyn yw {0} o gymeriadau)
 site.gov.uk = GOV.UK/CYMRAEG
 
@@ -86,8 +86,8 @@ registerForSelfAssessment.someoneElse.guidance = Os oes blynyddoedd treth pan fo
 registerForSelfAssessment.someoneElse.link.continue.label = gwiriwch a all hawlio rhyddhad treth
 registerForSelfAssessment.link.external.label = Rhagor o wybodaeth am sut i gofrestru ar gyfer Hunanasesiad
 
-usePrintAndPost.title = Gallwch hawlio rhyddhad treth ar gyfer y treuliau hyn drwy’r post
-usePrintAndPost.heading = Gallwch hawlio rhyddhad treth ar gyfer y treuliau hyn drwy’r post
+usePrintAndPost.title = Gallwch hawlio rhyddhad treth ar gyfer y treuliau hyn drwy'r post
+usePrintAndPost.heading = Gallwch hawlio rhyddhad treth ar gyfer y treuliau hyn drwy'r post
 usePrintAndPost.link.label = Hawlio drwy’r post
 
 claimOnline.title = Rydych yn gymwys i hawlio’r treuliau swydd hyn ar-lein
@@ -166,7 +166,7 @@ claimingFor.someoneElse.title = Pa ryddhad treth y mae’n ei hawlio?
 claimingFor.someoneElse.heading = Pa ryddhad treth y mae’n ei hawlio?
 claimingFor.someoneElse.error.required = Dewiswch pa ryddhad treth y mae’n ei hawlio
 claimingFor.uniformsClothingTools = Gwisgoedd unffurf, dillad ac offer ar gyfer gwaith
-claimingFor.uniformsClothingTools.you.description = Os oes angen y rhain arnoch fel rhan o’ch swydd, efallai y byddwch yn gallu hawlio rhyddhad treth i’w glanhau neu eu hatgyweirio, neu gael rhai newydd yn eu lle. Mae hyn yn cynnwys gwisgoedd unffurf, esgidiau diogelwch, sisyrnau neu ddriliau trydanol.
+claimingFor.uniformsClothingTools.you.description = Os oes angen y rhain arnoch fel rhan o’ch swydd, efallai y byddwch yn gallu hawlio rhyddhad treth i’w glanhau neu eu hatgyweirio, neu i gael rhai newydd yn eu lle. Mae hyn yn cynnwys gwisgoedd unffurf, esgidiau diogelwch, sisyrnau neu ddriliau trydanol.
 claimingFor.uniformsClothingTools.someoneElse.description = Os oes angen y rhain arno fel rhan o’i swydd, efallai y bydd yn gallu hawlio rhyddhad treth i’w glanhau neu eu hatgyweirio, neu i gael rhai newydd yn eu lle. Mae hyn yn cynnwys gwisgoedd unffurf, esgidiau diogelwch, sisyrnau neu ddriliau trydanol.
 claimingFor.you.mileageFuel = Cerbydau rydych yn eu defnyddio ar gyfer gwaith
 claimingFor.mileageFuel.you.description = Os ydych yn defnyddio’ch cerbyd eich hun ar gyfer gwaith, mae’n bosibl y gallwch hawlio rhyddhad treth ar gyfradd milltiroedd gymeradwy. Os ydych yn defnyddio car cwmni, efallai y byddwch yn gallu hawlio rhyddhad treth ar eich costau tanwydd ar gyfer teithiau busnes.
@@ -278,8 +278,8 @@ cannotClaimBuyingEquipment.link.label = lwfans buddsoddi blynyddol
 cannotClaimBuyingEquipment.link.label2 = gwisgoedd unffurf, dillad gwaith ac offer
 cannotClaimBuyingEquipment.link.label3 = treuliau eraill
 
-willNotPayTax.you.title = I gael rhyddhad treth, mae’n rhaid eich bod wedi talu, neu’n disgwyl talu, treth yn y flwyddyn y gwnaethoch wario’r arian
-willNotPayTax.you.heading = I gael rhyddhad treth, mae’n rhaid eich bod wedi talu, neu’n disgwyl talu, treth yn y flwyddyn y gwnaethoch wario’r arian
+willNotPayTax.you.title =  Ni allwch hawlio'r treuliau hyn
+willNotPayTax.you.heading =  Ni allwch hawlio'r treuliau hyn
 willNotPayTax.you.guidance1 = Mae’n dal yn bosibl i chi
 willNotPayTax.you.guidance2 = ond ni fyddwch yn cael rhyddhad treth oni bai eich bod yn talu treth.
 willNotPayTax.someoneElse.title = I gael rhyddhad treth, mae’n rhaid ei fod wedi talu, neu’n disgwyl talu, treth yn y flwyddyn y gwnaeth wario’r arian
