@@ -84,7 +84,10 @@ registerForSelfAssessment.someoneElse.title = Mae’n rhaid iddo gofrestru ar gy
 registerForSelfAssessment.someoneElse.heading = Mae’n rhaid iddo gofrestru ar gyfer Hunanasesiad i hawlio rhyddhad treth ar dreuliau sy’n £2,500 neu’n fwy
 registerForSelfAssessment.someoneElse.guidance = Os oes blynyddoedd treth pan fo’i dreuliau’n llai na £2,500,
 registerForSelfAssessment.someoneElse.link.continue.label = gwiriwch a all hawlio rhyddhad treth
-registerForSelfAssessment.link.external.label = Rhagor o wybodaeth am sut i gofrestru ar gyfer Hunanasesiad
+registerForSelfAssessment.guidance1 =
+registerForSelfAssessment.guidance2 = Rhagor o wybodaeth am sut i 
+registerForSelfAssessment.link.external.label = gofrestru ar gyfer Ffurflenni Treth Hunanasesiad a'u cyflwyno.
+
 
 usePrintAndPost.title = Gallwch hawlio rhyddhad treth ar gyfer y treuliau hyn drwy'r post
 usePrintAndPost.heading = Gallwch hawlio rhyddhad treth ar gyfer y treuliau hyn drwy'r post
