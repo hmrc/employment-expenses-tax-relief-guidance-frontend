@@ -2,6 +2,7 @@ date.day = Diwrnod
 date.month = Mis
 date.year = Blwyddyn
 
+error.browser.title.prefix = Gwall:
 error.boolean = Rhowch ateb
 error.invalid_date = Rhowch ddyddiad cywir
 error.date.day_blank = Nodwch ddiwrnod
@@ -28,7 +29,7 @@ site.hidden-edit = Newid {0}
 site.no = Na
 site.yes = Iawn
 site.save_and_continue = Yn eich blaen
-site.service_name = Gwirio a allwch hawlio treuliau sy'n ymwneud â gwaith
+site.service_name = Gwirio a allwch hawlio treuliau sy’n ymwneud â gwaith
 site.textarea.char_limit = (Y terfyn yw {0} o gymeriadau)
 site.gov.uk = GOV.UK/CYMRAEG
 
@@ -44,10 +45,10 @@ claimant.error.required = Dewiswch ar gyfer pwy yr ydych yn hawlio treuliau
 
 registeredForSelfAssessment.you.title = A ydych wedi cofrestru ar gyfer Hunanasesiad?
 registeredForSelfAssessment.you.heading = A ydych wedi cofrestru ar gyfer Hunanasesiad?
-registeredForSelfAssessment.you.error.required = Dewiswch ‘Iawn’ os ydych wedi cofrestru ar gyfer Hunanasesiad
+registeredForSelfAssessment.you.error.required = Dewiswch Iawn os ydych wedi cofrestru ar gyfer Hunanasesiad
 registeredForSelfAssessment.someoneElse.title = A yw’r person yr ydych yn hawlio ar ei gyfer wedi cofrestru ar gyfer Hunanasesiad?
 registeredForSelfAssessment.someoneElse.heading = A yw’r person yr ydych yn hawlio ar ei gyfer wedi cofrestru ar gyfer Hunanasesiad?
-registeredForSelfAssessment.someoneElse.error.required = Dewiswch ‘Iawn’ os yw’r person yr ydych yn hawlio ar ei gyfer wedi cofrestru ar gyfer Hunanasesiad
+registeredForSelfAssessment.someoneElse.error.required = Dewiswch Iawn os yw’r person yr ydych yn hawlio ar ei gyfer wedi cofrestru ar gyfer Hunanasesiad
 registeredForSelfAssessment.hidden.summary = Yr hyn y mae Hunanasesiad yn ei olygu
 registeredForSelfAssessment.hidden.guidance1 = Mae Hunanasesiad yn system y mae Cyllid a Thollau EM (CThEM) yn ei defnyddio i gasglu Treth Incwm.
 registeredForSelfAssessment.hidden.guidance2 = Fel arfer, didynnir treth yn awtomatig o gyflogau, pensiynau a chynilion. Mae’n rhaid i bobl a busnesau sydd ag incwm arall gofrestru ar gyfer Hunanasesiad a rhoi gwybod am eu hincwm ar Ffurflen Dreth.
@@ -55,10 +56,10 @@ registeredForSelfAssessment.hidden.guidance3 = {0}Rhagor o wybodaeth am bwy sy�
 
 claimingOverPayAsYouEarnThreshold.you.title = A ydych yn hawlio rhyddhad treth ar dreuliau sy’n £2,500 neu’n fwy mewn unrhyw flwyddyn dreth?
 claimingOverPayAsYouEarnThreshold.you.heading = A ydych yn hawlio rhyddhad treth ar dreuliau sy’n £2,500 neu’n fwy mewn unrhyw flwyddyn dreth?
-claimingOverPayAsYouEarnThreshold.you.error.required = Dewiswch ‘Iawn’ os ydych yn hawlio rhyddhad treth ar dreuliau sy’n £2,500 neu’n fwy mewn unrhyw flwyddyn dreth
+claimingOverPayAsYouEarnThreshold.you.error.required = Dewiswch Iawn os ydych yn hawlio rhyddhad treth ar dreuliau sy’n £2,500 neu’n fwy mewn unrhyw flwyddyn dreth
 claimingOverPayAsYouEarnThreshold.someoneElse.title = A yw’n hawlio rhyddhad treth ar dreuliau sy’n £2,500 neu’n fwy mewn unrhyw flwyddyn dreth?
 claimingOverPayAsYouEarnThreshold.someoneElse.heading = A yw’n hawlio rhyddhad treth ar dreuliau sy’n £2,500 neu’n fwy mewn unrhyw flwyddyn dreth?
-claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Dewiswch ‘Iawn’ os yw’n hawlio rhyddhad treth ar dreuliau sy’n £2,500 neu’n fwy mewn unrhyw flwyddyn dreth
+claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Dewiswch Iawn os yw’n hawlio rhyddhad treth ar dreuliau sy’n £2,500 neu’n fwy mewn unrhyw flwyddyn dreth
 
 useSelfAssessment.you.title = Mae’n rhaid i chi ddefnyddio Hunanasesiad i hawlio rhyddhad treth ar gyfer y treuliau hyn
 useSelfAssessment.you.heading = Mae’n rhaid i chi ddefnyddio Hunanasesiad i hawlio rhyddhad treth ar gyfer y treuliau hyn
@@ -74,7 +75,7 @@ useSelfAssessment.link.label = Rhagor o wybodaeth am Ffurflenni Treth Hunanasesi
 
 moreThanFiveJobs.title = A ydych yn hawlio rhyddhad treth ar gyfer mwy na 5 swydd wahanol?
 moreThanFiveJobs.heading = A ydych yn hawlio rhyddhad treth ar gyfer mwy na 5 swydd wahanol?
-moreThanFiveJobs.error.required = Dewiswch ‘Iawn’ os ydych yn hawlio rhyddhad treth ar gyfer mwy na 5 swydd wahanol
+moreThanFiveJobs.error.required = Dewiswch Iawn os ydych yn hawlio rhyddhad treth ar gyfer mwy na 5 swydd wahanol
 
 registerForSelfAssessment.you.title = Mae’n rhaid i chi gofrestru ar gyfer Hunanasesiad i hawlio rhyddhad treth ar dreuliau sy’n £2,500 neu’n fwy
 registerForSelfAssessment.you.heading = Mae’n rhaid i chi gofrestru ar gyfer Hunanasesiad i hawlio rhyddhad treth ar dreuliau sy’n £2,500 neu’n fwy
@@ -86,8 +87,8 @@ registerForSelfAssessment.someoneElse.guidance = Os oes blynyddoedd treth pan fo
 registerForSelfAssessment.someoneElse.link.continue.label = gwiriwch a all hawlio rhyddhad treth
 registerForSelfAssessment.link.external.label = Rhagor o wybodaeth am sut i gofrestru ar gyfer Hunanasesiad
 
-usePrintAndPost.title = Gallwch hawlio rhyddhad treth ar gyfer y treuliau hyn drwy'r post
-usePrintAndPost.heading = Gallwch hawlio rhyddhad treth ar gyfer y treuliau hyn drwy'r post
+usePrintAndPost.title = Gallwch hawlio rhyddhad treth ar gyfer y treuliau hyn drwy’r post
+usePrintAndPost.heading = Gallwch hawlio rhyddhad treth ar gyfer y treuliau hyn drwy’r post
 usePrintAndPost.link.label = Hawlio drwy’r post
 
 claimOnline.title = Rydych yn gymwys i hawlio’r treuliau swydd hyn ar-lein
@@ -110,12 +111,12 @@ employerPaidBackExpenses.you.title = A yw eich cyflogwr wedi ad-dalu’ch holl d
 employerPaidBackExpenses.you.heading = A yw eich cyflogwr wedi ad-dalu’ch holl dreuliau sy’n gysylltiedig â gwaith?
 employerPaidBackExpenses.you.hidden.summary = Yr hyn y mae’n ei olygu os yw eich cyflogwr wedi ad-dalu’ch holl dreuliau
 employerPaidBackExpenses.you.hidden.guidance = Os gwnaeth eich cyflogwr ad-dalu’ch holl dreuliau sy’n gysylltiedig â gwaith, neu roi’r pethau yr ydych yn eu hawlio, ni allwch hawlio rhyddhad treth ar gyfer y treuliau hynny.
-employerPaidBackExpenses.you.error.required = Dewiswch ‘Iawn’ os yw eich cyflogwr wedi ad-dalu’ch holl dreuliau sy’n gysylltiedig â gwaith
+employerPaidBackExpenses.you.error.required = Dewiswch Iawn os yw eich cyflogwr wedi ad-dalu’ch holl dreuliau sy’n gysylltiedig â gwaith
 employerPaidBackExpenses.someoneElse.title = Yw ei gyflogwr wedi ad-dalu ei holl dreuliau sy’n gysylltiedig â gwaith?
 employerPaidBackExpenses.someoneElse.heading = Yw ei gyflogwr wedi ad-dalu ei holl dreuliau sy’n gysylltiedig â gwaith?
 employerPaidBackExpenses.someoneElse.hidden.summary = Yr hyn y mae’n ei olygu os yw ei gyflogwr wedi ad-dalu ei holl dreuliau
 employerPaidBackExpenses.someoneElse.hidden.guidance = Os gwnaeth ei gyflogwr ad-dalu ei holl dreuliau sy’n gysylltiedig â gwaith, neu roi’r pethau y mae’n eu hawlio, ni all hawlio rhyddhad treth ar gyfer y treuliau hynny.
-employerPaidBackExpenses.someoneElse.error.required = Dewiswch ‘Iawn’ os yw ei gyflogwr wedi ad-dalu ei holl dreuliau sy’n gysylltiedig â gwaith
+employerPaidBackExpenses.someoneElse.error.required = Dewiswch Iawn os yw ei gyflogwr wedi ad-dalu ei holl dreuliau sy’n gysylltiedig â gwaith
 
 taxYears.you.title = Pa flynyddoedd treth ydych yn hawlio rhyddhad treth ar eu cyfer?
 taxYears.you.heading = Pa flynyddoedd treth ydych yn hawlio rhyddhad treth ar eu cyfer?
@@ -141,10 +142,10 @@ cannotClaimReliefTooLongAgo.link.label = Darllenwch ‘Hawlio rhyddhad treth ar 
 
 paidTaxInRelevantYear.you.title = A wnaethoch dalu treth rhwng 6 Ebrill {0} a 5 Ebrill {1}?
 paidTaxInRelevantYear.you.heading = A wnaethoch dalu treth rhwng 6 Ebrill {0} a 5 Ebrill {1}?
-paidTaxInRelevantYear.you.error.required = Dewiswch ‘Iawn’ os gwnaethoch dalu treth rhwng 6 Ebrill {0} a 5 Ebrill {1}
-paidTaxInRelevantYear.someoneElse.title = A dalodd treth rhwng 6 Ebrill {0} a 5 Ebrill {1}?
-paidTaxInRelevantYear.someoneElse.heading = A dalodd treth rhwng 6 Ebrill {0} a 5 Ebrill {1}?
-paidTaxInRelevantYear.someoneElse.error.required = Dewiswch ‘Iawn’ os dalodd treth rhwng 6 Ebrill {0} a 5 Ebrill {1}
+paidTaxInRelevantYear.you.error.required = Dewiswch Iawn os yw’n hawlio ar gyfer treuliau ar ôl 5 Ebrill {0}
+paidTaxInRelevantYear.someoneElse.title = A yw’n hawlio ar gyfer treuliau ar ôl 5 Ebrill {0}?
+paidTaxInRelevantYear.someoneElse.heading = A yw’n hawlio ar gyfer treuliau ar ôl 5 Ebrill {0}?
+paidTaxInRelevantYear.someoneElse.error.required = Dewiswch Iawn os yw’n hawlio ar gyfer treuliau ar ôl 5 Ebrill {0}
 
 notEntitled.you.title = I hawlio rhyddhad treth, mae’n rhaid eich bod wedi talu treth yn ystod y flwyddyn y gwnaethoch wario’r arian
 notEntitled.you.heading = I hawlio rhyddhad treth, mae’n rhaid eich bod wedi talu treth yn ystod y flwyddyn y gwnaethoch wario’r arian
@@ -191,24 +192,24 @@ claimingFuel.you.heading = A ydych eisiau hawlio’r arian rydych wedi’i wario
 claimingFuel.you.guidance = Mae tanwydd yn cynnwys trydan. Ni allwch hawlio’r canlynol:
 claimingFuel.you.bullet1 = arian rydych wedi’i wario i gyrraedd a gadael eich man gwaith arferol
 claimingFuel.you.bullet2 = lwfans milltiroedd ar gyfer pethau fel treth ffordd, MOT ac atgyweiriadau
-claimingFuel.you.error.required = Dewiswch ‘Iawn’ os ydych eisiau hawlio arian rydych wedi’i wario ar danwydd ar gyfer eich cerbyd cwmni
+claimingFuel.you.error.required = Dewiswch Iawn os ydych eisiau hawlio arian rydych wedi’i wario ar danwydd ar gyfer eich cerbyd cwmni
 claimingFuel.someoneElse.title = A yw eisiau hawlio arian y mae wedi’i wario ar danwydd ar gyfer ei gerbyd cwmni?
 claimingFuel.someoneElse.heading = A yw eisiau hawlio arian y mae wedi’i wario ar danwydd ar gyfer ei gerbyd cwmni?
 claimingFuel.someoneElse.guidance = Mae tanwydd yn cynnwys trydan. Ni all hawlio ar gyfer:
 claimingFuel.someoneElse.bullet1 = arian y mae wedi’i wario i gyrraedd a gadael ei fan gwaith arferol
 claimingFuel.someoneElse.bullet2 = lwfans milltiroedd ar gyfer pethau fel treth ffordd, MOT ac atgyweiriadau
-claimingFuel.someoneElse.error.required = Dewiswch ‘Iawn’ os yw eisiau hawlio arian y mae wedi’i wario ar danwydd ar gyfer ei gerbyd cwmni
+claimingFuel.someoneElse.error.required = Dewiswch Iawn os yw eisiau hawlio arian y mae wedi’i wario ar danwydd ar gyfer ei gerbyd cwmni
 
 claimingMileage.you.title = A ydych eisiau hawlio’r gyfradd milltiroedd gymeradwy am ddefnyddio’ch cerbyd eich hunan ar gyfer gwaith?
 claimingMileage.you.heading = A ydych eisiau hawlio’r gyfradd milltiroedd gymeradwy am ddefnyddio’ch cerbyd eich hunan ar gyfer gwaith?
 claimingMileage.you.guidance = Ni allwch hawlio’r arian y gwnaethoch ei wario i gyrraedd a gadael eich man gwaith arferol. Mae’r gyfradd milltiroedd gymeradwy ar gyfer pethau megis:
 claimingMileage.you.guidance2 = Gallwch ond hawlio rhyddhad treth os yw eich cyflogwr yn talu llai na’r gyfradd gymeradwy i chi, neu’n talu dim byd o gwbl.
-claimingMileage.you.error.required = Dewiswch ‘Iawn’ os ydych eisiau hawlio’r gyfradd milltiroedd gymeradwy ar gyfer defnyddio’ch cerbyd eich hun ar gyfer gwaith
+claimingMileage.you.error.required = Dewiswch Iawn os ydych eisiau hawlio’r gyfradd milltiroedd gymeradwy ar gyfer defnyddio’ch cerbyd eich hun ar gyfer gwaith
 claimingMileage.someoneElse.title = A yw eisiau hawlio’r gyfradd milltiroedd gymeradwy am ddefnyddio’i gerbyd ei hun ar gyfer gwaith?
 claimingMileage.someoneElse.heading = A yw eisiau hawlio’r gyfradd milltiroedd gymeradwy am ddefnyddio’i gerbyd ei hun ar gyfer gwaith?
 claimingMileage.someoneElse.guidance = Ni all hawlio’r arian a wariodd i gyrraedd a gadael ei fan gwaith arferol. Mae’r gyfradd milltiroedd gymeradwy ar gyfer pethau megis:
 claimingMileage.someoneElse.guidance2 = Gall ond hawlio rhyddhad treth os yw ei gyflogwr yn talu llai na’r gyfradd gymeradwy iddo, neu’n talu dim byd o gwbl.
-claimingMileage.someoneElse.error.required = Dewiswch ‘Iawn’ os yw eisiau hawlio’r gyfradd milltiroedd gymeradwy ar gyfer defnyddio’i gerbyd ei hun ar gyfer gwaith
+claimingMileage.someoneElse.error.required = Dewiswch Iawn os yw eisiau hawlio’r gyfradd milltiroedd gymeradwy ar gyfer defnyddio’i gerbyd ei hun ar gyfer gwaith
 claimingMileage.guidance.bullet1 = tanwydd
 claimingMileage.guidance.bullet2 = trydan
 claimingMileage.guidance.bullet3 = treth ffordd
@@ -225,24 +226,24 @@ claimingMileage.hidden.bicycles.guidance = Y gyfradd milltiroedd gymeradwy ar gy
 
 useCompanyCar.you.usingOwnCar.title = A ydych hefyd yn defnyddio cerbyd y mae’ch cyflogwr yn berchen arno neu’n ei roi ar brydles?
 useCompanyCar.you.usingOwnCar.heading = A ydych hefyd yn defnyddio cerbyd y mae’ch cyflogwr yn berchen arno neu’n ei roi ar brydles?
-useCompanyCar.you.usingOwnCar.error.required = Dewiswch ‘Iawn’ os ydych hefyd yn defnyddio cerbyd y mae’ch cyflogwr yn berchen arno neu’n ei roi ar brydles
+useCompanyCar.you.usingOwnCar.error.required = Dewiswch Iawn os ydych hefyd yn defnyddio cerbyd y mae’ch cyflogwr yn berchen arno neu’n ei roi ar brydles
 useCompanyCar.someoneElse.usingOwnCar.title = A yw hefyd yn defnyddio cerbyd y mae ei gyflogwr yn berchen arno neu’n ei roi ar brydles?
 useCompanyCar.someoneElse.usingOwnCar.heading = A yw hefyd yn defnyddio cerbyd y mae ei gyflogwr yn berchen arno neu’n ei roi ar brydles?
-useCompanyCar.someoneElse.usingOwnCar.error.required = Dewiswch ‘Iawn’ os yw hefyd yn defnyddio cerbyd y mae ei gyflogwr yn berchen arno neu’n ei roi ar brydles
+useCompanyCar.someoneElse.usingOwnCar.error.required = Dewiswch Iawn os yw hefyd yn defnyddio cerbyd y mae ei gyflogwr yn berchen arno neu’n ei roi ar brydles
 useCompanyCar.you.notUsingOwnCar.title = A ydych yn defnyddio cerbyd y mae’ch cyflogwr yn berchen arno neu’n ei roi ar brydles?
 useCompanyCar.you.notUsingOwnCar.heading = A ydych yn defnyddio cerbyd y mae’ch cyflogwr yn berchen arno neu’n ei roi ar brydles?
-useCompanyCar.you.notUsingOwnCar.error.required = Dewiswch ‘Iawn’ os ydych yn defnyddio cerbyd y mae’ch cyflogwr yn berchen arno neu’n ei roi ar brydles
+useCompanyCar.you.notUsingOwnCar.error.required = Dewiswch Iawn os ydych yn defnyddio cerbyd y mae’ch cyflogwr yn berchen arno neu’n ei roi ar brydles
 useCompanyCar.someoneElse.notUsingOwnCar.title = A yw’n defnyddio cerbyd y mae’ch cyflogwr yn berchen arno neu’n ei roi ar brydles?
 useCompanyCar.someoneElse.notUsingOwnCar.heading = A yw’n defnyddio cerbyd y mae’ch cyflogwr yn berchen arno neu’n ei roi ar brydles?
-useCompanyCar.someoneElse.notUsingOwnCar.error.required = Dewiswch ‘Iawn’ os yw’n defnyddio cerbyd y mae ei gyflogwr yn berchen arno neu’n ei roi ar brydles
+useCompanyCar.someoneElse.notUsingOwnCar.error.required = Dewiswch Iawn os yw’n defnyddio cerbyd y mae ei gyflogwr yn berchen arno neu’n ei roi ar brydles
 useCompanyCar.guidance = Gelwir hyn yn gerbyd cwmni neu gar cwmni.
 
 useOwnCar.you.title = A ydych yn defnyddio cerbyd ar gyfer gwaith y gwnaethoch ei brynu neu ei rentu ar brydles gyda’ch arian eich hun?
 useOwnCar.you.heading = A ydych yn defnyddio cerbyd ar gyfer gwaith y gwnaethoch ei brynu neu ei rentu ar brydles gyda’ch arian eich hun?
-useOwnCar.you.error.required = Dewiswch ‘Iawn’ os ydych yn defnyddio cerbyd ar gyfer gwaith y gwnaethoch ei brynu neu ei rentu ar brydles gyda’ch arian eich hun
+useOwnCar.you.error.required = Dewiswch Iawn os ydych yn defnyddio cerbyd ar gyfer gwaith y gwnaethoch ei brynu neu ei rentu ar brydles gyda’ch arian eich hun
 useOwnCar.someoneElse.title = A yw’n defnyddio cerbyd ar gyfer gwaith y gwnaeth ei brynu neu ei rentu ar brydles gyda’i arian ei hun?
 useOwnCar.someoneElse.heading = A yw’n defnyddio cerbyd ar gyfer gwaith y gwnaeth ei brynu neu ei rentu ar brydles gyda’i arian ei hun?
-useOwnCar.someoneElse.error.required = Dewiswch ‘Iawn’ os yw’n defnyddio cerbyd ar gyfer gwaith y gwnaeth ei brynu neu ei rentu ar brydles gyda’i arian ei hun
+useOwnCar.someoneElse.error.required = Dewiswch Iawn os yw’n defnyddio cerbyd ar gyfer gwaith y gwnaeth ei brynu neu ei rentu ar brydles gyda’i arian ei hun
 
 cannotClaimMileageCosts.you.title = Ni allwch hawlio rhyddhad treth ar gyfer y treuliau hyn
 cannotClaimMileageCosts.you.heading = Ni allwch hawlio rhyddhad treth ar gyfer y treuliau hyn
@@ -278,8 +279,8 @@ cannotClaimBuyingEquipment.link.label = lwfans buddsoddi blynyddol
 cannotClaimBuyingEquipment.link.label2 = gwisgoedd unffurf, dillad gwaith ac offer
 cannotClaimBuyingEquipment.link.label3 = treuliau eraill
 
-willNotPayTax.you.title =  Ni allwch hawlio'r treuliau hyn
-willNotPayTax.you.heading =  Ni allwch hawlio'r treuliau hyn
+willNotPayTax.you.title =  Ni allwch hawlio’r treuliau hyn
+willNotPayTax.you.heading =  Ni allwch hawlio’r treuliau hyn
 willNotPayTax.you.guidance1 = Mae’n dal yn bosibl i chi
 willNotPayTax.you.guidance2 = ond ni fyddwch yn cael rhyddhad treth oni bai eich bod yn talu treth.
 willNotPayTax.someoneElse.title = I gael rhyddhad treth, mae’n rhaid ei fod wedi talu, neu’n disgwyl talu, treth yn y flwyddyn y gwnaeth wario’r arian
@@ -291,7 +292,7 @@ willNotPayTax.link.external.label = Darllenwch ‘Hawlio rhyddhad treth ar gyfer
 
 willPayTax.you.title = A ydych wedi talu, neu a ydych yn disgwyl talu, treth rhwng 6 Ebrill {0} a 5 Ebrill {1}?
 willPayTax.you.heading = A ydych wedi talu, neu a ydych yn disgwyl talu, treth rhwng 6 Ebrill {0} a 5 Ebrill {1}?
-willPayTax.you.error.required = Dewiswch ‘Iawn’ os ydych wedi talu, neu rydych yn disgwyl talu, treth rhwng 6 Ebrill {0} a 5 Ebrill {1}
+willPayTax.you.error.required = Dewiswch Iawn os ydych wedi talu, neu rydych yn disgwyl talu, treth rhwng 6 Ebrill {0} a 5 Ebrill {1}
 willPayTax.someoneElse.title = A yw wedi talu, neu a yw’n disgwyl talu, treth rhwng 6 Ebrill {0} a 5 Ebrill {1}?
 willPayTax.someoneElse.heading = A yw wedi talu, neu a yw’n disgwyl talu, treth rhwng 6 Ebrill {0} a 5 Ebrill {1}?
-willPayTax.someoneElse.error.required = Dewiswch ‘Iawn’ os yw wedi talu, neu mae’n disgwyl talu, treth rhwng 6 Ebrill {0} a 5 Ebrill {1}
+willPayTax.someoneElse.error.required = Dewiswch Iawn os yw wedi talu, neu mae’n disgwyl talu, treth rhwng 6 Ebrill {0} a 5 Ebrill {1}
