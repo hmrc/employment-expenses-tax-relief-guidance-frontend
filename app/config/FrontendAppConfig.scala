@@ -63,7 +63,7 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   val equalityNIUrl: String = configuration.get[String]("accessibilityStatement.equalityNIUrl")
   val dealingHmrcAdditionalNeedsUrl: String = configuration.get[String]("accessibilityStatement.dealingHmrcAdditionalNeedsUrl")
   val dacUrl: String = configuration.get[String]("accessibilityStatement.dacUrl")
-  val contactUsEmailAddress = configuration.get[String]("accessibilityStatement.contactUsEmailAddress")
+  val contactAccessibilityUrl = configuration.get[String]("accessibilityStatement.contactAccessibilityUrl")
   val accessibilityStatementLastTested: String = configuration.get[String]("accessibilityStatement.lastTested")
   val accessibilityStatementFirstPublished: String = configuration.get[String]("accessibilityStatement.firstPublished")
   val accessibilityStatementEnabled: Boolean = configuration.get[Boolean]("accessibilityStatement.enabled")
