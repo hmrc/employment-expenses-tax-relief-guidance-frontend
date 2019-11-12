@@ -6,9 +6,9 @@ object AppDependencies {
 
   val compile: Seq[ModuleID] = Seq(
     play.sbt.PlayImport.ws,
-    "org.reactivemongo" %% "play2-reactivemongo"     % "0.18.0-play26",
+    "org.reactivemongo" %% "play2-reactivemongo"     % "0.19.0-play26",
     "uk.gov.hmrc" %% "logback-json-logger"           % "4.6.0",
-    "uk.gov.hmrc" %% "govuk-template"                % "5.43.0-play-26",
+    "uk.gov.hmrc" %% "govuk-template"                % "5.44.0-play-26",
     "uk.gov.hmrc" %% "play-health"                   % "3.14.0-play-26",
     "uk.gov.hmrc" %% "play-ui"                       % "8.3.0-play-26",
     "uk.gov.hmrc" %% "http-caching-client"           % "9.0.0-play-26",
@@ -22,7 +22,7 @@ object AppDependencies {
   val test: Seq[ModuleID] = Seq(
     "uk.gov.hmrc"             %% "bootstrap-play-26"   % "1.1.0"  classifier "tests",
     "org.scalatest"           %% "scalatest"           % "3.0.8",
-    "org.scalatestplus.play"  %% "scalatestplus-play"  % "2.0.1",
+    "org.scalatestplus.play"  %% "scalatestplus-play"  % "3.1.2",
     "org.pegdown"             %  "pegdown"             % "1.6.0",
     "org.jsoup"               %  "jsoup"               % "1.12.1",
     "com.typesafe.play"       %% "play-test"           % PlayVersion.current,
