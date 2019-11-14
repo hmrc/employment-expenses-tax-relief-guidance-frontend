@@ -26,7 +26,8 @@ class MessagesSpec extends SpecBase {
 
   private val MatchSingleQuoteOnly = """\w+'{1}\w+""".r
   private val MatchBacktickQuoteOnly = """`+""".r
-  private val MatchForwardTickQuoteOnly = """’+""".r
+  private val MatchOpenQuoteOnly = """‘+""".r
+  private val MatchClosingQuoteOnly = """’+""".r
 
   private val englishMessages = parseMessages("conf/messages")
   private val welshMessages = parseMessages("conf/messages.cy")
@@ -71,7 +72,8 @@ class MessagesSpec extends SpecBase {
     withClue(s"In $label, there is an unescaped or invalid quote:[$key][$value]") {
       MatchSingleQuoteOnly.findFirstIn(value).isDefined mustBe false
       MatchBacktickQuoteOnly.findFirstIn(value).isDefined mustBe false
-      MatchForwardTickQuoteOnly.findFirstIn(value).isDefined mustBe false
+      MatchOpenQuoteOnly.findFirstIn(value).isDefined mustBe false
+      MatchClosingQuoteOnly.findFirstIn(value).isDefined mustBe false
     }
   }
 
