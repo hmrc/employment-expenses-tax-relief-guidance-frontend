@@ -56,6 +56,8 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   lazy val fileSelfAssessmentLoginUrl = configuration.get[String]("urls.fileSelfAssessmentLoginUrl")
   lazy val annualInvestmentAllowanceUrl = configuration.get[String]("urls.annualInvestmentAllowanceUrl")
 
+  lazy val googleTagManagerId = configuration.get[String](s"google-tag-manager.id")
+
   val accessibilityStatementUrl: String = configuration.get[String]("accessibilityStatement.govAccessibilityStatementUrl")
   val abilityNettUrl: String = configuration.get[String]("accessibilityStatement.abilityNetUrl")
   val w3StandardsUrl: String = configuration.get[String]("accessibilityStatement.w3StandardsUrl")
