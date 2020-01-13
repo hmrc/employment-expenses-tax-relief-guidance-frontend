@@ -23,7 +23,7 @@ import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, Materializer}
 import com.google.inject.Inject
 import org.scalatest.{MustMatchers, OptionValues, WordSpec}
-import org.scalatestplus.play.OneAppPerSuite
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.json.Json
@@ -47,7 +47,7 @@ object SessionIdFilterSpec {
 
 }
 
-class SessionIdFilterSpec extends WordSpec with MustMatchers with OneAppPerSuite with OptionValues {
+class SessionIdFilterSpec extends WordSpec with MustMatchers with GuiceOneAppPerSuite with OptionValues {
 
   import SessionIdFilterSpec._
 
