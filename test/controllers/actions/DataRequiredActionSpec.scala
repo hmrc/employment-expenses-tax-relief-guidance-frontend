@@ -17,16 +17,15 @@
 package controllers.actions
 
 import base.SpecBase
-import controllers.routes
 import models.requests.{DataRequest, OptionalDataRequest}
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.test.Helpers._
 import play.api.mvc.Result
+import play.api.test.Helpers._
 import utils.UserAnswers
 
-import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 class DataRequiredActionSpec extends SpecBase with MockitoSugar with ScalaFutures {
 

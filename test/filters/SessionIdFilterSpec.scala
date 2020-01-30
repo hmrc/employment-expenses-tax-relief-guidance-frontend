@@ -22,7 +22,7 @@ import akka.actor
 import akka.actor.ActorSystem
 import akka.stream.{ActorMaterializer, Materializer}
 import com.google.inject.Inject
-import org.scalatest.{MustMatchers, OptionValues, WordSpec}
+import org.scalatest.{OptionValues, WordSpec, MustMatchers}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder

@@ -17,7 +17,6 @@
 package views
 
 import controllers.routes
-import models.Claimant.You
 import play.twirl.api.HtmlFormat
 import views.behaviours.ViewBehaviours
 import views.html.NotEntitledSomeYearsView

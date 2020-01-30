@@ -17,10 +17,8 @@
 package views
 
 import controllers.routes
-import models.Claimant.You
 import views.behaviours.ViewBehaviours
 import views.html.RegisterForSelfAssessmentView
-import play.twirl.api.Html
 
 class RegisterForSelfAssessmentViewSpec extends ViewBehaviours {
 

@@ -18,12 +18,10 @@ package controllers.actions
 
 import javax.inject.Inject
 import models.requests.OptionalDataRequest
-import play.api.mvc.{AnyContent, BodyParser, MessagesControllerComponents, PlayBodyParsers, Request}
-import play.api.test.Helpers
+import play.api.mvc.{AnyContent, BodyParser, MessagesControllerComponents, Request}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.UserAnswers
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 class FakeDataRetrievalAction @Inject()(cacheMapToReturn: Option[CacheMap], mcc: MessagesControllerComponents) extends DataRetrievalAction {

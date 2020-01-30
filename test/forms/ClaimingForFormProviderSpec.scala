@@ -17,7 +17,6 @@
 package forms
 
 import forms.behaviours.OptionFieldBehaviours
-import models.Claimant.You
 import models.ClaimingFor
 import play.api.data.FormError
 
