@@ -16,7 +16,6 @@
 
 package views
 
-import models.Claimant.You
 import views.behaviours.ViewBehaviours
 import views.html.CannotClaimReliefView
 

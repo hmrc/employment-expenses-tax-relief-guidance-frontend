@@ -16,10 +16,9 @@
 
 package views
 
-import play.api.data.Form
 import controllers.routes
 import forms.ClaimingMileageFormProvider
-import models.Claimant.You
+import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import views.behaviours.YesNoViewBehaviours
 import views.html.ClaimingMileageView

@@ -22,8 +22,6 @@ import models.requests.OptionalDataRequest
 import play.api.mvc._
 import uk.gov.hmrc.play.HeaderCarrierConverter
 import utils.UserAnswers
-
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.{ExecutionContext, Future}
 
 class DataRetrievalActionImpl @Inject()(

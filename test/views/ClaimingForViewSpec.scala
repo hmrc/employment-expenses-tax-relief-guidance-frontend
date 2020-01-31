@@ -16,10 +16,9 @@
 
 package views
 
-import play.api.data.Form
 import forms.ClaimingForFormProvider
-import models.Claimant.You
 import models.{Claimant, ClaimingFor}
+import play.api.data.Form
 import utils.RadioOption
 import views.behaviours.ViewBehaviours
 import views.html.ClaimingForView
