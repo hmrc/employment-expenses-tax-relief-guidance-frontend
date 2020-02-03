@@ -16,18 +16,18 @@
 
 package repositories
 
-import com.google.inject.Singleton
 import config.FrontendAppConfig
-import javax.inject.Inject
+import javax.inject.{Inject, Singleton}
 import org.joda.time.{DateTime, DateTimeZone}
 import play.api.Logger
 import play.api.libs.json.{JsValue, Json}
-import play.modules.reactivemongo.ReactiveMongoApi
+import play.modules.reactivemongo.ReactiveMongoComponent
+import reactivemongo.api.DefaultDB
 import reactivemongo.api.indexes.{Index, IndexType}
-import reactivemongo.bson.BSONDocument
+import reactivemongo.bson.{BSONDocument, BSONObjectID}
 import reactivemongo.play.json.ImplicitBSONHandlers.JsObjectDocumentWriter
-import reactivemongo.play.json.collection.JSONCollection
 import uk.gov.hmrc.http.cache.client.CacheMap
+import uk.gov.hmrc.mongo.ReactiveRepository
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -44,49 +44,66 @@ object DatedCacheMap extends MongoDateTimeFormats {
   def apply(cacheMap: CacheMap): DatedCacheMap = DatedCacheMap(cacheMap.id, cacheMap.data)
 }
 
-@Singleton
-class ReactiveMongoRepository @Inject()(mongo: ReactiveMongoApi, appConfig: FrontendAppConfig) {
-
-  private val collectionName = appConfig.serviceName
+class ReactiveMongoRepository(appConfig: FrontendAppConfig, mongo: () => DefaultDB)
+  extends ReactiveRepository[DatedCacheMap, BSONObjectID](appConfig.serviceName, mongo, DatedCacheMap.formats) {
 
   val fieldName = "lastUpdated"
   val createdIndexName = "userAnswersExpiry"
   val expireAfterSeconds = "expireAfterSeconds"
   val timeToLiveInSeconds = appConfig.mongo_ttl
 
-  createIndex(fieldName, createdIndexName, timeToLiveInSeconds)
+  val ttlIndex = Index(
+    key  = Seq(
+      fieldName -> IndexType.Ascending
+    ),
+    name = Some(createdIndexName),
+    options = BSONDocument(expireAfterSeconds -> timeToLiveInSeconds)
+  )
 
-  private def collection: Future[JSONCollection] =
-    mongo.database.map(_.collection[JSONCollection](collectionName))
+  val idIndex = Index(
+    key = Seq(
+      "id" -> IndexType.Ascending
+    ),
+    name = Some("userAnswersId")
+  )
 
-  private def createIndex(field: String, indexName: String, ttl: Int): Future[Boolean] = {
-    collection.flatMap {
-      _.indexesManager.ensure(Index(Seq((field, IndexType.Ascending)), Some(indexName),
-        options = BSONDocument(expireAfterSeconds -> ttl))) map {
-        result => {
-          Logger.debug(s"set [$indexName] with value $ttl -> result : $result")
-          result
-        }
-      } recover {
-        case e => Logger.error("Failed to set TTL index", e)
-          false
-      }
+  collection.indexesManager.ensure(ttlIndex).map {
+    result => {
+      Logger.debug(s"set [userAnswersExpiry] with value $timeToLiveInSeconds -> result : $result")
+      result
     }
+  }.recover {
+    case e =>
+      Logger.error("Failed to set TTL index", e)
+      false
+  }.flatMap {
+    _ =>
+      collection.indexesManager.ensure(idIndex)
   }
+
+  collection.indexesManager.ensure(Index(Seq()))
 
   def upsert(cm: CacheMap): Future[Boolean] = {
     val selector = Json.obj("id" -> cm.id)
-    val modifier = Json.obj("$set" -> DatedCacheMap(cm))
+    val cmDocument = Json.toJson(DatedCacheMap(cm))
+    val modifier = Json.obj("$set" -> cmDocument)
 
-    collection.flatMap {
-      _.update(ordered = false).one(selector, modifier, upsert = true).map { lastError =>
+    collection.update(selector, modifier, upsert = true).map {
+      lastError =>
         lastError.ok
-      }
     }
   }
 
-  def get(id: String): Future[Option[CacheMap]] =
-    collection.flatMap {
-      _.find(Json.obj("id" -> id), None).one[CacheMap]
-    }
+  def get(id: String): Future[Option[CacheMap]] = {
+    collection.find(Json.obj("id" -> id), None).one[CacheMap]
+  }
 }
+
+@Singleton
+class SessionRepository @Inject()(appConfig: FrontendAppConfig, mongo: ReactiveMongoComponent) {
+
+  private lazy val sessionRepository = new ReactiveMongoRepository(appConfig, mongo.mongoConnector.db)
+
+  def apply(): ReactiveMongoRepository = sessionRepository
+}
+
