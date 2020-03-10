@@ -65,9 +65,9 @@ class AccessibilityStatementViewSpec extends ViewBehaviours {
           assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", messages("site.service_name"))
         }
 
-        "display language toggles" ignore {
+        "display language toggles" in {
           val doc = asDocument(applyView)
-          assertRenderedById(doc, "langSelector")
+          assertRenderedByCssSelector(doc, "p.translate")
         }
       }
     }
