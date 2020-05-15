@@ -16,7 +16,6 @@
 
 package controllers
 
-import config.FrontendAppConfig
 import controllers.actions._
 import identifiers.RegisterForSelfAssessmentId
 import javax.inject.Inject

@@ -16,7 +16,6 @@
 
 package controllers
 
-import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions.{DataRequiredAction, DataRetrievalAction}
 import identifiers.{ChangeUniformsWorkClothingToolsId, ClaimingForId}

@@ -88,7 +88,7 @@ class ReactiveMongoRepository(appConfig: FrontendAppConfig, mongo: () => Default
     val cmDocument = Json.toJson(DatedCacheMap(cm))
     val modifier = Json.obj("$set" -> cmDocument)
 
-    collection.update(selector, modifier, upsert = true).map {
+    collection.update(ordered = false).one(selector, modifier, upsert = true).map {
       lastError =>
         lastError.ok
     }
