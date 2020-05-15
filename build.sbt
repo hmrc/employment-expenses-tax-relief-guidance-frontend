@@ -13,7 +13,17 @@ lazy val root = (project in file("."))
   .settings(DefaultBuildSettings.defaultSettings(): _*)
   .settings(SbtDistributablesPlugin.publishingSettings: _*)
   .settings(inConfig(Test)(testSettings): _*)
-  .settings(majorVersion := 0)
+  .settings(
+    majorVersion := 0,
+    // ***************
+    // Use the silencer plugin to suppress warnings from unused imports in compiled twirl templates
+    scalacOptions += "-P:silencer:pathFilters=views;routes",
+    libraryDependencies ++= Seq(
+      compilerPlugin("com.github.ghik" % "silencer-plugin" % "1.6.0" cross CrossVersion.full),
+      "com.github.ghik" % "silencer-lib" % "1.6.0" % Provided cross CrossVersion.full
+    )
+    // ***************
+  )
   .settings(
     scalaVersion := "2.12.10",
     name := appName,

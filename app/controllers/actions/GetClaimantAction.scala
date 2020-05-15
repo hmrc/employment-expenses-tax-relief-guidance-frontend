@@ -21,16 +21,11 @@ import javax.inject.Inject
 import models.requests.{ClaimantRequest, DataRequest}
 import play.api.mvc.Results.Redirect
 import play.api.mvc.{ActionRefiner, Result}
-import uk.gov.hmrc.http.HeaderCarrier
-import uk.gov.hmrc.play.HeaderCarrierConverter
-
 import scala.concurrent.{ExecutionContext, Future}
 
 class GetClaimantActionImpl @Inject()(implicit val executionContext: ExecutionContext) extends GetClaimantAction {
 
   override protected def refine[A](request: DataRequest[A]): Future[Either[Result, ClaimantRequest[A]]] = {
-    implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromHeadersAndSession(request.headers, Some(request.session))
-
     request.userAnswers.claimant match {
       case None => Future.successful(Left(Redirect(routes.SessionExpiredController.onPageLoad())))
       case Some(claimant) => Future.successful(Right(ClaimantRequest(request.request, request.sessionId, request.userAnswers, claimant)))

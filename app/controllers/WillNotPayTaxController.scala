@@ -16,7 +16,6 @@
 
 package controllers
 
-import config.FrontendAppConfig
 import controllers.actions._
 import identifiers.WillNotPayTaxId
 import javax.inject.Inject

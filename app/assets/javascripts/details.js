@@ -208,7 +208,7 @@
         if (!GOVUK.details.NATIVE_DETAILS) {
           summary.__details.__content.style.display = (expanded ? 'none' : '')
 
-          var hasOpenAttr = summary.__details.getAttribute('open') !== null
+          var hasOpenAttr = summary.__details.getAttribute('open') !== null;
           if (!hasOpenAttr) {
             summary.__details.setAttribute('open', 'open')
           } else {

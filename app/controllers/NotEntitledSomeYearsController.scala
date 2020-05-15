@@ -16,7 +16,6 @@
 
 package controllers
 
-import config.FrontendAppConfig
 import controllers.actions._
 import identifiers.NotEntitledSomeYearsId
 import javax.inject.Inject
