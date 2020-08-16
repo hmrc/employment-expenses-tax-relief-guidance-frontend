@@ -43,6 +43,10 @@ claimant.you = Myself
 claimant.someoneElse = Someone else
 claimant.error.required = Select who you are claiming expenses for
 
+claimType.title = Are you only applying for tax relief on expenses for working from home?
+claimType.heading = Are you only applying for tax relief on expenses for working from home?
+claimType.error.required = Select yes if you are only applying for tax relief on expenses for working from home
+
 registeredForSelfAssessment.you.title = Do you complete Self Assessment returns?
 registeredForSelfAssessment.you.heading = Do you complete Self Assessment returns?
 registeredForSelfAssessment.you.error.required = Select yes if you complete Self Assessment returns

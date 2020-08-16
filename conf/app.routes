@@ -75,3 +75,6 @@ GET        /change-other-expenses                       controllers.ChangeOtherE
 GET        /change-uniforms-work-clothing-tools         controllers.ChangeUniformsWorkClothingToolsController.onPageLoad()
 
 GET        /accessibility-statement                     controllers.AccessibilityStatementController.onPageLoad()
+
+GET        /claim-any-other-expense                     controllers.ClaimTypeController.onPageLoad()
+POST       /claim-any-other-expense                     controllers.ClaimTypeController.onSubmit()

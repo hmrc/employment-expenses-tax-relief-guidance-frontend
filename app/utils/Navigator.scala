@@ -129,8 +129,15 @@ class Navigator @Inject()() {
     case _              => routes.SessionExpiredController.onPageLoad()
   }
 
+  private def claimTypeRouting(userAnswers: UserAnswers) = userAnswers.claimType match {
+    case Some(true)  => routes.ClaimTypeController.onPageLoad()
+    case Some(false) => routes.ClaimantController.onPageLoad()
+    case _        => routes.SessionExpiredController.onPageLoad()
+  }
+
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
     ClaimantId                          -> (_ => routes.PaidTaxInRelevantYearController.onPageLoad()),
+    ClaimTypeId                         -> claimTypeRouting,
     PaidTaxInRelevantYearId             -> paidTaxInRelevantYearRouting,
     NotEntitledSomeYearsId              -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
     RegisteredForSelfAssessmentId       -> registeredForSelfAssessmentControllerRouting,
