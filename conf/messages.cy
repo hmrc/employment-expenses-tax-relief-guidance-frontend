@@ -38,12 +38,6 @@ claimant.hidden.guidance2=Os ydych wedi gwario £60 ac yn talu treth ar gyfradd 
 claimant.you=Fi fy hun
 claimant.someoneElse=Rhywun arall
 claimant.error.required=Dewiswch ar gyfer pwy yr ydych yn hawlio treuliau
-
-claimType.title = Are you only applying for tax relief on expenses for working from home?
-claimType.heading = Are you only applying for tax relief on expenses for working from home?
-claimType.error.required = Select yes if you are only applying for tax relief on expenses for working from home
-
-
 registeredForSelfAssessment.you.title=A ydych yn llenwi Ffurflenni Treth Hunanasesiad?
 registeredForSelfAssessment.you.heading=A ydych yn llenwi Ffurflenni Treth Hunanasesiad?
 registeredForSelfAssessment.you.error.required=Dewiswch ''Iawn'' os ydych yn llenwi Ffurflenni Treth Hunanasesiad
