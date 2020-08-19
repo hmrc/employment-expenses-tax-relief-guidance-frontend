@@ -68,13 +68,15 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
     }
 
     "go to the ClaimingOverPayAsYouEarnThreshold view" when {
-      "answering No from the RegisterForSelfAssessment view" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.registeredForSelfAssessment)
-          .thenReturn(Some(false))
+      "answering No from the RegisterForSelfAssessment view" when {
+        "and not claiming for working from home only expenses" in {
+          val mockAnswers = mock[UserAnswers]
+          when(mockAnswers.onlyWorkingFromHomeExpenses).thenReturn(Some(false))
+          when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(false))
 
-        navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
-          routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
+          navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
+            routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
+        }
       }
     }
 
@@ -111,6 +113,15 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         val mockAnswers = mock[UserAnswers]
 
         navigator.nextPage(WillNotPayTaxId)(mockAnswers) mustBe
+          routes.RegisteredForSelfAssessmentController.onPageLoad()
+      }
+
+      "answering Yes to the OnlyWorkingFromHomeView" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimant).thenReturn(Some(You))
+        when(mockAnswers.onlyWorkingFromHomeExpenses).thenReturn(Some(true))
+
+        navigator.nextPage(OnlyWorkingFromHomeExpensesId)(mockAnswers) mustBe
           routes.RegisteredForSelfAssessmentController.onPageLoad()
       }
     }
@@ -346,7 +357,6 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       }
     }
 
-
     "go to the ClaimingMileage view" when {
       "answering Yes from the UseOwnCar view" in {
         val mockAnswers = mock[UserAnswers]
@@ -451,111 +461,122 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       }
     }
 
-    "go to the WillPayTax controller" when {
-      "answering Yes to PaidTaxInRelevantYearController" in {
+    "go to Claimant view" when {
+      "answering No from the OnlyWorkingFromHomeExpenses view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.onlyWorkingFromHomeExpenses).thenReturn(Some(false))
+
+        navigator.nextPage(OnlyWorkingFromHomeExpensesId)(mockAnswers) mustBe
+          routes.ClaimantController.onPageLoad()
+      }
+
+      "go to the WillPayTax controller" when {
+        "answering Yes to PaidTaxInRelevantYearController" in {
+          val mockAnswers = mock[UserAnswers]
+          when(mockAnswers.claimant).thenReturn(Some(You))
+          when(mockAnswers.paidTaxInRelevantYear).thenReturn(Some(true))
+
+          navigator.nextPage(PaidTaxInRelevantYearId)(mockAnswers) mustBe
+            routes.WillPayTaxController.onPageLoad()
+        }
+      }
+
+      "go to SessionExpired controller" when {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.claimant).thenReturn(Some(You))
-        when(mockAnswers.paidTaxInRelevantYear).thenReturn(Some(true))
 
-        navigator.nextPage(PaidTaxInRelevantYearId)(mockAnswers) mustBe
-          routes.WillPayTaxController.onPageLoad()
-      }
-    }
+        "no data from RegisteredForSelfAssessment" in {
+          navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad
+        }
 
-    "go to SessionExpired controller" when {
-      val mockAnswers = mock[UserAnswers]
-      when(mockAnswers.claimant).thenReturn(Some(You))
+        "no data from ClaimingOverPayAsYouEarnThreshold" in {
+          navigator.nextPage(ClaimingOverPayAsYouEarnThresholdId)(mockAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad
+        }
 
-      "no data from RegisteredForSelfAssessment" in {
-        navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
-          routes.SessionExpiredController.onPageLoad
-      }
+        "no data from MoreThanFiveJobs" in {
+          navigator.nextPage(MoreThanFiveJobsId)(mockAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad
+        }
 
-      "no data from ClaimingOverPayAsYouEarnThreshold" in {
-        navigator.nextPage(ClaimingOverPayAsYouEarnThresholdId)(mockAnswers) mustBe
-          routes.SessionExpiredController.onPageLoad
-      }
+        "no data from EmployerPaidBackExpenses" in {
+          navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad
+        }
 
-      "no data from MoreThanFiveJobs" in {
-        navigator.nextPage(MoreThanFiveJobsId)(mockAnswers) mustBe
-          routes.SessionExpiredController.onPageLoad
-      }
+        "no data from PaidTaxInRelevantYear" in {
+          navigator.nextPage(PaidTaxInRelevantYearId)(mockAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad
+        }
 
-      "no data from EmployerPaidBackExpenses" in {
-        navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
-          routes.SessionExpiredController.onPageLoad
-      }
+        "no data from ClaimingFor" in {
+          navigator.nextPage(ClaimingForId)(mockAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad
+        }
 
-      "no data from PaidTaxInRelevantYear" in {
-        navigator.nextPage(PaidTaxInRelevantYearId)(mockAnswers) mustBe
-          routes.SessionExpiredController.onPageLoad
-      }
+        "no data from UseOwnCar" in {
+          navigator.nextPage(UseOwnCarId)(mockAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad
+        }
 
-      "no data from ClaimingFor" in {
-        navigator.nextPage(ClaimingForId)(mockAnswers) mustBe
-          routes.SessionExpiredController.onPageLoad
-      }
+        "no data from UseCompanyCar" in {
+          navigator.nextPage(UseCompanyCarId)(mockAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad
+        }
 
-      "no data from UseOwnCar" in {
-        navigator.nextPage(UseOwnCarId)(mockAnswers) mustBe
-          routes.SessionExpiredController.onPageLoad
-      }
+        "Missing data from useCompanyCar" in {
+          val someAnswers = mock[UserAnswers]
+          when(someAnswers.useCompanyCar) thenReturn Some(false)
+          when(mockAnswers.claimant).thenReturn(Some(You))
 
-      "no data from UseCompanyCar" in {
-        navigator.nextPage(UseCompanyCarId)(mockAnswers) mustBe
-          routes.SessionExpiredController.onPageLoad
-      }
+          navigator.nextPage(UseCompanyCarId)(someAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad
+        }
 
-      "Missing data from useCompanyCar" in {
-        val someAnswers = mock[UserAnswers]
-        when(someAnswers.useCompanyCar) thenReturn Some(false)
-        when(mockAnswers.claimant).thenReturn(Some(You))
+        "no data from ClaimingFuel" in {
+          navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad
+        }
 
-        navigator.nextPage(UseCompanyCarId)(someAnswers) mustBe
-          routes.SessionExpiredController.onPageLoad
-      }
+        "missing data from ClaimingFuel(true)" in {
+          val someAnswers = mock[UserAnswers]
+          when(someAnswers.claimingFuel) thenReturn Some(true)
 
-      "no data from ClaimingFuel" in {
-        navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
-          routes.SessionExpiredController.onPageLoad
-      }
+          navigator.nextPage(ClaimingFuelId)(someAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad
+        }
 
-      "missing data from ClaimingFuel(true)" in {
-        val someAnswers = mock[UserAnswers]
-        when(someAnswers.claimingFuel) thenReturn Some(true)
+        "missing data from ClaimingFuel(false)" in {
+          val someAnswers = mock[UserAnswers]
+          when(someAnswers.claimingFuel) thenReturn Some(false)
+          when(mockAnswers.claimant).thenReturn(Some(You))
 
-        navigator.nextPage(ClaimingFuelId)(someAnswers) mustBe
-          routes.SessionExpiredController.onPageLoad
-      }
-
-      "missing data from ClaimingFuel(false)" in {
-        val someAnswers = mock[UserAnswers]
-        when(someAnswers.claimingFuel) thenReturn Some(false)
-        when(mockAnswers.claimant).thenReturn(Some(You))
-
-        navigator.nextPage(ClaimingFuelId)(someAnswers) mustBe
-          routes.SessionExpiredController.onPageLoad
-      }
+          navigator.nextPage(ClaimingFuelId)(someAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad
+        }
 
 
-      "no data from WillPayTax" in {
-        navigator.nextPage(WillPayTaxId)(mockAnswers) mustBe
-          routes.SessionExpiredController.onPageLoad
-      }
+        "no data from WillPayTax" in {
+          navigator.nextPage(WillPayTaxId)(mockAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad
+        }
 
-      "no data from ChangeOtherExpenses" in {
-        val someAnswers = mock[UserAnswers]
+        "no data from ChangeOtherExpenses" in {
+          val someAnswers = mock[UserAnswers]
 
-        navigator.nextPage(ChangeOtherExpensesId)(someAnswers) mustBe
-          routes.SessionExpiredController.onPageLoad
+          navigator.nextPage(ChangeOtherExpensesId)(someAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad
+        }
+
+        "no data from ChangeUniformsWorkClothingTools" in {
+          val someAnswers = mock[UserAnswers]
+
+          navigator.nextPage(ChangeUniformsWorkClothingToolsId)(someAnswers) mustBe
+            routes.SessionExpiredController.onPageLoad
+        }
       }
 
-      "no data from ChangeUniformsWorkClothingTools" in {
-        val someAnswers = mock[UserAnswers]
-
-        navigator.nextPage(ChangeUniformsWorkClothingToolsId)(someAnswers) mustBe
-          routes.SessionExpiredController.onPageLoad
-      }
     }
   }
 }
