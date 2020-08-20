@@ -38,3 +38,8 @@ These steps will open the first page in the service.
 1. Run sbt in interactive mode.
 2. Run `test` to run unit tests
 
+### Acceptance Tests
+1. Run sbt "run 8787" to start the service on port 8787.
+2. cd to employment-expenses-tax-relief-guidance-acceptance-tests
+3. Run ./run.sh
+

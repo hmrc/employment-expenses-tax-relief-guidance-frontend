@@ -43,6 +43,9 @@ onlyWorkingFromHomeExpenses.title = Are you only applying for tax relief on expe
 onlyWorkingFromHomeExpenses.heading = Are you only applying for tax relief on expenses for working from home?
 onlyWorkingFromHomeExpenses.error.required = Select yes if you are only applying for tax relief on expenses for working from home
 
+covidHomeWorking.title = Did you start working from home because of coronavirus (COVID-19)?
+covidHomeWorking.heading = Did you start working from home because of coronavirus (COVID-19)?
+covidHomeWorking.error.required = Select yes if you are only applying for tax relief on expenses for working from home
 
 registeredForSelfAssessment.you.title=A ydych yn llenwi Ffurflenni Treth Hunanasesiad?
 registeredForSelfAssessment.you.heading=A ydych yn llenwi Ffurflenni Treth Hunanasesiad?

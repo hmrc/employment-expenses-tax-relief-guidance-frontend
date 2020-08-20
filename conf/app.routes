@@ -78,3 +78,6 @@ GET        /accessibility-statement                     controllers.Accessibilit
 
 GET        /only-working-from-home-expenses             controllers.OnlyWorkingFromHomeExpensesController.onPageLoad()
 POST       /only-working-from-home-expenses             controllers.OnlyWorkingFromHomeExpensesController.onSubmit()
+
+GET        /covid-home-working                          controllers.CovidHomeWorkingController.onPageLoad()
+POST       /covid-home-working                          controllers.CovidHomeWorkingController.onSubmit()
