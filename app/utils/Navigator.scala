@@ -129,8 +129,15 @@ class Navigator @Inject()() {
     case _              => routes.SessionExpiredController.onPageLoad()
   }
 
+  private def onlyWorkingFromHomeExpensesRouting(userAnswers: UserAnswers) = userAnswers.onlyWorkingFromHomeExpenses match {
+    case Some(true)  => routes.OnlyWorkingFromHomeExpensesController.onPageLoad()
+    case Some(false) => routes.ClaimantController.onPageLoad()
+    case _        => routes.SessionExpiredController.onPageLoad()
+  }
+
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
     ClaimantId                          -> (_ => routes.PaidTaxInRelevantYearController.onPageLoad()),
+    OnlyWorkingFromHomeExpensesId       -> onlyWorkingFromHomeExpensesRouting,
     PaidTaxInRelevantYearId             -> paidTaxInRelevantYearRouting,
     NotEntitledSomeYearsId              -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
     RegisteredForSelfAssessmentId       -> registeredForSelfAssessmentControllerRouting,
