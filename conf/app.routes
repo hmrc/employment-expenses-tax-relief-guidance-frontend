@@ -78,3 +78,6 @@ GET        /accessibility-statement                     controllers.Accessibilit
 
 GET        /claim-any-other-expense                     controllers.ClaimTypeController.onPageLoad()
 POST       /claim-any-other-expense                     controllers.ClaimTypeController.onSubmit()
+
+GET        /covid-home-working                          controllers.CovidHomeWorkingController.onPageLoad()
+POST       /covid-home-working                          controllers.CovidHomeWorkingController.onSubmit()

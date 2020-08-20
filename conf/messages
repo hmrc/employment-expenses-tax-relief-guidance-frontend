@@ -47,6 +47,10 @@ claimType.title = Are you only applying for tax relief on expenses for working f
 claimType.heading = Are you only applying for tax relief on expenses for working from home?
 claimType.error.required = Select yes if you are only applying for tax relief on expenses for working from home
 
+covidHomeWorking.title = Did you start working from home because of coronavirus (COVID-19)?
+covidHomeWorking.heading = Did you start working from home because of coronavirus (COVID-19)?
+covidHomeWorking.error.required = Select yes if you are only applying for tax relief on expenses for working from home
+
 registeredForSelfAssessment.you.title = Do you complete Self Assessment returns?
 registeredForSelfAssessment.you.heading = Do you complete Self Assessment returns?
 registeredForSelfAssessment.you.error.required = Select yes if you complete Self Assessment returns

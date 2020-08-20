@@ -17,8 +17,8 @@
 package controllers
 
 import base.SpecBase
-import forms.ClaimTypeFormProvider
-import identifiers.ClaimTypeId
+import forms.CovidHomeWorkingFormProvider
+import identifiers.CovidHomeWorkingId
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.mockito.MockitoSugar
@@ -29,24 +29,24 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.ClaimTypeView
+import views.html.CovidHomeWorkingView
 
-class ClaimTypeControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
+class CovidHomeWorkingControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
 
   def onwardRoute: Call = routes.IndexController.onPageLoad()
-  def claimTypeRoute: Call = routes.ClaimTypeController.onPageLoad()
+  def covidHomeWorkingRoute: Call = routes.CovidHomeWorkingController.onPageLoad()
 
-  private val formProvider = new ClaimTypeFormProvider()
+  private val formProvider = new CovidHomeWorkingFormProvider()
   private val form = formProvider()
 
-  "ClaimType Controller" must {
+  "Covid Home Working Controller" must {
 
     "return OK and the correct view for a GET" in {
 
       val application = applicationBuilder().build()
-      val request = FakeRequest(GET, claimTypeRoute.url)
+      val request = FakeRequest(GET, covidHomeWorkingRoute.url)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[ClaimTypeView]
+      val view = application.injector.instanceOf[CovidHomeWorkingView]
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual
@@ -59,11 +59,11 @@ class ClaimTypeControllerSpec extends SpecBase with MockitoSugar with BeforeAndA
 
       for (answer <- Seq(true, false)) {
 
-        val validData = Map(ClaimTypeId.toString -> JsBoolean(answer))
+        val validData = Map(CovidHomeWorkingId.toString -> JsBoolean(answer))
         val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
-        val request = FakeRequest(GET, claimTypeRoute.url)
+        val request = FakeRequest(GET, covidHomeWorkingRoute.url)
         val result = route(application, request).value
-        val view = application.injector.instanceOf[ClaimTypeView]
+        val view = application.injector.instanceOf[CovidHomeWorkingView]
 
         status(result) mustEqual OK
         contentAsString(result) mustEqual view(form.fill(answer))(fakeRequest, messages).toString()
@@ -78,7 +78,7 @@ class ClaimTypeControllerSpec extends SpecBase with MockitoSugar with BeforeAndA
       val application = applicationBuilder()
         .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
         .build()
-      val request = FakeRequest(POST, claimTypeRoute.url)
+      val request = FakeRequest(POST, covidHomeWorkingRoute.url)
         .withFormUrlEncodedBody("value" -> "true")
       val result = route(application, request).value
 
@@ -92,9 +92,9 @@ class ClaimTypeControllerSpec extends SpecBase with MockitoSugar with BeforeAndA
 
       val application = applicationBuilder().build()
       val boundForm = form.bind(Map("value" -> "invalid value"))
-      val request = FakeRequest(POST, claimTypeRoute.url)
+      val request = FakeRequest(POST, covidHomeWorkingRoute.url)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[ClaimTypeView]
+      val view = application.injector.instanceOf[CovidHomeWorkingView]
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe view.apply(boundForm)(fakeRequest, messages).toString
