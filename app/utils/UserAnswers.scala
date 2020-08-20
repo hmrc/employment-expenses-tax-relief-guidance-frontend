@@ -47,4 +47,6 @@ class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
 
   def onlyWorkingFromHomeExpenses: Option[Boolean] = cacheMap.getEntry[Boolean](OnlyWorkingFromHomeExpensesId.toString)
 
+  def covidHomeWorking: Option[Boolean] = cacheMap.getEntry[Boolean](CovidHomeWorkingId.toString)
+
 }
