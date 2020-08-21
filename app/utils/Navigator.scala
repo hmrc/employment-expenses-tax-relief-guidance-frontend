@@ -134,7 +134,6 @@ class Navigator @Inject()() {
 
   private def onlyWorkingFromHomeExpensesRouting(userAnswers: UserAnswers) = userAnswers.onlyWorkingFromHomeExpenses match {
     case Some(true)  => routes.RegisteredForSelfAssessmentController.onPageLoad()
-    case Some(true)  => routes.CovidHomeWorkingController.onPageLoad()
     case Some(false) => routes.ClaimantController.onPageLoad()
     case _        => routes.SessionExpiredController.onPageLoad()
   }
