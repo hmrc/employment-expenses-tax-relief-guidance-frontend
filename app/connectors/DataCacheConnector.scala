@@ -28,6 +28,10 @@ import scala.concurrent.Future
 
 class DataCacheConnectorImpl @Inject()(val sessionRepository: SessionRepository, val cascadeUpsert: CascadeUpsert) extends DataCacheConnector {
 
+  def save(cacheMap: CacheMap): Future[CacheMap] = {
+    sessionRepository().upsert(cacheMap).map { _ => cacheMap }
+  }
+
   def save[A](cacheId: String, key: Identifier, value: A)(implicit fmt: Format[A]): Future[CacheMap] = {
     sessionRepository().get(cacheId).flatMap { optionalCacheMap =>
       val updatedCacheMap = cascadeUpsert(key, value, optionalCacheMap.getOrElse(new CacheMap(cacheId, Map())))
@@ -87,6 +91,9 @@ class DataCacheConnectorImpl @Inject()(val sessionRepository: SessionRepository,
 }
 
 trait DataCacheConnector {
+
+  def save(cacheMap: CacheMap): Future[CacheMap]
+
   def save[A](cacheId: String, key: Identifier, value: A)(implicit fmt: Format[A]): Future[CacheMap]
 
   def remove(cacheId: String, key: Identifier): Future[Boolean]

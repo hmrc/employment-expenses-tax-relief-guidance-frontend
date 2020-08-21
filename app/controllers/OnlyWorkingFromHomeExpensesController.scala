@@ -19,16 +19,21 @@ package controllers
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.OnlyWorkingFromHomeExpensesFormProvider
-import identifiers.OnlyWorkingFromHomeExpensesId
+import identifiers.{ClaimantId, OnlyWorkingFromHomeExpensesId}
 import javax.inject.Inject
+import models.Claimant
 import play.api.data.Form
 import play.api.i18n.I18nSupport
+import play.api.libs.json.{JsBoolean, JsString, JsValue}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Enumerable, Navigator, UserAnswers}
 import views.html.OnlyWorkingFromHomeExpensesView
 
 import scala.concurrent.{ExecutionContext, Future}
+
+
 
 class OnlyWorkingFromHomeExpensesController @Inject()(
                                      dataCacheConnector: DataCacheConnector,
@@ -55,10 +60,20 @@ class OnlyWorkingFromHomeExpensesController @Inject()(
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(view(formWithErrors))),
-        value =>
-          dataCacheConnector.save[Boolean](request.sessionId, OnlyWorkingFromHomeExpensesId, value).map(cacheMap =>
+        value => {
+
+          val cacheMap = CacheMap(request.sessionId, Map[String, JsValue](
+            ClaimantId.toString                     -> JsString( Claimant.You.string),
+            OnlyWorkingFromHomeExpensesId.toString  -> JsBoolean(value)
+          ))
+
+          dataCacheConnector.save(cacheMap).map(cacheMap =>
             Redirect(navigator.nextPage(OnlyWorkingFromHomeExpensesId)(new UserAnswers(cacheMap)))
           )
+
+        }
+
       )
   }
+
 }

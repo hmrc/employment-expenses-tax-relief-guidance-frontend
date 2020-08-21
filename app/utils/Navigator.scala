@@ -29,7 +29,10 @@ class Navigator @Inject()() {
 
   private def registeredForSelfAssessmentControllerRouting(userAnswers: UserAnswers) = userAnswers.registeredForSelfAssessment match {
     case Some(true)  => routes.UseSelfAssessmentController.onPageLoad()
-    case Some(false) => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
+    case Some(false) => userAnswers.onlyWorkingFromHomeExpenses match {
+      case Some(true)   => routes.EmployerPaidBackExpensesController.onPageLoad()
+      case _            => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
+    }
     case _           => routes.SessionExpiredController.onPageLoad()
   }
 
@@ -130,7 +133,7 @@ class Navigator @Inject()() {
   }
 
   private def onlyWorkingFromHomeExpensesRouting(userAnswers: UserAnswers) = userAnswers.onlyWorkingFromHomeExpenses match {
-    case Some(true)  => routes.CovidHomeWorkingController.onPageLoad()
+    case Some(true)  => routes.RegisteredForSelfAssessmentController.onPageLoad()
     case Some(false) => routes.ClaimantController.onPageLoad()
     case _        => routes.SessionExpiredController.onPageLoad()
   }
