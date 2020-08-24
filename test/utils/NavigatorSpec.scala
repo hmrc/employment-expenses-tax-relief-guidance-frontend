@@ -262,6 +262,18 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
           routes.CannotClaimReliefController.onPageLoad()
       }
+
+      "answering Yes from the EmployerPaidBackExpenses view" when {
+        "claiming for working from home only expenses" in {
+          val mockAnswers = mock[UserAnswers]
+          when(mockAnswers.employerPaidBackExpenses).thenReturn(Some(true))
+          when(mockAnswers.claimant).thenReturn(Some(You))
+          when(mockAnswers.onlyWorkingFromHomeExpenses).thenReturn(Some(true))
+
+          navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
+            routes.CannotClaimReliefController.onPageLoad()
+        }
+      }
     }
 
     "go to the ClaimingFor view" when {
@@ -272,6 +284,20 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
         navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
           routes.ClaimingForController.onPageLoad()
+      }
+    }
+
+    "go to the CovidHomeWorkingController view" when {
+      "answering No from the EmployerPaidBackExpenses view" when {
+        "claiming for working from home only expenses" in {
+          val mockAnswers = mock[UserAnswers]
+          when(mockAnswers.employerPaidBackExpenses).thenReturn(Some(false))
+          when(mockAnswers.claimant).thenReturn(Some(You))
+          when(mockAnswers.onlyWorkingFromHomeExpenses).thenReturn(Some(true))
+
+          navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
+            routes.CovidHomeWorkingController.onPageLoad()
+        }
       }
     }
 
