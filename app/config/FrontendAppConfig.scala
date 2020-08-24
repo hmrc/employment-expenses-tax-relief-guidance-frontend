@@ -69,6 +69,7 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   val accessibilityStatementLastTested: String = configuration.get[String]("accessibilityStatement.lastTested")
   val accessibilityStatementFirstPublished: String = configuration.get[String]("accessibilityStatement.firstPublished")
   val accessibilityStatementEnabled: Boolean = configuration.get[Boolean]("accessibilityStatement.enabled")
+  val workingFromHomeExpensesOnlyEnabled: Boolean = configuration.getOptional[Boolean]("workingFromHomeExpensesOnly.enabled").getOrElse(false)
 
   lazy val languageTranslationEnabled = configuration.get[Boolean]("microservice.services.features.welsh-translation")
   def languageMap: Map[String, Lang] = Map(

@@ -39,6 +39,7 @@ class OnlyWorkingFromHomeExpensesController @Inject()(
                                      dataCacheConnector: DataCacheConnector,
                                      navigator: Navigator,
                                      getData: DataRetrievalAction,
+                                     flowEnabled: WorkingFromHomeEnabledAction,
                                      formProvider: OnlyWorkingFromHomeExpensesFormProvider,
                                      val controllerComponents: MessagesControllerComponents,
                                      view: OnlyWorkingFromHomeExpensesView
@@ -46,7 +47,8 @@ class OnlyWorkingFromHomeExpensesController @Inject()(
 
   val form: Form[Boolean] = formProvider()
 
-  def onPageLoad: Action[AnyContent] = getData {
+
+  def onPageLoad: Action[AnyContent] = (flowEnabled andThen getData) {
     implicit request =>
       val preparedForm = request.userAnswers.flatMap(_.onlyWorkingFromHomeExpenses) match {
         case None => form
@@ -55,7 +57,7 @@ class OnlyWorkingFromHomeExpensesController @Inject()(
       Ok(view(preparedForm))
   }
 
-  def onSubmit: Action[AnyContent] = getData.async {
+  def onSubmit: Action[AnyContent] = (flowEnabled andThen getData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
