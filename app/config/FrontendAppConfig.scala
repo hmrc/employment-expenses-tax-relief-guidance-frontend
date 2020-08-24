@@ -55,6 +55,7 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   lazy val whoMustSendATaxReturnUrl = configuration.get[String]("urls.whoMustSendATaxReturnUrl")
   lazy val fileSelfAssessmentLoginUrl = configuration.get[String]("urls.fileSelfAssessmentLoginUrl")
   lazy val annualInvestmentAllowanceUrl = configuration.get[String]("urls.annualInvestmentAllowanceUrl")
+  lazy val workingFromHomeExpensesUrl = configuration.get[String]("urls.workingFromHomeExpensesUrl")
 
   lazy val googleTagManagerId = configuration.get[String](s"google-tag-manager.id")
 
