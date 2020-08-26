@@ -52,7 +52,7 @@ class Navigator @Inject()() {
   private def employerPaidBackExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackExpenses match {
     case Some(true)  => routes.CannotClaimReliefController.onPageLoad()
     case Some(false) => userAnswers.onlyWorkingFromHomeExpenses match {
-      case Some(true) => routes.CovidHomeWorkingController.onPageLoad()
+      case Some(true) => routes.WfhDueToCovidController.onPageLoad()
       case _ => routes.ClaimingForController.onPageLoad()
     }
     case _        => routes.SessionExpiredController.onPageLoad()
@@ -142,7 +142,7 @@ class Navigator @Inject()() {
   }
 
   private def covidHomeWorkingRouting(userAnswers: UserAnswers) = userAnswers.covidHomeWorking match {
-    case Some(true)  => routes.CovidHomeWorkingController.onPageLoad()
+    case Some(true)  => routes.WfhDueToCovidController.onPageLoad()
     case Some(false) => routes.ClaimantController.onPageLoad()
     case _        => routes.SessionExpiredController.onPageLoad()
   }

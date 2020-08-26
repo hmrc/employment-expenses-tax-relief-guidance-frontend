@@ -296,7 +296,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           when(mockAnswers.onlyWorkingFromHomeExpenses).thenReturn(Some(true))
 
           navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
-            routes.CovidHomeWorkingController.onPageLoad()
+            routes.WfhDueToCovidController.onPageLoad()
         }
       }
     }

@@ -18,39 +18,33 @@ package controllers
 
 import connectors.DataCacheConnector
 import controllers.actions._
-import forms.OnlyWorkingFromHomeExpensesFormProvider
-import identifiers.{ClaimantId, OnlyWorkingFromHomeExpensesId}
+import forms.CovidHomeWorkingFormProvider
+import identifiers.CovidHomeWorkingId
 import javax.inject.Inject
-import models.Claimant
 import play.api.data.Form
 import play.api.i18n.I18nSupport
-import play.api.libs.json.{JsBoolean, JsString, JsValue}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Enumerable, Navigator, UserAnswers}
-import views.html.OnlyWorkingFromHomeExpensesView
+import views.html.WfhDueToCovidView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-
-
-class OnlyWorkingFromHomeExpensesController @Inject()(
+class WfhDueToCovidController @Inject()(
                                      dataCacheConnector: DataCacheConnector,
                                      navigator: Navigator,
                                      getData: DataRetrievalAction,
                                      flowEnabled: WorkingFromHomeEnabledAction,
-                                     formProvider: OnlyWorkingFromHomeExpensesFormProvider,
+                                     formProvider: CovidHomeWorkingFormProvider,
                                      val controllerComponents: MessagesControllerComponents,
-                                     view: OnlyWorkingFromHomeExpensesView
+                                     view: WfhDueToCovidView
                                    )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
 
   val form: Form[Boolean] = formProvider()
 
-
   def onPageLoad: Action[AnyContent] = (flowEnabled andThen getData) {
     implicit request =>
-      val preparedForm = request.userAnswers.flatMap(_.onlyWorkingFromHomeExpenses) match {
+      val preparedForm = request.userAnswers.flatMap(_.covidHomeWorking) match {
         case None => form
         case Some(value) => form.fill(value)
       }
@@ -62,20 +56,10 @@ class OnlyWorkingFromHomeExpensesController @Inject()(
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(view(formWithErrors))),
-        value => {
-
-          val cacheMap = CacheMap(request.sessionId, Map[String, JsValue](
-            ClaimantId.toString                     -> JsString( Claimant.You.string),
-            OnlyWorkingFromHomeExpensesId.toString  -> JsBoolean(value)
-          ))
-
-          dataCacheConnector.save(cacheMap).map(cacheMap =>
-            Redirect(navigator.nextPage(OnlyWorkingFromHomeExpensesId)(new UserAnswers(cacheMap)))
+        value =>
+          dataCacheConnector.save[Boolean](request.sessionId, CovidHomeWorkingId, value).map(cacheMap =>
+            Redirect(navigator.nextPage(CovidHomeWorkingId)(new UserAnswers(cacheMap)))
           )
-
-        }
-
       )
   }
-
 }

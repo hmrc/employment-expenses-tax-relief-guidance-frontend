@@ -17,8 +17,8 @@
 package controllers
 
 import base.SpecBase
-import forms.CovidHomeWorkingFormProvider
-import identifiers.CovidHomeWorkingId
+import forms.OnlyWorkingFromHomeExpensesFormProvider
+import identifiers.OnlyWorkingFromHomeExpensesId
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.mockito.MockitoSugar
@@ -29,24 +29,24 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.CovidHomeWorkingView
+import views.html.ClaimAnyOtherExpenseView
 
-class CovidHomeWorkingControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
+class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
 
   def onwardRoute: Call = routes.IndexController.onPageLoad()
-  def covidHomeWorkingRoute: Call = routes.CovidHomeWorkingController.onPageLoad()
+  def onlyWorkingFromHomeExpensesRoute: Call = routes.ClaimAnyOtherExpenseController.onPageLoad()
 
-  private val formProvider = new CovidHomeWorkingFormProvider()
+  private val formProvider = new OnlyWorkingFromHomeExpensesFormProvider()
   private val form = formProvider()
 
-  "Covid Home Working Controller" must {
+  "OnlyWorkingFromHomeExpensesController" must {
 
     "return OK and the correct view for a GET" in {
 
       val application = applicationBuilder().build()
-      val request = FakeRequest(GET, covidHomeWorkingRoute.url)
+      val request = FakeRequest(GET, onlyWorkingFromHomeExpensesRoute.url)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[CovidHomeWorkingView]
+      val view = application.injector.instanceOf[ClaimAnyOtherExpenseView]
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual
@@ -59,11 +59,11 @@ class CovidHomeWorkingControllerSpec extends SpecBase with MockitoSugar with Bef
 
       for (answer <- Seq(true, false)) {
 
-        val validData = Map(CovidHomeWorkingId.toString -> JsBoolean(answer))
+        val validData = Map(OnlyWorkingFromHomeExpensesId.toString -> JsBoolean(answer))
         val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
-        val request = FakeRequest(GET, covidHomeWorkingRoute.url)
+        val request = FakeRequest(GET, onlyWorkingFromHomeExpensesRoute.url)
         val result = route(application, request).value
-        val view = application.injector.instanceOf[CovidHomeWorkingView]
+        val view = application.injector.instanceOf[ClaimAnyOtherExpenseView]
 
         status(result) mustEqual OK
         contentAsString(result) mustEqual view(form.fill(answer))(fakeRequest, messages).toString()
@@ -78,7 +78,7 @@ class CovidHomeWorkingControllerSpec extends SpecBase with MockitoSugar with Bef
       val application = applicationBuilder()
         .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
         .build()
-      val request = FakeRequest(POST, covidHomeWorkingRoute.url)
+      val request = FakeRequest(POST, onlyWorkingFromHomeExpensesRoute.url)
         .withFormUrlEncodedBody("value" -> "true")
       val result = route(application, request).value
 
@@ -92,9 +92,9 @@ class CovidHomeWorkingControllerSpec extends SpecBase with MockitoSugar with Bef
 
       val application = applicationBuilder().build()
       val boundForm = form.bind(Map("value" -> "invalid value"))
-      val request = FakeRequest(POST, covidHomeWorkingRoute.url)
+      val request = FakeRequest(POST, onlyWorkingFromHomeExpensesRoute.url)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[CovidHomeWorkingView]
+      val view = application.injector.instanceOf[ClaimAnyOtherExpenseView]
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe view.apply(boundForm)(fakeRequest, messages).toString
