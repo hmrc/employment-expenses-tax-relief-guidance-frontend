@@ -22,4 +22,5 @@ object OnwardJourney {
   case object IForm extends OnwardJourney
   case object ProfessionalSubscriptions extends OnwardJourney
   case object FixedRateExpenses extends OnwardJourney
+  case object WorkingFromHomeExpensesOnly extends OnwardJourney
 }

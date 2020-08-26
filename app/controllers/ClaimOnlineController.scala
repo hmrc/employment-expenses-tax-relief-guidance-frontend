@@ -35,16 +35,24 @@ class ClaimOnlineController @Inject()(
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
 
-      request.userAnswers.claimingFor match {
-        case Some(claiming) =>
-          val onwardJourney =
-            if (claiming.forall(_ == UniformsClothingTools)) OnwardJourney.FixedRateExpenses
-            else if (claiming.forall(_ == FeesSubscriptions)) OnwardJourney.ProfessionalSubscriptions
-            else OnwardJourney.IForm
+      request.userAnswers.onlyWorkingFromHomeExpenses match {
 
-          Ok(view(onwardJourney))
+        case Some(true) => Ok(view(OnwardJourney.WorkingFromHomeExpensesOnly))
+
         case _ =>
-          Redirect(routes.SessionExpiredController.onPageLoad())
+
+          request.userAnswers.claimingFor match {
+            case Some(claiming) =>
+              val onwardJourney =
+                if (claiming.forall(_ == UniformsClothingTools)) OnwardJourney.FixedRateExpenses
+                else if (claiming.forall(_ == FeesSubscriptions)) OnwardJourney.ProfessionalSubscriptions
+                else OnwardJourney.IForm
+
+              Ok(view(onwardJourney))
+
+            case _ =>
+              Redirect(routes.SessionExpiredController.onPageLoad())
+          }
       }
   }
 }

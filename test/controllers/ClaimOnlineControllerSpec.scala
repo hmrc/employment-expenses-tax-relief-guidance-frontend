@@ -73,6 +73,20 @@ class ClaimOnlineControllerSpec extends SpecBase {
       application.stop
     }
 
+    "return OK and correct view for a GET when user eligible for working from home expenses" in {
+
+      val validCacheMap = CacheMap(cacheMapId, Map("onlyWorkingFromHomeExpenses" -> Json.toJson(true)))
+      val application = applicationBuilder(Some(validCacheMap)).build
+      val request = FakeRequest(GET, claimOnlineRoute)
+      val result = route(application, request).value
+      val view = application.injector.instanceOf[ClaimOnlineView]
+
+      status(result) mustBe OK
+      contentAsString(result) mustBe view(OnwardJourney.WorkingFromHomeExpensesOnly)(fakeRequest, messages).toString
+
+      application.stop
+    }
+
     "redirect for a GET if no data" in {
 
       val application = applicationBuilder().build

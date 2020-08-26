@@ -54,6 +54,13 @@ class ClaimOnlineViewSpec extends ViewBehaviours {
       button.attr("href") must be("https://www.tax.service.gov.uk/professional-subscriptions")
     }
 
+    "When the onward journey is Employee Working From Home Expenses Include a call to action button with the correct link" in {
+      val view = application.injector.instanceOf[ClaimOnlineView]
+      val doc = asDocument(view(OnwardJourney.WorkingFromHomeExpensesOnly)(fakeRequest, messages))
+      val button: Element = doc.getElementById("continue")
+      button.attr("href") must be("/employee-working-from-home-expenses")
+    }
+
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithBackLink(createView)
