@@ -17,27 +17,52 @@
 package controllers
 
 import base.SpecBase
+import config.FrontendAppConfig
+import org.mockito.Mockito.when
+import org.scalatestplus.mockito.MockitoSugar
+import play.api.inject.bind
+import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.FakeNavigator
 import views.html.SessionExpiredView
 
-class SessionExpiredControllerSpec extends SpecBase {
+class SessionExpiredControllerSpec extends SpecBase with MockitoSugar {
 
   "SessionExpired Controller" must {
 
     val fakeNavigataor = new FakeNavigator()
 
-    "Return OK and correct view for get" in {
+    val mockAppConfig = mock[FrontendAppConfig]
+    when(mockAppConfig.analyticsToken).thenReturn("")
+    when(mockAppConfig.taxReliefForEmployeesUrl).thenReturn("https://www.gov.uk/tax-relief-for-employees")
 
-      val application = applicationBuilder().build()
-      val request = FakeRequest(GET, routes.SessionExpiredController.onPageLoad().url)
+    val application = applicationBuilder()
+      .overrides(bind[FrontendAppConfig].toInstance(mockAppConfig))
+      .build()
+    val request = FakeRequest(GET, routes.SessionExpiredController.onPageLoad().url)
+    val view = application.injector.instanceOf[SessionExpiredView]
+
+    "Return OK and correct view for get when the WFH toggle is disabled" in {
+
+      when(mockAppConfig.workingFromHomeExpensesOnlyEnabled).thenReturn(false)
+
       val result = route(application, request).value
-      val view = application.injector.instanceOf[SessionExpiredView]
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual
         view(fakeNavigataor.firstPage)(fakeRequest, messages).toString
+    }
+
+    "Return OK and correct view for get when the WFH toggle is enabled" in {
+
+      when(mockAppConfig.workingFromHomeExpensesOnlyEnabled).thenReturn(true)
+
+      val result = route(application, request).value
+
+      status(result) mustEqual OK
+      contentAsString(result) mustEqual
+          view(Call("GET", "https://www.gov.uk/tax-relief-for-employees"))(fakeRequest, messages).toString
 
       application.stop
     }
