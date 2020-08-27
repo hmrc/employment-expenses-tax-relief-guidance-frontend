@@ -17,8 +17,8 @@
 package controllers
 
 import base.SpecBase
-import forms.OnlyWorkingFromHomeExpensesFormProvider
-import identifiers.OnlyWorkingFromHomeExpensesId
+import forms.CovidHomeWorkingFormProvider
+import identifiers.CovidHomeWorkingId
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.mockito.MockitoSugar
@@ -29,24 +29,24 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.OnlyWorkingFromHomeExpensesView
+import views.html.WfhDueToCovidView
 
-class OnlyWorkingFromHomeExpensesControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
+class WfhDueToCovidControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
 
   def onwardRoute: Call = routes.IndexController.onPageLoad()
-  def onlyWorkingFromHomeExpensesRoute: Call = routes.OnlyWorkingFromHomeExpensesController.onPageLoad()
+  def covidHomeWorkingRoute: Call = routes.WfhDueToCovidController.onPageLoad()
 
-  private val formProvider = new OnlyWorkingFromHomeExpensesFormProvider()
+  private val formProvider = new CovidHomeWorkingFormProvider()
   private val form = formProvider()
 
-  "OnlyWorkingFromHomeExpensesController" must {
+  "Covid Home Working Controller" must {
 
     "return OK and the correct view for a GET" in {
 
       val application = applicationBuilder().build()
-      val request = FakeRequest(GET, onlyWorkingFromHomeExpensesRoute.url)
+      val request = FakeRequest(GET, covidHomeWorkingRoute.url)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[OnlyWorkingFromHomeExpensesView]
+      val view = application.injector.instanceOf[WfhDueToCovidView]
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual
@@ -59,11 +59,11 @@ class OnlyWorkingFromHomeExpensesControllerSpec extends SpecBase with MockitoSug
 
       for (answer <- Seq(true, false)) {
 
-        val validData = Map(OnlyWorkingFromHomeExpensesId.toString -> JsBoolean(answer))
+        val validData = Map(CovidHomeWorkingId.toString -> JsBoolean(answer))
         val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
-        val request = FakeRequest(GET, onlyWorkingFromHomeExpensesRoute.url)
+        val request = FakeRequest(GET, covidHomeWorkingRoute.url)
         val result = route(application, request).value
-        val view = application.injector.instanceOf[OnlyWorkingFromHomeExpensesView]
+        val view = application.injector.instanceOf[WfhDueToCovidView]
 
         status(result) mustEqual OK
         contentAsString(result) mustEqual view(form.fill(answer))(fakeRequest, messages).toString()
@@ -78,7 +78,7 @@ class OnlyWorkingFromHomeExpensesControllerSpec extends SpecBase with MockitoSug
       val application = applicationBuilder()
         .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
         .build()
-      val request = FakeRequest(POST, onlyWorkingFromHomeExpensesRoute.url)
+      val request = FakeRequest(POST, covidHomeWorkingRoute.url)
         .withFormUrlEncodedBody("value" -> "true")
       val result = route(application, request).value
 
@@ -92,9 +92,9 @@ class OnlyWorkingFromHomeExpensesControllerSpec extends SpecBase with MockitoSug
 
       val application = applicationBuilder().build()
       val boundForm = form.bind(Map("value" -> "invalid value"))
-      val request = FakeRequest(POST, onlyWorkingFromHomeExpensesRoute.url)
+      val request = FakeRequest(POST, covidHomeWorkingRoute.url)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[OnlyWorkingFromHomeExpensesView]
+      val view = application.injector.instanceOf[WfhDueToCovidView]
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe view.apply(boundForm)(fakeRequest, messages).toString

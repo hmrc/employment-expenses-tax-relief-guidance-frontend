@@ -76,8 +76,8 @@ GET        /change-uniforms-work-clothing-tools         controllers.ChangeUnifor
 
 GET        /accessibility-statement                     controllers.AccessibilityStatementController.onPageLoad()
 
-GET        /only-working-from-home-expenses             controllers.OnlyWorkingFromHomeExpensesController.onPageLoad()
-POST       /only-working-from-home-expenses             controllers.OnlyWorkingFromHomeExpensesController.onSubmit()
+GET        /claim-any-other-expense                     controllers.ClaimAnyOtherExpenseController.onPageLoad()
+POST       /claim-any-other-expense                     controllers.ClaimAnyOtherExpenseController.onSubmit()
 
-GET        /covid-home-working                          controllers.CovidHomeWorkingController.onPageLoad()
-POST       /covid-home-working                          controllers.CovidHomeWorkingController.onSubmit()
+GET        /wfh-due-to-covid                            controllers.WfhDueToCovidController.onPageLoad()
+POST       /wfh-due-to-covid                            controllers.WfhDueToCovidController.onSubmit()

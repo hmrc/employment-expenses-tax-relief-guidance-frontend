@@ -16,29 +16,29 @@
 
 package views
 
-import controllers.routes
-import forms.CovidHomeWorkingFormProvider
 import play.api.data.Form
+import controllers.routes
+import forms.OnlyWorkingFromHomeExpensesFormProvider
 import views.behaviours.YesNoViewBehaviours
-import views.html.CovidHomeWorkingView
+import views.html.ClaimAnyOtherExpenseView
 
-class CovidHomeWorkingViewSpec extends YesNoViewBehaviours {
+class ClaimAnyOtherExpenseViewSpec extends YesNoViewBehaviours {
 
-  val messageKeyPrefix = "covidHomeWorking"
+  val messageKeyPrefix = "onlyWorkingFromHomeExpenses"
 
   val application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[CovidHomeWorkingView]
+  val view = application.injector.instanceOf[ClaimAnyOtherExpenseView]
 
-  val form = new CovidHomeWorkingFormProvider()()
+  val form = new OnlyWorkingFromHomeExpensesFormProvider()()
 
   def createView(form: Form[_]) = view.apply(form)(fakeRequest, messages)
 
-  "Covid Home Working view" must {
+  "OnlyWorkingFromHomeExpenses view" must {
 
     behave like normalPage(createView(form), messageKeyPrefix)
 
-    behave like yesNoPage(createView, messageKeyPrefix, routes.CovidHomeWorkingController.onSubmit().url)
+    behave like yesNoPage(createView, messageKeyPrefix, routes.ClaimAnyOtherExpenseController.onSubmit().url)
 
     behave like pageWithBackLink(createView(form))
   }
