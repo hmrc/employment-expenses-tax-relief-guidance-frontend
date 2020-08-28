@@ -24,16 +24,16 @@ sealed trait ClaimingFor
 
 object ClaimingFor {
 
+  case object HomeWorking extends WithName("homeWorking") with ClaimingFor
   case object UniformsClothingTools extends WithName("uniformsClothingTools") with ClaimingFor
   case object MileageFuel extends WithName("mileageFuel") with ClaimingFor
   case object TravelExpenses extends WithName("travelExpenses") with ClaimingFor
   case object FeesSubscriptions extends WithName("feesSubscriptions") with ClaimingFor
-  case object HomeWorking extends WithName("homeWorking") with ClaimingFor
   case object BuyingEquipment extends WithName("buyingEquipment") with ClaimingFor
   case object Other extends WithName("other") with ClaimingFor
 
   val values: List[ClaimingFor] = List(
-    UniformsClothingTools, MileageFuel, TravelExpenses, FeesSubscriptions, HomeWorking, BuyingEquipment, Other
+    HomeWorking, UniformsClothingTools, MileageFuel, TravelExpenses, FeesSubscriptions, BuyingEquipment, Other
   )
 
   def options(claimant: Claimant)(implicit messages: Messages): List[RadioOption] = {
@@ -55,17 +55,23 @@ object ClaimingFor {
 
     List(
       new RadioOption(
+        s"claimingFor.$HomeWorking",
+        HomeWorking.toString,
+        Message(s"claimingFor.$HomeWorking"),
+        Some(Message(s"claimingFor.$HomeWorking.$claimant.description"))
+      ),
+      new RadioOption(
         s"claimingFor.$UniformsClothingTools",
         UniformsClothingTools.toString,
         Message(s"claimingFor.$UniformsClothingTools"),
         Some(Message(s"claimingFor.$UniformsClothingTools.$claimant.description"))
-      ),
+    ),
       new RadioOption(
         s"claimingFor.$MileageFuel",
         MileageFuel.toString,
         Message(s"claimingFor.$claimant.$MileageFuel"),
         Some(Message(s"claimingFor.$MileageFuel.$claimant.description"))
-      ),
+    ),
       new RadioOption(
         s"claimingFor.$TravelExpenses",
         TravelExpenses.toString,
@@ -73,12 +79,6 @@ object ClaimingFor {
         Some(Message(s"claimingFor.$TravelExpenses.$claimant.description"))
       ),
       feesOption,
-      new RadioOption(
-        s"claimingFor.$HomeWorking",
-        HomeWorking.toString,
-        Message(s"claimingFor.$HomeWorking"),
-        Some(Message(s"claimingFor.$HomeWorking.$claimant.description"))
-      ),
       new RadioOption(
         s"claimingFor.$BuyingEquipment",
         BuyingEquipment.toString,
@@ -97,11 +97,11 @@ object ClaimingFor {
     Enumerable(values.map(v => v.toString -> v): _*)
 
   val mappings: Map[String, ClaimingFor] = Map(
+    HomeWorking.toString           -> HomeWorking,
     UniformsClothingTools.toString -> UniformsClothingTools,
     MileageFuel.toString           -> MileageFuel,
     TravelExpenses.toString        -> TravelExpenses,
     FeesSubscriptions.toString     -> FeesSubscriptions,
-    HomeWorking.toString           -> HomeWorking,
     BuyingEquipment.toString       -> BuyingEquipment,
     Other.toString                 -> Other
   )
