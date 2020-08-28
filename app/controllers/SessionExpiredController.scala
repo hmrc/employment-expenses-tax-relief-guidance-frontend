@@ -16,10 +16,11 @@
 
 package controllers
 
+import config.FrontendAppConfig
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, GetClaimantAction}
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.Navigator
 import views.html.SessionExpiredView
@@ -30,12 +31,18 @@ class SessionExpiredController @Inject()(
                                           requireData: DataRequiredAction,
                                           getClaimant: GetClaimantAction,
                                           val controllerComponents: MessagesControllerComponents,
-                                          view: SessionExpiredView
+                                          view: SessionExpiredView,
+                                          appConfig: FrontendAppConfig
                                         ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = Action {
     implicit request =>
 
-      Ok(view(navigator.firstPage))
+      appConfig.workingFromHomeExpensesOnlyEnabled  match {
+
+        case true => Ok(view(Call("GET", appConfig.taxReliefForEmployeesUrl)))
+        case false =>  Ok(view(navigator.firstPage))
+
+      }
   }
 }
