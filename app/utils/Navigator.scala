@@ -67,6 +67,7 @@ class Navigator @Inject()() {
   private def claimingForRouting(userAnswers: UserAnswers) =
     (userAnswers.claimingFor, userAnswers.claimant) match {
       case (Some(List(ClaimingFor.MileageFuel)), Some(_))     => routes.UseOwnCarController.onPageLoad()
+      case (Some(List(ClaimingFor.HomeWorking)), Some(You))     => routes.WfhDueToCovidController.onPageLoad()
       case (Some(List(ClaimingFor.BuyingEquipment)), Some(_)) => routes.CannotClaimBuyingEquipmentController.onPageLoad()
       case (Some(_), Some(You))                               => routes.MoreThanFiveJobsController.onPageLoad()
       case (Some(_), Some(SomeoneElse))                       => routes.UsePrintAndPostController.onPageLoad()
@@ -142,8 +143,8 @@ class Navigator @Inject()() {
   }
 
   private def covidHomeWorkingRouting(userAnswers: UserAnswers) = userAnswers.covidHomeWorking match {
-    case Some(true)  => routes.WfhDueToCovidController.onPageLoad()
-    case Some(false) => routes.ClaimantController.onPageLoad()
+    case Some(true)  => routes.ClaimOnlineController.onPageLoad()
+    case Some(false) => routes.MoreThanFiveJobsController.onPageLoad()
     case _        => routes.SessionExpiredController.onPageLoad()
   }
 
