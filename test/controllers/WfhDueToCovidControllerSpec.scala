@@ -31,7 +31,8 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
 import views.html.WfhDueToCovidView
 
-class WfhDueToCovidControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
+class WfhDueToCovidControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach
+  with ScalaFutures with IntegrationPatience {
 
   def onwardRoute: Call = routes.IndexController.onPageLoad()
   def covidHomeWorkingRoute: Call = routes.WfhDueToCovidController.onPageLoad()
@@ -84,7 +85,6 @@ class WfhDueToCovidControllerSpec extends SpecBase with MockitoSugar with Before
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
-
       application.stop
     }
 
@@ -97,6 +97,7 @@ class WfhDueToCovidControllerSpec extends SpecBase with MockitoSugar with Before
       val view = application.injector.instanceOf[WfhDueToCovidView]
 
       status(result) mustBe BAD_REQUEST
+
       contentAsString(result) mustBe view.apply(boundForm)(fakeRequest, messages).toString
 
       application.stop

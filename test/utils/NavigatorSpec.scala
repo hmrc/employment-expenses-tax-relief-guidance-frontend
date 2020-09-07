@@ -299,9 +299,19 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
             routes.WfhDueToCovidController.onPageLoad()
         }
       }
+      "answering Working from Home from the ClaimingFor view and the claimant is You" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor).thenReturn(Some(ClaimingFor.HomeWorking :: Nil))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(ClaimingForId)(mockAnswers) mustBe
+          routes.WfhDueToCovidController.onPageLoad()
+      }
+
     }
 
     "go to the MoreThanFiveJobs view" when {
+
       "answering anything other than MileageFuel from the ClaimingFor view and the claimant is You" in {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.FeesSubscriptions)))
@@ -341,6 +351,15 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimant).thenReturn(Some(You))
 
         navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
+          routes.MoreThanFiveJobsController.onPageLoad()
+      }
+
+      "answering No to WfhDueToCovid when the claimant is You" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.covidHomeWorking).thenReturn(Some(false))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+
+        navigator.nextPage(CovidHomeWorkingId)(mockAnswers) mustBe
           routes.MoreThanFiveJobsController.onPageLoad()
       }
 

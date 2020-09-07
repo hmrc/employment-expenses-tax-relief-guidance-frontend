@@ -17,5 +17,5 @@
 package identifiers
 
 case object CovidHomeWorkingId extends Identifier {
-  override def toString: String = "claimType"
+  override def toString: String = "CovidHomeWorking"
 }

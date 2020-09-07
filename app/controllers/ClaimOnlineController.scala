@@ -35,10 +35,10 @@ class ClaimOnlineController @Inject()(
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
 
-      request.userAnswers.onlyWorkingFromHomeExpenses match {
+      request.userAnswers.covidHomeWorking match {
 
         case Some(true) => Ok(view(OnwardJourney.WorkingFromHomeExpensesOnly))
-
+        case Some(false) => Ok(view(OnwardJourney.IForm))
         case _ =>
 
           request.userAnswers.claimingFor match {
