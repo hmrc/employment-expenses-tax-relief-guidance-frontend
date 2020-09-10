@@ -57,7 +57,7 @@ class CascadeUpsert {
   }
 
   lazy val orderedIdentifiers = List(
-    OnlyWorkingFromHomeExpensesId,
+    ClaimAnyOtherExpenseId,
     ClaimantId,
     WillPayTaxId,
     PaidTaxInRelevantYearId,

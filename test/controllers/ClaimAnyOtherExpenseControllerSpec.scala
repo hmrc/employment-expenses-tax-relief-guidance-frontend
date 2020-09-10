@@ -17,8 +17,8 @@
 package controllers
 
 import base.SpecBase
-import forms.OnlyWorkingFromHomeExpensesFormProvider
-import identifiers.OnlyWorkingFromHomeExpensesId
+import forms.ClaimAnyOtherExpenseFormProvider
+import identifiers.ClaimAnyOtherExpenseId
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.mockito.MockitoSugar
@@ -34,17 +34,17 @@ import views.html.ClaimAnyOtherExpenseView
 class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
 
   def onwardRoute: Call = routes.IndexController.onPageLoad()
-  def onlyWorkingFromHomeExpensesRoute: Call = routes.ClaimAnyOtherExpenseController.onPageLoad()
+  def claimAnyOtherExpenseRoute: Call = routes.ClaimAnyOtherExpenseController.onPageLoad()
 
-  private val formProvider = new OnlyWorkingFromHomeExpensesFormProvider()
+  private val formProvider = new ClaimAnyOtherExpenseFormProvider()
   private val form = formProvider()
 
-  "OnlyWorkingFromHomeExpensesController" must {
+  "ClaimAnyOtherExpenseController" must {
 
     "return OK and the correct view for a GET" in {
 
       val application = applicationBuilder().build()
-      val request = FakeRequest(GET, onlyWorkingFromHomeExpensesRoute.url)
+      val request = FakeRequest(GET, claimAnyOtherExpenseRoute.url)
       val result = route(application, request).value
       val view = application.injector.instanceOf[ClaimAnyOtherExpenseView]
 
@@ -59,9 +59,9 @@ class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with
 
       for (answer <- Seq(true, false)) {
 
-        val validData = Map(OnlyWorkingFromHomeExpensesId.toString -> JsBoolean(answer))
+        val validData = Map(ClaimAnyOtherExpenseId.toString -> JsBoolean(answer))
         val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
-        val request = FakeRequest(GET, onlyWorkingFromHomeExpensesRoute.url)
+        val request = FakeRequest(GET, claimAnyOtherExpenseRoute.url)
         val result = route(application, request).value
         val view = application.injector.instanceOf[ClaimAnyOtherExpenseView]
 
@@ -78,7 +78,7 @@ class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with
       val application = applicationBuilder()
         .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
         .build()
-      val request = FakeRequest(POST, onlyWorkingFromHomeExpensesRoute.url)
+      val request = FakeRequest(POST, claimAnyOtherExpenseRoute.url)
         .withFormUrlEncodedBody("value" -> "true")
       val result = route(application, request).value
 
@@ -92,7 +92,7 @@ class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with
 
       val application = applicationBuilder().build()
       val boundForm = form.bind(Map("value" -> "invalid value"))
-      val request = FakeRequest(POST, onlyWorkingFromHomeExpensesRoute.url)
+      val request = FakeRequest(POST, claimAnyOtherExpenseRoute.url)
       val result = route(application, request).value
       val view = application.injector.instanceOf[ClaimAnyOtherExpenseView]
 

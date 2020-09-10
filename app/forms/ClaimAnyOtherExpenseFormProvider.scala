@@ -16,29 +16,15 @@
 
 package forms
 
-import forms.behaviours.BooleanFieldBehaviours
-import play.api.data.FormError
+import javax.inject.Inject
 
-class OnlyWorkingFromHomeExpensesProviderSpec extends BooleanFieldBehaviours {
+import forms.mappings.Mappings
+import play.api.data.Form
 
-  val requiredKey = "onlyWorkingFromHomeExpenses.error.required"
+class ClaimAnyOtherExpenseFormProvider @Inject() extends Mappings {
 
-  val form = new OnlyWorkingFromHomeExpensesFormProvider()()
-
-  ".value" must {
-
-    val fieldName = "value"
-
-    behave like booleanField(
-      form,
-      fieldName,
-      invalidError = FormError(fieldName, requiredKey)
+  def apply(): Form[Boolean] =
+    Form(
+      "value" -> boolean("claimAnyOtherExpense.error.required")
     )
-
-    behave like mandatoryField(
-      form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
-    )
-  }
 }
