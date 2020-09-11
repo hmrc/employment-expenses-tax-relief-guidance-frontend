@@ -16,32 +16,51 @@
 
 package views
 
+import forms.ClaimAnyOtherExpenseFormProvider
+import models.ClaimAnyOtherExpense
 import play.api.data.Form
-import controllers.routes
-import forms.OnlyWorkingFromHomeExpensesFormProvider
-import views.behaviours.YesNoViewBehaviours
+import views.behaviours.ViewBehaviours
 import views.html.ClaimAnyOtherExpenseView
 
-class ClaimAnyOtherExpenseViewSpec extends YesNoViewBehaviours {
+class ClaimAnyOtherExpenseViewSpec extends ViewBehaviours {
 
-  val messageKeyPrefix = "onlyWorkingFromHomeExpenses"
+  val messageKeyPrefix = "claimAnyOtherExpense"
 
   val application = applicationBuilder().build
 
   val view = application.injector.instanceOf[ClaimAnyOtherExpenseView]
 
-  val form = new OnlyWorkingFromHomeExpensesFormProvider()()
+  val form = new ClaimAnyOtherExpenseFormProvider()()
 
   def createView(form: Form[_]) = view.apply(form)(fakeRequest, messages)
 
-  "OnlyWorkingFromHomeExpenses view" must {
+  "ClaimAnyOtherExpenseViewSpec view" must {
 
     behave like normalPage(createView(form), messageKeyPrefix)
 
-    behave like yesNoPage(createView, messageKeyPrefix, routes.ClaimAnyOtherExpenseController.onSubmit().url)
-
     behave like pageWithBackLink(createView(form))
+
+    "contain radio buttons for the value" in {
+      val doc = asDocument(createView(form))
+      for (option <- ClaimAnyOtherExpense.options) {
+        assertContainsRadioButton(doc, option.id, "value", option.value, false)
+      }
+    }
+
+    for(option <- ClaimAnyOtherExpense.options) {
+      s"rendered with a value of '${option.value}'" must {
+        s"have the '${option.value}' radio button selected" in {
+          val doc = asDocument(createView(form.bind(Map("value" -> s"${option.value}"))))
+          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+
+          for(unselectedOption <- ClaimAnyOtherExpense.options.filterNot(_ == option)) {
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+          }
+        }
+      }
+    }
   }
+
 
   application.stop
 }

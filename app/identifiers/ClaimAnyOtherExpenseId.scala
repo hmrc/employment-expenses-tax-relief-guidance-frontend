@@ -16,6 +16,6 @@
 
 package identifiers
 
-case object OnlyWorkingFromHomeExpensesId extends Identifier {
-  override def toString: String = "onlyWorkingFromHomeExpenses"
+case object ClaimAnyOtherExpenseId extends Identifier {
+  override def toString: String = "claimAnyOtherExpense"
 }

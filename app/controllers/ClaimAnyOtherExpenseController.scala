@@ -18,8 +18,8 @@ package controllers
 
 import connectors.DataCacheConnector
 import controllers.actions._
-import forms.OnlyWorkingFromHomeExpensesFormProvider
-import identifiers.{ClaimantId, OnlyWorkingFromHomeExpensesId}
+import forms.ClaimAnyOtherExpenseFormProvider
+import identifiers.{ClaimantId, ClaimAnyOtherExpenseId}
 import javax.inject.Inject
 import models.Claimant
 import play.api.data.Form
@@ -36,13 +36,13 @@ import scala.concurrent.{ExecutionContext, Future}
 
 
 class ClaimAnyOtherExpenseController @Inject()(
-                                     dataCacheConnector: DataCacheConnector,
-                                     navigator: Navigator,
-                                     getData: DataRetrievalAction,
-                                     flowEnabled: WorkingFromHomeEnabledAction,
-                                     formProvider: OnlyWorkingFromHomeExpensesFormProvider,
-                                     val controllerComponents: MessagesControllerComponents,
-                                     view: ClaimAnyOtherExpenseView
+                                                dataCacheConnector: DataCacheConnector,
+                                                navigator: Navigator,
+                                                getData: DataRetrievalAction,
+                                                flowEnabled: WorkingFromHomeEnabledAction,
+                                                formProvider: ClaimAnyOtherExpenseFormProvider,
+                                                val controllerComponents: MessagesControllerComponents,
+                                                view: ClaimAnyOtherExpenseView
                                    )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
 
   val form: Form[Boolean] = formProvider()
@@ -50,7 +50,7 @@ class ClaimAnyOtherExpenseController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (flowEnabled andThen getData) {
     implicit request =>
-      val preparedForm = request.userAnswers.flatMap(_.onlyWorkingFromHomeExpenses) match {
+      val preparedForm = request.userAnswers.flatMap(_.claimAnyOtherExpense) match {
         case None => form
         case Some(value) => form.fill(value)
       }
@@ -66,11 +66,11 @@ class ClaimAnyOtherExpenseController @Inject()(
 
           val cacheMap = CacheMap(request.sessionId, Map[String, JsValue](
             ClaimantId.toString                     -> JsString( Claimant.You.string),
-            OnlyWorkingFromHomeExpensesId.toString  -> JsBoolean(value)
+            ClaimAnyOtherExpenseId.toString  -> JsBoolean(value)
           ))
 
           dataCacheConnector.save(cacheMap).map(cacheMap =>
-            Redirect(navigator.nextPage(OnlyWorkingFromHomeExpensesId)(new UserAnswers(cacheMap)))
+            Redirect(navigator.nextPage(ClaimAnyOtherExpenseId)(new UserAnswers(cacheMap)))
           )
 
         }

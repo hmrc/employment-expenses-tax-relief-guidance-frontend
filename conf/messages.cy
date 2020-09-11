@@ -39,9 +39,13 @@ claimant.you=Fi fy hun
 claimant.someoneElse=Rhywun arall
 claimant.error.required=Dewiswch ar gyfer pwy yr ydych yn hawlio treuliau
 
-onlyWorkingFromHomeExpenses.title = Are you only applying for tax relief on expenses for working from home?
-onlyWorkingFromHomeExpenses.heading = Are you only applying for tax relief on expenses for working from home?
-onlyWorkingFromHomeExpenses.error.required = Select yes if you are only applying for tax relief on expenses for working from home
+claimAnyOtherExpense.title = Are you only claiming tax relief on your expenses for working from home?
+claimAnyOtherExpense.heading = Are you only claiming tax relief on your expenses for working from home?
+claimAnyOtherExpense.error.required = Select yes if you are only claiming tax relief on your expenses for working from home
+claimAnyOtherExpense.noClaimAnyOtherExpense = No, I also want to claim tax relief for other types of job expenses
+claimAnyOtherExpense.yesClaimAnyOtherExpense = Yes
+claimAnyOtherExpense.para1.prefix = You can
+claimAnyOtherExpense.para1.suffix = find out information on tax relief for other types of job expenses (opens in new tab)
 
 covidHomeWorking.title = Did you start working from home because of coronavirus (COVID-19)?
 covidHomeWorking.heading = Did you start working from home because of coronavirus (COVID-19)?

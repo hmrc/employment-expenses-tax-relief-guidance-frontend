@@ -29,7 +29,7 @@ class Navigator @Inject()() {
 
   private def registeredForSelfAssessmentControllerRouting(userAnswers: UserAnswers) = userAnswers.registeredForSelfAssessment match {
     case Some(true)  => routes.UseSelfAssessmentController.onPageLoad()
-    case Some(false) => userAnswers.onlyWorkingFromHomeExpenses match {
+    case Some(false) => userAnswers.claimAnyOtherExpense match {
       case Some(true)   => routes.EmployerPaidBackExpensesController.onPageLoad()
       case _            => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
     }
@@ -51,7 +51,7 @@ class Navigator @Inject()() {
 
   private def employerPaidBackExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackExpenses match {
     case Some(true)  => routes.CannotClaimReliefController.onPageLoad()
-    case Some(false) => userAnswers.onlyWorkingFromHomeExpenses match {
+    case Some(false) => userAnswers.claimAnyOtherExpense match {
       case Some(true) => routes.WfhDueToCovidController.onPageLoad()
       case _ => routes.ClaimingForController.onPageLoad()
     }
@@ -136,7 +136,7 @@ class Navigator @Inject()() {
     case _              => routes.SessionExpiredController.onPageLoad()
   }
 
-  private def onlyWorkingFromHomeExpensesRouting(userAnswers: UserAnswers) = userAnswers.onlyWorkingFromHomeExpenses match {
+  private def claimAnyOtherExpenseRouting(userAnswers: UserAnswers) = userAnswers.claimAnyOtherExpense match {
     case Some(true)  => routes.RegisteredForSelfAssessmentController.onPageLoad()
     case Some(false) => routes.ClaimantController.onPageLoad()
     case _        => routes.SessionExpiredController.onPageLoad()
@@ -150,7 +150,7 @@ class Navigator @Inject()() {
 
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
     ClaimantId                          -> (_ => routes.PaidTaxInRelevantYearController.onPageLoad()),
-    OnlyWorkingFromHomeExpensesId       -> onlyWorkingFromHomeExpensesRouting,
+    ClaimAnyOtherExpenseId              -> claimAnyOtherExpenseRouting,
     CovidHomeWorkingId                  -> covidHomeWorkingRouting,
     PaidTaxInRelevantYearId             -> paidTaxInRelevantYearRouting,
     NotEntitledSomeYearsId              -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),

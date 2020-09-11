@@ -28,20 +28,20 @@
 @(form: Form[_])(implicit request: Request[_], messages: Messages)
 
 @main_template(
-    title = s"${errorPrefix(form)} ${messages("onlyWorkingFromHomeExpenses.title")}"
+    title = s"${errorPrefix(form)} ${messages("claimAnyOtherExpense.title")}"
 ) {
-
     @back_link()
-
     @formHelper(action = ClaimAnyOtherExpenseController.onSubmit(), 'autoComplete -> "off") {
 
         @components.error_summary(form.errors)
-
-        @components.input_yes_no(
+        @components.heading("claimAnyOtherExpense.heading")
+        <p>@messages("claimAnyOtherExpense.para1.prefix") <a href="@appConfig.taxReliefForEmployeesUrl" target="_blank">@messages("claimAnyOtherExpense.para1.suffix")</a>.</p>
+        @components.input_radio(
             field = form("value"),
-            label = messages("onlyWorkingFromHomeExpenses.heading"),
-            labelClass = Some("heading-large"),
-            headingIsLegend = true
+            legend = messages("claimAnyOtherExpense.heading"),
+            legendClass = Some("visually-hidden"),
+            inputs = ClaimAnyOtherExpense.options,
+            headingIsLegend = false,
         )
 
         @components.submit_button()
