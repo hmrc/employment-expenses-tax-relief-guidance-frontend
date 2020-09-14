@@ -51,6 +51,25 @@ covidHomeWorking.title = Did you start working from home because of coronavirus 
 covidHomeWorking.heading = Did you start working from home because of coronavirus (COVID-19)?
 covidHomeWorking.error.required = Select yes if you are only applying for tax relief on expenses for working from home
 
+employerPaidBackWfhExpenses.title = Has your employer paid your expenses for working from home?
+employerPaidBackWfhExpenses.heading = Has your employer paid your expenses for working from home?
+employerPaidBackWfhExpenses.info = You cannot claim tax relief on the costs of working from home if your employer has paid back your expenses or paid you an allowance to cover your expenses.
+employerPaidBackWfhExpenses.error.required = Select yes if your employer has paid your working-from-expenses
+
+cannotClaimWfhRelief.heading = You cannot claim tax relief on expenses that have been paid for by your employer
+cannotClaimWfhRelief.title = You cannot claim tax relief on expenses that have been paid for by your employer
+cannotClaimWfhRelief.link.prefix = You can
+cannotClaimWfhRelief.guidance = find out more information on tax relief for expenses for working from home.
+
+claimOnline.wfh.title = You can claim tax relief for your work-related expenses online
+claimOnline.wfh.heading = You can claim tax relief for your work-related expenses online
+claimOnline.wfh.para1 =  To claim these expenses, you need a Government Gateway user ID and password. You can create a user ID if you do not already have one.
+claimOnline.wfh.para2 = Creating a Government Gateway ID usually takes about 10 minutes. It works best if you have:
+claimOnline.wfh.bullet1 = your National Insurance number
+claimOnline.wfh.bullet2 = a recent payslip or P60 or a valid UK passport
+claimOnline.wfh.link.label = Claim your tax relief online
+claimOnline.wfh.hidden.guidance = list of 2 items
+
 registeredForSelfAssessment.you.title=A ydych yn llenwi Ffurflenni Treth Hunanasesiad?
 registeredForSelfAssessment.you.heading=A ydych yn llenwi Ffurflenni Treth Hunanasesiad?
 registeredForSelfAssessment.you.error.required=Dewiswch ''Iawn'' os ydych yn llenwi Ffurflenni Treth Hunanasesiad
@@ -130,15 +149,6 @@ employerPaidBackExpenses.someoneElse.heading=A yw ei gyflogwr wedi ad-dalu ei ho
 employerPaidBackExpenses.someoneElse.hidden.summary=Yr hyn y mae''n ei olygu os yw ei gyflogwr wedi ad-dalu ei holl dreuliau
 employerPaidBackExpenses.someoneElse.hidden.guidance=Os gwnaeth ei gyflogwr ad-dalu ei holl dreuliau sy''n gysylltiedig â gwaith, neu roi''r pethau y mae''n ei hawlio, ni all hawlio rhyddhad treth ar gyfer y treuliau hynny.
 employerPaidBackExpenses.someoneElse.error.required=Dewiswch ''Iawn'' os yw ei gyflogwr wedi ad-dalu ei holl dreuliau sy''n gysylltiedig â gwaith
-
-employerPaidBackWfhExpenses.you.title = Has your employer paid your expenses for working from home?
-employerPaidBackWfhExpenses.you.heading = Has your employer paid your expenses for working from home?
-employerPaidBackWfhExpenses.you.paragraph.one = You cannot claim tax relief on the costs of working from home if your employer has paid back your expenses or paid you an allowance to cover your expenses.
-employerPaidBackWfhExpenses.you.error.required = Select yes if your employer has paid back all your expenses for working from home
-employerPaidBackWfhExpenses.someoneElse.title = Has their employer paid their expenses for working from home?
-employerPaidBackWfhExpenses.someoneElse.heading = Has their employer paid their expenses for working from home?
-employerPaidBackWfhExpenses.someoneElse.paragraph.one = They cannot claim tax relief on the costs of working from home if their employer has paid back their expenses or paid them an allowance to cover their expenses.
-employerPaidBackWfhExpenses.someoneElse.error.required = Select yes if their employer has paid back all their expenses for working from home
 
 cannotClaimReliefSomeYears.you.title=Gallwch hawlio rhyddhad treth ar dreuliau ar gyfer ar ôl 5 Ebrill {0}
 cannotClaimReliefSomeYears.you.heading=Gallwch hawlio rhyddhad treth ar dreuliau ar gyfer ar ôl 5 Ebrill {0}

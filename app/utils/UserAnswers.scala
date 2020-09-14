@@ -37,6 +37,8 @@ class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
 
   def employerPaidBackExpenses: Option[Boolean] = cacheMap.getEntry[Boolean](EmployerPaidBackExpensesId.toString)
 
+  def employerPaidBackWFHExpenses: Option[Boolean] = cacheMap.getEntry[Boolean](EmployerPaidBackWfhExpensesId.toString)
+
   def moreThanFiveJobs: Option[Boolean] = cacheMap.getEntry[Boolean](MoreThanFiveJobsId.toString)
 
   def claimingOverPayAsYouEarnThreshold: Option[Boolean] = cacheMap.getEntry[Boolean](ClaimingOverPayAsYouEarnThresholdId.toString)

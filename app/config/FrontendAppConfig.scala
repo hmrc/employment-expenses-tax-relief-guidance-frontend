@@ -47,6 +47,7 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   lazy val selfAssessmentTaxReturnsUrl = configuration.get[String]("urls.selfAssessmentTaxReturn")
 
   lazy val taxReliefForEmployeesUrl = configuration.get[String]("urls.taxReliefForEmployees")
+  lazy val taxReliefForEmployeesWFHUrl = configuration.get[String]("urls.taxReliefForEmployeesWFHUrl")
   lazy val buisnessMileageFuelCostsUrl = configuration.get[String]("urls.buisnessMileageFuelCostsUrl")
   lazy val employeeExpensesUrl = configuration.get[String]("urls.employeeExpensesUrl")
   lazy val professionalSubscriptionsUrl = configuration.get[String]("urls.professionalSubscriptionsUrl")
