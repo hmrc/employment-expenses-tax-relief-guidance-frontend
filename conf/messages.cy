@@ -131,6 +131,15 @@ employerPaidBackExpenses.someoneElse.hidden.summary=Yr hyn y mae''n ei olygu os 
 employerPaidBackExpenses.someoneElse.hidden.guidance=Os gwnaeth ei gyflogwr ad-dalu ei holl dreuliau sy''n gysylltiedig â gwaith, neu roi''r pethau y mae''n ei hawlio, ni all hawlio rhyddhad treth ar gyfer y treuliau hynny.
 employerPaidBackExpenses.someoneElse.error.required=Dewiswch ''Iawn'' os yw ei gyflogwr wedi ad-dalu ei holl dreuliau sy''n gysylltiedig â gwaith
 
+employerPaidBackWfhExpenses.you.title = Has your employer paid your expenses for working from home?
+employerPaidBackWfhExpenses.you.heading = Has your employer paid your expenses for working from home?
+employerPaidBackWfhExpenses.you.paragraph.one = You cannot claim tax relief on the costs of working from home if your employer has paid back your expenses or paid you an allowance to cover your expenses.
+employerPaidBackWfhExpenses.you.error.required = Select yes if your employer has paid back all your expenses for working from home
+employerPaidBackWfhExpenses.someoneElse.title = Has their employer paid their expenses for working from home?
+employerPaidBackWfhExpenses.someoneElse.heading = Has their employer paid their expenses for working from home?
+employerPaidBackWfhExpenses.someoneElse.paragraph.one = They cannot claim tax relief on the costs of working from home if their employer has paid back their expenses or paid them an allowance to cover their expenses.
+employerPaidBackWfhExpenses.someoneElse.error.required = Select yes if their employer has paid back all their expenses for working from home
+
 cannotClaimReliefSomeYears.you.title=Gallwch hawlio rhyddhad treth ar dreuliau ar gyfer ar ôl 5 Ebrill {0}
 cannotClaimReliefSomeYears.you.heading=Gallwch hawlio rhyddhad treth ar dreuliau ar gyfer ar ôl 5 Ebrill {0}
 cannotClaimReliefSomeYears.you.guidance=Mae''n rhaid i hawliad ddigwydd cyn pen 4 blynedd o ddiwedd y flwyddyn dreth pan wnaethoch wario''r arian.
