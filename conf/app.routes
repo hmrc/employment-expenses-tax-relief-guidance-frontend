@@ -33,6 +33,9 @@ GET        /cannot-claim-expenses-paid-back             controllers.CannotClaimR
 GET        /employer-paid-back-all-expenses             controllers.EmployerPaidBackExpensesController.onPageLoad()
 POST       /employer-paid-back-all-expenses             controllers.EmployerPaidBackExpensesController.onSubmit()
 
+GET        /employer-paid-working-from-home-expenses    controllers.EmployerPaidBackWfhExpensesController.onPageLoad()
+POST       /employer-paid-working-from-home-expenses    controllers.EmployerPaidBackWfhExpensesController.onSubmit()
+
 GET        /cannot-claim-for-all-years                  controllers.CannotClaimReliefSomeYearsController.onPageLoad()
 
 GET        /cannot-claim-too-long-ago                   controllers.CannotClaimReliefTooLongAgoController.onPageLoad()

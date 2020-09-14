@@ -30,7 +30,7 @@ class Navigator @Inject()() {
   private def registeredForSelfAssessmentControllerRouting(userAnswers: UserAnswers) = userAnswers.registeredForSelfAssessment match {
     case Some(true)  => routes.UseSelfAssessmentController.onPageLoad()
     case Some(false) => userAnswers.claimAnyOtherExpense match {
-      case Some(true)   => routes.EmployerPaidBackExpensesController.onPageLoad()
+      case Some(true)   => routes.EmployerPaidBackWfhExpensesController.onPageLoad()
       case _            => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
     }
     case _           => routes.SessionExpiredController.onPageLoad()

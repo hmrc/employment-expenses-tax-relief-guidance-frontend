@@ -58,7 +58,7 @@ class ClaimOnlineViewSpec extends ViewBehaviours {
       val view = application.injector.instanceOf[ClaimOnlineView]
       val doc = asDocument(view(OnwardJourney.WorkingFromHomeExpensesOnly)(fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
-      button.attr("href") must be("/employee-working-from-home-expenses")
+      button.attr("href") must be("http://localhost:9336/employee-working-from-home-expenses")
     }
 
     behave like normalPage(createView, messageKeyPrefix)

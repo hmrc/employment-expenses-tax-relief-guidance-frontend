@@ -68,12 +68,14 @@ registeredForSelfAssessment.accordion.list2.item1=arian o roi eiddo ar osod
 registeredForSelfAssessment.accordion.list2.item2=cildyrnau a chomisiwn
 registeredForSelfAssessment.accordion.list2.item3=incwm o gynilion, buddsoddiadau a difidendau
 registeredForSelfAssessment.accordion.list2.item4=incwm o dramor
+
 claimingOverPayAsYouEarnThreshold.you.title=A ydych yn hawlio treuliau o £2,500 neu fwy mewn un flwyddyn dreth?
 claimingOverPayAsYouEarnThreshold.you.heading=A ydych yn hawlio treuliau o £2,500 neu fwy mewn un flwyddyn dreth?
 claimingOverPayAsYouEarnThreshold.you.error.required=Dewiswch ''Iawn'' os ydych yn hawlio treuliau o £2,500 neu fwy mewn un flwyddyn dreth
 claimingOverPayAsYouEarnThreshold.someoneElse.title=A yw''n hawlio rhyddhad treth ar dreuliau sy''n £2,500 neu''n fwy mewn unrhyw flwyddyn dreth?
 claimingOverPayAsYouEarnThreshold.someoneElse.heading=A yw''n hawlio rhyddhad treth ar dreuliau sy''n £2,500 neu''n fwy mewn unrhyw flwyddyn dreth?
 claimingOverPayAsYouEarnThreshold.someoneElse.error.required=Dewiswch ''Iawn'' os yw''n hawlio rhyddhad treth ar dreuliau sy''n £2,500 neu''n fwy mewn unrhyw flwyddyn dreth
+
 useSelfAssessment.you.title=Dim ond drwy ddefnyddio Hunanasesiad y gallwch hawlio''r treuliau hyn
 useSelfAssessment.you.heading=Dim ond drwy ddefnyddio Hunanasesiad y gallwch hawlio''r treuliau hyn
 useSelfAssessment.you.guidance=Mae''n rhaid i chi hawlio''r treuliau hyn fel rhan o''ch {0}.
@@ -81,9 +83,11 @@ useSelfAssessment.someoneElse.title=Mae''n rhaid iddo ddefnyddio Hunanasesiad i 
 useSelfAssessment.someoneElse.heading=Mae''n rhaid iddo ddefnyddio Hunanasesiad i hawlio''r treuliau hyn
 useSelfAssessment.someoneElse.guidance=Mae''n rhaid iddo hawlio''i treuliau fel rhan o''i {0}.
 useSelfAssessment.link.label=Ffurflen Dreth Hunanasesiad
+
 moreThanFiveJobs.title=A ydych yn hawlio rhyddhad treth ar gyfer mwy na 5 swydd wahanol?
 moreThanFiveJobs.heading=A ydych yn hawlio rhyddhad treth ar gyfer mwy na 5 swydd wahanol?
 moreThanFiveJobs.error.required=Dewiswch ''Iawn'' os ydych yn hawlio rhyddhad treth ar gyfer mwy na 5 swydd wahanol
+
 registerForSelfAssessment.you.title=Dim ond drwy ddefnyddio Hunanasesiad y gallwch hawlio''r treuliau hyn
 registerForSelfAssessment.you.heading=Dim ond drwy ddefnyddio Hunanasesiad y gallwch hawlio''r treuliau hyn
 registerForSelfAssessment.you.guidance=Os oes blynyddoedd treth pan fo''ch treuliau''n llai na £2,500,
@@ -95,9 +99,11 @@ registerForSelfAssessment.someoneElse.link.continue.label=gwiriwch a all hawlio 
 registerForSelfAssessment.link.external.label=gofrestru ar gyfer Ffurflenni Treth Hunanasesiad a''u cyflwyno.
 registerForSelfAssessment.guidance1=Gan fod eich treuliau yn £2,500 neu fwy mewn rhai o''r blynyddoedd treth rydych yn hawlio ar eu cyfer, mae''n rhaid i chi eu hawlio fel rhan o''ch Ffurflen Dreth Hunanasesiad.
 registerForSelfAssessment.guidance2=Rhagor o wybodaeth am sut i
+
 usePrintAndPost.title=Gallwch hawlio rhyddhad treth ar gyfer y treuliau hyn drwy''r post
 usePrintAndPost.heading=Gallwch hawlio rhyddhad treth ar gyfer y treuliau hyn drwy''r post
 usePrintAndPost.link.label=Hawlio drwy''r post
+
 claimOnline.title=Rydych yn gymwys i hawlio''r treuliau swydd hyn ar-lein
 claimOnline.heading=Rydych yn gymwys i hawlio''r treuliau swydd hyn ar-lein
 claimOnline.para1=Er mwyn hawlio''r treuliau hyn, bydd angen Dynodydd Defnyddiwr (ID) a chyfrinair Porth y Llywodraeth arnoch. Os nad oes gennych Ddynodydd Defnyddiwr, gallwch greu un wrth gofrestru.
@@ -106,12 +112,14 @@ claimOnline.bullet1=eich rhif Yswiriant Gwladol
 claimOnline.bullet2=slip cyflog diweddar, P60 neu basbort dilys y DU
 claimOnline.link.label=Hawlio eich treuliau ar-lein
 claimOnline.hidden.guidance=rhestr o 2 eitem
+
 cannotClaimRelief.you.title=Ni allwch hawlio''r treuliau hyn
 cannotClaimRelief.you.heading=Ni allwch hawlio''r treuliau hyn
 cannotClaimRelief.you.guidance=Ni allwch hawlio''r treuliau hyn oherwydd bod eich cyflogwr eisoes wedi ad-dalu pob un ohonynt.
 cannotClaimRelief.someoneElse.title=Ni allai hawlio y treuliau hyn
 cannotClaimRelief.someoneElse.heading=Ni allai hawlio y treuliau hyn
 cannotClaimRelief.someoneElse.guidance=Ni allai hawlio y treuliau hyn oherwydd mae ei gyflogwr eisoes wedi ad-dalu ei holl dreuliau.
+
 employerPaidBackExpenses.you.title=A yw''ch cyflogwr wedi ad-dalu''ch holl dreuliau sy''n gysylltiedig â gwaith?
 employerPaidBackExpenses.you.heading=A yw''ch cyflogwr wedi ad-dalu''ch holl dreuliau sy''n gysylltiedig â gwaith?
 employerPaidBackExpenses.you.hidden.summary=Yr hyn y mae''n ei olygu os yw''ch cyflogwr wedi ad-dalu''ch holl dreuliau
@@ -122,6 +130,7 @@ employerPaidBackExpenses.someoneElse.heading=A yw ei gyflogwr wedi ad-dalu ei ho
 employerPaidBackExpenses.someoneElse.hidden.summary=Yr hyn y mae''n ei olygu os yw ei gyflogwr wedi ad-dalu ei holl dreuliau
 employerPaidBackExpenses.someoneElse.hidden.guidance=Os gwnaeth ei gyflogwr ad-dalu ei holl dreuliau sy''n gysylltiedig â gwaith, neu roi''r pethau y mae''n ei hawlio, ni all hawlio rhyddhad treth ar gyfer y treuliau hynny.
 employerPaidBackExpenses.someoneElse.error.required=Dewiswch ''Iawn'' os yw ei gyflogwr wedi ad-dalu ei holl dreuliau sy''n gysylltiedig â gwaith
+
 cannotClaimReliefSomeYears.you.title=Gallwch hawlio rhyddhad treth ar dreuliau ar gyfer ar ôl 5 Ebrill {0}
 cannotClaimReliefSomeYears.you.heading=Gallwch hawlio rhyddhad treth ar dreuliau ar gyfer ar ôl 5 Ebrill {0}
 cannotClaimReliefSomeYears.you.guidance=Mae''n rhaid i hawliad ddigwydd cyn pen 4 blynedd o ddiwedd y flwyddyn dreth pan wnaethoch wario''r arian.
@@ -136,12 +145,14 @@ cannotClaimReliefTooLongAgo.someoneElse.title=Gallwch hawlio ar gyfer treuliau a
 cannotClaimReliefTooLongAgo.someoneElse.heading=Gallwch hawlio ar gyfer treuliau ar ôl 5 Ebrill {0}
 cannotClaimReliefTooLongAgo.link.label=Darllenwch ''Hawlio rhyddhad treth ar gyfer eich treuliau swydd''
 cannotClaimReliefTooLongAgo.someoneElse.guidance=Gallwch ond hawlio ar gyfer y flwyddyn dreth bresennol (6 Ebrill {0} i 5 Ebrill {1}) a''r 4 blynedd dreth flaenorol.
+
 paidTaxInRelevantYear.you.title=A ydych yn hawlio ar gyfer treuliau ar ôl 5 Ebrill {0}?
 paidTaxInRelevantYear.you.heading=A ydych yn hawlio ar gyfer treuliau ar ôl 5 Ebrill {0}?
 paidTaxInRelevantYear.you.error.required=Dewiswch ''Iawn'' os ydych yn hawlio ar gyfer treuliau ar ôl 5 Ebrill {0}
 paidTaxInRelevantYear.someoneElse.title=A yw''n hawlio ar gyfer treuliau ar ôl 5 Ebrill {0}?
 paidTaxInRelevantYear.someoneElse.heading=A yw''n hawlio ar gyfer treuliau ar ôl 5 Ebrill {0}?
 paidTaxInRelevantYear.someoneElse.error.required=Dewiswch ''Iawn'' os yw''n hawlio ar gyfer treuliau ar ôl 5 Ebrill {0}
+
 notEntitled.you.title=I hawlio rhyddhad treth, mae''n rhaid eich bod wedi talu treth yn ystod y flwyddyn y gwnaethoch wario''r arian
 notEntitled.you.heading=I hawlio rhyddhad treth, mae''n rhaid eich bod wedi talu treth yn ystod y flwyddyn y gwnaethoch wario''r arian
 notEntitled.someoneElse.title=I hawlio rhyddhad treth, mae''n rhaid ei fod wedi talu treth yn ystod y flwyddyn y gwnaeth wario''r arian
@@ -153,6 +164,7 @@ notEntitledSomeYears.you.link.label=Hawlio ar gyfer blynyddoedd pan wnaethoch da
 notEntitledSomeYears.someoneElse.title=Gall gael rhyddhad treth ar dreuliau ar gyfer y blynyddoedd y gwnaeth dalu treth
 notEntitledSomeYears.someoneElse.heading=Gall gael rhyddhad treth ar dreuliau ar gyfer y blynyddoedd y gwnaeth dalu treth
 notEntitledSomeYears.someoneElse.link.label=Hawlio ar gyfer blynyddoedd pan wnaeth dalu treth
+
 claimingFor.you.title=Dewiswch y treuliau rydych am eu hawlio
 claimingFor.you.heading=Dewiswch y treuliau rydych am eu hawlio
 claimingFor.you.error.required=Dewiswch y treuliau rydych am eu hawlio
@@ -191,6 +203,7 @@ claimingFuel.someoneElse.guidance=Mae tanwydd yn cynnwys trydan. Ni all hawlio a
 claimingFuel.someoneElse.bullet1=arian y mae wedi''i wario i gyrraedd a gadael ei fan gwaith arferol
 claimingFuel.someoneElse.bullet2=lwfans milltiroedd ar gyfer pethau fel treth ffordd, MOT ac atgyweiriadau
 claimingFuel.someoneElse.error.required=Dewiswch ''Iawn'' os yw eisiau hawlio arian y mae wedi''i wario ar danwydd ar gyfer ei gerbyd cwmni
+
 claimingMileage.you.title=A ydych am hawlio''r gyfradd milltiroedd gymeradwy am ddefnyddio''ch cerbyd eich hun ar gyfer gwaith?
 claimingMileage.you.heading=A ydych am hawlio''r gyfradd milltiroedd gymeradwy am ddefnyddio''ch cerbyd eich hun ar gyfer gwaith?
 claimingMileage.you.guidance=Ni allwch hawlio''r arian y gwnaethoch ei wario i gyrraedd a gadael eich man gwaith arferol. Mae''r gyfradd milltiroedd gymeradwy ar gyfer pethau megis:
@@ -214,6 +227,7 @@ claimingMileage.hidden.motorcycles.heading=Beiciau modur
 claimingMileage.hidden.motorcycles.guidance=Y gyfradd milltiroedd gymeradwy ar gyfer pob milltir yw 24c y filltir.
 claimingMileage.hidden.bicycles.heading=Beiciau
 claimingMileage.hidden.bicycles.guidance=Y gyfradd milltiroedd gymeradwy ar gyfer pob milltir yw 20c y filltir.
+
 useCompanyCar.you.usingOwnCar.title=A ydych hefyd yn defnyddio cerbyd y mae''ch cyflogwr yn berchen arno neu''n ei roi ar brydles?
 useCompanyCar.you.usingOwnCar.heading=A ydych hefyd yn defnyddio cerbyd y mae''ch cyflogwr yn berchen arno neu''n ei roi ar brydles?
 useCompanyCar.you.usingOwnCar.error.required=Dewiswch ''Iawn'' os ydych hefyd yn defnyddio cerbyd y mae''ch cyflogwr yn berchen arno neu''n ei roi ar brydles
@@ -227,12 +241,14 @@ useCompanyCar.someoneElse.notUsingOwnCar.title=A yw''n defnyddio cerbyd y mae ei
 useCompanyCar.someoneElse.notUsingOwnCar.heading=A yw''n defnyddio cerbyd y mae ei gyflogwr yn berchen arno neu''n ei roi ar brydles?
 useCompanyCar.someoneElse.notUsingOwnCar.error.required=Dewiswch ''Iawn'' os yw''n defnyddio cerbyd y mae ei gyflogwr yn berchen arno neu''n ei roi ar brydles
 useCompanyCar.guidance=Gelwir hyn yn gerbyd cwmni neu gar cwmni.
+
 useOwnCar.you.title=A ydych yn defnyddio cerbyd ar gyfer gwaith y gwnaethoch ei brynu neu ei rentu ar brydles gyda''ch arian eich hun?
 useOwnCar.you.heading=A ydych yn defnyddio cerbyd ar gyfer gwaith y gwnaethoch ei brynu neu ei rentu ar brydles gyda''ch arian eich hun?
 useOwnCar.you.error.required=Dewiswch ''Iawn'' os ydych yn defnyddio cerbyd ar gyfer gwaith y gwnaethoch ei brynu neu ei rentu ar brydles gyda''ch arian eich hun
 useOwnCar.someoneElse.title=A yw''n defnyddio cerbyd ar gyfer gwaith y gwnaeth ei brynu neu ei rentu ar brydles gyda''i arian ei hun?
 useOwnCar.someoneElse.heading=A yw''n defnyddio cerbyd ar gyfer gwaith y gwnaeth ei brynu neu ei rentu ar brydles gyda''i arian ei hun?
 useOwnCar.someoneElse.error.required=Dewiswch ''Iawn'' os yw''n defnyddio cerbyd ar gyfer gwaith y gwnaeth ei brynu neu ei rentu ar brydles gyda''i arian ei hun
+
 cannotClaimMileageCosts.you.title=Ni allwch hawlio rhyddhad treth ar gyfer y treuliau hyn
 cannotClaimMileageCosts.you.heading=Ni allwch hawlio rhyddhad treth ar gyfer y treuliau hyn
 cannotClaimMileageCosts.you.guidance=Gallwch ond hawlio''r gyfradd milltiroedd gymeradwy os ydych yn defnyddio''ch cerbyd eich hun ar gyfer gwaith.
@@ -240,6 +256,7 @@ cannotClaimMileageCosts.someoneElse.title=Ni all hawlio rhyddhad treth ar gyfer 
 cannotClaimMileageCosts.someoneElse.heading=Ni all hawlio rhyddhad treth ar gyfer y treuliau hyn
 cannotClaimMileageCosts.someoneElse.guidance=Gall ond hawlio''r gyfradd milltiroedd gymeradwy os yw''n defnyddio''i gerbyd ei hun ar gyfer gwaith.
 cannotClaimMileageCosts.link.label=Darllenwch ''Hawlio rhyddhad treth ar gyfer eich treuliau swydd''
+
 cannotClaimMileageFuelCosts.you.title=Ni allwch hawlio rhyddhad treth ar y treuliau hyn
 cannotClaimMileageFuelCosts.you.heading=Ni allwch hawlio rhyddhad treth ar y treuliau hyn
 cannotClaimMileageFuelCosts.you.guidance=Gallwch ond hawlio:
@@ -251,6 +268,7 @@ cannotClaimMileageFuelCosts.someoneElse.guidance=Gall ond hawlio:
 cannotClaimMileageFuelCosts.someoneElse.bullet1=y gyfradd milltiroedd gymeradwy os yw''n defnyddio''i gerbyd ei hun ar gyfer gwaith
 cannotClaimMileageFuelCosts.someoneElse.bullet2=tanwydd, gan gynnwys trydan, os yw e''n defnyddio cerbyd cwmni
 cannotClaimMileageFuelCosts.link.label=Darllenwch ''Hawlio rhyddhad treth ar gyfer eich treuliau swydd''
+
 cannotClaimBuyingEquipment.you.title=Ni allwch hawlio rhyddhad treth ar gyfer y treuliau hyn
 cannotClaimBuyingEquipment.you.heading=Ni allwch hawlio rhyddhad treth ar gyfer y treuliau hyn
 cannotClaimBuyingEquipment.you.guidance=Ar gyfer rhai eitemau mawr, fel cyfrifiadur, efallai y gallwch hawlio math o lwfans cyfalaf o''r enw
@@ -264,6 +282,7 @@ cannotClaimBuyingEquipment.guidance4=Ar gyfer cyfarpar arall, dylech hawlio rydd
 cannotClaimBuyingEquipment.link.label=lwfans buddsoddi blynyddol
 cannotClaimBuyingEquipment.link.label2=gwisgoedd unffurf, dillad gwaith ac offer
 cannotClaimBuyingEquipment.link.label3=treuliau eraill
+
 willNotPayTax.you.title=Ni allwch hawlio''r treuliau hyn
 willNotPayTax.you.heading=Ni allwch hawlio''r treuliau hyn
 willNotPayTax.you.guidance1=Dim ond os gwnaethoch dalu treth ym mhob blwyddyn dreth rydych yn hawlio amdani y gallwch hawlio''r treuliau hyn.
@@ -273,12 +292,14 @@ willNotPayTax.someoneElse.heading=Ni allant hawlio''r treuliau hyn
 willNotPayTax.someoneElse.guidance1=Dim ond os gwnaeth dalu treth ym mhob blwyddyn dreth mae''n hawlio amdani y gall hawlio''r treuliau hyn.
 willNotPayTax.someoneElse.guidance2=Gall {0} o hyd ond ni fydd yn cael unrhyw gostau yn ôl oni bai ei fod yn talu treth.
 willNotPayTax.link2=hawlio treuliau ar gyfer y flwyddyn dreth bresennol (6 Ebrill {0} i 5 Ebrill {1})
+
 willPayTax.you.title=A wnaethoch dalu treth ym mhob blwyddyn rydych yn hawlio ar ei chyfer?
 willPayTax.you.heading=A wnaethoch dalu treth ym mhob blwyddyn rydych yn hawlio ar ei chyfer?
 willPayTax.you.error.required=Dewiswch ''Iawn'' os ydych wedi talu treth ym mhob blwyddyn rydych yn hawlio ar ei chyfer
 willPayTax.someoneElse.title=A yw wedi talu treth ym mhob blwyddyn mae''n hawlio amdani?
 willPayTax.someoneElse.heading=A yw wedi talu treth ym mhob blwyddyn mae''n hawlio amdani?
 willPayTax.someoneElse.error.required=Dewiswch ''Iawn'' os yw wedi talu treth ym mhob blwyddyn mae''n hawlio amdani
+
 accessibilityStatement.title=Datganiad hygyrchedd ar gyfer {0}
 accessibilityStatement.heading=Datganiad hygyrchedd ar gyfer {0}
 accessibilityStatement.introduction.paragraph1=Mae''r datganiad hygyrchedd hwn yn esbonio pa mor hygyrch yw''r gwasanaeth hwn, beth i''w wneud os ydych yn cael anhawster i''w ddefnyddio, a sut i roi gwybod am broblemau hygyrchedd gyda''r gwasanaeth.
