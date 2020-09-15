@@ -18,7 +18,6 @@ package views
 
 import controllers.routes
 import forms.EmployerPaidBackWfhExpensesFormProvider
-import play.api.Application
 import play.api.data.Form
 import play.twirl.api.Html
 import views.behaviours.YesNoViewBehaviours
@@ -26,17 +25,17 @@ import views.html.EmployerPaidBackWfhExpensesView
 
 class EmployerPaidBackWfhExpensesViewSpec extends YesNoViewBehaviours {
 
-  val messageKeyPrefix = s"employerPaidBackWfhExpenses.$claimant"
+  val messageKeyPrefix = s"employerPaidBackWfhExpenses"
 
-  val application: Application = applicationBuilder().build
+  val application = applicationBuilder().build
 
-  val view: EmployerPaidBackWfhExpensesView = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
+  val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
 
-  val form = new EmployerPaidBackWfhExpensesFormProvider()(claimant)
+  val form = new EmployerPaidBackWfhExpensesFormProvider()()
 
-  def createView(form: Form[_]): Html = view.apply(form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]): Html = view.apply(form)(fakeRequest, messages)
 
-  "EmployerPaidBackWfhExpenses view" must {
+  "EmployerPaidBackWFHExpenses view" must {
 
     behave like normalPage(createView(form), messageKeyPrefix)
 

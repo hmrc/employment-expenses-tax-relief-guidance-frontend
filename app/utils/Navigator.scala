@@ -58,6 +58,12 @@ class Navigator @Inject()() {
     case _        => routes.SessionExpiredController.onPageLoad()
   }
 
+  private def employerPaidBackWFHExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackWFHExpenses match {
+    case Some(true)  => routes.CannotClaimWFHReliefController.onPageLoad()
+    case Some(false) => routes.WfhDueToCovidController.onPageLoad()
+    case _        => routes.SessionExpiredController.onPageLoad()
+  }
+
   private def paidTaxInRelevantYearRouting(userAnswers: UserAnswers) = userAnswers.paidTaxInRelevantYear match {
     case Some(true)  => routes.WillPayTaxController.onPageLoad()
     case Some(false) => routes.CannotClaimReliefTooLongAgoController.onPageLoad()
@@ -148,6 +154,8 @@ class Navigator @Inject()() {
     case _        => routes.SessionExpiredController.onPageLoad()
   }
 
+
+
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
     ClaimantId                          -> (_ => routes.PaidTaxInRelevantYearController.onPageLoad()),
     ClaimAnyOtherExpenseId              -> claimAnyOtherExpenseRouting,
@@ -158,6 +166,7 @@ class Navigator @Inject()() {
     ClaimingOverPayAsYouEarnThresholdId -> claimingOverPayAsYouEarnThresholdRouting,
     MoreThanFiveJobsId                  -> moreThanFiveJobsRouting,
     EmployerPaidBackExpensesId          -> employerPaidBackExpensesRouting,
+    EmployerPaidBackWfhExpensesId       -> employerPaidBackWFHExpensesRouting,
     ClaimingForId                       -> claimingForRouting,
     ClaimingMileageId                   -> (_ => routes.UseCompanyCarController.onPageLoad()),
     UseOwnCarId                         -> useOwnCarRouting,

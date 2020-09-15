@@ -19,7 +19,7 @@ package controllers
 import base.SpecBase
 import connectors.DataCacheConnector
 import forms.EmployerPaidBackWfhExpensesFormProvider
-import identifiers.{ClaimantId, EmployerPaidBackExpensesId}
+import identifiers.{ClaimantId, EmployerPaidBackWfhExpensesId}
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach
@@ -27,6 +27,7 @@ import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.libs.json.{JsBoolean, JsString}
+import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
@@ -39,9 +40,9 @@ import scala.concurrent.Future
 class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach
   with ScalaFutures with IntegrationPatience {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute: Call = routes.IndexController.onPageLoad()
 
-  def employerPaidBackWfhExpensesRoute = routes.EmployerPaidBackWfhExpensesController.onPageLoad().url
+  def employerPaidBackWFHExpensesRoute: String = routes.EmployerPaidBackWfhExpensesController.onPageLoad().url
 
   private val mockDataCacheConnector = mock[DataCacheConnector]
   override def beforeEach(): Unit = {
@@ -50,33 +51,33 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
   }
 
   val formProvider = new EmployerPaidBackWfhExpensesFormProvider()
-  val form = formProvider(claimant)
+  val form = formProvider()
 
-  "EmployerPaidBackWfhExpenses Controller" must {
+  "EmployerPaidBackWFHExpenses Controller" must {
 
     "return OK and the correct view for a GET" in {
       val application = applicationBuilder(Some(claimantIdCacheMap)).build
-      val request = FakeRequest(GET, employerPaidBackWfhExpensesRoute)
+      val request = FakeRequest(GET, employerPaidBackWFHExpensesRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form)(fakeRequest, messages).toString
 
       application.stop
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
       val validData = Map(
-        EmployerPaidBackExpensesId.toString -> JsBoolean(true),
+        EmployerPaidBackWfhExpensesId.toString -> JsBoolean(true),
         ClaimantId.toString -> JsString(claimant.toString))
 
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
-      val request = FakeRequest(GET, employerPaidBackWfhExpensesRoute)
+      val request = FakeRequest(GET, employerPaidBackWFHExpensesRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
 
-      contentAsString(result) mustEqual view(form.fill(true), claimant)(fakeRequest, messages).toString()
+      contentAsString(result) mustEqual view(form.fill(true))(fakeRequest, messages).toString()
 
       application.stop
     }
@@ -88,7 +89,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
         ).build
 
-      val request = FakeRequest(POST, employerPaidBackWfhExpensesRoute)
+      val request = FakeRequest(POST, employerPaidBackWFHExpensesRoute)
         .withFormUrlEncodedBody("value" -> "true")
       val result = route(application, request).value
 
@@ -100,19 +101,19 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
     "return a Bad Request and errors when invalid data is submitted" in {
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val boundForm = form.bind(Map("value" -> "invalid value"))
-      val request = FakeRequest(POST, employerPaidBackWfhExpensesRoute)
+      val request = FakeRequest(POST, employerPaidBackWFHExpensesRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
 
       status(result) mustEqual BAD_REQUEST
-      contentAsString(result) mustEqual view(boundForm, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustEqual view(boundForm)(fakeRequest, messages).toString
 
       application.stop
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
       val application = applicationBuilder().build
-      val request = FakeRequest(GET, employerPaidBackWfhExpensesRoute)
+      val request = FakeRequest(GET, employerPaidBackWFHExpensesRoute)
       val result = route(application, request).value
 
       status(result) mustEqual SEE_OTHER
@@ -124,7 +125,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
     "redirect to Session Expired for a POST if no existing data is found" in {
 
       val application = applicationBuilder().build
-      val request = FakeRequest(POST, employerPaidBackWfhExpensesRoute)
+      val request = FakeRequest(POST, employerPaidBackWFHExpensesRoute)
       val result = route(application, request).value
 
       status(result) mustEqual SEE_OTHER

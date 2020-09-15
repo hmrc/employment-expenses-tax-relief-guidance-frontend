@@ -36,26 +36,33 @@
     }
 }
 
+@msgPrefix = @{
+    onwardJourney match {
+        case OnwardJourney.WorkingFromHomeExpensesOnly => "claimOnline.wfh"
+        case _ => "claimOnline"
+    }
+}
+
 @main_template(
-    title = messages("claimOnline.title")
+    title = messages(s"$msgPrefix.title")
 ) {
 
     @back_link()
 
-    @components.heading("claimOnline.heading")
+    @components.heading(s"$msgPrefix.heading")
 
-    <p>@messages("claimOnline.para1")</p>
-    <p>@messages("claimOnline.para2")</p>
+    <p>@messages(s"$msgPrefix.para1")</p>
+    <p>@messages(s"$msgPrefix.para2")</p>
 
     <ul class="list-bullet">
-        <li>@messages("claimOnline.bullet1")</li>
-        <li>@messages("claimOnline.bullet2")</li>
+        <li>@messages(s"$msgPrefix.bullet1")</li>
+        <li>@messages(s"$msgPrefix.bullet2")</li>
     </ul>
 
     @components.button_link(
-        messageKey = "claimOnline.link.label",
+        messageKey = s"$msgPrefix.link.label",
         href = href,
         id = Some("continue"),
-        gaEvent = Some("link - click:" + messages(s"claimOnline.heading") + ":" + messages("claimOnline.link.label"))
+        gaEvent = Some("link - click:" + messages(s"$msgPrefix.heading") + ":" + messages(s"$msgPrefix.link.label"))
     )
 }
