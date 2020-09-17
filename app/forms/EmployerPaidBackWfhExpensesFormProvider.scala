@@ -24,6 +24,6 @@ class EmployerPaidBackWfhExpensesFormProvider @Inject() extends Mappings {
 
   def apply(): Form[Boolean] =
     Form(
-      "value" -> boolean(s"employerPaidBackWFHExpenses.error.required")
+      "value" -> boolean(s"employerPaidBackWfhExpenses.error.required")
     )
 }

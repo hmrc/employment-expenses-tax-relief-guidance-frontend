@@ -54,7 +54,7 @@ covidHomeWorking.error.required = Select yes if you are only applying for tax re
 employerPaidBackWfhExpenses.title = Has your employer paid your expenses for working from home?
 employerPaidBackWfhExpenses.heading = Has your employer paid your expenses for working from home?
 employerPaidBackWfhExpenses.info = You cannot claim tax relief on the costs of working from home if your employer has paid back your expenses or paid you an allowance to cover your expenses.
-employerPaidBackWfhExpenses.error.required = Select yes if your employer has paid your working-from-expenses
+employerPaidBackWfhExpenses.error.required = Select yes if your employer has paid your expenses for working from home
 
 cannotClaimWfhRelief.heading = You cannot claim tax relief on expenses that have been paid for by your employer
 cannotClaimWfhRelief.title = You cannot claim tax relief on expenses that have been paid for by your employer
