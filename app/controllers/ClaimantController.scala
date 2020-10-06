@@ -24,7 +24,9 @@ import javax.inject.Inject
 import models.Claimant
 import play.api.data.Form
 import play.api.i18n.I18nSupport
+import play.api.libs.json.{JsString, JsValue}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
+import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
 import utils.{Enumerable, Navigator, UserAnswers}
 import views.html.ClaimantView
@@ -56,9 +58,19 @@ class ClaimantController @Inject()(
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(view(formWithErrors))),
-        value =>
-          dataCacheConnector.save[Claimant](request.sessionId, ClaimantId, value).map(cacheMap =>
-            Redirect(navigator.nextPage(ClaimantId)(new UserAnswers(cacheMap))))
+        value => {
+
+          val cacheMap = CacheMap(
+            request.sessionId,
+            Map[String, JsValue](ClaimantId.toString -> JsString(value.toString))
+          )
+
+          dataCacheConnector.save(cacheMap).map(cacheMap =>
+            Redirect(navigator.nextPage(ClaimantId)(new UserAnswers(cacheMap)))
+          )
+
+        }
+
       )
   }
 }
