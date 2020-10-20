@@ -17,8 +17,11 @@
 package controllers
 
 import base.SpecBase
+import connectors.DataCacheConnector
 import forms.CovidHomeWorkingFormProvider
 import identifiers.CovidHomeWorkingId
+import org.mockito.Matchers.any
+import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.mockito.MockitoSugar
@@ -31,6 +34,9 @@ import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
 import views.html.WfhDueToCovidView
 
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
+
 class WfhDueToCovidControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach
   with ScalaFutures with IntegrationPatience {
 
@@ -40,11 +46,27 @@ class WfhDueToCovidControllerSpec extends SpecBase with MockitoSugar with Before
   private val formProvider = new CovidHomeWorkingFormProvider()
   private val form = formProvider()
 
+  private val mockDataCacheConnector = mock[DataCacheConnector]
+  override def beforeEach(): Unit = {
+    reset(mockDataCacheConnector)
+    when(mockDataCacheConnector.save(any(),any(),any())(any())) thenReturn Future(new CacheMap("id", Map()))
+  }
+
   "Covid Home Working Controller" must {
 
-    "return OK and the correct view for a GET" in {
+    "redirect to session expired controller/view when we have no existing session data" in {
+      val application = applicationBuilder().build
+      val request = FakeRequest(GET, covidHomeWorkingRoute.url)
+      val result = route(application, request).value
 
-      val application = applicationBuilder().build()
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+
+      application.stop
+    }
+
+    "return OK and the correct view for a GET" in {
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build
       val request = FakeRequest(GET, covidHomeWorkingRoute.url)
       val result = route(application, request).value
       val view = application.injector.instanceOf[WfhDueToCovidView]
@@ -76,7 +98,7 @@ class WfhDueToCovidControllerSpec extends SpecBase with MockitoSugar with Before
 
     "redirect to the next page when valid data is submitted" in {
 
-      val application = applicationBuilder()
+      val application = applicationBuilder(Some(claimantIdCacheMap))
         .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
         .build()
       val request = FakeRequest(POST, covidHomeWorkingRoute.url)
@@ -90,7 +112,7 @@ class WfhDueToCovidControllerSpec extends SpecBase with MockitoSugar with Before
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val application = applicationBuilder().build()
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build
       val boundForm = form.bind(Map("value" -> "invalid value"))
       val request = FakeRequest(POST, covidHomeWorkingRoute.url)
       val result = route(application, request).value

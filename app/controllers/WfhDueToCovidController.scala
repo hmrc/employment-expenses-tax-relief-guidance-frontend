@@ -34,6 +34,7 @@ class WfhDueToCovidController @Inject()(
                                      dataCacheConnector: DataCacheConnector,
                                      navigator: Navigator,
                                      getData: DataRetrievalAction,
+                                     requireData: DataRequiredAction,
                                      flowEnabled: WorkingFromHomeEnabledAction,
                                      formProvider: CovidHomeWorkingFormProvider,
                                      val controllerComponents: MessagesControllerComponents,
@@ -42,16 +43,16 @@ class WfhDueToCovidController @Inject()(
 
   val form: Form[Boolean] = formProvider()
 
-  def onPageLoad: Action[AnyContent] = (flowEnabled andThen getData) {
+  def onPageLoad: Action[AnyContent] = (flowEnabled andThen getData andThen requireData) {
     implicit request =>
-      val preparedForm = request.userAnswers.flatMap(_.covidHomeWorking) match {
+      val preparedForm = request.userAnswers.covidHomeWorking match {
         case None => form
         case Some(value) => form.fill(value)
       }
       Ok(view(preparedForm))
   }
 
-  def onSubmit: Action[AnyContent] = (flowEnabled andThen getData).async {
+  def onSubmit: Action[AnyContent] = (flowEnabled andThen getData andThen requireData).async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
