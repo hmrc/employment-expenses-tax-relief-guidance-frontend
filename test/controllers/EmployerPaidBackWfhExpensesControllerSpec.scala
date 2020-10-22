@@ -55,6 +55,17 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
 
   "EmployerPaidBackWFHExpenses Controller" must {
 
+    "redirect to session expired controller/view when we have no existing session data" in {
+      val application = applicationBuilder().build
+      val request = FakeRequest(GET, employerPaidBackWFHExpensesRoute)
+      val result = route(application, request).value
+
+      status(result) mustEqual SEE_OTHER
+      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+
+      application.stop
+    }
+
     "return OK and the correct view for a GET" in {
       val application = applicationBuilder(Some(claimantIdCacheMap)).build
       val request = FakeRequest(GET, employerPaidBackWFHExpensesRoute)
