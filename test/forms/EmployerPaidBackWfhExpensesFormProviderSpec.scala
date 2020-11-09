@@ -16,23 +16,24 @@
 
 package forms
 
-import forms.behaviours.BooleanFieldBehaviours
+import forms.behaviours.OptionFieldBehaviours
+import models.EmployerPaid
 import play.api.data.FormError
 
-class EmployerPaidBackWfhExpensesFormProviderSpec extends BooleanFieldBehaviours {
-
-  val requiredKey = s"employerPaidBackWfhExpenses.error.required"
+class EmployerPaidBackWfhExpensesFormProviderSpec extends OptionFieldBehaviours {
 
   val form = new EmployerPaidBackWfhExpensesFormProvider()()
 
   ".value" must {
 
     val fieldName = "value"
+    val requiredKey = "employerPaidBackWfhExpenses.error.required"
 
-    behave like booleanField(
+    behave like optionsField[EmployerPaid](
       form,
       fieldName,
-      invalidError = FormError(fieldName, requiredKey)
+      EmployerPaid.values,
+      invalidError = FormError(fieldName, "error.invalid")
     )
 
     behave like mandatoryField(

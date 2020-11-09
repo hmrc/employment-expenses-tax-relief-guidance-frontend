@@ -20,8 +20,9 @@ import config.FrontendAppConfig
 import controllers.actions._
 import controllers.routes
 import identifiers.ClaimantId
-import models.Claimant
+import models.{Claimant, EmployerPaid}
 import models.Claimant.You
+import models.EmployerPaid.NoExpenses
 import org.scalatestplus.play.PlaySpec
 import org.scalatestplus.play.guice._
 import play.api.i18n.{Messages, MessagesApi}
@@ -51,6 +52,8 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
   val cacheMapId = "id"
 
   val claimant: Claimant.You.type = You
+
+  val employerPaid: EmployerPaid.NoExpenses.type = NoExpenses
 
   def claimantIdCacheMap = CacheMap(cacheMapId, Map(ClaimantId.toString -> JsString(claimant.toString)))
 

@@ -18,6 +18,7 @@
 @import uk.gov.hmrc.play.views.html._
 @import controllers.routes._
 @import components.back_link
+@import models.EmployerPaid
 
 @this(
   main_template: MainTemplate,
@@ -41,10 +42,11 @@
 
         <p>@messages("employerPaidBackWfhExpenses.info")</p>
 
-        @components.input_yes_no(
+        @components.input_radio_or(
             field = form("value"),
-            label = messages(s"employerPaidBackWfhExpenses.heading"),
-            labelClass = Some("visually-hidden")
+            legend = messages("employerPaidBackWfhExpenses.heading"),
+            legendClass = Some("visually-hidden"),
+            inputs = EmployerPaid.options.toSeq
         )
 
         @components.submit_button()

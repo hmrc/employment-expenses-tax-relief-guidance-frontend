@@ -20,10 +20,10 @@ import controllers.routes
 import forms.EmployerPaidBackWfhExpensesFormProvider
 import play.api.data.Form
 import play.twirl.api.Html
-import views.behaviours.YesNoViewBehaviours
+import views.behaviours.{ViewBehaviours, YesNoViewBehaviours}
 import views.html.EmployerPaidBackWfhExpensesView
 
-class EmployerPaidBackWfhExpensesViewSpec extends YesNoViewBehaviours {
+class EmployerPaidBackWfhExpensesViewSpec extends ViewBehaviours {
 
   val messageKeyPrefix = s"employerPaidBackWfhExpenses"
 
@@ -38,9 +38,6 @@ class EmployerPaidBackWfhExpensesViewSpec extends YesNoViewBehaviours {
   "EmployerPaidBackWFHExpenses view" must {
 
     behave like normalPage(createView(form), messageKeyPrefix)
-
-    behave like yesNoPage(createView, messageKeyPrefix, routes.EmployerPaidBackWfhExpensesController.onSubmit().url)
-
     behave like pageWithBackLink(createView(form))
   }
 

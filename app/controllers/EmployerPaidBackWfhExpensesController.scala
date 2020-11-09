@@ -21,11 +21,12 @@ import controllers.actions._
 import forms.EmployerPaidBackWfhExpensesFormProvider
 import identifiers.EmployerPaidBackWfhExpensesId
 import javax.inject.Inject
+import models.EmployerPaid
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
-import utils.{Navigator, UserAnswers}
+import utils.{Enumerable, Navigator, UserAnswers}
 import views.html.EmployerPaidBackWfhExpensesView
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -39,11 +40,12 @@ class EmployerPaidBackWfhExpensesController @Inject()(
                                                        formProvider: EmployerPaidBackWfhExpensesFormProvider,
                                                        val controllerComponents: MessagesControllerComponents,
                                                        view: EmployerPaidBackWfhExpensesView
-                                                  )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
+                                                  )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
+
+  val form: Form[EmployerPaid] = formProvider()
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      val form: Form[Boolean] = formProvider()
 
       val preparedForm = request.userAnswers.employerPaidBackWFHExpenses match {
         case None => form
@@ -54,15 +56,18 @@ class EmployerPaidBackWfhExpensesController @Inject()(
 
   def onSubmit: Action[AnyContent] = (getData andThen requireData).async {
     implicit request =>
-      val form: Form[Boolean] = formProvider()
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(view(formWithErrors))),
-        value =>
-          dataCacheConnector.save[Boolean](request.sessionId, EmployerPaidBackWfhExpensesId, value).map(cacheMap =>
+        value => {
+
+          dataCacheConnector.save[EmployerPaid](request.sessionId, EmployerPaidBackWfhExpensesId, value).map(cacheMap =>
             Redirect(navigator.nextPage(EmployerPaidBackWfhExpensesId)(new UserAnswers(cacheMap)))
           )
+
+        }
+
       )
   }
 }
