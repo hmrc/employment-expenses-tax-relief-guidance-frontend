@@ -28,6 +28,7 @@ site.hidden-delete = Delete {0}
 site.hidden-edit = Change {0}
 site.no = No
 site.yes = Yes
+site.or = or
 site.save_and_continue = Continue
 site.service_name = Check if you can claim work related expenses
 site.textarea.char_limit = (Limit is {0} characters)
@@ -145,10 +146,14 @@ employerPaidBackExpenses.someoneElse.hidden.summary = What it means if they paid
 employerPaidBackExpenses.someoneElse.hidden.guidance = If their employer paid back all their work‑related expenses or provided the things they are claiming for, they cannot claim tax relief for these expenses.
 employerPaidBackExpenses.someoneElse.error.required = Select yes if their employer has paid back all their work‑related expenses
 
+
 employerPaidBackWfhExpenses.title = Has your employer paid your expenses for working from home?
 employerPaidBackWfhExpenses.heading = Has your employer paid your expenses for working from home?
 employerPaidBackWfhExpenses.info = You cannot claim tax relief on the costs of working from home if your employer has paid back your expenses or paid you an allowance to cover your expenses.
 employerPaidBackWfhExpenses.error.required = Select yes if your employer has paid your expenses for working from home
+employerPaid.noExpenses = No, none of my expenses
+employerPaid.someExpenses = Yes, some of my expenses
+employerPaid.allExpenses = Yes, all of my expenses
 
 cannotClaimWfhRelief.heading = You cannot claim tax relief on expenses that have been paid for by your employer
 cannotClaimWfhRelief.title = You cannot claim tax relief on expenses that have been paid for by your employer

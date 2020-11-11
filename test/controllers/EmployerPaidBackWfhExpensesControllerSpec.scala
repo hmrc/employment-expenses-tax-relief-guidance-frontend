@@ -26,7 +26,7 @@ import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
-import play.api.libs.json.{JsBoolean, JsString}
+import play.api.libs.json.JsString
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -80,7 +80,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
 
     "populate the view correctly on a GET when the question has previously been answered" in {
       val validData = Map(
-        EmployerPaidBackWfhExpensesId.toString -> JsBoolean(true),
+        EmployerPaidBackWfhExpensesId.toString -> JsString("noExpenses"),
         ClaimantId.toString -> JsString(claimant.toString))
 
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
@@ -88,7 +88,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
       val result = route(application, request).value
       val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
 
-      contentAsString(result) mustEqual view(form.fill(true))(fakeRequest, messages).toString()
+      contentAsString(result) mustEqual view(form.fill(employerPaid))(fakeRequest, messages).toString()
 
       application.stop
     }
@@ -101,7 +101,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
         ).build
 
       val request = FakeRequest(POST, employerPaidBackWFHExpensesRoute)
-        .withFormUrlEncodedBody("value" -> "true")
+        .withFormUrlEncodedBody("value" -> "noExpenses")
       val result = route(application, request).value
 
       redirectLocation(result).value mustEqual onwardRoute.url
@@ -113,6 +113,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val boundForm = form.bind(Map("value" -> "invalid value"))
       val request = FakeRequest(POST, employerPaidBackWFHExpensesRoute)
+        .withFormUrlEncodedBody(("value", "invalid value"))
       val result = route(application, request).value
       val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
 

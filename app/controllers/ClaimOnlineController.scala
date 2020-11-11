@@ -51,7 +51,12 @@ class ClaimOnlineController @Inject()(
               Ok(view(onwardJourney))
 
             case _ =>
-              Redirect(routes.SessionExpiredController.onPageLoad())
+              request.userAnswers.claimAnyOtherExpense match {
+                case Some(_) =>
+                  val onwardJourney = OnwardJourney.IForm
+                  Ok(view(onwardJourney))
+                case _ => Redirect(routes.SessionExpiredController.onPageLoad())
+              }
           }
       }
   }

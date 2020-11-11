@@ -32,7 +32,7 @@ class CannotClaimWFHReliefController @Inject()(
                                              view: CannotClaimWFHReliefView
                                            ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
       Ok(view())
   }

@@ -18,12 +18,13 @@ package forms
 
 import forms.mappings.Mappings
 import javax.inject.Inject
+import models.EmployerPaid
 import play.api.data.Form
 
 class EmployerPaidBackWfhExpensesFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[Boolean] =
+  def apply(): Form[EmployerPaid] =
     Form(
-      "value" -> boolean(s"employerPaidBackWfhExpenses.error.required")
+      "value" -> enumerable[EmployerPaid]("employerPaidBackWfhExpenses.error.required")
     )
 }

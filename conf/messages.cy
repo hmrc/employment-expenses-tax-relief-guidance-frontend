@@ -25,6 +25,7 @@ site.hidden-delete=Dileu {0}
 site.hidden-edit=Newid {0}
 site.no=Na
 site.yes=Iawn
+site.or=or
 site.save_and_continue=Yn eich blaen
 site.service_name=Gwirio a allwch hawlio treuliau sy''n ymwneud â gwaith
 site.textarea.char_limit=(Y terfyn yw {0} o gymeriadau)
@@ -49,12 +50,15 @@ claimAnyOtherExpense.para1.suffix = find out information on tax relief for other
 
 covidHomeWorking.title = Did you start working from home because of coronavirus (COVID-19)?
 covidHomeWorking.heading = Did you start working from home because of coronavirus (COVID-19)?
-covidHomeWorking.error.required = Select yes if you are only applying for tax relief on expenses for working from home
+covidHomeWorking.error.required = Select yes if you started working from home because of coronavirus (COVID-19)
 
 employerPaidBackWfhExpenses.title = Has your employer paid your expenses for working from home?
 employerPaidBackWfhExpenses.heading = Has your employer paid your expenses for working from home?
 employerPaidBackWfhExpenses.info = You cannot claim tax relief on the costs of working from home if your employer has paid back your expenses or paid you an allowance to cover your expenses.
 employerPaidBackWfhExpenses.error.required = Select yes if your employer has paid your expenses for working from home
+employerPaid.noExpenses = No, none of my expenses
+employerPaid.someExpenses = Yes, some of my expenses
+employerPaid.allExpenses = Yes, all of my expenses
 
 cannotClaimWfhRelief.heading = You cannot claim tax relief on expenses that have been paid for by your employer
 cannotClaimWfhRelief.title = You cannot claim tax relief on expenses that have been paid for by your employer

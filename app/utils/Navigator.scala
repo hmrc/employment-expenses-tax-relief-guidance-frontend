@@ -17,12 +17,12 @@
 package utils
 
 import javax.inject.{Inject, Singleton}
-
 import play.api.mvc.Call
 import controllers.routes
 import identifiers._
 import models.Claimant.{SomeoneElse, You}
 import models.ClaimingFor
+import models.EmployerPaid.{NoExpenses, SomeExpenses, AllExpenses}
 
 @Singleton
 class Navigator @Inject()() {
@@ -59,8 +59,9 @@ class Navigator @Inject()() {
   }
 
   private def employerPaidBackWFHExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackWFHExpenses match {
-    case Some(true)  => routes.CannotClaimWFHReliefController.onPageLoad()
-    case Some(false) => routes.WfhDueToCovidController.onPageLoad()
+    case Some(NoExpenses)  => routes.WfhDueToCovidController.onPageLoad()
+    case Some(SomeExpenses) => routes.MoreThanFiveJobsController.onPageLoad()
+    case Some(AllExpenses) => routes.CannotClaimWFHReliefController.onPageLoad()
     case _        => routes.SessionExpiredController.onPageLoad()
   }
 
