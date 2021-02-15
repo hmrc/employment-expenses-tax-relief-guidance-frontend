@@ -52,8 +52,8 @@ covidHomeWorking.title = A wnaethoch ddechrau gweithio gartref oherwydd coronafe
 covidHomeWorking.heading = A wnaethoch ddechrau gweithio gartref oherwydd coronafeirws (COVID-19)?
 covidHomeWorking.error.required = Dewiswch ''Iawn'' os gwnaethoch ddechrau gweithio gartref oherwydd coronafeirws (COVID-19)
 
-employerPaidBackWfhExpenses.title = A yw''ch cyflogai wedi talu''ch treuliau wrth weithio gartref?
-employerPaidBackWfhExpenses.heading = A yw''ch cyflogai wedi talu''ch treuliau wrth weithio gartref?
+employerPaidBackWfhExpenses.title = A yw''ch cyflogwr wedi talu''ch treuliau wrth weithio gartref?
+employerPaidBackWfhExpenses.heading = A yw''ch cyflogwr wedi talu''ch treuliau wrth weithio gartref?
 employerPaidBackWfhExpenses.info = Ni allwch hawlio rhyddhad treth ar gostau sy''n gysylltiedig â gweithio gartref os yw''ch cyflogwr wedi talu''ch treuliau''n ôl neu wedi talu lwfans i chi i gwmpasu''ch treuliau.
 employerPaidBackWfhExpenses.error.required = Dewiswch ''Iawn'' os yw''ch cyflogwr wedi talu''ch treuliau wrth weithio gartref
 employerPaid.noExpenses = Na, dim un o''m treuliau
