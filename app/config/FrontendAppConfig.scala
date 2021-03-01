@@ -32,8 +32,6 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   private lazy val contactHost = configuration.get[String]("contact-frontend.host")
   private val contactFormServiceIdentifier = "employmentexpensestaxreliefguidancefrontend"
 
-  lazy val analyticsToken = configuration.get[String](s"google-analytics.token")
-  lazy val analyticsHost = configuration.get[String](s"google-analytics.host")
   lazy val reportAProblemPartialUrl = s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
   lazy val reportAProblemNonJSUrl = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"
   lazy val betaFeedbackUrl = s"$contactHost/contact/beta-feedback"
@@ -57,8 +55,6 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   lazy val fileSelfAssessmentLoginUrl = configuration.get[String]("urls.fileSelfAssessmentLoginUrl")
   lazy val annualInvestmentAllowanceUrl = configuration.get[String]("urls.annualInvestmentAllowanceUrl")
   lazy val workingFromHomeExpensesUrl = configuration.get[String]("urls.workingFromHomeExpensesUrl")
-
-  lazy val googleTagManagerId = configuration.get[String](s"google-tag-manager.id")
 
   val accessibilityStatementUrl: String = configuration.get[String]("accessibilityStatement.govAccessibilityStatementUrl")
   val abilityNettUrl: String = configuration.get[String]("accessibilityStatement.abilityNetUrl")

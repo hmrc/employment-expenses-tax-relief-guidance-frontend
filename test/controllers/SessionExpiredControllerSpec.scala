@@ -34,7 +34,6 @@ class SessionExpiredControllerSpec extends SpecBase with MockitoSugar {
     val fakeNavigataor = new FakeNavigator()
 
     val mockAppConfig = mock[FrontendAppConfig]
-    when(mockAppConfig.analyticsToken).thenReturn("")
     when(mockAppConfig.taxReliefForEmployeesUrl).thenReturn("https://www.gov.uk/tax-relief-for-employees")
 
     val application = applicationBuilder()
