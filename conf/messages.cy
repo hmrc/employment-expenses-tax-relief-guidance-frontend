@@ -163,11 +163,11 @@ cannotClaimReliefSomeYears.someoneElse.guidance=Mae''n rhaid i hawliad ddigwydd 
 cannotClaimReliefSomeYears.link.label=Hawlio ar gyfer blynyddoedd treth ar ôl 5 Ebrill {0}
 cannotClaimReliefTooLongAgo.you.title=Gallwch hawlio ar gyfer treuliau ar ôl 5 Ebrill {0}
 cannotClaimReliefTooLongAgo.you.heading=Gallwch hawlio ar gyfer treuliau ar ôl 5 Ebrill {0}
-cannotClaimReliefTooLongAgo.you.guidance=Gallwch ond hawlio ar gyfer y flwyddyn dreth bresennol (6 Ebrill {0} i 5 Ebrill {1}) a''r 4 blynedd dreth flaenorol.
+cannotClaimReliefTooLongAgo.you.guidance=Gallwch ond hawlio ar gyfer y flwyddyn dreth hon (6 Ebrill {0} i 5 Ebrill {1}) a''r 4 blynedd dreth flaenorol.
 cannotClaimReliefTooLongAgo.someoneElse.title=Gallwch hawlio ar gyfer treuliau ar ôl 5 Ebrill {0}
 cannotClaimReliefTooLongAgo.someoneElse.heading=Gallwch hawlio ar gyfer treuliau ar ôl 5 Ebrill {0}
 cannotClaimReliefTooLongAgo.link.label=Darllenwch ''Hawlio rhyddhad treth ar gyfer eich treuliau swydd''
-cannotClaimReliefTooLongAgo.someoneElse.guidance=Gallwch ond hawlio ar gyfer y flwyddyn dreth bresennol (6 Ebrill {0} i 5 Ebrill {1}) a''r 4 blynedd dreth flaenorol.
+cannotClaimReliefTooLongAgo.someoneElse.guidance=Gallwch ond hawlio ar gyfer y flwyddyn dreth hon (6 Ebrill {0} i 5 Ebrill {1}) a''r 4 blynedd dreth flaenorol.
 
 paidTaxInRelevantYear.you.title=A ydych yn hawlio ar gyfer treuliau ar ôl 5 Ebrill {0}?
 paidTaxInRelevantYear.you.heading=A ydych yn hawlio ar gyfer treuliau ar ôl 5 Ebrill {0}?
@@ -314,7 +314,7 @@ willNotPayTax.someoneElse.title=Ni allant hawlio''r treuliau hyn
 willNotPayTax.someoneElse.heading=Ni allant hawlio''r treuliau hyn
 willNotPayTax.someoneElse.guidance1=Dim ond os gwnaeth dalu treth ym mhob blwyddyn dreth mae''n hawlio amdani y gall hawlio''r treuliau hyn.
 willNotPayTax.someoneElse.guidance2=Gall {0} o hyd ond ni fydd yn cael unrhyw gostau yn ôl oni bai ei fod yn talu treth.
-willNotPayTax.link2=hawlio treuliau ar gyfer y flwyddyn dreth bresennol (6 Ebrill {0} i 5 Ebrill {1})
+willNotPayTax.link2=hawlio treuliau ar gyfer y flwyddyn dreth hon (6 Ebrill {0} i 5 Ebrill {1})
 
 willPayTax.you.title=A wnaethoch dalu treth ym mhob blwyddyn rydych yn hawlio ar ei chyfer?
 willPayTax.you.heading=A wnaethoch dalu treth ym mhob blwyddyn rydych yn hawlio ar ei chyfer?

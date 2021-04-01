@@ -170,11 +170,11 @@ cannotClaimReliefSomeYears.link.label = Claim for tax years after 5 April {0}
 
 cannotClaimReliefTooLongAgo.you.title = You can claim for expenses after 5 April {0}
 cannotClaimReliefTooLongAgo.you.heading = You can claim for expenses after 5 April {0}
-cannotClaimReliefTooLongAgo.you.guidance = You can only claim for the current tax year (6 April {0} to 5 April {1}) and the 4 previous tax years.
+cannotClaimReliefTooLongAgo.you.guidance = You can only claim for this tax year (6 April {0} to 5 April {1}) and the 4 previous tax years.
 cannotClaimReliefTooLongAgo.someoneElse.title = They can claim for expenses after 5 April {0}
 cannotClaimReliefTooLongAgo.someoneElse.heading = They can claim for expenses after 5 April {0}
 cannotClaimReliefTooLongAgo.link.label = Read claim tax relief for your job expenses
-cannotClaimReliefTooLongAgo.someoneElse.guidance = They can only claim for the current tax year (6 April {0} to 5 April {1}) and the 4 previous tax years.
+cannotClaimReliefTooLongAgo.someoneElse.guidance = They can only claim for this tax year (6 April {0} to 5 April {1}) and the 4 previous tax years.
 
 
 paidTaxInRelevantYear.you.title = Are you claiming for expenses after 5 April {0}?
@@ -324,7 +324,7 @@ willNotPayTax.someoneElse.title =  They cannot claim these expenses
 willNotPayTax.someoneElse.heading =  They cannot claim these expenses
 willNotPayTax.someoneElse.guidance1 = They can only claim these expenses if they paid tax in each tax year they are claiming for.
 willNotPayTax.someoneElse.guidance2 = They can still {0} but they will not get any expenses back unless they pay tax.
-willNotPayTax.link2 = claim expenses for the current tax year (6 April {0} to 5 April {1})
+willNotPayTax.link2 = claim expenses for this tax year (6 April {0} to 5 April {1})
 
 willPayTax.you.title = Did you pay tax in each of the years you are claiming for?
 willPayTax.you.heading = Did you pay tax in each of the years you are claiming for?
