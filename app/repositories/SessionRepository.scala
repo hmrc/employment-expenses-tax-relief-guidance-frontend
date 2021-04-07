@@ -19,7 +19,6 @@ package repositories
 import config.FrontendAppConfig
 import javax.inject.{Inject, Singleton}
 import org.joda.time.{DateTime, DateTimeZone}
-import play.api.Logger
 import play.api.libs.json.{JsValue, Json}
 import play.modules.reactivemongo.ReactiveMongoComponent
 import reactivemongo.api.DefaultDB
@@ -69,12 +68,12 @@ class ReactiveMongoRepository(appConfig: FrontendAppConfig, mongo: () => Default
 
   collection.indexesManager.ensure(ttlIndex).map {
     result => {
-      Logger.debug(s"set [userAnswersExpiry] with value $timeToLiveInSeconds -> result : $result")
+      logger.debug(s"set [userAnswersExpiry] with value $timeToLiveInSeconds -> result : $result")
       result
     }
   }.recover {
     case e =>
-      Logger.error("Failed to set TTL index", e)
+      logger.error("Failed to set TTL index", e)
       false
   }.flatMap {
     _ =>

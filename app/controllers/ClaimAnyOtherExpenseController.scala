@@ -27,7 +27,7 @@ import play.api.i18n.I18nSupport
 import play.api.libs.json.{JsBoolean, JsString, JsValue}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.http.cache.client.CacheMap
-import uk.gov.hmrc.play.bootstrap.controller.FrontendBaseController
+import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import utils.{Enumerable, Navigator, UserAnswers}
 import views.html.ClaimAnyOtherExpenseView
 
