@@ -35,7 +35,7 @@ class UseSelfAssessmentControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[UseSelfAssessmentView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(claimant)(request, messages).toString
 
       application.stop
     }

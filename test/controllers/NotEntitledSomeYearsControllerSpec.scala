@@ -41,7 +41,7 @@ class NotEntitledSomeYearsControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[NotEntitledSomeYearsView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(claimant, onwardRoute)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(claimant, onwardRoute)(request, messages).toString
 
       application.stop
     }

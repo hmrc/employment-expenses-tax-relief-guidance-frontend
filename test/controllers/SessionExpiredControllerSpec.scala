@@ -50,7 +50,7 @@ class SessionExpiredControllerSpec extends SpecBase with MockitoSugar {
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual
-        view(fakeNavigataor.firstPage)(fakeRequest, messages).toString
+        view(fakeNavigataor.firstPage)(request, messages).toString
     }
 
     "Return OK and correct view for get when the WFH toggle is enabled" in {
@@ -61,7 +61,7 @@ class SessionExpiredControllerSpec extends SpecBase with MockitoSugar {
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual
-          view(Call("GET", "https://www.gov.uk/tax-relief-for-employees"))(fakeRequest, messages).toString
+          view(Call("GET", "https://www.gov.uk/tax-relief-for-employees"))(request, messages).toString
 
       application.stop
     }

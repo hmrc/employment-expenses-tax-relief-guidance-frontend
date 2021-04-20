@@ -35,7 +35,7 @@ class UsePrintAndPostControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[UsePrintAndPostView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view()(fakeRequest, messages).toString
+      contentAsString(result) mustBe view()(request, messages).toString
 
       application.stop
     }

@@ -61,7 +61,7 @@ class ClaimingOverPayAsYouEarnThresholdControllerSpec extends SpecBase with Mock
       val view = application.injector.instanceOf[ClaimingOverPayAsYouEarnThresholdView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form, claimant)(request, messages).toString
 
       application.stop
     }
@@ -77,7 +77,7 @@ class ClaimingOverPayAsYouEarnThresholdControllerSpec extends SpecBase with Mock
       val result = route(application, request).value
       val view = application.injector.instanceOf[ClaimingOverPayAsYouEarnThresholdView]
 
-      contentAsString(result) mustBe view(form.fill(true), claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form.fill(true), claimant)(request, messages).toString
 
       application.stop
     }
@@ -109,7 +109,7 @@ class ClaimingOverPayAsYouEarnThresholdControllerSpec extends SpecBase with Mock
       val view = application.injector.instanceOf[ClaimingOverPayAsYouEarnThresholdView]
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe view(boundForm, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(boundForm, claimant)(request, messages).toString
 
       application.stop
 

@@ -39,7 +39,7 @@ class CannotClaimReliefSomeYearsControllerSpec extends SpecBase {
       status(result) mustEqual OK
 
       contentAsString(result) mustEqual
-        view(claimant, onwardRoute)(fakeRequest, messages).toString
+        view(claimant, onwardRoute)(request, messages).toString
 
       application.stop
     }

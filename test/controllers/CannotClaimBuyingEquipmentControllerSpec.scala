@@ -45,7 +45,7 @@ class CannotClaimBuyingEquipmentControllerSpec extends SpecBase {
           claimant,
           fakeNavigator.changeOtherExpensesPage,
           fakeNavigator.changeUniformsWorkClothingToolsPage
-        )(fakeRequest, messages).toString
+        )(request, messages).toString
 
       application.stop
     }

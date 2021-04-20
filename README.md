@@ -13,7 +13,7 @@ Follow these instructions so you can get a copy of the project on your local mac
 
 ### Before you get started
 
-This service is written in Scala and Play 2.5. It needs:
+This service is written in Scala and Play 2.7. It needs:
 
 - at least a [JRE 1.8](http://www.oracle.com/technetwork/java/javase/downloads/index.html) to run
 - [sbt](https://www.scala-sbt.org/) to test, build and run a development version

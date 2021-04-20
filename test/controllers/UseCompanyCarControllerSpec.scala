@@ -65,7 +65,7 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
       val view = application.injector.instanceOf[UseCompanyCarView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form, claimant, useOfOwnCar)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form, claimant, useOfOwnCar)(request, messages).toString
 
       application.stop
     }
@@ -83,7 +83,7 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
       val view = application.injector.instanceOf[UseCompanyCarView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form.fill(true), claimant, useOfOwnCar)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form.fill(true), claimant, useOfOwnCar)(request, messages).toString
 
       application.stop
     }
@@ -123,7 +123,7 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
       val view = application.injector.instanceOf[UseCompanyCarView]
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe view(boundForm, claimant, useOfOwnCar)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(boundForm, claimant, useOfOwnCar)(request, messages).toString
 
       application.stop
     }
