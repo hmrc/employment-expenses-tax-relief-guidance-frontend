@@ -50,7 +50,7 @@ class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual
-        view(form)(fakeRequest, messages).toString
+        view(form)(request, messages).toString
 
       application.stop
     }
@@ -66,7 +66,7 @@ class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with
         val view = application.injector.instanceOf[ClaimAnyOtherExpenseView]
 
         status(result) mustEqual OK
-        contentAsString(result) mustEqual view(form.fill(answer))(fakeRequest, messages).toString()
+        contentAsString(result) mustEqual view(form.fill(answer))(request, messages).toString()
 
         application.stop
       }
@@ -97,7 +97,7 @@ class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with
       val view = application.injector.instanceOf[ClaimAnyOtherExpenseView]
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe view.apply(boundForm)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view.apply(boundForm)(request, messages).toString
 
       application.stop
     }

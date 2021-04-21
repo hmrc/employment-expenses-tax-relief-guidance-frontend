@@ -41,7 +41,7 @@ class CannotClaimReliefTooLongAgoControllerSpec extends SpecBase {
       status(result) mustEqual OK
 
       contentAsString(result) mustEqual
-        view(claimant, startYear, endYear)(fakeRequest, messages).toString
+        view(claimant, startYear, endYear)(request, messages).toString
 
       application.stop
     }

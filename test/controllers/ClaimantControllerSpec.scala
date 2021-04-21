@@ -47,7 +47,7 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual
-        view(form)(fakeRequest, messages).toString
+        view(form)(request, messages).toString
 
       application.stop
     }
@@ -62,7 +62,7 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
 
       status(result) mustEqual OK
       contentAsString(result) mustEqual
-        view(form.fill(claimant))(fakeRequest, messages).toString
+        view(form.fill(claimant))(request, messages).toString
 
       application.stop
     }
@@ -93,7 +93,7 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe
-        view.apply(boundForm)(fakeRequest, messages).toString
+        view.apply(boundForm)(request, messages).toString
 
       application.stop
     }

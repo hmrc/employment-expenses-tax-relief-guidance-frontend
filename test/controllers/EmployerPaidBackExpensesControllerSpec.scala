@@ -61,7 +61,7 @@ class EmployerPaidBackExpensesControllerSpec extends SpecBase with MockitoSugar 
       val view = application.injector.instanceOf[EmployerPaidBackExpensesView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form, claimant)(request, messages).toString
 
       application.stop
     }
@@ -76,7 +76,7 @@ class EmployerPaidBackExpensesControllerSpec extends SpecBase with MockitoSugar 
       val result = route(application, request).value
       val view = application.injector.instanceOf[EmployerPaidBackExpensesView]
 
-      contentAsString(result) mustEqual view(form.fill(true), claimant)(fakeRequest, messages).toString()
+      contentAsString(result) mustEqual view(form.fill(true), claimant)(request, messages).toString()
 
       application.stop
     }
@@ -105,7 +105,7 @@ class EmployerPaidBackExpensesControllerSpec extends SpecBase with MockitoSugar 
       val view = application.injector.instanceOf[EmployerPaidBackExpensesView]
 
       status(result) mustEqual BAD_REQUEST
-      contentAsString(result) mustEqual view(boundForm, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustEqual view(boundForm, claimant)(request, messages).toString
 
       application.stop
     }

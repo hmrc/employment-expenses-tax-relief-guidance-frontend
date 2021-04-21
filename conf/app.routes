@@ -77,8 +77,6 @@ GET        /change-other-expenses                       controllers.ChangeOtherE
 
 GET        /change-uniforms-work-clothing-tools         controllers.ChangeUniformsWorkClothingToolsController.onPageLoad()
 
-GET        /accessibility-statement                     controllers.AccessibilityStatementController.onPageLoad()
-
 GET        /employer-pays-working-from-home-expenses    controllers.EmployerPaidBackWfhExpensesController.onPageLoad()
 POST       /employer-pays-working-from-home-expenses    controllers.EmployerPaidBackWfhExpensesController.onSubmit()
 

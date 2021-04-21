@@ -63,7 +63,7 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
       val view = application.injector.instanceOf[WillPayTaxView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form, claimant)(request, messages).toString
 
       application.stop
     }
@@ -84,7 +84,7 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
       val result = route(application, request).value
 
       contentAsString(result) mustBe
-        view.apply(form.fill(true), claimant)(fakeRequest, messages).toString
+        view.apply(form.fill(true), claimant)(request, messages).toString
 
       application.stop
     }
@@ -118,7 +118,7 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
 
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe
-        view.apply(boundForm, claimant)(fakeRequest, messages).toString
+        view.apply(boundForm, claimant)(request, messages).toString
 
       application.stop
     }

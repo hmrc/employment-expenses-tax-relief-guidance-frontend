@@ -61,7 +61,7 @@ class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeA
       val view = application.injector.instanceOf[ClaimingFuelView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form, claimant)(request, messages).toString
 
       application.stop
     }
@@ -80,7 +80,7 @@ class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeA
 
       status(result) mustBe OK
       contentAsString(result) mustBe
-        view(form.fill(true), claimant)(fakeRequest, messages).toString
+        view(form.fill(true), claimant)(request, messages).toString
 
       application.stop
     }
@@ -114,7 +114,7 @@ class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeA
       val view = application.injector.instanceOf[ClaimingFuelView]
 
       status(result) mustEqual BAD_REQUEST
-      contentAsString(result) mustBe view(boundForm, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(boundForm, claimant)(request, messages).toString
 
       application.stop
     }

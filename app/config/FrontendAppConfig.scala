@@ -37,13 +37,11 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   lazy val betaFeedbackUrl = s"$contactHost/contact/beta-feedback"
   lazy val betaFeedbackUnauthenticatedUrl = s"$contactHost/contact/beta-feedback-unauthenticated"
 
-  lazy val loginUrl = configuration.get[String]("urls.login")
-  lazy val loginContinueUrl = configuration.get[String]("urls.loginContinue")
-
   lazy val mongo_ttl = configuration.get[Int]("mongodb.timeToLiveInSeconds")
 
+  lazy val loginUrl = configuration.get[String]("urls.login")
+  lazy val loginContinueUrl = configuration.get[String]("urls.loginContinue")
   lazy val selfAssessmentTaxReturnsUrl = configuration.get[String]("urls.selfAssessmentTaxReturn")
-
   lazy val taxReliefForEmployeesUrl = configuration.get[String]("urls.taxReliefForEmployees")
   lazy val taxReliefForEmployeesWFHUrl = configuration.get[String]("urls.taxReliefForEmployeesWFHUrl")
   lazy val buisnessMileageFuelCostsUrl = configuration.get[String]("urls.buisnessMileageFuelCostsUrl")
@@ -56,17 +54,6 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   lazy val annualInvestmentAllowanceUrl = configuration.get[String]("urls.annualInvestmentAllowanceUrl")
   lazy val workingFromHomeExpensesUrl = configuration.get[String]("urls.workingFromHomeExpensesUrl")
 
-  val accessibilityStatementUrl: String = configuration.get[String]("accessibilityStatement.govAccessibilityStatementUrl")
-  val abilityNettUrl: String = configuration.get[String]("accessibilityStatement.abilityNetUrl")
-  val w3StandardsUrl: String = configuration.get[String]("accessibilityStatement.w3StandardsUrl")
-  val equalityAdvisoryServiceUrl: String = configuration.get[String]("accessibilityStatement.equalityAdvisoryServiceUrl")
-  val equalityNIUrl: String = configuration.get[String]("accessibilityStatement.equalityNIUrl")
-  val dealingHmrcAdditionalNeedsUrl: String = configuration.get[String]("accessibilityStatement.dealingHmrcAdditionalNeedsUrl")
-  val dacUrl: String = configuration.get[String]("accessibilityStatement.dacUrl")
-  val contactAccessibilityUrl = configuration.get[String]("accessibilityStatement.contactAccessibilityUrl")
-  val accessibilityStatementLastTested: String = configuration.get[String]("accessibilityStatement.lastTested")
-  val accessibilityStatementFirstPublished: String = configuration.get[String]("accessibilityStatement.firstPublished")
-  val accessibilityStatementEnabled: Boolean = configuration.get[Boolean]("accessibilityStatement.enabled")
   val workingFromHomeExpensesOnlyEnabled: Boolean = configuration.getOptional[Boolean]("workingFromHomeExpensesOnly.enabled").getOrElse(false)
 
   lazy val languageTranslationEnabled = configuration.get[Boolean]("microservice.services.features.welsh-translation")

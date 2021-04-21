@@ -72,7 +72,7 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase with MockitoSug
       val view = application.injector.instanceOf[RegisteredForSelfAssessmentView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form, claimant)(request, messages).toString
 
       application.stop
 
@@ -85,7 +85,7 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase with MockitoSug
       val result = route(application, request).value
       val view = application.injector.instanceOf[RegisteredForSelfAssessmentView]
 
-      contentAsString(result) mustEqual view(form.fill(true), claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustEqual view(form.fill(true), claimant)(request, messages).toString
 
       application.stop
     }
@@ -115,7 +115,7 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase with MockitoSug
       val view = application.injector.instanceOf[RegisteredForSelfAssessmentView]
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe view(boundForm, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(boundForm, claimant)(request, messages).toString
 
       application.stop
     }

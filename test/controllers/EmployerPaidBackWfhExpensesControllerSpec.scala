@@ -73,7 +73,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
       val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form)(request, messages).toString
 
       application.stop
     }
@@ -88,7 +88,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
       val result = route(application, request).value
       val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
 
-      contentAsString(result) mustEqual view(form.fill(employerPaid))(fakeRequest, messages).toString()
+      contentAsString(result) mustEqual view(form.fill(employerPaid))(request, messages).toString()
 
       application.stop
     }
@@ -118,7 +118,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
       val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
 
       status(result) mustEqual BAD_REQUEST
-      contentAsString(result) mustEqual view(boundForm)(fakeRequest, messages).toString
+      contentAsString(result) mustEqual view(boundForm)(request, messages).toString
 
       application.stop
     }

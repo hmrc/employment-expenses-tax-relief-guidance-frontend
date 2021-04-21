@@ -60,7 +60,7 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
       val view = application.injector.instanceOf[ClaimingMileageView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(form, claimant)(request, messages).toString
 
       application.stop
     }
@@ -73,7 +73,7 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
       val result = route(application, request).value
       val view = application.injector.instanceOf[ClaimingMileageView]
 
-      contentAsString(result) mustEqual view(form.fill(true), claimant)(fakeRequest, messages).toString()
+      contentAsString(result) mustEqual view(form.fill(true), claimant)(request, messages).toString()
 
       application.stop
     }
@@ -105,7 +105,7 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
       val view = application.injector.instanceOf[ClaimingMileageView]
 
       status(result) mustEqual BAD_REQUEST
-      contentAsString(result) mustBe view(boundForm, claimant)(fakeRequest, messages).toString
+      contentAsString(result) mustBe view(boundForm, claimant)(request, messages).toString
 
       application.stop
     }
