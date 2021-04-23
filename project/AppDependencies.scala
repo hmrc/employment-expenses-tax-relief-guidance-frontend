@@ -13,7 +13,7 @@ object AppDependencies {
     "uk.gov.hmrc"         %% "play-ui"                       % "9.0.0-play-27",
     "uk.gov.hmrc"         %% "http-caching-client"           % "9.3.0-play-27",
     "uk.gov.hmrc"         %% "play-conditional-form-mapping" % "1.6.0-play-27",
-    "uk.gov.hmrc"         %% "bootstrap-frontend-play-27"    % "4.1.0",
+    "uk.gov.hmrc"         %% "bootstrap-frontend-play-27"    % "4.2.0",
     "uk.gov.hmrc"         %% "play-language"                 % "4.11.0-play-27",
     "uk.gov.hmrc"         %% "tax-year"                      % "1.3.0",
     "com.typesafe.play"   %% "play-iteratees"                % "2.6.1"
