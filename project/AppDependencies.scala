@@ -6,15 +6,14 @@ object AppDependencies {
 
   val compile: Seq[ModuleID] = Seq(
     play.sbt.PlayImport.ws,
-    "uk.gov.hmrc"         %% "simple-reactivemongo"          % "8.0.0-play-27",
+    "uk.gov.hmrc"         %% "simple-reactivemongo"          % "8.0.0-play-28",
     "uk.gov.hmrc"         %% "logback-json-logger"           % "5.1.0",
-    "uk.gov.hmrc"         %% "govuk-template"                % "5.68.0-play-27",
-    "uk.gov.hmrc"         %% "play-health"                   % "3.16.0-play-27",
-    "uk.gov.hmrc"         %% "play-ui"                       % "9.5.0-play-27",
-    "uk.gov.hmrc"         %% "http-caching-client"           % "9.5.0-play-27",
-    "uk.gov.hmrc"         %% "play-conditional-form-mapping" % "1.9.0-play-27",
-    "uk.gov.hmrc"         %% "bootstrap-frontend-play-27"    % "5.3.0",
-    "uk.gov.hmrc"         %% "play-language"                 % "5.1.0-play-27",
+    "uk.gov.hmrc"         %% "govuk-template"                % "5.68.0-play-28",
+    "uk.gov.hmrc"         %% "play-ui"                       % "9.5.0-play-28",
+    "uk.gov.hmrc"         %% "http-caching-client"           % "9.5.0-play-28",
+    "uk.gov.hmrc"         %% "play-conditional-form-mapping" % "1.9.0-play-28",
+    "uk.gov.hmrc"         %% "bootstrap-frontend-play-28"    % "5.4.0",
+    "uk.gov.hmrc"         %% "play-language"                 % "5.1.0-play-28",
     "uk.gov.hmrc"         %% "tax-year"                      % "1.3.0",
     "com.typesafe.play"   %% "play-iteratees"                % "2.6.1"
   )

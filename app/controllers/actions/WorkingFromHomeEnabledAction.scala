@@ -19,8 +19,8 @@ package controllers.actions
 
 import com.google.inject.{ImplementedBy, Inject}
 import config.FrontendAppConfig
-import controllers.Assets.Redirect
 import controllers.routes
+import play.api.mvc.Results.Redirect
 import play.api.mvc._
 
 import scala.concurrent.{ExecutionContext, Future}
