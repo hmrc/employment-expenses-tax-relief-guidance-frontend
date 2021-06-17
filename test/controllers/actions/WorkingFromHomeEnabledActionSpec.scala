@@ -18,12 +18,13 @@ package controllers.actions
 
 import base.SpecBase
 import config.FrontendAppConfig
-import controllers.Assets.{OK, Ok, SEE_OTHER}
 import controllers.routes
 import org.mockito.Mockito.when
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.mvc.{AnyContent, MessagesControllerComponents, Request, Result}
+import play.api.http.HttpEntity
+import play.api.http.Status.{OK, SEE_OTHER}
+import play.api.mvc.{AnyContent, MessagesControllerComponents, Request, ResponseHeader, Result}
 import play.mvc.Http.HeaderNames
 import utils.MaterializerSupport
 
@@ -33,7 +34,7 @@ class WorkingFromHomeEnabledActionSpec extends SpecBase with MockitoSugar with S
 
   implicit val executionContext = scala.concurrent.ExecutionContext.Implicits.global
 
-  val BLOCK_EXECUTED_MESSAGE = "block executed"
+  val BLOCK_EXECUTED_MESSAGE = ""
 
   class SetUp {
     val mockAppConfig = mock[FrontendAppConfig]
@@ -42,7 +43,7 @@ class WorkingFromHomeEnabledActionSpec extends SpecBase with MockitoSugar with S
 
     val action = new ActionUnderTest(controllerComponents)
 
-    val successfulOkayBlock: Request[AnyContent] => Future[Result] = { _ => Future.successful(Ok(BLOCK_EXECUTED_MESSAGE)) }
+    val successfulOkayBlock: Request[AnyContent] => Future[Result] = { _ => Future.successful(Result(ResponseHeader(OK), HttpEntity.NoEntity)) }
   }
 
   "The ActionBuilder" when {
