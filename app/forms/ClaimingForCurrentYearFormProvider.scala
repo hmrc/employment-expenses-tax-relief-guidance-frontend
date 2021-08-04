@@ -14,14 +14,18 @@
  * limitations under the License.
  */
 
-package utils
+package forms
 
-import akka.actor.ActorSystem
-import akka.stream.ActorMaterializer
+import forms.mappings.Mappings
+import models.Claimant
+import play.api.data.Form
 
-trait MaterializerSupport {
+import javax.inject.Inject
 
-  implicit val system: ActorSystem = ActorSystem("Sys")
-  implicit val materializer = ActorMaterializer()
+class ClaimingForCurrentYearFormProvider @Inject() extends Mappings {
 
+  def apply(claimant: Claimant): Form[Boolean] =
+    Form(
+      "value" -> boolean(s"claimingForCurrentYear.error.required")
+    )
 }

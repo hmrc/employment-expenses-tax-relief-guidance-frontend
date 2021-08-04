@@ -14,14 +14,8 @@
  * limitations under the License.
  */
 
-package utils
+package identifiers
 
-import akka.actor.ActorSystem
-import akka.stream.ActorMaterializer
-
-trait MaterializerSupport {
-
-  implicit val system: ActorSystem = ActorSystem("Sys")
-  implicit val materializer = ActorMaterializer()
-
+case object ClaimingForCurrentYearId extends Identifier {
+  override def toString: String = "claimingForCurrentYear"
 }

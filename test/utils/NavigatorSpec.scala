@@ -87,6 +87,58 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           .thenReturn(Some(true))
 
         navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
+          routes.ClaimingForCurrentYearController.onPageLoad()
+      }
+
+      "answering No from the RegisterForSelfAssessment when other expenses selected view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(false))
+        when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(false))
+
+        navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
+          routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
+      }
+
+      "answering Yes from the RegisterForSelfAssessment when other expenses selected view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
+        when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(false))
+
+        navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
+          routes.UseSelfAssessmentController.onPageLoad()
+      }
+
+      "answering No from the RegisterForSelfAssessment when other expenses not selected view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimAnyOtherExpense).thenReturn(None)
+        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(false))
+
+        navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
+          routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
+      }
+
+      "answering Yes from the RegisterForSelfAssessment when other expenses not selected view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimAnyOtherExpense).thenReturn(None)
+        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
+
+        navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
+          routes.UseSelfAssessmentController.onPageLoad()
+      }
+
+    }
+    "go to the ClaimingForCurrentYear view" when {
+      "answering Yes" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingForCurrentYear).thenReturn(Some(true))
+        navigator.nextPage(ClaimingForCurrentYearId)(mockAnswers) mustBe
+          routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+      }
+
+      "answering No" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingForCurrentYear).thenReturn(Some(false))
+        navigator.nextPage(ClaimingForCurrentYearId)(mockAnswers) mustBe
           routes.UseSelfAssessmentController.onPageLoad()
       }
     }

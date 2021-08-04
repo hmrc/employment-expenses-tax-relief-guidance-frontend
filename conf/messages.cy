@@ -1,3 +1,5 @@
+service.name = Gwirio a allwch hawlio treuliau sy''n ymwneud â gwaith
+
 date.day=Diwrnod
 date.month=Mis
 date.year=Blwyddyn
@@ -322,3 +324,9 @@ willPayTax.you.error.required=Dewiswch ''Iawn'' os ydych wedi talu treth ym mhob
 willPayTax.someoneElse.title=A yw wedi talu treth ym mhob blwyddyn mae''n hawlio amdani?
 willPayTax.someoneElse.heading=A yw wedi talu treth ym mhob blwyddyn mae''n hawlio amdani?
 willPayTax.someoneElse.error.required=Dewiswch ''Iawn'' os yw wedi talu treth ym mhob blwyddyn mae''n hawlio amdani
+
+claimingForCurrentYear.title = A ydych yn hawlio ar gyfer y flwyddyn dreth bresennol 2021-2022 yn unig?
+claimingForCurrentYear.heading = A ydych yn hawlio ar gyfer y flwyddyn dreth bresennol 2021-2022 yn unig?
+claimingForCurrentYear.yes.text = Gallwch hawlio rhyddhad treth ar gyfer eich treuliau gweithio o gartref ar gyfer y flwyddyn dreth bresennol drwy ddefnyddio’r gwasanaeth hwn. Gallwch wneud hyn cyn i chi anfon eich Ffurflen Dreth Hunanasesiad y flwyddyn nesaf.
+claimingForCurrentYear.no.text = Os ydych am hawlio rhyddhad treth ar gyfer blynyddoedd blaenorol, mae angen i chi ei hawlio ar eich Ffurflen Dreth Hunanasesiad.
+claimingForCurrentYear.error.required = Dewiswch ‘Iawn’ os ydych yn hawlio ar gyfer y flwyddyn dreth bresennol 2021-2022 yn unig.
