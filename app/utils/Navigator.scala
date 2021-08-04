@@ -27,14 +27,32 @@ import models.EmployerPaid.{NoExpenses, SomeExpenses, AllExpenses}
 @Singleton
 class Navigator @Inject()() {
 
-  private def registeredForSelfAssessmentControllerRouting(userAnswers: UserAnswers) = userAnswers.registeredForSelfAssessment match {
-    case Some(true)  => routes.UseSelfAssessmentController.onPageLoad()
-    case Some(false) => userAnswers.claimAnyOtherExpense match {
-      case Some(true)   => routes.EmployerPaidBackWfhExpensesController.onPageLoad()
-      case _            => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
+private def claimingForCurrentYearControllerRouting(userAnswers: UserAnswers) =
+    userAnswers.claimingForCurrentYear match {
+      case Some(true) => routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+      case Some(false) => routes.UseSelfAssessmentController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad()
     }
-    case _           => routes.SessionExpiredController.onPageLoad()
-  }
+
+  private def registeredForSelfAssessmentControllerRouting(userAnswers: UserAnswers) =
+
+    userAnswers.claimAnyOtherExpense match {
+      case x if x == None || x == Some(false) =>
+      userAnswers.registeredForSelfAssessment match {
+        case Some(true) => routes.UseSelfAssessmentController.onPageLoad()
+        case Some(false) => userAnswers.claimAnyOtherExpense match {
+          case Some(true) => routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+          case _ => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
+        }
+        case _ => routes.SessionExpiredController.onPageLoad()
+      }
+      case _ =>
+      userAnswers.registeredForSelfAssessment match {
+        case Some(true) => routes.ClaimingForCurrentYearController.onPageLoad()
+        case Some(false) => routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+        case _ => routes.SessionExpiredController.onPageLoad()
+      }
+    }
 
   private def claimingOverPayAsYouEarnThresholdRouting(userAnswers: UserAnswers) =
     userAnswers.claimingOverPayAsYouEarnThreshold match {
@@ -177,7 +195,8 @@ class Navigator @Inject()() {
     WillNotPayTaxId                     -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
     RegisterForSelfAssessmentId         -> (_ => routes.EmployerPaidBackExpensesController.onPageLoad()),
     ChangeOtherExpensesId               -> changeOtherExpensesRouting,
-    ChangeUniformsWorkClothingToolsId   -> changeUniformsWorkClothingToolsRouting
+    ChangeUniformsWorkClothingToolsId   -> changeUniformsWorkClothingToolsRouting,
+    ClaimingForCurrentYearId            -> claimingForCurrentYearControllerRouting
   )
 
   def nextPage(id: Identifier): UserAnswers => Call =

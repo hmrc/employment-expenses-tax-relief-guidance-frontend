@@ -32,9 +32,7 @@
 
     @components.heading(s"registerForSelfAssessment.$claimant.heading")
 
-    <p>@messages("registerForSelfAssessment.guidance1")</p>
-
-    <p>@messages("registerForSelfAssessment.guidance2")
+    <p>@messages("registerForSelfAssessment.guidance1")
         <a id="link" href=@appConfig.fileSelfAssessmentLoginUrl
            data-journey-click="link - click:@messages(s"registerForSelfAssessment.$claimant.heading"):@messages("registerForSelfAssessment.link.external.label")">
             @messages("registerForSelfAssessment.link.external.label")</a>.

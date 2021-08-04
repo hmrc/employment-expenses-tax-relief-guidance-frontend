@@ -1,3 +1,5 @@
+service.name = Check if you can claim work related expenses
+
 date.day = Day
 date.month = Month
 date.year = Year
@@ -332,3 +334,9 @@ willPayTax.you.error.required = Select yes if you have paid tax in each of the y
 willPayTax.someoneElse.title = Did they pay tax in each of the years they are claiming for?
 willPayTax.someoneElse.heading = Did they pay tax in each of the years they are claiming for?
 willPayTax.someoneElse.error.required = Select yes if they have paid tax in each of the years you are claiming for
+
+claimingForCurrentYear.title = Are you only claiming for the current tax year 2021-2022?
+claimingForCurrentYear.heading = Are you only claiming for the current tax year 2021-2022?
+claimingForCurrentYear.yes.text = You can claim tax relief for your working from home expenses for the current tax year using this service. You can do this before you send your Self Assessment tax return next year.
+claimingForCurrentYear.no.text = If you want to claim tax relief for previous years, you need to claim it on your Self Assessment tax return.
+claimingForCurrentYear.error.required = Select yes if you are only claiming for the current tax year 2021-2022

@@ -1,3 +1,5 @@
+->         /hmrc-frontend                               hmrcfrontend.Routes
+
 # microservice specific routes
 
 GET        /                                            controllers.IndexController.onPageLoad
@@ -13,6 +15,9 @@ POST       /who-claiming-for                            controllers.ClaimantCont
 
 GET        /registered-self-assessment                  controllers.RegisteredForSelfAssessmentController.onPageLoad()
 POST       /registered-self-assessment                  controllers.RegisteredForSelfAssessmentController.onSubmit()
+
+GET        /claiming-for-current-year                   controllers.ClaimingForCurrentYearController.onPageLoad()
+POST       /claiming-for-current-year                   controllers.ClaimingForCurrentYearController.onSubmit()
 
 GET        /more-than-2500                              controllers.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
 POST       /more-than-2500                              controllers.ClaimingOverPayAsYouEarnThresholdController.onSubmit()
