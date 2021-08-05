@@ -16,10 +16,12 @@
 
 package controllers
 
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.RegisteredForSelfAssessmentFormProvider
 import identifiers.RegisteredForSelfAssessmentId
+
 import javax.inject.Inject
 import play.api.data.Form
 import play.api.i18n.I18nSupport
@@ -38,7 +40,8 @@ class RegisteredForSelfAssessmentController @Inject()(
                                                        getClaimant: GetClaimantAction,
                                                        formProvider: RegisteredForSelfAssessmentFormProvider,
                                                        val controllerComponents: MessagesControllerComponents,
-                                                       view: RegisteredForSelfAssessmentView
+                                                       view: RegisteredForSelfAssessmentView,
+                                                       appConfig: FrontendAppConfig
                                                      )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
@@ -48,7 +51,13 @@ class RegisteredForSelfAssessmentController @Inject()(
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(view(preparedForm, request.claimant))
+
+      val backButtonOverride = request.userAnswers.claimAnyOtherExpense match {
+        case Some(true) => Some(appConfig.registeredForSelfBackButtonOverride)
+        case _ => None
+      }
+
+      Ok(view(preparedForm, request.claimant, backButtonOverride))
   }
 
   def onSubmit: Action[AnyContent] = (getData andThen requireData andThen getClaimant).async {
@@ -57,7 +66,7 @@ class RegisteredForSelfAssessmentController @Inject()(
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(formWithErrors, request.claimant))),
+          Future.successful(BadRequest(view(formWithErrors, request.claimant, None))),
         value =>
           dataCacheConnector.save[Boolean](request.sessionId, RegisteredForSelfAssessmentId, value).map(cacheMap =>
             Redirect(navigator.nextPage(RegisteredForSelfAssessmentId)(new UserAnswers(cacheMap)))

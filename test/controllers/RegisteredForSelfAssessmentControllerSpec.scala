@@ -19,7 +19,7 @@ package controllers
 import base.SpecBase
 import connectors.DataCacheConnector
 import forms.RegisteredForSelfAssessmentFormProvider
-import identifiers.{ClaimantId, RegisteredForSelfAssessmentId}
+import identifiers.{ClaimAnyOtherExpenseId, ClaimantId, RegisteredForSelfAssessmentId}
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach
@@ -72,7 +72,7 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase with MockitoSug
       val view = application.injector.instanceOf[RegisteredForSelfAssessmentView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form, claimant)(request, messages).toString
+      contentAsString(result) mustBe view(form, claimant, None)(request, messages).toString
 
       application.stop
 
@@ -85,7 +85,7 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase with MockitoSug
       val result = route(application, request).value
       val view = application.injector.instanceOf[RegisteredForSelfAssessmentView]
 
-      contentAsString(result) mustEqual view(form.fill(true), claimant)(request, messages).toString
+      contentAsString(result) mustEqual view(form.fill(true), claimant, None)(request, messages).toString
 
       application.stop
     }
@@ -115,7 +115,7 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase with MockitoSug
       val view = application.injector.instanceOf[RegisteredForSelfAssessmentView]
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe view(boundForm, claimant)(request, messages).toString
+      contentAsString(result) mustBe view(boundForm, claimant, None)(request, messages).toString
 
       application.stop
     }
@@ -138,6 +138,42 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase with MockitoSug
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl
+
+      application.stop
+    }
+  }
+
+  "RegisteredForSelfAssessment Controller's back button dynamic behaviour" must  {
+
+    "ensure there is a back button override when ClaimAnyOtherExpenseId is true" in {
+      val validData = Map(ClaimantId.toString -> JsString(claimant.toString), ClaimAnyOtherExpenseId.toString -> JsBoolean(true))
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val request = FakeRequest(GET, registeredForSelfAssessmentRoute)
+      val result = route(application, request).value
+
+      contentAsString(result).contains(frontendAppConfig.registeredForSelfBackButtonOverride) mustBe true
+
+      application.stop
+    }
+
+    "ensure no back button override when ClaimAnyOtherExpenseId is false" in {
+      val validData = Map(ClaimantId.toString -> JsString(claimant.toString), ClaimAnyOtherExpenseId.toString -> JsBoolean(false))
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val request = FakeRequest(GET, registeredForSelfAssessmentRoute)
+      val result = route(application, request).value
+
+      contentAsString(result).contains(frontendAppConfig.registeredForSelfBackButtonOverride) mustBe false
+
+      application.stop
+    }
+
+    "ensure no back button override when ClaimAnyOtherExpenseId is missing" in {
+      val validData = Map(ClaimantId.toString -> JsString(claimant.toString))
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val request = FakeRequest(GET, registeredForSelfAssessmentRoute)
+      val result = route(application, request).value
+
+      contentAsString(result).contains(frontendAppConfig.registeredForSelfBackButtonOverride) mustBe false
 
       application.stop
     }

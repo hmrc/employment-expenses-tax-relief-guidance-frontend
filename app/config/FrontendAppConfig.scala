@@ -56,6 +56,8 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
 
   val workingFromHomeExpensesOnlyEnabled: Boolean = configuration.getOptional[Boolean]("workingFromHomeExpensesOnly.enabled").getOrElse(false)
 
+  lazy val registeredForSelfBackButtonOverride = configuration.get[String]("registeredForSelf.backButtonOverride.reference")
+
   lazy val languageTranslationEnabled = configuration.get[Boolean]("microservice.services.features.welsh-translation")
   def languageMap: Map[String, Lang] = Map(
     "english" -> Lang("en"),
