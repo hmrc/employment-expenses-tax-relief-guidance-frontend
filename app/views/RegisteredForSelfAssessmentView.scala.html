@@ -25,7 +25,7 @@
   appConfig: FrontendAppConfig
 )
 
-@(form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], claimant: Claimant, backButtonOverride: Option[String])(implicit request: Request[_], messages: Messages)
 
 @startTag = {
   <a
@@ -42,7 +42,13 @@
     title = s"${errorPrefix(form)} ${messages(s"registeredForSelfAssessment.$claimant.title")}"
 ) {
 
+@if(backButtonOverride.isDefined) {
+    <div class="js-visible">
+        <p><a id="back-link-override" class="link-back" href="@backButtonOverride.get">@messages("site.back")</a></p>
+    </div>
+} else {
     @back_link()
+}
 
     @formHelper(action = RegisteredForSelfAssessmentController.onSubmit(), 'autoComplete -> "off") {
 
