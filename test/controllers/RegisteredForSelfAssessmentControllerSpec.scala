@@ -173,7 +173,7 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase with MockitoSug
       val request = FakeRequest(GET, registeredForSelfAssessmentRoute)
       val result = route(application, request).value
 
-      contentAsString(result).contains(frontendAppConfig.registeredForSelfBackButtonOverride) mustBe false
+      contentAsString(result) .contains(frontendAppConfig.registeredForSelfBackButtonOverride) mustBe false
 
       application.stop
     }

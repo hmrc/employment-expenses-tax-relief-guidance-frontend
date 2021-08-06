@@ -33,7 +33,7 @@ class EmployerPaidBackWfhExpensesViewSpec extends ViewBehaviours {
 
   val form = new EmployerPaidBackWfhExpensesFormProvider()()
 
-  def createView(form: Form[_]): Html = view.apply(form)(fakeRequest, messages)
+  def createView(form: Form[_]): Html = view.apply(form, None)(fakeRequest, messages)
 
   "EmployerPaidBackWFHExpenses view" must {
 

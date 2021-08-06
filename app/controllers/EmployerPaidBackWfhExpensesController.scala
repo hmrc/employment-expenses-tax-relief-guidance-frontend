@@ -16,10 +16,12 @@
 
 package controllers
 
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.EmployerPaidBackWfhExpensesFormProvider
 import identifiers.EmployerPaidBackWfhExpensesId
+
 import javax.inject.Inject
 import models.EmployerPaid
 import play.api.data.Form
@@ -39,7 +41,8 @@ class EmployerPaidBackWfhExpensesController @Inject()(
                                                        getClaimant: GetClaimantAction,
                                                        formProvider: EmployerPaidBackWfhExpensesFormProvider,
                                                        val controllerComponents: MessagesControllerComponents,
-                                                       view: EmployerPaidBackWfhExpensesView
+                                                       view: EmployerPaidBackWfhExpensesView,
+                                                       appConfig: FrontendAppConfig
                                                   )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
 
   val form: Form[EmployerPaid] = formProvider()
@@ -51,7 +54,13 @@ class EmployerPaidBackWfhExpensesController @Inject()(
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(view(preparedForm))
+
+      val backButtonOverride = request.userAnswers.registeredForSelfAssessment match {
+        case Some(true) => Some(appConfig.claimingForCurrentYearBackButtonOverride)
+        case _ => None
+      }
+
+      Ok(view(preparedForm, backButtonOverride))
   }
 
   def onSubmit: Action[AnyContent] = (getData andThen requireData).async {
@@ -59,7 +68,7 @@ class EmployerPaidBackWfhExpensesController @Inject()(
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(formWithErrors))),
+          Future.successful(BadRequest(view(formWithErrors, None))),
         value => {
 
           dataCacheConnector.save[EmployerPaid](request.sessionId, EmployerPaidBackWfhExpensesId, value).map(cacheMap =>

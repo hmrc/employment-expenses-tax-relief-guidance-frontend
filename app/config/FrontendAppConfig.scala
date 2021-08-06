@@ -56,6 +56,7 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
 
   val workingFromHomeExpensesOnlyEnabled: Boolean = configuration.getOptional[Boolean]("workingFromHomeExpensesOnly.enabled").getOrElse(false)
 
+  lazy val claimingForCurrentYearBackButtonOverride = configuration.get[String]("claimingForCurrentYear.backButtonOverride.reference")
   lazy val registeredForSelfBackButtonOverride = configuration.get[String]("registeredForSelf.backButtonOverride.reference")
 
   lazy val languageTranslationEnabled = configuration.get[Boolean]("microservice.services.features.welsh-translation")
