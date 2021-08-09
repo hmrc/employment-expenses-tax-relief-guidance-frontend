@@ -17,9 +17,12 @@
 package controllers
 
 import base.SpecBase
+import identifiers.{ClaimantId, ClaimingForCurrentYearId, EmployerPaidBackWfhExpensesId, RegisteredForSelfAssessmentId}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import views.html.UseSelfAssessmentView
+import play.api.libs.json.{JsBoolean, JsString}
+import uk.gov.hmrc.http.cache.client.CacheMap
 
 class UseSelfAssessmentControllerSpec extends SpecBase {
 
@@ -35,9 +38,59 @@ class UseSelfAssessmentControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[UseSelfAssessmentView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(claimant)(request, messages).toString
+      contentAsString(result) mustBe view(claimant, None)(request, messages).toString
 
       application.stop
+    }
+
+    "UseSelfAssessment Controller's back button dynamic behaviour" must {
+
+      "ensure there is a back button override when ClaimingForCurrentYearId is true" in {
+
+        val validData = Map(
+          RegisteredForSelfAssessmentId.toString -> JsBoolean(true),
+          ClaimingForCurrentYearId.toString -> JsBoolean(true),
+          ClaimantId.toString -> JsString(claimant.toString))
+
+        val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+        val request = FakeRequest(GET, useSelfAssessmentRoute)
+        val result = route(application, request).value
+
+        contentAsString(result).contains(frontendAppConfig.claimingForCurrentYearBackButtonOverride) mustBe true
+
+        application.stop
+      }
+
+      "ensure there is a back button override when ClaimingForCurrentYearId is false" in {
+
+        val validData = Map(
+          RegisteredForSelfAssessmentId.toString -> JsBoolean(true),
+          ClaimingForCurrentYearId.toString -> JsBoolean(false),
+          ClaimantId.toString -> JsString(claimant.toString))
+
+        val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+        val request = FakeRequest(GET, useSelfAssessmentRoute)
+        val result = route(application, request).value
+
+        contentAsString(result).contains(frontendAppConfig.claimingForCurrentYearBackButtonOverride) mustBe true
+
+        application.stop
+      }
+
+
+      "ensure there is no back button override when RegisteredForSelfAssessmentId missing" in {
+
+        val validData = Map(ClaimantId.toString -> JsString(claimant.toString))
+
+        val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+        val request = FakeRequest(GET, useSelfAssessmentRoute)
+        val result = route(application, request).value
+
+        contentAsString(result).contains(frontendAppConfig.claimingForCurrentYearBackButtonOverride) mustBe false
+
+        application.stop
+      }
+
     }
   }
 }
