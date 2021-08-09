@@ -19,14 +19,14 @@ package controllers
 import base.SpecBase
 import connectors.DataCacheConnector
 import forms.EmployerPaidBackWfhExpensesFormProvider
-import identifiers.{ClaimantId, EmployerPaidBackWfhExpensesId}
+import identifiers.{ClaimantId, EmployerPaidBackWfhExpensesId, RegisteredForSelfAssessmentId}
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
-import play.api.libs.json.JsString
+import play.api.libs.json.{JsBoolean, JsString}
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -73,7 +73,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
       val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form)(request, messages).toString
+      contentAsString(result) mustBe view(form, None)(request, messages).toString
 
       application.stop
     }
@@ -88,7 +88,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
       val result = route(application, request).value
       val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
 
-      contentAsString(result) mustEqual view(form.fill(employerPaid))(request, messages).toString()
+      contentAsString(result) mustEqual view(form.fill(employerPaid), None)(request, messages).toString()
 
       application.stop
     }
@@ -118,7 +118,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
       val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
 
       status(result) mustEqual BAD_REQUEST
-      contentAsString(result) mustEqual view(boundForm)(request, messages).toString
+      contentAsString(result) mustEqual view(boundForm, None)(request, messages).toString
 
       application.stop
     }
@@ -144,6 +144,54 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
       redirectLocation(result).value mustBe sessionExpiredUrl
 
       application.stop
+    }
+
+    "EmployerPaidBackWFHExpenses Controller's back button dynamic behaviour" must {
+
+      "ensure there is a back button override when RegisteredForSelfAssessmentId is true" in {
+        val validData = Map(
+          EmployerPaidBackWfhExpensesId.toString -> JsString("noExpenses"),
+          RegisteredForSelfAssessmentId.toString -> JsBoolean(true),
+          ClaimantId.toString -> JsString(claimant.toString))
+
+        val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+        val request = FakeRequest(GET, employerPaidBackWFHExpensesRoute)
+        val result = route(application, request).value
+
+        contentAsString(result).contains(frontendAppConfig.claimingForCurrentYearBackButtonOverride) mustBe true
+
+        application.stop
+      }
+
+      "ensure there no back button override when RegisteredForSelfAssessmentId is false" in {
+        val validData = Map(
+          EmployerPaidBackWfhExpensesId.toString -> JsString("noExpenses"),
+          RegisteredForSelfAssessmentId.toString -> JsBoolean(false),
+          ClaimantId.toString -> JsString(claimant.toString))
+
+        val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+        val request = FakeRequest(GET, employerPaidBackWFHExpensesRoute)
+        val result = route(application, request).value
+
+        contentAsString(result).contains(frontendAppConfig.claimingForCurrentYearBackButtonOverride) mustBe false
+
+        application.stop
+      }
+
+      "ensure there no back button override when RegisteredForSelfAssessmentId is missing" in {
+        val validData = Map(
+          EmployerPaidBackWfhExpensesId.toString -> JsString("noExpenses"),
+          ClaimantId.toString -> JsString(claimant.toString))
+
+        val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+        val request = FakeRequest(GET, employerPaidBackWFHExpensesRoute)
+        val result = route(application, request).value
+
+        contentAsString(result).contains(frontendAppConfig.claimingForCurrentYearBackButtonOverride) mustBe false
+
+        application.stop
+      }
+
     }
   }
 }
