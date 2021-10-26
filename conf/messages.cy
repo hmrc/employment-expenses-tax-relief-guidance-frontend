@@ -121,7 +121,7 @@ registerForSelfAssessment.someoneElse.title=Mae''n rhaid iddo ddefnyddio Hunanas
 registerForSelfAssessment.someoneElse.heading=Mae''n rhaid iddo ddefnyddio Hunanasesiad i hawlio''r treuliau hyn
 registerForSelfAssessment.someoneElse.guidance=Os oes blynyddoedd treth pan fo''i dreuliau''n llai na £2,500,
 registerForSelfAssessment.someoneElse.link.continue.label=gwiriwch a all hawlio rhyddhad treth
-registerForSelfAssessment.link.external.label=gofrestru ar gyfer Ffurflenni Treth Hunanasesiad a''u cyflwyno.
+registerForSelfAssessment.link.external.label=Gofrestru ar gyfer Ffurflenni Treth Hunanasesiad a''u cyflwyno
 registerForSelfAssessment.guidance1=Gan fod eich treuliau yn £2,500 neu fwy mewn rhai o''r blynyddoedd treth rydych yn hawlio ar eu cyfer, mae''n rhaid i chi eu hawlio fel rhan o''ch Ffurflen Dreth Hunanasesiad.
 registerForSelfAssessment.guidance2=Rhagor o wybodaeth am sut i
 
