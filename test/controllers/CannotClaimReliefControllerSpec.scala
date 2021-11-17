@@ -26,7 +26,7 @@ class CannotClaimReliefControllerSpec extends SpecBase {
   "CannotClaimRelief Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
+      val application =  applicationBuilder(Some(claimantIdCacheMap)).build()
 
       val request = FakeRequest(GET, routes.CannotClaimReliefController.onPageLoad().url)
 

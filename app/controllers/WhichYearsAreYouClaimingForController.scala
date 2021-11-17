@@ -16,76 +16,55 @@
 
 package controllers
 
-import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import forms.{RegisteredForSelfAssessmentFormProvider, RegisteredForSelfAssessmentSelfAssessmentFormProvider}
-import identifiers.RegisteredForSelfAssessmentId
-import models.requests.ClaimantRequest
-
-import javax.inject.Inject
+import forms.WhichYearsAreYouClaimingForFormProvider
+import identifiers.WhichYearsAreYouClaimingForId
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import utils.{Navigator, UserAnswers}
-import views.html.RegisteredForSelfAssessmentView
+import views.html.WhichYearsAreYouClaimingForView
 
+import javax.inject.Inject
 import scala.concurrent.{ExecutionContext, Future}
 
-class RegisteredForSelfAssessmentController @Inject()(
+class WhichYearsAreYouClaimingForController @Inject()(
                                                        dataCacheConnector: DataCacheConnector,
                                                        navigator: Navigator,
                                                        getData: DataRetrievalAction,
                                                        requireData: DataRequiredAction,
                                                        getClaimant: GetClaimantAction,
-                                                       formProvider: RegisteredForSelfAssessmentFormProvider,
-                                                       formProviderSelfAssessment: RegisteredForSelfAssessmentSelfAssessmentFormProvider,
+                                                       formProvider: WhichYearsAreYouClaimingForFormProvider,
                                                        val controllerComponents: MessagesControllerComponents,
-                                                       view: RegisteredForSelfAssessmentView,
-                                                       appConfig: FrontendAppConfig
+                                                       view: WhichYearsAreYouClaimingForView
                                                      )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
     implicit request =>
-      val form: Form[Boolean] = formProvider(request.claimant)
 
-      val preparedForm = request.userAnswers.registeredForSelfAssessment match {
+      val form: Form[Int] = formProvider(request.claimant)
+
+      val preparedForm = request.userAnswers.whichYearsAreYouClaimingFor match {
         case None => form
         case Some(value) => form.fill(value)
       }
-
-      val backButtonOverride = BackButtonSetting(request)
-
-      Ok(view(preparedForm, request.claimant, backButtonOverride))
+      Ok(view(preparedForm, request.claimant))
   }
 
   def onSubmit: Action[AnyContent] = (getData andThen requireData andThen getClaimant).async {
     implicit request =>
 
-      val backButtonOverride = BackButtonSetting(request)
-
-      val form: Form[Boolean] = if (backButtonOverride.nonEmpty) {
-        formProviderSelfAssessment(request.claimant)
-      } else {
-        formProvider(request.claimant)
-      }
+      val form: Form[Int] = formProvider(request.claimant)
 
       form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) => {
-          Future.successful(BadRequest(view(formWithErrors, request.claimant, backButtonOverride)))
-        },
+        (formWithErrors: Form[_]) =>
+          Future.successful(BadRequest(view(formWithErrors, request.claimant))),
         value =>
-          dataCacheConnector.save[Boolean](request.sessionId, RegisteredForSelfAssessmentId, value).map(cacheMap =>
-            Redirect(navigator.nextPage(RegisteredForSelfAssessmentId)(new UserAnswers(cacheMap)))
+          dataCacheConnector.save[Int](request.sessionId, WhichYearsAreYouClaimingForId, value).map(cacheMap =>
+            Redirect(navigator.nextPage(WhichYearsAreYouClaimingForId)(new UserAnswers(cacheMap)))
           )
       )
-  }
-
-  private def BackButtonSetting(request: ClaimantRequest[AnyContent]): Option[String] = {
-    request.userAnswers.claimAnyOtherExpense match {
-      case Some(true) => Some(appConfig.registeredForSelfBackButtonOverride)
-      case _ => None
-    }
   }
 }

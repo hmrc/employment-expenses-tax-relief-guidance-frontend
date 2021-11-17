@@ -19,6 +19,12 @@ POST       /registered-self-assessment                  controllers.RegisteredFo
 GET        /claiming-for-current-year                   controllers.ClaimingForCurrentYearController.onPageLoad()
 POST       /claiming-for-current-year                   controllers.ClaimingForCurrentYearController.onSubmit()
 
+GET        /which-years-are-you-claiming-for            controllers.WhichYearsAreYouClaimingForController.onPageLoad()
+POST       /which-years-are-you-claiming-for            controllers.WhichYearsAreYouClaimingForController.onSubmit()
+
+GET        /sa-check-disclaimer-current-year            controllers.SaCheckDisclaimerCurrentYearController.onPageLoad()
+GET        /sa-check-disclaimer-all-years               controllers.SaCheckDisclaimerAllYearsController.onPageLoad()
+
 GET        /more-than-2500                              controllers.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
 POST       /more-than-2500                              controllers.ClaimingOverPayAsYouEarnThresholdController.onSubmit()
 
@@ -44,6 +50,8 @@ POST       /employer-paid-working-from-home-expenses    controllers.EmployerPaid
 GET        /cannot-claim-for-all-years                  controllers.CannotClaimReliefSomeYearsController.onPageLoad()
 
 GET        /cannot-claim-too-long-ago                   controllers.CannotClaimReliefTooLongAgoController.onPageLoad()
+
+GET        /sa-check-disclaimer-current-year            controllers.CannotClaimReliefTooLongAgoController.onPageLoad()
 
 GET        /paid-tax-in-year                            controllers.PaidTaxInRelevantYearController.onPageLoad()
 POST       /paid-tax-in-year                            controllers.PaidTaxInRelevantYearController.onSubmit()
@@ -92,3 +100,5 @@ GET        /working-from-home-because-of-covid          controllers.WfhDueToCovi
 POST       /working-from-home-because-of-covid          controllers.WfhDueToCovidController.onSubmit()
 
 GET        /not-eligible/employer-pays-working-from-home-expenses             controllers.CannotClaimWFHReliefController.onPageLoad()
+
+GET        /pay-or-will-pay-tax-in-year-status/:sessionId controllers.WfhDueToCovidStatusController.getStatusBySessionId(sessionId)

@@ -82,6 +82,10 @@ registeredForSelfAssessment.you.error.required=Dewiswch ''Iawn'' os ydych yn lle
 registeredForSelfAssessment.someoneElse.title=A yw''r person yr ydych yn hawlio ar ei gyfer wedi cofrestru ar gyfer Hunanasesiad?
 registeredForSelfAssessment.someoneElse.heading=A yw''r person yr ydych yn hawlio ar ei gyfer wedi cofrestru ar gyfer Hunanasesiad?
 registeredForSelfAssessment.someoneElse.error.required=Dewiswch ''Iawn'' os yw''r person yr ydych yn hawlio ar ei gyfer wedi cofrestru ar gyfer Hunanasesiad
+registeredForSelfAssessment.tax.year.specific.title = Are you going to complete a Self Assessment return for this tax year 2021-2022?
+registeredForSelfAssessment.tax.year.specific.heading = Are you going to complete a Self Assessment return for this tax year 2021-2022?
+registeredForSelfAssessment.tax.year.specific.error.required = Select yes if you are going to complete a Self Assessment return for this tax year 2020-2021
+
 registeredForSelfAssessment.accordion.summary=Beth yw Ffurflen Dreth Hunanasesiad?
 registeredForSelfAssessment.you.accordion.guidance1=Mae''n rhaid i chi lenwi Ffurflen Dreth Hunanasesiad os, yn y flwyddyn dreth ddiwethaf (6 Ebrill i 5 Ebrill), oeddech:
 registeredForSelfAssessment.someoneElse.accordion.guidance1=Mae''n rhaid llenwi Ffurflen Dreth Hunanasesiad os, yn y flwyddyn dreth ddiwethaf (6 Ebrill i 5 Ebrill), oeddech:
@@ -330,3 +334,33 @@ claimingForCurrentYear.heading = A ydych yn hawlio ar gyfer y flwyddyn dreth bre
 claimingForCurrentYear.yes.text = Gallwch hawlio rhyddhad treth ar gyfer eich treuliau gweithio o gartref ar gyfer y flwyddyn dreth bresennol drwy ddefnyddio''r gwasanaeth hwn. Gallwch wneud hyn cyn i chi anfon eich Ffurflen Dreth Hunanasesiad y flwyddyn nesaf.
 claimingForCurrentYear.no.text = Os ydych am hawlio rhyddhad treth ar gyfer blynyddoedd blaenorol, mae angen i chi ei hawlio ar eich Ffurflen Dreth Hunanasesiad.
 claimingForCurrentYear.error.required = Dewiswch ''Iawn'' os ydych yn hawlio ar gyfer y flwyddyn dreth bresennol 2021-2022 yn unig.
+
+
+whichYearsAreYouClaimingFor.you.title = Which years are you claiming tax relief for?
+whichYearsAreYouClaimingFor.you.heading = Which years are you claiming tax relief for?
+whichYearsAreYouClaimingFor.you.main.info.text = You can claim tax relief for your working at home expenses for the current tax year using this service and for previous years on your Self Assessment tax return.
+whichYearsAreYouClaimingFor.current.tax.year.text = Just the current tax year 2021-2022
+whichYearsAreYouClaimingFor.you.current.tax.year.info.text = You can claim tax relief for the current tax year using this service. You can do this before you send your Self Assessment tax return next year.
+whichYearsAreYouClaimingFor.previous.tax.year.text = Previous tax years
+whichYearsAreYouClaimingFor.you.previous.tax.year.info.text = If you want to claim tax relief for previous years, you will need to claim it on your Self Assessment tax return.
+whichYearsAreYouClaimingFor.both.tax.years.text = Both the current tax year and previous years
+whichYearsAreYouClaimingFor.you.both.tax.years.info.text.1 = You can claim tax relief for the current tax year using this service.
+whichYearsAreYouClaimingFor.you.both.tax.years.info.text.2 = If you want to claim tax relief for previous years, you will need to claim it on your Self Assessment tax return.
+whichYearsAreYouClaimingFor.error.required = Select which years you are claiming tax relief for
+
+saCheckDisclaimerCurrentYear.you.title = Please check the following before continuing
+saCheckDisclaimerCurrentYear.you.heading = Please check the following before continuing
+saCheckDisclaimerCurrentYear.you.text1 = You will receive tax relief for your working from home expenses for the current tax year 2021-2022 if:
+saCheckDisclaimerCurrentYear.you.list.item.1 = you are eligible
+saCheckDisclaimerCurrentYear.you.list.item.2 = you haven''t already made a claim for this year
+saCheckDisclaimerCurrentYear.you.text2 = We will now check if you are eligible to claim tax relief for the current tax year
+saCheckDisclaimerCurrentYear.button.label = Accept and Continue
+
+saCheckDisclaimerAllYears.you.title = Please check the following before continuing
+saCheckDisclaimerAllYears.you.heading = Please check the following before continuing
+saCheckDisclaimerAllYears.you.text1 = You will receive tax relief for your working from home expenses for the current tax year 2021-2022 if:
+saCheckDisclaimerAllYears.you.list.item.1 = you are eligible
+saCheckDisclaimerAllYears.you.list.item.2 = you haven''t already made a claim for this year
+saCheckDisclaimerAllYears.you.text2 = We will now check if you are eligible to claim tax relief for the current tax year.
+saCheckDisclaimerAllYears.button.label = Accept and Continue
+saCheckDisclaimerAllYears.you.warning.text = You will not receive tax relief for previous years using this service. You will need to claim for previous years on your Self Assessment tax return.
