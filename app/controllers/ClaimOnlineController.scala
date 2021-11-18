@@ -35,10 +35,17 @@ class ClaimOnlineController @Inject()(
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
 
+      val eligibilityCheckerSessionId = hc.sessionId.get.value
+
       request.userAnswers.covidHomeWorking match {
 
-        case Some(true) => Ok(view(OnwardJourney.WorkingFromHomeExpensesOnly))
-        case Some(false) => Ok(view(OnwardJourney.IForm))
+        case Some(true) =>
+          if(request.userAnswers.claimAnyOtherExpense.getOrElse(false)) {
+            Ok(view(OnwardJourney.WorkingFromHomeExpensesOnly, Some(eligibilityCheckerSessionId)))
+          }else {
+            Ok(view(OnwardJourney.WorkingFromHomeExpensesOnly, None))
+          }
+        case Some(false) => Ok(view(OnwardJourney.IForm, None))
         case _ =>
 
           request.userAnswers.claimingFor match {
@@ -48,13 +55,13 @@ class ClaimOnlineController @Inject()(
                 else if (claiming.forall(_ == FeesSubscriptions)) OnwardJourney.ProfessionalSubscriptions
                 else OnwardJourney.IForm
 
-              Ok(view(onwardJourney))
+              Ok(view(onwardJourney, None))
 
             case _ =>
               request.userAnswers.claimAnyOtherExpense match {
                 case Some(_) =>
                   val onwardJourney = OnwardJourney.IForm
-                  Ok(view(onwardJourney))
+                  Ok(view(onwardJourney, Some(eligibilityCheckerSessionId)))
                 case _ => Redirect(routes.SessionExpiredController.onPageLoad())
               }
           }

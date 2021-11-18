@@ -39,7 +39,11 @@
 }
 
 @main_template(
-    title = s"${errorPrefix(form)} ${messages(s"registeredForSelfAssessment.$claimant.title")}"
+    title = if(backButtonOverride.isDefined) {
+        s"${errorPrefix(form)} ${messages(s"registeredForSelfAssessment.tax.year.specific.title")}"
+    } else {
+        s"${errorPrefix(form)} ${messages(s"registeredForSelfAssessment.$claimant.title")}"
+    }
 ) {
 
 @if(backButtonOverride.isDefined) {
@@ -54,7 +58,11 @@
 
         @components.error_summary(form.errors)
 
-        @components.heading(s"registeredForSelfAssessment.$claimant.heading")
+        @if(backButtonOverride.isDefined) {
+            @components.heading(s"registeredForSelfAssessment.tax.year.specific.heading")
+        } else {
+            @components.heading(s"registeredForSelfAssessment.$claimant.heading")
+        }
 
         <details class="form-group">
             <summary data-journey-click="accordion - click:@messages(s"registeredForSelfAssessment.$claimant.heading"):@messages(s"registeredForSelfAssessment.accordion.summary")">
