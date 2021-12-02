@@ -19,9 +19,11 @@ package controllers
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.ClaimAnyOtherExpenseFormProvider
-import identifiers.{ClaimantId, ClaimAnyOtherExpenseId}
+import identifiers.{ClaimAnyOtherExpenseId, ClaimantId}
+
 import javax.inject.Inject
 import models.Claimant
+import play.api.Logging
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.libs.json.{JsBoolean, JsString, JsValue}
@@ -43,7 +45,8 @@ class ClaimAnyOtherExpenseController @Inject()(
                                                 formProvider: ClaimAnyOtherExpenseFormProvider,
                                                 val controllerComponents: MessagesControllerComponents,
                                                 view: ClaimAnyOtherExpenseView
-                                   )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
+                                   )(implicit ec: ExecutionContext) extends FrontendBaseController
+  with I18nSupport with Enumerable.Implicits with Logging {
 
   val form: Form[Boolean] = formProvider()
 
@@ -68,6 +71,8 @@ class ClaimAnyOtherExpenseController @Inject()(
             ClaimantId.toString                     -> JsString( Claimant.You.string),
             ClaimAnyOtherExpenseId.toString  -> JsBoolean(value)
           ))
+
+          logger.info(s"Saving/caching data for session with id [${request.sessionId}]")
 
           dataCacheConnector.save(cacheMap).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimAnyOtherExpenseId)(new UserAnswers(cacheMap)))

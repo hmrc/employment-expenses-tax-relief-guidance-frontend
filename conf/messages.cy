@@ -82,6 +82,10 @@ registeredForSelfAssessment.you.error.required=Dewiswch ''Iawn'' os ydych yn lle
 registeredForSelfAssessment.someoneElse.title=A yw''r person yr ydych yn hawlio ar ei gyfer wedi cofrestru ar gyfer Hunanasesiad?
 registeredForSelfAssessment.someoneElse.heading=A yw''r person yr ydych yn hawlio ar ei gyfer wedi cofrestru ar gyfer Hunanasesiad?
 registeredForSelfAssessment.someoneElse.error.required=Dewiswch ''Iawn'' os yw''r person yr ydych yn hawlio ar ei gyfer wedi cofrestru ar gyfer Hunanasesiad
+registeredForSelfAssessment.tax.year.specific.title = A ydych yn mynd i lenwi Ffurflen Dreth Hunanasesiad ar gyfer y flwyddyn dreth hon, sef 2021-22?
+registeredForSelfAssessment.tax.year.specific.heading = A ydych yn mynd i lenwi Ffurflen Dreth Hunanasesiad ar gyfer y flwyddyn dreth hon, sef 2021-22?
+registeredForSelfAssessment.tax.year.specific.error.required = Dewiswch ''Iawn'' os ydych yn mynd i lenwi Ffurflen Dreth Hunanasesiad ar gyfer y flwyddyn dreth hon, sef 2021-22
+
 registeredForSelfAssessment.accordion.summary=Beth yw Ffurflen Dreth Hunanasesiad?
 registeredForSelfAssessment.you.accordion.guidance1=Mae''n rhaid i chi lenwi Ffurflen Dreth Hunanasesiad os, yn y flwyddyn dreth ddiwethaf (6 Ebrill i 5 Ebrill), oeddech:
 registeredForSelfAssessment.someoneElse.accordion.guidance1=Mae''n rhaid llenwi Ffurflen Dreth Hunanasesiad os, yn y flwyddyn dreth ddiwethaf (6 Ebrill i 5 Ebrill), oeddech:
@@ -330,3 +334,33 @@ claimingForCurrentYear.heading = A ydych yn hawlio ar gyfer y flwyddyn dreth bre
 claimingForCurrentYear.yes.text = Gallwch hawlio rhyddhad treth ar gyfer eich treuliau gweithio o gartref ar gyfer y flwyddyn dreth bresennol drwy ddefnyddio''r gwasanaeth hwn. Gallwch wneud hyn cyn i chi anfon eich Ffurflen Dreth Hunanasesiad y flwyddyn nesaf.
 claimingForCurrentYear.no.text = Os ydych am hawlio rhyddhad treth ar gyfer blynyddoedd blaenorol, mae angen i chi ei hawlio ar eich Ffurflen Dreth Hunanasesiad.
 claimingForCurrentYear.error.required = Dewiswch ''Iawn'' os ydych yn hawlio ar gyfer y flwyddyn dreth bresennol 2021-2022 yn unig.
+
+
+whichYearsAreYouClaimingFor.you.title = Ar gyfer pa flynyddoedd yr ydych yn hawlio rhyddhad treth?
+whichYearsAreYouClaimingFor.you.heading = Ar gyfer pa flynyddoedd yr ydych yn hawlio rhyddhad treth?
+whichYearsAreYouClaimingFor.you.main.info.text = Gallwch hawlio rhyddhad treth ar gyfer eich treuliau am weithio gartref ar gyfer y flwyddyn dreth bresennol gan ddefnyddio''r gwasanaeth hwn ac, ar gyfer blynyddoedd blaenorol, gallwch gyflwyno hawliadau ar eich Ffurflen Dreth Hunanasesiad.
+whichYearsAreYouClaimingFor.current.tax.year.text = Dim ond y flwyddyn dreth bresennol, sef 2021-22
+whichYearsAreYouClaimingFor.you.current.tax.year.info.text = Gallwch hawlio rhyddhad treth ar gyfer y flwyddyn dreth bresennol gan ddefnyddio''r gwasanaeth hwn. Gallwch wneud hyn cyn i chi anfon eich Ffurflen Dreth Hunanasesiad y flwyddyn nesaf.
+whichYearsAreYouClaimingFor.previous.tax.year.text = Blynyddoedd treth blaenorol
+whichYearsAreYouClaimingFor.you.previous.tax.year.info.text = Os hoffech hawlio rhyddhad treth ar gyfer blynyddoedd blaenorol, bydd angen i chi ei hawlio ar eich Ffurflen Dreth Hunanasesiad.
+whichYearsAreYouClaimingFor.both.tax.years.text = Y flwyddyn dreth bresennol a blynyddoedd blaenorol
+whichYearsAreYouClaimingFor.you.both.tax.years.info.text.1 = Gallwch hawlio rhyddhad treth ar gyfer y flwyddyn dreth bresennol gan ddefnyddio''r gwasanaeth hwn.
+whichYearsAreYouClaimingFor.you.both.tax.years.info.text.2 = Os hoffech hawlio rhyddhad treth ar gyfer blynyddoedd blaenorol, bydd angen i chi ei hawlio ar eich Ffurflen Dreth Hunanasesiad.
+whichYearsAreYouClaimingFor.error.required = Dewiswch pa flynyddoedd rydych yn hawlio rhyddhad treth ar eu cyfer
+
+saCheckDisclaimerCurrentYear.you.title = Gwiriwch y canlynol cyn mynd yn eich blaen
+saCheckDisclaimerCurrentYear.you.heading = Gwiriwch y canlynol cyn mynd yn eich blaen
+saCheckDisclaimerCurrentYear.you.text1 = Byddwch yn cael rhyddhad treth ar gyfer eich treuliau am weithio gartref ar gyfer y flwyddyn dreth bresennol, sef 2021-22, os yw''r canlynol yn wir:
+saCheckDisclaimerCurrentYear.you.list.item.1 = rydych yn gymwys ar gyfer rhyddhad treth
+saCheckDisclaimerCurrentYear.you.list.item.2 = nid ydych wedi cyflwyno hawliad ar gyfer y flwyddyn hon yn barod
+saCheckDisclaimerCurrentYear.you.text2 = Byddwn yn mynd ati i wirio nawr eich bod yn gymwys i hawlio rhyddhad treth ar gyfer y flwyddyn dreth bresennol.
+saCheckDisclaimerCurrentYear.button.label = Derbyn ac yn eich blaen
+
+saCheckDisclaimerAllYears.you.title = Gwiriwch y canlynol cyn mynd yn eich blaen
+saCheckDisclaimerAllYears.you.heading = Gwiriwch y canlynol cyn mynd yn eich blaen
+saCheckDisclaimerAllYears.you.text1 = Byddwch yn cael rhyddhad treth ar gyfer eich treuliau am weithio gartref ar gyfer y flwyddyn dreth bresennol, sef 2021-22, os yw''r canlynol yn wir:
+saCheckDisclaimerAllYears.you.list.item.1 = rydych yn gymwys ar gyfer rhyddhad treth
+saCheckDisclaimerAllYears.you.list.item.2 = nid ydych wedi cyflwyno hawliad ar gyfer y flwyddyn hon yn barod
+saCheckDisclaimerAllYears.you.text2 = Byddwn yn mynd ati i wirio nawr eich bod yn gymwys i hawlio rhyddhad treth ar gyfer y flwyddyn dreth bresennol.
+saCheckDisclaimerAllYears.button.label = Derbyn ac yn eich blaen
+saCheckDisclaimerAllYears.you.warning.text = Ni fyddwch yn cael rhyddhad treth ar gyfer blynyddoedd blaenorol wrth ddefnyddio''r gwasanaeth hwn. Bydd angen i chi hawlio ar gyfer blynyddoedd blaenorol ar eich Ffurflen Dreth Hunanasesiad.

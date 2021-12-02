@@ -41,7 +41,7 @@ class ClaimOnlineControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[ClaimOnlineView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(OnwardJourney.FixedRateExpenses)(request, messages).toString
+      contentAsString(result) mustBe view(OnwardJourney.FixedRateExpenses, None)(request, messages).toString
 
       application.stop
     }
@@ -55,7 +55,7 @@ class ClaimOnlineControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[ClaimOnlineView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(OnwardJourney.ProfessionalSubscriptions)(request, messages).toString
+      contentAsString(result) mustBe view(OnwardJourney.ProfessionalSubscriptions, None)(request, messages).toString
 
       application.stop
     }
@@ -69,7 +69,7 @@ class ClaimOnlineControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[ClaimOnlineView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(OnwardJourney.IForm)(request, messages).toString
+      contentAsString(result) mustBe view(OnwardJourney.IForm, None)(request, messages).toString
 
       application.stop
     }
@@ -83,7 +83,7 @@ class ClaimOnlineControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[ClaimOnlineView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(OnwardJourney.WorkingFromHomeExpensesOnly)(request, messages).toString
+      contentAsString(result) mustBe view(OnwardJourney.WorkingFromHomeExpensesOnly, None)(request, messages).toString
 
       application.stop
     }
