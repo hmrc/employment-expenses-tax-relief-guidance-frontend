@@ -81,13 +81,22 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
     }
 
     "go to the UseSelfAssessment view" when {
-      "answering Yes from the RegisterForSelfAssessment view" in {
+      "answering Yes from the RegisterForSelfAssessment view when other expenses selected" in {
         val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.registeredForSelfAssessment)
-          .thenReturn(Some(true))
+        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
+        when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(true))
 
         navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
-          routes.ClaimingForCurrentYearController.onPageLoad()
+          routes.WhichYearsAreYouClaimingForController.onPageLoad()
+      }
+
+      "answering Yes from the RegisterForSelfAssessment view when other expenses not selected" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
+        when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(false))
+
+        navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
+          routes.UseSelfAssessmentController.onPageLoad()
       }
 
       "answering No from the RegisterForSelfAssessment when other expenses selected view" in {
@@ -127,19 +136,40 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       }
 
     }
-    "go to the ClaimingForCurrentYear view" when {
-      "answering Yes" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimingForCurrentYear).thenReturn(Some(true))
-        navigator.nextPage(ClaimingForCurrentYearId)(mockAnswers) mustBe
-          routes.EmployerPaidBackWfhExpensesController.onPageLoad()
-      }
 
-      "answering No" in {
+    "go to the SaCheckDisclaimerCurrentYearView view" when {
+      "answering 'Just the current tax year 2021-2022'" in {
         val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimingForCurrentYear).thenReturn(Some(false))
-        navigator.nextPage(ClaimingForCurrentYearId)(mockAnswers) mustBe
+        when(mockAnswers.claimAnyOtherExpense).thenReturn(None)
+        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
+        when(mockAnswers.whichYearsAreYouClaimingFor).thenReturn(Some(1))
+
+        navigator.nextPage(WhichYearsAreYouClaimingForId)(mockAnswers) mustBe
+          routes.SaCheckDisclaimerCurrentYearController.onPageLoad()
+      }
+    }
+
+    "go to the UseSelfAssessment view" when {
+      "answering 'Previous tax years'" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimAnyOtherExpense).thenReturn(None)
+        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
+        when(mockAnswers.whichYearsAreYouClaimingFor).thenReturn(Some(2))
+
+        navigator.nextPage(WhichYearsAreYouClaimingForId)(mockAnswers) mustBe
           routes.UseSelfAssessmentController.onPageLoad()
+      }
+    }
+
+    "go to the SaCheckDisclaimerAllYearsView view" when {
+      "answering 'Both the current tax year and previous year'" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimAnyOtherExpense).thenReturn(None)
+        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
+        when(mockAnswers.whichYearsAreYouClaimingFor).thenReturn(Some(3))
+
+        navigator.nextPage(WhichYearsAreYouClaimingForId)(mockAnswers) mustBe
+          routes.SaCheckDisclaimerAllYearsController.onPageLoad()
       }
     }
 
@@ -199,7 +229,8 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       }
     }
 
-    "go to the EmployerPaidBackExpenses view" when {
+    "go to the Empl" +
+      "oyerPaidBackExpenses view" when {
       "answering No from the ClaimingOverPayAsYouEarnThreshold view" in {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.claimingOverPayAsYouEarnThreshold).thenReturn(Some(false))

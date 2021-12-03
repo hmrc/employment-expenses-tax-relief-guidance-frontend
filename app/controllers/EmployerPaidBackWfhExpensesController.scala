@@ -55,9 +55,13 @@ class EmployerPaidBackWfhExpensesController @Inject()(
         case Some(value) => form.fill(value)
       }
 
-      val backButtonOverride = request.userAnswers.registeredForSelfAssessment match {
-        case Some(true) => Some(appConfig.claimingForCurrentYearBackButtonOverride)
-        case _ => None
+      val backButtonOverride = if(!request.userAnswers.whichYearsAreYouClaimingFor.isDefined) {
+        request.userAnswers.registeredForSelfAssessment match {
+          case Some(true) => Some(appConfig.claimingForCurrentYearBackButtonOverride)
+          case _ => None
+        }
+      }else{
+        None
       }
 
       Ok(view(preparedForm, backButtonOverride))

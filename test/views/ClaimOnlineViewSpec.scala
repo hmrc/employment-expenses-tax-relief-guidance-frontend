@@ -30,12 +30,12 @@ class ClaimOnlineViewSpec extends ViewBehaviours {
 
   val view = application.injector.instanceOf[ClaimOnlineView]
 
-  def createView: Html = view.apply(OnwardJourney.IForm)(fakeRequest, messages)
+  def createView: Html = view.apply(OnwardJourney.IForm, None)(fakeRequest, messages)
 
   "ClaimOnline view" must {
     "When the onward journey is IForm Include a call to action button with the correct link" in {
       val view = application.injector.instanceOf[ClaimOnlineView]
-      val doc = asDocument(view(OnwardJourney.IForm)(fakeRequest, messages))
+      val doc = asDocument(view(OnwardJourney.IForm, None)(fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be("https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87#claim-online")
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
@@ -43,7 +43,7 @@ class ClaimOnlineViewSpec extends ViewBehaviours {
 
     "When the onward journey is Employee Expenses Include a call to action button with the correct link" in {
       val view = application.injector.instanceOf[ClaimOnlineView]
-      val doc = asDocument(view(OnwardJourney.FixedRateExpenses)(fakeRequest, messages))
+      val doc = asDocument(view(OnwardJourney.FixedRateExpenses, None)(fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be("https://www.tax.service.gov.uk/employee-expenses")
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
@@ -51,7 +51,7 @@ class ClaimOnlineViewSpec extends ViewBehaviours {
 
     "When the onward journey is Professional Subscriptions Include a call to action button with a link to the IForm which can be replaced by Optimizely" in {
       val view = application.injector.instanceOf[ClaimOnlineView]
-      val doc = asDocument(view(OnwardJourney.ProfessionalSubscriptions)(fakeRequest, messages))
+      val doc = asDocument(view(OnwardJourney.ProfessionalSubscriptions, None)(fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be("https://www.tax.service.gov.uk/professional-subscriptions")
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
@@ -59,9 +59,17 @@ class ClaimOnlineViewSpec extends ViewBehaviours {
 
     "When the onward journey is Employee Working From Home Expenses Include a call to action button with the correct link" in {
       val view = application.injector.instanceOf[ClaimOnlineView]
-      val doc = asDocument(view(OnwardJourney.WorkingFromHomeExpensesOnly)(fakeRequest, messages))
+      val doc = asDocument(view(OnwardJourney.WorkingFromHomeExpensesOnly, None)(fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be("https://www.tax.service.gov.uk/employee-working-from-home-expenses")
+      assertPageTitleEqualsMessage(doc, "claimOnline.wfh.heading")
+    }
+
+    "When the onward journey is Employee Working From Home Expenses Include a call to action button with the correct link & including wfh link" in {
+      val view = application.injector.instanceOf[ClaimOnlineView]
+      val doc = asDocument(view(OnwardJourney.WorkingFromHomeExpensesOnly, Some("link-with-session-id"))(fakeRequest, messages))
+      val button: Element = doc.getElementById("continue")
+      button.attr("href") must be("https://www.tax.service.gov.uk/employee-working-from-home-expenses?eligibilityCheckerSessionId=link-with-session-id")
       assertPageTitleEqualsMessage(doc, "claimOnline.wfh.heading")
     }
 

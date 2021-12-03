@@ -20,6 +20,7 @@ import identifiers.Identifier
 import javax.inject.Inject
 import play.api.libs.json.{Format, Json}
 import repositories.SessionRepository
+import uk.gov.hmrc.http.SessionId
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.CascadeUpsert
 
@@ -50,6 +51,10 @@ class DataCacheConnectorImpl @Inject()(val sessionRepository: SessionRepository,
 
   def fetch(cacheId: String): Future[Option[CacheMap]] =
     sessionRepository().get(cacheId)
+
+  def fetchBySessionId(sessionId: String): Future[Option[CacheMap]] = {
+    sessionRepository().get(SessionId(sessionId).toString)
+  }
 
   def getEntry[A](cacheId: String, key: Identifier)(implicit fmt: Format[A]): Future[Option[A]] = {
     fetch(cacheId).map { optionalCacheMap =>
@@ -99,6 +104,8 @@ trait DataCacheConnector {
   def remove(cacheId: String, key: Identifier): Future[Boolean]
 
   def fetch(cacheId: String): Future[Option[CacheMap]]
+
+  def fetchBySessionId(sessionId: String): Future[Option[CacheMap]]
 
   def getEntry[A](cacheId: String, key: Identifier)(implicit fmt: Format[A]): Future[Option[A]]
 
