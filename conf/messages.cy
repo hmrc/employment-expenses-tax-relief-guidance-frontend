@@ -50,8 +50,8 @@ claimAnyOtherExpense.yesClaimAnyOtherExpense = Iawn
 claimAnyOtherExpense.para1.prefix = Gallwch
 claimAnyOtherExpense.para1.suffix = ddod o hyd i ragor o wybodaeth am ryddhad treth ar gyfer mathau eraill o dreuliau swydd (yn agor tab newydd)
 
-covidHomeWorking.title = A wnaethoch ddechrau gweithio gartref oherwydd coronafeirws (COVID-19)?
-covidHomeWorking.heading = A wnaethoch ddechrau gweithio gartref oherwydd coronafeirws (COVID-19)?
+covidHomeWorking.title = A wnaethoch ddechrau gweithio gartref oherwydd coronafeirws (COVID-19)?TOCHANGE
+covidHomeWorking.heading = A wnaethoch ddechrau gweithio gartref oherwydd coronafeirws (COVID-19)?TOCHANGE
 covidHomeWorking.error.required = Dewiswch ''Iawn'' os gwnaethoch ddechrau gweithio gartref oherwydd coronafeirws (COVID-19)
 
 employerPaidBackWfhExpenses.title = A yw''ch cyflogwr wedi talu''ch treuliau wrth weithio gartref?
@@ -82,8 +82,8 @@ registeredForSelfAssessment.you.error.required=Dewiswch ''Iawn'' os ydych yn lle
 registeredForSelfAssessment.someoneElse.title=A yw''r person yr ydych yn hawlio ar ei gyfer wedi cofrestru ar gyfer Hunanasesiad?
 registeredForSelfAssessment.someoneElse.heading=A yw''r person yr ydych yn hawlio ar ei gyfer wedi cofrestru ar gyfer Hunanasesiad?
 registeredForSelfAssessment.someoneElse.error.required=Dewiswch ''Iawn'' os yw''r person yr ydych yn hawlio ar ei gyfer wedi cofrestru ar gyfer Hunanasesiad
-registeredForSelfAssessment.tax.year.specific.title = A ydych yn mynd i lenwi Ffurflen Dreth Hunanasesiad ar gyfer y flwyddyn dreth hon, sef 2021-22?
-registeredForSelfAssessment.tax.year.specific.heading = A ydych yn mynd i lenwi Ffurflen Dreth Hunanasesiad ar gyfer y flwyddyn dreth hon, sef 2021-22?
+registeredForSelfAssessment.tax.year.specific.title = A ydych yn mynd i lenwi Ffurflen Dreth Hunanasesiad ar gyfer y flwyddyn dreth hon, sef 2022-23?
+registeredForSelfAssessment.tax.year.specific.heading = A ydych yn mynd i lenwi Ffurflen Dreth Hunanasesiad ar gyfer y flwyddyn dreth hon, sef 2022-23?
 registeredForSelfAssessment.tax.year.specific.error.required = Dewiswch ''Iawn'' os ydych yn mynd i lenwi Ffurflen Dreth Hunanasesiad ar gyfer y flwyddyn dreth hon, sef 2021-22
 
 registeredForSelfAssessment.accordion.summary=Beth yw Ffurflen Dreth Hunanasesiad?
@@ -339,7 +339,7 @@ claimingForCurrentYear.error.required = Dewiswch ''Iawn'' os ydych yn hawlio ar 
 whichYearsAreYouClaimingFor.you.title = Ar gyfer pa flynyddoedd yr ydych yn hawlio rhyddhad treth?
 whichYearsAreYouClaimingFor.you.heading = Ar gyfer pa flynyddoedd yr ydych yn hawlio rhyddhad treth?
 whichYearsAreYouClaimingFor.you.main.info.text = Gallwch hawlio rhyddhad treth ar gyfer eich treuliau am weithio gartref ar gyfer y flwyddyn dreth bresennol gan ddefnyddio''r gwasanaeth hwn ac, ar gyfer blynyddoedd blaenorol, gallwch gyflwyno hawliadau ar eich Ffurflen Dreth Hunanasesiad.
-whichYearsAreYouClaimingFor.current.tax.year.text = Dim ond y flwyddyn dreth bresennol, sef 2021-22
+whichYearsAreYouClaimingFor.current.tax.year.text = Dim ond y flwyddyn dreth bresennol, sef 2022-23
 whichYearsAreYouClaimingFor.you.current.tax.year.info.text = Gallwch hawlio rhyddhad treth ar gyfer y flwyddyn dreth bresennol gan ddefnyddio''r gwasanaeth hwn. Gallwch wneud hyn cyn i chi anfon eich Ffurflen Dreth Hunanasesiad y flwyddyn nesaf.
 whichYearsAreYouClaimingFor.previous.tax.year.text = Blynyddoedd treth blaenorol
 whichYearsAreYouClaimingFor.you.previous.tax.year.info.text = Os hoffech hawlio rhyddhad treth ar gyfer blynyddoedd blaenorol, bydd angen i chi ei hawlio ar eich Ffurflen Dreth Hunanasesiad.
@@ -350,7 +350,7 @@ whichYearsAreYouClaimingFor.error.required = Dewiswch pa flynyddoedd rydych yn h
 
 saCheckDisclaimerCurrentYear.you.title = Gwiriwch y canlynol cyn mynd yn eich blaen
 saCheckDisclaimerCurrentYear.you.heading = Gwiriwch y canlynol cyn mynd yn eich blaen
-saCheckDisclaimerCurrentYear.you.text1 = Byddwch yn cael rhyddhad treth ar gyfer eich treuliau am weithio gartref ar gyfer y flwyddyn dreth bresennol, sef 2021-22, os yw''r canlynol yn wir:
+saCheckDisclaimerCurrentYear.you.text1 = Byddwch yn cael rhyddhad treth ar gyfer eich treuliau am weithio gartref ar gyfer y flwyddyn dreth bresennol, sef 2022-23, os yw''r canlynol yn wir:
 saCheckDisclaimerCurrentYear.you.list.item.1 = rydych yn gymwys ar gyfer rhyddhad treth
 saCheckDisclaimerCurrentYear.you.list.item.2 = nid ydych wedi cyflwyno hawliad ar gyfer y flwyddyn hon yn barod
 saCheckDisclaimerCurrentYear.you.text2 = Byddwn yn mynd ati i wirio nawr eich bod yn gymwys i hawlio rhyddhad treth ar gyfer y flwyddyn dreth bresennol.
@@ -358,9 +358,25 @@ saCheckDisclaimerCurrentYear.button.label = Derbyn ac yn eich blaen
 
 saCheckDisclaimerAllYears.you.title = Gwiriwch y canlynol cyn mynd yn eich blaen
 saCheckDisclaimerAllYears.you.heading = Gwiriwch y canlynol cyn mynd yn eich blaen
-saCheckDisclaimerAllYears.you.text1 = Byddwch yn cael rhyddhad treth ar gyfer eich treuliau am weithio gartref ar gyfer y flwyddyn dreth bresennol, sef 2021-22, os yw''r canlynol yn wir:
+saCheckDisclaimerAllYears.you.text1 = Byddwch yn cael rhyddhad treth ar gyfer eich treuliau am weithio gartref ar gyfer y flwyddyn dreth bresennol, sef 2022-23, os yw''r canlynol yn wir:
 saCheckDisclaimerAllYears.you.list.item.1 = rydych yn gymwys ar gyfer rhyddhad treth
 saCheckDisclaimerAllYears.you.list.item.2 = nid ydych wedi cyflwyno hawliad ar gyfer y flwyddyn hon yn barod
 saCheckDisclaimerAllYears.you.text2 = Byddwn yn mynd ati i wirio nawr eich bod yn gymwys i hawlio rhyddhad treth ar gyfer y flwyddyn dreth bresennol.
 saCheckDisclaimerAllYears.button.label = Derbyn ac yn eich blaen
 saCheckDisclaimerAllYears.you.warning.text = Ni fyddwch yn cael rhyddhad treth ar gyfer blynyddoedd blaenorol wrth ddefnyddio''r gwasanaeth hwn. Bydd angen i chi hawlio ar gyfer blynyddoedd blaenorol ar eich Ffurflen Dreth Hunanasesiad.
+
+disclaimer.title = You must read the following before making a claim
+disclaimer.heading = You must read the following before making a claim
+disclaimer.claim.after.h2 = Claiming tax relief after April 2022
+disclaimer.claim.after.p1 = You can claim if your employer has not already paid your expenses and you have additional household costs as a result of working from home.
+disclaimer.claim.after.p2 = You must also:
+disclaimer.claim.after.l1 = have had to work from home because you had to self-isolate
+disclaimer.claim.after.l2 = or your working arrangements have changed and it is necessary, either because of the nature of your job or the facilities required to perform your job, for you to work from home
+disclaimer.claim.before.h2 = Claiming tax relief before April 2022
+disclaimer.claim.before.p1 = You can claim if all the following apply:
+disclaimer.claim.before.l1 = your employer has not already paid your expenses
+disclaimer.claim.before.l2 = government guidelines or your employer have required you to work from home or self-isolate
+disclaimer.claim.before.l3 = you have additional household costs as a result of working from home
+disclaimer.warning = You must ensure you meet the rules for claiming, as you may be prosecuted if you deliberately give incorrect or misleading information.
+disclaimer.accept = By clicking accept and continue, you are accepting that you meet the rules for the years you are claiming for.
+disclaimer.button.continue = Accept and continue

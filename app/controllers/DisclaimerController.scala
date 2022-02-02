@@ -16,19 +16,25 @@
 
 package controllers
 
-import javax.inject.Inject
+import controllers.actions.{DataRequiredAction, DataRetrievalAction, GetClaimantAction}
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import utils.Navigator
+import views.html.DisclaimerView
 
-class IndexController @Inject()(
-                                 navigator: Navigator,
-                                 val controllerComponents: MessagesControllerComponents
-                               ) extends FrontendBaseController with I18nSupport {
+import javax.inject.Inject
 
-  def onPageLoad: Action[AnyContent] = Action {
-      MovedPermanently(navigator.firstPage.url)
+class DisclaimerController  @Inject()(
+                                       getData: DataRetrievalAction,
+                                       requireData: DataRequiredAction,
+                                       getClaimant: GetClaimantAction,
+                                       val controllerComponents: MessagesControllerComponents,
+                                       view: DisclaimerView
+                                     ) extends FrontendBaseController with I18nSupport {
+
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
+    implicit request =>
+      Ok(view(request.claimant))
   }
-}
 
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -184,7 +184,7 @@ class Navigator @Inject()() {
   }
 
   private def covidHomeWorkingRouting(userAnswers: UserAnswers) = userAnswers.covidHomeWorking match {
-    case Some(true) => routes.ClaimOnlineController.onPageLoad()
+    case Some(true) => routes.DisclaimerController.onPageLoad()
     case Some(false) => routes.MoreThanFiveJobsController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad()
   }
@@ -218,7 +218,7 @@ class Navigator @Inject()() {
   def nextPage(id: Identifier): UserAnswers => Call =
     routeMap.getOrElse(id, _ => routes.IndexController.onPageLoad())
 
-  lazy val firstPage: Call = routes.ClaimantController.onPageLoad()
+  lazy val firstPage: Call = routes.ClaimAnyOtherExpenseController.onPageLoad()
 
   lazy val changeOtherExpensesPage: Call = routes.ChangeOtherExpensesController.onPageLoad()
 

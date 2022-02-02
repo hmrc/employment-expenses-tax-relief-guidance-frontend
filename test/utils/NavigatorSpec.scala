@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,7 +31,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
   ".firstPage" must {
     "go to the Claimant page" in {
-      navigator.firstPage mustBe routes.ClaimantController.onPageLoad()
+      navigator.firstPage mustBe routes.ClaimAnyOtherExpenseController.onPageLoad()
     }
   }
 
