@@ -1,0 +1,74 @@
+@*
+ * Copyright 2021 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import config.FrontendAppConfig
+@import components.back_link
+
+@this(
+        main_template: MainTemplate,
+        appConfig: FrontendAppConfig
+)
+
+@(claimant: Claimant, claimingCurrent: Boolean, claimingPrevious: Boolean)(implicit request: Request[_], messages: Messages)
+
+    @main_template(
+        title = messages("disclaimer.title")
+    ) {
+
+        @components.heading("disclaimer.heading")
+        <div class="notification-banner">
+            <div class="notification-banner__header">
+                <h4 class="notification-banner__title">@messages("disclaimer.guidance.header")</h4>
+                <div class="notification-banner__content">
+                    @messages("disclaimer.guidance.summary")
+                </div>
+            </div>
+        </div>
+        @if(claimingCurrent) {
+            <h2>@messages("disclaimer.claim.after.h2")</h2>
+            <p>@messages("disclaimer.claim.after.p1")</p>
+            <p>@messages("disclaimer.claim.after.p2")</p>
+            <ul class="list list-bullet">
+                <li>@messages("disclaimer.claim.after.l1")</li>
+                <li>@messages("disclaimer.claim.after.l2")</li>
+                <li>@messages("disclaimer.claim.after.l3")</li>
+            </ul>
+            <p>@messages("disclaimer.claim.p1")</p>
+        }
+
+        @if(claimingPrevious) {
+            <h2>@messages("disclaimer.claim.before.h2")</h2>
+            <p>@messages("disclaimer.claim.before.p1")</p>
+            <ul class="list list-bullet">
+                <li>@messages("disclaimer.claim.before.l1")</li>
+                <li>@messages("disclaimer.claim.before.l2")</li>
+                <li>@messages("disclaimer.claim.before.l3")</li>
+            </ul>
+        }
+
+        <div class="notice">
+            <i class="icon icon-important"><span class="govuk-visually-hidden"></span></i>
+            <strong class="bold-small">
+                <p>
+                    <span class="bold">@messages("disclaimer.warning1")</span> </br>
+                    <span class="bold">@messages("disclaimer.warning2")</span>
+                </p>
+            </strong>
+        </div>
+        <p>@messages("disclaimer.accept")</p>
+
+        @components.button_link(messages("disclaimer.button.continue"), "claim-online")
+}

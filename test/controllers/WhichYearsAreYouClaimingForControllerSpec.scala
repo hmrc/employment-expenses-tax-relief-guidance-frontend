@@ -81,8 +81,7 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
       val request = FakeRequest(GET, whichYearsAreYouClaimingForRoute)
       val result = route(application, request).value
-
-      contentAsString(result).contains("Which years are you claiming tax relief for?") mustBe true
+      contentAsString(result).contains("Which years are you claiming tax relief for as a result of working from home?") mustBe true
 
       application.stop
     }
@@ -97,7 +96,7 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
         .withFormUrlEncodedBody("value" -> "1")
       val result = route(application, request).value
 
-      redirectLocation(result).value mustEqual onwardRoute.url + "/sa-check-disclaimer-current-year"
+      redirectLocation(result).value mustEqual onwardRoute.url + "/employer-paid-working-from-home-expenses"
 
       application.stop
     }
@@ -112,7 +111,7 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
         .withFormUrlEncodedBody("value" -> "2")
       val result = route(application, request).value
 
-      redirectLocation(result).value mustEqual onwardRoute.url + "/use-self-assessment"
+      redirectLocation(result).value mustEqual onwardRoute.url + "/employer-paid-working-from-home-expenses"
 
       application.stop
     }
@@ -127,7 +126,7 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
         .withFormUrlEncodedBody("value" -> "3")
       val result = route(application, request).value
 
-      redirectLocation(result).value mustEqual onwardRoute.url + "/sa-check-disclaimer-all-years"
+      redirectLocation(result).value mustEqual onwardRoute.url + "/employer-paid-working-from-home-expenses"
 
       application.stop
     }

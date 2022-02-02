@@ -91,12 +91,14 @@ GET        /change-uniforms-work-clothing-tools         controllers.ChangeUnifor
 GET        /employer-pays-working-from-home-expenses    controllers.EmployerPaidBackWfhExpensesController.onPageLoad()
 POST       /employer-pays-working-from-home-expenses    controllers.EmployerPaidBackWfhExpensesController.onSubmit()
 
-GET        /only-claiming-working-from-home-tax-relief  controllers.ClaimAnyOtherExpenseController.onPageLoad()
-POST       /only-claiming-working-from-home-tax-relief  controllers.ClaimAnyOtherExpenseController.onSubmit()
+GET        /claim-any-other-expense                     controllers.ClaimAnyOtherExpenseController.onPageLoad()
+POST       /claim-any-other-expense                     controllers.ClaimAnyOtherExpenseController.onSubmit()
 
-GET        /working-from-home-because-of-covid          controllers.WfhDueToCovidController.onPageLoad()
-POST       /working-from-home-because-of-covid          controllers.WfhDueToCovidController.onSubmit()
+GET        /start-working-from-home-date                controllers.WfhDueToCovidController.onPageLoad()
+POST       /start-working-from-home-date                controllers.WfhDueToCovidController.onSubmit()
 
 GET        /not-eligible/employer-pays-working-from-home-expenses             controllers.CannotClaimWFHReliefController.onPageLoad()
 
 GET        /pay-or-will-pay-tax-in-year-status/:sessionId controllers.WfhDueToCovidStatusController.getStatusBySessionId(sessionId)
+
+GET        /disclaimer                                  controllers.DisclaimerController.onPageLoad()
