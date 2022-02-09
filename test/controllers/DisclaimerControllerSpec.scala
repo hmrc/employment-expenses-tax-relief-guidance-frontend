@@ -21,26 +21,25 @@ import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.{FakeNavigator, Navigator}
-import views.html.WillNotPayTaxView
+import views.html.DisclaimerView
 
-class WillNotPayTaxControllerSpec extends SpecBase {
+class DisclaimerControllerSpec extends SpecBase {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def disclaimerRoute = routes.DisclaimerController.onPageLoad().url
 
-  def willNotPayRoute = routes.WillNotPayTaxController.onPageLoad().url
+  "Disclaimer Controller" must {
 
-  "WillNotPayTax Controller" must {
     "return OK and the correct view for a GET" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap))
-        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator()))
         .build
-      val request = FakeRequest(GET, willNotPayRoute)
+      val request = FakeRequest(GET, disclaimerRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[WillNotPayTaxView]
+      val view = application.injector.instanceOf[DisclaimerView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(claimant, onwardRoute)(request, messages).toString
+      contentAsString(result) mustBe view(claimant)(request, messages).toString
 
       application.stop
     }
