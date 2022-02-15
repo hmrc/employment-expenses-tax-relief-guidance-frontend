@@ -26,7 +26,7 @@ import uk.gov.hmrc.time.TaxYear
 @Singleton
 class FrontendAppConfig @Inject()(configuration: Configuration) {
 
-  lazy val serviceTitle = "Check if you can claim work related expenses"
+  lazy val serviceTitle = "Check if you can claim tax relief on work-related expenses"
   lazy val serviceName = configuration.get[String]("appName")
 
   private lazy val contactHost = configuration.get[String]("contact-frontend.host")
