@@ -22,28 +22,33 @@
         appConfig: FrontendAppConfig
 )
 
-@(claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@(claimant: Claimant, claimingCurrent: Boolean, claimingPrevious: Boolean)(implicit request: Request[_], messages: Messages)
 
     @main_template(
         title = messages("disclaimer.title")
     ) {
 
-         @components.heading("disclaimer.heading")
+        @components.heading("disclaimer.heading")
 
-        <h2>@messages("disclaimer.claim.after.h2")</h2>
-        <p>@messages("disclaimer.claim.after.p1")</p>
-        <p>@messages("disclaimer.claim.after.p2")</p>
-        <ul class="list list-bullet">
-            <li>@messages("disclaimer.claim.after.l1")</li>
-            <li>@messages("disclaimer.claim.after.l2")</li>
-        </ul>
-        <h2>@messages("disclaimer.claim.before.h2")</h2>
-        <p>@messages("disclaimer.claim.before.p1")</p>
-        <ul class="list list-bullet">
-            <li>@messages("disclaimer.claim.before.l1")</li>
-            <li>@messages("disclaimer.claim.before.l2")</li>
-            <li>@messages("disclaimer.claim.before.l3")</li>
-        </ul>
+        @if(claimingCurrent) {
+            <h2>@messages("disclaimer.claim.after.h2")</h2>
+            <p>@messages("disclaimer.claim.after.p1")</p>
+            <p>@messages("disclaimer.claim.after.p2")</p>
+            <ul class="list list-bullet">
+                <li>@messages("disclaimer.claim.after.l1")</li>
+                <li>@messages("disclaimer.claim.after.l2")</li>
+            </ul>
+        }
+
+        @if(claimingPrevious) {
+            <h2>@messages("disclaimer.claim.before.h2")</h2>
+            <p>@messages("disclaimer.claim.before.p1")</p>
+            <ul class="list list-bullet">
+                <li>@messages("disclaimer.claim.before.l1")</li>
+                <li>@messages("disclaimer.claim.before.l2")</li>
+                <li>@messages("disclaimer.claim.before.l3")</li>
+            </ul>
+        }
 
         <div class="notice">
             <i class="icon icon-important"><span class="govuk-visually-hidden"></span></i>

@@ -336,8 +336,10 @@ claimingForCurrentYear.no.text = Os ydych am hawlio rhyddhad treth ar gyfer blyn
 claimingForCurrentYear.error.required = Dewiswch ''Iawn'' os ydych yn hawlio ar gyfer y flwyddyn dreth bresennol 2021-2022 yn unig.
 
 
-whichYearsAreYouClaimingFor.you.title = Ar gyfer pa flynyddoedd yr ydych yn hawlio rhyddhad treth?
-whichYearsAreYouClaimingFor.you.heading = Ar gyfer pa flynyddoedd yr ydych yn hawlio rhyddhad treth?
+whichYearsAreYouClaimingFor.you.title = Which years are you claiming tax relief for as a result of working from home?
+whichYearsAreYouClaimingFor.you.heading = Which years are you claiming tax relief for as a result of working from home?
+whichYearsAreYouClaimingFor.bannerGuidance.title = Guidance has changed for the new tax year
+whichYearsAreYouClaimingFor.bannerGuidance.content = The guidance for claiming tax relief for working from home has changed for expenses on or after 6 April 2022.
 whichYearsAreYouClaimingFor.you.main.info.text = Gallwch hawlio rhyddhad treth ar gyfer eich treuliau am weithio gartref ar gyfer y flwyddyn dreth bresennol gan ddefnyddio''r gwasanaeth hwn ac, ar gyfer blynyddoedd blaenorol, gallwch gyflwyno hawliadau ar eich Ffurflen Dreth Hunanasesiad.
 whichYearsAreYouClaimingFor.current.tax.year.text = Dim ond y flwyddyn dreth bresennol, sef 2022-23
 whichYearsAreYouClaimingFor.you.current.tax.year.info.text = Gallwch hawlio rhyddhad treth ar gyfer y flwyddyn dreth bresennol gan ddefnyddio''r gwasanaeth hwn. Gallwch wneud hyn cyn i chi anfon eich Ffurflen Dreth Hunanasesiad y flwyddyn nesaf.
