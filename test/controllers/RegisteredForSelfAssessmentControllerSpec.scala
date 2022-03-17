@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -145,13 +145,13 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase with MockitoSug
 
   "RegisteredForSelfAssessment Controller's back button dynamic behaviour" must  {
 
-    "ensure there is a back button override when ClaimAnyOtherExpenseId is true" in {
+    "ensure no back button override when ClaimAnyOtherExpenseId is true" in {
       val validData = Map(ClaimantId.toString -> JsString(claimant.toString), ClaimAnyOtherExpenseId.toString -> JsBoolean(true))
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
       val request = FakeRequest(GET, registeredForSelfAssessmentRoute)
       val result = route(application, request).value
 
-      contentAsString(result).contains(frontendAppConfig.registeredForSelfBackButtonOverride) mustBe true
+      contentAsString(result).contains(frontendAppConfig.registeredForSelfBackButtonOverride) mustBe false
 
       application.stop
     }

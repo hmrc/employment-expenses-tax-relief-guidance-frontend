@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -148,7 +148,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
 
     "EmployerPaidBackWFHExpenses Controller's back button dynamic behaviour" must {
 
-      "ensure there is a back button override when RegisteredForSelfAssessmentId is true" in {
+      "ensure there no back button override when RegisteredForSelfAssessmentId is true" in {
         val validData = Map(
           EmployerPaidBackWfhExpensesId.toString -> JsString("noExpenses"),
           RegisteredForSelfAssessmentId.toString -> JsBoolean(true),
@@ -158,7 +158,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
         val request = FakeRequest(GET, employerPaidBackWFHExpensesRoute)
         val result = route(application, request).value
 
-        contentAsString(result).contains(frontendAppConfig.claimingForCurrentYearBackButtonOverride) mustBe true
+        contentAsString(result).contains(frontendAppConfig.claimingForCurrentYearBackButtonOverride) mustBe false
 
         application.stop
       }

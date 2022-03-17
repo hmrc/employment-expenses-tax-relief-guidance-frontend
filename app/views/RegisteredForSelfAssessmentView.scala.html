@@ -46,13 +46,7 @@
     }
 ) {
 
-@if(backButtonOverride.isDefined) {
-    <div class="js-visible">
-        <p><a id="back-link-override" class="link-back" href="@backButtonOverride.get">@messages("site.back")</a></p>
-    </div>
-} else {
     @back_link()
-}
 
     @formHelper(action = RegisteredForSelfAssessmentController.onSubmit(), 'autoComplete -> "off") {
 

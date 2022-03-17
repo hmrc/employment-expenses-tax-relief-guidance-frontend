@@ -32,7 +32,9 @@
     title = s"${errorPrefix(form)} ${messages("claimant.title")}"
 ) {
 
-    @back_link()
+    <div class="js-visible">
+        <p><a id="back-link-override" class="link-back" href="javascript:history.back()">@messages("site.back")</a></p>
+    </div>
 
     @formHelper(action = ClaimantController.onSubmit(), 'autoComplete -> "off") {
 
