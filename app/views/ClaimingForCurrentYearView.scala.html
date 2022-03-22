@@ -52,7 +52,7 @@
     pageTitle = s"${errorPrefix(form)} ${messages("claimingForCurrentYear.title")}"
 ) {
     @govukBackLink(BackLink(
-        href = "registered-self-assessment",
+        href = "javascript:history.back()",
         content = Text(messages("site.back")),
         attributes = Map("id" -> "back-link")
     ))

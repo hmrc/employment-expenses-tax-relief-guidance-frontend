@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ class UseSelfAssessmentControllerSpec extends SpecBase {
 
     "UseSelfAssessment Controller's back button dynamic behaviour" must {
 
-      "ensure there is a back button override when ClaimingForCurrentYearId is true" in {
+      "ensure there no back button override when ClaimingForCurrentYearId is true" in {
 
         val validData = Map(
           RegisteredForSelfAssessmentId.toString -> JsBoolean(true),
@@ -56,12 +56,12 @@ class UseSelfAssessmentControllerSpec extends SpecBase {
         val request = FakeRequest(GET, useSelfAssessmentRoute)
         val result = route(application, request).value
 
-        contentAsString(result).contains(frontendAppConfig.claimingForCurrentYearBackButtonOverride) mustBe true
+        contentAsString(result).contains(frontendAppConfig.claimingForCurrentYearBackButtonOverride) mustBe false
 
         application.stop
       }
 
-      "ensure there is a back button override when ClaimingForCurrentYearId is false" in {
+      "ensure there is no back button override when ClaimingForCurrentYearId is false" in {
 
         val validData = Map(
           RegisteredForSelfAssessmentId.toString -> JsBoolean(true),
@@ -72,7 +72,7 @@ class UseSelfAssessmentControllerSpec extends SpecBase {
         val request = FakeRequest(GET, useSelfAssessmentRoute)
         val result = route(application, request).value
 
-        contentAsString(result).contains(frontendAppConfig.claimingForCurrentYearBackButtonOverride) mustBe true
+        contentAsString(result).contains(frontendAppConfig.claimingForCurrentYearBackButtonOverride) mustBe false
 
         application.stop
       }

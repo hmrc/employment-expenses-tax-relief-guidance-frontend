@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ class ClaimAnyOtherExpenseViewSpec extends ViewBehaviours {
 
     behave like normalPage(createView(form), messageKeyPrefix)
 
-    behave like pageWithBackLink(createView(form))
+    behave like pageWithOverrideBackLink(createView(form))
 
     "contain radio buttons for the value" in {
       val doc = asDocument(createView(form))
