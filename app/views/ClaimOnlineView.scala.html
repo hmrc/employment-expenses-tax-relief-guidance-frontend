@@ -54,8 +54,12 @@
     @back_link()
 
     @components.heading(s"$msgPrefix.heading")
+    <div class="panel panel-border-wide">
+        <p>
+            @messages(s"$msgPrefix.para1")
+        </p>
+    </div>
 
-    <p>@messages(s"$msgPrefix.para1")</p>
     <p>@messages(s"$msgPrefix.para2")</p>
 
     <ul class="list-bullet">

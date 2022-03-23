@@ -29,7 +29,14 @@
     ) {
 
         @components.heading("disclaimer.heading")
-
+        <div class="notification-banner">
+            <div class="notification-banner__header">
+                <h4 class="notification-banner__title">@messages("disclaimer.guidance.header")</h4>
+                <div class="notification-banner__content">
+                    @messages("disclaimer.guidance.summary")
+                </div>
+            </div>
+        </div>
         @if(claimingCurrent) {
             <h2>@messages("disclaimer.claim.after.h2")</h2>
             <p>@messages("disclaimer.claim.after.p1")</p>
@@ -37,7 +44,9 @@
             <ul class="list list-bullet">
                 <li>@messages("disclaimer.claim.after.l1")</li>
                 <li>@messages("disclaimer.claim.after.l2")</li>
+                <li>@messages("disclaimer.claim.after.l3")</li>
             </ul>
+            <p>@messages("disclaimer.claim.p1")</p>
         }
 
         @if(claimingPrevious) {
@@ -53,7 +62,10 @@
         <div class="notice">
             <i class="icon icon-important"><span class="govuk-visually-hidden"></span></i>
             <strong class="bold-small">
-                <p><span class="bold">@messages("disclaimer.warning")</span></p>
+                <p>
+                    <span class="bold">@messages("disclaimer.warning1")</span> </br>
+                    <span class="bold">@messages("disclaimer.warning2")</span>
+                </p>
             </strong>
         </div>
         <p>@messages("disclaimer.accept")</p>
