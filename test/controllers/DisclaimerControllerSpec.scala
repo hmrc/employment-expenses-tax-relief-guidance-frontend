@@ -39,7 +39,7 @@ class DisclaimerControllerSpec extends SpecBase {
       val view = application.injector.instanceOf[DisclaimerView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(claimant, true, false)(request, messages).toString
+      contentAsString(result) mustBe view(claimant, false, true)(request, messages).toString
 
       application.stop
     }

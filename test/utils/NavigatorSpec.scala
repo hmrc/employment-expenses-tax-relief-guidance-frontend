@@ -611,7 +611,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
       "go to SessionExpired controller" when {
         val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimant).thenReturn(Some(You))
+        when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(false))
 
         "no data from RegisteredForSelfAssessment" in {
           navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
