@@ -59,7 +59,7 @@ claimAnyOtherExpense.summary.para2 = You cannot claim for things that you use fo
 
 covidHomeWorking.title = Did you start working from home after 1 January 2020?
 covidHomeWorking.heading = Did you start working from home after 1 January 2020?
-covidHomeWorking.error.required = Select yes if you started working from home because of coronavirus (COVID-19)
+covidHomeWorking.error.required = Select yes if you started working from home after 1 January 2020
 
 registeredForSelfAssessment.you.title = Do you complete Self Assessment returns?
 registeredForSelfAssessment.you.heading = Do you complete Self Assessment returns?
@@ -156,7 +156,7 @@ employerPaidBackExpenses.someoneElse.error.required = Select yes if their employ
 
 
 employerPaidBackWfhExpenses.title = Has your employer paid any of your extra expenses for working from home?
-employerPaidBackWfhExpenses.heading = HHas your employer paid any of your extra expenses for working from home?
+employerPaidBackWfhExpenses.heading = Has your employer paid any of your extra expenses for working from home?
 employerPaidBackWfhExpenses.info = If your employer has already paid or given you an allowance for the extra costs of working from home, you cannot claim tax relief on these expenses.
 employerPaidBackWfhExpenses.error.required = Select yes if your employer has paid your expenses for working from home
 employerPaid.noExpenses = No, none of my expenses
@@ -382,12 +382,12 @@ disclaimer.title = You must read the following before making a claim
 disclaimer.heading = You must read the following before making a claim
 disclaimer.guidance.header = Guidance has changed for the new tax year
 disclaimer.guidance.summary = The guidance for claiming tax relief for working from home has changed for expenses on or after 6 April 2022.
-disclaimer.claim.after.h2 = Claiming tax relief on and after 6 April 2022
+disclaimer.claim.after.h2 = Claiming tax relief on or after 6 April 2022
 disclaimer.claim.after.p1 = You can claim if your employer has not already paid your expenses and you have additional household costs as a result of working from home.
 disclaimer.claim.after.p2 = One of the following must also apply:
 disclaimer.claim.after.l1 = there are no appropriate facilities available for you to perform your job on your employer''s premises
 disclaimer.claim.after.l2 = the nature of the job requires you to live so far from the employer''s premises that it is unreasonable for you to travel to those premises on a daily basis
-disclaimer.claim.after.l3 = you are required, under government advice, to work from home
+disclaimer.claim.after.l3 = you are required, under government restrictions, to work from home
 disclaimer.claim.p1 = To claim tax relief, you cannot have just chosen to work from home.
 disclaimer.claim.before.h2 = Claiming tax relief on or before 5 April 2022
 disclaimer.claim.before.p1 = You can claim if all the following apply:
