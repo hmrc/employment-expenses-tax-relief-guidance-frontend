@@ -1,4 +1,4 @@
-service.name = Check if you can claim work related expenses
+service.name = Check if you can claim tax relief on work-related expenses
 
 date.day = Day
 date.month = Month
@@ -53,10 +53,13 @@ claimAnyOtherExpense.noClaimAnyOtherExpense = No, I also want to claim tax relie
 claimAnyOtherExpense.yesClaimAnyOtherExpense = Yes
 claimAnyOtherExpense.para1.prefix = You can
 claimAnyOtherExpense.para1.suffix = find out information on tax relief for other types of job expenses (opens in new tab)
+claimAnyOtherExpense.summary = Types of expenses that you can claim for
+claimAnyOtherExpense.summary.para1 = You can only claim for extra household costs to do with your work such as business phone calls and gas and electricity for your work area.
+claimAnyOtherExpense.summary.para2 = You cannot claim for things that you use for both private and work purposes such as rent or broadband, or for equipment or furniture.
 
-covidHomeWorking.title = Did you start working from home because of coronavirus (COVID-19)?
-covidHomeWorking.heading = Did you start working from home because of coronavirus (COVID-19)?
-covidHomeWorking.error.required = Select yes if you started working from home because of coronavirus (COVID-19)
+covidHomeWorking.title = Did you start working from home after 1 January 2020?
+covidHomeWorking.heading = Did you start working from home after 1 January 2020?
+covidHomeWorking.error.required = Select yes if you started working from home after 1 January 2020
 
 registeredForSelfAssessment.you.title = Do you complete Self Assessment returns?
 registeredForSelfAssessment.you.heading = Do you complete Self Assessment returns?
@@ -64,8 +67,8 @@ registeredForSelfAssessment.you.error.required = Select yes if you complete Self
 registeredForSelfAssessment.someoneElse.title = Does the person you are claiming for complete Self Assessment returns?
 registeredForSelfAssessment.someoneElse.heading = Does the person you are claiming for complete Self Assessment returns?
 registeredForSelfAssessment.someoneElse.error.required = Select yes if the person you are claiming for completes Self Assessment returns
-registeredForSelfAssessment.tax.year.specific.title = Are you going to complete a Self Assessment return for this tax year 2021-2022?
-registeredForSelfAssessment.tax.year.specific.heading = Are you going to complete a Self Assessment return for this tax year 2021-2022?
+registeredForSelfAssessment.tax.year.specific.title = Are you going to complete a Self Assessment return for this tax year 2022-2023?
+registeredForSelfAssessment.tax.year.specific.heading = Are you going to complete a Self Assessment return for this tax year 2022-2023?
 registeredForSelfAssessment.tax.year.specific.error.required = Select yes if you are going to complete a Self Assessment return for this tax year 2021-2022
 
 registeredForSelfAssessment.accordion.summary = What is a Self Assessment tax return?
@@ -107,7 +110,7 @@ registerForSelfAssessment.someoneElse.title = They can only claim these expenses
 registerForSelfAssessment.someoneElse.heading = They can only claim these expenses using Self Assessment
 registerForSelfAssessment.someoneElse.guidance = If there are tax years where their expenses are less than £2,500,
 registerForSelfAssessment.someoneElse.link.continue.label = check if they can claim tax relief
-registerForSelfAssessment.link.external.label =  Register for and file Self Assessment tax returns
+registerForSelfAssessment.link.external.label =  register for and file Self Assessment tax returns
 registerForSelfAssessment.guidance1 = Because your expenses are £2,500 or more in some of the tax years you are claiming for, you must claim them as part of a Self Assessment tax return.
 registerForSelfAssessment.guidance2 = Find out how to
 
@@ -124,8 +127,8 @@ claimOnline.bullet2 = a recent payslip or P60 or a valid UK passport
 claimOnline.link.label = Claim your expenses online
 claimOnline.hidden.guidance = list of 2 items
 
-claimOnline.wfh.title = You can claim tax relief for your work-related expenses online
-claimOnline.wfh.heading = You can claim tax relief for your work-related expenses online
+claimOnline.wfh.title = You can claim tax relief for your extra working from home expenses online
+claimOnline.wfh.heading = You can claim tax relief for your extra working from home expenses online
 claimOnline.wfh.para1 = To claim these expenses, you need a Government Gateway user ID and password. You can create a user ID if you do not already have one.
 claimOnline.wfh.para2 = Creating a Government Gateway ID usually takes about 10 minutes. It works best if you have:
 claimOnline.wfh.bullet1 = your National Insurance number
@@ -152,9 +155,9 @@ employerPaidBackExpenses.someoneElse.hidden.guidance = If their employer paid ba
 employerPaidBackExpenses.someoneElse.error.required = Select yes if their employer has paid back all their work‑related expenses
 
 
-employerPaidBackWfhExpenses.title = Has your employer paid your expenses for working from home?
-employerPaidBackWfhExpenses.heading = Has your employer paid your expenses for working from home?
-employerPaidBackWfhExpenses.info = You cannot claim tax relief on the costs of working from home if your employer has paid back your expenses or paid you an allowance to cover your expenses.
+employerPaidBackWfhExpenses.title = Has your employer paid any of your extra expenses for working from home?
+employerPaidBackWfhExpenses.heading = Has your employer paid any of your extra expenses for working from home?
+employerPaidBackWfhExpenses.info = If your employer has already paid or given you an allowance for the extra costs of working from home, you cannot claim tax relief on these expenses.
 employerPaidBackWfhExpenses.error.required = Select yes if your employer has paid your expenses for working from home
 employerPaid.noExpenses = No, none of my expenses
 employerPaid.someExpenses = Yes, some of my expenses
@@ -344,10 +347,12 @@ claimingForCurrentYear.yes.text = You can claim tax relief for your working from
 claimingForCurrentYear.no.text = If you want to claim tax relief for previous years, you need to claim it on your Self Assessment tax return.
 claimingForCurrentYear.error.required = Select yes if you are only claiming for the current tax year 2021-2022
 
-whichYearsAreYouClaimingFor.you.title = Which years are you claiming tax relief for?
-whichYearsAreYouClaimingFor.you.heading = Which years are you claiming tax relief for?
+whichYearsAreYouClaimingFor.you.title = Which years are you claiming tax relief for as a result of working from home?
+whichYearsAreYouClaimingFor.you.heading = Which years are you claiming tax relief for as a result of working from home?
+whichYearsAreYouClaimingFor.bannerGuidance.title = Guidance has changed for the new tax year
+whichYearsAreYouClaimingFor.bannerGuidance.content = The guidance for claiming tax relief for working from home has changed for expenses on or after 6 April 2022.
 whichYearsAreYouClaimingFor.you.main.info.text = You can claim tax relief for your working at home expenses for the current tax year using this service and for previous years on your Self Assessment tax return.
-whichYearsAreYouClaimingFor.current.tax.year.text = Just the current tax year 2021-2022
+whichYearsAreYouClaimingFor.current.tax.year.text = Just the current tax year 2022-2023
 whichYearsAreYouClaimingFor.you.current.tax.year.info.text = You can claim tax relief for the current tax year using this service. You can do this before you send your Self Assessment tax return next year.
 whichYearsAreYouClaimingFor.previous.tax.year.text = Previous tax years
 whichYearsAreYouClaimingFor.you.previous.tax.year.info.text = If you want to claim tax relief for previous years, you will need to claim it on your Self Assessment tax return.
@@ -358,7 +363,7 @@ whichYearsAreYouClaimingFor.error.required = Select which years you are claiming
 
 saCheckDisclaimerCurrentYear.you.title = Please check the following before continuing
 saCheckDisclaimerCurrentYear.you.heading = Please check the following before continuing
-saCheckDisclaimerCurrentYear.you.text1 = You will receive tax relief for your working from home expenses for the current tax year 2021-2022 if:
+saCheckDisclaimerCurrentYear.you.text1 = You will receive tax relief for your working from home expenses for the current tax year 2022-2023 if:
 saCheckDisclaimerCurrentYear.you.list.item.1 = you are eligible
 saCheckDisclaimerCurrentYear.you.list.item.2 = you haven''t already made a claim for this year
 saCheckDisclaimerCurrentYear.you.text2 = We will now check if you are eligible to claim tax relief for the current tax year.
@@ -366,9 +371,30 @@ saCheckDisclaimerCurrentYear.button.label = Accept and Continue
 
 saCheckDisclaimerAllYears.you.title = Please check the following before continuing
 saCheckDisclaimerAllYears.you.heading = Please check the following before continuing
-saCheckDisclaimerAllYears.you.text1 = You will receive tax relief for your working from home expenses for the current tax year 2021-2022 if:
+saCheckDisclaimerAllYears.you.text1 = You will receive tax relief for your working from home expenses for the current tax year 2022-2023 if:
 saCheckDisclaimerAllYears.you.list.item.1 = you are eligible
 saCheckDisclaimerAllYears.you.list.item.2 = you haven''t already made a claim for this year
 saCheckDisclaimerAllYears.you.text2 = We will now check if you are eligible to claim tax relief for the current tax year.
 saCheckDisclaimerAllYears.button.label = Accept and Continue
 saCheckDisclaimerAllYears.you.warning.text = You will not receive tax relief for previous years using this service. You will need to claim for previous years on your Self Assessment tax return.
+
+disclaimer.title = You must read the following before making a claim
+disclaimer.heading = You must read the following before making a claim
+disclaimer.guidance.header = Guidance has changed for the new tax year
+disclaimer.guidance.summary = The guidance for claiming tax relief for working from home has changed for expenses on or after 6 April 2022.
+disclaimer.claim.after.h2 = Claiming tax relief on or after 6 April 2022
+disclaimer.claim.after.p1 = You can claim if your employer has not already paid your expenses and you have additional household costs as a result of working from home.
+disclaimer.claim.after.p2 = One of the following must also apply:
+disclaimer.claim.after.l1 = there are no appropriate facilities available for you to perform your job on your employer''s premises
+disclaimer.claim.after.l2 = the nature of the job requires you to live so far from the employer''s premises that it is unreasonable for you to travel to those premises on a daily basis
+disclaimer.claim.after.l3 = you are required, under government restrictions, to work from home
+disclaimer.claim.p1 = To claim tax relief, you cannot have just chosen to work from home.
+disclaimer.claim.before.h2 = Claiming tax relief on or before 5 April 2022
+disclaimer.claim.before.p1 = You can claim if all the following apply:
+disclaimer.claim.before.l1 = your employer has not already paid your expenses
+disclaimer.claim.before.l2 = government guidelines or your employer have required you to work from home or self-isolate
+disclaimer.claim.before.l3 = you have additional household costs as a result of working from home
+disclaimer.warning1 = Guidance has changed for the new tax year.
+disclaimer.warning2 = You must ensure you meet the rules for claiming, as you may be prosecuted if you deliberately give incorrect or misleading information.
+disclaimer.accept = By clicking accept and continue, you are accepting that you meet the rules for the years you are claiming for.
+disclaimer.button.continue = Accept and continue

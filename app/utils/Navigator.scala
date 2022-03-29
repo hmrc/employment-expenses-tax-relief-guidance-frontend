@@ -44,7 +44,7 @@ class Navigator @Inject()() {
   private def registeredForSelfAssessmentControllerRouting(userAnswers: UserAnswers) =
 
     userAnswers.claimAnyOtherExpense match {
-      case x if x == None || x == Some(false) =>
+      case x if x.isEmpty || x == Some(false) =>
         userAnswers.registeredForSelfAssessment match {
           case Some(true) => routes.UseSelfAssessmentController.onPageLoad()
           case Some(false) => userAnswers.claimAnyOtherExpense match {
@@ -55,10 +55,7 @@ class Navigator @Inject()() {
         }
       case _ =>
         userAnswers.registeredForSelfAssessment match {
-          case Some(true) => {
-            routes.WhichYearsAreYouClaimingForController.onPageLoad()
-          }
-          case Some(false) => routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+          case Some(sa) => routes.WhichYearsAreYouClaimingForController.onPageLoad()
           case _ => routes.SessionExpiredController.onPageLoad()
         }
     }
@@ -159,9 +156,24 @@ class Navigator @Inject()() {
   }
 
   private def whichYearsAreYouClaimingForRouting(userAnswers: UserAnswers) = userAnswers.whichYearsAreYouClaimingFor match {
-    case Some(1) => routes.SaCheckDisclaimerCurrentYearController.onPageLoad()
-    case Some(2) => routes.UseSelfAssessmentController.onPageLoad()
-    case Some(3) => routes.SaCheckDisclaimerAllYearsController.onPageLoad()
+    case Some(1) =>
+      if(userAnswers.registeredForSelfAssessment.getOrElse(false)) {
+        routes.SaCheckDisclaimerCurrentYearController.onPageLoad()
+      } else {
+        routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+      }
+    case Some(2) =>
+      if(userAnswers.registeredForSelfAssessment.getOrElse(false)) {
+        routes.UseSelfAssessmentController.onPageLoad()
+      } else {
+        routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+      }
+    case Some(3) =>
+      if(userAnswers.registeredForSelfAssessment.getOrElse(false)) {
+        routes.SaCheckDisclaimerAllYearsController.onPageLoad()
+      } else {
+        routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+      }
     case _ => routes.SessionExpiredController.onPageLoad()
   }
 
@@ -184,7 +196,7 @@ class Navigator @Inject()() {
   }
 
   private def covidHomeWorkingRouting(userAnswers: UserAnswers) = userAnswers.covidHomeWorking match {
-    case Some(true) => routes.ClaimOnlineController.onPageLoad()
+    case Some(true) => routes.DisclaimerController.onPageLoad()
     case Some(false) => routes.MoreThanFiveJobsController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad()
   }
@@ -218,7 +230,7 @@ class Navigator @Inject()() {
   def nextPage(id: Identifier): UserAnswers => Call =
     routeMap.getOrElse(id, _ => routes.IndexController.onPageLoad())
 
-  lazy val firstPage: Call = routes.ClaimantController.onPageLoad()
+  lazy val firstPage: Call = routes.ClaimAnyOtherExpenseController.onPageLoad()
 
   lazy val changeOtherExpensesPage: Call = routes.ChangeOtherExpensesController.onPageLoad()
 

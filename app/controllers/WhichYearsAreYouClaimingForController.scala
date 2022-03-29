@@ -44,13 +44,15 @@ class WhichYearsAreYouClaimingForController @Inject()(
   def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
     implicit request =>
 
+      val saUser: Boolean = request.userAnswers.registeredForSelfAssessment.getOrElse(false)
+
       val form: Form[Int] = formProvider(request.claimant)
 
       val preparedForm = request.userAnswers.whichYearsAreYouClaimingFor match {
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(view(preparedForm, request.claimant))
+      Ok(view(preparedForm, request.claimant, isSaUser = saUser))
   }
 
   def onSubmit: Action[AnyContent] = (getData andThen requireData andThen getClaimant).async {
