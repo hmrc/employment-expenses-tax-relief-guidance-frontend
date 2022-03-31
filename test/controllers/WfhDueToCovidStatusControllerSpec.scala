@@ -20,7 +20,7 @@ import base.SpecBase
 import connectors.DataCacheConnector
 import controllers.actions.{DataRetrievalAction, FakeDataRetrievalAction}
 import forms.CovidHomeWorkingFormProvider
-import identifiers.{ClaimantId, ClaimingForId, ClaimingMileageId, CovidHomeWorkingId, WhichYearsAreYouClaimingForId}
+import identifiers.{ClaimantId, ClaimingForId, ClaimingMileageId, CovidHomeWorkingId, RegisteredForSelfAssessmentId, WhichYearsAreYouClaimingForId}
 import models.ClaimingFor.values
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{reset, when}
@@ -54,7 +54,7 @@ class WfhDueToCovidStatusControllerSpec extends SpecBase with MockitoSugar with 
 
     "should return value from service" in {
 
-      val validData = Map(ClaimantId.toString -> JsString(claimant.toString), WhichYearsAreYouClaimingForId.toString -> JsNumber(1))
+      val validData = Map(ClaimantId.toString -> JsString(claimant.toString), WhichYearsAreYouClaimingForId.toString -> JsNumber(1), RegisteredForSelfAssessmentId.toString -> JsBoolean(false))
 
       when(mockDataCacheConnector.fetchBySessionId(any())) thenReturn Future(Some(new CacheMap(cacheMapId, validData)))
       val wfhDueToCovidStatusService = new WfhDueToCovidStatusService(mockDataCacheConnector)
@@ -67,7 +67,7 @@ class WfhDueToCovidStatusControllerSpec extends SpecBase with MockitoSugar with 
 
       status(result) mustEqual OK
       val jsonResult = contentAsString(result)
-      jsonResult mustEqual """{"WfhDueToCovidStatus":1}"""
+      jsonResult mustEqual """{"WfhDueToCovidStatus":1,"RegisteredForSA":false}"""
       application.stop
     }
 
