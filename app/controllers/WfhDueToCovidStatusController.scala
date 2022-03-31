@@ -36,9 +36,22 @@ class WfhDueToCovidStatusController @Inject()(
 
       try {
         wfhDueToCovidStatusService.getStatusBySessionId(sessionId)(request).map {
-          case Some(status) => Ok(Json.parse(s"""{ "WfhDueToCovidStatus": $status }"""))
-          case None =>
-            logger.info(s"No data for StatusBySessionId request returned to data for [$sessionId]")
+          case (Some(status), Some(registeredForSA)) => Ok(Json.parse(
+            s"""
+               |{
+               | "WfhDueToCovidStatus": $status,
+               | "RegisteredForSA": $registeredForSA
+               |}
+               |""".stripMargin
+          ))
+          case (None, Some(registeredForSA)) =>
+            logger.info(s"No data for StatusBySessionId request returned to data for [$sessionId], RegisteredForSA found: $registeredForSA")
+            NotFound
+          case (Some(status), None) =>
+            logger.info(s"No data for RegisteredForSA request returned to data for [$sessionId], WfhDueToCovidStatus found: $status")
+            NotFound
+          case (None, None) =>
+            logger.info(s"No data for StatusBySessionId request returned for [$sessionId]")
             NotFound
         }.recoverWith {
           case e =>

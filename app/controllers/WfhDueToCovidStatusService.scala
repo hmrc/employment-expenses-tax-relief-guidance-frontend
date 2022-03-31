@@ -17,6 +17,7 @@
 package controllers
 
 import connectors.DataCacheConnector
+import identifiers.RegisteredForSelfAssessmentId
 import models.requests.OptionalDataRequest
 import play.api.mvc.Request
 import utils.UserAnswers
@@ -27,13 +28,16 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class WfhDueToCovidStatusService @Inject()(dataCacheConnector: DataCacheConnector)(implicit ec: ExecutionContext) {
 
-  def getStatusBySessionId[A](sessionId: String)(request: Request[A]): Future[Option[String]] = {
+  def getStatusBySessionId[A](sessionId: String)(request: Request[A]): Future[(Option[String], Option[String])] = {
 
     dataCacheConnector.fetchBySessionId(sessionId).map {
-      case None => None
+      case None => (None, None)
       case Some(data) =>
         val dataRequestResult = OptionalDataRequest(request, sessionId, Some(new UserAnswers(data)))
-        dataRequestResult.userAnswers.map(_.whichYearsAreYouClaimingFor).map(x =>x).flatten.map(_.toString)
+        (
+          dataRequestResult.userAnswers.flatMap(_.whichYearsAreYouClaimingFor).map(_.toString),
+          dataRequestResult.userAnswers.flatMap(_.registeredForSelfAssessment).map(_.toString)
+        )
     }
   }
 
