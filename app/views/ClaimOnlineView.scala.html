@@ -23,7 +23,7 @@
   main_template: MainTemplate,
   appConfig: FrontendAppConfig
 )
-@(onwardJourney: OnwardJourney, sessionId: Option[String])(implicit request: Request[_], messages: Messages)
+@(onwardJourney: OnwardJourney, sessionId: Option[String], isSaUser: Boolean = false)(implicit request: Request[_], messages: Messages)
 
 
 @href = @{
@@ -33,7 +33,7 @@
         case OnwardJourney.IForm => appConfig.employeeExpensesClaimOnlineUrl
         case OnwardJourney.WorkingFromHomeExpensesOnly => {
             sessionId match {
-                case Some(value) => s"${appConfig.workingFromHomeExpensesUrl}?eligibilityCheckerSessionId=$value"
+                case Some(value) => if(isSaUser) {s"${appConfig.workingFromHomeExpensesUrl}?eligibilityCheckerSessionId=$value"} else appConfig.workingFromHomeExpensesUrl
                 case None => appConfig.workingFromHomeExpensesUrl
             }
         }
