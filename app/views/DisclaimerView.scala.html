@@ -27,16 +27,18 @@
     @main_template(
         title = messages("disclaimer.title")
     ) {
-
+        @back_link()
         @components.heading("disclaimer.heading")
-        <div class="notification-banner">
-            <div class="notification-banner__header">
-                <h4 class="notification-banner__title">@messages("disclaimer.guidance.header")</h4>
-                <div class="notification-banner__content">
-                    @messages("disclaimer.guidance.summary")
+        @if(claimingCurrent) {
+            <div class="notification-banner">
+                <div class="notification-banner__header">
+                    <h4 class="notification-banner__title">@messages("disclaimer.guidance.header")</h4>
+                    <div class="notification-banner__content">
+                        @messages("disclaimer.guidance.summary")
+                    </div>
                 </div>
             </div>
-        </div>
+        }
         @if(claimingCurrent) {
             <h2>@messages("disclaimer.claim.after.h2")</h2>
             <p>@messages("disclaimer.claim.after.p1")</p>
@@ -63,7 +65,9 @@
             <i class="icon icon-important"><span class="govuk-visually-hidden"></span></i>
             <strong class="bold-small">
                 <p>
-                    <span class="bold">@messages("disclaimer.warning1")</span> </br>
+                    @if(claimingCurrent) {
+                        <span class="bold">@messages("disclaimer.warning1")</span> </br>
+                    }
                     <span class="bold">@messages("disclaimer.warning2")</span>
                 </p>
             </strong>
