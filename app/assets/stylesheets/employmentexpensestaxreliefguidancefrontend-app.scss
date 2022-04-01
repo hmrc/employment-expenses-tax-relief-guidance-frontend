@@ -19,10 +19,6 @@
   margin-left: 13px;
 }
 
-.notification-banner {
-    margin-top: 20px;
-    margin-bottom: 80px;
-}
 .notification-banner__header {
  // Ensures the notification header appears separate to the notification body text in high contrast mode
     border-bottom: 1px solid transparent;
@@ -49,4 +45,9 @@
     font-family: "nta",Arial,sans-serif;
     font-size: 24px;
     font-weight: bold;
+}
+
+.notification-banner {
+    margin-top: 60px;
+    margin-bottom: 20px;
 }
