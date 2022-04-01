@@ -36,14 +36,15 @@ class ClaimOnlineController @Inject()(
     implicit request =>
 
       val eligibilityCheckerSessionId = hc.sessionId.get.value
+      val isSaUser: Option[Boolean] = request.userAnswers.registeredForSelfAssessment
 
       request.userAnswers.covidHomeWorking match {
 
         case Some(true) =>
           if(request.userAnswers.claimAnyOtherExpense.getOrElse(false)) {
-            Ok(view(OnwardJourney.WorkingFromHomeExpensesOnly, Some(eligibilityCheckerSessionId)))
+            Ok(view(OnwardJourney.WorkingFromHomeExpensesOnly, Some(eligibilityCheckerSessionId), isSaUser.getOrElse(false)))
           }else {
-            Ok(view(OnwardJourney.WorkingFromHomeExpensesOnly, None))
+            Ok(view(OnwardJourney.WorkingFromHomeExpensesOnly, None, isSaUser.getOrElse(false)))
           }
         case Some(false) => Ok(view(OnwardJourney.IForm, None))
         case _ =>
