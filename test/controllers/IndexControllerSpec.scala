@@ -29,7 +29,7 @@ class IndexControllerSpec extends SpecBase {
 
       status(result) mustBe MOVED_PERMANENTLY
 
-      redirectLocation(result) mustBe Some(routes.ClaimAnyOtherExpenseController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(routes.ClaimantController.onPageLoad().url)
     }
   }
 }

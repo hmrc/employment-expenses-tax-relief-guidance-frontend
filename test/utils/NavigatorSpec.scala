@@ -31,7 +31,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
   ".firstPage" must {
     "go to the Claimant page" in {
-      navigator.firstPage mustBe routes.ClaimAnyOtherExpenseController.onPageLoad()
+      navigator.firstPage mustBe routes.ClaimantController.onPageLoad()
     }
   }
 
