@@ -230,7 +230,7 @@ class Navigator @Inject()() {
   def nextPage(id: Identifier): UserAnswers => Call =
     routeMap.getOrElse(id, _ => routes.IndexController.onPageLoad())
 
-  lazy val firstPage: Call = routes.ClaimAnyOtherExpenseController.onPageLoad()
+  lazy val firstPage: Call = routes.ClaimantController.onPageLoad()
 
   lazy val changeOtherExpensesPage: Call = routes.ChangeOtherExpensesController.onPageLoad()
 
