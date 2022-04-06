@@ -28,12 +28,8 @@ class CannotClaimWFHReliefViewSpec extends ViewBehaviours {
 
   def createView = view.apply()(fakeRequest, messages)
 
-  val taxReliefForEmployeesWFHUrl = frontendAppConfig.taxReliefForEmployeesWFHUrl
-
   "CannotClaimWFHRelief view" must {
-    behave like normalPage(createView, messageKeyPrefix, "guidance")
     behave like pageWithBackLink(createView)
-    behave like pageWithHyperLink(createView, taxReliefForEmployeesWFHUrl)
   }
 
   application.stop

@@ -32,14 +32,4 @@
 
         @components.heading(s"cannotClaimWfhRelief.heading")
 
-        <p>
-            @messages("cannotClaimWfhRelief.link.prefix")
-            <a id="link" href=@appConfig.taxReliefForEmployeesWFHUrl
-                data-journey-click="link - click:
-                @messages(s"cannotClaimWfhRelief.heading")
-                :@messages(s"cannotClaimWfhRelief.link.label")">
-                @messages(s"cannotClaimWfhRelief.guidance")
-            </a>
-        </p>
-
     }

@@ -62,12 +62,13 @@
 @layout(
     pageTitle = s"${errorPrefix(form)} ${messages(s"whichYearsAreYouClaimingFor.$claimant.title")}"
 ) {
-    @govukBackLink(BackLink(
-        href = "javascript:history.back()",
-        content = Text(messages("site.back")),
-        attributes = Map("id" -> "back-link")
-    ))
-
+    <p>
+        @govukBackLink(BackLink(
+            href = "javascript:history.back()",
+            content = Text(messages("site.back")),
+            attributes = Map("id" -> "back-link")
+        ))
+    </p>
     @formHelper(action = WhichYearsAreYouClaimingForController.onSubmit(), 'autoComplete -> "off") {
 
         @if(form.errors.nonEmpty) {
