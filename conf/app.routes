@@ -91,6 +91,7 @@ GET        /change-uniforms-work-clothing-tools         controllers.ChangeUnifor
 GET        /employer-pays-working-from-home-expenses    controllers.EmployerPaidBackWfhExpensesController.onPageLoad()
 POST       /employer-pays-working-from-home-expenses    controllers.EmployerPaidBackWfhExpensesController.onSubmit()
 
+GET        /only-claiming-working-from-home-tax-relief  controllers.ClaimAnyOtherExpenseController.redirectToHome()
 GET        /claim-any-other-expense                     controllers.ClaimAnyOtherExpenseController.onPageLoad()
 POST       /claim-any-other-expense                     controllers.ClaimAnyOtherExpenseController.onSubmit()
 
