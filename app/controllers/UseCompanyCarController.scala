@@ -84,7 +84,7 @@ class UseCompanyCarController @Inject()(
     request.userAnswers.useOwnCar match {
       case Some(true) => block(UsingOwnCar)
       case Some(false) => block(NotUsingOwnCar)
-      case None => Future.successful(Redirect(routes.SessionExpiredController.onPageLoad()))
+      case None => Future.successful(Redirect(routes.SessionExpiredController.onPageLoad))
     }
   }
 }

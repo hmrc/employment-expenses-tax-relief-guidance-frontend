@@ -40,7 +40,7 @@ import scala.concurrent.Future
 class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach
   with ScalaFutures with IntegrationPatience {
 
-  def onwardRoute: Call = routes.IndexController.onPageLoad()
+  def onwardRoute: Call = routes.IndexController.onPageLoad
 
   def employerPaidBackWFHExpensesRoute: String = routes.EmployerPaidBackWfhExpensesController.onPageLoad().url
 
@@ -61,7 +61,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
       val result = route(application, request).value
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad.url)
 
       application.stop
     }

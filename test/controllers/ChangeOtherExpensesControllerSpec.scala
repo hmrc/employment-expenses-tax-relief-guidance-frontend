@@ -41,7 +41,7 @@ class ChangeOtherExpensesControllerSpec extends SpecBase with MockitoSugar with 
     when(mockDataCacheConnector.save(any(),any(),any())(any())) thenReturn Future(new CacheMap("id", Map()))
   }
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute = routes.IndexController.onPageLoad
 
   "ChangeOtherExpenses Controller" must {
 

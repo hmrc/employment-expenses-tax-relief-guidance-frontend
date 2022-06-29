@@ -17,7 +17,7 @@
 package controllers
 
 import base.SpecBase
-import identifiers.{ClaimantId, ClaimingForCurrentYearId, EmployerPaidBackWfhExpensesId, RegisteredForSelfAssessmentId}
+import identifiers.{ClaimantId, ClaimingForCurrentYearId, RegisteredForSelfAssessmentId}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import views.html.UseSelfAssessmentView

@@ -38,7 +38,7 @@ import scala.concurrent.Future
 
 class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute = routes.IndexController.onPageLoad
 
   def claimingFuelRoute = routes.ClaimingFuelController.onPageLoad().url
 

@@ -30,7 +30,7 @@ import views.html.ClaimantView
 
 class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
 
-  def onwardRoute: Call = routes.IndexController.onPageLoad()
+  def onwardRoute: Call = routes.IndexController.onPageLoad
   def claimantRoute: Call = routes.ClaimantController.onPageLoad()
 
   private val formProvider = new ClaimantFormProvider()

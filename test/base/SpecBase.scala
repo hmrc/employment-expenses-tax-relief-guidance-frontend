@@ -47,7 +47,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
 
   def fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("", "")
 
-  def sessionExpiredUrl: String = routes.SessionExpiredController.onPageLoad().url
+  def sessionExpiredUrl: String = routes.SessionExpiredController.onPageLoad.url
 
   val cacheMapId = "id"
 

@@ -33,7 +33,7 @@ import views.html.ClaimAnyOtherExpenseView
 
 class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
 
-  def onwardRoute: Call = routes.IndexController.onPageLoad()
+  def onwardRoute: Call = routes.IndexController.onPageLoad
   def claimAnyOtherExpenseRoute: Call = routes.ClaimAnyOtherExpenseController.onPageLoad()
 
   private val formProvider = new ClaimAnyOtherExpenseFormProvider()

@@ -35,7 +35,7 @@ class WorkingFromHomeEnabledActionImpl @Inject()(
     if (frontendAppConfig.workingFromHomeExpensesOnlyEnabled) {
       block(request)
     } else {
-      Future.successful(Redirect(routes.IndexController.onPageLoad()))
+      Future.successful(Redirect(routes.IndexController.onPageLoad))
     }
   }
 

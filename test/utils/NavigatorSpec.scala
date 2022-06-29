@@ -52,7 +52,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       "an identifier that doesn't exist in the route map" in {
         case object UnknownIdentifier extends Identifier
         navigator.nextPage(UnknownIdentifier)(mock[UserAnswers]) mustBe
-          routes.IndexController.onPageLoad()
+          routes.IndexController.onPageLoad
       }
     }
 

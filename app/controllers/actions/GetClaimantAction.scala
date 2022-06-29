@@ -27,7 +27,7 @@ class GetClaimantActionImpl @Inject()(implicit val executionContext: ExecutionCo
 
   override protected def refine[A](request: DataRequest[A]): Future[Either[Result, ClaimantRequest[A]]] = {
     request.userAnswers.claimant match {
-      case None => Future.successful(Left(Redirect(routes.SessionExpiredController.onPageLoad())))
+      case None => Future.successful(Left(Redirect(routes.SessionExpiredController.onPageLoad)))
       case Some(claimant) => Future.successful(Right(ClaimantRequest(request.request, request.sessionId, request.userAnswers, claimant)))
     }
   }

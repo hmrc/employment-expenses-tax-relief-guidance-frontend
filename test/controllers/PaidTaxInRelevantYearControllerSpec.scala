@@ -39,7 +39,7 @@ import scala.concurrent.Future
 
 class PaidTaxInRelevantYearControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute = routes.IndexController.onPageLoad
 
   def paidTaxInRelevantYearRoute = routes.PaidTaxInRelevantYearController.onPageLoad().url
 

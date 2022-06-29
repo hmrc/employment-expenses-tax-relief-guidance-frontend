@@ -39,7 +39,7 @@ import scala.concurrent.Future
 class ClaimingOverPayAsYouEarnThresholdControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach
   with ScalaFutures with IntegrationPatience {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute = routes.IndexController.onPageLoad
   def claimingOverRoute = routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad().url
 
   private val mockDataCacheConnector = mock[DataCacheConnector]

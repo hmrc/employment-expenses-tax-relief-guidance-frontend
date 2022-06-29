@@ -39,7 +39,7 @@ import scala.concurrent.Future
 class RegisteredForSelfAssessmentControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach
   with ScalaFutures with IntegrationPatience {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute = routes.IndexController.onPageLoad
 
   def registeredForSelfAssessmentRoute = routes.RegisteredForSelfAssessmentController.onPageLoad().url
 
@@ -60,7 +60,7 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase with MockitoSug
       val result = route(application, request).value
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad.url)
 
       application.stop
     }
