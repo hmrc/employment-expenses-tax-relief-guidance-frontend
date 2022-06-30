@@ -28,7 +28,7 @@ class RegisterForSelfAssessmentViewSpec extends ViewBehaviours {
 
   val view = application.injector.instanceOf[RegisterForSelfAssessmentView]
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute = routes.IndexController.onPageLoad
 
   def createView = view.apply(claimant, onwardRoute)(fakeRequest, messages)
 

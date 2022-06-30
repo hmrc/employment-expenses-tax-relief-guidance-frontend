@@ -68,7 +68,7 @@ class WorkingFromHomeEnabledActionSpec extends SpecBase with MockitoSugar with S
 
         whenReady(futureResult) { result =>
           result.header.status mustBe SEE_OTHER
-          result.header.headers.get(HeaderNames.LOCATION) mustBe Some(routes.IndexController.onPageLoad().url)
+          result.header.headers.get(HeaderNames.LOCATION) mustBe Some(routes.IndexController.onPageLoad.url)
         }
       }
     }

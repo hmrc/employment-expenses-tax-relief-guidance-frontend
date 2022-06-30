@@ -38,7 +38,7 @@ import scala.concurrent.Future
 
 class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute = routes.IndexController.onPageLoad
   def claimingMileageRoute = routes.ClaimingMileageController.onPageLoad().url
 
   private val mockDataCacheConnector = mock[DataCacheConnector]

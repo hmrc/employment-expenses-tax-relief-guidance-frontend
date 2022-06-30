@@ -39,7 +39,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute = routes.IndexController.onPageLoad
   def useCompanyCarRoute = routes.UseCompanyCarController.onPageLoad().url
 
   private val mockDataCacheConnector = mock[DataCacheConnector]

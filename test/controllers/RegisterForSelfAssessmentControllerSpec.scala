@@ -25,7 +25,7 @@ import views.html.RegisterForSelfAssessmentView
 
 class RegisterForSelfAssessmentControllerSpec extends SpecBase {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute = routes.IndexController.onPageLoad
 
   def registerForSARoute = routes.RegisterForSelfAssessmentController.onPageLoad().url
 

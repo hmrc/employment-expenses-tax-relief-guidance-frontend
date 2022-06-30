@@ -40,7 +40,7 @@ import scala.concurrent.Future
 class WfhDueToCovidControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach
   with ScalaFutures with IntegrationPatience {
 
-  def onwardRoute: Call = routes.IndexController.onPageLoad()
+  def onwardRoute: Call = routes.IndexController.onPageLoad
   def covidHomeWorkingRoute: Call = routes.WfhDueToCovidController.onPageLoad()
 
   private val formProvider = new CovidHomeWorkingFormProvider()
@@ -60,7 +60,7 @@ class WfhDueToCovidControllerSpec extends SpecBase with MockitoSugar with Before
       val result = route(application, request).value
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad.url)
 
       application.stop
     }

@@ -39,7 +39,7 @@ import scala.concurrent.Future
 class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach
   with ScalaFutures with IntegrationPatience {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute = routes.IndexController.onPageLoad
 
   def whichYearsAreYouClaimingForRoute = routes.WhichYearsAreYouClaimingForController.onPageLoad().url
 
@@ -60,7 +60,7 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
       val result = route(application, request).value
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad.url)
 
       application.stop
     }

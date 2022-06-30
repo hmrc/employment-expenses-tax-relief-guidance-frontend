@@ -25,7 +25,7 @@ import views.html.NotEntitledSomeYearsView
 
 class NotEntitledSomeYearsControllerSpec extends SpecBase {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute = routes.IndexController.onPageLoad
 
   def notEntitledSomeYearsRoute = routes.NotEntitledSomeYearsController.onPageLoad().url
 

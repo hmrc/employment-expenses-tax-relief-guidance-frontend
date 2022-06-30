@@ -23,7 +23,7 @@ import views.html.CannotClaimReliefSomeYearsView
 
 class CannotClaimReliefSomeYearsControllerSpec extends SpecBase {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute = routes.IndexController.onPageLoad
 
   "CannotClaimReliefSomeYears Controller" must {
 

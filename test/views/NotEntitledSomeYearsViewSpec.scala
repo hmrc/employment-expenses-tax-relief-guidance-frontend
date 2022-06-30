@@ -23,7 +23,7 @@ import views.html.NotEntitledSomeYearsView
 
 class NotEntitledSomeYearsViewSpec extends ViewBehaviours {
 
-  val onwardRoute = routes.IndexController.onPageLoad()
+  val onwardRoute = routes.IndexController.onPageLoad
 
   val messageKeyPrefix = s"notEntitledSomeYears.$claimant"
 

@@ -41,7 +41,7 @@ class ChangeUniformsWorkClothingToolsControllerSpec extends SpecBase with Mockit
     when(mockDataCacheConnector.save(any(),any(),any())(any())) thenReturn Future(new CacheMap("id", Map()))
   }
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute = routes.IndexController.onPageLoad
 
   "ChangeUniformsWorkClothingTools Controller" must {
 

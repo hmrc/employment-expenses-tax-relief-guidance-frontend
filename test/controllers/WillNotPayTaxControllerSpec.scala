@@ -25,7 +25,7 @@ import views.html.WillNotPayTaxView
 
 class WillNotPayTaxControllerSpec extends SpecBase {
 
-  def onwardRoute = routes.IndexController.onPageLoad()
+  def onwardRoute = routes.IndexController.onPageLoad
 
   def willNotPayRoute = routes.WillNotPayTaxController.onPageLoad().url
 

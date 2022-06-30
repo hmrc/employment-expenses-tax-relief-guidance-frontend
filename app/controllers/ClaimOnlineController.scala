@@ -63,7 +63,7 @@ class ClaimOnlineController @Inject()(
                 case Some(_) =>
                   val onwardJourney = OnwardJourney.IForm
                   Ok(view(onwardJourney, Some(eligibilityCheckerSessionId)))
-                case _ => Redirect(routes.SessionExpiredController.onPageLoad())
+                case _ => Redirect(routes.SessionExpiredController.onPageLoad)
               }
           }
       }
