@@ -16,10 +16,11 @@
 
 package utils
 
-import org.scalatest.{MustMatchers, WordSpec}
+import org.scalatest.matchers.must.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import play.api.data.Form
 
-class RichFieldSpec extends WordSpec with MustMatchers {
+class RichFieldSpec extends AnyWordSpec with Matchers {
 
   val multiForm: Form[Set[String]] = {
 
