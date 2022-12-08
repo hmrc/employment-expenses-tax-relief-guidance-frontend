@@ -18,62 +18,51 @@
 @import uk.gov.hmrc.play.views.html._
 @import controllers.routes._
 @import models.Claimant
-@import components.back_link
 
 @this(
-  main_template: MainTemplate,
-  formHelper: FormWithCSRF,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    formHelper: uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF,
+    errorSummary: playComponents.error_summary,
+    heading: playComponents.heading,
+    govukDetails : GovukDetails,
+    inputRadio: playComponents.input_radio,
+    submitButton: playComponents.submit_button
 )
 
 @(form: Form[_])(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = s"${errorPrefix(form)} ${messages("claimant.title")}"
+@detailsContent = {
+    <p>@messages("claimant.hidden.guidance1")</p>
+    <p>
+        <span class="govuk-!-font-weight-bold">@messages("claimant.hidden.heading")</span><br/>
+        @messages("claimant.hidden.guidance2")
+    </p>
+}
+
+@layout(
+    pageTitle = s"${errorPrefix(form)} ${messages("claimant.title")}"
 ) {
-
-    <div class="js-visible">
-        <p><a id="back-link-override" class="link-back" href="javascript:history.back()">@messages("site.back")</a></p>
-    </div>
-
-    @formHelper(action = ClaimantController.onSubmit(), 'autoComplete -> "off") {
-
-        @components.error_summary(form.errors)
-
-        @components.heading("claimant.heading")
-
-        <details class="form-group">
-
-          <summary data-journey-click="accordion - click:@messages("claimant.heading"):@messages("claimant.hidden.summary")">
-            <span class="summary">
-              @messages("claimant.hidden.summary")
-            </span>
-          </summary>
-
-          <div class="panel panel-border-narrow">
-            <p>
-              @messages("claimant.hidden.guidance1")
-            </p>
-
-            <p>
-              <span class="bold-small">
-                @messages("claimant.hidden.heading")
-              </span><br />
-              @messages("claimant.hidden.guidance2")
-            </p>
-
-          </div>
-
-        </details>
-
-        @components.input_radio(
+    @errorSummary(form.errors, Some("claimant.you"))
+    @heading(messages("claimant.heading"))
+    @govukDetails(Details(
+        summary = Text(messages("claimant.hidden.summary")),
+        content = HtmlContent(detailsContent)
+    ))
+    @formHelper(action = ClaimantController.onSubmit()) {
+        @inputRadio(
             field = form("value"),
-            fieldsetClass = Some("inline"),
+            inline = true,
+            isPageHeading = false,
             legend = messages("claimant.heading"),
-            legendClass = Some("visually-hidden"),
-            inputs = Claimant.options.toSeq
+            legendClass = Some("govuk-visually-hidden"),
+            items = Claimant.options.toSeq.map { radioOption =>
+                RadioItem(
+                    content = Text(messages(radioOption.message.key)),
+                    id = Some(radioOption.id),
+                    value = Some(radioOption.value)
+                )
+            }
         )
-
-        @components.submit_button()
+        @submitButton()
     }
 }

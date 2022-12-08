@@ -19,10 +19,10 @@ package views
 import play.api.data.Form
 import forms.ClaimantFormProvider
 import models.Claimant
-import views.behaviours.ViewBehaviours
+import views.behaviours.NewViewBehaviours
 import views.html.ClaimantView
 
-class ClaimantViewSpec extends ViewBehaviours {
+class ClaimantViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = "claimant"
 

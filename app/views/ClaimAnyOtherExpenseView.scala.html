@@ -20,9 +20,9 @@
 @import components.back_link
 
 @this(
-        main_template: MainTemplate,
-        formHelper: FormWithCSRF,
-        appConfig: FrontendAppConfig
+    main_template: MainTemplate,
+    formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
+    appConfig: FrontendAppConfig
 )
 
 @(form: Form[_])(implicit request: Request[_], messages: Messages)
