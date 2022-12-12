@@ -20,10 +20,10 @@ import controllers.routes
 import forms.PaidTaxInRelevantYearFormProvider
 import play.api.data.Form
 import play.twirl.api.Html
-import views.behaviours.YesNoViewBehaviours
+import views.behaviours.{NewYesNoViewBehaviours, YesNoViewBehaviours}
 import views.html.PaidTaxInRelevantYearView
 
-class PaidTaxInRelevantYearViewSpec extends YesNoViewBehaviours {
+class PaidTaxInRelevantYearViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = s"paidTaxInRelevantYear.$claimant"
 
@@ -40,10 +40,10 @@ class PaidTaxInRelevantYearViewSpec extends YesNoViewBehaviours {
 
     "have the correct banner title" in {
       val doc = asDocument(createView(form))
-      val nav = doc.getElementById("proposition-menu")
-      val span = nav.children.first
+      val banner = doc.select(".hmrc-header__service-name")
 
-      span.text mustEqual messages("site.service_name")    }
+      banner.text() mustEqual messages("site.service_name")
+    }
 
     "display the correct browser title" in {
       val doc = asDocument(createView(form))
