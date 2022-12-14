@@ -69,7 +69,7 @@ registeredForSelfAssessment.someoneElse.heading = Does the person you are claimi
 registeredForSelfAssessment.someoneElse.error.required = Select yes if the person you are claiming for completes Self Assessment returns
 registeredForSelfAssessment.tax.year.specific.title = Are you going to complete a Self Assessment return for this tax year 2022-2023?
 registeredForSelfAssessment.tax.year.specific.heading = Are you going to complete a Self Assessment return for this tax year 2022-2023?
-registeredForSelfAssessment.tax.year.specific.error.required = Select yes if you are going to complete a Self Assessment return for this tax year 2021-2022
+registeredForSelfAssessment.tax.year.specific.error.required = Select yes if you are going to complete a Self Assessment return for this tax year 2022-2023
 
 registeredForSelfAssessment.accordion.summary = What is a Self Assessment tax return?
 registeredForSelfAssessment.you.accordion.guidance1 = You must complete a Self Assessment tax return if, in the last tax year (6 April to 5 April), you were:
@@ -341,11 +341,11 @@ willPayTax.someoneElse.title = Did they pay tax in each of the years they are cl
 willPayTax.someoneElse.heading = Did they pay tax in each of the years they are claiming for?
 willPayTax.someoneElse.error.required = Select yes if they have paid tax in each of the years you are claiming for
 
-claimingForCurrentYear.title = Are you only claiming for the current tax year 2021-2022?
-claimingForCurrentYear.heading = Are you only claiming for the current tax year 2021-2022?
+claimingForCurrentYear.title = Are you only claiming for the current tax year 2022-2023?
+claimingForCurrentYear.heading = Are you only claiming for the current tax year 2022-2023?
 claimingForCurrentYear.yes.text = You can claim tax relief for your working from home expenses for the current tax year using this service. You can do this before you send your Self Assessment tax return next year.
 claimingForCurrentYear.no.text = If you want to claim tax relief for previous years, you need to claim it on your Self Assessment tax return.
-claimingForCurrentYear.error.required = Select yes if you are only claiming for the current tax year 2021-2022
+claimingForCurrentYear.error.required = Select yes if you are only claiming for the current tax year 2022-2023
 
 whichYearsAreYouClaimingFor.you.title = Which years are you claiming tax relief for as a result of working from home?
 whichYearsAreYouClaimingFor.you.heading = Which years are you claiming tax relief for as a result of working from home?
