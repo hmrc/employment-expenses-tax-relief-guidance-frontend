@@ -14,18 +14,10 @@
  * limitations under the License.
  */
 
-package forms
+package utils
 
-import forms.mappings.Mappings
-import models.Claimant
-import play.api.data.Form
-import javax.inject.Inject
-import utils.TaxYearHelper.currentTaxYear
+import uk.gov.hmrc.time.TaxYear
 
-class RegisteredForSelfAssessmentSelfAssessmentFormProvider @Inject() extends Mappings {
-
-  def apply(claimant: Claimant): Form[Boolean] =
-    Form(
-      "value" -> boolean(s"registeredForSelfAssessment.tax.year.specific.error.required", currentTaxYear)
-    )
+object TaxYearHelper {
+  def currentTaxYear: String = s"${TaxYear.current.startYear.toString}-${TaxYear.current.finishYear.toString}"
 }

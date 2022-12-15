@@ -14,8 +14,6 @@
  * limitations under the License.
  *@
 
-@import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html._
 @import controllers.routes._
 @import models.Claimant
 
@@ -32,8 +30,8 @@
 @(form: Form[_])(implicit request: Request[_], messages: Messages)
 
 @detailsContent = {
-    <p>@messages("claimant.hidden.guidance1")</p>
-    <p>
+    <p class="govuk-body">@messages("claimant.hidden.guidance1")</p>
+    <p class="govuk-body">
         <span class="govuk-!-font-weight-bold">@messages("claimant.hidden.heading")</span><br/>
         @messages("claimant.hidden.guidance2")
     </p>

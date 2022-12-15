@@ -20,10 +20,10 @@ import controllers.routes
 import forms.RegisteredForSelfAssessmentFormProvider
 import play.api.data.Form
 import play.twirl.api.Html
-import views.behaviours.YesNoViewBehaviours
+import views.behaviours.{NewYesNoViewBehaviours, YesNoViewBehaviours}
 import views.html.RegisteredForSelfAssessmentView
 
-class RegisteredForSelfAssessmentViewSpec extends YesNoViewBehaviours {
+class RegisteredForSelfAssessmentViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = s"registeredForSelfAssessment.$claimant"
 

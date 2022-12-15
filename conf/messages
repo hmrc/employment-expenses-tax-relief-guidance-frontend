@@ -67,9 +67,9 @@ registeredForSelfAssessment.you.error.required = Select yes if you complete Self
 registeredForSelfAssessment.someoneElse.title = Does the person you are claiming for complete Self Assessment returns?
 registeredForSelfAssessment.someoneElse.heading = Does the person you are claiming for complete Self Assessment returns?
 registeredForSelfAssessment.someoneElse.error.required = Select yes if the person you are claiming for completes Self Assessment returns
-registeredForSelfAssessment.tax.year.specific.title = Are you going to complete a Self Assessment return for this tax year 2022-2023?
-registeredForSelfAssessment.tax.year.specific.heading = Are you going to complete a Self Assessment return for this tax year 2022-2023?
-registeredForSelfAssessment.tax.year.specific.error.required = Select yes if you are going to complete a Self Assessment return for this tax year 2021-2022
+registeredForSelfAssessment.tax.year.specific.title = Are you going to complete a Self Assessment return for this tax year {0}?
+registeredForSelfAssessment.tax.year.specific.heading = Are you going to complete a Self Assessment return for this tax year {0}?
+registeredForSelfAssessment.tax.year.specific.error.required = Select yes if you are going to complete a Self Assessment return for this tax year {0}
 
 registeredForSelfAssessment.accordion.summary = What is a Self Assessment tax return?
 registeredForSelfAssessment.you.accordion.guidance1 = You must complete a Self Assessment tax return if, in the last tax year (6 April to 5 April), you were:
