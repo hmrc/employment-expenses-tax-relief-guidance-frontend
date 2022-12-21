@@ -92,10 +92,10 @@ claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if the
 
 useSelfAssessment.you.title = You can only claim these expenses using Self Assessment
 useSelfAssessment.you.heading = You can only claim these expenses using Self Assessment
-useSelfAssessment.you.guidance = You must claim these expenses as part of your {0}.
+useSelfAssessment.you.guidance = You must claim these expenses as part of your
 useSelfAssessment.someoneElse.title = They can only claim these expenses using Self Assessment
 useSelfAssessment.someoneElse.heading = They can only claim these expenses using Self Assessment
-useSelfAssessment.someoneElse.guidance = They must claim these expenses as part of their {0}.
+useSelfAssessment.someoneElse.guidance = They must claim these expenses as part of their
 useSelfAssessment.link.label =  Self Assessment tax return
 
 moreThanFiveJobs.title = Are you claiming tax relief for more than 5 different jobs?
