@@ -16,10 +16,10 @@
 
 package views
 
-import views.behaviours.ViewBehaviours
+import views.behaviours.NewViewBehaviours
 import views.html.CannotClaimReliefView
 
-class CannotClaimReliefViewSpec extends ViewBehaviours {
+class CannotClaimReliefViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = s"cannotClaimRelief.$claimant"
 

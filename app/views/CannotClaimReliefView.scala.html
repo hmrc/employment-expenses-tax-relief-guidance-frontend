@@ -18,18 +18,15 @@
 @import components.back_link
 
 @this(
-        main_template: MainTemplate,
-        appConfig: FrontendAppConfig
+        layout: Layout,
+        appConfig: FrontendAppConfig,
+        heading: playComponents.heading
 )
 
 @(claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
-    @main_template(
-        title = messages(s"cannotClaimRelief.$claimant.title")
+    @layout(
+        pageTitle = messages(s"cannotClaimRelief.$claimant.title")
     ) {
-
-        @back_link()
-
-        @components.heading(s"cannotClaimRelief.$claimant.heading")
-
+        @heading(messages(s"cannotClaimRelief.$claimant.heading"))
     }
