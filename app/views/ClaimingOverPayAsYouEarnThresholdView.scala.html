@@ -20,30 +20,30 @@
 @import components.back_link
 
 @this(
-  main_template: MainTemplate,
-  formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
+    appConfig: FrontendAppConfig,
+    errorSummary: playComponents.error_summary,
+    inputYesNoRadio: playComponents.input_yes_no,
+    submitButton: playComponents.submit_button
 )
 
 @(form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = s"${errorPrefix(form)} ${messages(s"claimingOverPayAsYouEarnThreshold.$claimant.title")}"
+@layout(
+    pageTitle = s"${errorPrefix(form)} ${messages(s"claimingOverPayAsYouEarnThreshold.$claimant.title")}"
 ) {
 
-    @back_link()
+    @errorSummary(form.errors)
 
-    @formHelper(action = ClaimingOverPayAsYouEarnThresholdController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = ClaimingOverPayAsYouEarnThresholdController.onSubmit()) {
 
-        @components.error_summary(form.errors)
-
-        @components.input_yes_no(
+        @inputYesNoRadio(
             field = form("value"),
-            label = messages(s"claimingOverPayAsYouEarnThreshold.$claimant.heading"),
-            labelClass = Some("heading-large"),
-            headingIsLegend = true
+            label = messages(s"claimingOverPayAsYouEarnThreshold.$claimant.heading")
         )
 
-        @components.submit_button()
+        @submitButton()
     }
+
 }
