@@ -18,24 +18,25 @@
 @import components.back_link
 
 @this(
-  main_template: MainTemplate,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    heading: playComponents.heading,
+    appConfig: FrontendAppConfig
 )
 
 @(claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = messages(s"registerForSelfAssessment.$claimant.title")
+@saLink = {<a  class="govuk-link" rel="noreferrer noopener" target="_blank" href=@appConfig.fileSelfAssessmentLoginUrl>@messages("registerForSelfAssessment.link.external.label")</a>}
+
+@layout(
+    pageTitle = messages(s"registerForSelfAssessment.$claimant.title")
 ) {
 
-    @back_link()
+    @heading(messages(s"registerForSelfAssessment.$claimant.heading"))
 
-    @components.heading(s"registerForSelfAssessment.$claimant.heading")
+    <p class="govuk-body">@messages("registerForSelfAssessment.guidance1")</p>
 
-    <p>@messages("registerForSelfAssessment.guidance1")</p>
-    <p>@messages("registerForSelfAssessment.guidance2")
-        <a id="link" href=@appConfig.fileSelfAssessmentLoginUrl
-           data-journey-click="link - click:@messages(s"registerForSelfAssessment.$claimant.heading"):@messages("registerForSelfAssessment.link.external.label")">
-            @messages("registerForSelfAssessment.link.external.label")</a>.
+    <p class="govuk-body">
+        @messages("registerForSelfAssessment.guidance2")
+        @saLink .
     </p>
 }

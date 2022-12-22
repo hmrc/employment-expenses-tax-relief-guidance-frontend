@@ -18,20 +18,17 @@ package controllers
 
 import base.SpecBase
 import connectors.DataCacheConnector
-import forms.{RegisteredForSelfAssessmentFormProvider, WhichYearsAreYouClaimingForFormProvider}
-import identifiers.{ClaimAnyOtherExpenseId, ClaimantId, RegisteredForSelfAssessmentId, WhichYearsAreYouClaimingForId}
+import forms.WhichYearsAreYouClaimingForFormProvider
+import identifiers.{ClaimantId, RegisteredForSelfAssessmentId}
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.inject.bind
 import play.api.libs.json.{JsBoolean, JsString}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.{FakeNavigator, Navigator}
-import views.html.{RegisteredForSelfAssessmentView, WhichYearsAreYouClaimingForView}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -69,7 +66,6 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
       val application = applicationBuilder(Some(claimantIdCacheMap)).build
       val request = FakeRequest(GET, whichYearsAreYouClaimingForRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[WhichYearsAreYouClaimingForView]
 
       status(result) mustBe OK
       application.stop

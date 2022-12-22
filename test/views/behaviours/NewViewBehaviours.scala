@@ -97,12 +97,13 @@ trait NewViewBehaviours extends NewViewSpecBase {
 
   def pageWithHyperLink(view: HtmlFormat.Appendable,
                         url: String,
-                        id: String = "link"): Unit = {
+                        id: String = "govuk-link",
+                        index: Int = 1): Unit = {
 
     "behave like a page with a url link" must {
       "display link" in {
         val doc = asDocument(view)
-        doc.getElementById(id).attr("href") mustBe url
+        doc.getElementsByClass(id).get(index).attr("href") mustBe url
       }
     }
   }
