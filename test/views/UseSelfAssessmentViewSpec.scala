@@ -17,10 +17,10 @@
 package views
 
 import models.Claimant.You
-import views.behaviours.ViewBehaviours
+import views.behaviours.{NewViewBehaviours, ViewBehaviours}
 import views.html.UseSelfAssessmentView
 
-class UseSelfAssessmentViewSpec extends ViewBehaviours {
+class UseSelfAssessmentViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = "useSelfAssessment.you"
 
