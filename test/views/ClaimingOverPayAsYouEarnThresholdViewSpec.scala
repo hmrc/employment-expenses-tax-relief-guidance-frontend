@@ -20,10 +20,10 @@ import controllers.routes
 import forms.ClaimingOverPayAsYouEarnThresholdFormProvider
 import play.api.data.Form
 import play.twirl.api.Html
-import views.behaviours.YesNoViewBehaviours
+import views.behaviours.NewYesNoViewBehaviours
 import views.html.ClaimingOverPayAsYouEarnThresholdView
 
-class ClaimingOverPayAsYouEarnThresholdViewSpec extends YesNoViewBehaviours {
+class ClaimingOverPayAsYouEarnThresholdViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = s"claimingOverPayAsYouEarnThreshold.$claimant"
 
