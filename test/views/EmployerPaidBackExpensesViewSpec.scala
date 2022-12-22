@@ -20,10 +20,10 @@ import controllers.routes
 import forms.EmployerPaidBackExpensesFormProvider
 import play.api.data.Form
 import play.twirl.api.Html
-import views.behaviours.YesNoViewBehaviours
+import views.behaviours.NewYesNoViewBehaviours
 import views.html.EmployerPaidBackExpensesView
 
-class EmployerPaidBackExpensesViewSpec extends YesNoViewBehaviours {
+class EmployerPaidBackExpensesViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = s"employerPaidBackExpenses.$claimant"
 
