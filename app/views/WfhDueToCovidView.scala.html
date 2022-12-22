@@ -14,36 +14,28 @@
  * limitations under the License.
  *@
 
-@import config.FrontendAppConfig
 @import uk.gov.hmrc.play.views.html._
 @import controllers.routes._
-@import components.back_link
 
 @this(
-        main_template: MainTemplate,
-        formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
-        appConfig: FrontendAppConfig
+    layout: Layout,
+    formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
+    errorSummary: playComponents.error_summary,
+    inputYesNoRadio: playComponents.input_yes_no,
+    submitButton: playComponents.submit_button
 )
 
 @(form: Form[_])(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = s"${errorPrefix(form)} ${messages("covidHomeWorking.title")}"
+@layout(
+    pageTitle = s"${errorPrefix(form)} ${messages("covidHomeWorking.title")}"
 ) {
-
-    @back_link()
-
     @formHelper(action = WfhDueToCovidController.onSubmit(), 'autoComplete -> "off") {
-
-        @components.error_summary(form.errors)
-
-        @components.input_yes_no(
+        @errorSummary(form.errors)
+        @inputYesNoRadio(
             field = form("value"),
             label = messages("covidHomeWorking.heading"),
-            labelClass = Some("heading-large"),
-            headingIsLegend = true
         )
-
-        @components.submit_button()
+        @submitButton()
     }
 }
