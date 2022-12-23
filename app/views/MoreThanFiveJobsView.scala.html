@@ -20,30 +20,30 @@
 @import components.back_link
 
 @this(
-  main_template: MainTemplate,
-  formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    errorSummary: playComponents.error_summary,
+    heading: playComponents.heading,
+    inputYesNoRadio: playComponents.input_yes_no,
+    formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
+    appConfig: FrontendAppConfig,
+    submitButton: playComponents.submit_button
 )
 
 @(form: Form[_])(implicit request: Request[_], messages: Messages)
 
-@main_template(
-  title = s"${errorPrefix(form)} ${messages("moreThanFiveJobs.title")}"
+@layout(
+    pageTitle = s"${errorPrefix(form)} ${messages("moreThanFiveJobs.title")}"
 ) {
 
-    @back_link()
+    @errorSummary(form.errors)
 
-    @formHelper(action = MoreThanFiveJobsController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = MoreThanFiveJobsController.onSubmit()) {
 
-        @components.error_summary(form.errors)
-
-        @components.input_yes_no(
+        @inputYesNoRadio(
             field = form("value"),
-            label = messages("moreThanFiveJobs.heading"),
-            labelClass = Some("heading-large"),
-            headingIsLegend = true
+            label = messages("moreThanFiveJobs.heading")
         )
 
-        @components.submit_button()
+        @submitButton()
     }
 }

@@ -19,10 +19,10 @@ package views
 import play.api.data.Form
 import controllers.routes
 import forms.MoreThanFiveJobsFormProvider
-import views.behaviours.YesNoViewBehaviours
+import views.behaviours.NewYesNoViewBehaviours
 import views.html.MoreThanFiveJobsView
 
-class MoreThanFiveJobsViewSpec extends YesNoViewBehaviours {
+class MoreThanFiveJobsViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = "moreThanFiveJobs"
 
