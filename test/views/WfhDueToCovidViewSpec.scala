@@ -19,10 +19,10 @@ package views
 import controllers.routes
 import forms.CovidHomeWorkingFormProvider
 import play.api.data.Form
-import views.behaviours.YesNoViewBehaviours
+import views.behaviours.{NewYesNoViewBehaviours, YesNoViewBehaviours}
 import views.html.WfhDueToCovidView
 
-class WfhDueToCovidViewSpec extends YesNoViewBehaviours {
+class WfhDueToCovidViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = "covidHomeWorking"
 
