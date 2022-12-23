@@ -14,18 +14,18 @@
  * limitations under the License.
  *@
 
+@this(govukButton: GovukButton)
+
 @(
-messageKey: String = "",
-href: String,
-id: Option[String] = None,
-gaEvent: Option[String] = None,
-        additionalClasses: Seq[String] = Nil
+    content: String,
+    href: String,
+    id: Option[String] = None,
 )(implicit messages: Messages)
 
-<div class="section">
-    <a href="@href"
-       role="button"
-       class="@{("button" +: additionalClasses).mkString(" ")}"
-       @if(id.isDefined){id="@id"}
-       @if(gaEvent.isDefined){data-journey-click="@gaEvent"}>@messages(messageKey)</a>
-</div>
+<p>
+    @govukButton(Button(
+        content = Text(content),
+        href = Some(href),
+        attributes = (id.map(buttonId => Seq("id" -> buttonId)).getOrElse(Nil)).toMap
+    ))
+</p>
