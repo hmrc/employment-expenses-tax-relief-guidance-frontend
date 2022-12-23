@@ -16,10 +16,10 @@
 
 package views
 
-import views.behaviours.ViewBehaviours
+import views.behaviours.NewViewBehaviours
 import views.html.UsePrintAndPostView
 
-class UsePrintAndPostViewSpec extends ViewBehaviours {
+class UsePrintAndPostViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = "usePrintAndPost"
 
