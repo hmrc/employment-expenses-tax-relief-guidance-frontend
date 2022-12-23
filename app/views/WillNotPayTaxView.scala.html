@@ -15,28 +15,26 @@
  *@
 
 @import config.FrontendAppConfig
-@import components.back_link
 @import uk.gov.hmrc.time.TaxYear
 @import controllers.routes._
 
 @this(
-  main_template: MainTemplate,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    appConfig: FrontendAppConfig,
+    heading: playComponents.heading
 )
 
 @(claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
 
-@link = {<a href="@routes.RegisteredForSelfAssessmentController.onPageLoad()">@messages("willNotPayTax.link2", TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)</a>}
+@link = {<a class="govuk-link" href="@routes.RegisteredForSelfAssessmentController.onPageLoad()">@messages("willNotPayTax.link2", TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)</a>}
 
-@main_template(
-    title = messages(s"willNotPayTax.$claimant.title")
+@layout(
+    pageTitle = messages(s"willNotPayTax.$claimant.title")
 ) {
 
-    @back_link()
+    @heading(messages(s"willNotPayTax.$claimant.heading"))
 
-    @components.heading(s"willNotPayTax.$claimant.heading")
+    <p class="govuk-body"><a class="govuk-link" href="@appConfig.taxReliefForEmployeesUrl">@messages(s"willNotPayTax.$claimant.guidance1")</a>.</p>
 
-    <p><a href="@appConfig.taxReliefForEmployeesUrl">@messages(s"willNotPayTax.$claimant.guidance1")</a></p>
-
-    <p>@Html(messages(s"willNotPayTax.$claimant.guidance2", link))</p>
+    <p class="govuk-body">@Html(messages(s"willNotPayTax.$claimant.guidance2", link))</p>
 }

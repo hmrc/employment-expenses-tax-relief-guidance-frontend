@@ -20,10 +20,10 @@ import controllers.routes
 import models.Claimant.You
 import play.twirl.api.Html
 import uk.gov.hmrc.time.TaxYear
-import views.behaviours.ViewBehaviours
+import views.behaviours.{NewViewBehaviours, ViewBehaviours}
 import views.html.WillNotPayTaxView
 
-class WillNotPayTaxViewSpec extends ViewBehaviours {
+class WillNotPayTaxViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = "willNotPayTax.you"
 
@@ -42,9 +42,9 @@ class WillNotPayTaxViewSpec extends ViewBehaviours {
 
     behave like pageWithBackLink(createView)
 
-    val link1 = s"""<a href="${frontendAppConfig.taxReliefForEmployeesUrl}">${messages(s"willNotPayTax.$claimant.guidance1")}</a>"""
+    val link1 = s"""<a class="govuk-link" href="${frontendAppConfig.taxReliefForEmployeesUrl}">${messages(s"willNotPayTax.$claimant.guidance1")}</a>"""
 
-    val link2 = Html(s"""<a href="${routes.RegisteredForSelfAssessmentController.onPageLoad}">${messages("willNotPayTax.link2", TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)}</a>""")
+    val link2 = Html(s"""<a class="govuk-link" href="${routes.RegisteredForSelfAssessmentController.onPageLoad}">${messages("willNotPayTax.link2", TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)}</a>""")
 
     behave like pageWithBodyText(
       createView,
