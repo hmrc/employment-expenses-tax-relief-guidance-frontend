@@ -19,6 +19,7 @@
 @(content: Option[String] = None, href: Option[String] = None)(implicit messages: Messages)
 
 @govukButton(Button(
+    href = href,
     content = Text(content.getOrElse(messages("site.save_and_continue"))),
     attributes = Map("id" -> "submit")
 ))
