@@ -21,31 +21,40 @@
 @import components.back_link
 
 @this(
-  main_template: MainTemplate,
-  formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
-  appConfig: FrontendAppConfig
+    main_template: MainTemplate,
+    layout: Layout,
+    formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
+    appConfig: FrontendAppConfig,
+    errorSummary: playComponents.error_summary,
+    heading: playComponents.heading,
+    govUkCheckboxes: GovukCheckboxes,
+    submitButton: playComponents.submit_button
 )
 
 @(form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = s"${errorPrefix(form)} ${messages(s"claimingFor.$claimant.title")}"
+@layout(
+    pageTitle = s"${errorPrefix(form)} ${messages(s"claimingFor.$claimant.title")}"
 ) {
+    @errorSummary(form.errors, Some("claimingFor.homeWorking"))
 
-    @back_link()
+    @heading(messages(s"claimingFor.$claimant.heading"))
 
-    @formHelper(action = ClaimingForController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = ClaimingForController.onSubmit()) {
 
-        @components.error_summary(form.errors)
+        @govUkCheckboxes(Checkboxes(
+            fieldset = Some(Fieldset(
+                legend = Some(Legend(
+                    content = Text(messages(s"claimingFor.$claimant.heading")),
+                    classes = "govuk-visually-hidden",
+                    isPageHeading = false
+                ))
+            )),
+            name = "value",
+            items = ClaimingFor.options(claimant),
+            errorMessage = form.errors.headOption.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
+        ))
 
-        @components.input_checkboxes(
-            field = form("value"),
-            legend = messages(s"claimingFor.$claimant.heading"),
-            legendClass = Some("heading-large"),
-            inputs = ClaimingFor.options(claimant),
-            headingIsLegend = true
-        )
-
-        @components.submit_button()
+        @submitButton()
     }
 }

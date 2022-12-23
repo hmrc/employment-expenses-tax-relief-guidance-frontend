@@ -17,7 +17,10 @@
 package models
 
 import play.api.i18n.Messages
-import utils.{Enumerable, Message, RadioOption, WithName}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
+import utils.{Enumerable, WithName}
 import views.html.components.link_start
 
 sealed trait ClaimingFor
@@ -36,7 +39,7 @@ object ClaimingFor {
     HomeWorking, UniformsClothingTools, MileageFuel, TravelExpenses, FeesSubscriptions, BuyingEquipment, Other
   )
 
-  def options(claimant: Claimant)(implicit messages: Messages): List[RadioOption] = {
+  def options(claimant: Claimant)(implicit messages: Messages): List[CheckboxItem] = {
 
     val feesOption = {
 
@@ -45,50 +48,69 @@ object ClaimingFor {
       val start = link_start(href, eventBody, newWindow = true)
       val end = "</a>"
 
-      new RadioOption(
-        s"claimingFor.$FeesSubscriptions",
-        FeesSubscriptions.toString,
-        Message(s"claimingFor.$FeesSubscriptions"),
-        Some(Message(s"claimingFor.$FeesSubscriptions.$claimant.description", start, end))
+      new CheckboxItem(
+        name = Some("value[4]"),
+        id = Some(s"claimingFor.$FeesSubscriptions"),
+        value = FeesSubscriptions.toString,
+        content = Text(messages(s"claimingFor.$FeesSubscriptions")),
+        hint = Some(Hint(
+          content = HtmlContent(messages(s"claimingFor.$FeesSubscriptions.$claimant.description", start, end)))
+        )
       )
     }
 
     List(
-      new RadioOption(
-        s"claimingFor.$HomeWorking",
-        HomeWorking.toString,
-        Message(s"claimingFor.$HomeWorking"),
-        Some(Message(s"claimingFor.$HomeWorking.$claimant.description"))
+      new CheckboxItem(
+        name = Some("value[0]"),
+        id = Some(s"claimingFor.$HomeWorking"),
+        value = HomeWorking.toString,
+        content = Text(messages(s"claimingFor.$HomeWorking")),
+        hint = Some(Hint(
+          content = HtmlContent(messages(s"claimingFor.$HomeWorking.$claimant.description")))
+        )
       ),
-      new RadioOption(
-        s"claimingFor.$UniformsClothingTools",
-        UniformsClothingTools.toString,
-        Message(s"claimingFor.$UniformsClothingTools"),
-        Some(Message(s"claimingFor.$UniformsClothingTools.$claimant.description"))
-    ),
-      new RadioOption(
-        s"claimingFor.$MileageFuel",
-        MileageFuel.toString,
-        Message(s"claimingFor.$claimant.$MileageFuel"),
-        Some(Message(s"claimingFor.$MileageFuel.$claimant.description"))
-    ),
-      new RadioOption(
-        s"claimingFor.$TravelExpenses",
-        TravelExpenses.toString,
-        Message(s"claimingFor.$TravelExpenses"),
-        Some(Message(s"claimingFor.$TravelExpenses.$claimant.description"))
+      new CheckboxItem(
+        name = Some("value[1]"),
+        id = Some(s"claimingFor.$UniformsClothingTools"),
+        value = UniformsClothingTools.toString,
+        content = Text(messages(s"claimingFor.$UniformsClothingTools")),
+        hint = Some(Hint(
+          content = HtmlContent(messages(s"claimingFor.$UniformsClothingTools.$claimant.description")))
+        )
+      ),
+      new CheckboxItem(
+        name = Some("value[2]"),
+        id = Some(s"claimingFor.$MileageFuel"),
+        value = MileageFuel.toString,
+        content = Text(messages(s"claimingFor.$claimant.$MileageFuel")),
+        hint = Some(Hint(
+          content = HtmlContent(messages(s"claimingFor.$MileageFuel.$claimant.description")))
+        )
+      ),
+      new CheckboxItem(
+        name = Some("value[3]"),
+        id = Some(s"claimingFor.$TravelExpenses"),
+        value = TravelExpenses.toString,
+        content = Text(messages(s"claimingFor.$TravelExpenses")),
+        hint = Some(Hint(
+          content = HtmlContent(messages(s"claimingFor.$TravelExpenses.$claimant.description")))
+        )
       ),
       feesOption,
-      new RadioOption(
-        s"claimingFor.$BuyingEquipment",
-        BuyingEquipment.toString,
-        Message(s"claimingFor.$BuyingEquipment"),
-        Some(Message(s"claimingFor.$BuyingEquipment.$claimant.description"))
+      new CheckboxItem(
+        name = Some("value[5]"),
+        id = Some(s"claimingFor.$BuyingEquipment"),
+        value = BuyingEquipment.toString,
+        content = Text(messages(s"claimingFor.$BuyingEquipment")),
+        hint = Some(Hint(
+          content = HtmlContent(messages(s"claimingFor.$BuyingEquipment.$claimant.description")))
+        )
       ),
-      new RadioOption(
-        s"claimingFor.$Other",
-        Other.toString,
-        Message(s"claimingFor.$Other")
+      new CheckboxItem(
+        name = Some("value[6]"),
+        id = Some(s"claimingFor.$Other"),
+        value = Other.toString,
+        content = Text(messages(s"claimingFor.$Other"))
       )
     )
   }
