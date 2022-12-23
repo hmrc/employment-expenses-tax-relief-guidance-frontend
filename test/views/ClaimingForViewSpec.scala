@@ -18,25 +18,43 @@ package views
 
 import forms.ClaimingForFormProvider
 import models.{Claimant, ClaimingFor}
+import play.api.Application
 import play.api.data.Form
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import utils.RadioOption
-import views.behaviours.ViewBehaviours
+import views.behaviours.CheckboxViewBehaviours
 import views.html.ClaimingForView
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 
-class ClaimingForViewSpec extends ViewBehaviours {
+class ClaimingForViewSpec extends CheckboxViewBehaviours[ClaimingFor] {
 
-  val messageKeyPrefix = s"claimingFor.$claimant"
+  val messageKeyPrefix: String = s"claimingFor.$claimant"
 
-  val application = applicationBuilder().build
+  val application: Application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[ClaimingForView]
+  val view: ClaimingForView = application.injector.instanceOf[ClaimingForView]
 
   val form = new ClaimingForFormProvider()(claimant)
 
-  def createView(form: Form[_]) = view.apply(form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]): HtmlFormat.Appendable = view.apply(form, claimant)(fakeRequest, messages)
+
+  def checkboxItem(keyPrefix: String, option: String): CheckboxItem = {
+    new CheckboxItem(
+      name = Some("value[0]"),
+      id = Some(s"claimingFor.$keyPrefix"),
+      value = keyPrefix,
+      content = Text(messages(s"claimingFor.$keyPrefix")),
+      hint = Some(Hint(
+        content = HtmlContent(messages(s"claimingFor.$keyPrefix.$claimant.description")))
+      )
+    )
+  }
 
   "ClaimingFor view" must {
     behave like normalPage(createView(form), messageKeyPrefix)
+    behave like checkboxPage(form, createView, messageKeyPrefix, ClaimingFor.options(claimant))
   }
 
   "ClaimingFor view" when {
@@ -47,19 +65,7 @@ class ClaimingForViewSpec extends ViewBehaviours {
       "contain checkboxes for each option" in {
         val doc = asDocument(createView(form))
         for ((option, index) <- ClaimingFor.options(Claimant.You).zipWithIndex) {
-          assertContainsRadioButton(doc, option.id, s"value[$index]", option.value, false)
-        }
-      }
-    }
-
-    for((option, index) <- ClaimingFor.values.zipWithIndex) {
-
-      s"rendered with a value of '${option.toString}'" must {
-
-        s"have the '${option.toString}' checkbox selected" in {
-          val doc = asDocument(createView(form.fill(Set(option))))
-          val radioOption = RadioOption("claimingFor", option.toString)
-          assertContainsRadioButton(doc, radioOption.id, s"value[$index]", option.toString, true)
+          assertContainsRadioButton(doc, option.id.get, s"value[$index]", option.value, false)
         }
       }
     }
