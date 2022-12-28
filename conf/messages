@@ -326,11 +326,11 @@ cannotClaimBuyingEquipment.link.label3 = other expenses
 
 willNotPayTax.you.title =  You cannot claim these expenses
 willNotPayTax.you.heading =  You cannot claim these expenses
-willNotPayTax.you.guidance1 = You can only claim these expenses if you paid tax in each tax year you are claiming for.
+willNotPayTax.you.guidance1 = You can only claim these expenses if you paid tax in each tax year you are claiming for
 willNotPayTax.you.guidance2 = You can still {0} but you will not get any expenses back unless you pay tax.
 willNotPayTax.someoneElse.title =  They cannot claim these expenses
 willNotPayTax.someoneElse.heading =  They cannot claim these expenses
-willNotPayTax.someoneElse.guidance1 = They can only claim these expenses if they paid tax in each tax year they are claiming for.
+willNotPayTax.someoneElse.guidance1 = They can only claim these expenses if they paid tax in each tax year they are claiming for
 willNotPayTax.someoneElse.guidance2 = They can still {0} but they will not get any expenses back unless they pay tax.
 willNotPayTax.link2 = claim expenses for this tax year (6 April {0} to 5 April {1})
 
