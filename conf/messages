@@ -398,3 +398,7 @@ disclaimer.warning1 = Guidance has changed for the new tax year.
 disclaimer.warning2 = You must ensure you meet the rules for claiming, as you may be prosecuted if you deliberately give incorrect or misleading information.
 disclaimer.accept = By clicking accept and continue, you are accepting that you meet the rules for the years you are claiming for.
 disclaimer.button.continue = Accept and continue
+
+timeout.message = For your security, we will delete your answers and you will be signed out in
+timeout.continue = Get another 15 minutes
+timeout.exit = Sign out now

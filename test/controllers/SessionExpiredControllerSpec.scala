@@ -35,7 +35,8 @@ class SessionExpiredControllerSpec extends SpecBase with MockitoSugar {
 
     val mockAppConfig = mock[FrontendAppConfig]
     when(mockAppConfig.taxReliefForEmployeesUrl).thenReturn("https://www.gov.uk/tax-relief-for-employees")
-
+    when(mockAppConfig.contactFormServiceIdentifier).thenReturn("test")
+    when(mockAppConfig.contactHost).thenReturn("https://www.gov.uk/")
     val application = applicationBuilder()
       .overrides(bind[FrontendAppConfig].toInstance(mockAppConfig))
       .build()
