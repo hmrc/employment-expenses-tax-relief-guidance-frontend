@@ -18,10 +18,10 @@ package views
 
 import controllers.routes
 import play.twirl.api.Html
-import views.behaviours.ViewBehaviours
+import views.behaviours.{NewViewBehaviours, ViewBehaviours}
 import views.html.SessionExpiredView
 
-class SessionExpiredViewSpec extends ViewBehaviours {
+class SessionExpiredViewSpec extends NewViewBehaviours {
 
   val application = applicationBuilder().build
 

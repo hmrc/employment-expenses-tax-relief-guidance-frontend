@@ -14,20 +14,20 @@
  * limitations under the License.
  *@
 
-@import config.FrontendAppConfig
-
 @this(
-  main_template: MainTemplate,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    heading: playComponents.heading,
+    buttonLink: playComponents.button_link
 )
 
 @(startAgain: Call)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = messages("session_expired.title")
+@layout(
+    pageTitle = messages("session_expired.title"),
+    timeoutEnabled = false
 ) {
 
-    @components.heading("session_expired.heading")
+    @heading(messages("session_expired.heading"))
 
-    @components.button_link("session_expired.startAgain.link", startAgain.url)
+    @buttonLink(messages("session_expired.startAgain.link"), startAgain.url)
 }
