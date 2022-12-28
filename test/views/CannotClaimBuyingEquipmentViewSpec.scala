@@ -18,10 +18,10 @@ package views
 
 import models.Claimant.You
 import play.api.mvc.Call
-import views.behaviours.ViewBehaviours
+import views.behaviours.{NewViewBehaviours, ViewBehaviours}
 import views.html.CannotClaimBuyingEquipmentView
 
-class CannotClaimBuyingEquipmentViewSpec extends ViewBehaviours {
+class CannotClaimBuyingEquipmentViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = "cannotClaimBuyingEquipment.you"
 
