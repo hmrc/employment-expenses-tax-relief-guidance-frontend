@@ -14,95 +14,75 @@
  * limitations under the License.
  *@
 
-@import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html._
 @import models.Claimant
 @import controllers.routes._
-@import components.back_link
 
 @this(
-  main_template: MainTemplate,
-  formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
+    heading: playComponents.heading,
+    errorSummary: playComponents.error_summary,
+    submitButton: playComponents.submit_button,
+    inputYesNoRadio: playComponents.input_yes_no,
+    govukDetails : GovukDetails,
 )
 
 @(form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = s"${errorPrefix(form)} ${messages(s"claimingMileage.$claimant.title")}"
-) {
+@detailsContent = {
+    <h2 class="govuk-heading-s">@messages("claimingMileage.hidden.cars.heading")</h2>
+    <p class="govuk-body">
+        @messages("claimingMileage.hidden.cars.guidance1")
+    </p>
 
-    @back_link()
+    <p class="govuk-body">
+        @messages("claimingMileage.hidden.cars.guidance2")
+    </p>
+    <h2 class="govuk-heading-s">@messages("claimingMileage.hidden.motorcycles.heading")</h2>
+
+    <p class="govuk-body">
+        @messages("claimingMileage.hidden.motorcycles.guidance")
+    </p>
+    <h2 class="govuk-heading-s">@messages("claimingMileage.hidden.bicycles.heading")</h2>
+
+    <p class="govuk-body">
+        @messages("claimingMileage.hidden.bicycles.guidance")
+    </p>
+}
+
+@layout(
+    pageTitle = s"${errorPrefix(form)} ${messages(s"claimingMileage.$claimant.title")}"
+) {
+    @errorSummary(form.errors)
+    @heading(messages(s"claimingMileage.$claimant.heading"))
+    <p class="govuk-body">@messages(s"claimingMileage.$claimant.guidance")</p>
+
+    <ul class="govuk-list govuk-list--bullet">
+        <li>@messages("claimingMileage.guidance.bullet1")</li>
+        <li>@messages("claimingMileage.guidance.bullet2")</li>
+        <li>@messages("claimingMileage.guidance.bullet3")</li>
+        <li>@messages("claimingMileage.guidance.bullet4")</li>
+        <li>@messages("claimingMileage.guidance.bullet5")</li>
+    </ul>
+
+    <p class="govuk-body">
+        @messages(s"claimingMileage.$claimant.guidance2")
+    </p>
+
+    @govukDetails(Details(
+        summary = Text(messages("claimingMileage.hidden.summary")),
+        content = HtmlContent(detailsContent)
+    ))
 
     @formHelper(action = ClaimingMileageController.onSubmit(), 'autoComplete -> "off") {
 
-        @components.error_summary(form.errors)
-
-        @components.heading(s"claimingMileage.$claimant.heading")
-
-        <p>@messages(s"claimingMileage.$claimant.guidance")</p>
-
-
-        <ul class="list list-bullet">
-            <li>@messages("claimingMileage.guidance.bullet1")</li>
-            <li>@messages("claimingMileage.guidance.bullet2")</li>
-            <li>@messages("claimingMileage.guidance.bullet3")</li>
-            <li>@messages("claimingMileage.guidance.bullet4")</li>
-            <li>@messages("claimingMileage.guidance.bullet5")</li>
-        </ul>
-
-        <p>
-          @messages(s"claimingMileage.$claimant.guidance2")
-        </p>
-
-        <details class="form-group">
-
-          <summary data-journey-click="accordion - click:@messages(s"claimingMileage.$claimant.heading"):@messages("claimingMileage.hidden.summary")">
-            <span class="summary">
-              @messages("claimingMileage.hidden.summary")
-            </span>
-          </summary>
-
-          <div class="panel panel-border-narrow">
-
-            <h2 class="heading-small">
-              @messages("claimingMileage.hidden.cars.heading")
-            </h2>
-
-            <p>
-              @messages("claimingMileage.hidden.cars.guidance1")
-            </p>
-
-            <p>
-              @messages("claimingMileage.hidden.cars.guidance2")
-            </p>
-
-            <h2 class="heading-small">
-              @messages("claimingMileage.hidden.motorcycles.heading")
-            </h2>
-
-            <p>
-              @messages("claimingMileage.hidden.motorcycles.guidance")
-            </p>
-
-            <h2 class="heading-small">
-              @messages("claimingMileage.hidden.bicycles.heading")
-            </h2>
-
-            <p>
-              @messages("claimingMileage.hidden.bicycles.guidance")
-            </p>
-
-          </div>
-
-        </details>
-
-        @components.input_yes_no(
+        @inputYesNoRadio(
             field = form("value"),
             label = messages(s"claimingMileage.$claimant.heading"),
-            labelClass = Some("visually-hidden")
+            headingIsLegend = false,
+            labelClass = Some("govuk-visually-hidden")
         )
 
-        @components.submit_button()
+        @submitButton()
     }
 }

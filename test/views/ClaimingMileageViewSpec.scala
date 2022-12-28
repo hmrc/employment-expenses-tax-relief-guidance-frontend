@@ -20,10 +20,10 @@ import controllers.routes
 import forms.ClaimingMileageFormProvider
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
-import views.behaviours.YesNoViewBehaviours
+import views.behaviours.{NewYesNoViewBehaviours, YesNoViewBehaviours}
 import views.html.ClaimingMileageView
 
-class ClaimingMileageViewSpec extends YesNoViewBehaviours {
+class ClaimingMileageViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = s"claimingMileage.$claimant"
 
