@@ -59,10 +59,11 @@ class WhichYearsAreYouClaimingForController @Inject()(
     implicit request =>
 
       val form: Form[Int] = formProvider(request.claimant)
+      val saUser: Boolean = request.userAnswers.registeredForSelfAssessment.getOrElse(false)
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(formWithErrors, request.claimant))),
+          Future.successful(BadRequest(view(formWithErrors, request.claimant, saUser))),
         value =>
           dataCacheConnector.save[Int](request.sessionId, WhichYearsAreYouClaimingForId, value).map(cacheMap =>
             Redirect(navigator.nextPage(WhichYearsAreYouClaimingForId)(new UserAnswers(cacheMap)))
