@@ -19,10 +19,10 @@ package views
 import controllers.routes
 import forms.ClaimingFuelFormProvider
 import play.api.data.Form
-import views.behaviours.YesNoViewBehaviours
+import views.behaviours.{NewYesNoViewBehaviours, YesNoViewBehaviours}
 import views.html.ClaimingFuelView
 
-class ClaimingFuelViewSpec extends YesNoViewBehaviours {
+class ClaimingFuelViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = s"claimingFuel.$claimant"
 
