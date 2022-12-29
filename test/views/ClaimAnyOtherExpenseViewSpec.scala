@@ -19,10 +19,10 @@ package views
 import forms.ClaimAnyOtherExpenseFormProvider
 import models.ClaimAnyOtherExpense
 import play.api.data.Form
-import views.behaviours.ViewBehaviours
+import views.behaviours.{NewViewBehaviours, ViewBehaviours}
 import views.html.ClaimAnyOtherExpenseView
 
-class ClaimAnyOtherExpenseViewSpec extends ViewBehaviours {
+class ClaimAnyOtherExpenseViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = "claimAnyOtherExpense"
 
