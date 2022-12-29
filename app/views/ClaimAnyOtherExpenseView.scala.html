@@ -14,47 +14,48 @@
  * limitations under the License.
  *@
 
-@import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html._
 @import controllers.routes._
-@import components.back_link
 
 @this(
-    main_template: MainTemplate,
+    layout: Layout,
     formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
-    appConfig: FrontendAppConfig
+    errorSummary: playComponents.error_summary,
+    govukDetails : GovukDetails,
+    heading: playComponents.heading,
+    inputRadio: playComponents.input_radio,
+    submitButton: playComponents.submit_button
 )
 
 @(form: Form[_])(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = s"${errorPrefix(form)} ${messages("claimAnyOtherExpense.title")}"
+@detailsContent = {
+    <p class="govuk-body">@messages(s"claimAnyOtherExpense.summary.para1")</p>
+    <p class="govuk-body">@messages(s"claimAnyOtherExpense.summary.para2")</p>
+}
+
+@layout(
+    pageTitle = s"${errorPrefix(form)} ${messages("claimAnyOtherExpense.title")}"
 ) {
-    <div class="js-visible">
-        <p><a id="back-link-override" class="link-back" href="javascript:history.back()">@messages("site.back")</a></p>
-    </div>
-
+    @errorSummary(form.errors, Some("claimAnyOtherExpense.yesClaimAnyOtherExpense"))
+    @heading(messages("claimAnyOtherExpense.heading"))
+    @govukDetails(Details(
+        summary = Text(messages(s"claimAnyOtherExpense.summary")),
+        content = HtmlContent(detailsContent)
+    ))
     @formHelper(action = ClaimAnyOtherExpenseController.onSubmit(), 'autoComplete -> "off") {
-
-        @components.error_summary(form.errors)
-        @components.heading("claimAnyOtherExpense.heading")
-        <details class="form-group">
-                <summary data-journey-click="accordion - click:@messages(s"claimAnyOtherExpense.heading"):@messages(s"claimAnyOtherExpense.summary")">
-                    <span class="summary">@messages(s"claimAnyOtherExpense.summary")</span>
-                </summary>
-            <div class="panel panel-border-narrow">
-                <p>@messages(s"claimAnyOtherExpense.summary.para1")</p>
-                <p>@messages(s"claimAnyOtherExpense.summary.para2")</p>
-            </div>
-        </details>
-        @components.input_radio(
+        @inputRadio(
             field = form("value"),
             legend = messages("claimAnyOtherExpense.heading"),
-            legendClass = Some("visually-hidden"),
-            inputs = ClaimAnyOtherExpense.options,
-            headingIsLegend = false,
+            legendClass = Some("govuk-visually-hidden"),
+            isPageHeading = false,
+            items = ClaimAnyOtherExpense.options.toSeq.map { radioOption =>
+                RadioItem(
+                    content = Text(messages(radioOption.message.key)),
+                    id = Some(radioOption.id),
+                    value = Some(radioOption.value)
+                )
+            },
         )
-
-        @components.submit_button()
+        @submitButton()
     }
 }
