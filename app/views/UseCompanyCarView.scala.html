@@ -14,37 +14,30 @@
  * limitations under the License.
  *@
 
-@import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html._
 @import controllers.routes._
-@import components.back_link
 
 @this(
-  main_template: MainTemplate,
-  formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
+    inputYesNoRadio: playComponents.input_yes_no,
+    errorSummary: playComponents.error_summary,
+    submitButton: playComponents.submit_button
 )
 
 @(form: Form[_], claimant: Claimant, useOfOwnCar: UseOfOwnCar)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = s"${errorPrefix(form)} ${messages(s"useCompanyCar.$claimant.$useOfOwnCar.title")}"
+@layout(
+    pageTitle = s"${errorPrefix(form)} ${messages(s"useCompanyCar.$claimant.$useOfOwnCar.title")}"
 ) {
-
-    @back_link()
-
+    @errorSummary(form.errors)
     @formHelper(action = UseCompanyCarController.onSubmit(), 'autoComplete -> "off") {
 
-        @components.error_summary(form.errors)
-
-        @components.input_yes_no(
+        @inputYesNoRadio(
             field = form("value"),
             hint = Some(messages("useCompanyCar.guidance")),
             label = messages(s"useCompanyCar.$claimant.$useOfOwnCar.heading"),
-            labelClass = Some("heading-large"),
-            headingIsLegend = true
         )
 
-        @components.submit_button()
+        @submitButton()
     }
 }

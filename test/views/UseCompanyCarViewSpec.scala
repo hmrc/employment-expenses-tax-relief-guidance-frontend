@@ -21,10 +21,10 @@ import controllers.routes
 import forms.UseCompanyCarFormProvider
 import models.Claimant.You
 import models.UsingOwnCar
-import views.behaviours.YesNoViewBehaviours
+import views.behaviours.{NewYesNoViewBehaviours, YesNoViewBehaviours}
 import views.html.UseCompanyCarView
 
-class UseCompanyCarViewSpec extends YesNoViewBehaviours {
+class UseCompanyCarViewSpec extends NewYesNoViewBehaviours {
 
   val useOfOwnCar = UsingOwnCar
 
