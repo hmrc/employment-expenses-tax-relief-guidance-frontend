@@ -356,3 +356,6 @@ disclaimer.warning1 = Mae’r arweiniad wedi newid ar gyfer y flwyddyn dreth new
 disclaimer.warning2 = Mae’n rhaid i chi sicrhau eich bod yn bodloni’r rheolau ar gyfer hawlio, gan y gallwch gael eich erlyn os byddwch yn rhoi gwybodaeth anwir neu gamarweiniol yn fwriadol.
 disclaimer.accept = Drwy glicio derbyn ac yn eich blaen, rydych yn derbyn eich bod yn bodloni’r rheolau ar gyfer y blynyddoedd rydych yn hawlio ar eu cyfer.
 disclaimer.button.continue = Derbyn ac yn eich blaen
+timeout.message = Er eich diogelwch, byddwn yn dileu’ch atebion a byddwch yn cael eich allgofnodi cyn pen
+timeout.continue = Hoffwn gael 15 munud arall
+timeout.exit = Allgofnodi nawr

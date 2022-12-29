@@ -15,20 +15,32 @@
  *@
 
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLayout
-@import views.html.helper.CSPNonce
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcReportTechnicalIssue
 
 @this(
     hmrcLayout: HmrcLayout,
     appConfig: config.FrontendAppConfig,
     hmrcReportTechnicalIssue: HmrcReportTechnicalIssue,
+    hmrcTimeoutDialogHelper: HmrcTimeoutDialogHelper,
 )
 
-@(pageTitle: String, backLinkEnabled: Boolean = true)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+@(
+    pageTitle: String,
+    backLinkEnabled: Boolean = true,
+    timeoutEnabled: Boolean = true
+)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
 
 @headBlock = {
     <meta name="format-detection" content="telephone=no" />
     <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/employmentexpensestaxreliefguidancefrontend-app.css")'/>
+    @if(timeoutEnabled) {
+        @hmrcTimeoutDialogHelper(
+            signOutUrl = controllers.routes.SessionExpiredController.onPageLoad.url,
+            message = Some(Messages("timeout.message")),
+            keepAliveButtonText = Some(Messages("timeout.continue")),
+            signOutButtonText = Some(Messages("timeout.exit"))
+        )
+    }
 }
 
 @content = {
