@@ -17,10 +17,10 @@
 package views
 
 import models.Claimant.You
-import views.behaviours.ViewBehaviours
+import views.behaviours.{NewViewBehaviours, ViewBehaviours}
 import views.html.CannotClaimMileageCostsView
 
-class CannotClaimMileageCostsViewSpec extends ViewBehaviours {
+class CannotClaimMileageCostsViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = "cannotClaimMileageCosts.you"
 
