@@ -14,32 +14,30 @@
  * limitations under the License.
  *@
 
-@import config.FrontendAppConfig
-@import components.back_link
+@import controllers.routes._
 
 @this(
-  main_template: MainTemplate,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    heading: playComponents.heading,
+    buttonLink: playComponents.button_link
 )
 
 @(claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = messages(s"saCheckDisclaimerCurrentYear.$claimant.title")
+@layout(
+    pageTitle = messages(s"saCheckDisclaimerCurrentYear.$claimant.title")
 ) {
 
-    @back_link()
+    @heading(messages(s"saCheckDisclaimerCurrentYear.$claimant.heading"))
 
-    @components.heading(messages(s"saCheckDisclaimerCurrentYear.$claimant.heading"))
+    <p class="govuk-body">@messages(s"saCheckDisclaimerCurrentYear.$claimant.text1")</p>
 
-    <p>@messages(s"saCheckDisclaimerCurrentYear.$claimant.text1")</p>
-
-    <ul class="list-bullet">
+    <ul class="govuk-list govuk-list--bullet">
         <li>@messages(s"saCheckDisclaimerCurrentYear.$claimant.list.item.1")</li>
         <li>@messages(s"saCheckDisclaimerCurrentYear.$claimant.list.item.2")</li>
     </ul>
 
-    <p>@messages(s"saCheckDisclaimerCurrentYear.$claimant.text2")</p>
+    <p class="govuk-body">@messages(s"saCheckDisclaimerCurrentYear.$claimant.text2")</p>
 
-    @components.button_link(messages("saCheckDisclaimerCurrentYear.button.label"), "employer-paid-working-from-home-expenses")
+    @buttonLink(messages("saCheckDisclaimerCurrentYear.button.label"), EmployerPaidBackWfhExpensesController.onPageLoad().url)
 }

@@ -17,10 +17,10 @@
 package views
 
 import models.Claimant.You
-import views.behaviours.ViewBehaviours
+import views.behaviours.{NewViewBehaviours, ViewBehaviours}
 import views.html.SaCheckDisclaimerCurrentYearView
 
-class SaCheckDiclaimerCurrentYearViewSpec extends ViewBehaviours {
+class SaCheckDiclaimerCurrentYearViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = "saCheckDisclaimerCurrentYear.you"
 
