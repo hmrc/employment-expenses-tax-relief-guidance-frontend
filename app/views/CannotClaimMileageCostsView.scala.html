@@ -15,27 +15,26 @@
  *@
 
 @import config.FrontendAppConfig
-@import components.back_link
 
 @this(
-  main_template: MainTemplate,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    appConfig: FrontendAppConfig,
+    heading: playComponents.heading
 )
 
 @(claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = messages(s"cannotClaimMileageCosts.$claimant.title")
+@layout(
+    pageTitle = messages(s"cannotClaimMileageCosts.$claimant.title")
 ) {
 
-    @back_link()
+    @heading(messages(s"cannotClaimMileageCosts.$claimant.heading"))
 
-    @components.heading(s"cannotClaimMileageCosts.$claimant.heading")
+    <p class="govuk-body">@messages(s"cannotClaimMileageCosts.$claimant.guidance")</p>
 
-    <p>@messages(s"cannotClaimMileageCosts.$claimant.guidance")</p>
-
-    <a id="link" href=@appConfig.buisnessMileageFuelCostsUrl
-       data-journey-click="link - click:@messages(s"cannotClaimMileageCosts.$claimant.heading"):@messages("cannotClaimMileageCosts.link.label")">
-        @messages("cannotClaimMileageCosts.link.label")
-    </a>
+    <p class="govuk-body">
+        <a class="govuk-link" id="link" href=@appConfig.buisnessMileageFuelCostsUrl>
+            @messages("cannotClaimMileageCosts.link.label")
+        </a>
+    </p>
 }
