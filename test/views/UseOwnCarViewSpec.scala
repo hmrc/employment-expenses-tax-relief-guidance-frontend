@@ -19,10 +19,10 @@ package views
 import controllers.routes
 import forms.UseOwnCarFormProvider
 import play.api.data.Form
-import views.behaviours.YesNoViewBehaviours
+import views.behaviours.NewYesNoViewBehaviours
 import views.html.UseOwnCarView
 
-class UseOwnCarViewSpec extends YesNoViewBehaviours {
+class UseOwnCarViewSpec extends NewYesNoViewBehaviours {
 
   private val messageKeyPrefix = s"useOwnCar.$claimant"
 
