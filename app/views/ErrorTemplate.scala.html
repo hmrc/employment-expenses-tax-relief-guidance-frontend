@@ -14,20 +14,18 @@
  * limitations under the License.
  *@
 
-@import config.FrontendAppConfig
-
 @this(
-     govuk_wrapper: GovukWrapper
+    layout: Layout,
+    heading: playComponents.heading
 )
 
-@(pageTitle: String, heading: String, message: String)(implicit request: Request[_], messages: Messages)
+@(pageTitle: String, headingText: String, message: String)(implicit request: Request[_], messages: Messages)
 
-@contentHeader = {
-  <h1>@heading</h1>
+@layout(
+    pageTitle = pageTitle,
+    backLinkEnabled = false
+) {
+    @heading(headingText)
+
+    <p class="govuk-body">@message</p>
 }
-
-@mainContent = {
-  <p>@message</p>
-}
-
-@govuk_wrapper(title = pageTitle, contentHeader = Some(contentHeader), mainContent = mainContent)
