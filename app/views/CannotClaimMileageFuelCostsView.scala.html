@@ -18,28 +18,27 @@
 @import components.back_link
 
 @this(
-  main_template: MainTemplate,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    appConfig: FrontendAppConfig,
+    heading: playComponents.heading
 )
 
 @(claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = messages(s"cannotClaimMileageFuelCosts.$claimant.title")
+@layout(
+    pageTitle = messages(s"cannotClaimMileageFuelCosts.$claimant.title")
 ) {
+    @heading(messages(s"cannotClaimMileageFuelCosts.$claimant.heading"))
 
-    @back_link()
-
-    @components.heading(s"cannotClaimMileageFuelCosts.$claimant.heading")
-
-    <p>@messages(s"cannotClaimMileageFuelCosts.$claimant.guidance")</p>
-    <ul class="list list-bullet">
+    <p class="govuk-body">@messages(s"cannotClaimMileageFuelCosts.$claimant.guidance")</p>
+    <ul class="govuk-list govuk-list--bullet">
         <li>@messages(s"cannotClaimMileageFuelCosts.$claimant.bullet1")</li>
         <li>@messages(s"cannotClaimMileageFuelCosts.$claimant.bullet2")</li>
     </ul>
 
-    <a id="link" href=@appConfig.buisnessMileageFuelCostsUrl
-       data-journey-click="link - click:@messages(s"cannotClaimMileageFuelCosts.$claimant.heading"):@messages("cannotClaimMileageFuelCosts.link.label")">
-        @messages("cannotClaimMileageFuelCosts.link.label")
-    </a>
+    <p class="govuk-body">
+        <a id="link" class="govuk-link" href=@appConfig.buisnessMileageFuelCostsUrl>
+            @messages("cannotClaimMileageFuelCosts.link.label")
+        </a>
+    </p>
 }
