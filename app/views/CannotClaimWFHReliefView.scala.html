@@ -14,22 +14,15 @@
  * limitations under the License.
  *@
 
-@import config.FrontendAppConfig
-@import components.back_link
-
 @this(
-        main_template: MainTemplate,
-        appConfig: FrontendAppConfig
+    layout: Layout,
+    heading: playComponents.heading
 )
 
 @()(implicit request: Request[_], messages: Messages)
 
-    @main_template(
-        title = messages(s"cannotClaimWfhRelief.title")
-    ) {
-
-        @back_link()
-
-        @components.heading(s"cannotClaimWfhRelief.heading")
-
-    }
+@layout(
+    pageTitle = messages(s"cannotClaimWfhRelief.title")
+) {
+    @heading(messages(s"cannotClaimWfhRelief.heading"))
+}

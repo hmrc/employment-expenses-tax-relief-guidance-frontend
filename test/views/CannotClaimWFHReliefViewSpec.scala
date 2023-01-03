@@ -16,10 +16,10 @@
 
 package views
 
-import views.behaviours.ViewBehaviours
+import views.behaviours.NewViewBehaviours
 import views.html.CannotClaimWFHReliefView
 
-class CannotClaimWFHReliefViewSpec extends ViewBehaviours {
+class CannotClaimWFHReliefViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = s"cannotClaimWfhRelief"
 
