@@ -14,41 +14,39 @@
  * limitations under the License.
  *@
 
-@import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html._
-@import controllers.routes._
-@import components.back_link
 @import models.EmployerPaid
 
 @this(
-  main_template: MainTemplate,
-  formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
+    errorSummary: playComponents.error_summary,
+    heading: playComponents.heading,
+    inputRadioOr: playComponents.input_radio_or,
+    submitButton: playComponents.submit_button
 )
 
 @(form: Form[_], backButtonOverride: Option[String])(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = s"${errorPrefix(form)} ${messages(s"employerPaidBackWfhExpenses.title")}"
+@layout(
+    pageTitle = s"${errorPrefix(form)} ${messages(s"employerPaidBackWfhExpenses.title")}"
 ) {
-
-    @back_link()
 
     @formHelper(action = EmployerPaidBackWfhExpensesController.onSubmit(), 'autoComplete -> "off") {
 
-        @components.error_summary(form.errors)
+        @errorSummary(form.errors, Some("employerPaid.noExpenses"))
 
-        @components.heading(s"employerPaidBackWfhExpenses.heading")
+        @heading(messages(s"employerPaidBackWfhExpenses.heading"))
 
-        <p>@messages("employerPaidBackWfhExpenses.info")</p>
+        <p class="govuk-body">@messages("employerPaidBackWfhExpenses.info")</p>
 
-        @components.input_radio_or(
+        @inputRadioOr(
             field = form("value"),
             legend = messages("employerPaidBackWfhExpenses.heading"),
-            legendClass = Some("visually-hidden"),
-            inputs = EmployerPaid.options.toSeq
+            legendClass = Some("govuk-visually-hidden"),
+            inputs = EmployerPaid.options.toSeq,
+            isPageHeading = false
         )
 
-        @components.submit_button()
+        @submitButton()
     }
 }

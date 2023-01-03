@@ -16,14 +16,13 @@
 
 package views
 
-import controllers.routes
 import forms.EmployerPaidBackWfhExpensesFormProvider
 import play.api.data.Form
 import play.twirl.api.Html
-import views.behaviours.{ViewBehaviours, YesNoViewBehaviours}
+import views.behaviours.NewViewBehaviours
 import views.html.EmployerPaidBackWfhExpensesView
 
-class EmployerPaidBackWfhExpensesViewSpec extends ViewBehaviours {
+class EmployerPaidBackWfhExpensesViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = s"employerPaidBackWfhExpenses"
 
