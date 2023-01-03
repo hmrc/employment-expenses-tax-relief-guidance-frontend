@@ -1,5 +1,5 @@
 @*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,26 +15,25 @@
  *@
 
 @import config.FrontendAppConfig
-@import components.back_link
 
 @this(
-  main_template: MainTemplate,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    heading: playComponents.heading,
+    buttonLink: playComponents.button_link,
+    appConfig: FrontendAppConfig
 )
 
 @(claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
 
 @year = {@appConfig.earliestTaxYear}
 
-@main_template(
-    title = messages(s"cannotClaimReliefSomeYears.$claimant.title", year)
+@layout(
+    pageTitle = messages(s"cannotClaimReliefSomeYears.$claimant.title", year)
 ) {
 
-    @back_link()
+    @heading(messages(s"cannotClaimReliefSomeYears.$claimant.heading", year))
 
-    @components.heading(messages(s"cannotClaimReliefSomeYears.$claimant.heading", year))
+    <p class="govuk-body">@messages(s"cannotClaimReliefSomeYears.$claimant.guidance")</p>
 
-    <p>@messages(s"cannotClaimReliefSomeYears.$claimant.guidance")</p>
-
-    @components.button_link(messages("cannotClaimReliefSomeYears.link.label", year), nextPage.url, Some("claim"))
+    @buttonLink(messages("cannotClaimReliefSomeYears.link.label", year), nextPage.url, Some("claim"))
 }
