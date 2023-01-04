@@ -17,10 +17,10 @@
 package views
 
 import play.twirl.api.HtmlFormat
-import views.behaviours.ViewBehaviours
+import views.behaviours.NewViewBehaviours
 import views.html.NotEntitledView
 
-class NotEntitledViewSpec extends ViewBehaviours {
+class NotEntitledViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = s"notEntitled.$claimant"
 
