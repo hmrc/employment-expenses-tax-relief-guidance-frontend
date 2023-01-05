@@ -18,7 +18,7 @@ package views
 
 import controllers.routes
 import play.twirl.api.Html
-import views.behaviours.{NewViewBehaviours, ViewBehaviours}
+import views.behaviours.NewViewBehaviours
 import views.html.SessionExpiredView
 
 class SessionExpiredViewSpec extends NewViewBehaviours {

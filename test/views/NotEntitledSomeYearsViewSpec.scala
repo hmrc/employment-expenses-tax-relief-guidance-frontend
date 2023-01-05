@@ -18,7 +18,7 @@ package views
 
 import controllers.routes
 import play.twirl.api.HtmlFormat
-import views.behaviours.{NewViewBehaviours, ViewBehaviours}
+import views.behaviours.NewViewBehaviours
 import views.html.NotEntitledSomeYearsView
 
 class NotEntitledSomeYearsViewSpec extends NewViewBehaviours {

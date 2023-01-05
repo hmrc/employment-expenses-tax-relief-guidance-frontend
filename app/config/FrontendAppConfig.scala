@@ -20,7 +20,6 @@ import controllers.routes
 import javax.inject.{Inject, Singleton}
 import play.api.Configuration
 import play.api.i18n.Lang
-import uk.gov.hmrc.play.config.OptimizelyConfig
 import uk.gov.hmrc.time.TaxYear
 
 @Singleton

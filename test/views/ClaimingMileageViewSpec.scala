@@ -20,7 +20,7 @@ import controllers.routes
 import forms.ClaimingMileageFormProvider
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
-import views.behaviours.{NewYesNoViewBehaviours, YesNoViewBehaviours}
+import views.behaviours.NewYesNoViewBehaviours
 import views.html.ClaimingMileageView
 
 class ClaimingMileageViewSpec extends NewYesNoViewBehaviours {

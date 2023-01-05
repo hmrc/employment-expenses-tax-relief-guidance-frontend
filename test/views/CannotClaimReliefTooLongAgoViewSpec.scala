@@ -17,7 +17,7 @@
 package views
 
 import uk.gov.hmrc.time.TaxYear
-import views.behaviours.{NewViewBehaviours, ViewBehaviours}
+import views.behaviours.NewViewBehaviours
 import views.html.CannotClaimReliefTooLongAgoView
 
 class CannotClaimReliefTooLongAgoViewSpec extends NewViewBehaviours {

@@ -20,7 +20,7 @@ import controllers.routes
 import forms.WillPayTaxFormProvider
 import models.Claimant.You
 import play.api.data.Form
-import views.behaviours.{NewYesNoViewBehaviours, YesNoViewBehaviours}
+import views.behaviours.NewYesNoViewBehaviours
 import views.html.WillPayTaxView
 
 class WillPayTaxViewSpec extends NewYesNoViewBehaviours {
