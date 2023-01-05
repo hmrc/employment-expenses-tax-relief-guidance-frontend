@@ -18,10 +18,10 @@ package views
 
 import controllers.routes
 import play.twirl.api.HtmlFormat
-import views.behaviours.ViewBehaviours
+import views.behaviours.{NewViewBehaviours, ViewBehaviours}
 import views.html.NotEntitledSomeYearsView
 
-class NotEntitledSomeYearsViewSpec extends ViewBehaviours {
+class NotEntitledSomeYearsViewSpec extends NewViewBehaviours {
 
   val onwardRoute = routes.IndexController.onPageLoad
 
