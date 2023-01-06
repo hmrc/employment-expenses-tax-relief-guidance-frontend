@@ -20,7 +20,7 @@ import controllers.routes
 import models.Claimant.You
 import play.twirl.api.Html
 import uk.gov.hmrc.time.TaxYear
-import views.behaviours.{NewViewBehaviours, ViewBehaviours}
+import views.behaviours.NewViewBehaviours
 import views.html.WillNotPayTaxView
 
 class WillNotPayTaxViewSpec extends NewViewBehaviours {

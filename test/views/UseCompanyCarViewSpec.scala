@@ -21,7 +21,7 @@ import controllers.routes
 import forms.UseCompanyCarFormProvider
 import models.Claimant.You
 import models.UsingOwnCar
-import views.behaviours.{NewYesNoViewBehaviours, YesNoViewBehaviours}
+import views.behaviours.NewYesNoViewBehaviours
 import views.html.UseCompanyCarView
 
 class UseCompanyCarViewSpec extends NewYesNoViewBehaviours {

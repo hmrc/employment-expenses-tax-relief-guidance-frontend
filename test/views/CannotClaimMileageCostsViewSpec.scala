@@ -17,7 +17,7 @@
 package views
 
 import models.Claimant.You
-import views.behaviours.{NewViewBehaviours, ViewBehaviours}
+import views.behaviours.NewViewBehaviours
 import views.html.CannotClaimMileageCostsView
 
 class CannotClaimMileageCostsViewSpec extends NewViewBehaviours {

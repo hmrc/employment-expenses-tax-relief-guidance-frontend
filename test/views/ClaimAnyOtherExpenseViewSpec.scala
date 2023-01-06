@@ -19,7 +19,7 @@ package views
 import forms.ClaimAnyOtherExpenseFormProvider
 import models.ClaimAnyOtherExpense
 import play.api.data.Form
-import views.behaviours.{NewViewBehaviours, ViewBehaviours}
+import views.behaviours.NewViewBehaviours
 import views.html.ClaimAnyOtherExpenseView
 
 class ClaimAnyOtherExpenseViewSpec extends NewViewBehaviours {

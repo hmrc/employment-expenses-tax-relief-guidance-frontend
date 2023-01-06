@@ -19,7 +19,7 @@ package views
 import controllers.routes
 import forms.CovidHomeWorkingFormProvider
 import play.api.data.Form
-import views.behaviours.{NewYesNoViewBehaviours, YesNoViewBehaviours}
+import views.behaviours.NewYesNoViewBehaviours
 import views.html.WfhDueToCovidView
 
 class WfhDueToCovidViewSpec extends NewYesNoViewBehaviours {

@@ -21,7 +21,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import utils.{Enumerable, WithName}
-import views.html.components.link_start
+import views.html.playComponents.link_start
 
 sealed trait ClaimingFor
 

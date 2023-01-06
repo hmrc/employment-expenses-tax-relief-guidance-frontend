@@ -17,7 +17,7 @@
 package views
 
 import models.Claimant.You
-import views.behaviours.{NewViewBehaviours, ViewBehaviours}
+import views.behaviours.NewViewBehaviours
 import views.html.SaCheckDisclaimerCurrentYearView
 
 class SaCheckDiclaimerCurrentYearViewSpec extends NewViewBehaviours {

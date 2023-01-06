@@ -14,17 +14,11 @@
  * limitations under the License.
  *@
 
-@import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html._
-@import controllers.routes._
 @import models.ClaimingFor
-@import components.back_link
 
 @this(
-    main_template: MainTemplate,
     layout: Layout,
-    formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
-    appConfig: FrontendAppConfig,
+    formHelper: uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF,
     errorSummary: playComponents.error_summary,
     heading: playComponents.heading,
     govUkCheckboxes: GovukCheckboxes,

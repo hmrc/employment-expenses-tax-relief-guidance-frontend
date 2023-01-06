@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +12,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(href: String, eventBody: String, newWindow: Boolean = false)
-<a href="@href" data-journey-click="link - click:@eventBody" @if(newWindow){target="_blank"}>
+package config
+
+import javax.inject.Inject
+import play.api.Configuration
+
+class OptimizelyConfig @Inject() (configuration: Configuration) {
+
+  val url: Option[String] =
+    for {
+      baseUrl   <- configuration.getOptional[String]("optimizely.url")
+      projectId <- configuration.getOptional[String]("optimizely.projectId")
+    } yield s"$baseUrl$projectId.js"
+
+}

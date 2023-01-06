@@ -20,7 +20,7 @@ import controllers.routes
 import forms.RegisteredForSelfAssessmentFormProvider
 import play.api.data.Form
 import play.twirl.api.Html
-import views.behaviours.{NewYesNoViewBehaviours, YesNoViewBehaviours}
+import views.behaviours.NewYesNoViewBehaviours
 import views.html.RegisteredForSelfAssessmentView
 
 class RegisteredForSelfAssessmentViewSpec extends NewYesNoViewBehaviours {

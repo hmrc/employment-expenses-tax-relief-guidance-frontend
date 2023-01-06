@@ -19,7 +19,7 @@ package views
 import org.jsoup.nodes.Element
 import play.twirl.api.Html
 import viewmodels.OnwardJourney
-import views.behaviours.{NewViewBehaviours, ViewBehaviours}
+import views.behaviours.NewViewBehaviours
 import views.html.ClaimOnlineView
 
 class ClaimOnlineViewSpec extends NewViewBehaviours {

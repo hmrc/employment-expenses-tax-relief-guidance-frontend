@@ -14,18 +14,12 @@
  * limitations under the License.
  *@
 
-@import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html._
-@import controllers.routes._
-@import components.back_link
-
 @this(
     layout: Layout,
     errorSummary: playComponents.error_summary,
     heading: playComponents.heading,
     inputYesNoRadio: playComponents.input_yes_no,
-    formHelper: uk.gov.hmrc.play.views.html.helpers.FormWithCSRF,
-    appConfig: FrontendAppConfig,
+    formHelper: uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF,
     submitButton: playComponents.submit_button
 )
 

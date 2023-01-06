@@ -20,7 +20,7 @@ import controllers.routes
 import forms.PaidTaxInRelevantYearFormProvider
 import play.api.data.Form
 import play.twirl.api.Html
-import views.behaviours.{NewYesNoViewBehaviours, YesNoViewBehaviours}
+import views.behaviours.NewYesNoViewBehaviours
 import views.html.PaidTaxInRelevantYearView
 
 class PaidTaxInRelevantYearViewSpec extends NewYesNoViewBehaviours {

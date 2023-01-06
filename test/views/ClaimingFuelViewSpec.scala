@@ -19,7 +19,7 @@ package views
 import controllers.routes
 import forms.ClaimingFuelFormProvider
 import play.api.data.Form
-import views.behaviours.{NewYesNoViewBehaviours, YesNoViewBehaviours}
+import views.behaviours.NewYesNoViewBehaviours
 import views.html.ClaimingFuelView
 
 class ClaimingFuelViewSpec extends NewYesNoViewBehaviours {
