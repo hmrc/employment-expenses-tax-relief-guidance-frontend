@@ -111,7 +111,8 @@ registerForSelfAssessment.someoneElse.heading = They can only claim these expens
 registerForSelfAssessment.someoneElse.guidance = If there are tax years where their expenses are less than £2,500,
 registerForSelfAssessment.someoneElse.link.continue.label = check if they can claim tax relief
 registerForSelfAssessment.link.external.label =  register for and file Self Assessment tax returns
-registerForSelfAssessment.guidance1 = Because your expenses are £2,500 or more in some of the tax years you are claiming for, you must claim them as part of a Self Assessment tax return.
+registerForSelfAssessment.you.guidance1 = Because your expenses are £2,500 or more in some of the tax years you are claiming for, you must claim them as part of a Self Assessment tax return.
+registerForSelfAssessment.someoneElse.guidance1 = Because their expenses are £2,500 or more in some of the tax years they are claiming for, they must claim them as part of a Self Assessment tax return.
 registerForSelfAssessment.guidance2 = Find out how to
 
 usePrintAndPost.title = You can claim tax relief for these expenses by post
@@ -139,8 +140,8 @@ claimOnline.wfh.hidden.guidance = list of 2 items
 cannotClaimRelief.you.title = You cannot claim tax relief on expenses that have been paid for by your employer
 cannotClaimRelief.you.heading = You cannot claim tax relief on expenses that have been paid for by your employer
 cannotClaimRelief.you.guidance = You cannot claim these expenses because they have all been paid back by your employer.
-cannotClaimRelief.someoneElse.title = They cannot claim for these expenses
-cannotClaimRelief.someoneElse.heading = They cannot claim for these expenses
+cannotClaimRelief.someoneElse.title = They cannot claim tax relief on expenses that have been paid for by their employer
+cannotClaimRelief.someoneElse.heading = They cannot claim tax relief on expenses that have been paid for by their employer
 cannotClaimRelief.someoneElse.guidance = They cannot claim for these expenses because they have all been paid back by their employer.
 
 employerPaidBackExpenses.you.title = Has your employer paid back all your work‑related expenses?
