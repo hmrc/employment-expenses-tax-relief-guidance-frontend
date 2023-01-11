@@ -18,6 +18,7 @@
 
 @this(
     layout: Layout,
+    heading: playComponents.heading,
     formHelper: uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF,
     inputRadio: playComponents.input_radio,
     submitButton: playComponents.submit_button,
@@ -43,11 +44,19 @@
     pageTitle = s"${errorPrefix(form)} ${messages(s"whichYearsAreYouClaimingFor.$claimant.title")}"
 ) {
     @errorSummary(form.errors)
+
+    @heading(messages(s"whichYearsAreYouClaimingFor.$claimant.heading"))
+
+    @if(isSaUser) {
+        <p class="govuk-body">@messages(s"whichYearsAreYouClaimingFor.$claimant.main.info.text")</p>
+    }
+
     @formHelper(action = WhichYearsAreYouClaimingForController.onSubmit(), 'autoComplete -> "off") {
         @inputRadio(
             field = form("value"),
             legend = messages(s"whichYearsAreYouClaimingFor.$claimant.heading"),
-            hint = if(isSaUser) Some(messages(s"whichYearsAreYouClaimingFor.$claimant.main.info.text")) else None,
+            legendClass = Some("govuk-visually-hidden"),
+            isPageHeading = false,
             items = Seq(
                 RadioItem(
                     content = Text(messages("whichYearsAreYouClaimingFor.current.tax.year.text")),
