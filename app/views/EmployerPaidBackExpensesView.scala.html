@@ -1,5 +1,5 @@
 @*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,54 +14,41 @@
  * limitations under the License.
  *@
 
-@import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html._
-@import controllers.routes._
-@import components.back_link
-
 @this(
-  main_template: MainTemplate,
-  formHelper: FormWithCSRF,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    formHelper: uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF,
+    errorSummary: playComponents.error_summary,
+    heading: playComponents.heading,
+    govukDetails : GovukDetails,
+    inputYesNoRadio: playComponents.input_yes_no,
+    submitButton: playComponents.submit_button
 )
 
 @(form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = s"${errorPrefix(form)} ${messages(s"employerPaidBackExpenses.$claimant.title")}"
+@layout(
+    pageTitle = s"${errorPrefix(form)} ${messages(s"employerPaidBackExpenses.$claimant.title")}"
 ) {
 
-    @back_link()
+    @errorSummary(form.errors)
 
-    @formHelper(action = EmployerPaidBackExpensesController.onSubmit(), 'autoComplete -> "off") {
+    @heading(messages(s"employerPaidBackExpenses.$claimant.heading"))
 
-        @components.error_summary(form.errors)
+    @govukDetails(Details(
+        summary = Text(messages(s"employerPaidBackExpenses.$claimant.hidden.summary")),
+        content = HtmlContent(messages(s"employerPaidBackExpenses.$claimant.hidden.guidance"))
+    ))
 
-        @components.heading(s"employerPaidBackExpenses.$claimant.heading")
+    @formHelper(action = EmployerPaidBackExpensesController.onSubmit) {
 
-        <details class="form-group">
-
-          <summary data-journey-click="accordion - click:@messages(s"employerPaidBackExpenses.$claimant.heading"):@messages(s"employerPaidBackExpenses.$claimant.hidden.summary")">
-            <span class="summary">
-              @messages(s"employerPaidBackExpenses.$claimant.hidden.summary")
-            </span>
-          </summary>
-
-          <div class="panel panel-border-narrow">
-            <p>
-              @messages(s"employerPaidBackExpenses.$claimant.hidden.guidance")
-            </p>
-
-          </div>
-
-        </details>
-
-        @components.input_yes_no(
+        @inputYesNoRadio(
             field = form("value"),
             label = messages(s"employerPaidBackExpenses.$claimant.heading"),
-            labelClass = Some("visually-hidden")
+            labelClass = Some("govuk-visually-hidden"),
+            headingIsLegend = false
         )
 
-        @components.submit_button()
+        @submitButton()
     }
+
 }

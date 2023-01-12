@@ -67,9 +67,9 @@ registeredForSelfAssessment.you.error.required = Select yes if you complete Self
 registeredForSelfAssessment.someoneElse.title = Does the person you are claiming for complete Self Assessment returns?
 registeredForSelfAssessment.someoneElse.heading = Does the person you are claiming for complete Self Assessment returns?
 registeredForSelfAssessment.someoneElse.error.required = Select yes if the person you are claiming for completes Self Assessment returns
-registeredForSelfAssessment.tax.year.specific.title = Are you going to complete a Self Assessment return for this tax year 2022-2023?
-registeredForSelfAssessment.tax.year.specific.heading = Are you going to complete a Self Assessment return for this tax year 2022-2023?
-registeredForSelfAssessment.tax.year.specific.error.required = Select yes if you are going to complete a Self Assessment return for this tax year 2022-2023
+registeredForSelfAssessment.tax.year.specific.title = Are you going to complete a Self Assessment return for this tax year {0}?
+registeredForSelfAssessment.tax.year.specific.heading = Are you going to complete a Self Assessment return for this tax year {0}?
+registeredForSelfAssessment.tax.year.specific.error.required = Select yes if you are going to complete a Self Assessment return for this tax year {0}
 
 registeredForSelfAssessment.accordion.summary = What is a Self Assessment tax return?
 registeredForSelfAssessment.you.accordion.guidance1 = You must complete a Self Assessment tax return if, in the last tax year (6 April to 5 April), you were:
@@ -92,10 +92,10 @@ claimingOverPayAsYouEarnThreshold.someoneElse.error.required = Select yes if the
 
 useSelfAssessment.you.title = You can only claim these expenses using Self Assessment
 useSelfAssessment.you.heading = You can only claim these expenses using Self Assessment
-useSelfAssessment.you.guidance = You must claim these expenses as part of your {0}.
+useSelfAssessment.you.guidance = You must claim these expenses as part of your
 useSelfAssessment.someoneElse.title = They can only claim these expenses using Self Assessment
 useSelfAssessment.someoneElse.heading = They can only claim these expenses using Self Assessment
-useSelfAssessment.someoneElse.guidance = They must claim these expenses as part of their {0}.
+useSelfAssessment.someoneElse.guidance = They must claim these expenses as part of their
 useSelfAssessment.link.label =  Self Assessment tax return
 
 moreThanFiveJobs.title = Are you claiming tax relief for more than 5 different jobs?
@@ -111,7 +111,8 @@ registerForSelfAssessment.someoneElse.heading = They can only claim these expens
 registerForSelfAssessment.someoneElse.guidance = If there are tax years where their expenses are less than £2,500,
 registerForSelfAssessment.someoneElse.link.continue.label = check if they can claim tax relief
 registerForSelfAssessment.link.external.label =  register for and file Self Assessment tax returns
-registerForSelfAssessment.guidance1 = Because your expenses are £2,500 or more in some of the tax years you are claiming for, you must claim them as part of a Self Assessment tax return.
+registerForSelfAssessment.you.guidance1 = Because your expenses are £2,500 or more in some of the tax years you are claiming for, you must claim them as part of a Self Assessment tax return.
+registerForSelfAssessment.someoneElse.guidance1 = Because their expenses are £2,500 or more in some of the tax years they are claiming for, they must claim them as part of a Self Assessment tax return.
 registerForSelfAssessment.guidance2 = Find out how to
 
 usePrintAndPost.title = You can claim tax relief for these expenses by post
@@ -139,8 +140,8 @@ claimOnline.wfh.hidden.guidance = list of 2 items
 cannotClaimRelief.you.title = You cannot claim tax relief on expenses that have been paid for by your employer
 cannotClaimRelief.you.heading = You cannot claim tax relief on expenses that have been paid for by your employer
 cannotClaimRelief.you.guidance = You cannot claim these expenses because they have all been paid back by your employer.
-cannotClaimRelief.someoneElse.title = They cannot claim for these expenses
-cannotClaimRelief.someoneElse.heading = They cannot claim for these expenses
+cannotClaimRelief.someoneElse.title = They cannot claim tax relief on expenses that have been paid for by their employer
+cannotClaimRelief.someoneElse.heading = They cannot claim tax relief on expenses that have been paid for by their employer
 cannotClaimRelief.someoneElse.guidance = They cannot claim for these expenses because they have all been paid back by their employer.
 
 employerPaidBackExpenses.you.title = Has your employer paid back all your work‑related expenses?
@@ -326,11 +327,11 @@ cannotClaimBuyingEquipment.link.label3 = other expenses
 
 willNotPayTax.you.title =  You cannot claim these expenses
 willNotPayTax.you.heading =  You cannot claim these expenses
-willNotPayTax.you.guidance1 = You can only claim these expenses if you paid tax in each tax year you are claiming for.
+willNotPayTax.you.guidance1 = You can only claim these expenses if you paid tax in each tax year you are claiming for
 willNotPayTax.you.guidance2 = You can still {0} but you will not get any expenses back unless you pay tax.
 willNotPayTax.someoneElse.title =  They cannot claim these expenses
 willNotPayTax.someoneElse.heading =  They cannot claim these expenses
-willNotPayTax.someoneElse.guidance1 = They can only claim these expenses if they paid tax in each tax year they are claiming for.
+willNotPayTax.someoneElse.guidance1 = They can only claim these expenses if they paid tax in each tax year they are claiming for
 willNotPayTax.someoneElse.guidance2 = They can still {0} but they will not get any expenses back unless they pay tax.
 willNotPayTax.link2 = claim expenses for this tax year (6 April {0} to 5 April {1})
 
@@ -398,3 +399,7 @@ disclaimer.warning1 = Guidance has changed for the new tax year.
 disclaimer.warning2 = You must ensure you meet the rules for claiming, as you may be prosecuted if you deliberately give incorrect or misleading information.
 disclaimer.accept = By clicking accept and continue, you are accepting that you meet the rules for the years you are claiming for.
 disclaimer.button.continue = Accept and continue
+
+timeout.message = For your security, we will delete your answers and you will be signed out in
+timeout.continue = Get another 15 minutes
+timeout.exit = Sign out now

@@ -1,43 +1,28 @@
 @*
-* Copyright 2021 HM Revenue & Customs
-*
-* Licensed under the Apache License, Version 2.0 (the "License");
-* you may not use this file except in compliance with the License.
-* You may obtain a copy of the License at
-*
-*     http://www.apache.org/licenses/LICENSE-2.0
-*
-* Unless required by applicable law or agreed to in writing, software
-* distributed under the License is distributed on an "AS IS" BASIS,
-* WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
-* limitations under the License.
-*@
+ * Copyright 2023 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
 
-@import config.FrontendAppConfig
 @import controllers.routes._
-@import uk.gov.hmrc.govukfrontend.views.html.components.{GovukBackLink, GovukButton, GovukInsetText, GovukRadios}
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.button.Button
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset.{Fieldset, Legend}
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.{RadioItem, Radios}
-@import uk.gov.hmrc.govukfrontend.views.html.components.GovukErrorSummary
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorSummary
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorLink
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, HtmlContent, Empty}
 
 @this(
     layout: Layout,
-    govukBackLink : GovukBackLink,
-    govukRadios : GovukRadios,
-    govukInsetText : GovukInsetText,
-    govukButton : GovukButton,
-    govukErrorSummary : GovukErrorSummary,
+    heading: playComponents.heading,
     formHelper: uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF,
-    appConfig: FrontendAppConfig
+    inputRadio: playComponents.input_radio,
+    submitButton: playComponents.submit_button,
+    errorSummary: playComponents.error_summary
 )
 
 @(form: Form[_], claimant: Claimant, isSaUser: Boolean = false)(implicit request: Request[_], messages: Messages)
@@ -55,48 +40,23 @@
     <p class="govuk-body">@messages(s"whichYearsAreYouClaimingFor.$claimant.both.tax.years.info.text.2")</p>
 }
 
-@htmlHint = {
-    <p class="govuk-body">@messages(s"whichYearsAreYouClaimingFor.$claimant.main.info.text")</p>
-}
-
 @layout(
     pageTitle = s"${errorPrefix(form)} ${messages(s"whichYearsAreYouClaimingFor.$claimant.title")}"
 ) {
-    <p>
-        @govukBackLink(BackLink(
-            href = "javascript:history.back()",
-            content = Text(messages("site.back")),
-            attributes = Map("id" -> "back-link")
-        ))
-    </p>
+    @errorSummary(form.errors)
+
+    @heading(messages(s"whichYearsAreYouClaimingFor.$claimant.heading"))
+
+    @if(isSaUser) {
+        <p class="govuk-body">@messages(s"whichYearsAreYouClaimingFor.$claimant.main.info.text")</p>
+    }
+
     @formHelper(action = WhichYearsAreYouClaimingForController.onSubmit(), 'autoComplete -> "off") {
-
-        @if(form.errors.nonEmpty) {
-            @govukErrorSummary(ErrorSummary(
-                title       = Text(messages("error.summary.title")),
-                errorList   = for(error <- form.errors) yield {
-                    ErrorLink(
-                        href    = Some(s"#${error.key}"),
-                        content = Text(messages(error.message, error.args:_*))
-                    )
-                }
-            ))
-        }
-
-        @govukRadios(Radios(
-            fieldset = Some(Fieldset(
-                legend = Some(Legend(
-                    content = Text(messages(s"whichYearsAreYouClaimingFor.$claimant.heading")),
-                    classes = "govuk-fieldset__legend--l",
-                    isPageHeading = true
-                )),
-
-            )),hint = if(isSaUser) { Some(
-                    Hint(
-                        content = HtmlContent(htmlHint)
-                        )
-                    )
-                } else None,
+        @inputRadio(
+            field = form("value"),
+            legend = messages(s"whichYearsAreYouClaimingFor.$claimant.heading"),
+            legendClass = Some("govuk-visually-hidden"),
+            isPageHeading = false,
             items = Seq(
                 RadioItem(
                     content = Text(messages("whichYearsAreYouClaimingFor.current.tax.year.text")),
@@ -114,11 +74,8 @@
                     conditionalHtml = if(isSaUser) {Some(bothTaxYearHtml)} else None
                 )
             )
-        ).withFormField(form("value")))
-
-        @govukButton(Button(
-            content = Text(messages("site.save_and_continue"))
-        ))
+        )
+        @submitButton()
     }
 }
 

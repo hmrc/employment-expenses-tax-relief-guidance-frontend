@@ -1,5 +1,5 @@
 @*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,26 +15,24 @@
  *@
 
 @import config.FrontendAppConfig
-@import components.back_link
 
 @this(
-  main_template: MainTemplate,
-  appConfig: FrontendAppConfig
+        layout: Layout,
+        appConfig: FrontendAppConfig,
+        heading: playComponents.heading,
+        submitButton: playComponents.submit_button
 )
 
 @()(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = messages("usePrintAndPost.title")
+@layout(
+    pageTitle = messages("usePrintAndPost.title")
 ) {
 
-    @back_link()
+    @heading(messages("usePrintAndPost.heading"))
 
-    @components.heading("usePrintAndPost.heading")    
-
-    @components.button_link(
-        "usePrintAndPost.link.label",
-        appConfig.employeeExpensesClaimByPostUrl,
-        gaEvent = Some("link - click:" + messages(s"usePrintAndPost.heading") + ":" + messages("usePrintAndPost.link.label"))
-    )
+    @submitButton(
+        href = Some(appConfig.employeeExpensesClaimByPostUrl),
+        content = Some(messages("usePrintAndPost.link.label"))
+    ) <br>
 }

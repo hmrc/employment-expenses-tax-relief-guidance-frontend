@@ -1,5 +1,5 @@
 @*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,40 +15,35 @@
  *@
 
 @import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html._
-@import controllers.routes._
-@import components.back_link
 
 @this(
-  main_template: MainTemplate,
-  formHelper: FormWithCSRF,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    appConfig: FrontendAppConfig,
+    formHelper: uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF,
+    errorSummary: playComponents.error_summary,
+    inputYesNoRadio: playComponents.input_yes_no,
+    submitButton: playComponents.submit_button
 )
 
 @(
-        form: Form[_],
-        claimant: Claimant
+    form: Form[_],
+    claimant: Claimant
 )(implicit request: Request[_], messages: Messages)
 
 @year = {@appConfig.earliestTaxYear}
 
-@main_template(
-    title = s"${errorPrefix(form)} ${messages(s"paidTaxInRelevantYear.$claimant.title", year)}"
+@layout(
+    pageTitle = s"${errorPrefix(form)} ${messages(s"paidTaxInRelevantYear.$claimant.title", year)}"
 ) {
 
-    @back_link()
+    @errorSummary(form.errors)
+    @formHelper(action = PaidTaxInRelevantYearController.onSubmit()) {
 
-    @formHelper(action = PaidTaxInRelevantYearController.onSubmit(), 'autoComplete -> "off") {
-
-        @components.error_summary(form.errors)
-
-        @components.input_yes_no(
+        @inputYesNoRadio(
             field = form("value"),
             label = messages(s"paidTaxInRelevantYear.$claimant.heading", year),
-            labelClass = Some("heading-large"),
-            headingIsLegend = true
         )
 
-        @components.submit_button()
+        @submitButton()
     }
 }

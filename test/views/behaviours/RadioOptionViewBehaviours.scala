@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,17 +16,17 @@
 
 package views.behaviours
 
-import play.api.data.{Form, FormError}
+import play.api.data.Form
 import play.twirl.api.HtmlFormat
 
-trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
+trait RadioOptionViewBehaviours extends NewQuestionViewBehaviours[Int] {
+  val numberOfOptions: Int
 
-  def yesNoPage(createView: (Form[Boolean]) => HtmlFormat.Appendable,
+  def radioOptionPage(createView: (Form[Int]) => HtmlFormat.Appendable,
                 messageKeyPrefix: String,
-                expectedFormAction: String,
                 headingArgs: Any*) = {
 
-    "behave like a page with a Yes/No question" when {
+    "behave like a page with a radio options question" when {
       "rendered" must {
         "contain a legend for the question" in {
           val doc = asDocument(createView(form))
@@ -37,14 +37,16 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
 
         "contain an input for the value" in {
           val doc = asDocument(createView(form))
-          assertRenderedById(doc, "value-yes")
-          assertRenderedById(doc, "value-no")
+          for(i <- 1 to numberOfOptions) {
+            assertRenderedById(doc, answerId(i))
+          }
         }
 
         "have no values checked when rendered with no form" in {
           val doc = asDocument(createView(form))
-          assert(!doc.getElementById("value-yes").hasAttr("checked"))
-          assert(!doc.getElementById("value-no").hasAttr("checked"))
+          for(i <- 1 to numberOfOptions) {
+            assert(!doc.getElementById(answerId(i)).hasAttr("checked"))
+          }
         }
 
         "not render an error summary" in {
@@ -53,41 +55,45 @@ trait YesNoViewBehaviours extends QuestionViewBehaviours[Boolean] {
         }
       }
 
-      "rendered with a value of true" must {
-        behave like answeredYesNoPage(createView, true)
+      "render with a value" must {
+        behave like answeredRadioOptionPage(createView)
       }
 
-      "rendered with a value of false" must {
-        behave like answeredYesNoPage(createView, false)
-      }
-
-      "rendered with an error" must {
+      "render with an error" must {
         "show an error summary" in {
           val doc = asDocument(createView(form.withError(error)))
-          assertRenderedById(doc, "error-summary-heading")
+          assertRenderedByCssSelector(doc, ".govuk-error-summary")
         }
 
         "show an error in the value field's label" in {
           val doc = asDocument(createView(form.withError(error)))
-          val errorSpan = doc.getElementsByClass("error-message").first
-          errorSpan.text mustBe messages(errorMessage)
+          val errorSpan = doc.getElementById("value-error")
+          errorSpan.text mustBe s"Error: ${messages(errorMessage)}"
         }
       }
     }
   }
 
 
-  def answeredYesNoPage(createView: (Form[Boolean]) => HtmlFormat.Appendable, answer: Boolean) = {
-
-    "have only the correct value checked" in {
-      val doc = asDocument(createView(form.fill(answer)))
-      assert(doc.getElementById("value-yes").hasAttr("checked") == answer)
-      assert(doc.getElementById("value-no").hasAttr("checked") != answer)
+  def answeredRadioOptionPage(createView: Form[Int] => HtmlFormat.Appendable) = {
+    for(answer <- 1 to numberOfOptions){
+      s"have only the correct value ($answer) checked" in {
+        val doc = asDocument(createView(form.fill(answer)))
+        assert(doc.getElementById(answerId(answer)).hasAttr("checked"))
+        for(notAnswer <- 1 to numberOfOptions){
+          if(notAnswer != answer){
+            assert(!doc.getElementById(answerId(notAnswer)).hasAttr("checked"))
+          }
+        }
+      }
+      s"not render an error summary for value ($answer)" in {
+        val doc = asDocument(createView(form.fill(answer)))
+        assertNotRenderedById(doc, "error-summary_header")
+      }
     }
+  }
 
-    "not render an error summary" in {
-      val doc = asDocument(createView(form.fill(answer)))
-      assertNotRenderedById(doc, "error-summary_header")
-    }
+  private def answerId(answer: Int): String = {
+    s"value${if(answer != 1) s"-$answer" else ""}"
   }
 }

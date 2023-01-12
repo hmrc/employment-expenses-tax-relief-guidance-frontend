@@ -1,5 +1,5 @@
 @*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,25 +15,29 @@
  *@
 
 @import config.FrontendAppConfig
-@import components.back_link
 
 @this(
-  main_template: MainTemplate,
-  appConfig: FrontendAppConfig
+        layout: Layout,
+        appConfig: FrontendAppConfig,
+        heading: playComponents.heading
 )
 
 @(claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = messages(s"notEntitled.$claimant.title")
+@layout(
+    pageTitle = messages(s"notEntitled.$claimant.title")
 ) {
 
-    @back_link()
-
-    @components.heading(s"notEntitled.$claimant.heading")
-
-    <a id="link" href=@appConfig.taxReliefForEmployeesUrl
-       data-journey-click="link - click:@messages(s"notEntitled.$claimant.heading"):@messages("notEntitled.link.label")">
-        @messages("notEntitled.link.label")
+    @heading(
+        messages(s"notEntitled.$claimant.heading")
+    )
+<p>
+    <a id="govuk-l" class="govuk-link" href=@appConfig.taxReliefForEmployeesUrl
+    data-journey-click="link - click:@messages(s"notEntitled.$claimant.heading"):@messages("notEntitled.link.label")">
+    @messages("notEntitled.link.label")
     </a>
+</p>
+
+<br>
+
 }

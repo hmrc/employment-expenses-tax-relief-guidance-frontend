@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ import controllers.routes
 import javax.inject.{Inject, Singleton}
 import play.api.Configuration
 import play.api.i18n.Lang
-import uk.gov.hmrc.play.config.OptimizelyConfig
 import uk.gov.hmrc.time.TaxYear
 
 @Singleton
@@ -29,8 +28,8 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   lazy val serviceTitle = "Check if you can claim tax relief on work-related expenses"
   lazy val serviceName = configuration.get[String]("appName")
 
-  private lazy val contactHost = configuration.get[String]("contact-frontend.host")
-  private val contactFormServiceIdentifier = "employmentexpensestaxreliefguidancefrontend"
+  lazy val contactHost: String = configuration.get[String]("contact-frontend.host")
+  lazy val contactFormServiceIdentifier: String = configuration.get[String]("contact-frontend.serviceId")
 
   lazy val reportAProblemPartialUrl = s"$contactHost/contact/problem_reports_ajax?service=$contactFormServiceIdentifier"
   lazy val reportAProblemNonJSUrl = s"$contactHost/contact/problem_reports_nonjs?service=$contactFormServiceIdentifier"

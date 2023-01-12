@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@ package views
 import play.api.data.Form
 import controllers.routes
 import forms.MoreThanFiveJobsFormProvider
-import views.behaviours.YesNoViewBehaviours
+import views.behaviours.NewYesNoViewBehaviours
 import views.html.MoreThanFiveJobsView
 
-class MoreThanFiveJobsViewSpec extends YesNoViewBehaviours {
+class MoreThanFiveJobsViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = "moreThanFiveJobs"
 

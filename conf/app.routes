@@ -16,9 +16,6 @@ POST       /who-claiming-for                            controllers.ClaimantCont
 GET        /registered-self-assessment                  controllers.RegisteredForSelfAssessmentController.onPageLoad()
 POST       /registered-self-assessment                  controllers.RegisteredForSelfAssessmentController.onSubmit()
 
-GET        /claiming-for-current-year                   controllers.ClaimingForCurrentYearController.onPageLoad()
-POST       /claiming-for-current-year                   controllers.ClaimingForCurrentYearController.onSubmit()
-
 GET        /which-years-are-you-claiming-for            controllers.WhichYearsAreYouClaimingForController.onPageLoad()
 POST       /which-years-are-you-claiming-for            controllers.WhichYearsAreYouClaimingForController.onSubmit()
 

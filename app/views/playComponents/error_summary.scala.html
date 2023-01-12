@@ -1,5 +1,5 @@
 @*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,11 +14,23 @@
  * limitations under the License.
  *@
 
+@this(
+    govukErrorSummary : GovukErrorSummary
+)
+
 @(
-messageKey: String = "",
-inputType: String = "button"
+    errors: Seq[FormError],
+    errorKey: Option[String] = None
 )(implicit messages: Messages)
 
-<div class="section">
-    <input type="@inputType" class="button" value="@messages(messageKey)" />
-</div>
+@if(errors.nonEmpty) {
+    @govukErrorSummary(ErrorSummary(
+        title       = Text(messages("error.summary.title")),
+        errorList   = for(error <- errors) yield {
+            ErrorLink(
+                href    = errorKey.orElse(Some(error.key)).map(key => s"#$key"),
+                content = Text(messages(error.message, error.args:_*))
+            )
+        }
+    ))
+}

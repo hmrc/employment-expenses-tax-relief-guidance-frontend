@@ -1,5 +1,5 @@
 @*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,25 +15,21 @@
  *@
 
 @import config.FrontendAppConfig
-@import components.back_link
 
 @this(
-  main_template: MainTemplate,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    heading: playComponents.heading,
+    appConfig: FrontendAppConfig
 )
 
 @(claimant: Claimant, backButtonOverride: Option[String])(implicit request: Request[_], messages: Messages)
 
-
-@link = {<a id="link" href="@appConfig.selfAssessmentTaxReturnsUrl">@messages("useSelfAssessment.link.label")</a>}
-
-@main_template(
-  title = messages(s"useSelfAssessment.$claimant.title")
+@layout(
+  pageTitle = messages(s"useSelfAssessment.$claimant.title")
 ) {
+  @heading(messages(s"useSelfAssessment.$claimant.heading"))
 
-  @back_link()
-
-  @components.heading(s"useSelfAssessment.$claimant.heading")
-
-  <p>@Html(messages(s"useSelfAssessment.$claimant.guidance", link))</p>
+  <p class="govuk-body">@messages(s"useSelfAssessment.$claimant.guidance")
+      <a class="govuk-link" id="link" href="@appConfig.selfAssessmentTaxReturnsUrl">@messages("useSelfAssessment.link.label")</a>.
+  </p>
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,24 +16,27 @@
 
 package views
 
-import models.Claimant.You
-import views.behaviours.ViewBehaviours
-import views.html.SaCheckDisclaimerAllYearsView
+import controllers.routes
+import play.api.Application
+import play.api.mvc.Call
+import play.twirl.api.HtmlFormat
+import views.behaviours.NewViewBehaviours
+import views.html.DisclaimerView
 
-class SaCheckDiclaimerAllYearsViewSpec extends ViewBehaviours {
+class DisclaimerViewSpec extends NewViewBehaviours {
 
-  val messageKeyPrefix = "saCheckDisclaimerAllYears.you"
+  val messageKeyPrefix: String = "disclaimer"
 
-  val application = applicationBuilder().build
+  val application: Application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[SaCheckDisclaimerAllYearsView]
+  val view: DisclaimerView = app.injector.instanceOf[DisclaimerView]
 
-  def createView = view.apply(You)(fakeRequest, messages)
+  def onwardRoute: Call = routes.IndexController.onPageLoad
 
-  "UseSelfAssessment view" must {
+  def createView: HtmlFormat.Appendable = view.apply(claimant, claimingCurrent = true, claimingPrevious = true)(fakeRequest, messages)
 
+  "DisclaimerView" must {
     behave like normalPage(createView, messageKeyPrefix)
-
     behave like pageWithBackLink(createView)
   }
 

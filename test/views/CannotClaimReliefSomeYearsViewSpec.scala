@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,10 @@
 package views
 
 import controllers.routes
-import views.behaviours.ViewBehaviours
+import views.behaviours.NewViewBehaviours
 import views.html.CannotClaimReliefSomeYearsView
 
-class CannotClaimReliefSomeYearsViewSpec extends ViewBehaviours {
+class CannotClaimReliefSomeYearsViewSpec extends NewViewBehaviours {
 
   def onwardRoute = routes.IndexController.onPageLoad
 
@@ -38,10 +38,9 @@ class CannotClaimReliefSomeYearsViewSpec extends ViewBehaviours {
 
     "have the correct banner title" in {
       val doc = asDocument(createView)
-      val nav = doc.getElementById("proposition-menu")
-      val span = nav.children.first
+      val nav = doc.select(".hmrc-header__service-name")
 
-      span.text mustEqual messages("site.service_name")
+      nav.text mustEqual messages("site.service_name")
     }
 
     "display the correct browser title" in {

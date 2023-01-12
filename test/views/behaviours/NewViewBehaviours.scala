@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,12 @@
 package views.behaviours
 
 import play.twirl.api.HtmlFormat
-import views.ViewSpecBase
+import views.{NewViewSpecBase, ViewSpecBase}
 
-trait ViewBehaviours extends ViewSpecBase {
+trait NewViewBehaviours extends NewViewSpecBase {
 
   protected def getFullTitle(messageKey: String, args: Any*) =
-    messages(messageKey, args: _*) + " – " + messages("site.service_name") + " – " + messages("site.gov.uk")
+    messages(messageKey, args: _*) + " – " + messages("service.name") + " – " + messages("site.gov.uk")
 
   def normalPage(view: HtmlFormat.Appendable,
                  messageKeyPrefix: String,
@@ -32,10 +32,9 @@ trait ViewBehaviours extends ViewSpecBase {
       "rendered" must {
         "have the correct banner title" in {
           val doc = asDocument(view)
-          val nav = doc.getElementById("proposition-menu")
-          val span = nav.children.first
+          val banner = doc.select(".hmrc-header__service-name")
 
-          span.text mustEqual messages("site.service_name")
+          banner.text() mustEqual messages("site.service_name")
         }
 
         "display the correct browser title" in {
@@ -56,7 +55,7 @@ trait ViewBehaviours extends ViewSpecBase {
 
         "display language toggles" in {
           val doc = asDocument(view)
-          assertRenderedByCssSelector(doc, "p.translate")
+          assertRenderedByCssSelector(doc, "ul.hmrc-language-select__list")
         }
       }
     }
@@ -68,7 +67,7 @@ trait ViewBehaviours extends ViewSpecBase {
     "behave like a page with a override back link" must {
       "have a back link" in {
         val doc = asDocument(view)
-        assertRenderedById(doc, "back-link-override")
+        assertRenderedById(doc, "back-link")
       }
     }
   }
@@ -98,12 +97,13 @@ trait ViewBehaviours extends ViewSpecBase {
 
   def pageWithHyperLink(view: HtmlFormat.Appendable,
                         url: String,
-                        id: String = "link"): Unit = {
+                        id: String = "govuk-link",
+                        index: Int = 1): Unit = {
 
     "behave like a page with a url link" must {
       "display link" in {
         val doc = asDocument(view)
-        doc.getElementById(id).attr("href") mustBe url
+        doc.getElementsByClass(id).get(index).attr("href") mustBe url
       }
     }
   }

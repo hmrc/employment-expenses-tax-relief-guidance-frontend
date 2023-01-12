@@ -1,5 +1,5 @@
 @*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import utils.RadioOption
+@import utils._
 
 @(
         field: Field,
@@ -22,7 +22,7 @@
         legend: String,
         legendClass: Option[String] = None,
         hint: Option[String] = None,
-        trackGa: Boolean = false,
+        trackGa: Boolean = true,
         inputs: Seq[RadioOption],
         headingIsLegend: Boolean = false
 )(implicit messages: Messages)
@@ -31,7 +31,7 @@
     <fieldset class='@fieldsetClass.getOrElse("")' id="@{field.id}">
         <legend>
             @if(headingIsLegend){
-                <h1 class="heading-xlarge">@legend</h1>
+                <h1 @if(legendClass.nonEmpty){class="@legendClass" }else{class="heading-xlarge"}>@legend</h1>
             } else {
                 <span @if(legendClass.nonEmpty){class="@legendClass" }>@legend</span>
             }
@@ -43,13 +43,27 @@
                 <span class="error-message" id="error-message-@{field.id}-input">@messages(error.message, error.args: _*)</span>
             }
         </legend>
-        @for(input <- inputs) {
+        @for((input, index) <- inputs.zipWithIndex) {
             <div class="multiple-choice">
-                <input id="@{input.id}" type="radio" name="@{field.id}" value="@{input.value}" @if(field.value == Some(input.value)){checked="checked"} @if(trackGa){data-journey-click="employment-expenses-tax-relief-guidance-frontend:click:@{input.id}"} />
+                <input
+                    id="@{input.id}"
+                    type="checkbox"
+                    name="@{field.id}[@index]"
+                    value="@{input.value}"
+                    @if(field.values.contains(input.value)) { checked }
+                    @if(trackGa){data-journey-click="check - select:@legend:@input.message.string"}
+                    @if(input.hint.isDefined) { aria-describedby="@{input.id}-hint" }
+                >
 
-                <label class="block-label selection-button-radio" for="@{input.id}">
+                <label class="block-label selection-button-radio @if(input.hint.isDefined) { radio-with-hint }" for="@{input.id}">
                   @input.message.html
                 </label>
+
+                @input.hint.map { hint =>
+                  <span id="@{input.id}-hint" class="form-hint radio-hint">
+                    @hint.html
+                  </span>
+                }
             </div>
         }
     </fieldset>
