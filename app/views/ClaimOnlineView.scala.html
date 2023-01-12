@@ -1,5 +1,5 @@
 @*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,16 +15,16 @@
  *@
 
 @import config.FrontendAppConfig
-@import components.back_link
-@import uk.gov.hmrc.play.config.OptimizelyConfig
 @import viewmodels.OnwardJourney
 
 @this(
-  main_template: MainTemplate,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    buttonLink: playComponents.button_link,
+    heading: playComponents.heading,
+    govukInsetText : GovukInsetText,
+    appConfig: FrontendAppConfig
 )
 @(onwardJourney: OnwardJourney, sessionId: Option[String], isSaUser: Boolean = false)(implicit request: Request[_], messages: Messages)
-
 
 @href = @{
     onwardJourney match {
@@ -47,30 +47,25 @@
     }
 }
 
-@main_template(
-    title = messages(s"$msgPrefix.title")
+@layout(
+    pageTitle = messages(s"$msgPrefix.title")
 ) {
 
-    @back_link()
+    @heading(messages(s"$msgPrefix.heading"))
+    @govukInsetText(InsetText(
+        content = Text(messages(s"$msgPrefix.para1"))
+    ))
 
-    @components.heading(s"$msgPrefix.heading")
-    <div class="panel panel-border-wide">
-        <p>
-            @messages(s"$msgPrefix.para1")
-        </p>
-    </div>
+    <p class="govuk-body">@messages(s"$msgPrefix.para2")</p>
 
-    <p>@messages(s"$msgPrefix.para2")</p>
-
-    <ul class="list-bullet">
+    <ul class="govuk-list govuk-list--bullet">
         <li>@messages(s"$msgPrefix.bullet1")</li>
         <li>@messages(s"$msgPrefix.bullet2")</li>
     </ul>
 
-    @components.button_link(
-        messageKey = s"$msgPrefix.link.label",
+    @buttonLink(
+        content = messages(s"$msgPrefix.link.label"),
         href = href,
-        id = Some("continue"),
-        gaEvent = Some("link - click:" + messages(s"$msgPrefix.heading") + ":" + messages(s"$msgPrefix.link.label"))
+        id = Some("continue")
     )
 }

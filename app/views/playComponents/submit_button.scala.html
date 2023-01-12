@@ -1,5 +1,5 @@
 @*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,8 +14,12 @@
  * limitations under the License.
  *@
 
-@()(implicit messages: Messages)
+@this(govukButton: GovukButton)
 
-<div class="section">
-    <button id="submit" class="button">@messages("site.save_and_continue")</button>
-</div>
+@(content: Option[String] = None, href: Option[String] = None)(implicit messages: Messages)
+
+@govukButton(Button(
+    href = href,
+    content = Text(content.getOrElse(messages("site.save_and_continue"))),
+    attributes = Map("id" -> "submit")
+))

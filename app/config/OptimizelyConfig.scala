@@ -1,5 +1,5 @@
-@*
- * Copyright 2021 HM Revenue & Customs
+/*
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,10 +12,19 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@()(implicit messages: Messages)
+package config
 
-<div class="js-visible">
-  <p><a id="back-link" class="link-back" href="javascript:history.back()">@messages("site.back")</a></p>
-</div>
+import javax.inject.Inject
+import play.api.Configuration
+
+class OptimizelyConfig @Inject() (configuration: Configuration) {
+
+  val url: Option[String] =
+    for {
+      baseUrl   <- configuration.getOptional[String]("optimizely.url")
+      projectId <- configuration.getOptional[String]("optimizely.projectId")
+    } yield s"$baseUrl$projectId.js"
+
+}

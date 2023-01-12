@@ -1,5 +1,5 @@
 @*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,4 +15,4 @@
  *@
 
 @(href: String, eventBody: String, newWindow: Boolean = false)
-<a href="@href" data-journey-click="link - click:@eventBody" @if(newWindow){target="_blank"}>
+<a class="govuk-link" href="@href" data-journey-click="link - click:@eventBody" @if(newWindow){target="_blank"}>

@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,10 +19,10 @@ package views
 import controllers.routes
 import forms.CovidHomeWorkingFormProvider
 import play.api.data.Form
-import views.behaviours.YesNoViewBehaviours
+import views.behaviours.NewYesNoViewBehaviours
 import views.html.WfhDueToCovidView
 
-class WfhDueToCovidViewSpec extends YesNoViewBehaviours {
+class WfhDueToCovidViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = "covidHomeWorking"
 

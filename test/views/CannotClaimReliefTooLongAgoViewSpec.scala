@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,10 @@
 package views
 
 import uk.gov.hmrc.time.TaxYear
-import views.behaviours.ViewBehaviours
+import views.behaviours.NewViewBehaviours
 import views.html.CannotClaimReliefTooLongAgoView
 
-class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
+class CannotClaimReliefTooLongAgoViewSpec extends NewViewBehaviours {
 
   val startYear = TaxYear.current.startYear.toString
 
@@ -39,14 +39,6 @@ class CannotClaimReliefTooLongAgoViewSpec extends ViewBehaviours {
 
     behave like pageWithBackLink(createView)
     behave like pageWithHyperLink(createView, taxReliefForEmployeesUrl)
-
-    "have the correct banner title" in {
-      val doc = asDocument(createView)
-      val nav = doc.getElementById("proposition-menu")
-      val span = nav.children.first
-
-      span.text mustEqual messages("site.service_name")
-    }
 
     "display the correct browser title" in {
       val doc = asDocument(createView)

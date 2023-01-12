@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,8 @@ class SessionExpiredControllerSpec extends SpecBase with MockitoSugar {
 
     val mockAppConfig = mock[FrontendAppConfig]
     when(mockAppConfig.taxReliefForEmployeesUrl).thenReturn("https://www.gov.uk/tax-relief-for-employees")
-
+    when(mockAppConfig.contactFormServiceIdentifier).thenReturn("test")
+    when(mockAppConfig.contactHost).thenReturn("https://www.gov.uk/")
     val application = applicationBuilder()
       .overrides(bind[FrontendAppConfig].toInstance(mockAppConfig))
       .build()

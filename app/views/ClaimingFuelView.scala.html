@@ -1,5 +1,5 @@
 @*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,44 +14,36 @@
  * limitations under the License.
  *@
 
-@import config.FrontendAppConfig
-@import uk.gov.hmrc.play.views.html._
 @import controllers.routes._
-@import components.back_link
 
 @this(
-  main_template: MainTemplate,
-  formHelper: FormWithCSRF,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    formHelper: uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF,
+    errorSummary: playComponents.error_summary,
+    heading: playComponents.heading,
+    inputYesNoRadio: playComponents.input_yes_no,
+    submitButton: playComponents.submit_button
  )
 
 @(form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = s"${errorPrefix(form)} ${messages(s"claimingFuel.$claimant.title")}"
+@layout(
+    pageTitle = s"${errorPrefix(form)} ${messages(s"claimingFuel.$claimant.title")}"
 ) {
-
-    @back_link()
-
+    @errorSummary(form.errors)
+    @heading(messages(s"claimingFuel.$claimant.heading"))
+    <p class="govuk-body">@messages(s"claimingFuel.$claimant.guidance")</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>@messages(s"claimingFuel.$claimant.bullet1")</li>
+        <li>@messages(s"claimingFuel.$claimant.bullet2")</li>
+    </ul>
     @formHelper(action = ClaimingFuelController.onSubmit(), 'autoComplete -> "off") {
-
-        @components.error_summary(form.errors)
-
-        @components.heading(s"claimingFuel.$claimant.heading")
-
-        <p>@messages(s"claimingFuel.$claimant.guidance")</p>
-
-        <ul class="list list-bullet">
-            <li>@messages(s"claimingFuel.$claimant.bullet1")</li>
-            <li>@messages(s"claimingFuel.$claimant.bullet2")</li>
-        </ul>
-
-        @components.input_yes_no(
+        @inputYesNoRadio(
             field = form("value"),
             label = messages(s"claimingFuel.$claimant.heading"),
-            labelClass = Some("visually-hidden")
+            headingIsLegend = false,
+            labelClass = Some("govuk-visually-hidden")
         )
-
-        @components.submit_button()
+        @submitButton()
     }
 }

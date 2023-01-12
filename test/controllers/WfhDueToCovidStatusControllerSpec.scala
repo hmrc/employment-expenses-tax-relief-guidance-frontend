@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,23 +18,17 @@ package controllers
 
 import base.SpecBase
 import connectors.DataCacheConnector
-import controllers.actions.{DataRetrievalAction, FakeDataRetrievalAction}
-import forms.CovidHomeWorkingFormProvider
-import identifiers.{ClaimantId, ClaimingForId, ClaimingMileageId, CovidHomeWorkingId, WhichYearsAreYouClaimingForId}
-import models.ClaimingFor.values
+import identifiers.{ClaimantId, WhichYearsAreYouClaimingForId}
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
-import play.api.libs.json.{JsArray, JsBoolean, JsNumber, JsString, Json}
-import play.api.mvc.Call
+import play.api.libs.json.{JsNumber, JsString}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.{FakeNavigator, Navigator}
-import views.html.WfhDueToCovidView
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

@@ -1,0 +1,69 @@
+@*
+ * Copyright 2023 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import utils.RadioOption
+
+@this(
+    govukRadios : GovukRadios
+)
+
+@(
+    field: Field,
+    legend: String,
+    legendClass: Option[String] = Some("govuk-label--xl"),
+    hint: Option[String] = None,
+    inputs: Seq[RadioOption],
+    isPageHeading: Boolean = true
+)(implicit messages: Messages)
+
+<div class="govuk-form-group @if(field.hasErrors){govuk-form-group--error}">
+    <fieldset class="govuk-fieldset" id="@{field.id}">
+        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+            @if(isPageHeading) {
+                <h1 class="@{legendClass.get}">@legend</h1>
+            } else {
+                <span class="@{legendClass.get}">@legend</span>
+            }
+        </legend>
+        @if(hint.nonEmpty){
+            <p class="govuk-hint">@{hint.get}</p>
+        }
+        @field.errors.map { error =>
+            <p class="govuk-error-message" id="error-message-@{field.id}-input">
+                <span class="govuk-visually-hidden">Error:</span> @messages(error.message, error.args: _*)
+            </p>
+        }
+        <div class="govuk-radios" data-module="govuk-radios">
+            @for(input <- inputs) {
+                @if(input != inputs.last) {
+                    <div class="govuk-radios__item">
+                        <input class="govuk-radios__input" id="@{input.id}" name="@{field.id}" type="radio" value="@{input.value}">
+                        <label class="govuk-label govuk-radios__label" for="@{input.id}">
+                            @input.message.html
+                        </label>
+                    </div>
+                }
+            }
+            <div class="govuk-radios__divider">@messages("site.or")</div>
+            <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="@{inputs.last.id}" name="@{field.id}" type="radio" value="@{inputs.last.value}">
+                <label class="govuk-label govuk-radios__label" for="@{inputs.last.id}">
+                    @inputs.last.message.html
+                </label>
+            </div>
+        </div>
+    </fieldset>
+</div>

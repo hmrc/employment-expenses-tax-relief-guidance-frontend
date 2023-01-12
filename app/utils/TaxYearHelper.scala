@@ -1,5 +1,5 @@
-@*
- * Copyright 2021 HM Revenue & Customs
+/*
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,8 +12,12 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(headingKey: String, headingSize: String = "heading-large")(implicit messages: Messages)
+package utils
 
-<h1 class="@headingSize">@messages(headingKey)</h1>
+import uk.gov.hmrc.time.TaxYear
+
+object TaxYearHelper {
+  def currentTaxYear: String = s"${TaxYear.current.startYear.toString}-${TaxYear.current.finishYear.toString}"
+}

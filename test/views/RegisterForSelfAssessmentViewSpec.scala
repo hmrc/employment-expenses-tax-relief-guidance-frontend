@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,20 +17,23 @@
 package views
 
 import controllers.routes
-import views.behaviours.ViewBehaviours
+import play.api.Application
+import play.api.mvc.Call
+import play.twirl.api.HtmlFormat
+import views.behaviours.NewViewBehaviours
 import views.html.RegisterForSelfAssessmentView
 
-class RegisterForSelfAssessmentViewSpec extends ViewBehaviours {
+class RegisterForSelfAssessmentViewSpec extends NewViewBehaviours {
 
-  val messageKeyPrefix = "registerForSelfAssessment.you"
+  val messageKeyPrefix: String = "registerForSelfAssessment.you"
 
-  val application = applicationBuilder().build
+  val application: Application = applicationBuilder().build
 
-  val view = application.injector.instanceOf[RegisterForSelfAssessmentView]
+  val view: RegisterForSelfAssessmentView = application.injector.instanceOf[RegisterForSelfAssessmentView]
 
-  def onwardRoute = routes.IndexController.onPageLoad
+  def onwardRoute: Call = routes.IndexController.onPageLoad
 
-  def createView = view.apply(claimant, onwardRoute)(fakeRequest, messages)
+  def createView: HtmlFormat.Appendable = view.apply(claimant, onwardRoute)(fakeRequest, messages)
 
   "RegisterForSelfAssessment view" must {
 

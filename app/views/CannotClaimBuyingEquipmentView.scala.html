@@ -1,5 +1,5 @@
 @*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,40 +15,38 @@
  *@
 
 @import config.FrontendAppConfig
-@import components.back_link
 
 @this(
-  main_template: MainTemplate,
-  appConfig: FrontendAppConfig
+    layout: Layout,
+    appConfig: FrontendAppConfig,
+    heading: playComponents.heading
 )
 
 @(claimant: Claimant, otherExpensesCall: Call, uniformsWorkClothingToolsCall: Call)(implicit request: Request[_], messages: Messages)
 
-@main_template(
-    title = messages(s"cannotClaimBuyingEquipment.$claimant.title")
+@layout(
+    pageTitle = messages(s"cannotClaimBuyingEquipment.$claimant.title")
 ) {
 
-    @back_link()
+    @heading(messages(s"cannotClaimBuyingEquipment.$claimant.heading"))
 
-    @components.heading(s"cannotClaimBuyingEquipment.$claimant.heading")
-
-    <p>
+    <p class="govuk-body">
         @messages(s"cannotClaimBuyingEquipment.$claimant.guidance")
 
-        <a id="link" href=@appConfig.annualInvestmentAllowanceUrl
+        <a id="link" class="govuk-link" href=@appConfig.annualInvestmentAllowanceUrl
            data-journey-click="link - click:@messages(s"cannotClaimBuyingEquipment.$claimant.heading"):@messages("cannotClaimBuyingEquipment.link.label")">
             @messages("cannotClaimBuyingEquipment.link.label")</a>.
 
         @messages(s"cannotClaimBuyingEquipment.$claimant.guidance2")
     </p>
 
-    <p>
+    <p class="govuk-body">
         @messages("cannotClaimBuyingEquipment.guidance3")
 
-        <a href="@uniformsWorkClothingToolsCall.url">@messages("cannotClaimBuyingEquipment.link.label2")</a>.
+        <a  class="govuk-link" href="@uniformsWorkClothingToolsCall.url">@messages("cannotClaimBuyingEquipment.link.label2")</a>.
 
         @messages("cannotClaimBuyingEquipment.guidance4")
 
-        <a href="@otherExpensesCall.url">@messages("cannotClaimBuyingEquipment.link.label3")</a>.        
+        <a class="govuk-link" href="@otherExpensesCall.url">@messages("cannotClaimBuyingEquipment.link.label3")</a>.
     </p>
 }
