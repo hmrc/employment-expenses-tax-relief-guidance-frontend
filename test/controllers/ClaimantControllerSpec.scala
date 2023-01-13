@@ -18,13 +18,17 @@ package controllers
 
 import base.SpecBase
 import forms.ClaimantFormProvider
+import identifiers.ClaimingForId
+import models.ClaimingFor.{MileageFuel, UniformsClothingTools}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
+import play.api.libs.json.{JsArray, JsString}
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
+import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
 import views.html.ClaimantView
 
@@ -40,7 +44,12 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
 
     "return OK and the correct view for a GET" in {
 
-      val application = applicationBuilder().build()
+      val application = applicationBuilder(Some(CacheMap(cacheMapId, Map(
+        ClaimingForId.toString -> JsArray(List(
+          JsString(MileageFuel.toString),
+          JsString(UniformsClothingTools.toString)))
+      )
+      ))).build()
       val request = FakeRequest(GET, claimantRoute.url)
       val result = route(application, request).value
       val view = application.injector.instanceOf[ClaimantView]
@@ -94,6 +103,31 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe
         view.apply(boundForm)(request, messages).toString
+
+      application.stop
+    }
+
+    "redirect to Session Expired for a GET if no existing data is found" in {
+
+      val application = applicationBuilder().build
+      val request = FakeRequest(GET, claimantRoute.url)
+      val result = route(application, request).value
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(sessionExpiredUrl)
+
+      application.stop
+    }
+
+
+    "redirect to Session Expired for a POST if no existing data is found" in {
+
+      val application = applicationBuilder().build
+      val request = FakeRequest(GET, claimantRoute.url)
+      val result = route(application, request).value
+
+      status(result) mustBe SEE_OTHER
+      redirectLocation(result) mustBe Some(sessionExpiredUrl)
 
       application.stop
     }

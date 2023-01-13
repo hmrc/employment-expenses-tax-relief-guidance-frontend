@@ -23,13 +23,13 @@ import utils.Navigator
 class IndexControllerSpec extends SpecBase {
 
   "Index Controller" must {
-    "return Moved Permanently (to Claimant) for a GET" in {
+    "return Moved Permanently (to ClaimingFor) for a GET" in {
 
       val result = new IndexController(new Navigator, controllerComponents).onPageLoad()(fakeRequest)
 
       status(result) mustBe MOVED_PERMANENTLY
 
-      redirectLocation(result) mustBe Some(routes.ClaimantController.onPageLoad().url)
+      redirectLocation(result) mustBe Some(routes.ClaimingForController.onPageLoad().url)
     }
   }
 }
