@@ -75,9 +75,12 @@ class Navigator @Inject()() {
 
   private def employerPaidBackExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackExpenses match {
     case Some(true) => routes.CannotClaimReliefController.onPageLoad()
-    case Some(false) => userAnswers.claimAnyOtherExpense match {
-      case Some(true) => routes.WfhDueToCovidController.onPageLoad()
-      case _ => routes.ClaimingForController.onPageLoad()
+    case Some(false) => (userAnswers.claimingFor, userAnswers.claimant) match {
+      case (Some(List(ClaimingFor.MileageFuel)), Some(_)) => routes.UseOwnCarController.onPageLoad()
+      case (Some(List(ClaimingFor.BuyingEquipment)), Some(_)) => routes.CannotClaimBuyingEquipmentController.onPageLoad()
+      case (Some(_), Some(You)) => routes.MoreThanFiveJobsController.onPageLoad()
+      case (Some(_), Some(SomeoneElse)) => routes.UsePrintAndPostController.onPageLoad()
+      case _ => routes.SessionExpiredController.onPageLoad
     }
     case _ => routes.SessionExpiredController.onPageLoad
   }
@@ -96,12 +99,9 @@ class Navigator @Inject()() {
   }
 
   private def claimingForRouting(userAnswers: UserAnswers) =
-    (userAnswers.claimingFor, userAnswers.claimant) match {
-      case (Some(List(ClaimingFor.MileageFuel)), Some(_)) => routes.UseOwnCarController.onPageLoad()
-      case (Some(List(ClaimingFor.HomeWorking)), Some(You)) => routes.WfhDueToCovidController.onPageLoad()
-      case (Some(List(ClaimingFor.BuyingEquipment)), Some(_)) => routes.CannotClaimBuyingEquipmentController.onPageLoad()
-      case (Some(_), Some(You)) => routes.MoreThanFiveJobsController.onPageLoad()
-      case (Some(_), Some(SomeoneElse)) => routes.UsePrintAndPostController.onPageLoad()
+    userAnswers.claimingFor match {
+      case Some(List(ClaimingFor.HomeWorking)) => routes.ClaimAnyOtherExpenseController.onPageLoad()
+      case Some(_)  => routes.ClaimantController.onPageLoad()
       case _ => routes.SessionExpiredController.onPageLoad
     }
 
@@ -191,7 +191,7 @@ class Navigator @Inject()() {
 
   private def claimAnyOtherExpenseRouting(userAnswers: UserAnswers) = userAnswers.claimAnyOtherExpense match {
     case Some(true) => routes.RegisteredForSelfAssessmentController.onPageLoad()
-    case Some(false) => routes.ClaimantController.onPageLoad()
+    case Some(false) => routes.ClaimingForController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad
   }
 
@@ -202,6 +202,7 @@ class Navigator @Inject()() {
   }
 
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
+    ClaimingForId -> claimingForRouting,
     ClaimantId -> (_ => routes.PaidTaxInRelevantYearController.onPageLoad()),
     ClaimAnyOtherExpenseId -> claimAnyOtherExpenseRouting,
     CovidHomeWorkingId -> covidHomeWorkingRouting,
@@ -212,7 +213,6 @@ class Navigator @Inject()() {
     MoreThanFiveJobsId -> moreThanFiveJobsRouting,
     EmployerPaidBackExpensesId -> employerPaidBackExpensesRouting,
     EmployerPaidBackWfhExpensesId -> employerPaidBackWFHExpensesRouting,
-    ClaimingForId -> claimingForRouting,
     ClaimingMileageId -> (_ => routes.UseCompanyCarController.onPageLoad()),
     UseOwnCarId -> useOwnCarRouting,
     UseCompanyCarId -> useCompanyCarRouting,
@@ -230,7 +230,7 @@ class Navigator @Inject()() {
   def nextPage(id: Identifier): UserAnswers => Call =
     routeMap.getOrElse(id, _ => routes.IndexController.onPageLoad)
 
-  lazy val firstPage: Call = routes.ClaimantController.onPageLoad()
+  lazy val firstPage: Call = routes.ClaimingForController.onPageLoad()
 
   lazy val changeOtherExpensesPage: Call = routes.ChangeOtherExpensesController.onPageLoad()
 

@@ -21,6 +21,7 @@ import controllers.actions._
 import forms.ClaimingForFormProvider
 import identifiers.ClaimingForId
 import javax.inject.Inject
+import models.Claimant.You
 import models.ClaimingFor
 import play.api.data.Form
 import play.api.i18n.I18nSupport
@@ -36,30 +37,28 @@ class ClaimingForController @Inject()(
                                         navigator: Navigator,
                                         getData: DataRetrievalAction,
                                         requireData: DataRequiredAction,
-                                        getClaimant: GetClaimantAction,
                                         formProvider: ClaimingForFormProvider,
                                         val controllerComponents: MessagesControllerComponents,
                                         view: ClaimingForView
                                      )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = getData {
     implicit request =>
-      val form = formProvider(request.claimant)
-
-      val preparedForm = request.userAnswers.claimingFor match {
+      val form = formProvider(You)
+      val preparedForm = request.userAnswers.flatMap(_.claimingFor) match {
         case None => form
         case Some(value) => form.fill(value.toSet)
       }
-      Ok(view(preparedForm, request.claimant))
+      Ok(view(preparedForm, You))
   }
 
-  def onSubmit: Action[AnyContent] = (getData andThen requireData andThen getClaimant).async {
+  def onSubmit: Action[AnyContent] = getData.async {
     implicit request =>
-      val form = formProvider(request.claimant)
+      val form = formProvider(You)
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(formWithErrors, request.claimant))),
+          Future.successful(BadRequest(view(formWithErrors, You))),
         value =>
           dataCacheConnector.save[Set[ClaimingFor]](request.sessionId, ClaimingForId, value).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimingForId)(new UserAnswers(cacheMap))))
