@@ -98,9 +98,9 @@ useSelfAssessment.someoneElse.heading = They can only claim these expenses using
 useSelfAssessment.someoneElse.guidance = They must claim these expenses as part of their
 useSelfAssessment.link.label =  Self Assessment tax return
 
-moreThanFiveJobs.title = Are you claiming tax relief for more than 5 different jobs?
-moreThanFiveJobs.heading = Are you claiming tax relief for more than 5 different jobs?
-moreThanFiveJobs.error.required = Select yes if you are claiming tax relief for more than 5 different jobs
+moreThanFiveJobs.title = Are you claiming for more than 5 different jobs?
+moreThanFiveJobs.heading = Are you claiming for more than 5 different jobs?
+moreThanFiveJobs.error.required = Select yes if you are claiming for more than 5 different jobs
 
 registerForSelfAssessment.you.title = You can only claim these expenses using Self Assessment
 registerForSelfAssessment.you.heading = You can only claim these expenses using Self Assessment
