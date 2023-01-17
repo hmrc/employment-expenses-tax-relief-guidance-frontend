@@ -362,9 +362,9 @@ whichYearsAreYouClaimingFor.you.both.tax.years.info.text.1 = You can claim tax r
 whichYearsAreYouClaimingFor.you.both.tax.years.info.text.2 = If you want to claim tax relief for previous years, you will need to claim it on your Self Assessment tax return.
 whichYearsAreYouClaimingFor.error.required = Select which years you are claiming tax relief for
 
-saCheckDisclaimerCurrentYear.you.title = Please check the following before continuing
-saCheckDisclaimerCurrentYear.you.heading = Please check the following before continuing
-saCheckDisclaimerCurrentYear.you.text1 = You will receive tax relief for your working from home expenses for the current tax year 2022-2023 if:
+saCheckDisclaimerCurrentYear.you.title = Check the following before continuing
+saCheckDisclaimerCurrentYear.you.heading = Check the following before continuing
+saCheckDisclaimerCurrentYear.you.text1 = You will receive tax relief for your working from home expenses based on the amount of weeks you have worked from home in this tax year {0} to {1} if:
 saCheckDisclaimerCurrentYear.you.list.item.1 = you are eligible
 saCheckDisclaimerCurrentYear.you.list.item.2 = you haven''t already made a claim for this year
 saCheckDisclaimerCurrentYear.you.text2 = We will now check if you are eligible to claim tax relief for the current tax year.
