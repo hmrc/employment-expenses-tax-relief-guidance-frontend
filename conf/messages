@@ -370,9 +370,9 @@ saCheckDisclaimerCurrentYear.you.list.item.2 = you haven''t already made a claim
 saCheckDisclaimerCurrentYear.you.text2 = We will now check if you are eligible to claim tax relief for the current tax year.
 saCheckDisclaimerCurrentYear.button.label = Accept and Continue
 
-saCheckDisclaimerAllYears.you.title = Please check the following before continuing
-saCheckDisclaimerAllYears.you.heading = Please check the following before continuing
-saCheckDisclaimerAllYears.you.text1 = You will receive tax relief for your working from home expenses for the current tax year 2022-2023 if:
+saCheckDisclaimerAllYears.you.title = Check the following before continuing
+saCheckDisclaimerAllYears.you.heading = Check the following before continuing
+saCheckDisclaimerAllYears.you.text1 = You will receive tax relief for your working from home expenses based on the amount of weeks you have worked from home in this tax year {0} to {1} if:
 saCheckDisclaimerAllYears.you.list.item.1 = you are eligible
 saCheckDisclaimerAllYears.you.list.item.2 = you haven''t already made a claim for this year
 saCheckDisclaimerAllYears.you.text2 = We will now check if you are eligible to claim tax relief for the current tax year.
