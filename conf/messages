@@ -168,10 +168,10 @@ employerPaid.noExpenses = No, none of my expenses
 employerPaid.someExpenses = Yes, some of my expenses
 employerPaid.allExpenses = Yes, all of my expenses
 
-cannotClaimWfhRelief.heading = You cannot claim tax relief on expenses that have been paid for by your employer
-cannotClaimWfhRelief.title = You cannot claim tax relief on expenses that have been paid for by your employer
-cannotClaimWfhRelief.link.prefix = You can
-cannotClaimWfhRelief.guidance = find out more information on tax relief for expenses for working from home.
+cannotClaimWfhRelief.heading = You are not eligible to claim
+cannotClaimWfhRelief.title = You are not eligible to claim
+cannotClaimWfhRelief.guidance = You cannot claim tax relief on expenses that have been paid for by your employer.
+
 
 cannotClaimReliefSomeYears.you.title = You can claim tax relief for expenses from after 5 April {0}
 cannotClaimReliefSomeYears.you.heading = You can claim tax relief for expenses from after 5 April {0}
