@@ -18,23 +18,11 @@ package controllers
 
 import controllers.actions.{DataRequiredAction, DataRetrievalAction, GetClaimantAction}
 import javax.inject.Inject
-import play.api.Logging
-import play.api.i18n.{I18nSupport, MessagesApi}
-import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import utils.Navigator
-import controllers.actions._
-import forms.MoreThanFiveJobsFormProvider
-import identifiers.EmployerPaidBackWfhExpensesId
-import javax.inject.Inject
-import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import uk.gov.hmrc.time.TaxYear
+import utils.Navigator
 import views.html.InformCustomerClaimNowInWeeksView
-
-import scala.concurrent.ExecutionContext
 
 class InformCustomerClaimNowInWeeksController @Inject()(
                                                  getClaimant: GetClaimantAction,

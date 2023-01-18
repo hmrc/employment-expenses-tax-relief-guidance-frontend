@@ -20,7 +20,7 @@ import base.SpecBase
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.FakeNavigator
-import views.html.{CannotClaimBuyingEquipmentView, InformCustomerClaimNowInWeeksView}
+import views.html.InformCustomerClaimNowInWeeksView
 
 class InformCustomerClaimNowInWeeksControllerSpec extends SpecBase {
 
