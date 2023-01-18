@@ -160,7 +160,7 @@ class Navigator @Inject()() {
       if(userAnswers.registeredForSelfAssessment.getOrElse(false)) {
         routes.SaCheckDisclaimerCurrentYearController.onPageLoad()
       } else {
-        routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+        routes.InformCustomerClaimNowInWeeksController.onPageLoad()
       }
     case Some(2) =>
       if(userAnswers.registeredForSelfAssessment.getOrElse(false)) {
@@ -172,7 +172,7 @@ class Navigator @Inject()() {
       if(userAnswers.registeredForSelfAssessment.getOrElse(false)) {
         routes.SaCheckDisclaimerAllYearsController.onPageLoad()
       } else {
-        routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+        routes.InformCustomerClaimNowInWeeksController.onPageLoad()
       }
     case _ => routes.SessionExpiredController.onPageLoad
   }
