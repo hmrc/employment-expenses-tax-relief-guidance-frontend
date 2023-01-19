@@ -19,6 +19,8 @@ POST       /registered-self-assessment                  controllers.RegisteredFo
 GET        /which-years-are-you-claiming-for            controllers.WhichYearsAreYouClaimingForController.onPageLoad()
 POST       /which-years-are-you-claiming-for            controllers.WhichYearsAreYouClaimingForController.onSubmit()
 
+GET        /inform-customer-claim-now-in-weeks          controllers.InformCustomerClaimNowInWeeksController.onPageLoad()
+
 GET        /sa-check-disclaimer-current-year            controllers.SaCheckDisclaimerCurrentYearController.onPageLoad()
 GET        /sa-check-disclaimer-all-years               controllers.SaCheckDisclaimerAllYearsController.onPageLoad()
 
