@@ -205,7 +205,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(true))
 
         navigator.nextPage(ClaimAnyOtherExpenseId)(mockAnswers) mustBe
-          routes.RegisteredForSelfAssessmentController.onPageLoad()
+          routes.DisclaimerController.onPageLoad()
       }
     }
 
@@ -216,6 +216,39 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
         navigator.nextPage(ClaimingOverPayAsYouEarnThresholdId)(mockAnswers) mustBe
           routes.RegisterForSelfAssessmentController.onPageLoad()
+      }
+    }
+
+    "go to the ClaimOnline view" when {
+
+      "answering Yes from the CovidHomeWorkingId view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.covidHomeWorking).thenReturn(Some(true))
+
+        navigator.nextPage(CovidHomeWorkingId)(mockAnswers) mustBe
+          routes.ClaimOnlineController.onPageLoad()
+      }
+    }
+
+    "go to the MoreThanFiveJobs view" when {
+
+      "answering Yes from the CovidHomeWorkingId view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.covidHomeWorking).thenReturn(Some(false))
+
+        navigator.nextPage(CovidHomeWorkingId)(mockAnswers) mustBe
+          routes.MoreThanFiveJobsController.onPageLoad()
+      }
+    }
+
+    "go to the SessionExpired view" when {
+
+      "answering Yes from the CovidHomeWorkingId view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.covidHomeWorking).thenReturn(None)
+
+        navigator.nextPage(CovidHomeWorkingId)(mockAnswers) mustBe
+          routes.SessionExpiredController.onPageLoad
       }
     }
 
