@@ -46,7 +46,7 @@ class RegisteredForSelfAssessmentViewSpec extends NewYesNoViewBehaviours {
       "registeredForSelfAssessment.you.accordion.guidance1",
       "registeredForSelfAssessment.accordion.list1.item2",
       "registeredForSelfAssessment.accordion.list2.item1",
-      "registeredForSelfAssessment.you.accordion.guidance2",
+      "registeredForSelfAssessment.you.accordion.guidance1",
       "registeredForSelfAssessment.accordion.list2.item2",
       "registeredForSelfAssessment.accordion.list2.item3",
       "registeredForSelfAssessment.accordion.list2.item4"
