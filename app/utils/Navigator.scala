@@ -190,13 +190,13 @@ class Navigator @Inject()() {
   }
 
   private def claimAnyOtherExpenseRouting(userAnswers: UserAnswers) = userAnswers.claimAnyOtherExpense match {
-    case Some(true) => routes.RegisteredForSelfAssessmentController.onPageLoad()
+    case Some(true) => routes.DisclaimerController.onPageLoad()
     case Some(false) => routes.ClaimingForController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad
   }
 
   private def covidHomeWorkingRouting(userAnswers: UserAnswers) = userAnswers.covidHomeWorking match {
-    case Some(true) => routes.DisclaimerController.onPageLoad()
+    case Some(true) => routes.ClaimOnlineController.onPageLoad()
     case Some(false) => routes.MoreThanFiveJobsController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad
   }

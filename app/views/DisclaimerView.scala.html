@@ -45,13 +45,13 @@
     @if(claimingCurrent) {
         <h2 class="govuk-heading-m">@messages("disclaimer.claim.after.h2")</h2>
         <p class="govuk-body">@messages("disclaimer.claim.after.p1")</p>
+        <p class="govuk-body">@messages("disclaimer.claim.p1")</p>
         <p class="govuk-body">@messages("disclaimer.claim.after.p2")</p>
         <ul class="govuk-list govuk-list--bullet">
             <li>@messages("disclaimer.claim.after.l1")</li>
             <li>@messages("disclaimer.claim.after.l2")</li>
             <li>@messages("disclaimer.claim.after.l3")</li>
         </ul>
-        <p class="govuk-body">@messages("disclaimer.claim.p1")</p>
     }
 
     @if(claimingPrevious) {
@@ -76,7 +76,7 @@
     <p class="govuk-body">@messages("disclaimer.accept")</p>
 
     @submitButton(
-        href = Some("claim-online"),
+        href = Some(controllers.routes.RegisteredForSelfAssessmentController.onPageLoad().url),
         content = Some(messages("disclaimer.button.continue"))
     ) <br>
 }
