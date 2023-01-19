@@ -14,9 +14,12 @@
  * limitations under the License.
  *@
 
+@import config.FrontendAppConfig
+
 @this(
         layout: Layout,
-        heading: playComponents.heading
+        heading: playComponents.heading,
+        appConfig: FrontendAppConfig
 )
 
 @(claimant: Claimant)(implicit request: Request[_], messages: Messages)
@@ -25,4 +28,7 @@
         pageTitle = messages(s"cannotClaimRelief.$claimant.title")
     ) {
         @heading(messages(s"cannotClaimRelief.$claimant.heading"))
+
+        <p class="govuk-body"><a class="govuk-link" href="@appConfig.jobExpensesGuidanceUrl">@messages(s"cannotClaimRelief.$claimant.guidance")</a></p>
+
     }
