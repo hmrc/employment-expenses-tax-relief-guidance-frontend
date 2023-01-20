@@ -16,6 +16,7 @@
 
 package views
 
+import config.FrontendAppConfig
 import org.jsoup.nodes.Element
 import play.twirl.api.Html
 import viewmodels.OnwardJourney
@@ -45,7 +46,7 @@ class ClaimOnlineViewSpec extends NewViewBehaviours {
       val view = application.injector.instanceOf[ClaimOnlineView]
       val doc = asDocument(view(OnwardJourney.FixedRateExpenses, None)(fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
-      button.attr("href") must be("https://www.tax.service.gov.uk/employee-expenses")
+      button.attr("href") must be(frontendAppConfig.employeeExpensesUrl)
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
     }
 
@@ -53,7 +54,7 @@ class ClaimOnlineViewSpec extends NewViewBehaviours {
       val view = application.injector.instanceOf[ClaimOnlineView]
       val doc = asDocument(view(OnwardJourney.ProfessionalSubscriptions, None)(fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
-      button.attr("href") must be("https://www.tax.service.gov.uk/professional-subscriptions")
+      button.attr("href") must be(frontendAppConfig.professionalSubscriptionsUrl)
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
     }
 
@@ -61,7 +62,7 @@ class ClaimOnlineViewSpec extends NewViewBehaviours {
       val view = application.injector.instanceOf[ClaimOnlineView]
       val doc = asDocument(view(OnwardJourney.WorkingFromHomeExpensesOnly, Some("link-with-session-id"), isSaUser = false)(fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
-      button.attr("href") must be("https://www.tax.service.gov.uk/employee-working-from-home-expenses")
+      button.attr("href") must be(frontendAppConfig.workingFromHomeExpensesUrl)
       assertPageTitleEqualsMessage(doc, "claimOnline.wfh.heading")
     }
 
@@ -69,7 +70,7 @@ class ClaimOnlineViewSpec extends NewViewBehaviours {
       val view = application.injector.instanceOf[ClaimOnlineView]
       val doc = asDocument(view(OnwardJourney.WorkingFromHomeExpensesOnly, Some("link-with-session-id"), isSaUser = true)(fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
-      button.attr("href") must be("https://www.tax.service.gov.uk/employee-working-from-home-expenses?eligibilityCheckerSessionId=link-with-session-id")
+      button.attr("href") must be(s"${frontendAppConfig.workingFromHomeExpensesUrl}?eligibilityCheckerSessionId=link-with-session-id")
       assertPageTitleEqualsMessage(doc, "claimOnline.wfh.heading")
     }
 
