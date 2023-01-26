@@ -33,7 +33,7 @@ class DisclaimerViewSpec extends NewViewBehaviours {
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
 
-  def createView: HtmlFormat.Appendable = view.apply(claimant, claimingCurrent = true, claimingPrevious = true)(fakeRequest, messages)
+  def createView: HtmlFormat.Appendable = view.apply(claimant)(fakeRequest, messages)
 
   "DisclaimerView" must {
     behave like normalPage(createView, messageKeyPrefix)

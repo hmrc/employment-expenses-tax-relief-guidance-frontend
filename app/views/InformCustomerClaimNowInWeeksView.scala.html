@@ -37,7 +37,7 @@ pageTitle = messages(s"informCustomerClaimNowInWeeks.heading")
 
     <p class="govuk-body">@messages("informCustomerClaimNowInWeeks.para3")</p>
 
-    @formHelper(action = EmployerPaidBackWfhExpensesController.onPageLoad(), 'autoComplete -> "off") {
+    @formHelper(action = InformCustomerClaimNowInWeeksController.onSubmit(), 'autoComplete -> "off") {
         @button(Button(content = Text(messages("site.save_and_continue")), preventDoubleClick  = true))
     }
 }
