@@ -21,7 +21,7 @@
         submitButton: playComponents.submit_button
 )
 
-@(claimant: Claimant, claimingCurrent: Boolean, claimingPrevious: Boolean)(implicit request: Request[_], messages: Messages)
+@(claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @notificationBannerHtml = {
     <p class="govuk-notification-banner__heading">
@@ -35,40 +35,34 @@
 
     @heading(messages("disclaimer.heading"))
 
-    @if(claimingCurrent) {
-        @govukNotificationBanner(NotificationBanner(
-            title = HtmlContent(messages("disclaimer.guidance.header")),
-            content = HtmlContent(notificationBannerHtml)
-        ))
-    }
+    @govukNotificationBanner(NotificationBanner(
+        title = HtmlContent(messages("disclaimer.guidance.header")),
+        content = HtmlContent(notificationBannerHtml)
+    ))
 
-    @if(claimingCurrent) {
-        <h2 class="govuk-heading-m">@messages("disclaimer.claim.after.h2")</h2>
-        <p class="govuk-body">@messages("disclaimer.claim.after.p1")</p>
-        <p class="govuk-body">@messages("disclaimer.claim.p1")</p>
-        <p class="govuk-body">@messages("disclaimer.claim.after.p2")</p>
-        <ul class="govuk-list govuk-list--bullet">
-            <li>@messages("disclaimer.claim.after.l1")</li>
-            <li>@messages("disclaimer.claim.after.l2")</li>
-            <li>@messages("disclaimer.claim.after.l3")</li>
-        </ul>
-    }
+    <h2 class="govuk-heading-m">@messages("disclaimer.claim.after.h2")</h2>
+    <p class="govuk-body">@messages("disclaimer.claim.after.p1")</p>
+    <p class="govuk-body">@messages("disclaimer.claim.p1")</p>
+    <p class="govuk-body">@messages("disclaimer.claim.after.p2")</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>@messages("disclaimer.claim.after.l1")</li>
+        <li>@messages("disclaimer.claim.after.l2")</li>
+        <li>@messages("disclaimer.claim.after.l3")</li>
+    </ul>
 
-    @if(claimingPrevious) {
-        <h2 class="govuk-heading-m">@messages("disclaimer.claim.before.h2")</h2>
-        <p class="govuk-body">@messages("disclaimer.claim.before.p1")</p>
-        <ul class="govuk-list govuk-list--bullet">
-            <li>@messages("disclaimer.claim.before.l1")</li>
-            <li>@messages("disclaimer.claim.before.l2")</li>
-            <li>@messages("disclaimer.claim.before.l3")</li>
-        </ul>
-    }
+    <h2 class="govuk-heading-m">@messages("disclaimer.claim.before.h2")</h2>
+    <p class="govuk-body">@messages("disclaimer.claim.before.p1")</p>
+    <ul class="govuk-list govuk-list--bullet">
+        <li>@messages("disclaimer.claim.before.l1")</li>
+        <li>@messages("disclaimer.claim.before.l2")</li>
+        <li>@messages("disclaimer.claim.before.l3")</li>
+    </ul>
 
     <div class="govuk-warning-text">
         <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
         <strong class="govuk-warning-text__text">
             <span class="govuk-warning-text__assistive">Warning</span>
-            @if(claimingCurrent) {@messages("disclaimer.warning1")<br>}
+            @messages("disclaimer.warning1")<br>
             @messages("disclaimer.warning2")<br>
         </strong>
     </div>

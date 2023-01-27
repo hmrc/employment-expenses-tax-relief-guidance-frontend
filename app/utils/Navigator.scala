@@ -157,10 +157,24 @@ class Navigator @Inject()() {
 
   private def whichYearsAreYouClaimingForRouting(userAnswers: UserAnswers) = userAnswers.whichYearsAreYouClaimingFor match {
     case Some(1) =>
+        routes.InformCustomerClaimNowInWeeksController.onPageLoad()
+    case Some(2) =>
+      if(userAnswers.registeredForSelfAssessment.getOrElse(false)) {
+        routes.UseSelfAssessmentController.onPageLoad()
+      } else {
+        routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+      }
+    case Some(3) =>
+        routes.InformCustomerClaimNowInWeeksController.onPageLoad()
+    case _ => routes.SessionExpiredController.onPageLoad
+  }
+
+  private def informCustomerClaimNowInWeeksRouting(userAnswers: UserAnswers) = userAnswers.whichYearsAreYouClaimingFor match {
+    case Some(1) =>
       if(userAnswers.registeredForSelfAssessment.getOrElse(false)) {
         routes.SaCheckDisclaimerCurrentYearController.onPageLoad()
       } else {
-        routes.InformCustomerClaimNowInWeeksController.onPageLoad()
+        routes.EmployerPaidBackWfhExpensesController.onPageLoad()
       }
     case Some(2) =>
       if(userAnswers.registeredForSelfAssessment.getOrElse(false)) {
@@ -172,10 +186,11 @@ class Navigator @Inject()() {
       if(userAnswers.registeredForSelfAssessment.getOrElse(false)) {
         routes.SaCheckDisclaimerAllYearsController.onPageLoad()
       } else {
-        routes.InformCustomerClaimNowInWeeksController.onPageLoad()
+        routes.EmployerPaidBackWfhExpensesController.onPageLoad()
       }
     case _ => routes.SessionExpiredController.onPageLoad
   }
+
 
   private def changeOtherExpensesRouting(userAnswers: UserAnswers) = userAnswers.claimant match {
     case Some(You) => routes.MoreThanFiveJobsController.onPageLoad()
@@ -219,6 +234,7 @@ class Navigator @Inject()() {
     ClaimingFuelId -> claimingFuelRouting,
     WillPayTaxId -> willPayTaxRouting,
     WhichYearsAreYouClaimingForId -> whichYearsAreYouClaimingForRouting,
+    InformCustomerClaimNowInWeeksId -> informCustomerClaimNowInWeeksRouting,
     WillNotPayTaxId -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
     RegisterForSelfAssessmentId -> (_ => routes.EmployerPaidBackExpensesController.onPageLoad()),
     ChangeOtherExpensesId -> changeOtherExpensesRouting,
