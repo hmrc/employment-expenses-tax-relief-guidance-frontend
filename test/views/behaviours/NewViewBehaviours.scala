@@ -61,23 +61,12 @@ trait NewViewBehaviours extends NewViewSpecBase {
     }
   }
 
-
-  def pageWithOverrideBackLink(view: HtmlFormat.Appendable) = {
-
-    "behave like a page with a override back link" must {
-      "have a back link" in {
-        val doc = asDocument(view)
-        assertRenderedById(doc, "back-link")
-      }
-    }
-  }
-
   def pageWithBackLink(view: HtmlFormat.Appendable) = {
 
     "behave like a page with a back link" must {
       "have a back link" in {
         val doc = asDocument(view)
-        assertRenderedById(doc, "back-link")
+        assertRenderedByAttribute(doc, "data-module", Some("hmrc-back-link"))
       }
     }
   }

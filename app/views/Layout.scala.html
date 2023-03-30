@@ -32,7 +32,7 @@
 
 @headBlock = {
     <meta name="format-detection" content="telephone=no" />
-    <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/employmentexpensestaxreliefguidancefrontend-app.css")'/>
+    <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/application.css")'/>
     @if(timeoutEnabled) {
         @hmrcTimeoutDialogHelper(
             signOutUrl = controllers.routes.SessionExpiredController.onPageLoad.url,
@@ -56,11 +56,7 @@
     pageTitle = Some(s"$pageTitle – ${messages("service.name")} – ${messages("site.gov.uk")}"),
     isWelshTranslationAvailable = true,
     serviceUrl = Some(routes.IndexController.onPageLoad.url),
-    backLink = if(backLinkEnabled){ Some(BackLink(
-        href = "javascript:history.back()",
-        content = Text(messages("site.back")),
-        attributes = Map("id" -> "back-link")
-    )) } else None,
+    backLink = if(backLinkEnabled) Some(BackLink.mimicsBrowserBackButtonViaJavaScript) else None,
     additionalHeadBlock = Some(headBlock),
     additionalScriptsBlock = None,
     signOutUrl = None,

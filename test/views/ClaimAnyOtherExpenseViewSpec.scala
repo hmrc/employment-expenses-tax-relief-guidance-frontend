@@ -38,7 +38,7 @@ class ClaimAnyOtherExpenseViewSpec extends NewViewBehaviours {
 
     behave like normalPage(createView(form), messageKeyPrefix)
 
-    behave like pageWithOverrideBackLink(createView(form))
+    behave like pageWithBackLink(createView(form))
 
     "contain radio buttons for the value" in {
       val doc = asDocument(createView(form))

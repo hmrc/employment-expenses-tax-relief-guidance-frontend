@@ -36,7 +36,7 @@ class ClaimantViewSpec extends NewViewBehaviours {
 
   "Claimant view" must {
     behave like normalPage(createView(form), messageKeyPrefix)
-    behave like pageWithOverrideBackLink(createView(form))
+    behave like pageWithBackLink(createView(form))
   }
 
   "Claimant view" when {
