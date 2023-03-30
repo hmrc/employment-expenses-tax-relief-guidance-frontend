@@ -37,6 +37,7 @@ class ClaimantController @Inject()(
                                     dataCacheConnector: DataCacheConnector,
                                     navigator: Navigator,
                                     getData: DataRetrievalAction,
+                                    requireData: DataRequiredAction,
                                     formProvider: ClaimantFormProvider,
                                     val controllerComponents: MessagesControllerComponents,
                                     view: ClaimantView
@@ -44,28 +45,22 @@ class ClaimantController @Inject()(
 
   val form: Form[Claimant] = formProvider()
 
-  def onPageLoad: Action[AnyContent] = getData {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      val preparedForm = request.userAnswers.flatMap(_.claimant) match {
+      val preparedForm = request.userAnswers.claimant match {
         case None => form
         case Some(value) => form.fill(value)
       }
       Ok(view(preparedForm))
   }
 
-  def onSubmit: Action[AnyContent] = getData.async {
+  def onSubmit: Action[AnyContent] = (getData andThen requireData) async {
     implicit request =>
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(view(formWithErrors))),
         value => {
-
-          val cacheMap = CacheMap(
-            request.sessionId,
-            Map[String, JsValue](ClaimantId.toString -> JsString(value.toString))
-          )
-
-          dataCacheConnector.save(cacheMap).map(cacheMap =>
+          dataCacheConnector.save[Claimant](request.sessionId, ClaimantId, value).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimantId)(new UserAnswers(cacheMap)))
           )
 

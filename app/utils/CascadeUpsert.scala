@@ -57,6 +57,7 @@ class CascadeUpsert {
   }
 
   lazy val orderedIdentifiers = List(
+    ClaimingForId,
     ClaimAnyOtherExpenseId,
     ClaimantId,
     WillPayTaxId,
@@ -64,7 +65,6 @@ class CascadeUpsert {
     RegisteredForSelfAssessmentId,
     ClaimingOverPayAsYouEarnThresholdId,
     EmployerPaidBackExpensesId,
-    ClaimingForId,
     UseOwnCarId,
     ClaimingMileageId,
     UseCompanyCarId,

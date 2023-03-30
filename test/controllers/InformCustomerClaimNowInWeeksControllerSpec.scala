@@ -17,31 +17,34 @@
 package controllers
 
 import base.SpecBase
-import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{FakeNavigator, Navigator}
-import views.html.DisclaimerView
+import utils.FakeNavigator
+import views.html.InformCustomerClaimNowInWeeksView
 
-class DisclaimerControllerSpec extends SpecBase {
+class InformCustomerClaimNowInWeeksControllerSpec extends SpecBase {
 
-  def disclaimerRoute = routes.DisclaimerController.onPageLoad().url
+  private val fakeNavigator = new FakeNavigator()
 
-  "Disclaimer Controller" must {
+  "InformCustomerClaimNowInWeeks Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      val application = applicationBuilder(Some(claimantIdCacheMap))
-        .overrides(bind[Navigator].toInstance(new FakeNavigator()))
-        .build()
-      val request = FakeRequest(GET, disclaimerRoute)
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
+
+      val request = FakeRequest(GET, routes.InformCustomerClaimNowInWeeksController.onPageLoad().url)
+
       val result = route(application, request).value
-      val view = application.injector.instanceOf[DisclaimerView]
 
-      status(result) mustBe OK
-      contentAsString(result) mustBe view(claimant)(request, messages).toString
+      val view = application.injector.instanceOf[InformCustomerClaimNowInWeeksView]
 
-      application.stop()
+      status(result) mustEqual OK
+
+      contentAsString(result) mustEqual
+        view(
+        )(request, messages).toString
+
+      application.stop
     }
   }
 }
