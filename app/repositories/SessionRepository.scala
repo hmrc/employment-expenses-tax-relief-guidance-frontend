@@ -17,6 +17,7 @@
 package repositories
 
 import config.FrontendAppConfig
+
 import javax.inject.{Inject, Singleton}
 import org.joda.time.{DateTime, DateTimeZone}
 import uk.gov.hmrc.mongo.play.json.formats.MongoJodaFormats.Implicits._
@@ -30,8 +31,7 @@ import org.mongodb.scala.model.Filters._
 import org.mongodb.scala.model.Updates._
 import uk.gov.hmrc.mongo.play.json.Codecs
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.duration.SECONDS
 
 case class DatedCacheMap(id: String,
@@ -46,7 +46,9 @@ object DatedCacheMap extends MongoDateTimeFormats {
   def apply(cacheMap: CacheMap): DatedCacheMap = DatedCacheMap(cacheMap.id, cacheMap.data)
 }
 
-class ReactiveMongoRepository(appConfig: FrontendAppConfig, mongo: MongoComponent)
+class ReactiveMongoRepository(appConfig: FrontendAppConfig,
+                              mongo: MongoComponent
+                             )(implicit executionContext: ExecutionContext)
   extends PlayMongoRepository[DatedCacheMap](
     collectionName = appConfig.serviceName,
     mongoComponent = mongo,
@@ -87,7 +89,9 @@ class ReactiveMongoRepository(appConfig: FrontendAppConfig, mongo: MongoComponen
 }
 
 @Singleton
-class SessionRepository @Inject()(appConfig: FrontendAppConfig, mongo: MongoComponent) {
+class SessionRepository @Inject()(appConfig: FrontendAppConfig,
+                                  mongo: MongoComponent
+                                 )(implicit executionContext: ExecutionContext) {
 
   private lazy val sessionRepository = new ReactiveMongoRepository(appConfig, mongo)
 
