@@ -51,7 +51,7 @@ class ChangeOtherExpensesControllerSpec extends SpecBase with MockitoSugar with 
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
-        ).build
+        ).build()
 
       val request = FakeRequest(GET, routes.ChangeOtherExpensesController.onPageLoad().url)
 
@@ -63,7 +63,7 @@ class ChangeOtherExpensesControllerSpec extends SpecBase with MockitoSugar with 
           redirectLocation(result) mustBe Some(onwardRoute.url)
       }
 
-      application.stop
+      application.stop()
     }
   }
 }

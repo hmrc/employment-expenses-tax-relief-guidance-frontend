@@ -35,7 +35,7 @@ class RegisterForSelfAssessmentControllerSpec extends SpecBase {
 
       val application = applicationBuilder(Some(claimantIdCacheMap))
         .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
-        .build
+        .build()
       val request = FakeRequest(GET, registerForSARoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[RegisterForSelfAssessmentView]
@@ -43,7 +43,7 @@ class RegisterForSelfAssessmentControllerSpec extends SpecBase {
       status(result) mustBe OK
       contentAsString(result) mustBe view(claimant, onwardRoute)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
   }
 }

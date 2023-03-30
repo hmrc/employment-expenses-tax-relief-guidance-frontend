@@ -27,7 +27,7 @@ class ClaimingOverPayAsYouEarnThresholdViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = s"claimingOverPayAsYouEarnThreshold.$claimant"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[ClaimingOverPayAsYouEarnThresholdView]
 
@@ -44,5 +44,5 @@ class ClaimingOverPayAsYouEarnThresholdViewSpec extends NewYesNoViewBehaviours {
     behave like pageWithBackLink(createView(form))
   }
 
-  application.stop
+  application.stop()
 }

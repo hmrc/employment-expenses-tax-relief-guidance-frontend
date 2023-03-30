@@ -31,7 +31,7 @@ class WillPayTaxViewSpec extends NewYesNoViewBehaviours {
 
   "WillPayTax view" must {
 
-    val application = applicationBuilder().build
+    val application = applicationBuilder().build()
 
     val view = application.injector.instanceOf[WillPayTaxView]
 

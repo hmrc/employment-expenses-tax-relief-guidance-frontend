@@ -27,7 +27,7 @@ class DisclaimerViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix: String = "disclaimer"
 
-  val application: Application = applicationBuilder().build
+  val application: Application = applicationBuilder().build()
 
   val view: DisclaimerView = app.injector.instanceOf[DisclaimerView]
 
@@ -40,5 +40,5 @@ class DisclaimerViewSpec extends NewViewBehaviours {
     behave like pageWithBackLink(createView)
   }
 
-  application.stop
+  application.stop()
 }

@@ -55,7 +55,7 @@ class EmployerPaidBackExpensesControllerSpec extends SpecBase with MockitoSugar 
   "EmployerPaidBackExpenses Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(GET, employerPaidBackExpensesRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[EmployerPaidBackExpensesView]
@@ -63,7 +63,7 @@ class EmployerPaidBackExpensesControllerSpec extends SpecBase with MockitoSugar 
       status(result) mustBe OK
       contentAsString(result) mustBe view(form, claimant)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
@@ -71,14 +71,14 @@ class EmployerPaidBackExpensesControllerSpec extends SpecBase with MockitoSugar 
         EmployerPaidBackExpensesId.toString -> JsBoolean(true),
         ClaimantId.toString -> JsString(claimant.toString))
 
-      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
       val request = FakeRequest(GET, employerPaidBackExpensesRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[EmployerPaidBackExpensesView]
 
       contentAsString(result) mustEqual view(form.fill(true), claimant)(request, messages).toString()
 
-      application.stop
+      application.stop()
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -86,7 +86,7 @@ class EmployerPaidBackExpensesControllerSpec extends SpecBase with MockitoSugar 
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
-        ).build
+        ).build()
 
       val request = FakeRequest(POST, employerPaidBackExpensesRoute)
         .withFormUrlEncodedBody("value" -> "true")
@@ -94,7 +94,7 @@ class EmployerPaidBackExpensesControllerSpec extends SpecBase with MockitoSugar 
 
       redirectLocation(result).value mustEqual onwardRoute.url
 
-      application.stop
+      application.stop()
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
@@ -107,30 +107,30 @@ class EmployerPaidBackExpensesControllerSpec extends SpecBase with MockitoSugar 
       status(result) mustEqual BAD_REQUEST
       contentAsString(result) mustEqual view(boundForm, claimant)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(GET, employerPaidBackExpensesRoute)
       val result = route(application, request).value
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl
 
-      application.stop
+      application.stop()
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(POST, employerPaidBackExpensesRoute)
       val result = route(application, request).value
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl
 
-      application.stop
+      application.stop()
     }
   }
 }

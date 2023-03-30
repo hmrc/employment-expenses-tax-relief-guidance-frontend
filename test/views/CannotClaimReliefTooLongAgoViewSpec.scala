@@ -28,7 +28,7 @@ class CannotClaimReliefTooLongAgoViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = s"cannotClaimReliefTooLongAgo.$claimant"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
   val view = application.injector.instanceOf[CannotClaimReliefTooLongAgoView]
 
   def createView = view.apply(claimant, startYear, endYear)(fakeRequest, messages)
@@ -52,5 +52,5 @@ class CannotClaimReliefTooLongAgoViewSpec extends NewViewBehaviours {
     }
   }
 
-  application.stop
+  application.stop()
 }

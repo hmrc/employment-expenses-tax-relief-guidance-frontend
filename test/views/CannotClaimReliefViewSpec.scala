@@ -23,7 +23,7 @@ class CannotClaimReliefViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = s"cannotClaimRelief.$claimant"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
   val view = application.injector.instanceOf[CannotClaimReliefView]
 
   def createView = view.apply(claimant)(fakeRequest, messages)
@@ -32,5 +32,5 @@ class CannotClaimReliefViewSpec extends NewViewBehaviours {
     behave like pageWithBackLink(createView)
   }
 
-  application.stop
+  application.stop()
 }

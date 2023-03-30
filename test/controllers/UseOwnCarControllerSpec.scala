@@ -55,7 +55,7 @@ class UseOwnCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndA
 
     "return OK and the correct view for a GET" in {
 
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(GET, useOwnCarRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[UseOwnCarView]
@@ -63,7 +63,7 @@ class UseOwnCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndA
       status(result) mustBe OK
       contentAsString(result) mustBe view(form, claimant)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
@@ -72,14 +72,14 @@ class UseOwnCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndA
         UseOwnCarId.toString -> JsBoolean(true),
         ClaimantId.toString -> JsString(claimant.toString)
       ))
-      val application = applicationBuilder(Some(validCacheMap)).build
+      val application = applicationBuilder(Some(validCacheMap)).build()
       val request = FakeRequest(GET, useOwnCarRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[UseOwnCarView]
 
       contentAsString(result) mustBe view(form.fill(true), claimant)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -88,7 +88,7 @@ class UseOwnCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndA
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
-        ).build
+        ).build()
 
       val request = FakeRequest(POST, useOwnCarRoute)
         .withFormUrlEncodedBody(("value", "true"))
@@ -97,12 +97,12 @@ class UseOwnCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndA
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
 
-      application.stop
+      application.stop()
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(POST, useOwnCarRoute)
         .withFormUrlEncodedBody(("value", "invalid data"))
       val boundForm = form.bind(Map("value" -> "invalid value"))
@@ -111,35 +111,35 @@ class UseOwnCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndA
 
       contentAsString(result) mustBe view(boundForm, claimant)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
       val application = applicationBuilder()
         .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
-        .build
+        .build()
       val request = FakeRequest(GET, useOwnCarRoute)
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(sessionExpiredUrl)
 
-      application.stop
+      application.stop()
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
       val application = applicationBuilder()
         .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
-        .build
+        .build()
       val request = FakeRequest(GET, useOwnCarRoute)
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(sessionExpiredUrl)
 
-      application.stop
+      application.stop()
     }
   }
 }

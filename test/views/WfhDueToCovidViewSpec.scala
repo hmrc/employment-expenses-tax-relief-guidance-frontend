@@ -26,7 +26,7 @@ class WfhDueToCovidViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = "covidHomeWorking"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[WfhDueToCovidView]
 
@@ -43,5 +43,5 @@ class WfhDueToCovidViewSpec extends NewYesNoViewBehaviours {
     behave like pageWithBackLink(createView(form))
   }
 
-  application.stop
+  application.stop()
 }

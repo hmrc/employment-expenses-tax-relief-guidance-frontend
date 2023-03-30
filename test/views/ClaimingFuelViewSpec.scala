@@ -26,7 +26,7 @@ class ClaimingFuelViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = s"claimingFuel.$claimant"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[ClaimingFuelView]
 
@@ -43,5 +43,5 @@ class ClaimingFuelViewSpec extends NewYesNoViewBehaviours {
     behave like pageWithBackLink(createView(form))
   }
 
-  application.stop
+  application.stop()
 }

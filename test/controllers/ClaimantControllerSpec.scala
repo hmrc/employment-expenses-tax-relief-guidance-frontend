@@ -49,7 +49,7 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
       contentAsString(result) mustEqual
         view(form)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
@@ -64,7 +64,7 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
       contentAsString(result) mustEqual
         view(form.fill(claimant))(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -79,12 +79,12 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
 
-      application.stop
+      application.stop()
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val boundForm = form.bind(Map("value" -> ""))
       val request = FakeRequest(POST, claimantRoute.url)
         .withFormUrlEncodedBody(("value", ""))
@@ -95,7 +95,7 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
       contentAsString(result) mustBe
         view.apply(boundForm)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
   }
 }

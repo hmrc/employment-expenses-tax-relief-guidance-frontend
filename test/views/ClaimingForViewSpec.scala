@@ -32,7 +32,7 @@ class ClaimingForViewSpec extends CheckboxViewBehaviours[ClaimingFor] {
 
   val messageKeyPrefix: String = s"claimingFor.$claimant"
 
-  val application: Application = applicationBuilder().build
+  val application: Application = applicationBuilder().build()
 
   val view: ClaimingForView = application.injector.instanceOf[ClaimingForView]
 
@@ -71,5 +71,5 @@ class ClaimingForViewSpec extends CheckboxViewBehaviours[ClaimingFor] {
     }
   }
 
-  application.stop
+  application.stop()
 }

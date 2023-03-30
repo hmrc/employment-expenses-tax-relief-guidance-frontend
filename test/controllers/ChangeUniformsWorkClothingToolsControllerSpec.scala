@@ -51,7 +51,7 @@ class ChangeUniformsWorkClothingToolsControllerSpec extends SpecBase with Mockit
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
-        ).build
+        ).build()
 
       val request = FakeRequest(GET, routes.ChangeUniformsWorkClothingToolsController.onPageLoad().url)
 
@@ -60,7 +60,7 @@ class ChangeUniformsWorkClothingToolsControllerSpec extends SpecBase with Mockit
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
 
-      application.stop
+      application.stop()
     }
   }
 }

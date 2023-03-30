@@ -26,7 +26,7 @@ class WhichYearsAreYouClaimingForViewSpec extends RadioOptionViewBehaviours {
 
   val messageKeyPrefix = s"whichYearsAreYouClaimingFor.$claimant"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[WhichYearsAreYouClaimingForView]
 
@@ -59,5 +59,5 @@ class WhichYearsAreYouClaimingForViewSpec extends RadioOptionViewBehaviours {
     }
   }
 
-  application.stop
+  application.stop()
 }

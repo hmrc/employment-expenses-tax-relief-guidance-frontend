@@ -39,7 +39,7 @@ class CannotClaimWFHReliefControllerSpec extends SpecBase {
       contentAsString(result) mustEqual
         view()(request, messages).toString
 
-      application.stop
+      application.stop()
     }
   }
 }

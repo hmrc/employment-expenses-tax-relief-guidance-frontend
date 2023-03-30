@@ -47,7 +47,7 @@ class CannotClaimBuyingEquipmentControllerSpec extends SpecBase {
           fakeNavigator.changeUniformsWorkClothingToolsPage
         )(request, messages).toString
 
-      application.stop
+      application.stop()
     }
   }
 }

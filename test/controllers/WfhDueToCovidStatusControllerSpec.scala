@@ -54,7 +54,7 @@ class WfhDueToCovidStatusControllerSpec extends SpecBase with MockitoSugar with 
       val wfhDueToCovidStatusService = new WfhDueToCovidStatusService(mockDataCacheConnector)
 
       val application = applicationBuilder()
-        .overrides(bind[WfhDueToCovidStatusService].toInstance(wfhDueToCovidStatusService)).build
+        .overrides(bind[WfhDueToCovidStatusService].toInstance(wfhDueToCovidStatusService)).build()
 
       val request = FakeRequest(GET,  routes.WfhDueToCovidStatusController.getStatusBySessionId(DefaultSessionId).toString)
       val result = route(application, request).value
@@ -62,7 +62,7 @@ class WfhDueToCovidStatusControllerSpec extends SpecBase with MockitoSugar with 
       status(result) mustEqual OK
       val jsonResult = contentAsString(result)
       jsonResult mustEqual """{"WfhDueToCovidStatus":1}"""
-      application.stop
+      application.stop()
     }
 
     "should return missing default value from service" in {
@@ -73,13 +73,13 @@ class WfhDueToCovidStatusControllerSpec extends SpecBase with MockitoSugar with 
       val wfhDueToCovidStatusService = new WfhDueToCovidStatusService(mockDataCacheConnector)
 
       val application = applicationBuilder()
-        .overrides(bind[WfhDueToCovidStatusService].toInstance(wfhDueToCovidStatusService)).build
+        .overrides(bind[WfhDueToCovidStatusService].toInstance(wfhDueToCovidStatusService)).build()
 
       val request = FakeRequest(GET,  routes.WfhDueToCovidStatusController.getStatusBySessionId(DefaultSessionId).toString)
       val result = route(application, request).value
 
       status(result) mustEqual NOT_FOUND
-      application.stop
+      application.stop()
     }
 
   }
@@ -90,12 +90,12 @@ class WfhDueToCovidStatusControllerSpec extends SpecBase with MockitoSugar with 
     val wfhDueToCovidStatusService = new WfhDueToCovidStatusService(mockDataCacheConnector)
 
     val application = applicationBuilder()
-      .overrides(bind[WfhDueToCovidStatusService].toInstance(wfhDueToCovidStatusService)).build
+      .overrides(bind[WfhDueToCovidStatusService].toInstance(wfhDueToCovidStatusService)).build()
 
     val request = FakeRequest(GET,  routes.WfhDueToCovidStatusController.getStatusBySessionId(DefaultSessionId).toString)
     val result = route(application, request).value
 
     status(result) mustEqual INTERNAL_SERVER_ERROR
-    application.stop
+    application.stop()
   }
 }

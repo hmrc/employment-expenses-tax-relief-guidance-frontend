@@ -19,6 +19,7 @@ package views
 import base.SpecBase
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
+import org.scalatest.Assertion
 import play.twirl.api.Html
 
 trait NewViewSpecBase extends SpecBase {
@@ -56,6 +57,12 @@ trait NewViewSpecBase extends SpecBase {
   def assertNotRenderedById(doc: Document, id: String) = {
     assert(doc.getElementById(id) == null, "\n\nElement " + id + " was rendered on the page.\n")
   }
+
+  def assertRenderedByClass(doc: Document, id: String): Assertion =
+    assert(doc.getElementsByClass(id).first() != null, "\n\nElement " + id + " was not rendered on the page.\n")
+
+  def assertNotRenderedByClass(doc: Document, id: String): Assertion =
+    assert(doc.getElementsByClass(id).first() == null, "\n\nElement " + id + " was rendered on the page.\n")
 
   def assertRenderedByCssSelector(doc: Document, cssSelector: String) = {
     assert(!doc.select(cssSelector).isEmpty, "Element " + cssSelector + " was not rendered on the page.")

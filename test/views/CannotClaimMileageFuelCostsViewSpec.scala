@@ -24,7 +24,7 @@ class CannotClaimMileageFuelCostsViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = "cannotClaimMileageFuelCosts.you"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[CannotClaimMileageFuelCostsView]
 
@@ -38,5 +38,5 @@ class CannotClaimMileageFuelCostsViewSpec extends NewViewBehaviours {
     behave like pageWithHyperLink(createView, buisnessMileageFuelCostsUrl)
   }
 
-  application.stop
+  application.stop()
 }

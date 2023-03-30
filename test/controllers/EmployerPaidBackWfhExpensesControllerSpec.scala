@@ -56,18 +56,18 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
   "EmployerPaidBackWFHExpenses Controller" must {
 
     "redirect to session expired controller/view when we have no existing session data" in {
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(GET, employerPaidBackWFHExpensesRoute)
       val result = route(application, request).value
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad.url)
 
-      application.stop
+      application.stop()
     }
 
     "return OK and the correct view for a GET" in {
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(GET, employerPaidBackWFHExpensesRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
@@ -75,7 +75,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
       status(result) mustBe OK
       contentAsString(result) mustBe view(form, None)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
@@ -83,14 +83,14 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
         EmployerPaidBackWfhExpensesId.toString -> JsString("noExpenses"),
         ClaimantId.toString -> JsString(claimant.toString))
 
-      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
       val request = FakeRequest(GET, employerPaidBackWFHExpensesRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
 
       contentAsString(result) mustEqual view(form.fill(employerPaid), None)(request, messages).toString()
 
-      application.stop
+      application.stop()
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -98,7 +98,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
-        ).build
+        ).build()
 
       val request = FakeRequest(POST, employerPaidBackWFHExpensesRoute)
         .withFormUrlEncodedBody("value" -> "noExpenses")
@@ -106,7 +106,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
 
       redirectLocation(result).value mustEqual onwardRoute.url
 
-      application.stop
+      application.stop()
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
@@ -120,30 +120,30 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
       status(result) mustEqual BAD_REQUEST
       contentAsString(result) mustEqual view(boundForm, None)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(GET, employerPaidBackWFHExpensesRoute)
       val result = route(application, request).value
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl
 
-      application.stop
+      application.stop()
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(POST, employerPaidBackWFHExpensesRoute)
       val result = route(application, request).value
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl
 
-      application.stop
+      application.stop()
     }
 
     "EmployerPaidBackWFHExpenses Controller's back button dynamic behaviour" must {
@@ -154,13 +154,13 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
           RegisteredForSelfAssessmentId.toString -> JsBoolean(true),
           ClaimantId.toString -> JsString(claimant.toString))
 
-        val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+        val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
         val request = FakeRequest(GET, employerPaidBackWFHExpensesRoute)
         val result = route(application, request).value
 
         contentAsString(result).contains(frontendAppConfig.claimingForCurrentYearBackButtonOverride) mustBe false
 
-        application.stop
+        application.stop()
       }
 
       "ensure there no back button override when RegisteredForSelfAssessmentId is false" in {
@@ -169,13 +169,13 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
           RegisteredForSelfAssessmentId.toString -> JsBoolean(false),
           ClaimantId.toString -> JsString(claimant.toString))
 
-        val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+        val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
         val request = FakeRequest(GET, employerPaidBackWFHExpensesRoute)
         val result = route(application, request).value
 
         contentAsString(result).contains(frontendAppConfig.claimingForCurrentYearBackButtonOverride) mustBe false
 
-        application.stop
+        application.stop()
       }
 
       "ensure there no back button override when RegisteredForSelfAssessmentId is missing" in {
@@ -183,13 +183,13 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
           EmployerPaidBackWfhExpensesId.toString -> JsString("noExpenses"),
           ClaimantId.toString -> JsString(claimant.toString))
 
-        val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+        val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
         val request = FakeRequest(GET, employerPaidBackWFHExpensesRoute)
         val result = route(application, request).value
 
         contentAsString(result).contains(frontendAppConfig.claimingForCurrentYearBackButtonOverride) mustBe false
 
-        application.stop
+        application.stop()
       }
 
     }

@@ -23,7 +23,7 @@ class UsePrintAndPostViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = "usePrintAndPost"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[UsePrintAndPostView]
 
@@ -35,5 +35,5 @@ class UsePrintAndPostViewSpec extends NewViewBehaviours {
     behave like pageWithBackLink(createView)
   }
 
-  application.stop
+  application.stop()
 }

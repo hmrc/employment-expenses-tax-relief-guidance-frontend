@@ -52,7 +52,7 @@ trait IntViewBehaviours extends NewQuestionViewBehaviours[Int] {
 
         "show an error summary" in {
           val doc = asDocument(createView(form.withError(error)))
-          assertRenderedById(doc, "error-summary-heading")
+          assertRenderedById(doc, "govuk-error-summary__title")
         }
 
         "show an error in the value field's label" in {

@@ -26,7 +26,7 @@ class ClaimAnyOtherExpenseViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = "claimAnyOtherExpense"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[ClaimAnyOtherExpenseView]
 
@@ -62,5 +62,5 @@ class ClaimAnyOtherExpenseViewSpec extends NewViewBehaviours {
   }
 
 
-  application.stop
+  application.stop()
 }

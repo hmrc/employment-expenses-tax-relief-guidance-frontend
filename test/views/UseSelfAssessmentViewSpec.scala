@@ -24,7 +24,7 @@ class UseSelfAssessmentViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = "useSelfAssessment.you"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[UseSelfAssessmentView]
 
@@ -37,5 +37,5 @@ class UseSelfAssessmentViewSpec extends NewViewBehaviours {
     behave like pageWithBackLink(createView)
   }
 
-  application.stop
+  application.stop()
 }

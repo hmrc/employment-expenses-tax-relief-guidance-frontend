@@ -27,7 +27,7 @@ class ClaimingMileageViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = s"claimingMileage.$claimant"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[ClaimingMileageView]
 
@@ -44,5 +44,5 @@ class ClaimingMileageViewSpec extends NewYesNoViewBehaviours {
     behave like pageWithBackLink(createView(form))
   }
 
-  application.stop
+  application.stop()
 }
