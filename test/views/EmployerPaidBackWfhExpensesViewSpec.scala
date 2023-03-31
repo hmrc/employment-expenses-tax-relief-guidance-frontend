@@ -26,7 +26,7 @@ class EmployerPaidBackWfhExpensesViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = s"employerPaidBackWfhExpenses"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
 
@@ -40,5 +40,5 @@ class EmployerPaidBackWfhExpensesViewSpec extends NewViewBehaviours {
     behave like pageWithBackLink(createView(form))
   }
 
-  application.stop
+  application.stop()
 }

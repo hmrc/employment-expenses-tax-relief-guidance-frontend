@@ -26,7 +26,7 @@ class CannotClaimReliefSomeYearsViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = s"cannotClaimReliefSomeYears.$claimant"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[CannotClaimReliefSomeYearsView]
 
@@ -55,5 +55,5 @@ class CannotClaimReliefSomeYearsViewSpec extends NewViewBehaviours {
     }
   }
 
-  application.stop
+  application.stop()
 }

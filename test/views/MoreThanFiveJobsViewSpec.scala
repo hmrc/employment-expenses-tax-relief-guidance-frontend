@@ -26,7 +26,7 @@ class MoreThanFiveJobsViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = "moreThanFiveJobs"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[MoreThanFiveJobsView]
 
@@ -43,5 +43,5 @@ class MoreThanFiveJobsViewSpec extends NewYesNoViewBehaviours {
     behave like pageWithBackLink(createView(form))
   }
 
-  application.stop
+  application.stop()
 }

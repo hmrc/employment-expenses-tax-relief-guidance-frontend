@@ -41,7 +41,7 @@ class CannotClaimReliefSomeYearsControllerSpec extends SpecBase {
       contentAsString(result) mustEqual
         view(claimant, onwardRoute)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
   }
 }

@@ -54,7 +54,7 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
 
     "return OK and the correct view for a GET" in {
 
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(GET, claimingMileageRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[ClaimingMileageView]
@@ -62,20 +62,20 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
       status(result) mustBe OK
       contentAsString(result) mustBe view(form, claimant)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
       val validData = Map(ClaimantId.toString -> JsString(claimant.toString), ClaimingMileageId.toString -> JsBoolean(true))
-      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
       val request = FakeRequest(GET, claimingMileageRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[ClaimingMileageView]
 
       contentAsString(result) mustEqual view(form.fill(true), claimant)(request, messages).toString()
 
-      application.stop
+      application.stop()
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -84,7 +84,7 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
-        ).build
+        ).build()
 
       val request = FakeRequest(POST, claimingMileageRoute)
         .withFormUrlEncodedBody("value" -> "true")
@@ -92,12 +92,12 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
 
       redirectLocation(result).value mustEqual onwardRoute.url
 
-      application.stop
+      application.stop()
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val boundForm = form.bind(Map("value" -> "invalid value"))
       val request = FakeRequest(POST, claimingMileageRoute)
         .withFormUrlEncodedBody("value" -> "invalid value")
@@ -107,7 +107,7 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
       status(result) mustEqual BAD_REQUEST
       contentAsString(result) mustBe view(boundForm, claimant)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
@@ -119,7 +119,7 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl
 
-      application.stop
+      application.stop()
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
@@ -131,7 +131,7 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl
 
-      application.stop
+      application.stop()
     }
   }
 }

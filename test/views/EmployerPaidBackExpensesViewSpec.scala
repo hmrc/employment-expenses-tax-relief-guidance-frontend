@@ -27,7 +27,7 @@ class EmployerPaidBackExpensesViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = s"employerPaidBackExpenses.$claimant"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[EmployerPaidBackExpensesView]
 
@@ -44,5 +44,5 @@ class EmployerPaidBackExpensesViewSpec extends NewYesNoViewBehaviours {
     behave like pageWithBackLink(createView(form))
   }
 
-  application.stop
+  application.stop()
 }

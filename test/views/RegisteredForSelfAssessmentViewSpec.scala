@@ -27,7 +27,7 @@ class RegisteredForSelfAssessmentViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = s"registeredForSelfAssessment.$claimant"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[RegisteredForSelfAssessmentView]
 
@@ -53,5 +53,5 @@ class RegisteredForSelfAssessmentViewSpec extends NewYesNoViewBehaviours {
     )
   }
 
-  application.stop
+  application.stop()
 }

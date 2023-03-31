@@ -18,13 +18,13 @@ lazy val root = (project in file("."))
     // Use the silencer plugin to suppress warnings from unused imports in compiled twirl templates
     scalacOptions += "-P:silencer:pathFilters=views;routes",
     libraryDependencies ++= Seq(
-      compilerPlugin("com.github.ghik" % "silencer-plugin" % "1.7.0" cross CrossVersion.full),
-      "com.github.ghik" % "silencer-lib" % "1.7.0" % Provided cross CrossVersion.full
+      compilerPlugin("com.github.ghik" % "silencer-plugin" % "1.7.12" cross CrossVersion.full),
+      "com.github.ghik" % "silencer-lib" % "1.7.12" % Provided cross CrossVersion.full
     )
     // ***************
   )
   .settings(
-    scalaVersion := "2.12.11",
+    scalaVersion := "2.13.8",
     name := appName,
     RoutesKeys.routesImport += "models._",
     TwirlKeys.templateImports ++= Seq(

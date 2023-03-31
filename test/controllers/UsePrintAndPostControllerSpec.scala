@@ -29,7 +29,7 @@ class UsePrintAndPostControllerSpec extends SpecBase {
 
     "return OK and the correct view for a GET" in {
 
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(GET, usePrintAndPostRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[UsePrintAndPostView]
@@ -37,7 +37,7 @@ class UsePrintAndPostControllerSpec extends SpecBase {
       status(result) mustBe OK
       contentAsString(result) mustBe view()(request, messages).toString
 
-      application.stop
+      application.stop()
     }
   }
 }

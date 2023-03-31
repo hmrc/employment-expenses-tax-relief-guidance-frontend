@@ -24,7 +24,7 @@ class SaCheckDiclaimerCurrentYearViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = "saCheckDisclaimerCurrentYear.you"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[SaCheckDisclaimerCurrentYearView]
 
@@ -37,5 +37,5 @@ class SaCheckDiclaimerCurrentYearViewSpec extends NewViewBehaviours {
     behave like pageWithBackLink(createView)
   }
 
-  application.stop
+  application.stop()
 }

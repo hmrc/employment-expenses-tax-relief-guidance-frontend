@@ -33,7 +33,7 @@ class DisclaimerControllerSpec extends SpecBase {
 
       val application = applicationBuilder(Some(claimantIdCacheMap))
         .overrides(bind[Navigator].toInstance(new FakeNavigator()))
-        .build
+        .build()
       val request = FakeRequest(GET, disclaimerRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[DisclaimerView]
@@ -41,7 +41,7 @@ class DisclaimerControllerSpec extends SpecBase {
       status(result) mustBe OK
       contentAsString(result) mustBe view(claimant, true, true)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
   }
 }

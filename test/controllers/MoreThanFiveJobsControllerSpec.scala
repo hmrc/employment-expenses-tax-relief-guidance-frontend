@@ -55,7 +55,7 @@ class MoreThanFiveJobsControllerSpec extends SpecBase with MockitoSugar with Bef
   "MoreThanFiveJobs Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(GET, moreThanFiveJobsRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[MoreThanFiveJobsView]
@@ -63,21 +63,21 @@ class MoreThanFiveJobsControllerSpec extends SpecBase with MockitoSugar with Bef
       status(result) mustBe OK
       contentAsString(result) mustBe view(form)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
       val validData = Map(
         MoreThanFiveJobsId.toString -> JsBoolean(true),
         ClaimantId.toString -> JsString(claimant.toString))
-      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
       val request = FakeRequest(GET, moreThanFiveJobsRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[MoreThanFiveJobsView]
 
       contentAsString(result) mustEqual view(form.fill(true))(request, messages).toString()
 
-      application.stop
+      application.stop()
 
     }
 
@@ -87,7 +87,7 @@ class MoreThanFiveJobsControllerSpec extends SpecBase with MockitoSugar with Bef
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
-        ).build
+        ).build()
 
       val request = FakeRequest(POST, moreThanFiveJobsRoute)
         .withFormUrlEncodedBody("value" -> "true")
@@ -95,11 +95,11 @@ class MoreThanFiveJobsControllerSpec extends SpecBase with MockitoSugar with Bef
 
       redirectLocation(result).value mustEqual onwardRoute.url
 
-      application.stop
+      application.stop()
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val boundForm = form.bind(Map("value" -> "invalid value"))
       val request = FakeRequest(POST, moreThanFiveJobsRoute)
       val result = route(application, request).value
@@ -108,30 +108,30 @@ class MoreThanFiveJobsControllerSpec extends SpecBase with MockitoSugar with Bef
       status(result) mustEqual BAD_REQUEST
       contentAsString(result) mustEqual view(boundForm)(request, messages).toString
 
-      application.stop
+      application.stop()
 
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(GET, moreThanFiveJobsRoute)
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl
 
-      application.stop
+      application.stop()
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(POST, moreThanFiveJobsRoute)
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl
 
-      application.stop
+      application.stop()
     }
   }
 }

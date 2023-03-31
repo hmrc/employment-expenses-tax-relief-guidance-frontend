@@ -52,41 +52,41 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
   "WhichYearsAreYouClaimingFor Controller" must {
 
     "redirect to session expired controller/view when we have no existing session data" in {
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(GET, whichYearsAreYouClaimingForRoute)
       val result = route(application, request).value
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad.url)
 
-      application.stop
+      application.stop()
     }
 
     "return OK and the correct view for a GET" in {
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(GET, whichYearsAreYouClaimingForRoute)
       val result = route(application, request).value
 
       status(result) mustBe OK
-      application.stop
+      application.stop()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
       val validData = Map(ClaimantId.toString -> JsString(claimant.toString),
         RegisteredForSelfAssessmentId.toString -> JsBoolean(true))
-      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
       val request = FakeRequest(GET, whichYearsAreYouClaimingForRoute)
       val result = route(application, request).value
       contentAsString(result).contains("Which years are you claiming tax relief for as a result of working from home?") mustBe true
 
-      application.stop
+      application.stop()
     }
 
     "redirect to the next page when valid data is submitted - just the current tax year 2021-2022" in {
 
       val validData = Map(ClaimantId.toString -> JsString(claimant.toString))
 
-      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
 
       val request = FakeRequest(POST, whichYearsAreYouClaimingForRoute)
         .withFormUrlEncodedBody("value" -> "1")
@@ -94,14 +94,14 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
 
       redirectLocation(result).value mustEqual onwardRoute.url + "/employer-paid-working-from-home-expenses"
 
-      application.stop
+      application.stop()
     }
 
     "redirect to the next page when valid data is submitted - previous tax years" in {
 
       val validData = Map(ClaimantId.toString -> JsString(claimant.toString))
 
-      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
 
       val request = FakeRequest(POST, whichYearsAreYouClaimingForRoute)
         .withFormUrlEncodedBody("value" -> "2")
@@ -109,14 +109,14 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
 
       redirectLocation(result).value mustEqual onwardRoute.url + "/employer-paid-working-from-home-expenses"
 
-      application.stop
+      application.stop()
     }
 
     "redirect to the next page when valid data is submitted - both the current tax year and previous years" in {
 
       val validData = Map(ClaimantId.toString -> JsString(claimant.toString))
 
-      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
 
       val request = FakeRequest(POST, whichYearsAreYouClaimingForRoute)
         .withFormUrlEncodedBody("value" -> "3")
@@ -124,14 +124,14 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
 
       redirectLocation(result).value mustEqual onwardRoute.url + "/employer-paid-working-from-home-expenses"
 
-      application.stop
+      application.stop()
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val validData = Map(ClaimantId.toString -> JsString(claimant.toString))
 
-      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
 
       val request = FakeRequest(POST, whichYearsAreYouClaimingForRoute)
 
@@ -139,29 +139,29 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
 
       status(result) mustBe BAD_REQUEST
 
-      application.stop
+      application.stop()
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(GET, whichYearsAreYouClaimingForRoute)
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl
 
-      application.stop
+      application.stop()
 
     }
     "redirect to Session Expired for a POST if no existing data is found" in {
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(POST, whichYearsAreYouClaimingForRoute)
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl
 
-      application.stop
+      application.stop()
     }
   }
 

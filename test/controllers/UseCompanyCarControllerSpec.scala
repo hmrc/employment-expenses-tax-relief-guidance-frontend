@@ -59,7 +59,7 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
         UseOwnCarId.toString -> JsBoolean(true),
         ClaimantId.toString -> JsString(claimant.toString)
       ))
-      val application = applicationBuilder(Some(validCacheMap)).build
+      val application = applicationBuilder(Some(validCacheMap)).build()
       val request = FakeRequest(GET, useCompanyCarRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[UseCompanyCarView]
@@ -67,7 +67,7 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
       status(result) mustBe OK
       contentAsString(result) mustBe view(form, claimant, useOfOwnCar)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
@@ -77,7 +77,7 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
         ClaimantId.toString -> JsString(claimant.toString)
       ))
 
-      val application = applicationBuilder(Some(validCacheMap)).build
+      val application = applicationBuilder(Some(validCacheMap)).build()
       val request = FakeRequest(GET, useCompanyCarRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[UseCompanyCarView]
@@ -85,7 +85,7 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
       status(result) mustBe OK
       contentAsString(result) mustBe view(form.fill(true), claimant, useOfOwnCar)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -98,7 +98,7 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
-        ).build
+        ).build()
 
       val request = FakeRequest(POST, useCompanyCarRoute)
         .withFormUrlEncodedBody(("value", "true"))
@@ -107,7 +107,7 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
 
-      application.stop
+      application.stop()
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
@@ -115,7 +115,7 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
         UseOwnCarId.toString -> JsBoolean(true),
         ClaimantId.toString -> JsString(claimant.toString)
       ))
-      val application = applicationBuilder(Some(validCacheMap)).build
+      val application = applicationBuilder(Some(validCacheMap)).build()
       val request = FakeRequest(POST, useCompanyCarRoute)
         .withFormUrlEncodedBody(("value", "invalid value"))
       val result = route(application, request).value
@@ -125,22 +125,22 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe view(boundForm, claimant, useOfOwnCar)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(GET, useCompanyCarRoute)
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(sessionExpiredUrl)
 
-      application.stop
+      application.stop()
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(POST, useCompanyCarRoute)
         .withFormUrlEncodedBody(("value", "true"))
       val result = route(application, request).value
@@ -148,7 +148,7 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(sessionExpiredUrl)
 
-      application.stop
+      application.stop()
     }
   }
 }

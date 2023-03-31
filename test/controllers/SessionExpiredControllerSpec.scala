@@ -64,7 +64,7 @@ class SessionExpiredControllerSpec extends SpecBase with MockitoSugar {
       contentAsString(result) mustEqual
           view(Call("GET", "https://www.gov.uk/tax-relief-for-employees"))(request, messages).toString
 
-      application.stop
+      application.stop()
     }
   }
 }

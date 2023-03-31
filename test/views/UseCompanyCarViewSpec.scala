@@ -30,7 +30,7 @@ class UseCompanyCarViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = s"useCompanyCar.$claimant.$useOfOwnCar"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[UseCompanyCarView]
 
@@ -47,5 +47,5 @@ class UseCompanyCarViewSpec extends NewYesNoViewBehaviours {
     behave like pageWithBackLink(createView(form))
   }
 
-  application.stop
+  application.stop()
 }

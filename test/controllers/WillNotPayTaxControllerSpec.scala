@@ -34,7 +34,7 @@ class WillNotPayTaxControllerSpec extends SpecBase {
 
       val application = applicationBuilder(Some(claimantIdCacheMap))
         .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
-        .build
+        .build()
       val request = FakeRequest(GET, willNotPayRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[WillNotPayTaxView]
@@ -42,7 +42,7 @@ class WillNotPayTaxControllerSpec extends SpecBase {
       status(result) mustBe OK
       contentAsString(result) mustBe view(claimant, onwardRoute)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
   }
 }

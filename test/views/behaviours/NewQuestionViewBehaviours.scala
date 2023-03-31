@@ -43,7 +43,7 @@ trait NewQuestionViewBehaviours[A] extends NewViewBehaviours {
 
         "not render an error summary" in {
           val doc = asDocument(createView(form))
-          assertNotRenderedById(doc, "error-summary-heading")
+          assertNotRenderedById(doc, "govuk-error-summary__title")
         }
       }
 
@@ -51,7 +51,7 @@ trait NewQuestionViewBehaviours[A] extends NewViewBehaviours {
         s"rendered with an error with field '$field'" must {
           "show an error summary" in {
             val doc = asDocument(createView(form.withError(FormError(field, "error"))))
-            assertRenderedById(doc, "error-summary-heading")
+            assertRenderedById(doc, "govuk-error-summary__title")
           }
 
           s"show an error in the label for field '$field'" in {

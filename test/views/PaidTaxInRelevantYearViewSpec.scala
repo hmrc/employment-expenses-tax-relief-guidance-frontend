@@ -27,7 +27,7 @@ class PaidTaxInRelevantYearViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = s"paidTaxInRelevantYear.$claimant"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[PaidTaxInRelevantYearView]
 
@@ -66,5 +66,5 @@ class PaidTaxInRelevantYearViewSpec extends NewYesNoViewBehaviours {
     behave like pageWithBackLink(createView(form))
   }
 
-  application.stop
+  application.stop()
 }

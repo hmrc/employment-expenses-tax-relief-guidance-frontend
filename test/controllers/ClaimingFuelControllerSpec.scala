@@ -55,7 +55,7 @@ class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeA
 
     "return OK and the correct view for a GET" in {
 
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(GET, claimingFuelRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[ClaimingFuelView]
@@ -63,7 +63,7 @@ class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeA
       status(result) mustBe OK
       contentAsString(result) mustBe view(form, claimant)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
@@ -73,7 +73,7 @@ class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeA
         ClaimantId.toString -> JsString(claimant.toString)
       )
 
-      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
       val request = FakeRequest(GET, claimingFuelRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[ClaimingFuelView]
@@ -82,7 +82,7 @@ class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeA
       contentAsString(result) mustBe
         view(form.fill(true), claimant)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -91,7 +91,7 @@ class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeA
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
-        ).build
+        ).build()
 
       val request = FakeRequest(POST, claimingFuelRoute)
         .withFormUrlEncodedBody(("value", "true"))
@@ -100,13 +100,13 @@ class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeA
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustEqual onwardRoute.url
 
-      application.stop
+      application.stop()
     }
 
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val boundForm = form.bind(Map("value" -> "invalid value"))
       val request = FakeRequest(POST, claimingFuelRoute)
         .withFormUrlEncodedBody(("value", "invalid value"))
@@ -116,31 +116,31 @@ class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeA
       status(result) mustEqual BAD_REQUEST
       contentAsString(result) mustBe view(boundForm, claimant)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(GET, claimingFuelRoute)
       val result = route(application, request).value
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustEqual sessionExpiredUrl
 
-      application.stop
+      application.stop()
 
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(POST, claimingFuelRoute)
       val result = route(application, request).value
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result).value mustEqual sessionExpiredUrl
 
-      application.stop
+      application.stop()
     }
   }
 }

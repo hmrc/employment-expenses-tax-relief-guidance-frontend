@@ -67,7 +67,7 @@ class PaidTaxInRelevantYearControllerSpec extends SpecBase with MockitoSugar wit
   "PaidTaxInRelevantYear Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(GET, paidTaxInRelevantYearRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[PaidTaxInRelevantYearView]
@@ -75,19 +75,19 @@ class PaidTaxInRelevantYearControllerSpec extends SpecBase with MockitoSugar wit
       status(result) mustBe OK
       contentAsString(result) mustBe view(form, claimant)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
       val validData = Map(ClaimantId.toString -> JsString(claimant.toString), PaidTaxInRelevantYearId.toString -> JsBoolean(true))
-      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
       val request = FakeRequest(GET, paidTaxInRelevantYearRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[PaidTaxInRelevantYearView]
 
       contentAsString(result) mustEqual view(form.fill(true), claimant)(request, messages).toString()
 
-      application.stop
+      application.stop()
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -95,7 +95,7 @@ class PaidTaxInRelevantYearControllerSpec extends SpecBase with MockitoSugar wit
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
-        ).build
+        ).build()
 
       val request = FakeRequest(POST, paidTaxInRelevantYearRoute)
         .withFormUrlEncodedBody("value" -> "true")
@@ -103,11 +103,11 @@ class PaidTaxInRelevantYearControllerSpec extends SpecBase with MockitoSugar wit
 
       redirectLocation(result).value mustEqual onwardRoute.url
 
-      application.stop
+      application.stop()
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val boundForm = form.bind(Map("value" -> "invalid value"))
       val request = FakeRequest(POST, paidTaxInRelevantYearRoute)
         .withFormUrlEncodedBody("value" -> "invalid value")
@@ -117,29 +117,29 @@ class PaidTaxInRelevantYearControllerSpec extends SpecBase with MockitoSugar wit
       status(result) mustBe BAD_REQUEST
       contentAsString(result) mustBe view(boundForm, claimant)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(GET, paidTaxInRelevantYearRoute)
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl
 
-      application.stop
+      application.stop()
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(POST, paidTaxInRelevantYearRoute)
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl
 
-      application.stop
+      application.stop()
     }
   }
 }

@@ -24,7 +24,7 @@ class NotEntitledViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = s"notEntitled.$claimant"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[NotEntitledView]
 
@@ -38,5 +38,5 @@ class NotEntitledViewSpec extends NewViewBehaviours {
     behave like pageWithHyperLink(createView, taxReliefForEmployeesUrl)
   }
 
-  application.stop
+  application.stop()
 }

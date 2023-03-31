@@ -50,7 +50,7 @@ class CascadeUpsert {
     } else {
       val keysToRemove = orderedIdentifiers.dropWhile(_ != key)
 
-      cacheMap.copy(data = cacheMap.data.filterKeys(s => !keysToRemove.map(_.toString).contains(s)))
+      cacheMap.copy(data = cacheMap.data.view.filterKeys(s => !keysToRemove.map(_.toString).contains(s)).toMap)
     }
 
     store(key, value, mapToStore)

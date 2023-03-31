@@ -27,7 +27,7 @@ class RegisterForSelfAssessmentViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix: String = "registerForSelfAssessment.you"
 
-  val application: Application = applicationBuilder().build
+  val application: Application = applicationBuilder().build()
 
   val view: RegisterForSelfAssessmentView = application.injector.instanceOf[RegisterForSelfAssessmentView]
 
@@ -42,5 +42,5 @@ class RegisterForSelfAssessmentViewSpec extends NewViewBehaviours {
     behave like pageWithHyperLink(createView, frontendAppConfig.fileSelfAssessmentLoginUrl)
   }
 
-  application.stop
+  application.stop()
 }

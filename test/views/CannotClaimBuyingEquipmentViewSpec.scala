@@ -29,7 +29,7 @@ class CannotClaimBuyingEquipmentViewSpec extends NewViewBehaviours {
 
   val changeUniformsWorkClothingToolsPage = Call("GET", "route2")
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[CannotClaimBuyingEquipmentView]
 
@@ -43,5 +43,5 @@ class CannotClaimBuyingEquipmentViewSpec extends NewViewBehaviours {
     behave like pageWithHyperLink(createView, annualInvestmentAllowanceUrl)
   }
 
-  application.stop
+  application.stop()
 }

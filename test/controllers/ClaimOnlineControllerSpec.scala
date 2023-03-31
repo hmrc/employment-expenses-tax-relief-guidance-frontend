@@ -35,7 +35,7 @@ class ClaimOnlineControllerSpec extends SpecBase {
     "return OK and correct view for a GET when user eligible for employee expenses" in {
 
       val validCacheMap = CacheMap(cacheMapId, Map("claimingFor" -> Json.toJson(Seq(UniformsClothingTools.string))))
-      val application = applicationBuilder(Some(validCacheMap)).build
+      val application = applicationBuilder(Some(validCacheMap)).build()
       val request = FakeRequest(GET, claimOnlineRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[ClaimOnlineView]
@@ -43,13 +43,13 @@ class ClaimOnlineControllerSpec extends SpecBase {
       status(result) mustBe OK
       contentAsString(result) mustBe view(OnwardJourney.FixedRateExpenses, None)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "return OK and correct view for a GET when user eligible for professional subscriptions" in {
 
       val validCacheMap = CacheMap(cacheMapId, Map("claimingFor" -> Json.toJson(Seq(FeesSubscriptions.string))))
-      val application = applicationBuilder(Some(validCacheMap)).build
+      val application = applicationBuilder(Some(validCacheMap)).build()
       val request = FakeRequest(GET, claimOnlineRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[ClaimOnlineView]
@@ -57,13 +57,13 @@ class ClaimOnlineControllerSpec extends SpecBase {
       status(result) mustBe OK
       contentAsString(result) mustBe view(OnwardJourney.ProfessionalSubscriptions, None)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "return OK and correct view for a GET when user not eligible for either employee expenses or professional subscriptions" in {
 
       val validCacheMap = CacheMap(cacheMapId, Map("claimingFor" -> Json.toJson(Seq(UniformsClothingTools.string, MileageFuel.string))))
-      val application = applicationBuilder(Some(validCacheMap)).build
+      val application = applicationBuilder(Some(validCacheMap)).build()
       val request = FakeRequest(GET, claimOnlineRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[ClaimOnlineView]
@@ -71,13 +71,13 @@ class ClaimOnlineControllerSpec extends SpecBase {
       status(result) mustBe OK
       contentAsString(result) mustBe view(OnwardJourney.IForm, None)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "return OK and correct view for a GET when user eligible for working from home expenses" in {
 
       val validCacheMap = CacheMap(cacheMapId, Map(CovidHomeWorkingId.toString -> Json.toJson(true)))
-      val application = applicationBuilder(Some(validCacheMap)).build
+      val application = applicationBuilder(Some(validCacheMap)).build()
       val request = FakeRequest(GET, claimOnlineRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[ClaimOnlineView]
@@ -85,19 +85,19 @@ class ClaimOnlineControllerSpec extends SpecBase {
       status(result) mustBe OK
       contentAsString(result) mustBe view(OnwardJourney.WorkingFromHomeExpensesOnly, None)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "redirect for a GET if no data" in {
 
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(GET, claimOnlineRoute)
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(sessionExpiredUrl)
 
-      application.stop
+      application.stop()
     }
   }
 }

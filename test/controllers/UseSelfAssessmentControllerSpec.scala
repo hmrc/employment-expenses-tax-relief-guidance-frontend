@@ -32,7 +32,7 @@ class UseSelfAssessmentControllerSpec extends SpecBase {
 
     "return OK and the correct view for a GET" in {
 
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(GET, useSelfAssessmentRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[UseSelfAssessmentView]
@@ -40,7 +40,7 @@ class UseSelfAssessmentControllerSpec extends SpecBase {
       status(result) mustBe OK
       contentAsString(result) mustBe view(claimant, None)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "UseSelfAssessment Controller's back button dynamic behaviour" must {
@@ -52,13 +52,13 @@ class UseSelfAssessmentControllerSpec extends SpecBase {
           ClaimingForCurrentYearId.toString -> JsBoolean(true),
           ClaimantId.toString -> JsString(claimant.toString))
 
-        val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+        val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
         val request = FakeRequest(GET, useSelfAssessmentRoute)
         val result = route(application, request).value
 
         contentAsString(result).contains(frontendAppConfig.claimingForCurrentYearBackButtonOverride) mustBe false
 
-        application.stop
+        application.stop()
       }
 
       "ensure there is no back button override when ClaimingForCurrentYearId is false" in {
@@ -68,13 +68,13 @@ class UseSelfAssessmentControllerSpec extends SpecBase {
           ClaimingForCurrentYearId.toString -> JsBoolean(false),
           ClaimantId.toString -> JsString(claimant.toString))
 
-        val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+        val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
         val request = FakeRequest(GET, useSelfAssessmentRoute)
         val result = route(application, request).value
 
         contentAsString(result).contains(frontendAppConfig.claimingForCurrentYearBackButtonOverride) mustBe false
 
-        application.stop
+        application.stop()
       }
 
 
@@ -82,13 +82,13 @@ class UseSelfAssessmentControllerSpec extends SpecBase {
 
         val validData = Map(ClaimantId.toString -> JsString(claimant.toString))
 
-        val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build
+        val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
         val request = FakeRequest(GET, useSelfAssessmentRoute)
         val result = route(application, request).value
 
         contentAsString(result).contains(frontendAppConfig.claimingForCurrentYearBackButtonOverride) mustBe false
 
-        application.stop
+        application.stop()
       }
 
     }

@@ -39,7 +39,7 @@ class CannotClaimMileageFuelCostsControllerSpec extends SpecBase {
       contentAsString(result) mustEqual
         view(claimant)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
   }
 }

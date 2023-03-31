@@ -57,7 +57,7 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
 
     "return OK and the correct view for a GET" in {
 
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(GET, willPayTaxRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[WillPayTaxView]
@@ -65,7 +65,7 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
       status(result) mustBe OK
       contentAsString(result) mustBe view(form, claimant)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
@@ -78,7 +78,7 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
         )
       )
 
-      val application = applicationBuilder(Some(validData)).build
+      val application = applicationBuilder(Some(validData)).build()
       val view = application.injector.instanceOf[WillPayTaxView]
       val request = FakeRequest(GET, willPayTaxRoute)
       val result = route(application, request).value
@@ -86,7 +86,7 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
       contentAsString(result) mustBe
         view.apply(form.fill(true), claimant)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "redirect to the next page when valid data is submitted" in {
@@ -95,7 +95,7 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
-        ).build
+        ).build()
 
       val request = FakeRequest(POST, willPayTaxRoute)
         .withFormUrlEncodedBody(("value", "true"))
@@ -104,12 +104,12 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(onwardRoute.url)
 
-      application.stop
+      application.stop()
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val view = application.injector.instanceOf[WillPayTaxView]
       val request = FakeRequest(POST, willPayTaxRoute)
         .withFormUrlEncodedBody(("value", "invalid value"))
@@ -120,24 +120,24 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
       contentAsString(result) mustBe
         view.apply(boundForm, claimant)(request, messages).toString
 
-      application.stop
+      application.stop()
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(GET, routes.WillNotPayTaxController.onPageLoad().url)
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(sessionExpiredUrl)
 
-      application.stop
+      application.stop()
     }
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(POST, willPayTaxRoute)
         .withFormUrlEncodedBody(("value", "true"))
       val result = route(application, request).value
@@ -145,7 +145,7 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(sessionExpiredUrl)
 
-      application.stop
+      application.stop()
     }
   }
 }

@@ -26,7 +26,7 @@ class ClaimOnlineViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = "claimOnline"
 
-  val application = applicationBuilder().build
+  val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[ClaimOnlineView]
 
@@ -78,5 +78,5 @@ class ClaimOnlineViewSpec extends NewViewBehaviours {
     behave like pageWithBackLink(createView)
   }
 
-  application.stop
+  application.stop()
 }
