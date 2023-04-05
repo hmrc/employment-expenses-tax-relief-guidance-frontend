@@ -15,6 +15,7 @@
  *@
 
 @import controllers.routes._
+@import uk.gov.hmrc.time.TaxYear
 
 @this(
     layout: Layout,
@@ -30,7 +31,7 @@
 
     @heading(messages(s"saCheckDisclaimerCurrentYear.$claimant.heading"))
 
-    <p class="govuk-body">@messages(s"saCheckDisclaimerCurrentYear.$claimant.text1")</p>
+    <p class="govuk-body">@messages(s"saCheckDisclaimerCurrentYear.$claimant.text1", TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)</p>
 
     <ul class="govuk-list govuk-list--bullet">
         <li>@messages(s"saCheckDisclaimerCurrentYear.$claimant.list.item.1")</li>

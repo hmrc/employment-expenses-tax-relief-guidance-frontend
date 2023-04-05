@@ -15,6 +15,7 @@
  *@
 
 @import controllers.routes._
+@import uk.gov.hmrc.time.TaxYear
 
 @this(
     layout: Layout,
@@ -59,7 +60,8 @@
             isPageHeading = false,
             items = Seq(
                 RadioItem(
-                    content = Text(messages("whichYearsAreYouClaimingFor.current.tax.year.text")),
+                    content = Text(messages("whichYearsAreYouClaimingFor.current.tax.year.text",
+                                TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)),
                     value = Some("1"),
                     conditionalHtml = if(isSaUser) {Some(currentTaxYearHtml)} else None
                 ),

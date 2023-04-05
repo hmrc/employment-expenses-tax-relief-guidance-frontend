@@ -69,13 +69,14 @@ class CascadeUpsertSpec extends SpecBase {
   ".apply" when {
 
     val fullCacheMap = new CacheMap("id", Map(
+      ClaimingForId.toString                       -> JsArray(Seq(JsString(ClaimingFor.TravelExpenses.toString))),
+      ClaimAnyOtherExpenseId.toString              -> JsBoolean(false),
       ClaimantId.toString                          -> JsString(Claimant.You.toString),
       WillPayTaxId.toString                        -> JsBoolean(true),
       PaidTaxInRelevantYearId.toString             -> JsBoolean(true),
       RegisteredForSelfAssessmentId.toString       -> JsBoolean(false),
       ClaimingOverPayAsYouEarnThresholdId.toString -> JsBoolean(false),
       EmployerPaidBackExpensesId.toString          -> JsBoolean(false),
-      ClaimingForId.toString                       -> JsArray(Seq(JsString(ClaimingFor.TravelExpenses.toString))),
       UseOwnCarId.toString                         -> JsBoolean(true),
       ClaimingMileageId.toString                   -> JsBoolean(true),
       UseCompanyCarId.toString                     -> JsBoolean(true),
@@ -83,17 +84,36 @@ class CascadeUpsertSpec extends SpecBase {
       MoreThanFiveJobsId.toString                  -> JsBoolean(false)
     ))
 
+    "the answer for ClaimingFor is changed" must {
+      "delete data for all later screens" in {
+        val result = cascadeUpsert(ClaimingForId, List(ClaimingFor.HomeWorking.toString), fullCacheMap)
+        result.data.keySet mustEqual Set(ClaimingForId.toString)
+      }
+    }
+
+    "the answer for ClaimAnyOtherExpenseId is changed" must {
+      "delete data for all later screens" in {
+        val result = cascadeUpsert(ClaimAnyOtherExpenseId, true, fullCacheMap)
+        result.data.keySet mustEqual Set(ClaimingForId.toString, ClaimAnyOtherExpenseId.toString)
+      }
+    }
+
     "the answer for Claimant is changed" must {
       "delete data for all later screens" in {
         val result = cascadeUpsert(ClaimantId, Claimant.SomeoneElse.toString, fullCacheMap)
-        result.data.keySet mustEqual Set(ClaimantId.toString)
+        result.data.keySet mustEqual Set(ClaimingForId.toString, ClaimAnyOtherExpenseId.toString, ClaimantId.toString)
       }
     }
 
     "the answer for WillPayTax is changed" must {
       "delete data for all later screens" in {
         val result = cascadeUpsert(WillPayTaxId, false, fullCacheMap)
-        result.data.keySet mustEqual Set(ClaimantId.toString, WillPayTaxId.toString)
+        result.data.keySet mustEqual Set(
+          ClaimingForId.toString,
+          ClaimAnyOtherExpenseId.toString,
+          ClaimantId.toString,
+          WillPayTaxId.toString
+        )
       }
     }
 
@@ -102,6 +122,8 @@ class CascadeUpsertSpec extends SpecBase {
         val result = cascadeUpsert(PaidTaxInRelevantYearId, false, fullCacheMap)
         result.data.keySet mustEqual
           Set(
+            ClaimingForId.toString,
+            ClaimAnyOtherExpenseId.toString,
             ClaimantId.toString,
             WillPayTaxId.toString,
             PaidTaxInRelevantYearId.toString
@@ -114,6 +136,8 @@ class CascadeUpsertSpec extends SpecBase {
         val result = cascadeUpsert(RegisteredForSelfAssessmentId, true, fullCacheMap)
         result.data.keySet mustEqual
           Set(
+            ClaimingForId.toString,
+            ClaimAnyOtherExpenseId.toString,
             ClaimantId.toString,
             WillPayTaxId.toString,
             PaidTaxInRelevantYearId.toString,
@@ -127,6 +151,8 @@ class CascadeUpsertSpec extends SpecBase {
         val result = cascadeUpsert(ClaimingOverPayAsYouEarnThresholdId, true, fullCacheMap)
         result.data.keySet mustEqual
           Set(
+            ClaimingForId.toString,
+            ClaimAnyOtherExpenseId.toString,
             ClaimantId.toString,
             WillPayTaxId.toString,
             PaidTaxInRelevantYearId.toString,
@@ -141,6 +167,8 @@ class CascadeUpsertSpec extends SpecBase {
         val result = cascadeUpsert(EmployerPaidBackExpensesId, true, fullCacheMap)
         result.data.keySet mustEqual
           Set(
+            ClaimingForId.toString,
+            ClaimAnyOtherExpenseId.toString,
             ClaimantId.toString,
             WillPayTaxId.toString,
             PaidTaxInRelevantYearId.toString,
@@ -151,34 +179,19 @@ class CascadeUpsertSpec extends SpecBase {
       }
     }
 
-    "the answer for ClaimingFor is changed" must {
-      "delete data for all later screens" in {
-        val result = cascadeUpsert(ClaimingForId, List(ClaimingFor.HomeWorking.toString), fullCacheMap)
-        result.data.keySet mustEqual
-          Set(
-            ClaimantId.toString,
-            WillPayTaxId.toString,
-            PaidTaxInRelevantYearId.toString,
-            RegisteredForSelfAssessmentId.toString,
-            ClaimingOverPayAsYouEarnThresholdId.toString,
-            EmployerPaidBackExpensesId.toString,
-            ClaimingForId.toString
-          )
-      }
-    }
-
     "the answer for UseOwnCar is changed" must {
       "delete data for all later screens" in {
         val result = cascadeUpsert(UseOwnCarId, false, fullCacheMap)
         result.data.keySet mustEqual
           Set(
+            ClaimingForId.toString,
+            ClaimAnyOtherExpenseId.toString,
             ClaimantId.toString,
             WillPayTaxId.toString,
             PaidTaxInRelevantYearId.toString,
             RegisteredForSelfAssessmentId.toString,
             ClaimingOverPayAsYouEarnThresholdId.toString,
             EmployerPaidBackExpensesId.toString,
-            ClaimingForId.toString,
             UseOwnCarId.toString
           )
       }
@@ -189,13 +202,14 @@ class CascadeUpsertSpec extends SpecBase {
         val result = cascadeUpsert(ClaimingMileageId, false, fullCacheMap)
         result.data.keySet mustEqual
           Set(
+            ClaimingForId.toString,
+            ClaimAnyOtherExpenseId.toString,
             ClaimantId.toString,
             WillPayTaxId.toString,
             PaidTaxInRelevantYearId.toString,
             RegisteredForSelfAssessmentId.toString,
             ClaimingOverPayAsYouEarnThresholdId.toString,
             EmployerPaidBackExpensesId.toString,
-            ClaimingForId.toString,
             UseOwnCarId.toString,
             ClaimingMileageId.toString
           )
@@ -207,13 +221,14 @@ class CascadeUpsertSpec extends SpecBase {
         val result = cascadeUpsert(UseCompanyCarId, false, fullCacheMap)
         result.data.keySet mustEqual
           Set(
+            ClaimingForId.toString,
+            ClaimAnyOtherExpenseId.toString,
             ClaimantId.toString,
             WillPayTaxId.toString,
             PaidTaxInRelevantYearId.toString,
             RegisteredForSelfAssessmentId.toString,
             ClaimingOverPayAsYouEarnThresholdId.toString,
             EmployerPaidBackExpensesId.toString,
-            ClaimingForId.toString,
             UseOwnCarId.toString,
             ClaimingMileageId.toString,
             UseCompanyCarId.toString
@@ -226,13 +241,14 @@ class CascadeUpsertSpec extends SpecBase {
         val result = cascadeUpsert(ClaimingFuelId, false, fullCacheMap)
         result.data.keySet mustEqual
           Set(
+            ClaimingForId.toString,
+            ClaimAnyOtherExpenseId.toString,
             ClaimantId.toString,
             WillPayTaxId.toString,
             PaidTaxInRelevantYearId.toString,
             RegisteredForSelfAssessmentId.toString,
             ClaimingOverPayAsYouEarnThresholdId.toString,
             EmployerPaidBackExpensesId.toString,
-            ClaimingForId.toString,
             UseOwnCarId.toString,
             ClaimingMileageId.toString,
             UseCompanyCarId.toString,

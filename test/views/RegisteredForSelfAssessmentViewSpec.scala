@@ -44,9 +44,10 @@ class RegisteredForSelfAssessmentViewSpec extends NewYesNoViewBehaviours {
       createView(form),
       "registeredForSelfAssessment.accordion.list1.item1",
       "registeredForSelfAssessment.you.accordion.guidance1",
+      "registeredForSelfAssessment.you.accordion.guidance2",
       "registeredForSelfAssessment.accordion.list1.item2",
       "registeredForSelfAssessment.accordion.list2.item1",
-      "registeredForSelfAssessment.you.accordion.guidance2",
+      "registeredForSelfAssessment.you.accordion.guidance3",
       "registeredForSelfAssessment.accordion.list2.item2",
       "registeredForSelfAssessment.accordion.list2.item3",
       "registeredForSelfAssessment.accordion.list2.item4"

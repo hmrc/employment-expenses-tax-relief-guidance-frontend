@@ -92,7 +92,7 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
         .withFormUrlEncodedBody("value" -> "1")
       val result = route(application, request).value
 
-      redirectLocation(result).value mustEqual onwardRoute.url + "/employer-paid-working-from-home-expenses"
+      redirectLocation(result).value mustEqual onwardRoute.url + "/inform-customer-claim-now-in-weeks"
 
       application.stop()
     }
@@ -122,7 +122,7 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
         .withFormUrlEncodedBody("value" -> "3")
       val result = route(application, request).value
 
-      redirectLocation(result).value mustEqual onwardRoute.url + "/employer-paid-working-from-home-expenses"
+      redirectLocation(result).value mustEqual onwardRoute.url + "/inform-customer-claim-now-in-weeks"
 
       application.stop()
     }

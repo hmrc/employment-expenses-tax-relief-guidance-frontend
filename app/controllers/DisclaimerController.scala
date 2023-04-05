@@ -34,12 +34,7 @@ class DisclaimerController  @Inject()(
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
     implicit request =>
-      val whichYears = request.userAnswers.whichYearsAreYouClaimingFor.getOrElse(3)
-
-      val claimingForCurrent: Boolean = whichYears == 1 || whichYears == 3
-      val claimingForPrev: Boolean = whichYears == 2 || whichYears == 3
-
-      Ok(view(request.claimant, claimingForCurrent, claimingForPrev))
+      Ok(view(request.claimant))
   }
 
 }

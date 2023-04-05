@@ -57,7 +57,7 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
 
     "return OK and the correct view for a GET" in {
 
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
+      val application = applicationBuilder().build()
       val request = FakeRequest(GET, claimingForRoute)
       val result = route(application, request).value
       val view = application.injector.instanceOf[ClaimingForView]
@@ -72,7 +72,6 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
     "populate the view correctly on a GET when the question has previously been answered" in {
       val validData = Map(
         ClaimingForId.toString -> JsArray(Seq(JsString(values.head.toString))),
-        ClaimantId.toString -> JsString(claimant.toString)
       )
 
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
@@ -89,7 +88,7 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
 
     "redirect to the next page when valid data is submitted" in {
 
-      val application = applicationBuilder(Some(claimantIdCacheMap))
+      val application = applicationBuilder()
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
@@ -108,7 +107,7 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
-      val application = applicationBuilder(Some(claimantIdCacheMap))
+      val application = applicationBuilder()
         .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
         .build()
       val boundForm = form.bind(Map("value" -> "invalid value"))
@@ -124,29 +123,5 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
       application.stop()
     }
 
-    "redirect to Session Expired for a GET if no existing data is found" in {
-
-      val application = applicationBuilder().build()
-      val request = FakeRequest(GET, claimingForRoute)
-      val result = route(application, request).value
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(sessionExpiredUrl)
-
-      application.stop()
-    }
-
-
-    "redirect to Session Expired for a POST if no existing data is found" in {
-
-      val application = applicationBuilder().build()
-      val request = FakeRequest(GET, claimingForRoute)
-      val result = route(application, request).value
-
-      status(result) mustBe SEE_OTHER
-      redirectLocation(result) mustBe Some(sessionExpiredUrl)
-
-      application.stop()
-    }
   }
 }

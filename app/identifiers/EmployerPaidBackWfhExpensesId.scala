@@ -17,5 +17,5 @@
 package identifiers
 
 case object EmployerPaidBackWfhExpensesId extends Identifier {
-  override def toString: String = "employerPaid"
+  override def toString: String = "employerPaidWfh"
 }

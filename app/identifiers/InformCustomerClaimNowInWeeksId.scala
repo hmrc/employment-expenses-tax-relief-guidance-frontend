@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2023 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,21 +12,10 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@this(
-    layout: Layout,
-    heading: playComponents.heading
-)
+package identifiers
 
-@()(implicit request: Request[_], messages: Messages)
-
-@layout(
-    pageTitle = messages(s"cannotClaimWfhRelief.title")
-) {
-    @heading(messages(s"cannotClaimWfhRelief.heading"))
-
- <p class="govuk-body">
-    @messages(s"cannotClaimWfhRelief.guidance")
- </p>
+case object InformCustomerClaimNowInWeeksId extends Identifier {
+  override def toString: String = "informCustomerClaimNowInWeeks"
 }

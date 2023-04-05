@@ -52,6 +52,7 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   lazy val fileSelfAssessmentLoginUrl = configuration.get[String]("urls.fileSelfAssessmentLoginUrl")
   lazy val annualInvestmentAllowanceUrl = configuration.get[String]("urls.annualInvestmentAllowanceUrl")
   lazy val workingFromHomeExpensesUrl = configuration.get[String]("urls.workingFromHomeExpensesUrl")
+  lazy val jobExpensesGuidanceUrl = configuration.get[String]("urls.jobExpensesGuidanceUrl")
 
   val workingFromHomeExpensesOnlyEnabled: Boolean = configuration.getOptional[Boolean]("workingFromHomeExpensesOnly.enabled").getOrElse(false)
 
