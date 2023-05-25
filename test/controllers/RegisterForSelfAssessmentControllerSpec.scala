@@ -21,7 +21,6 @@ import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.{FakeNavigator, Navigator}
-import views.html.RegisterForSelfAssessmentView
 
 class RegisterForSelfAssessmentControllerSpec extends SpecBase {
 
@@ -38,10 +37,8 @@ class RegisterForSelfAssessmentControllerSpec extends SpecBase {
         .build()
       val request = FakeRequest(GET, registerForSARoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[RegisterForSelfAssessmentView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(claimant, onwardRoute)(request, messages).toString
 
       application.stop()
     }

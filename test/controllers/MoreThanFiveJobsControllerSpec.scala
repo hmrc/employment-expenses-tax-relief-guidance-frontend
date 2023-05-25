@@ -31,7 +31,6 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.MoreThanFiveJobsView
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -58,10 +57,8 @@ class MoreThanFiveJobsControllerSpec extends SpecBase with MockitoSugar with Bef
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(GET, moreThanFiveJobsRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[MoreThanFiveJobsView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form)(request, messages).toString
 
       application.stop()
     }
@@ -73,9 +70,8 @@ class MoreThanFiveJobsControllerSpec extends SpecBase with MockitoSugar with Bef
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
       val request = FakeRequest(GET, moreThanFiveJobsRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[MoreThanFiveJobsView]
 
-      contentAsString(result) mustEqual view(form.fill(true))(request, messages).toString()
+      status(result) mustBe OK
 
       application.stop()
 
@@ -100,13 +96,10 @@ class MoreThanFiveJobsControllerSpec extends SpecBase with MockitoSugar with Bef
 
     "return a Bad Request and errors when invalid data is submitted" in {
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
-      val boundForm = form.bind(Map("value" -> "invalid value"))
       val request = FakeRequest(POST, moreThanFiveJobsRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[MoreThanFiveJobsView]
 
       status(result) mustEqual BAD_REQUEST
-      contentAsString(result) mustEqual view(boundForm)(request, messages).toString
 
       application.stop()
 

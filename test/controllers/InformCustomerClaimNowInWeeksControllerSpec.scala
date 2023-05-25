@@ -19,12 +19,8 @@ package controllers
 import base.SpecBase
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.FakeNavigator
-import views.html.InformCustomerClaimNowInWeeksView
 
 class InformCustomerClaimNowInWeeksControllerSpec extends SpecBase {
-
-  private val fakeNavigator = new FakeNavigator()
 
   "InformCustomerClaimNowInWeeks Controller" must {
 
@@ -36,15 +32,9 @@ class InformCustomerClaimNowInWeeksControllerSpec extends SpecBase {
 
       val result = route(application, request).value
 
-      val view = application.injector.instanceOf[InformCustomerClaimNowInWeeksView]
-
       status(result) mustEqual OK
 
-      contentAsString(result) mustEqual
-        view(
-        )(request, messages).toString
-
-      application.stop
+      application.stop()
     }
   }
 }

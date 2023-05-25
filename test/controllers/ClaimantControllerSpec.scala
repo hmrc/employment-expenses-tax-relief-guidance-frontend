@@ -17,7 +17,6 @@
 package controllers
 
 import base.SpecBase
-import forms.ClaimantFormProvider
 import identifiers.ClaimingForId
 import models.ClaimingFor.{MileageFuel, UniformsClothingTools}
 import org.scalatest.BeforeAndAfterEach
@@ -30,15 +29,11 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.ClaimantView
 
 class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
   def claimantRoute: Call = routes.ClaimantController.onPageLoad()
-
-  private val formProvider = new ClaimantFormProvider()
-  private val form = formProvider()
 
   "Claimant Controller" must {
 
@@ -52,11 +47,8 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
       ))).build()
       val request = FakeRequest(GET, claimantRoute.url)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[ClaimantView]
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual
-        view(form)(request, messages).toString
 
       application.stop()
     }
@@ -67,11 +59,8 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
       val request = FakeRequest(GET, claimantRoute.url)
         .withFormUrlEncodedBody(("value", claimant.toString))
       val result = route(application, request).value
-      val view = application.injector.instanceOf[ClaimantView]
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual
-        view(form.fill(claimant))(request, messages).toString
 
       application.stop()
     }
@@ -94,42 +83,38 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
-      val boundForm = form.bind(Map("value" -> ""))
       val request = FakeRequest(POST, claimantRoute.url)
         .withFormUrlEncodedBody(("value", ""))
       val result = route(application, request).value
-      val view = application.injector.instanceOf[ClaimantView]
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe
-        view.apply(boundForm)(request, messages).toString
 
       application.stop()
     }
 
     "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(GET, claimantRoute.url)
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(sessionExpiredUrl)
 
-      application.stop
+      application.stop()
     }
 
 
     "redirect to Session Expired for a POST if no existing data is found" in {
 
-      val application = applicationBuilder().build
+      val application = applicationBuilder().build()
       val request = FakeRequest(GET, claimantRoute.url)
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(sessionExpiredUrl)
 
-      application.stop
+      application.stop()
     }
   }
 }

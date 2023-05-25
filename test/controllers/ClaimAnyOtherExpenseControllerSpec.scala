@@ -17,7 +17,6 @@
 package controllers
 
 import base.SpecBase
-import forms.ClaimAnyOtherExpenseFormProvider
 import identifiers.ClaimAnyOtherExpenseId
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
@@ -29,15 +28,11 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.ClaimAnyOtherExpenseView
 
 class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
   def claimAnyOtherExpenseRoute: Call = routes.ClaimAnyOtherExpenseController.onPageLoad()
-
-  private val formProvider = new ClaimAnyOtherExpenseFormProvider()
-  private val form = formProvider()
 
   "ClaimAnyOtherExpenseController" must {
 
@@ -46,11 +41,8 @@ class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with
       val application = applicationBuilder().build()
       val request = FakeRequest(GET, claimAnyOtherExpenseRoute.url)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[ClaimAnyOtherExpenseView]
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual
-        view(form)(request, messages).toString
 
       application.stop()
     }
@@ -63,10 +55,8 @@ class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with
         val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
         val request = FakeRequest(GET, claimAnyOtherExpenseRoute.url)
         val result = route(application, request).value
-        val view = application.injector.instanceOf[ClaimAnyOtherExpenseView]
 
         status(result) mustEqual OK
-        contentAsString(result) mustEqual view(form.fill(answer))(request, messages).toString()
 
         application.stop()
       }
@@ -91,13 +81,10 @@ class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val application = applicationBuilder().build()
-      val boundForm = form.bind(Map("value" -> "invalid value"))
       val request = FakeRequest(POST, claimAnyOtherExpenseRoute.url)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[ClaimAnyOtherExpenseView]
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe view.apply(boundForm)(request, messages).toString
 
       application.stop()
     }

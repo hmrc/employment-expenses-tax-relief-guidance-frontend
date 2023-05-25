@@ -24,9 +24,7 @@ import javax.inject.Inject
 import models.Claimant
 import play.api.data.Form
 import play.api.i18n.I18nSupport
-import play.api.libs.json.{JsString, JsValue}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
-import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import utils.{Enumerable, Navigator, UserAnswers}
 import views.html.ClaimantView

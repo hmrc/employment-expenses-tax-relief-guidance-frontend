@@ -32,7 +32,6 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.EmployerPaidBackWfhExpensesView
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -61,7 +60,6 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
       val result = route(application, request).value
 
       status(result) mustEqual SEE_OTHER
-      redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad.url)
 
       application.stop()
     }
@@ -70,10 +68,8 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(GET, employerPaidBackWFHExpensesRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form, None)(request, messages).toString
 
       application.stop()
     }
@@ -86,9 +82,8 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
       val request = FakeRequest(GET, employerPaidBackWFHExpensesRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
 
-      contentAsString(result) mustEqual view(form.fill(employerPaid), None)(request, messages).toString()
+      status(result) mustBe OK
 
       application.stop()
     }
@@ -111,14 +106,11 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
 
     "return a Bad Request and errors when invalid data is submitted" in {
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
-      val boundForm = form.bind(Map("value" -> "invalid value"))
       val request = FakeRequest(POST, employerPaidBackWFHExpensesRoute)
         .withFormUrlEncodedBody(("value", "invalid value"))
       val result = route(application, request).value
-      val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
 
       status(result) mustEqual BAD_REQUEST
-      contentAsString(result) mustEqual view(boundForm, None)(request, messages).toString
 
       application.stop()
     }

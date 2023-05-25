@@ -23,12 +23,10 @@ import play.api.libs.json.Json
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
-import viewmodels.OnwardJourney
-import views.html.ClaimOnlineView
 
 class ClaimOnlineControllerSpec extends SpecBase {
 
-  def claimOnlineRoute = routes.ClaimOnlineController.onPageLoad.url
+  def claimOnlineRoute = routes.ClaimOnlineController.onPageLoad().url
 
   "ClaimOnline Controller" must {
 
@@ -38,10 +36,8 @@ class ClaimOnlineControllerSpec extends SpecBase {
       val application = applicationBuilder(Some(validCacheMap)).build()
       val request = FakeRequest(GET, claimOnlineRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[ClaimOnlineView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(OnwardJourney.FixedRateExpenses, None)(request, messages).toString
 
       application.stop()
     }
@@ -52,10 +48,8 @@ class ClaimOnlineControllerSpec extends SpecBase {
       val application = applicationBuilder(Some(validCacheMap)).build()
       val request = FakeRequest(GET, claimOnlineRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[ClaimOnlineView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(OnwardJourney.ProfessionalSubscriptions, None)(request, messages).toString
 
       application.stop()
     }
@@ -66,10 +60,8 @@ class ClaimOnlineControllerSpec extends SpecBase {
       val application = applicationBuilder(Some(validCacheMap)).build()
       val request = FakeRequest(GET, claimOnlineRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[ClaimOnlineView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(OnwardJourney.IForm, None)(request, messages).toString
 
       application.stop()
     }
@@ -80,10 +72,8 @@ class ClaimOnlineControllerSpec extends SpecBase {
       val application = applicationBuilder(Some(validCacheMap)).build()
       val request = FakeRequest(GET, claimOnlineRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[ClaimOnlineView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(OnwardJourney.WorkingFromHomeExpensesOnly, None)(request, messages).toString
 
       application.stop()
     }

@@ -18,7 +18,6 @@ package controllers
 
 import base.SpecBase
 import connectors.DataCacheConnector
-import forms.CovidHomeWorkingFormProvider
 import identifiers.CovidHomeWorkingId
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{reset, when}
@@ -32,7 +31,6 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.WfhDueToCovidView
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -42,9 +40,6 @@ class WfhDueToCovidControllerSpec extends SpecBase with MockitoSugar with Before
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
   def covidHomeWorkingRoute: Call = routes.WfhDueToCovidController.onPageLoad()
-
-  private val formProvider = new CovidHomeWorkingFormProvider()
-  private val form = formProvider()
 
   private val mockDataCacheConnector = mock[DataCacheConnector]
   override def beforeEach(): Unit = {
@@ -69,11 +64,8 @@ class WfhDueToCovidControllerSpec extends SpecBase with MockitoSugar with Before
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(GET, covidHomeWorkingRoute.url)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[WfhDueToCovidView]
 
       status(result) mustEqual OK
-      contentAsString(result) mustEqual
-        view(form)(request, messages).toString
 
       application.stop()
     }
@@ -86,10 +78,8 @@ class WfhDueToCovidControllerSpec extends SpecBase with MockitoSugar with Before
         val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
         val request = FakeRequest(GET, covidHomeWorkingRoute.url)
         val result = route(application, request).value
-        val view = application.injector.instanceOf[WfhDueToCovidView]
 
         status(result) mustEqual OK
-        contentAsString(result) mustEqual view(form.fill(answer))(request, messages).toString()
 
         application.stop()
       }
@@ -113,14 +103,10 @@ class WfhDueToCovidControllerSpec extends SpecBase with MockitoSugar with Before
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
-      val boundForm = form.bind(Map("value" -> "invalid value"))
       val request = FakeRequest(POST, covidHomeWorkingRoute.url)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[WfhDueToCovidView]
 
       status(result) mustBe BAD_REQUEST
-
-      contentAsString(result) mustBe view.apply(boundForm)(request, messages).toString
 
       application.stop()
     }

@@ -22,7 +22,6 @@ import play.api.Application
 import play.api.data.Form
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
-import utils.RadioOption
 import views.behaviours.CheckboxViewBehaviours
 import views.html.ClaimingForView
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}

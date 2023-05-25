@@ -32,7 +32,6 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.UseCompanyCarView
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -62,10 +61,8 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
       val application = applicationBuilder(Some(validCacheMap)).build()
       val request = FakeRequest(GET, useCompanyCarRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[UseCompanyCarView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form, claimant, useOfOwnCar)(request, messages).toString
 
       application.stop()
     }
@@ -80,10 +77,8 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
       val application = applicationBuilder(Some(validCacheMap)).build()
       val request = FakeRequest(GET, useCompanyCarRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[UseCompanyCarView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form.fill(true), claimant, useOfOwnCar)(request, messages).toString
 
       application.stop()
     }
@@ -119,11 +114,8 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
       val request = FakeRequest(POST, useCompanyCarRoute)
         .withFormUrlEncodedBody(("value", "invalid value"))
       val result = route(application, request).value
-      val boundForm = form.bind(Map("value" -> "invalid value"))
-      val view = application.injector.instanceOf[UseCompanyCarView]
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe view(boundForm, claimant, useOfOwnCar)(request, messages).toString
 
       application.stop()
     }

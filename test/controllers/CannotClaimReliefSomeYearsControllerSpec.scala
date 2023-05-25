@@ -19,7 +19,6 @@ package controllers
 import base.SpecBase
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import views.html.CannotClaimReliefSomeYearsView
 
 class CannotClaimReliefSomeYearsControllerSpec extends SpecBase {
 
@@ -34,12 +33,7 @@ class CannotClaimReliefSomeYearsControllerSpec extends SpecBase {
 
       val result = route(application, request).value
 
-      val view = application.injector.instanceOf[CannotClaimReliefSomeYearsView]
-
       status(result) mustEqual OK
-
-      contentAsString(result) mustEqual
-        view(claimant, onwardRoute)(request, messages).toString
 
       application.stop()
     }

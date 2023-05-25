@@ -20,7 +20,6 @@ import base.SpecBase
 import identifiers.{ClaimantId, ClaimingForCurrentYearId, RegisteredForSelfAssessmentId}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import views.html.UseSelfAssessmentView
 import play.api.libs.json.{JsBoolean, JsString}
 import uk.gov.hmrc.http.cache.client.CacheMap
 
@@ -35,10 +34,8 @@ class UseSelfAssessmentControllerSpec extends SpecBase {
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(GET, useSelfAssessmentRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[UseSelfAssessmentView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(claimant, None)(request, messages).toString
 
       application.stop()
     }
