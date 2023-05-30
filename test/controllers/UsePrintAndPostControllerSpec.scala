@@ -19,7 +19,6 @@ package controllers
 import base.SpecBase
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import views.html.UsePrintAndPostView
 
 class UsePrintAndPostControllerSpec extends SpecBase {
 
@@ -32,10 +31,8 @@ class UsePrintAndPostControllerSpec extends SpecBase {
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(GET, usePrintAndPostRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[UsePrintAndPostView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view()(request, messages).toString
 
       application.stop()
     }

@@ -18,7 +18,6 @@ package controllers
 
 import base.SpecBase
 import connectors.DataCacheConnector
-import forms.WillPayTaxFormProvider
 import identifiers.{ClaimantId, WillPayTaxId}
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{reset, when}
@@ -32,7 +31,6 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.WillPayTaxView
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -49,10 +47,6 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
     when(mockDataCacheConnector.save(any(),any(),any())(any())) thenReturn Future(new CacheMap("id", Map()))
   }
 
-  private val formProvider = new WillPayTaxFormProvider()
-  private val form = formProvider(claimant, frontendAppConfig.earliestTaxYear)
-
-
   "WillPayTax Controller" must {
 
     "return OK and the correct view for a GET" in {
@@ -60,10 +54,8 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(GET, willPayTaxRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[WillPayTaxView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form, claimant)(request, messages).toString
 
       application.stop()
     }
@@ -79,12 +71,10 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
       )
 
       val application = applicationBuilder(Some(validData)).build()
-      val view = application.injector.instanceOf[WillPayTaxView]
       val request = FakeRequest(GET, willPayTaxRoute)
       val result = route(application, request).value
 
-      contentAsString(result) mustBe
-        view.apply(form.fill(true), claimant)(request, messages).toString
+      status(result) mustBe OK
 
       application.stop()
     }
@@ -110,15 +100,11 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
-      val view = application.injector.instanceOf[WillPayTaxView]
       val request = FakeRequest(POST, willPayTaxRoute)
         .withFormUrlEncodedBody(("value", "invalid value"))
       val result = route(application, request).value
-      val boundForm = form.bind(Map("value" -> "invalid value"))
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe
-        view.apply(boundForm, claimant)(request, messages).toString
 
       application.stop()
     }

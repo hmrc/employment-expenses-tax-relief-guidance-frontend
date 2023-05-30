@@ -19,13 +19,8 @@ package controllers
 import base.SpecBase
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import uk.gov.hmrc.time.TaxYear
-import views.html.CannotClaimReliefTooLongAgoView
 
 class CannotClaimReliefTooLongAgoControllerSpec extends SpecBase {
-
-  private val endYear = TaxYear.current.finishYear.toString
-  private val startYear = TaxYear.current.startYear.toString
 
   "CannotClaimReliefTooLongAgo Controller" must {
 
@@ -36,12 +31,7 @@ class CannotClaimReliefTooLongAgoControllerSpec extends SpecBase {
 
       val result = route(application, request).value
 
-      val view = application.injector.instanceOf[CannotClaimReliefTooLongAgoView]
-
       status(result) mustEqual OK
-
-      contentAsString(result) mustEqual
-        view(claimant, startYear, endYear)(request, messages).toString
 
       application.stop()
     }

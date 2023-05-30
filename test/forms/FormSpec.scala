@@ -17,11 +17,13 @@
 package forms
 
 import models.Claimant.You
-import org.scalatest.{Matchers, OptionValues, WordSpec}
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.OptionValues
+import org.scalatest.matchers.should.Matchers
 import play.api.data.{Form, FormError}
 import uk.gov.hmrc.time.TaxYear
 
-trait FormSpec extends WordSpec with OptionValues with Matchers {
+trait FormSpec extends AnyWordSpec with OptionValues with Matchers {
 
   val claimant = You
 

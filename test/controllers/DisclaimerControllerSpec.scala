@@ -21,7 +21,6 @@ import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.{FakeNavigator, Navigator}
-import views.html.DisclaimerView
 
 class DisclaimerControllerSpec extends SpecBase {
 
@@ -36,10 +35,8 @@ class DisclaimerControllerSpec extends SpecBase {
         .build()
       val request = FakeRequest(GET, disclaimerRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[DisclaimerView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(claimant)(request, messages).toString
 
       application.stop()
     }

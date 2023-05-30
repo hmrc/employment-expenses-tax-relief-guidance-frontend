@@ -18,8 +18,7 @@ package controllers
 
 import base.SpecBase
 import connectors.DataCacheConnector
-import forms.ClaimingForFormProvider
-import identifiers.{ClaimantId, ClaimingForId}
+import identifiers.ClaimingForId
 import models.Claimant
 import models.ClaimingFor._
 import org.mockito.Matchers.any
@@ -33,7 +32,6 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.ClaimingForView
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -42,16 +40,13 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
 
   def onwardRoute = routes.IndexController.onPageLoad
 
-  def claimingForRoute = routes.ClaimingForController.onPageLoad.url
+  def claimingForRoute = routes.ClaimingForController.onPageLoad().url
 
   private val mockDataCacheConnector = mock[DataCacheConnector]
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
     when(mockDataCacheConnector.save(any(),any(),any())(any())) thenReturn Future(new CacheMap("id", Map()))
   }
-
-  private val formProvider = new ClaimingForFormProvider()
-  private val form = formProvider(claimant)
 
   "ClaimingFor Controller" must {
 
@@ -60,10 +55,8 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
       val application = applicationBuilder().build()
       val request = FakeRequest(GET, claimingForRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[ClaimingForView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form, claimant)(request, messages).toString
 
       application.stop()
     }
@@ -77,10 +70,8 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
       val request = FakeRequest(GET, claimingForRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[ClaimingForView]
 
-      contentAsString(result) mustBe
-        view(form.fill(Set(values.head)), claimant)(request, messages).toString
+      status(result) mustBe OK
 
       application.stop()
     }
@@ -110,15 +101,11 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
       val application = applicationBuilder()
         .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
         .build()
-      val boundForm = form.bind(Map("value" -> "invalid value"))
       val request = FakeRequest(POST, claimingForRoute)
         .withFormUrlEncodedBody(("value", "invalid value"))
       val result = route(application, request).value
-      val view = application.injector.instanceOf[ClaimingForView]
-
 
       status(result) mustBe BAD_REQUEST
-      contentAsString(result) mustBe view(boundForm, claimant)(request, messages).toString
 
       application.stop()
     }

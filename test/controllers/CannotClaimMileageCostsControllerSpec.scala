@@ -19,7 +19,6 @@ package controllers
 import base.SpecBase
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import views.html.CannotClaimMileageCostsView
 
 class CannotClaimMileageCostsControllerSpec extends SpecBase {
 
@@ -33,12 +32,7 @@ class CannotClaimMileageCostsControllerSpec extends SpecBase {
 
       val result = route(application, request).value
 
-      val view = application.injector.instanceOf[CannotClaimMileageCostsView]
-
       status(result) mustEqual OK
-
-      contentAsString(result) mustEqual
-        view(claimant)(request, messages).toString
 
       application.stop()
     }

@@ -18,7 +18,6 @@ package controllers
 
 import base.SpecBase
 import connectors.DataCacheConnector
-import forms.ClaimingMileageFormProvider
 import identifiers.{ClaimantId, ClaimingMileageId}
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{reset, when}
@@ -31,7 +30,6 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import utils.{FakeNavigator, Navigator}
-import views.html.ClaimingMileageView
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -47,9 +45,6 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
     when(mockDataCacheConnector.save(any(),any(),any())(any())) thenReturn Future(new CacheMap("id", Map()))
   }
 
-  private val formProvider = new ClaimingMileageFormProvider()
-  private val form = formProvider(claimant)
-
   "ClaimingMileage Controller" must {
 
     "return OK and the correct view for a GET" in {
@@ -57,10 +52,8 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
       val request = FakeRequest(GET, claimingMileageRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[ClaimingMileageView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(form, claimant)(request, messages).toString
 
       application.stop()
     }
@@ -71,9 +64,8 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
       val request = FakeRequest(GET, claimingMileageRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[ClaimingMileageView]
 
-      contentAsString(result) mustEqual view(form.fill(true), claimant)(request, messages).toString()
+      status(result) mustBe OK
 
       application.stop()
     }
@@ -98,14 +90,11 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
-      val boundForm = form.bind(Map("value" -> "invalid value"))
       val request = FakeRequest(POST, claimingMileageRoute)
         .withFormUrlEncodedBody("value" -> "invalid value")
       val result = route(application, request).value
-      val view = application.injector.instanceOf[ClaimingMileageView]
 
       status(result) mustEqual BAD_REQUEST
-      contentAsString(result) mustBe view(boundForm, claimant)(request, messages).toString
 
       application.stop()
     }

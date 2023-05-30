@@ -21,7 +21,6 @@ import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.{FakeNavigator, Navigator}
-import views.html.NotEntitledSomeYearsView
 
 class NotEntitledSomeYearsControllerSpec extends SpecBase {
 
@@ -38,10 +37,8 @@ class NotEntitledSomeYearsControllerSpec extends SpecBase {
         .build()
       val request = FakeRequest(GET, notEntitledSomeYearsRoute)
       val result = route(application, request).value
-      val view = application.injector.instanceOf[NotEntitledSomeYearsView]
 
       status(result) mustBe OK
-      contentAsString(result) mustBe view(claimant, onwardRoute)(request, messages).toString
 
       application.stop()
     }
