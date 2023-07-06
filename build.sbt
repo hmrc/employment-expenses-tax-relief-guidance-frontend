@@ -8,10 +8,9 @@ lazy val appName: String = "employment-expenses-tax-relief-guidance-frontend"
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
   .disablePlugins(JUnitXmlReportPlugin) //Required to prevent https://github.com/scalatest/scalatest/issues/1427
-  .settings(DefaultBuildSettings.scalaSettings: _*)
-  .settings(DefaultBuildSettings.defaultSettings(): _*)
-  .settings(SbtDistributablesPlugin.publishingSettings: _*)
-  .settings(inConfig(Test)(testSettings): _*)
+  .settings(DefaultBuildSettings.scalaSettings *)
+  .settings(DefaultBuildSettings.defaultSettings() *)
+  .settings(inConfig(Test)(testSettings) *)
   .settings(
     majorVersion := 0,
     // ***************
@@ -67,7 +66,7 @@ lazy val root = (project in file("."))
     uglify / includeFilter := GlobFilter("employmentexpensestaxreliefguidancefrontend-*.js")
   )
 
-lazy val testSettings: Seq[Def.Setting[_]] = Seq(
+lazy val testSettings: Seq[Def.Setting[?]] = Seq(
   fork        := true,
   javaOptions ++= Seq(
     "-Dconfig.resource=test.application.conf"

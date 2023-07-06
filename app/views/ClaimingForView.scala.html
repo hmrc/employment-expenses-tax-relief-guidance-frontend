@@ -28,7 +28,8 @@
 @(form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
 
 @layout(
-    pageTitle = s"${errorPrefix(form)} ${messages(s"claimingFor.$claimant.title")}"
+    pageTitle = s"${errorPrefix(form)} ${messages(s"claimingFor.$claimant.title")}",
+    backLinkEnabled = false
 ) {
     @errorSummary(form.errors, Some("claimingFor.homeWorking"))
 
