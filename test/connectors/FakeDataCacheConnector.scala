@@ -18,7 +18,7 @@ package connectors
 
 import identifiers.Identifier
 import play.api.libs.json.Format
-import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.CacheMap
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global

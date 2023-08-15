@@ -22,7 +22,7 @@ import models.ClaimingFor._
 import play.api.libs.json.Json
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.CacheMap
 
 class ClaimOnlineControllerSpec extends SpecBase {
 

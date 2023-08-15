@@ -31,8 +31,7 @@ import play.api.inject.{Injector, bind}
 import play.api.libs.json.JsString
 import play.api.mvc.{AnyContentAsEmpty, MessagesControllerComponents}
 import play.api.test.FakeRequest
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.UserAnswers
+import utils.{CacheMap, UserAnswers}
 
 
 trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {

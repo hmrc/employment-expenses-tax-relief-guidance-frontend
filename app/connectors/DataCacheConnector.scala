@@ -22,8 +22,7 @@ import javax.inject.Inject
 import play.api.libs.json.{Format, Json}
 import repositories.SessionRepository
 import uk.gov.hmrc.http.SessionId
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.CascadeUpsert
+import utils.{CacheMap, CascadeUpsert}
 
 import scala.concurrent.{ExecutionContext, Future}
 

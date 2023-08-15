@@ -26,8 +26,7 @@ import play.api.libs.json.JsBoolean
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.{FakeNavigator, Navigator}
+import utils.{CacheMap, FakeNavigator, Navigator}
 
 class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
 

@@ -24,12 +24,12 @@ import uk.gov.hmrc.mongo.play.json.formats.MongoJodaFormats.Implicits._
 import org.mongodb.scala.model.{IndexModel, IndexOptions, UpdateOptions}
 import org.mongodb.scala.model.Indexes._
 import play.api.libs.json.{JsValue, Json}
-import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.mongo.MongoComponent
 import uk.gov.hmrc.mongo.play.json.PlayMongoRepository
 import org.mongodb.scala.model.Filters._
 import org.mongodb.scala.model.Updates._
 import uk.gov.hmrc.mongo.play.json.Codecs
+import utils.CacheMap
 
 import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.duration.SECONDS
