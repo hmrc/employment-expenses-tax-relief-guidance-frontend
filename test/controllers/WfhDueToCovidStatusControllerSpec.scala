@@ -28,7 +28,7 @@ import play.api.inject.bind
 import play.api.libs.json.{JsNumber, JsString}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.CacheMap
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

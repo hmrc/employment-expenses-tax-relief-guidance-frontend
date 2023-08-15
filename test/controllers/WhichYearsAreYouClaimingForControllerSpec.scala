@@ -28,7 +28,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.libs.json.{JsBoolean, JsString}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.CacheMap
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

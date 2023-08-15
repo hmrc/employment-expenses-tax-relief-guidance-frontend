@@ -21,7 +21,7 @@ import identifiers.{ClaimantId, ClaimingForCurrentYearId, RegisteredForSelfAsses
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.api.libs.json.{JsBoolean, JsString}
-import uk.gov.hmrc.http.cache.client.CacheMap
+import utils.CacheMap
 
 class UseSelfAssessmentControllerSpec extends SpecBase {
 

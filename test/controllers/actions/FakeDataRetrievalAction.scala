@@ -19,8 +19,7 @@ package controllers.actions
 import javax.inject.Inject
 import models.requests.OptionalDataRequest
 import play.api.mvc.{AnyContent, BodyParser, MessagesControllerComponents, Request}
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.UserAnswers
+import utils.{CacheMap, UserAnswers}
 
 import scala.concurrent.{ExecutionContext, Future}
 

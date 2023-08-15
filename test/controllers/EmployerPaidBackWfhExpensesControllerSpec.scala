@@ -30,8 +30,7 @@ import play.api.libs.json.{JsBoolean, JsString}
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import uk.gov.hmrc.http.cache.client.CacheMap
-import utils.{FakeNavigator, Navigator}
+import utils.{CacheMap, FakeNavigator, Navigator}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
