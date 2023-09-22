@@ -72,9 +72,8 @@ registeredForSelfAssessment.tax.year.specific.heading = Are you going to complet
 registeredForSelfAssessment.tax.year.specific.error.required = Select yes if you are going to complete a Self Assessment return for this tax year {0}
 
 registeredForSelfAssessment.accordion.summary = What is a Self Assessment tax return?
-registeredForSelfAssessment.you.accordion.guidance1 = A Self Assessment tax return is when you send a record of your income and expenses to HMRC at the end of each tax year.
-registeredForSelfAssessment.you.accordion.guidance2 = You must complete a Self Assessment tax return if, in the last tax year (6 April to 5 April), you were:
-registeredForSelfAssessment.you.accordion.guidance3 = You will not usually need to send a return if your only income is from your wages or pension. But you may need to send one if you have any other untaxed income, such as:
+registeredForSelfAssessment.you.accordion.guidance1 = You must complete a Self Assessment tax return if, in the last tax year (6 April to 5 April), you were:
+registeredForSelfAssessment.you.accordion.guidance2 = You will not usually need to send a return if your only income is from your wages or pension. But you may need to send one if you have any other untaxed income, such as:
 
 registeredForSelfAssessment.someoneElse.accordion.guidance1 = A Self Assessment tax return must be completed if, in the last tax year (6 April to 5 April) they were:
 registeredForSelfAssessment.someoneElse.accordion.guidance2 = A return will not usually need to be sent if their only income is from their wages or pension. But one may need to be sent if they have any other untaxed income, such as:
