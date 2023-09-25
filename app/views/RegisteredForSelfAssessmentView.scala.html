@@ -31,6 +31,10 @@
 
 @detailsContent = {
 
+    @if(backButtonOverride.isDefined) {
+        <p class="govuk-body">@messages(s"registeredForSelfAssessment.accordion.guidance.wfh")</p>
+    }
+
     <p class="govuk-body">@messages(s"registeredForSelfAssessment.$claimant.accordion.guidance1")</p>
 
     <ul class="govuk-list govuk-list--bullet">
