@@ -64,6 +64,7 @@ class CascadeUpsert {
     RegisteredForSelfAssessmentId,
     ClaimingOverPayAsYouEarnThresholdId,
     EmployerPaidBackExpensesId,
+    EmployerPaidBackWfhExpensesId,
     UseOwnCarId,
     ClaimingMileageId,
     UseCompanyCarId,
