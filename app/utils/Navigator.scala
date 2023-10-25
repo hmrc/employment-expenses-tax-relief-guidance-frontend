@@ -191,19 +191,6 @@ class Navigator @Inject()() {
     case _ => routes.SessionExpiredController.onPageLoad
   }
 
-
-  private def changeOtherExpensesRouting(userAnswers: UserAnswers) = userAnswers.claimant match {
-    case Some(You) => routes.MoreThanFiveJobsController.onPageLoad()
-    case Some(SomeoneElse) => routes.UsePrintAndPostController.onPageLoad()
-    case _ => routes.SessionExpiredController.onPageLoad
-  }
-
-  private def changeUniformsWorkClothingToolsRouting(userAnswers: UserAnswers) = userAnswers.claimant match {
-    case Some(You) => routes.MoreThanFiveJobsController.onPageLoad()
-    case Some(SomeoneElse) => routes.UsePrintAndPostController.onPageLoad()
-    case _ => routes.SessionExpiredController.onPageLoad
-  }
-
   private def claimAnyOtherExpenseRouting(userAnswers: UserAnswers) = userAnswers.claimAnyOtherExpense match {
     case Some(true) => routes.DisclaimerController.onPageLoad()
     case Some(false) => routes.ClaimingForController.onPageLoad()
@@ -237,8 +224,8 @@ class Navigator @Inject()() {
     InformCustomerClaimNowInWeeksId -> informCustomerClaimNowInWeeksRouting,
     WillNotPayTaxId -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
     RegisterForSelfAssessmentId -> (_ => routes.EmployerPaidBackExpensesController.onPageLoad()),
-    ChangeOtherExpensesId -> changeOtherExpensesRouting,
-    ChangeUniformsWorkClothingToolsId -> changeUniformsWorkClothingToolsRouting,
+    ChangeOtherExpensesId -> (_ => routes.ClaimantController.onPageLoad()),
+    ChangeUniformsWorkClothingToolsId -> (_ => routes.ClaimantController.onPageLoad()),
     ClaimingForCurrentYearId -> claimingForCurrentYearControllerRouting,
     SaCheckDisclaimerAllYearsId -> saCheckDisclaimerAllYearsRouting
   )

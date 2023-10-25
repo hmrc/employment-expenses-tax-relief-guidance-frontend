@@ -382,7 +382,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
 
         navigator.nextPage(ChangeOtherExpensesId)(mockAnswers) mustBe
-          routes.UsePrintAndPostController.onPageLoad()
+          routes.ClaimantController.onPageLoad()
       }
 
       "using the ChangeUniformsWorkClothingTools route when the claimant is someone else" in {
@@ -390,7 +390,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
 
         navigator.nextPage(ChangeUniformsWorkClothingToolsId)(mockAnswers) mustBe
-          routes.UsePrintAndPostController.onPageLoad()
+          routes.ClaimantController.onPageLoad()
       }
     }
 
@@ -519,7 +519,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimant).thenReturn(Some(You))
 
         navigator.nextPage(ChangeOtherExpensesId)(mockAnswers) mustBe
-          routes.MoreThanFiveJobsController.onPageLoad()
+          routes.ClaimantController.onPageLoad()
       }
 
       "going via the ChangeUniformsWorkClothingTools route with the claimant is You" in {
@@ -527,7 +527,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimant).thenReturn(Some(You))
 
         navigator.nextPage(ChangeUniformsWorkClothingToolsId)(mockAnswers) mustBe
-          routes.MoreThanFiveJobsController.onPageLoad()
+          routes.ClaimantController.onPageLoad()
       }
     }
 
@@ -746,20 +746,6 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
         "no data from WillPayTax" in {
           navigator.nextPage(WillPayTaxId)(mockAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad
-        }
-
-        "no data from ChangeOtherExpenses" in {
-          val someAnswers = mock[UserAnswers]
-
-          navigator.nextPage(ChangeOtherExpensesId)(someAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad
-        }
-
-        "no data from ChangeUniformsWorkClothingTools" in {
-          val someAnswers = mock[UserAnswers]
-
-          navigator.nextPage(ChangeUniformsWorkClothingToolsId)(someAnswers) mustBe
             routes.SessionExpiredController.onPageLoad
         }
       }
