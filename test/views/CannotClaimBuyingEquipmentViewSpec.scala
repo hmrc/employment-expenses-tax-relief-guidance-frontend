@@ -23,7 +23,7 @@ import views.html.CannotClaimBuyingEquipmentView
 
 class CannotClaimBuyingEquipmentViewSpec extends NewViewBehaviours {
 
-  val messageKeyPrefix = "cannotClaimBuyingEquipment.you"
+  val messageKeyPrefix = "cannotClaimBuyingEquipment"
 
   val changeOtherExpensesPage = Call("GET", "route1")
 
@@ -33,7 +33,7 @@ class CannotClaimBuyingEquipmentViewSpec extends NewViewBehaviours {
 
   val view = application.injector.instanceOf[CannotClaimBuyingEquipmentView]
 
-  def createView = view.apply(You, changeOtherExpensesPage, changeUniformsWorkClothingToolsPage)(fakeRequest, messages)
+  def createView = view.apply(changeOtherExpensesPage, changeUniformsWorkClothingToolsPage)(fakeRequest, messages)
 
   val annualInvestmentAllowanceUrl = frontendAppConfig.annualInvestmentAllowanceUrl
 

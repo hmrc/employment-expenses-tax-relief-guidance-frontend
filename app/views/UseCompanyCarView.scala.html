@@ -24,10 +24,10 @@
     submitButton: playComponents.submit_button
 )
 
-@(form: Form[_], claimant: Claimant, useOfOwnCar: UseOfOwnCar)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], useOfOwnCar: UseOfOwnCar)(implicit request: Request[_], messages: Messages)
 
 @layout(
-    pageTitle = s"${errorPrefix(form)} ${messages(s"useCompanyCar.$claimant.$useOfOwnCar.title")}"
+    pageTitle = s"${errorPrefix(form)} ${messages(s"useCompanyCar.$useOfOwnCar.title")}"
 ) {
     @errorSummary(form.errors)
     @formHelper(action = UseCompanyCarController.onSubmit(), 'autoComplete -> "off") {
@@ -35,7 +35,7 @@
         @inputYesNoRadio(
             field = form("value"),
             hint = Some(messages("useCompanyCar.guidance")),
-            label = messages(s"useCompanyCar.$claimant.$useOfOwnCar.heading"),
+            label = messages(s"useCompanyCar.$useOfOwnCar.heading"),
         )
 
         @submitButton()

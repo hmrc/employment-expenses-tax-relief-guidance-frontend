@@ -26,36 +26,36 @@
     errorSummary: playComponents.error_summary
 )
 
-@(form: Form[_], claimant: Claimant, isSaUser: Boolean = false)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], isSaUser: Boolean = false)(implicit request: Request[_], messages: Messages)
 
 @currentTaxYearHtml = {
-    <p class="govuk-body">@messages(s"whichYearsAreYouClaimingFor.$claimant.current.tax.year.info.text")</p>
+    <p class="govuk-body">@messages(s"whichYearsAreYouClaimingFor.current.tax.year.info.text")</p>
 }
 
 @previousTaxYearHtml = {
-    <p class="govuk-body">@messages(s"whichYearsAreYouClaimingFor.$claimant.previous.tax.year.info.text")</p>
+    <p class="govuk-body">@messages(s"whichYearsAreYouClaimingFor.previous.tax.year.info.text")</p>
 }
 
 @bothTaxYearHtml = {
-    <p class="govuk-body">@messages(s"whichYearsAreYouClaimingFor.$claimant.both.tax.years.info.text.1")</p>
-    <p class="govuk-body">@messages(s"whichYearsAreYouClaimingFor.$claimant.both.tax.years.info.text.2")</p>
+    <p class="govuk-body">@messages(s"whichYearsAreYouClaimingFor.both.tax.years.info.text.1")</p>
+    <p class="govuk-body">@messages(s"whichYearsAreYouClaimingFor.both.tax.years.info.text.2")</p>
 }
 
 @layout(
-    pageTitle = s"${errorPrefix(form)} ${messages(s"whichYearsAreYouClaimingFor.$claimant.title")}"
+    pageTitle = s"${errorPrefix(form)} ${messages(s"whichYearsAreYouClaimingFor.title")}"
 ) {
     @errorSummary(form.errors)
 
-    @heading(messages(s"whichYearsAreYouClaimingFor.$claimant.heading"))
+    @heading(messages(s"whichYearsAreYouClaimingFor.heading"))
 
     @if(isSaUser) {
-        <p class="govuk-body">@messages(s"whichYearsAreYouClaimingFor.$claimant.main.info.text")</p>
+        <p class="govuk-body">@messages(s"whichYearsAreYouClaimingFor.main.info.text")</p>
     }
 
     @formHelper(action = WhichYearsAreYouClaimingForController.onSubmit(), 'autoComplete -> "off") {
         @inputRadio(
             field = form("value"),
-            legend = messages(s"whichYearsAreYouClaimingFor.$claimant.heading"),
+            legend = messages(s"whichYearsAreYouClaimingFor.heading"),
             legendClass = Some("govuk-visually-hidden"),
             isPageHeading = false,
             items = Seq(

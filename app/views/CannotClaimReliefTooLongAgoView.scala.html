@@ -22,17 +22,17 @@
     heading: playComponents.heading
 )
 
-@(claimant: Claimant, startYear: String, endYear: String)(implicit request: Request[_], messages: Messages)
+@(startYear: String, endYear: String)(implicit request: Request[_], messages: Messages)
 
 @year = {@appConfig.earliestTaxYear}
 
 @layout(
-    pageTitle = messages(s"cannotClaimReliefTooLongAgo.$claimant.title", year)
+    pageTitle = messages(s"cannotClaimReliefTooLongAgo.title", year)
 ) {
 
-    @heading(messages(s"cannotClaimReliefTooLongAgo.$claimant.heading", year))
+    @heading(messages(s"cannotClaimReliefTooLongAgo.heading", year))
 
-    <p class="govuk-body">@messages(s"cannotClaimReliefTooLongAgo.$claimant.guidance",startYear, endYear)</p>
+    <p class="govuk-body">@messages(s"cannotClaimReliefTooLongAgo.guidance",startYear, endYear)</p>
 
     <p class="govuk-body">
         <a class="govuk-link" id="link" href=@appConfig.taxReliefForEmployeesUrl>

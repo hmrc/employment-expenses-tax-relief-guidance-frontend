@@ -21,9 +21,9 @@ import play.api.data.FormError
 
 class EmployerPaidBackExpensesFormProviderSpec extends BooleanFieldBehaviours {
 
-  val requiredKey = s"employerPaidBackExpenses.$claimant.error.required"
+  val requiredKey = s"employerPaidBackExpenses.error.required"
 
-  val form = new EmployerPaidBackExpensesFormProvider()(claimant)
+  val form = new EmployerPaidBackExpensesFormProvider()()
 
   ".value" must {
 

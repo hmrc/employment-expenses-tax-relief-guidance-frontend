@@ -38,7 +38,6 @@ class EmployerPaidBackWfhExpensesController @Inject()(
                                                        navigator: Navigator,
                                                        getData: DataRetrievalAction,
                                                        requireData: DataRequiredAction,
-                                                       getClaimant: GetClaimantAction,
                                                        formProvider: EmployerPaidBackWfhExpensesFormProvider,
                                                        val controllerComponents: MessagesControllerComponents,
                                                        view: EmployerPaidBackWfhExpensesView,
@@ -55,7 +54,7 @@ class EmployerPaidBackWfhExpensesController @Inject()(
         case Some(value) => form.fill(value)
       }
 
-      val backButtonOverride = if(!request.userAnswers.whichYearsAreYouClaimingFor.isDefined) {
+      val backButtonOverride = if(request.userAnswers.whichYearsAreYouClaimingFor.isEmpty) {
         request.userAnswers.registeredForSelfAssessment match {
           case Some(true) => Some(appConfig.claimingForCurrentYearBackButtonOverride)
           case _ => None

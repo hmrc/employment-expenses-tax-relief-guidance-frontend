@@ -19,7 +19,6 @@ package controllers
 import base.SpecBase
 import connectors.DataCacheConnector
 import identifiers.ClaimingForId
-import models.Claimant
 import models.ClaimingFor._
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{reset, when}
@@ -85,7 +84,7 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
         ).build()
 
       val request = FakeRequest(POST, claimingForRoute)
-        .withFormUrlEncodedBody(("value[0]", options(Claimant.You).head.value))
+        .withFormUrlEncodedBody(("value[0]", options().head.value))
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER

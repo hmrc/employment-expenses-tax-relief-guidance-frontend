@@ -17,14 +17,13 @@
 package forms
 
 import forms.behaviours.BooleanFieldBehaviours
-import models.Claimant.You
 import play.api.data.FormError
 
 class RegisteredForSelfAssessmentFormProviderSpec extends BooleanFieldBehaviours {
 
-  val requiredKey = "registeredForSelfAssessment.you.error.required"
+  val requiredKey = "registeredForSelfAssessment.error.required"
 
-  val form = new RegisteredForSelfAssessmentFormProvider()(You)
+  val form = new RegisteredForSelfAssessmentFormProvider()()
 
   ".value" must {
 

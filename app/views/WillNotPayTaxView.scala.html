@@ -24,17 +24,17 @@
     heading: playComponents.heading
 )
 
-@(claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
+@(nextPage: Call)(implicit request: Request[_], messages: Messages)
 
 @link = {<a class="govuk-link" href="@routes.RegisteredForSelfAssessmentController.onPageLoad()">@messages("willNotPayTax.link2", TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)</a>}
 
 @layout(
-    pageTitle = messages(s"willNotPayTax.$claimant.title")
+    pageTitle = messages(s"willNotPayTax.title")
 ) {
 
-    @heading(messages(s"willNotPayTax.$claimant.heading"))
+    @heading(messages(s"willNotPayTax.heading"))
 
-    <p class="govuk-body"><a class="govuk-link" href="@appConfig.taxReliefForEmployeesUrl">@messages(s"willNotPayTax.$claimant.guidance1")</a>.</p>
+    <p class="govuk-body"><a class="govuk-link" href="@appConfig.taxReliefForEmployeesUrl">@messages(s"willNotPayTax.guidance1")</a>.</p>
 
-    <p class="govuk-body">@Html(messages(s"willNotPayTax.$claimant.guidance2", link))</p>
+    <p class="govuk-body">@Html(messages(s"willNotPayTax.guidance2", link))</p>
 }

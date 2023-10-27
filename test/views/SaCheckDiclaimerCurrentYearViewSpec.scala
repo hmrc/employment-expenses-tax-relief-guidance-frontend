@@ -22,13 +22,13 @@ import views.html.SaCheckDisclaimerCurrentYearView
 
 class SaCheckDiclaimerCurrentYearViewSpec extends NewViewBehaviours {
 
-  val messageKeyPrefix = "saCheckDisclaimerCurrentYear.you"
+  val messageKeyPrefix = "saCheckDisclaimerCurrentYear"
 
   val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[SaCheckDisclaimerCurrentYearView]
 
-  def createView = view.apply(You)(fakeRequest, messages)
+  def createView = view.apply()(fakeRequest, messages)
 
   "UseSelfAssessment view" must {
 

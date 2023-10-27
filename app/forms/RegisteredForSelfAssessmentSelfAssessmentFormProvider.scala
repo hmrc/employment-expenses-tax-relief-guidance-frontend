@@ -17,14 +17,13 @@
 package forms
 
 import forms.mappings.Mappings
-import models.Claimant
 import play.api.data.Form
 import javax.inject.Inject
 import utils.TaxYearHelper.currentTaxYear
 
 class RegisteredForSelfAssessmentSelfAssessmentFormProvider @Inject() extends Mappings {
 
-  def apply(claimant: Claimant): Form[Boolean] =
+  def apply(): Form[Boolean] =
     Form(
       "value" -> boolean(s"registeredForSelfAssessment.tax.year.specific.error.required", currentTaxYear)
     )

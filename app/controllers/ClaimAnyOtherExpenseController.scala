@@ -19,17 +19,15 @@ package controllers
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.ClaimAnyOtherExpenseFormProvider
-import identifiers.{ClaimAnyOtherExpenseId, ClaimantId}
+import identifiers.ClaimAnyOtherExpenseId
 
 import javax.inject.Inject
-import models.Claimant
 import play.api.Logging
 import play.api.data.Form
 import play.api.i18n.I18nSupport
-import play.api.libs.json.{JsBoolean, JsString, JsValue}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import utils.{CacheMap, Enumerable, Navigator, UserAnswers}
+import utils.{Enumerable, Navigator, UserAnswers}
 import views.html.ClaimAnyOtherExpenseView
 
 import scala.concurrent.{ExecutionContext, Future}

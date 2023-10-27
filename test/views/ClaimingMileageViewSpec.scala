@@ -25,15 +25,15 @@ import views.html.ClaimingMileageView
 
 class ClaimingMileageViewSpec extends NewYesNoViewBehaviours {
 
-  val messageKeyPrefix = s"claimingMileage.$claimant"
+  val messageKeyPrefix = s"claimingMileage"
 
   val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[ClaimingMileageView]
 
-  val form = new ClaimingMileageFormProvider()(claimant)
+  val form = new ClaimingMileageFormProvider()()
 
-  def createView(form: Form[_]): HtmlFormat.Appendable = view.apply(form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]): HtmlFormat.Appendable = view.apply(form)(fakeRequest, messages)
 
   "ClaimingMileage view" must {
 

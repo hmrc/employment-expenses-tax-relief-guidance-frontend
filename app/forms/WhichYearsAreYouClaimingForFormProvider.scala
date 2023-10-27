@@ -17,14 +17,13 @@
 package forms
 
 import forms.mappings.Mappings
-import models.Claimant
 import play.api.data.Form
 
 import javax.inject.Inject
 
 class WhichYearsAreYouClaimingForFormProvider @Inject() extends Mappings {
 
-  def apply(claimant: Claimant): Form[Int] =
+  def apply(): Form[Int] =
     Form(
       "value" -> int(s"whichYearsAreYouClaimingFor.error.required")
     )

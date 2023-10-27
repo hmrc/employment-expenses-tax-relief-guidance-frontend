@@ -22,18 +22,18 @@ import play.api.data.FormError
 
 class ClaimingForFormProviderSpec extends OptionFieldBehaviours {
 
-  val form = new ClaimingForFormProvider()(claimant)
+  val form = new ClaimingForFormProvider()()
 
   ".value" must {
 
     val fieldName = "value"
-    val requiredKey = s"claimingFor.$claimant.error.required"
+    val requiredKey = s"claimingFor.error.required"
 
     behave like optionsField[ClaimingFor](
       form,
       fieldName,
       validValues  = ClaimingFor.values.toSet,
-      invalidError = FormError(fieldName, s"claimingFor.$claimant.error.required")
+      invalidError = FormError(fieldName, s"claimingFor.error.required")
     )
 
     behave like mandatoryField(

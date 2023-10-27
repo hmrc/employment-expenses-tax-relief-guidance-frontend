@@ -22,18 +22,18 @@
         heading: playComponents.heading
 )
 
-@(claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@()(implicit request: Request[_], messages: Messages)
 
 @layout(
-    pageTitle = messages(s"notEntitled.$claimant.title")
+    pageTitle = messages(s"notEntitled.title")
 ) {
 
     @heading(
-        messages(s"notEntitled.$claimant.heading")
+        messages(s"notEntitled.heading")
     )
 <p>
     <a id="govuk-l" class="govuk-link" href=@appConfig.taxReliefForEmployeesUrl
-    data-journey-click="link - click:@messages(s"notEntitled.$claimant.heading"):@messages("notEntitled.link.label")">
+    data-journey-click="link - click:@messages(s"notEntitled.heading"):@messages("notEntitled.link.label")">
     @messages("notEntitled.link.label")
     </a>
 </p>

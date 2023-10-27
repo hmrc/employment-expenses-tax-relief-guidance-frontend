@@ -17,14 +17,13 @@
 package forms
 
 import forms.behaviours.BooleanFieldBehaviours
-import models.Claimant.You
 import play.api.data.FormError
 
 class ClaimingMileageFormProviderSpec extends BooleanFieldBehaviours {
 
-  val requiredKey = "claimingMileage.you.error.required"
+  val requiredKey = "claimingMileage.error.required"
 
-  val form = new ClaimingMileageFormProvider()(You)
+  val form = new ClaimingMileageFormProvider()()
 
   ".value" must {
 

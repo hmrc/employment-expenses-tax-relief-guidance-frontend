@@ -22,22 +22,22 @@
     heading: playComponents.heading
 )
 
-@(claimant: Claimant, otherExpensesCall: Call, uniformsWorkClothingToolsCall: Call)(implicit request: Request[_], messages: Messages)
+@(otherExpensesCall: Call, uniformsWorkClothingToolsCall: Call)(implicit request: Request[_], messages: Messages)
 
 @layout(
-    pageTitle = messages(s"cannotClaimBuyingEquipment.$claimant.title")
+    pageTitle = messages(s"cannotClaimBuyingEquipment.title")
 ) {
 
-    @heading(messages(s"cannotClaimBuyingEquipment.$claimant.heading"))
+    @heading(messages(s"cannotClaimBuyingEquipment.heading"))
 
     <p class="govuk-body">
-        @messages(s"cannotClaimBuyingEquipment.$claimant.guidance")
+        @messages(s"cannotClaimBuyingEquipment.guidance")
 
         <a id="link" class="govuk-link" href=@appConfig.annualInvestmentAllowanceUrl
-           data-journey-click="link - click:@messages(s"cannotClaimBuyingEquipment.$claimant.heading"):@messages("cannotClaimBuyingEquipment.link.label")">
+           data-journey-click="link - click:@messages(s"cannotClaimBuyingEquipment.heading"):@messages("cannotClaimBuyingEquipment.link.label")">
             @messages("cannotClaimBuyingEquipment.link.label")</a>.
 
-        @messages(s"cannotClaimBuyingEquipment.$claimant.guidance2")
+        @messages(s"cannotClaimBuyingEquipment.guidance2")
     </p>
 
     <p class="govuk-body">

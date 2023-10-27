@@ -48,7 +48,7 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase with MockitoSug
   }
 
   val formProvider = new RegisteredForSelfAssessmentFormProvider()
-  val form = formProvider(claimant)
+  val form = formProvider()
 
   "RegisteredForSelfAssessment Controller" must {
 

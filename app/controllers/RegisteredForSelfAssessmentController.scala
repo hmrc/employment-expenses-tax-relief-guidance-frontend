@@ -21,7 +21,7 @@ import connectors.DataCacheConnector
 import controllers.actions._
 import forms.{RegisteredForSelfAssessmentFormProvider, RegisteredForSelfAssessmentSelfAssessmentFormProvider}
 import identifiers.RegisteredForSelfAssessmentId
-import models.requests.ClaimantRequest
+import models.requests.DataRequest
 
 import javax.inject.Inject
 import play.api.data.Form
@@ -38,7 +38,6 @@ class RegisteredForSelfAssessmentController @Inject()(
                                                        navigator: Navigator,
                                                        getData: DataRetrievalAction,
                                                        requireData: DataRequiredAction,
-                                                       getClaimant: GetClaimantAction,
                                                        formProvider: RegisteredForSelfAssessmentFormProvider,
                                                        formProviderSelfAssessment: RegisteredForSelfAssessmentSelfAssessmentFormProvider,
                                                        val controllerComponents: MessagesControllerComponents,
@@ -46,9 +45,9 @@ class RegisteredForSelfAssessmentController @Inject()(
                                                        appConfig: FrontendAppConfig
                                                      )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      val form: Form[Boolean] = formProvider(request.claimant)
+      val form: Form[Boolean] = formProvider()
 
       val preparedForm = request.userAnswers.registeredForSelfAssessment match {
         case None => form
@@ -57,23 +56,23 @@ class RegisteredForSelfAssessmentController @Inject()(
 
       val backButtonOverride = BackButtonSetting(request)
 
-      Ok(view(preparedForm, request.claimant, backButtonOverride))
+      Ok(view(preparedForm, backButtonOverride))
   }
 
-  def onSubmit: Action[AnyContent] = (getData andThen requireData andThen getClaimant).async {
+  def onSubmit: Action[AnyContent] = (getData andThen requireData).async {
     implicit request =>
 
       val backButtonOverride = BackButtonSetting(request)
 
       val form: Form[Boolean] = if (backButtonOverride.nonEmpty) {
-        formProviderSelfAssessment(request.claimant)
+        formProviderSelfAssessment()
       } else {
-        formProvider(request.claimant)
+        formProvider()
       }
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) => {
-          Future.successful(BadRequest(view(formWithErrors, request.claimant, backButtonOverride)))
+          Future.successful(BadRequest(view(formWithErrors, backButtonOverride)))
         },
         value =>
           dataCacheConnector.save[Boolean](request.sessionId, RegisteredForSelfAssessmentId, value).map(cacheMap =>
@@ -82,7 +81,7 @@ class RegisteredForSelfAssessmentController @Inject()(
       )
   }
 
-  private def BackButtonSetting(request: ClaimantRequest[AnyContent]): Option[String] = {
+  private def BackButtonSetting(request: DataRequest[AnyContent]): Option[String] = {
     request.userAnswers.claimAnyOtherExpense match {
       case Some(true) => Some(appConfig.registeredForSelfBackButtonOverride)
       case _ => None

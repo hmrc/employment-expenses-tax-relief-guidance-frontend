@@ -48,7 +48,7 @@ class EmployerPaidBackExpensesControllerSpec extends SpecBase with MockitoSugar 
   }
 
   val formProvider = new EmployerPaidBackExpensesFormProvider()
-  val form = formProvider(claimant)
+  val form = formProvider()
 
   "EmployerPaidBackExpenses Controller" must {
 
