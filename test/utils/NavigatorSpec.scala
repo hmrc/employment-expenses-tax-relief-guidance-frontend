@@ -318,84 +318,15 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         navigator.nextPage(MoreThanFiveJobsId)(mockAnswers) mustBe
           routes.UsePrintAndPostController.onPageLoad()
       }
+    }
 
-      "answering anything other than MileageFuel from the ClaimingFor view and the claimant is someone else" in {
+    "go to the claim by post gov.uk page" when {
+      "ansering Someone Else on the Claimant view" in {
         val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.FeesSubscriptions)))
-        when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
-        when(mockAnswers.willPayTax).thenReturn(Some(true))
-        when(mockAnswers.paidTaxInRelevantYear).thenReturn(Some(true))
-        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(false))
-        when(mockAnswers.claimingOverPayAsYouEarnThreshold).thenReturn(Some(false))
-        when(mockAnswers.employerPaidBackExpenses).thenReturn(Some(false))
+        when(mockAnswers.claimant).thenReturn(Some(Claimant.SomeoneElse))
 
-        navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
-          routes.UsePrintAndPostController.onPageLoad()
-      }
-
-      "answering MileageFuel and another option from the ClaimingFor view and the claimant is someone else" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimingFor)
-          .thenReturn(Some(List(
-            ClaimingFor.MileageFuel,
-            ClaimingFor.BuyingEquipment))
-          )
-        when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
-        when(mockAnswers.willPayTax).thenReturn(Some(true))
-        when(mockAnswers.paidTaxInRelevantYear).thenReturn(Some(true))
-        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(false))
-        when(mockAnswers.claimingOverPayAsYouEarnThreshold).thenReturn(Some(false))
-        when(mockAnswers.employerPaidBackExpenses).thenReturn(Some(false))
-
-        navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
-          routes.UsePrintAndPostController.onPageLoad()
-      }
-
-      "answering No to UseCompanyCar, having answered Yes to ClaimingMileage, when the claimant is someone else" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.useOwnCar).thenReturn(Some(true))
-        when(mockAnswers.useCompanyCar).thenReturn(Some(false))
-        when(mockAnswers.claimingMileage).thenReturn(Some(true))
-        when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
-
-        navigator.nextPage(UseCompanyCarId)(mockAnswers) mustBe
-          routes.UsePrintAndPostController.onPageLoad()
-      }
-
-      "answering Yes to ClaimingFuel when the claimant is someone else" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimingFuel).thenReturn(Some(true))
-        when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
-
-        navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
-          routes.UsePrintAndPostController.onPageLoad()
-      }
-
-      "answering No to ClaimingFuel, having previously answered Yes to ClaimingMileage when the claiming is someone else" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.useOwnCar).thenReturn(Some(true))
-        when(mockAnswers.claimingFuel).thenReturn(Some(false))
-        when(mockAnswers.claimingMileage).thenReturn(Some(true))
-        when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
-
-        navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
-          routes.UsePrintAndPostController.onPageLoad()
-      }
-
-      "using the ChangeOtherExpenses route when the claimant is someone else" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
-
-        navigator.nextPage(ChangeOtherExpensesId)(mockAnswers) mustBe
-          routes.ClaimantController.onPageLoad()
-      }
-
-      "using the ChangeUniformsWorkClothingTools route when the claimant is someone else" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimant).thenReturn(Some(SomeoneElse))
-
-        navigator.nextPage(ChangeUniformsWorkClothingToolsId)(mockAnswers) mustBe
-          routes.ClaimantController.onPageLoad()
+        navigator.nextPage(ClaimantId)(mockAnswers) mustBe
+          routes.UsePrintAndPostController.printAndPostGuidance()
       }
     }
 
@@ -728,14 +659,6 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
         "no data from ClaimingFuel" in {
           navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad
-        }
-
-        "missing data from ClaimingFuel(true)" in {
-          val someAnswers = mock[UserAnswers]
-          when(someAnswers.claimingFuel) thenReturn Some(true)
-
-          navigator.nextPage(ClaimingFuelId)(someAnswers) mustBe
             routes.SessionExpiredController.onPageLoad
         }
 

@@ -25,11 +25,11 @@
     submitButton: playComponents.submit_button
 )
 
-@(form: Form[_])(implicit request: Request[_], messages: Messages)
+@(form: Form[_], backLinkEnabled: Boolean = false)(implicit request: Request[_], messages: Messages)
 
 @layout(
     pageTitle = s"${errorPrefix(form)} ${messages(s"claimingFor.title")}",
-    backLinkEnabled = false
+    backLinkEnabled = backLinkEnabled
 ) {
     @errorSummary(form.errors, Some("claimingFor.homeWorking"))
 
