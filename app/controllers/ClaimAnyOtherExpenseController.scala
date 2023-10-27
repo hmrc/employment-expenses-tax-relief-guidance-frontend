@@ -64,23 +64,12 @@ class ClaimAnyOtherExpenseController @Inject()(
   def onSubmit: Action[AnyContent] = (flowEnabled andThen getData).async {
     implicit request =>
       form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(formWithErrors))),
-        value => {
-
-          val cacheMap = CacheMap(request.sessionId, Map[String, JsValue](
-            ClaimantId.toString                     -> JsString( Claimant.You.string),
-            ClaimAnyOtherExpenseId.toString  -> JsBoolean(value)
-          ))
-
-          logger.info(s"Saving/caching data for session with id [${request.sessionId}]")
-
-          dataCacheConnector.save(cacheMap).map(cacheMap =>
-            Redirect(navigator.nextPage(ClaimAnyOtherExpenseId)(new UserAnswers(cacheMap)))
-          )
-
-        }
-
+        (formWithErrors: Form[_]) => {
+          Future.successful(BadRequest(view(formWithErrors)))
+        },
+        value =>
+          dataCacheConnector.save[Boolean](request.sessionId, ClaimAnyOtherExpenseId, value).map(cacheMap =>
+          Redirect(navigator.nextPage(ClaimAnyOtherExpenseId)(new UserAnswers(cacheMap))))
       )
   }
 

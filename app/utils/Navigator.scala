@@ -21,8 +21,8 @@ import play.api.mvc.Call
 import controllers.routes
 import identifiers._
 import models.Claimant.{SomeoneElse, You}
-import models.ClaimingFor
-import models.EmployerPaid.{NoExpenses, SomeExpenses, AllExpenses}
+import models.{Claimant, ClaimingFor}
+import models.EmployerPaid.{AllExpenses, NoExpenses, SomeExpenses}
 
 @Singleton
 class Navigator @Inject()() {
@@ -98,12 +98,18 @@ class Navigator @Inject()() {
     case _ => routes.SessionExpiredController.onPageLoad
   }
 
-  private def claimingForRouting(userAnswers: UserAnswers) =
-    userAnswers.claimingFor match {
-      case Some(List(ClaimingFor.HomeWorking)) => routes.ClaimAnyOtherExpenseController.onPageLoad()
-      case Some(_)  => routes.ClaimantController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad
-    }
+  private def claimingForRouting(userAnswers: UserAnswers) = userAnswers.claimingFor match {
+    case Some(List(ClaimingFor.HomeWorking)) => routes.ClaimAnyOtherExpenseController.onPageLoad()
+    case Some(_)                             => routes.ClaimantController.onPageLoad()
+    case _                                   => routes.SessionExpiredController.onPageLoad
+  }
+
+  private def claimantRouting(userAnswers: UserAnswers) = (userAnswers.claimant, userAnswers.claimingFor) match {
+    case (Some(Claimant.You), Some(List(ClaimingFor.HomeWorking))) | (Some(Claimant.You), None) => routes.DisclaimerController.onPageLoad()
+    case (Some(Claimant.You), Some(_))                                                          => routes.PaidTaxInRelevantYearController.onPageLoad()
+    case (Some(Claimant.SomeoneElse), _)                                                        => routes.UsePrintAndPostController.printAndPostGuidance()
+    case _                                                                                      => routes.SessionExpiredController.onPageLoad
+  }
 
   private def useOwnCarRouting(userAnswers: UserAnswers) = userAnswers.useOwnCar match {
     case Some(true) => routes.ClaimingMileageController.onPageLoad()
@@ -192,7 +198,7 @@ class Navigator @Inject()() {
   }
 
   private def claimAnyOtherExpenseRouting(userAnswers: UserAnswers) = userAnswers.claimAnyOtherExpense match {
-    case Some(true) => routes.DisclaimerController.onPageLoad()
+    case Some(true) => routes.ClaimantController.onPageLoad()
     case Some(false) => routes.ClaimingForController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad
   }
@@ -205,7 +211,7 @@ class Navigator @Inject()() {
 
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
     ClaimingForId -> claimingForRouting,
-    ClaimantId -> (_ => routes.PaidTaxInRelevantYearController.onPageLoad()),
+    ClaimantId -> claimantRouting,
     ClaimAnyOtherExpenseId -> claimAnyOtherExpenseRouting,
     CovidHomeWorkingId -> covidHomeWorkingRouting,
     PaidTaxInRelevantYearId -> paidTaxInRelevantYearRouting,

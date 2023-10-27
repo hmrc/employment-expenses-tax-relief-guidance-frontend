@@ -62,6 +62,8 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.claimant)
           .thenReturn(Some(Claimant.You))
+        when(mockAnswers.claimingFor)
+          .thenReturn(Some(List(ClaimingFor.MileageFuel)))
 
         navigator.nextPage(ClaimantId)(mockAnswers) mustBe
           routes.PaidTaxInRelevantYearController.onPageLoad()
@@ -174,6 +176,18 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       }
     }
 
+    "go to the Disclaimer view" when {
+      "claiming for only WFH expenses" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.HomeWorking)))
+        when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(true))
+        when(mockAnswers.claimant).thenReturn(Some(Claimant.You))
+
+        navigator.nextPage(ClaimantId)(mockAnswers) mustBe
+          routes.DisclaimerController.onPageLoad()
+      }
+    }
+
     "go to the SaCheckDisclaimerCurrentYear view" when {
       "registered for SA, claiming for the current year only and navigating from InformCustomerClaimNowInWeeks" in {
         val mockAnswers = mock[UserAnswers]
@@ -221,15 +235,6 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
         navigator.nextPage(WillNotPayTaxId)(mockAnswers) mustBe
           routes.RegisteredForSelfAssessmentController.onPageLoad()
-      }
-
-      "answering Yes to the ClaimAnyOtherExpenseView" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimant).thenReturn(Some(You))
-        when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(true))
-
-        navigator.nextPage(ClaimAnyOtherExpenseId)(mockAnswers) mustBe
-          routes.DisclaimerController.onPageLoad()
       }
     }
 

@@ -36,6 +36,7 @@ POST       /more-than-5-jobs                            controllers.MoreThanFive
 GET        /register-self-assessment                    controllers.RegisterForSelfAssessmentController.onPageLoad()
 
 GET        /use-print-and-post-form                     controllers.UsePrintAndPostController.onPageLoad()
+GET        /redirect-print-and-post-form                controllers.UsePrintAndPostController.printAndPostGuidance()
 
 GET        /claim-online                                controllers.ClaimOnlineController.onPageLoad()
 
