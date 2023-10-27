@@ -38,7 +38,7 @@ class ClaimOnlineViewSpec extends NewViewBehaviours {
       val view = application.injector.instanceOf[ClaimOnlineView]
       val doc = asDocument(view(OnwardJourney.IForm, None)(fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
-      button.attr("href") must be("https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87#claim-online")
+      button.attr("href") must be("/digital-forms/form/tax-relief-for-expenses-of-employment/draft/guide")
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
     }
 
