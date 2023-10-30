@@ -25,15 +25,15 @@ import views.html.EmployerPaidBackExpensesView
 
 class EmployerPaidBackExpensesViewSpec extends NewYesNoViewBehaviours {
 
-  val messageKeyPrefix = s"employerPaidBackExpenses.$claimant"
+  val messageKeyPrefix = s"employerPaidBackExpenses"
 
   val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[EmployerPaidBackExpensesView]
 
-  val form = new EmployerPaidBackExpensesFormProvider()(claimant)
+  val form = new EmployerPaidBackExpensesFormProvider()()
 
-  def createView(form: Form[_]): Html = view.apply(form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]): Html = view.apply(form)(fakeRequest, messages)
 
   "EmployerPaidBackExpenses view" must {
 

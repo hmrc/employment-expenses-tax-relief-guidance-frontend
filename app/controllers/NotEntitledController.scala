@@ -26,13 +26,12 @@ import views.html.NotEntitledView
 class NotEntitledController @Inject()(
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
-                                       getClaimant: GetClaimantAction,
                                        val controllerComponents: MessagesControllerComponents,
                                        view: NotEntitledView
                                      ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      Ok(view(request.claimant))
+      Ok(view())
   }
 }

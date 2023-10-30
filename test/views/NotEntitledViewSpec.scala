@@ -22,13 +22,13 @@ import views.html.NotEntitledView
 
 class NotEntitledViewSpec extends NewViewBehaviours {
 
-  val messageKeyPrefix = s"notEntitled.$claimant"
+  val messageKeyPrefix = s"notEntitled"
 
   val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[NotEntitledView]
 
-  def createView: HtmlFormat.Appendable = view.apply(claimant)(fakeRequest, messages)
+  def createView: HtmlFormat.Appendable = view.apply()(fakeRequest, messages)
 
   val taxReliefForEmployeesUrl = frontendAppConfig.taxReliefForEmployeesUrl
 

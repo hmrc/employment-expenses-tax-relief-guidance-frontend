@@ -47,7 +47,7 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
   }
 
   val formProvider = new WhichYearsAreYouClaimingForFormProvider()
-  val form = formProvider(claimant)
+  val form = formProvider()
 
   "WhichYearsAreYouClaimingFor Controller" must {
 

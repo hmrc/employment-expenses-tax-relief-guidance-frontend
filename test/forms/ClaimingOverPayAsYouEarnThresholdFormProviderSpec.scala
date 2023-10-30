@@ -21,9 +21,9 @@ import play.api.data.FormError
 
 class ClaimingOverPayAsYouEarnThresholdFormProviderSpec extends BooleanFieldBehaviours {
 
-  val requiredKey = s"claimingOverPayAsYouEarnThreshold.$claimant.error.required"
+  val requiredKey = s"claimingOverPayAsYouEarnThreshold.error.required"
 
-  val form = new ClaimingOverPayAsYouEarnThresholdFormProvider()(claimant)
+  val form = new ClaimingOverPayAsYouEarnThresholdFormProvider()()
 
   ".value" must {
 

@@ -25,15 +25,15 @@ import views.html.PaidTaxInRelevantYearView
 
 class PaidTaxInRelevantYearViewSpec extends NewYesNoViewBehaviours {
 
-  val messageKeyPrefix = s"paidTaxInRelevantYear.$claimant"
+  val messageKeyPrefix = s"paidTaxInRelevantYear"
 
   val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[PaidTaxInRelevantYearView]
 
-  val form = new PaidTaxInRelevantYearFormProvider()(claimant, frontendAppConfig.earliestTaxYear)
+  val form = new PaidTaxInRelevantYearFormProvider()(frontendAppConfig.earliestTaxYear)
 
-  def createView(form: Form[_]): Html = view.apply(form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]): Html = view.apply(form)(fakeRequest, messages)
 
 
   "PaidTaxInRelevantYear view" must {

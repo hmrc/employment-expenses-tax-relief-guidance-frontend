@@ -27,7 +27,6 @@ import views.html.CannotClaimWFHReliefView
 class CannotClaimWFHReliefController @Inject()(
                                              getData: DataRetrievalAction,
                                              requireData: DataRequiredAction,
-                                             getClaimant: GetClaimantAction,
                                              val controllerComponents: MessagesControllerComponents,
                                              view: CannotClaimWFHReliefView
                                            ) extends FrontendBaseController with I18nSupport {

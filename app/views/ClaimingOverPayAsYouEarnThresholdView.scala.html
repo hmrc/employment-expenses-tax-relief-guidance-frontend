@@ -22,10 +22,10 @@
     submitButton: playComponents.submit_button
 )
 
-@(form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@(form: Form[_])(implicit request: Request[_], messages: Messages)
 
 @layout(
-    pageTitle = s"${errorPrefix(form)} ${messages(s"claimingOverPayAsYouEarnThreshold.$claimant.title")}"
+    pageTitle = s"${errorPrefix(form)} ${messages(s"claimingOverPayAsYouEarnThreshold.title")}"
 ) {
 
     @errorSummary(form.errors)
@@ -34,7 +34,7 @@
 
         @inputYesNoRadio(
             field = form("value"),
-            label = messages(s"claimingOverPayAsYouEarnThreshold.$claimant.heading")
+            label = messages(s"claimingOverPayAsYouEarnThreshold.heading")
         )
 
         @submitButton()

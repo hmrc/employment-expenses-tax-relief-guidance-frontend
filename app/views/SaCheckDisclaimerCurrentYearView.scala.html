@@ -23,22 +23,22 @@
     buttonLink: playComponents.button_link
 )
 
-@(claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@()(implicit request: Request[_], messages: Messages)
 
 @layout(
-    pageTitle = messages(s"saCheckDisclaimerCurrentYear.$claimant.title")
+    pageTitle = messages(s"saCheckDisclaimerCurrentYear.title")
 ) {
 
-    @heading(messages(s"saCheckDisclaimerCurrentYear.$claimant.heading"))
+    @heading(messages(s"saCheckDisclaimerCurrentYear.heading"))
 
-    <p class="govuk-body">@messages(s"saCheckDisclaimerCurrentYear.$claimant.text1", TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)</p>
+    <p class="govuk-body">@messages(s"saCheckDisclaimerCurrentYear.text1", TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)</p>
 
     <ul class="govuk-list govuk-list--bullet">
-        <li>@messages(s"saCheckDisclaimerCurrentYear.$claimant.list.item.1")</li>
-        <li>@messages(s"saCheckDisclaimerCurrentYear.$claimant.list.item.2")</li>
+        <li>@messages(s"saCheckDisclaimerCurrentYear.list.item.1")</li>
+        <li>@messages(s"saCheckDisclaimerCurrentYear.list.item.2")</li>
     </ul>
 
-    <p class="govuk-body">@messages(s"saCheckDisclaimerCurrentYear.$claimant.text2")</p>
+    <p class="govuk-body">@messages(s"saCheckDisclaimerCurrentYear.text2")</p>
 
     @buttonLink(messages("saCheckDisclaimerCurrentYear.button.label"), EmployerPaidBackWfhExpensesController.onPageLoad().url)
 }

@@ -19,13 +19,13 @@ package forms
 import javax.inject.Inject
 
 import forms.mappings.Mappings
-import models.{Claimant, UseOfOwnCar}
+import models.UseOfOwnCar
 import play.api.data.Form
 
 class UseCompanyCarFormProvider @Inject() extends Mappings {
 
-  def apply(claimant: Claimant, useOfOwnCar: UseOfOwnCar): Form[Boolean] =
+  def apply(useOfOwnCar: UseOfOwnCar): Form[Boolean] =
     Form(
-      "value" -> boolean(s"useCompanyCar.$claimant.$useOfOwnCar.error.required")
+      "value" -> boolean(s"useCompanyCar.$useOfOwnCar.error.required")
     )
 }

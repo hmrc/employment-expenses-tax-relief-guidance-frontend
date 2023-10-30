@@ -25,7 +25,7 @@ import views.html.RegisterForSelfAssessmentView
 
 class RegisterForSelfAssessmentViewSpec extends NewViewBehaviours {
 
-  val messageKeyPrefix: String = "registerForSelfAssessment.you"
+  val messageKeyPrefix: String = "registerForSelfAssessment"
 
   val application: Application = applicationBuilder().build()
 
@@ -33,7 +33,7 @@ class RegisterForSelfAssessmentViewSpec extends NewViewBehaviours {
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
 
-  def createView: HtmlFormat.Appendable = view.apply(claimant, onwardRoute)(fakeRequest, messages)
+  def createView: HtmlFormat.Appendable = view.apply(onwardRoute)(fakeRequest, messages)
 
   "RegisterForSelfAssessment view" must {
 

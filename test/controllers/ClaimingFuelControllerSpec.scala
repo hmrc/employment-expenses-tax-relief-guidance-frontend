@@ -47,7 +47,7 @@ class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeA
   }
 
   val formProvider = new ClaimingFuelFormProvider()
-  val form = formProvider(claimant)
+  val form = formProvider()
 
    "ClaimingFuel Controller" must {
 

@@ -27,13 +27,12 @@ import javax.inject.Inject
 class SaCheckDisclaimerCurrentYearController @Inject()(
                                                        getData: DataRetrievalAction,
                                                        requireData: DataRequiredAction,
-                                                       getClaimant: GetClaimantAction,
                                                        val controllerComponents: MessagesControllerComponents,
                                                        view: SaCheckDisclaimerCurrentYearView
                                                      ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      Ok(view(request.claimant))
+      Ok(view())
   }
 }

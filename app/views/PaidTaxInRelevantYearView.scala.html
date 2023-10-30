@@ -26,14 +26,13 @@
 )
 
 @(
-    form: Form[_],
-    claimant: Claimant
+    form: Form[_]
 )(implicit request: Request[_], messages: Messages)
 
 @year = {@appConfig.earliestTaxYear}
 
 @layout(
-    pageTitle = s"${errorPrefix(form)} ${messages(s"paidTaxInRelevantYear.$claimant.title", year)}"
+    pageTitle = s"${errorPrefix(form)} ${messages(s"paidTaxInRelevantYear.title", year)}"
 ) {
 
     @errorSummary(form.errors)
@@ -41,7 +40,7 @@
 
         @inputYesNoRadio(
             field = form("value"),
-            label = messages(s"paidTaxInRelevantYear.$claimant.heading", year),
+            label = messages(s"paidTaxInRelevantYear.heading", year),
         )
 
         @submitButton()

@@ -39,12 +39,12 @@ object ClaimingFor {
     HomeWorking, UniformsClothingTools, MileageFuel, TravelExpenses, FeesSubscriptions, BuyingEquipment, Other
   )
 
-  def options(claimant: Claimant)(implicit messages: Messages): List[CheckboxItem] = {
+  def options()(implicit messages: Messages): List[CheckboxItem] = {
 
     val feesOption = {
 
       val href = "https://www.gov.uk/government/publications/professional-bodies-approved-for-tax-relief-list-3"
-      val eventBody = s"""${messages(s"claimingFor.$claimant.title")}:${messages(s"claimingFor.$FeesSubscriptions")}"""
+      val eventBody = s"""${messages(s"claimingFor.title")}:${messages(s"claimingFor.$FeesSubscriptions")}"""
       val start = link_start(href, eventBody, newWindow = true)
       val end = "</a>"
 
@@ -54,7 +54,7 @@ object ClaimingFor {
         value = FeesSubscriptions.toString,
         content = Text(messages(s"claimingFor.$FeesSubscriptions")),
         hint = Some(Hint(
-          content = HtmlContent(messages(s"claimingFor.$FeesSubscriptions.$claimant.description", start, end)))
+          content = HtmlContent(messages(s"claimingFor.$FeesSubscriptions.description", start, end)))
         )
       )
     }
@@ -66,7 +66,7 @@ object ClaimingFor {
         value = HomeWorking.toString,
         content = Text(messages(s"claimingFor.$HomeWorking")),
         hint = Some(Hint(
-          content = HtmlContent(messages(s"claimingFor.$HomeWorking.$claimant.description")))
+          content = HtmlContent(messages(s"claimingFor.$HomeWorking.description")))
         )
       ),
       new CheckboxItem(
@@ -75,16 +75,16 @@ object ClaimingFor {
         value = UniformsClothingTools.toString,
         content = Text(messages(s"claimingFor.$UniformsClothingTools")),
         hint = Some(Hint(
-          content = HtmlContent(messages(s"claimingFor.$UniformsClothingTools.$claimant.description")))
+          content = HtmlContent(messages(s"claimingFor.$UniformsClothingTools.description")))
         )
       ),
       new CheckboxItem(
         name = Some("value[2]"),
         id = Some(s"claimingFor.$MileageFuel"),
         value = MileageFuel.toString,
-        content = Text(messages(s"claimingFor.$claimant.$MileageFuel")),
+        content = Text(messages(s"claimingFor.$MileageFuel")),
         hint = Some(Hint(
-          content = HtmlContent(messages(s"claimingFor.$MileageFuel.$claimant.description")))
+          content = HtmlContent(messages(s"claimingFor.$MileageFuel.description")))
         )
       ),
       new CheckboxItem(
@@ -93,7 +93,7 @@ object ClaimingFor {
         value = TravelExpenses.toString,
         content = Text(messages(s"claimingFor.$TravelExpenses")),
         hint = Some(Hint(
-          content = HtmlContent(messages(s"claimingFor.$TravelExpenses.$claimant.description")))
+          content = HtmlContent(messages(s"claimingFor.$TravelExpenses.description")))
         )
       ),
       feesOption,
@@ -103,7 +103,7 @@ object ClaimingFor {
         value = BuyingEquipment.toString,
         content = Text(messages(s"claimingFor.$BuyingEquipment")),
         hint = Some(Hint(
-          content = HtmlContent(messages(s"claimingFor.$BuyingEquipment.$claimant.description")))
+          content = HtmlContent(messages(s"claimingFor.$BuyingEquipment.description")))
         )
       ),
       new CheckboxItem(

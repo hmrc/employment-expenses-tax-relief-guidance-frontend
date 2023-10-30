@@ -28,13 +28,12 @@ class CannotClaimBuyingEquipmentController @Inject()(
                                                      navigator: Navigator,
                                                      getData: DataRetrievalAction,
                                                      requireData: DataRequiredAction,
-                                                     getClaimant: GetClaimantAction,
                                                      val controllerComponents: MessagesControllerComponents,
                                                      view: CannotClaimBuyingEquipmentView
                                                     ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      Ok(view(request.claimant, navigator.changeOtherExpensesPage, navigator.changeUniformsWorkClothingToolsPage))
+      Ok(view(navigator.changeOtherExpensesPage, navigator.changeUniformsWorkClothingToolsPage))
   }
 }

@@ -25,15 +25,15 @@ import views.html.RegisteredForSelfAssessmentView
 
 class RegisteredForSelfAssessmentViewSpec extends NewYesNoViewBehaviours {
 
-  val messageKeyPrefix = s"registeredForSelfAssessment.$claimant"
+  val messageKeyPrefix = s"registeredForSelfAssessment"
 
   val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[RegisteredForSelfAssessmentView]
 
-  val form = new RegisteredForSelfAssessmentFormProvider()(claimant)
+  val form = new RegisteredForSelfAssessmentFormProvider()()
 
-  def createView(form: Form[_]): Html = view.apply(form, claimant, None)(fakeRequest, messages)
+  def createView(form: Form[_]): Html = view.apply(form, None)(fakeRequest, messages)
 
   "RegisteredForSelfAssessment view" must {
 
@@ -43,10 +43,10 @@ class RegisteredForSelfAssessmentViewSpec extends NewYesNoViewBehaviours {
     behave like pageWithBodyText(
       createView(form),
       "registeredForSelfAssessment.accordion.list1.item1",
-      "registeredForSelfAssessment.you.accordion.guidance1",
+      "registeredForSelfAssessment.accordion.guidance1",
       "registeredForSelfAssessment.accordion.list1.item1",
       "registeredForSelfAssessment.accordion.list1.item2",
-      "registeredForSelfAssessment.you.accordion.guidance2",
+      "registeredForSelfAssessment.accordion.guidance2",
       "registeredForSelfAssessment.accordion.list2.item1",
       "registeredForSelfAssessment.accordion.list2.item2",
       "registeredForSelfAssessment.accordion.list2.item3",

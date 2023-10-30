@@ -24,15 +24,15 @@ import views.html.WhichYearsAreYouClaimingForView
 
 class WhichYearsAreYouClaimingForViewSpec extends RadioOptionViewBehaviours {
 
-  val messageKeyPrefix = s"whichYearsAreYouClaimingFor.$claimant"
+  val messageKeyPrefix = s"whichYearsAreYouClaimingFor"
 
   val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[WhichYearsAreYouClaimingForView]
 
-  val form: Form[Int] = new WhichYearsAreYouClaimingForFormProvider()(claimant)
+  val form: Form[Int] = new WhichYearsAreYouClaimingForFormProvider()()
 
-  def createView(isSaUser: Boolean, form: Form[_]) = view.apply(form, claimant, isSaUser)(fakeRequest, messages)
+  def createView(isSaUser: Boolean, form: Form[_]) = view.apply(form, isSaUser)(fakeRequest, messages)
 
   val numberOfOptions: Int = 3
 
@@ -51,10 +51,10 @@ class WhichYearsAreYouClaimingForViewSpec extends RadioOptionViewBehaviours {
 
       "show SA-specific hint text" in {
         val doc = asDocument(createView(true, form))
-        assertContainsMessages(doc, s"whichYearsAreYouClaimingFor.$claimant.current.tax.year.info.text")
-        assertContainsMessages(doc, s"whichYearsAreYouClaimingFor.$claimant.previous.tax.year.info.text")
-        assertContainsMessages(doc, s"whichYearsAreYouClaimingFor.$claimant.both.tax.years.info.text.1")
-        assertContainsMessages(doc, s"whichYearsAreYouClaimingFor.$claimant.both.tax.years.info.text.2")
+        assertContainsMessages(doc, s"whichYearsAreYouClaimingFor.current.tax.year.info.text")
+        assertContainsMessages(doc, s"whichYearsAreYouClaimingFor.previous.tax.year.info.text")
+        assertContainsMessages(doc, s"whichYearsAreYouClaimingFor.both.tax.years.info.text.1")
+        assertContainsMessages(doc, s"whichYearsAreYouClaimingFor.both.tax.years.info.text.2")
       }
     }
   }

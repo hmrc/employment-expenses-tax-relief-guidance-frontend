@@ -25,28 +25,28 @@
     submitButton: playComponents.submit_button
 )
 
-@(form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@(form: Form[_], backLinkEnabled: Boolean = false)(implicit request: Request[_], messages: Messages)
 
 @layout(
-    pageTitle = s"${errorPrefix(form)} ${messages(s"claimingFor.$claimant.title")}",
-    backLinkEnabled = false
+    pageTitle = s"${errorPrefix(form)} ${messages(s"claimingFor.title")}",
+    backLinkEnabled = backLinkEnabled
 ) {
     @errorSummary(form.errors, Some("claimingFor.homeWorking"))
 
-    @heading(messages(s"claimingFor.$claimant.heading"))
+    @heading(messages(s"claimingFor.heading"))
 
     @formHelper(action = ClaimingForController.onSubmit()) {
 
         @govUkCheckboxes(Checkboxes(
             fieldset = Some(Fieldset(
                 legend = Some(Legend(
-                    content = Text(messages(s"claimingFor.$claimant.heading")),
+                    content = Text(messages(s"claimingFor.heading")),
                     classes = "govuk-visually-hidden",
                     isPageHeading = false
                 ))
             )),
             name = "value",
-            items = ClaimingFor.options(claimant),
+            items = ClaimingFor.options(),
             errorMessage = form.errors.headOption.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
         ))
 

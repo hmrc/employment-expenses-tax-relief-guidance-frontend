@@ -26,13 +26,12 @@ import views.html.CannotClaimMileageFuelCostsView
 class CannotClaimMileageFuelCostsController @Inject()(
                                                        getData: DataRetrievalAction,
                                                        requireData: DataRequiredAction,
-                                                       getClaimant: GetClaimantAction,
                                                        val controllerComponents: MessagesControllerComponents,
                                                        view: CannotClaimMileageFuelCostsView
                                                      ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      Ok(view(request.claimant))
+      Ok(view())
   }
 }

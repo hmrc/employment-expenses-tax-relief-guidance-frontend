@@ -24,15 +24,15 @@ import views.html.UseOwnCarView
 
 class UseOwnCarViewSpec extends NewYesNoViewBehaviours {
 
-  private val messageKeyPrefix = s"useOwnCar.$claimant"
+  private val messageKeyPrefix = s"useOwnCar"
 
   private val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[UseOwnCarView]
 
-  val form = new UseOwnCarFormProvider()(claimant)
+  val form = new UseOwnCarFormProvider()()
 
-  def createView(form: Form[_]) = view.apply(form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]) = view.apply(form)(fakeRequest, messages)
 
   "UseOwnCar view" must {
 

@@ -22,13 +22,13 @@ import views.html.CannotClaimMileageCostsView
 
 class CannotClaimMileageCostsViewSpec extends NewViewBehaviours {
 
-  val messageKeyPrefix = "cannotClaimMileageCosts.you"
+  val messageKeyPrefix = "cannotClaimMileageCosts"
 
   val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[CannotClaimMileageCostsView]
 
-  def createView = view.apply(You)(fakeRequest, messages)
+  def createView = view.apply()(fakeRequest, messages)
 
   val buisnessMileageFuelCostsUrl = frontendAppConfig.buisnessMileageFuelCostsUrl
 

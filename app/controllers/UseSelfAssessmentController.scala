@@ -28,18 +28,17 @@ import views.html.UseSelfAssessmentView
 class UseSelfAssessmentController @Inject()(
                                              getData: DataRetrievalAction,
                                              requireData: DataRequiredAction,
-                                             getClaimant: GetClaimantAction,
                                              override val controllerComponents: MessagesControllerComponents,
                                              view: UseSelfAssessmentView,
                                              appConfig: FrontendAppConfig
                                            ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
 
 
       val backButtonOverride = request.userAnswers.claimingForCurrentYear.map{ _=> appConfig.claimingForCurrentYearBackButtonOverride}
 
-      Ok(view(request.claimant, backButtonOverride))
+      Ok(view(backButtonOverride))
   }
 }

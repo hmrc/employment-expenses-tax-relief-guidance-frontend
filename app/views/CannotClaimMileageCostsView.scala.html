@@ -22,15 +22,15 @@
     heading: playComponents.heading
 )
 
-@(claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@()(implicit request: Request[_], messages: Messages)
 
 @layout(
-    pageTitle = messages(s"cannotClaimMileageCosts.$claimant.title")
+    pageTitle = messages(s"cannotClaimMileageCosts.title")
 ) {
 
-    @heading(messages(s"cannotClaimMileageCosts.$claimant.heading"))
+    @heading(messages(s"cannotClaimMileageCosts.heading"))
 
-    <p class="govuk-body">@messages(s"cannotClaimMileageCosts.$claimant.guidance")</p>
+    <p class="govuk-body">@messages(s"cannotClaimMileageCosts.guidance")</p>
 
     <p class="govuk-body">
         <a class="govuk-link" id="link" href=@appConfig.buisnessMileageFuelCostsUrl>

@@ -16,7 +16,9 @@
 
 package controllers
 
+import config.FrontendAppConfig
 import controllers.actions._
+
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -27,11 +29,16 @@ class UsePrintAndPostController @Inject()(
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            val controllerComponents: MessagesControllerComponents,
-                                           view: UsePrintAndPostView
+                                           view: UsePrintAndPostView,
+                                           appConfig: FrontendAppConfig
                                          ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
       Ok(view())
+  }
+
+  def printAndPostGuidance: Action[AnyContent] = (getData andThen requireData) {
+      Redirect(appConfig.employeeExpensesClaimByPostUrl)
   }
 }

@@ -24,10 +24,10 @@
     submitButton: playComponents.submit_button
 )
 
-@(form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@(form: Form[_])(implicit request: Request[_], messages: Messages)
 
 @layout(
-    pageTitle = s"${errorPrefix(form)} ${messages(s"willPayTax.$claimant.title")}"
+    pageTitle = s"${errorPrefix(form)} ${messages(s"willPayTax.title")}"
 ) {
 
     @formHelper(action = WillPayTaxController.onSubmit()) {
@@ -35,7 +35,7 @@
 
         @inputYesNoRadio(
             field = form("value"),
-            label = messages(s"willPayTax.$claimant.heading"),
+            label = messages(s"willPayTax.heading"),
         )
 
         @submitButton()

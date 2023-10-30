@@ -25,7 +25,6 @@ class Module extends AbstractModule {
   override def configure(): Unit = {
     bind(classOf[DataRetrievalAction]).to(classOf[DataRetrievalActionImpl]).asEagerSingleton()
     bind(classOf[DataRequiredAction]).to(classOf[DataRequiredActionImpl]).asEagerSingleton()
-    bind(classOf[GetClaimantAction]).to(classOf[GetClaimantActionImpl]).asEagerSingleton()
     bind(classOf[DataCacheConnector]).to(classOf[DataCacheConnectorImpl]).asEagerSingleton()
   }
 }

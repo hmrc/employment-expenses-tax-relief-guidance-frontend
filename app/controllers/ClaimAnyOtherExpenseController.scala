@@ -19,17 +19,15 @@ package controllers
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.ClaimAnyOtherExpenseFormProvider
-import identifiers.{ClaimAnyOtherExpenseId, ClaimantId}
+import identifiers.ClaimAnyOtherExpenseId
 
 import javax.inject.Inject
-import models.Claimant
 import play.api.Logging
 import play.api.data.Form
 import play.api.i18n.I18nSupport
-import play.api.libs.json.{JsBoolean, JsString, JsValue}
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import utils.{CacheMap, Enumerable, Navigator, UserAnswers}
+import utils.{Enumerable, Navigator, UserAnswers}
 import views.html.ClaimAnyOtherExpenseView
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -64,23 +62,12 @@ class ClaimAnyOtherExpenseController @Inject()(
   def onSubmit: Action[AnyContent] = (flowEnabled andThen getData).async {
     implicit request =>
       form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(formWithErrors))),
-        value => {
-
-          val cacheMap = CacheMap(request.sessionId, Map[String, JsValue](
-            ClaimantId.toString                     -> JsString( Claimant.You.string),
-            ClaimAnyOtherExpenseId.toString  -> JsBoolean(value)
-          ))
-
-          logger.info(s"Saving/caching data for session with id [${request.sessionId}]")
-
-          dataCacheConnector.save(cacheMap).map(cacheMap =>
-            Redirect(navigator.nextPage(ClaimAnyOtherExpenseId)(new UserAnswers(cacheMap)))
-          )
-
-        }
-
+        (formWithErrors: Form[_]) => {
+          Future.successful(BadRequest(view(formWithErrors)))
+        },
+        value =>
+          dataCacheConnector.save[Boolean](request.sessionId, ClaimAnyOtherExpenseId, value).map(cacheMap =>
+          Redirect(navigator.nextPage(ClaimAnyOtherExpenseId)(new UserAnswers(cacheMap))))
       )
   }
 

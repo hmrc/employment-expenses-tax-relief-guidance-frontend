@@ -16,7 +16,7 @@
 
 package controllers
 
-import controllers.actions.{DataRequiredAction, DataRetrievalAction, GetClaimantAction}
+import controllers.actions.{DataRequiredAction, DataRetrievalAction}
 import identifiers.InformCustomerClaimNowInWeeksId
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
@@ -26,7 +26,6 @@ import utils.Navigator
 import views.html.InformCustomerClaimNowInWeeksView
 
 class InformCustomerClaimNowInWeeksController @Inject()(
-                                                 getClaimant: GetClaimantAction,
                                                  getData: DataRetrievalAction,
                                                  requireData: DataRequiredAction,
                                                  navigator: Navigator,
@@ -36,12 +35,12 @@ class InformCustomerClaimNowInWeeksController @Inject()(
 
 
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
       Ok(informClaimNowInWeeksView())
   }
 
-  def onSubmit: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
+  def onSubmit: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
       Redirect(navigator.nextPage(InformCustomerClaimNowInWeeksId)(request.userAnswers))
   }

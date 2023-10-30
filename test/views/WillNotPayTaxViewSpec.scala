@@ -25,7 +25,7 @@ import views.html.WillNotPayTaxView
 
 class WillNotPayTaxViewSpec extends NewViewBehaviours {
 
-  val messageKeyPrefix = "willNotPayTax.you"
+  val messageKeyPrefix = "willNotPayTax"
 
   val application = applicationBuilder().build()
 
@@ -33,7 +33,7 @@ class WillNotPayTaxViewSpec extends NewViewBehaviours {
 
   def onwardRoute = routes.IndexController.onPageLoad
 
-  def createView = view.apply(You, onwardRoute)(fakeRequest, messages)
+  def createView = view.apply(onwardRoute)(fakeRequest, messages)
 
   application.stop()
 
@@ -42,14 +42,14 @@ class WillNotPayTaxViewSpec extends NewViewBehaviours {
 
     behave like pageWithBackLink(createView)
 
-    val link1 = s"""<a class="govuk-link" href="${frontendAppConfig.taxReliefForEmployeesUrl}">${messages(s"willNotPayTax.$claimant.guidance1")}</a>"""
+    val link1 = s"""<a class="govuk-link" href="${frontendAppConfig.taxReliefForEmployeesUrl}">${messages(s"willNotPayTax.guidance1")}</a>"""
 
     val link2 = Html(s"""<a class="govuk-link" href="${routes.RegisteredForSelfAssessmentController.onPageLoad}">${messages("willNotPayTax.link2", TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)}</a>""")
 
     behave like pageWithBodyText(
       createView,
       Html(link1).toString,
-      Html(messages(s"willNotPayTax.$claimant.guidance2", link2)).toString
+      Html(messages(s"willNotPayTax.guidance2", link2)).toString
     )
   }
 }

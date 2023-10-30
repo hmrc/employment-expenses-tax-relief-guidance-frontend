@@ -22,13 +22,13 @@ import views.html.UseSelfAssessmentView
 
 class UseSelfAssessmentViewSpec extends NewViewBehaviours {
 
-  val messageKeyPrefix = "useSelfAssessment.you"
+  val messageKeyPrefix = "useSelfAssessment"
 
   val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[UseSelfAssessmentView]
 
-  def createView = view.apply(You, None)(fakeRequest, messages)
+  def createView = view.apply(None)(fakeRequest, messages)
 
   "UseSelfAssessment view" must {
 

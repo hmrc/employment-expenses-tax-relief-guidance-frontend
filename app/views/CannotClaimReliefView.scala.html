@@ -22,13 +22,13 @@
         appConfig: FrontendAppConfig
 )
 
-@(claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@()(implicit request: Request[_], messages: Messages)
 
     @layout(
-        pageTitle = messages(s"cannotClaimRelief.$claimant.title")
+        pageTitle = messages(s"cannotClaimRelief.title")
     ) {
-        @heading(messages(s"cannotClaimRelief.$claimant.heading"))
+        @heading(messages(s"cannotClaimRelief.heading"))
 
-        <p class="govuk-body"><a class="govuk-link" href="@appConfig.jobExpensesGuidanceUrl">@messages(s"cannotClaimRelief.$claimant.guidance")</a></p>
+        <p class="govuk-body"><a class="govuk-link" href="@appConfig.jobExpensesGuidanceUrl">@messages(s"cannotClaimRelief.guidance")</a></p>
 
     }

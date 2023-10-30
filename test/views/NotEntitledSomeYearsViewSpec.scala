@@ -25,13 +25,13 @@ class NotEntitledSomeYearsViewSpec extends NewViewBehaviours {
 
   val onwardRoute = routes.IndexController.onPageLoad
 
-  val messageKeyPrefix = s"notEntitledSomeYears.$claimant"
+  val messageKeyPrefix = s"notEntitledSomeYears"
 
   val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[NotEntitledSomeYearsView]
 
-  def createView: HtmlFormat.Appendable = view.apply(claimant, onwardRoute)(fakeRequest, messages)
+  def createView: HtmlFormat.Appendable = view.apply(onwardRoute)(fakeRequest, messages)
 
   "NotEntitledSomeYears view" must {
     behave like normalPage(createView, messageKeyPrefix)

@@ -22,14 +22,14 @@
     appConfig: FrontendAppConfig
 )
 
-@(claimant: Claimant, backButtonOverride: Option[String])(implicit request: Request[_], messages: Messages)
+@(backButtonOverride: Option[String])(implicit request: Request[_], messages: Messages)
 
 @layout(
-  pageTitle = messages(s"useSelfAssessment.$claimant.title")
+  pageTitle = messages(s"useSelfAssessment.title")
 ) {
-  @heading(messages(s"useSelfAssessment.$claimant.heading"))
+  @heading(messages(s"useSelfAssessment.heading"))
 
-  <p class="govuk-body">@messages(s"useSelfAssessment.$claimant.guidance")
+  <p class="govuk-body">@messages(s"useSelfAssessment.guidance")
       <a class="govuk-link" id="link" href="@appConfig.selfAssessmentTaxReturnsUrl">@messages("useSelfAssessment.link.label")</a>.
   </p>
 }

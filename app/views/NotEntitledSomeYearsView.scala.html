@@ -20,17 +20,17 @@
     buttonLink: playComponents.button_link
 )
 
-@(claimant: Claimant, nextPage: Call)(implicit request: Request[_], messages: Messages)
+@(nextPage: Call)(implicit request: Request[_], messages: Messages)
 
 @layout(
-    pageTitle = messages(s"notEntitledSomeYears.$claimant.title")
+    pageTitle = messages(s"notEntitledSomeYears.title")
 ) {
 
-    @heading(messages(s"notEntitledSomeYears.$claimant.heading"))
+    @heading(messages(s"notEntitledSomeYears.heading"))
 
 
     @buttonLink(
-       content = messages(s"notEntitledSomeYears.$claimant.link.label"),
+       content = messages(s"notEntitledSomeYears.link.label"),
        href = nextPage.url,
        id = Some("claim"))
 

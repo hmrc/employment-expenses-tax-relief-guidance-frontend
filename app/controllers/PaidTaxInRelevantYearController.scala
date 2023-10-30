@@ -37,30 +37,29 @@ class PaidTaxInRelevantYearController @Inject()(
                                                 navigator: Navigator,
                                                 getData: DataRetrievalAction,
                                                 requireData: DataRequiredAction,
-                                                getClaimant: GetClaimantAction,
                                                 formProvider: PaidTaxInRelevantYearFormProvider,
                                                 val controllerComponents: MessagesControllerComponents,
                                                 view: PaidTaxInRelevantYearView
                                                )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant).async {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData).async {
     implicit request =>
-      val form: Form[Boolean] = formProvider(request.claimant, appConfig.earliestTaxYear)
+      val form: Form[Boolean] = formProvider(appConfig.earliestTaxYear)
 
       val preparedForm = request.userAnswers.paidTaxInRelevantYear match {
         case None => form
         case Some(value) => form.fill(value)
       }
-      Future.successful(Ok(view(preparedForm, request.claimant)))
+      Future.successful(Ok(view(preparedForm)))
   }
 
-  def onSubmit: Action[AnyContent] = (getData andThen requireData andThen getClaimant).async {
+  def onSubmit: Action[AnyContent] = (getData andThen requireData).async {
     implicit request =>
-      val form: Form[Boolean] = formProvider(request.claimant, appConfig.earliestTaxYear)
+      val form: Form[Boolean] = formProvider(appConfig.earliestTaxYear)
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(formWithErrors, request.claimant))),
+          Future.successful(BadRequest(view(formWithErrors))),
         value =>
           dataCacheConnector.save[Boolean](request.sessionId, PaidTaxInRelevantYearId, value).map(cacheMap =>
             Redirect(navigator.nextPage(PaidTaxInRelevantYearId)(new UserAnswers(cacheMap))))

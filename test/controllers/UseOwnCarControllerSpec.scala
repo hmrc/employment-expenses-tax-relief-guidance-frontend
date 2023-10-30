@@ -47,7 +47,7 @@ class UseOwnCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndA
   }
 
   val formProvider = new UseOwnCarFormProvider()
-  val form = formProvider(claimant)
+  val form = formProvider()
 
   "UseOwnCar Controller" must {
 

@@ -24,26 +24,26 @@
     submitButton: playComponents.submit_button
 )
 
-@(form: Form[_], claimant: Claimant)(implicit request: Request[_], messages: Messages)
+@(form: Form[_])(implicit request: Request[_], messages: Messages)
 
 @layout(
-    pageTitle = s"${errorPrefix(form)} ${messages(s"employerPaidBackExpenses.$claimant.title")}"
+    pageTitle = s"${errorPrefix(form)} ${messages(s"employerPaidBackExpenses.title")}"
 ) {
 
     @errorSummary(form.errors)
 
-    @heading(messages(s"employerPaidBackExpenses.$claimant.heading"))
+    @heading(messages(s"employerPaidBackExpenses.heading"))
 
     @govukDetails(Details(
-        summary = Text(messages(s"employerPaidBackExpenses.$claimant.hidden.summary")),
-        content = HtmlContent(messages(s"employerPaidBackExpenses.$claimant.hidden.guidance"))
+        summary = Text(messages(s"employerPaidBackExpenses.hidden.summary")),
+        content = HtmlContent(messages(s"employerPaidBackExpenses.hidden.guidance"))
     ))
 
     @formHelper(action = EmployerPaidBackExpensesController.onSubmit) {
 
         @inputYesNoRadio(
             field = form("value"),
-            label = messages(s"employerPaidBackExpenses.$claimant.heading"),
+            label = messages(s"employerPaidBackExpenses.heading"),
             labelClass = Some("govuk-visually-hidden"),
             headingIsLegend = false
         )

@@ -31,18 +31,17 @@ class WillNotPayTaxController @Inject()(
                                          navigator: Navigator,
                                          getData: DataRetrievalAction,
                                          requireData: DataRequiredAction,
-                                         getClaimant: GetClaimantAction,
                                          val controllerComponents: MessagesControllerComponents,
                                          view: WillNotPayTaxView
                                        ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant).async {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData).async {
     implicit request =>
 
       val nextPage = navigator.nextPage(WillNotPayTaxId)(request.userAnswers)
 
       Future.successful(
-        Ok(view(request.claimant, nextPage)))
+        Ok(view(nextPage)))
   }
 
 }

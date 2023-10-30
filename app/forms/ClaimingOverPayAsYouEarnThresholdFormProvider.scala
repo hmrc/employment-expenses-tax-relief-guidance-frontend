@@ -19,13 +19,12 @@ package forms
 import javax.inject.Inject
 
 import forms.mappings.Mappings
-import models.Claimant
 import play.api.data.Form
 
 class ClaimingOverPayAsYouEarnThresholdFormProvider @Inject() extends Mappings {
 
-  def apply(claimant: Claimant): Form[Boolean] =
+  def apply(): Form[Boolean] =
     Form(
-      "value" -> boolean(s"claimingOverPayAsYouEarnThreshold.$claimant.error.required")
+      "value" -> boolean(s"claimingOverPayAsYouEarnThreshold.error.required")
     )
 }

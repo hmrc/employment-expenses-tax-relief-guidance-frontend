@@ -29,17 +29,17 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 
 class ClaimingForViewSpec extends CheckboxViewBehaviours[ClaimingFor] {
 
-  val messageKeyPrefix: String = s"claimingFor.$claimant"
+  val messageKeyPrefix: String = s"claimingFor"
 
   val application: Application = applicationBuilder().build()
 
   val view: ClaimingForView = application.injector.instanceOf[ClaimingForView]
 
-  val form = new ClaimingForFormProvider()(claimant)
+  val form = new ClaimingForFormProvider()()
 
-  def createView(form: Form[_]): HtmlFormat.Appendable = view.apply(form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]): HtmlFormat.Appendable = view.apply(form)(fakeRequest, messages)
 
-  def checkboxItem(keyPrefix: String, option: String): CheckboxItem = {
+  def checkboxItem(keyPrefix: String): CheckboxItem = {
     new CheckboxItem(
       name = Some("value[0]"),
       id = Some(s"claimingFor.$keyPrefix"),
@@ -53,14 +53,14 @@ class ClaimingForViewSpec extends CheckboxViewBehaviours[ClaimingFor] {
 
   "ClaimingFor view" must {
     behave like normalPage(createView(form), messageKeyPrefix)
-    behave like checkboxPage(form, createView, messageKeyPrefix, ClaimingFor.options(claimant))
+    behave like checkboxPage(form, createView, messageKeyPrefix, ClaimingFor.options())
   }
 
   "ClaimingFor view" when {
     "rendered" must {
       "contain checkboxes for each option" in {
         val doc = asDocument(createView(form))
-        for ((option, index) <- ClaimingFor.options(Claimant.You).zipWithIndex) {
+        for ((option, index) <- ClaimingFor.options().zipWithIndex) {
           assertContainsRadioButton(doc, option.id.get, s"value[$index]", option.value, false)
         }
       }

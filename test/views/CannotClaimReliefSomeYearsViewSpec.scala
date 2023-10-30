@@ -24,13 +24,13 @@ class CannotClaimReliefSomeYearsViewSpec extends NewViewBehaviours {
 
   def onwardRoute = routes.IndexController.onPageLoad
 
-  val messageKeyPrefix = s"cannotClaimReliefSomeYears.$claimant"
+  val messageKeyPrefix = s"cannotClaimReliefSomeYears"
 
   val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[CannotClaimReliefSomeYearsView]
 
-  def createView= view.apply(claimant, onwardRoute)(fakeRequest, messages)
+  def createView= view.apply(onwardRoute)(fakeRequest, messages)
 
   "CannotClaimReliefSomeYears view" must {
 

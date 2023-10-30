@@ -24,15 +24,15 @@ import views.html.ClaimingFuelView
 
 class ClaimingFuelViewSpec extends NewYesNoViewBehaviours {
 
-  val messageKeyPrefix = s"claimingFuel.$claimant"
+  val messageKeyPrefix = s"claimingFuel"
 
   val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[ClaimingFuelView]
 
-  val form = new ClaimingFuelFormProvider()(claimant)
+  val form = new ClaimingFuelFormProvider()()
 
-  def createView(form: Form[_]) = view.apply(form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]) = view.apply(form)(fakeRequest, messages)
 
   "ClaimingFuel view" must {
 

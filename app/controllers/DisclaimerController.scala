@@ -16,7 +16,7 @@
 
 package controllers
 
-import controllers.actions.{DataRequiredAction, DataRetrievalAction, GetClaimantAction}
+import controllers.actions.{DataRequiredAction, DataRetrievalAction}
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
@@ -27,14 +27,13 @@ import javax.inject.Inject
 class DisclaimerController  @Inject()(
                                        getData: DataRetrievalAction,
                                        requireData: DataRequiredAction,
-                                       getClaimant: GetClaimantAction,
                                        val controllerComponents: MessagesControllerComponents,
                                        view: DisclaimerView
                                      ) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      Ok(view(request.claimant))
+      Ok(view())
   }
 
 }

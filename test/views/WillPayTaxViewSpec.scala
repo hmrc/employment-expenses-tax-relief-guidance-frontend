@@ -25,9 +25,9 @@ import views.html.WillPayTaxView
 
 class WillPayTaxViewSpec extends NewYesNoViewBehaviours {
 
-  val messageKeyPrefix = "willPayTax.you"
+  val messageKeyPrefix = "willPayTax"
 
-  val form = new WillPayTaxFormProvider()(You, frontendAppConfig.earliestTaxYear)
+  val form = new WillPayTaxFormProvider()(frontendAppConfig.earliestTaxYear)
 
   "WillPayTax view" must {
 
@@ -35,7 +35,7 @@ class WillPayTaxViewSpec extends NewYesNoViewBehaviours {
 
     val view = application.injector.instanceOf[WillPayTaxView]
 
-    def createView(form: Form[_]) = view.apply(form, You)(fakeRequest, messages)
+    def createView(form: Form[_]) = view.apply(form)(fakeRequest, messages)
 
     application.stop()
 

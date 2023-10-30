@@ -35,30 +35,29 @@ class ClaimingOverPayAsYouEarnThresholdController @Inject()(
                                                              navigator: Navigator,
                                                              getData: DataRetrievalAction,
                                                              requireData: DataRequiredAction,
-                                                             getClaimant: GetClaimantAction,
                                                              formProvider: ClaimingOverPayAsYouEarnThresholdFormProvider,
                                                              val controllerComponents: MessagesControllerComponents,
                                                              view: ClaimingOverPayAsYouEarnThresholdView
                                                            )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData andThen getClaimant) {
+  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      val form: Form[Boolean] = formProvider(request.claimant)
+      val form: Form[Boolean] = formProvider()
 
       val preparedForm = request.userAnswers.claimingOverPayAsYouEarnThreshold match {
         case None => form
         case Some(value) => form.fill(value)
       }
-      Ok(view( preparedForm, request.claimant))
+      Ok(view(preparedForm))
   }
 
-  def onSubmit: Action[AnyContent] = (getData andThen requireData andThen getClaimant).async {
+  def onSubmit: Action[AnyContent] = (getData andThen requireData).async {
     implicit request =>
-      val form: Form[Boolean] = formProvider(request.claimant)
+      val form: Form[Boolean] = formProvider()
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(formWithErrors, request.claimant))),
+          Future.successful(BadRequest(view(formWithErrors))),
         value =>
           dataCacheConnector.save[Boolean](request.sessionId, ClaimingOverPayAsYouEarnThresholdId, value).map(cacheMap =>
             Redirect(navigator.nextPage(ClaimingOverPayAsYouEarnThresholdId)(new UserAnswers(cacheMap)))

@@ -25,15 +25,15 @@ import views.html.ClaimingOverPayAsYouEarnThresholdView
 
 class ClaimingOverPayAsYouEarnThresholdViewSpec extends NewYesNoViewBehaviours {
 
-  val messageKeyPrefix = s"claimingOverPayAsYouEarnThreshold.$claimant"
+  val messageKeyPrefix = s"claimingOverPayAsYouEarnThreshold"
 
   val application = applicationBuilder().build()
 
   val view = application.injector.instanceOf[ClaimingOverPayAsYouEarnThresholdView]
 
-  val form = new ClaimingOverPayAsYouEarnThresholdFormProvider()(claimant)
+  val form = new ClaimingOverPayAsYouEarnThresholdFormProvider()()
 
-  def createView(form: Form[_]): Html = view.apply(form, claimant)(fakeRequest, messages)
+  def createView(form: Form[_]): Html = view.apply(form)(fakeRequest, messages)
 
   "ClaimingOverPayAsYouEarnThreshold view" must {
 
