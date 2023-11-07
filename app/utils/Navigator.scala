@@ -41,9 +41,9 @@ class Navigator @Inject()() {
     }
 
   private def registeredForSelfAssessmentRouting(userAnswers: UserAnswers) = (userAnswers.claimAnyOtherExpense, userAnswers.registeredForSelfAssessment) match {
-    case (None, Some(true)) | (Some(false), Some(true))   => routes.UseSelfAssessmentController.onPageLoad()
+    case (_, Some(true))                                  => routes.UseSelfAssessmentController.onPageLoad()
     case (None, Some(false)) | (Some(false), Some(false)) => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
-    case (Some(true), Some(_))                            => routes.WhichYearsAreYouClaimingForController.onPageLoad()
+    case (Some(true), Some(false))                        => routes.WhichYearsAreYouClaimingForController.onPageLoad()
     case _                                                => routes.SessionExpiredController.onPageLoad
   }
 
@@ -134,38 +134,16 @@ class Navigator @Inject()() {
   }
 
   private def whichYearsAreYouClaimingForRouting(userAnswers: UserAnswers) = userAnswers.whichYearsAreYouClaimingFor match {
-    case Some(1) =>
-        routes.InformCustomerClaimNowInWeeksController.onPageLoad()
-    case Some(2) =>
-      if(userAnswers.registeredForSelfAssessment.getOrElse(false)) {
-        routes.UseSelfAssessmentController.onPageLoad()
-      } else {
-        routes.EmployerPaidBackWfhExpensesController.onPageLoad()
-      }
-    case Some(3) =>
-        routes.InformCustomerClaimNowInWeeksController.onPageLoad()
+    case Some(1) => routes.InformCustomerClaimNowInWeeksController.onPageLoad()
+    case Some(2) => routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+    case Some(3) => routes.InformCustomerClaimNowInWeeksController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad
   }
 
   private def informCustomerClaimNowInWeeksRouting(userAnswers: UserAnswers) = userAnswers.whichYearsAreYouClaimingFor match {
-    case Some(1) =>
-      if(userAnswers.registeredForSelfAssessment.getOrElse(false)) {
-        routes.SaCheckDisclaimerCurrentYearController.onPageLoad()
-      } else {
-        routes.EmployerPaidBackWfhExpensesController.onPageLoad()
-      }
-    case Some(2) =>
-      if(userAnswers.registeredForSelfAssessment.getOrElse(false)) {
-        routes.UseSelfAssessmentController.onPageLoad()
-      } else {
-        routes.EmployerPaidBackWfhExpensesController.onPageLoad()
-      }
-    case Some(3) =>
-      if(userAnswers.registeredForSelfAssessment.getOrElse(false)) {
-        routes.SaCheckDisclaimerAllYearsController.onPageLoad()
-      } else {
-        routes.EmployerPaidBackWfhExpensesController.onPageLoad()
-      }
+    case Some(1) => routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+    case Some(2) => routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+    case Some(3) => routes.EmployerPaidBackWfhExpensesController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad
   }
 

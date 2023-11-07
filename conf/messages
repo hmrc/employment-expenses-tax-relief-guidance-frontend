@@ -64,14 +64,12 @@ covidHomeWorking.error.required = Select yes if you started working from home af
 registeredForSelfAssessment.title = Do you complete Self Assessment returns?
 registeredForSelfAssessment.heading = Do you complete Self Assessment returns?
 registeredForSelfAssessment.error.required = Select yes if you complete Self Assessment returns
-registeredForSelfAssessment.tax.year.specific.title = Are you going to complete a Self Assessment return for this tax year {0}?
-registeredForSelfAssessment.tax.year.specific.heading = Are you going to complete a Self Assessment return for this tax year {0}?
 registeredForSelfAssessment.tax.year.specific.error.required = Select yes if you are going to complete a Self Assessment return for this tax year {0}
 
 registeredForSelfAssessment.accordion.summary = What is a Self Assessment tax return?
-registeredForSelfAssessment.accordion.guidance1 = You must complete a Self Assessment tax return if, in the last tax year (6 April to 5 April), you were:
-registeredForSelfAssessment.accordion.guidance2 = You will not usually need to send a return if your only income is from your wages or pension. But you may need to send one if you have any other untaxed income, such as:
-registeredForSelfAssessment.accordion.guidance.wfh = A Self Assessment tax return is when you send a record of your income and expenses to HMRC at the end of each tax year.
+registeredForSelfAssessment.accordion.guidance1 = A Self Assessment tax return is when you send a record of your income and expenses to HMRC at the end of each tax year.
+registeredForSelfAssessment.accordion.guidance2 = You must complete a Self Assessment tax return if, in the last tax year (6 April to 5 April), you were:
+registeredForSelfAssessment.accordion.guidance3 = You will not usually need to send a return if your only income is from your wages or pension. But you may need to send one if you have any other untaxed income, such as:
 
 registeredForSelfAssessment.accordion.list1.item1 = self-employed as a ''sole trader'' and earned more than £1,000
 registeredForSelfAssessment.accordion.list1.item2 = a partner in a business partnership
@@ -264,7 +262,6 @@ whichYearsAreYouClaimingFor.title = Which years are you claiming tax relief for 
 whichYearsAreYouClaimingFor.heading = Which years are you claiming tax relief for as a result of working from home?
 whichYearsAreYouClaimingFor.bannerGuidance.title = Guidance has changed for the new tax year
 whichYearsAreYouClaimingFor.bannerGuidance.content = The guidance for claiming tax relief for working from home has changed for expenses on or after 6 April 2022.
-whichYearsAreYouClaimingFor.main.info.text = You can claim tax relief for your working at home expenses for the current tax year using this service and for previous years on your Self Assessment tax return.
 whichYearsAreYouClaimingFor.current.tax.year.text = Just the current tax year {0}-{1}
 whichYearsAreYouClaimingFor.current.tax.year.info.text = You can claim tax relief for the current tax year using this service. You can do this before you send your Self Assessment tax return next year.
 whichYearsAreYouClaimingFor.previous.tax.year.text = Previous tax years

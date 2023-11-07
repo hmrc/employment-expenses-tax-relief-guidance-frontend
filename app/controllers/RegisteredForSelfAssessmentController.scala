@@ -19,9 +19,8 @@ package controllers
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import forms.{RegisteredForSelfAssessmentFormProvider, RegisteredForSelfAssessmentSelfAssessmentFormProvider}
+import forms.RegisteredForSelfAssessmentFormProvider
 import identifiers.RegisteredForSelfAssessmentId
-import models.requests.DataRequest
 
 import javax.inject.Inject
 import play.api.data.Form
@@ -39,7 +38,6 @@ class RegisteredForSelfAssessmentController @Inject()(
                                                        getData: DataRetrievalAction,
                                                        requireData: DataRequiredAction,
                                                        formProvider: RegisteredForSelfAssessmentFormProvider,
-                                                       formProviderSelfAssessment: RegisteredForSelfAssessmentSelfAssessmentFormProvider,
                                                        val controllerComponents: MessagesControllerComponents,
                                                        view: RegisteredForSelfAssessmentView,
                                                        appConfig: FrontendAppConfig
@@ -54,37 +52,20 @@ class RegisteredForSelfAssessmentController @Inject()(
         case Some(value) => form.fill(value)
       }
 
-      val backButtonOverride = BackButtonSetting(request)
-
-      Ok(view(preparedForm, backButtonOverride))
+      Ok(view(preparedForm))
   }
 
   def onSubmit: Action[AnyContent] = (getData andThen requireData).async {
     implicit request =>
 
-      val backButtonOverride = BackButtonSetting(request)
-
-      val form: Form[Boolean] = if (backButtonOverride.nonEmpty) {
-        formProviderSelfAssessment()
-      } else {
-        formProvider()
-      }
-
-      form.bindFromRequest().fold(
+      formProvider().bindFromRequest().fold(
         (formWithErrors: Form[_]) => {
-          Future.successful(BadRequest(view(formWithErrors, backButtonOverride)))
+          Future.successful(BadRequest(view(formWithErrors)))
         },
         value =>
           dataCacheConnector.save[Boolean](request.sessionId, RegisteredForSelfAssessmentId, value).map(cacheMap =>
             Redirect(navigator.nextPage(RegisteredForSelfAssessmentId)(new UserAnswers(cacheMap)))
           )
       )
-  }
-
-  private def BackButtonSetting(request: DataRequest[AnyContent]): Option[String] = {
-    request.userAnswers.claimAnyOtherExpense match {
-      case Some(true) => Some(appConfig.registeredForSelfBackButtonOverride)
-      case _ => None
-    }
   }
 }

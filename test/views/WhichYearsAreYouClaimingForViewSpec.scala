@@ -16,7 +16,6 @@
 
 package views
 
-import controllers.routes
 import forms.WhichYearsAreYouClaimingForFormProvider
 import play.api.data.Form
 import views.behaviours.RadioOptionViewBehaviours
@@ -32,32 +31,16 @@ class WhichYearsAreYouClaimingForViewSpec extends RadioOptionViewBehaviours {
 
   val form: Form[Int] = new WhichYearsAreYouClaimingForFormProvider()()
 
-  def createView(isSaUser: Boolean, form: Form[_]) = view.apply(form, isSaUser)(fakeRequest, messages)
+  def createView(form: Form[_]) = view.apply(form)(fakeRequest, messages)
 
   val numberOfOptions: Int = 3
 
-  "WhichYearsAreYouClaimingFor view" when {
+  "WhichYearsAreYouClaimingFor view" must {
 
-    "the user won't complete their Self-Assessment return for this tax year" must {
-      behave like normalPage(createView(false, form), messageKeyPrefix)
-      behave like radioOptionPage(createView(false, _), messageKeyPrefix)
-      behave like pageWithBackLink(createView(false, form))
+      behave like normalPage(createView(form), messageKeyPrefix)
+      behave like radioOptionPage(createView(_), messageKeyPrefix)
+      behave like pageWithBackLink(createView(form))
     }
-
-    "the user will complete their Self-Assessment return for this tax year" must {
-      behave like normalPage(createView(true, form), messageKeyPrefix)
-      behave like radioOptionPage(createView(true, _), messageKeyPrefix)
-      behave like pageWithBackLink(createView(true, form))
-
-      "show SA-specific hint text" in {
-        val doc = asDocument(createView(true, form))
-        assertContainsMessages(doc, s"whichYearsAreYouClaimingFor.current.tax.year.info.text")
-        assertContainsMessages(doc, s"whichYearsAreYouClaimingFor.previous.tax.year.info.text")
-        assertContainsMessages(doc, s"whichYearsAreYouClaimingFor.both.tax.years.info.text.1")
-        assertContainsMessages(doc, s"whichYearsAreYouClaimingFor.both.tax.years.info.text.2")
-      }
-    }
-  }
 
   application.stop()
 }
