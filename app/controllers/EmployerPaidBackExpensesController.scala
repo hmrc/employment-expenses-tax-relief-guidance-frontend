@@ -16,10 +16,13 @@
 
 package controllers
 
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.EmployerPaidBackExpensesFormProvider
 import identifiers.EmployerPaidBackExpensesId
+import models.EmployerPaid
+
 import javax.inject.Inject
 import play.api.data.Form
 import play.api.i18n.I18nSupport
@@ -37,31 +40,36 @@ class EmployerPaidBackExpensesController @Inject()(
                                                     requireData: DataRequiredAction,
                                                     formProvider: EmployerPaidBackExpensesFormProvider,
                                                     val controllerComponents: MessagesControllerComponents,
-                                                    view: EmployerPaidBackExpensesView
+                                                    view: EmployerPaidBackExpensesView,
+                                                    appConfig: FrontendAppConfig
                                                   )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
+
+  val form: Form[EmployerPaid] = formProvider()
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      val form: Form[Boolean] = formProvider()
 
       val preparedForm = request.userAnswers.employerPaidBackExpenses match {
         case None => form
         case Some(value) => form.fill(value)
       }
+
       Ok(view(preparedForm))
   }
 
   def onSubmit: Action[AnyContent] = (getData andThen requireData).async {
     implicit request =>
-      val form: Form[Boolean] = formProvider()
-
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(view(formWithErrors))),
-        value =>
-          dataCacheConnector.save[Boolean](request.sessionId, EmployerPaidBackExpensesId, value).map(cacheMap =>
+        value => {
+
+          dataCacheConnector.save[EmployerPaid](request.sessionId, EmployerPaidBackExpensesId, value).map(cacheMap =>
             Redirect(navigator.nextPage(EmployerPaidBackExpensesId)(new UserAnswers(cacheMap)))
           )
+
+        }
+
       )
   }
 }

@@ -20,7 +20,7 @@
     errorSummary: playComponents.error_summary,
     heading: playComponents.heading,
     govukDetails : GovukDetails,
-    inputYesNoRadio: playComponents.input_yes_no,
+    inputRadioOr: playComponents.input_radio_or,
     submitButton: playComponents.submit_button
 )
 
@@ -34,18 +34,16 @@
 
     @heading(messages(s"employerPaidBackExpenses.heading"))
 
-    @govukDetails(Details(
-        summary = Text(messages(s"employerPaidBackExpenses.hidden.summary")),
-        content = HtmlContent(messages(s"employerPaidBackExpenses.hidden.guidance"))
-    ))
-
     @formHelper(action = EmployerPaidBackExpensesController.onSubmit) {
 
-        @inputYesNoRadio(
+        <p class="govuk-body">@messages("employerPaidBackExpenses.info")</p>
+
+        @inputRadioOr(
             field = form("value"),
-            label = messages(s"employerPaidBackExpenses.heading"),
-            labelClass = Some("govuk-visually-hidden"),
-            headingIsLegend = false
+            legend = messages("employerPaidBackExpenses.heading"),
+            legendClass = Some("govuk-visually-hidden"),
+            inputs = EmployerPaid.options.toSeq,
+            isPageHeading = false
         )
 
         @submitButton()

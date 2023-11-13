@@ -42,8 +42,8 @@ GET        /claim-online                                controllers.ClaimOnlineC
 
 GET        /cannot-claim-expenses-paid-back             controllers.CannotClaimReliefController.onPageLoad()
 
-GET        /employer-paid-back-all-expenses             controllers.EmployerPaidBackExpensesController.onPageLoad()
-POST       /employer-paid-back-all-expenses             controllers.EmployerPaidBackExpensesController.onSubmit()
+GET        /employer-paid-back-any-expenses             controllers.EmployerPaidBackExpensesController.onPageLoad()
+POST       /employer-paid-back-any-expenses             controllers.EmployerPaidBackExpensesController.onSubmit()
 
 GET        /employer-paid-working-from-home-expenses    controllers.EmployerPaidBackWfhExpensesController.onPageLoad()
 POST       /employer-paid-working-from-home-expenses    controllers.EmployerPaidBackWfhExpensesController.onSubmit()
