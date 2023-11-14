@@ -48,9 +48,10 @@ class Navigator @Inject()() {
   }
 
   private def claimingOverPayAsYouEarnThresholdRouting(userAnswers: UserAnswers) =
-    userAnswers.claimingOverPayAsYouEarnThreshold match {
-      case Some(true)  => routes.RegisterForSelfAssessmentController.onPageLoad()
-      case Some(false) => routes.EmployerPaidBackExpensesController.onPageLoad()
+    (userAnswers.claimingOverPayAsYouEarnThreshold, userAnswers.claimAnyOtherExpense)  match {
+      case (Some(true), _)                => routes.RegisterForSelfAssessmentController.onPageLoad()
+      case (Some(false), Some(true))       => routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+      case (Some(false), _)                => routes.EmployerPaidBackExpensesController.onPageLoad()
       case _           => routes.SessionExpiredController.onPageLoad
     }
 
