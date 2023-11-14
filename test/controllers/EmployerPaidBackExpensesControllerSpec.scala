@@ -18,8 +18,7 @@ package controllers
 
 import base.SpecBase
 import connectors.DataCacheConnector
-import forms.EmployerPaidBackExpensesFormProvider
-import identifiers.{ClaimantId, EmployerPaidBackExpensesId}
+import identifiers.ClaimantId
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach

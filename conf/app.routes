@@ -42,11 +42,8 @@ GET        /claim-online                                controllers.ClaimOnlineC
 
 GET        /cannot-claim-expenses-paid-back             controllers.CannotClaimReliefController.onPageLoad()
 
-GET        /employer-paid-back-all-expenses             controllers.EmployerPaidBackExpensesController.onPageLoad()
-POST       /employer-paid-back-all-expenses             controllers.EmployerPaidBackExpensesController.onSubmit()
-
-GET        /employer-paid-working-from-home-expenses    controllers.EmployerPaidBackWfhExpensesController.onPageLoad()
-POST       /employer-paid-working-from-home-expenses    controllers.EmployerPaidBackWfhExpensesController.onSubmit()
+GET        /employer-paid-back-any-expenses             controllers.EmployerPaidBackAnyExpensesController.onPageLoad()
+POST       /employer-paid-back-any-expenses             controllers.EmployerPaidBackAnyExpensesController.onSubmit()
 
 GET        /cannot-claim-for-all-years                  controllers.CannotClaimReliefSomeYearsController.onPageLoad()
 
@@ -88,9 +85,6 @@ POST       /pay-or-will-pay-tax-in-year                 controllers.WillPayTaxCo
 GET        /change-other-expenses                       controllers.ChangeOtherExpensesController.onPageLoad()
 
 GET        /change-uniforms-work-clothing-tools         controllers.ChangeUniformsWorkClothingToolsController.onPageLoad()
-
-GET        /employer-pays-working-from-home-expenses    controllers.EmployerPaidBackWfhExpensesController.onPageLoad()
-POST       /employer-pays-working-from-home-expenses    controllers.EmployerPaidBackWfhExpensesController.onSubmit()
 
 GET        /only-claiming-working-from-home-tax-relief  controllers.ClaimAnyOtherExpenseController.redirectToHome()
 GET        /claim-any-other-expense                     controllers.ClaimAnyOtherExpenseController.onPageLoad()

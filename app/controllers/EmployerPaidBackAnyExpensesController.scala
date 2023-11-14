@@ -19,8 +19,8 @@ package controllers
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
-import forms.EmployerPaidBackWfhExpensesFormProvider
-import identifiers.EmployerPaidBackWfhExpensesId
+import forms.EmployerPaidBackAnyExpensesFormProvider
+import identifiers.EmployerPaidBackAnyExpensesId
 
 import javax.inject.Inject
 import models.EmployerPaid
@@ -29,18 +29,18 @@ import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import utils.{Enumerable, Navigator, UserAnswers}
-import views.html.EmployerPaidBackWfhExpensesView
+import views.html.EmployerPaidBackAnyExpensesView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class EmployerPaidBackWfhExpensesController @Inject()(
+class EmployerPaidBackAnyExpensesController @Inject()(
                                                        dataCacheConnector: DataCacheConnector,
                                                        navigator: Navigator,
                                                        getData: DataRetrievalAction,
                                                        requireData: DataRequiredAction,
-                                                       formProvider: EmployerPaidBackWfhExpensesFormProvider,
+                                                       formProvider: EmployerPaidBackAnyExpensesFormProvider,
                                                        val controllerComponents: MessagesControllerComponents,
-                                                       view: EmployerPaidBackWfhExpensesView,
+                                                       view: EmployerPaidBackAnyExpensesView,
                                                        appConfig: FrontendAppConfig
                                                   )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
 
@@ -49,7 +49,7 @@ class EmployerPaidBackWfhExpensesController @Inject()(
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
 
-      val preparedForm = request.userAnswers.employerPaidBackWFHExpenses match {
+      val preparedForm = request.userAnswers.employerPaidBackAnyExpenses match {
         case None => form
         case Some(value) => form.fill(value)
       }
@@ -74,8 +74,8 @@ class EmployerPaidBackWfhExpensesController @Inject()(
           Future.successful(BadRequest(view(formWithErrors, None))),
         value => {
 
-          dataCacheConnector.save[EmployerPaid](request.sessionId, EmployerPaidBackWfhExpensesId, value).map(cacheMap =>
-            Redirect(navigator.nextPage(EmployerPaidBackWfhExpensesId)(new UserAnswers(cacheMap)))
+          dataCacheConnector.save[EmployerPaid](request.sessionId, EmployerPaidBackAnyExpensesId, value).map(cacheMap =>
+            Redirect(navigator.nextPage(EmployerPaidBackAnyExpensesId)(new UserAnswers(cacheMap)))
           )
 
         }
