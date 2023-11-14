@@ -90,7 +90,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(true))
 
         navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
-          routes.WhichYearsAreYouClaimingForController.onPageLoad()
+          routes.UseSelfAssessmentController.onPageLoad()
       }
 
       "answering Yes from the RegisterForSelfAssessment view when other expenses not selected" in {
@@ -152,15 +152,15 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       }
     }
 
-    "go to the UseSelfAssessment view" when {
+    "go to the EmployerPaidBackWfhExpenses view" when {
       "answering 'Previous tax years'" in {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.claimAnyOtherExpense).thenReturn(None)
-        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
+        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(false))
         when(mockAnswers.whichYearsAreYouClaimingFor).thenReturn(Some(2))
 
         navigator.nextPage(WhichYearsAreYouClaimingForId)(mockAnswers) mustBe
-          routes.UseSelfAssessmentController.onPageLoad()
+          routes.EmployerPaidBackWfhExpensesController.onPageLoad()
       }
     }
 
@@ -185,30 +185,6 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
         navigator.nextPage(ClaimantId)(mockAnswers) mustBe
           routes.DisclaimerController.onPageLoad()
-      }
-    }
-
-    "go to the SaCheckDisclaimerCurrentYear view" when {
-      "registered for SA, claiming for the current year only and navigating from InformCustomerClaimNowInWeeks" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimAnyOtherExpense).thenReturn(None)
-        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
-        when(mockAnswers.whichYearsAreYouClaimingFor).thenReturn(Some(1))
-
-        navigator.nextPage(InformCustomerClaimNowInWeeksId)(mockAnswers) mustBe
-          routes.SaCheckDisclaimerCurrentYearController.onPageLoad()
-      }
-    }
-
-    "go to the SaCheckDisclaimerAllYears view" when {
-      "registered for SA, claiming for current and previous years and navigating from InformCustomerClaimNowInWeeks" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimAnyOtherExpense).thenReturn(None)
-        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
-        when(mockAnswers.whichYearsAreYouClaimingFor).thenReturn(Some(3))
-
-        navigator.nextPage(InformCustomerClaimNowInWeeksId)(mockAnswers) mustBe
-          routes.SaCheckDisclaimerAllYearsController.onPageLoad()
       }
     }
 
