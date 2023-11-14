@@ -160,7 +160,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.whichYearsAreYouClaimingFor).thenReturn(Some(2))
 
         navigator.nextPage(WhichYearsAreYouClaimingForId)(mockAnswers) mustBe
-          routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+          routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
       }
     }
 
