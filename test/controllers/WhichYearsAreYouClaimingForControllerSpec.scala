@@ -107,7 +107,7 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
         .withFormUrlEncodedBody("value" -> "2")
       val result = route(application, request).value
 
-      redirectLocation(result).value mustEqual onwardRoute.url + "/employer-paid-working-from-home-expenses"
+      redirectLocation(result).value mustEqual onwardRoute.url + "/more-than-2500"
 
       application.stop()
     }

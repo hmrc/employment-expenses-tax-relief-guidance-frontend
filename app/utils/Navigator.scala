@@ -48,9 +48,10 @@ class Navigator @Inject()() {
   }
 
   private def claimingOverPayAsYouEarnThresholdRouting(userAnswers: UserAnswers) =
-    userAnswers.claimingOverPayAsYouEarnThreshold match {
-      case Some(true)  => routes.RegisterForSelfAssessmentController.onPageLoad()
-      case Some(false) => routes.EmployerPaidBackExpensesController.onPageLoad()
+    (userAnswers.claimingOverPayAsYouEarnThreshold, userAnswers.claimAnyOtherExpense)  match {
+      case (Some(true), _)                => routes.RegisterForSelfAssessmentController.onPageLoad()
+      case (Some(false), Some(true))       => routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+      case (Some(false), _)                => routes.EmployerPaidBackExpensesController.onPageLoad()
       case _           => routes.SessionExpiredController.onPageLoad
     }
 
@@ -140,7 +141,7 @@ class Navigator @Inject()() {
       if(userAnswers.registeredForSelfAssessment.getOrElse(false)) {
         routes.UseSelfAssessmentController.onPageLoad()
       } else {
-        routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+        routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
       }
     case Some(3) =>
         routes.InformCustomerClaimNowInWeeksController.onPageLoad()
@@ -152,7 +153,7 @@ class Navigator @Inject()() {
       if(userAnswers.registeredForSelfAssessment.getOrElse(false)) {
         routes.SaCheckDisclaimerCurrentYearController.onPageLoad()
       } else {
-        routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+        routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
       }
     case Some(2) =>
       if(userAnswers.registeredForSelfAssessment.getOrElse(false)) {
@@ -164,7 +165,7 @@ class Navigator @Inject()() {
       if(userAnswers.registeredForSelfAssessment.getOrElse(false)) {
         routes.SaCheckDisclaimerAllYearsController.onPageLoad()
       } else {
-        routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+        routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
       }
     case _ => routes.SessionExpiredController.onPageLoad
   }
