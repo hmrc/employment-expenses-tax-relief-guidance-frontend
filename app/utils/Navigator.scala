@@ -50,7 +50,7 @@ class Navigator @Inject()() {
   private def claimingOverPayAsYouEarnThresholdRouting(userAnswers: UserAnswers) =
     userAnswers.claimingOverPayAsYouEarnThreshold match {
       case Some(true)  => routes.RegisterForSelfAssessmentController.onPageLoad()
-      case Some(false) => routes.EmployerPaidBackExpensesController.onPageLoad()
+      case Some(false) => routes.EmployerPaidBackWfhExpensesController.onPageLoad()
       case _           => routes.SessionExpiredController.onPageLoad
     }
 
@@ -60,9 +60,20 @@ class Navigator @Inject()() {
     case _           => routes.SessionExpiredController.onPageLoad
   }
 
-  private def employerPaidBackExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackExpenses match {
-    case Some(true)  => routes.CannotClaimReliefController.onPageLoad()
-    case Some(false) => userAnswers.claimingFor match {
+  private def employerPaidBackExpensesRouting(userAnswers: UserAnswers) = {
+    userAnswers.claimingFor match {
+      case Some(claimingForList) => if(claimingForList.contains(ClaimingFor.HomeWorking)) {
+        employerPaidBackWFHExpensesRouting(userAnswers)
+      } else {
+        employerPaidBackOtherExpensesRouting(userAnswers)
+      }
+      case None => routes.SessionExpiredController.onPageLoad
+  }
+  }
+
+  private def employerPaidBackOtherExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackWFHExpenses match {
+    case Some(AllExpenses)  => routes.CannotClaimReliefController.onPageLoad()
+    case Some(SomeExpenses | NoExpenses) => userAnswers.claimingFor match {
       case Some(List(ClaimingFor.MileageFuel))     => routes.UseOwnCarController.onPageLoad()
       case Some(List(ClaimingFor.BuyingEquipment)) => routes.CannotClaimBuyingEquipmentController.onPageLoad()
       case Some(_)                                 => routes.MoreThanFiveJobsController.onPageLoad()
@@ -192,7 +203,7 @@ class Navigator @Inject()() {
     ClaimingOverPayAsYouEarnThresholdId -> claimingOverPayAsYouEarnThresholdRouting,
     MoreThanFiveJobsId -> moreThanFiveJobsRouting,
     EmployerPaidBackExpensesId -> employerPaidBackExpensesRouting,
-    EmployerPaidBackWfhExpensesId -> employerPaidBackWFHExpensesRouting,
+    EmployerPaidBackWfhExpensesId -> employerPaidBackExpensesRouting,
     ClaimingMileageId -> (_ => routes.UseCompanyCarController.onPageLoad()),
     UseOwnCarId -> useOwnCarRouting,
     UseCompanyCarId -> useCompanyCarRouting,
