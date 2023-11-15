@@ -101,6 +101,4 @@ POST       /start-working-from-home-date                controllers.WfhDueToCovi
 
 GET        /not-eligible/employer-pays-working-from-home-expenses             controllers.CannotClaimWFHReliefController.onPageLoad()
 
-GET        /pay-or-will-pay-tax-in-year-status/:sessionId controllers.WfhDueToCovidStatusController.getStatusBySessionId(sessionId)
-
 GET        /disclaimer                                  controllers.DisclaimerController.onPageLoad()
