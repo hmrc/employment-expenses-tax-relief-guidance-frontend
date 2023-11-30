@@ -14,8 +14,17 @@
  * limitations under the License.
  */
 
-package identifiers
+package forms
 
-case object EmployerPaidBackWfhExpensesId extends Identifier {
-  override def toString: String = "employerPaidWfh"
+import forms.mappings.Mappings
+import javax.inject.Inject
+import models.EmployerPaid
+import play.api.data.Form
+
+class EmployerPaidBackAnyExpensesFormProvider @Inject() extends Mappings {
+
+  def apply(): Form[EmployerPaid] =
+    Form(
+      "value" -> enumerable[EmployerPaid]("employerPaidBackWfhExpenses.error.required")
+    )
 }

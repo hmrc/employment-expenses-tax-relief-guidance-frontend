@@ -122,17 +122,10 @@ cannotClaimRelief.title = Ni allwch hawlio’r treuliau hyn
 cannotClaimRelief.heading = Ni allwch hawlio’r treuliau hyn
 cannotClaimRelief.guidance = Ni allwch hawlio’r treuliau hyn oherwydd talwyd y cyfan yn ôl gan eich cyflogwr.
 
-employerPaidBackExpenses.title = A yw eich cyflogwr wedi ad-dalu’ch holl dreuliau sy’n gysylltiedig â gwaith?
-employerPaidBackExpenses.heading = A yw eich cyflogwr wedi ad-dalu’ch holl dreuliau sy’n gysylltiedig â gwaith?
-employerPaidBackExpenses.hidden.summary = Yr hyn y mae’n ei olygu os yw eich cyflogwr wedi ad-dalu’ch holl dreuliau
-employerPaidBackExpenses.hidden.guidance = Os gwnaeth eich cyflogwr ad-dalu’ch holl dreuliau sy’n gysylltiedig â gwaith, neu roi’r pethau yr ydych yn eu hawlio, ni allwch hawlio rhyddhad treth ar gyfer y treuliau hynny.
-employerPaidBackExpenses.error.required = Dewiswch ‘Iawn’ os yw eich cyflogwr wedi ad-dalu’ch holl dreuliau sy’n gysylltiedig â gwaith
-
-employerPaidBackWfhExpenses.title = A yw eich cyflogwr wedi talu unrhyw un o'ch treuliau ychwanegol am weithio gartref?
-employerPaidBackWfhExpenses.heading = A yw eich cyflogwr wedi talu unrhyw un o'ch treuliau ychwanegol am weithio gartref?
-employerPaidBackWfhExpenses.info = Os yw’ch cyflogwr eisoes wedi talu neu wedi rhoi lwfans i chi am gostau ychwanegol gweithio gartref, ni allwch hawlio rhyddhad treth ar y treuliau hyn.
-employerPaidBackWfhExpenses.error.required = Dewiswch ‘Iawn’ os yw’ch cyflogwr wedi talu’ch treuliau wrth weithio gartref
-
+employerPaidBackAnyExpenses.title = A yw’ch cyflogwr wedi talu unrhyw un o’ch costau?
+employerPaidBackAnyExpenses.heading = A yw’ch cyflogwr wedi talu unrhyw un o’ch costau?
+employerPaidBackAnyExpenses.info = Os yw’ch cyflogwr wedi talu neu wedi rhoi lwfans i chi am eich treuliau, ni allwch hawlio rhyddhad treth ar gyfer y rhain.
+employerPaidBackAnyExpenses.error.required = Dewiswch a yw’ch cyflogwr wedi talu rhai o’ch treuliau, dim un, neu bob un ohonyn nhw.
 employerPaid.noExpenses = Na, dim un o’m treuliau
 employerPaid.someExpenses = Iawn, rhai o’m treuliau
 employerPaid.allExpenses = Iawn, pob un o’m treuliau

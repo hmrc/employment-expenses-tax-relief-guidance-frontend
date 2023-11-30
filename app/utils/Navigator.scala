@@ -48,10 +48,9 @@ class Navigator @Inject()() {
   }
 
   private def claimingOverPayAsYouEarnThresholdRouting(userAnswers: UserAnswers) =
-    (userAnswers.claimingOverPayAsYouEarnThreshold, userAnswers.claimAnyOtherExpense)  match {
-      case (Some(true), _)                => routes.RegisterForSelfAssessmentController.onPageLoad()
-      case (Some(false), Some(true))       => routes.EmployerPaidBackWfhExpensesController.onPageLoad()
-      case (Some(false), _)                => routes.EmployerPaidBackExpensesController.onPageLoad()
+    userAnswers.claimingOverPayAsYouEarnThreshold match {
+      case Some(true)  => routes.RegisterForSelfAssessmentController.onPageLoad()
+      case Some(false) => routes.EmployerPaidBackAnyExpensesController.onPageLoad()
       case _           => routes.SessionExpiredController.onPageLoad
     }
 
@@ -61,9 +60,22 @@ class Navigator @Inject()() {
     case _           => routes.SessionExpiredController.onPageLoad
   }
 
-  private def employerPaidBackExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackExpenses match {
-    case Some(true)  => routes.CannotClaimReliefController.onPageLoad()
-    case Some(false) => userAnswers.claimingFor match {
+  private def employerPaidBackExpensesRouting(userAnswers: UserAnswers) = {
+    userAnswers.claimingFor match {
+      case Some(claimingForList) => if(claimingForList.contains(ClaimingFor.HomeWorking)) {
+        employerPaidBackWFHExpensesRouting(userAnswers)
+      } else {
+        employerPaidBackOtherExpensesRouting(userAnswers)
+      }
+      case _ if userAnswers.claimAnyOtherExpense.contains(true) =>
+        employerPaidBackWFHExpensesRouting(userAnswers)
+      case _ => routes.SessionExpiredController.onPageLoad
+    }
+  }
+
+  private def employerPaidBackOtherExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackAnyExpenses match {
+    case Some(AllExpenses)  => routes.CannotClaimReliefController.onPageLoad()
+    case Some(SomeExpenses | NoExpenses) => userAnswers.claimingFor match {
       case Some(List(ClaimingFor.MileageFuel))     => routes.UseOwnCarController.onPageLoad()
       case Some(List(ClaimingFor.BuyingEquipment)) => routes.CannotClaimBuyingEquipmentController.onPageLoad()
       case Some(_)                                 => routes.MoreThanFiveJobsController.onPageLoad()
@@ -72,7 +84,7 @@ class Navigator @Inject()() {
     case _ => routes.SessionExpiredController.onPageLoad
   }
 
-  private def employerPaidBackWFHExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackWFHExpenses match {
+  private def employerPaidBackWFHExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackAnyExpenses match {
     case Some(NoExpenses)   => routes.WfhDueToCovidController.onPageLoad()
     case Some(SomeExpenses) => routes.MoreThanFiveJobsController.onPageLoad()
     case Some(AllExpenses)  => routes.CannotClaimWFHReliefController.onPageLoad()
@@ -143,7 +155,7 @@ class Navigator @Inject()() {
 
   private def informCustomerClaimNowInWeeksRouting(userAnswers: UserAnswers) = userAnswers.whichYearsAreYouClaimingFor match {
     case Some(1) => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
-    case Some(2) => routes.EmployerPaidBackWfhExpensesController.onPageLoad()
+    case Some(2) => routes.EmployerPaidBackAnyExpensesController.onPageLoad()
     case Some(3) => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad
   }
@@ -170,8 +182,7 @@ class Navigator @Inject()() {
     RegisteredForSelfAssessmentId -> registeredForSelfAssessmentRouting,
     ClaimingOverPayAsYouEarnThresholdId -> claimingOverPayAsYouEarnThresholdRouting,
     MoreThanFiveJobsId -> moreThanFiveJobsRouting,
-    EmployerPaidBackExpensesId -> employerPaidBackExpensesRouting,
-    EmployerPaidBackWfhExpensesId -> employerPaidBackWFHExpensesRouting,
+    EmployerPaidBackAnyExpensesId -> employerPaidBackExpensesRouting,
     ClaimingMileageId -> (_ => routes.UseCompanyCarController.onPageLoad()),
     UseOwnCarId -> useOwnCarRouting,
     UseCompanyCarId -> useCompanyCarRouting,
@@ -180,7 +191,7 @@ class Navigator @Inject()() {
     WhichYearsAreYouClaimingForId -> whichYearsAreYouClaimingForRouting,
     InformCustomerClaimNowInWeeksId -> informCustomerClaimNowInWeeksRouting,
     WillNotPayTaxId -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
-    RegisterForSelfAssessmentId -> (_ => routes.EmployerPaidBackExpensesController.onPageLoad()),
+    RegisterForSelfAssessmentId -> (_ => routes.EmployerPaidBackAnyExpensesController.onPageLoad()),
     ChangeOtherExpensesId -> (_ => routes.ClaimantController.onPageLoad()),
     ChangeUniformsWorkClothingToolsId -> (_ => routes.ClaimantController.onPageLoad()),
     ClaimingForCurrentYearId -> claimingForCurrentYearControllerRouting,

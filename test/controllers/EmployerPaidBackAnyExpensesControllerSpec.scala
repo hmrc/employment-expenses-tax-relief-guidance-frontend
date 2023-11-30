@@ -18,8 +18,8 @@ package controllers
 
 import base.SpecBase
 import connectors.DataCacheConnector
-import forms.EmployerPaidBackWfhExpensesFormProvider
-import identifiers.{ClaimantId, EmployerPaidBackWfhExpensesId, RegisteredForSelfAssessmentId}
+import forms.EmployerPaidBackAnyExpensesFormProvider
+import identifiers.{ClaimantId, EmployerPaidBackAnyExpensesId, RegisteredForSelfAssessmentId}
 import org.mockito.Matchers.any
 import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach
@@ -35,12 +35,12 @@ import utils.{CacheMap, FakeNavigator, Navigator}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach
+class EmployerPaidBackAnyExpensesControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach
   with ScalaFutures with IntegrationPatience {
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
 
-  def employerPaidBackWFHExpensesRoute: String = routes.EmployerPaidBackWfhExpensesController.onPageLoad().url
+  def employerPaidBackWFHExpensesRoute: String = routes.EmployerPaidBackAnyExpensesController.onPageLoad().url
 
   private val mockDataCacheConnector = mock[DataCacheConnector]
   override def beforeEach(): Unit = {
@@ -48,7 +48,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
     when(mockDataCacheConnector.save(any(),any(),any())(any())) thenReturn Future(new CacheMap("id", Map()))
   }
 
-  val formProvider = new EmployerPaidBackWfhExpensesFormProvider()
+  val formProvider = new EmployerPaidBackAnyExpensesFormProvider()
   val form = formProvider()
 
   "EmployerPaidBackWFHExpenses Controller" must {
@@ -75,7 +75,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
 
     "populate the view correctly on a GET when the question has previously been answered" in {
       val validData = Map(
-        EmployerPaidBackWfhExpensesId.toString -> JsString("noExpenses"),
+        EmployerPaidBackAnyExpensesId.toString -> JsString("noExpenses"),
         ClaimantId.toString -> JsString(claimant.toString))
 
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
@@ -141,7 +141,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
 
       "ensure there no back button override when RegisteredForSelfAssessmentId is true" in {
         val validData = Map(
-          EmployerPaidBackWfhExpensesId.toString -> JsString("noExpenses"),
+          EmployerPaidBackAnyExpensesId.toString -> JsString("noExpenses"),
           RegisteredForSelfAssessmentId.toString -> JsBoolean(true),
           ClaimantId.toString -> JsString(claimant.toString))
 
@@ -156,7 +156,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
 
       "ensure there no back button override when RegisteredForSelfAssessmentId is false" in {
         val validData = Map(
-          EmployerPaidBackWfhExpensesId.toString -> JsString("noExpenses"),
+          EmployerPaidBackAnyExpensesId.toString -> JsString("noExpenses"),
           RegisteredForSelfAssessmentId.toString -> JsBoolean(false),
           ClaimantId.toString -> JsString(claimant.toString))
 
@@ -171,7 +171,7 @@ class EmployerPaidBackWfhExpensesControllerSpec extends SpecBase with MockitoSug
 
       "ensure there no back button override when RegisteredForSelfAssessmentId is missing" in {
         val validData = Map(
-          EmployerPaidBackWfhExpensesId.toString -> JsString("noExpenses"),
+          EmployerPaidBackAnyExpensesId.toString -> JsString("noExpenses"),
           ClaimantId.toString -> JsString(claimant.toString))
 
         val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()

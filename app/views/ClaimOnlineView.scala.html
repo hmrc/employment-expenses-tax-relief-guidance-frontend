@@ -24,19 +24,14 @@
     govukInsetText : GovukInsetText,
     appConfig: FrontendAppConfig
 )
-@(onwardJourney: OnwardJourney, sessionId: Option[String], isSaUser: Boolean = false)(implicit request: Request[_], messages: Messages)
+@(onwardJourney: OnwardJourney)(implicit request: Request[_], messages: Messages)
 
 @href = @{
     onwardJourney match {
         case OnwardJourney.FixedRateExpenses => appConfig.employeeExpensesUrl
         case OnwardJourney.ProfessionalSubscriptions => appConfig.professionalSubscriptionsUrl
         case OnwardJourney.IForm => appConfig.employeeExpensesClaimOnlineUrl
-        case OnwardJourney.WorkingFromHomeExpensesOnly => {
-            sessionId match {
-                case Some(value) => if(isSaUser) {s"${appConfig.workingFromHomeExpensesUrl}?eligibilityCheckerSessionId=$value"} else appConfig.workingFromHomeExpensesUrl
-                case None => appConfig.workingFromHomeExpensesUrl
-            }
-        }
+        case OnwardJourney.WorkingFromHomeExpensesOnly => appConfig.workingFromHomeExpensesUrl
     }
 }
 

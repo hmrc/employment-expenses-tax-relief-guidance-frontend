@@ -20,9 +20,9 @@ import forms.behaviours.OptionFieldBehaviours
 import models.EmployerPaid
 import play.api.data.FormError
 
-class EmployerPaidBackWfhExpensesFormProviderSpec extends OptionFieldBehaviours {
+class EmployerPaidBackAnyExpensesFormProviderSpec extends OptionFieldBehaviours {
 
-  val form = new EmployerPaidBackWfhExpensesFormProvider()()
+  val form = new EmployerPaidBackAnyExpensesFormProvider()()
 
   ".value" must {
 

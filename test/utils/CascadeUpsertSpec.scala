@@ -75,7 +75,7 @@ class CascadeUpsertSpec extends SpecBase {
       PaidTaxInRelevantYearId.toString             -> JsBoolean(true),
       RegisteredForSelfAssessmentId.toString       -> JsBoolean(false),
       ClaimingOverPayAsYouEarnThresholdId.toString -> JsBoolean(false),
-      EmployerPaidBackExpensesId.toString          -> JsBoolean(false),
+      EmployerPaidBackAnyExpensesId.toString       -> JsBoolean(false),
       UseOwnCarId.toString                         -> JsBoolean(true),
       ClaimingMileageId.toString                   -> JsBoolean(true),
       UseCompanyCarId.toString                     -> JsBoolean(true),
@@ -161,9 +161,9 @@ class CascadeUpsertSpec extends SpecBase {
       }
     }
 
-    "the answer for EmployerPaidBackExpenses is changed" must {
+    "the answer for EmployerPaidBackAnyExpenses is changed" must {
       "delete data for all later screens" in {
-        val result = cascadeUpsert(EmployerPaidBackExpensesId, true, fullCacheMap)
+        val result = cascadeUpsert(EmployerPaidBackAnyExpensesId, true, fullCacheMap)
         result.data.keySet mustEqual
           Set(
             ClaimingForId.toString,
@@ -173,7 +173,7 @@ class CascadeUpsertSpec extends SpecBase {
             PaidTaxInRelevantYearId.toString,
             RegisteredForSelfAssessmentId.toString,
             ClaimingOverPayAsYouEarnThresholdId.toString,
-            EmployerPaidBackExpensesId.toString
+            EmployerPaidBackAnyExpensesId.toString
           )
       }
     }
@@ -190,7 +190,7 @@ class CascadeUpsertSpec extends SpecBase {
             PaidTaxInRelevantYearId.toString,
             RegisteredForSelfAssessmentId.toString,
             ClaimingOverPayAsYouEarnThresholdId.toString,
-            EmployerPaidBackExpensesId.toString,
+            EmployerPaidBackAnyExpensesId.toString,
             UseOwnCarId.toString
           )
       }
@@ -208,7 +208,7 @@ class CascadeUpsertSpec extends SpecBase {
             PaidTaxInRelevantYearId.toString,
             RegisteredForSelfAssessmentId.toString,
             ClaimingOverPayAsYouEarnThresholdId.toString,
-            EmployerPaidBackExpensesId.toString,
+            EmployerPaidBackAnyExpensesId.toString,
             UseOwnCarId.toString,
             ClaimingMileageId.toString
           )
@@ -227,7 +227,7 @@ class CascadeUpsertSpec extends SpecBase {
             PaidTaxInRelevantYearId.toString,
             RegisteredForSelfAssessmentId.toString,
             ClaimingOverPayAsYouEarnThresholdId.toString,
-            EmployerPaidBackExpensesId.toString,
+            EmployerPaidBackAnyExpensesId.toString,
             UseOwnCarId.toString,
             ClaimingMileageId.toString,
             UseCompanyCarId.toString
@@ -247,7 +247,7 @@ class CascadeUpsertSpec extends SpecBase {
             PaidTaxInRelevantYearId.toString,
             RegisteredForSelfAssessmentId.toString,
             ClaimingOverPayAsYouEarnThresholdId.toString,
-            EmployerPaidBackExpensesId.toString,
+            EmployerPaidBackAnyExpensesId.toString,
             UseOwnCarId.toString,
             ClaimingMileageId.toString,
             UseCompanyCarId.toString,
