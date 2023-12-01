@@ -125,16 +125,10 @@ cannotClaimRelief.title = You cannot claim these expenses
 cannotClaimRelief.heading = You cannot claim these expenses
 cannotClaimRelief.guidance = You cannot claim these expenses because they have all been paid back by your employer.
 
-employerPaidBackExpenses.title = Has your employer paid back all your work‑related expenses?
-employerPaidBackExpenses.heading = Has your employer paid back all your work‑related expenses?
-employerPaidBackExpenses.hidden.summary = What it means if they paid all your expenses
-employerPaidBackExpenses.hidden.guidance = If your employer paid back all your work‑related expenses or provided the things you are claiming for, you cannot claim tax relief for these expenses.
-employerPaidBackExpenses.error.required = Select yes if your employer has paid back all your work‑related expenses
-
-employerPaidBackWfhExpenses.title = Has your employer paid any of your extra expenses for working from home?
-employerPaidBackWfhExpenses.heading = Has your employer paid any of your extra expenses for working from home?
-employerPaidBackWfhExpenses.info = If your employer has already paid or given you an allowance for the extra costs of working from home, you cannot claim tax relief on these expenses.
-employerPaidBackWfhExpenses.error.required = Select yes if your employer has paid your expenses for working from home
+employerPaidBackAnyExpenses.title = Has your employer paid any of your expenses?
+employerPaidBackAnyExpenses.heading = Has your employer paid any of your expenses?
+employerPaidBackAnyExpenses.info = If your employer has paid or given you an allowance for your expenses, you cannot claim tax relief for these.
+employerPaidBackAnyExpenses.error.required = Select if your employer has paid none, some, or all of your expenses.
 employerPaid.noExpenses = No, none of my expenses
 employerPaid.someExpenses = Yes, some of my expenses
 employerPaid.allExpenses = Yes, all of my expenses

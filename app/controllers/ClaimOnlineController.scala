@@ -17,8 +17,9 @@
 package controllers
 
 import controllers.actions._
+
 import javax.inject.Inject
-import models.ClaimingFor.{FeesSubscriptions, UniformsClothingTools}
+import models.ClaimingFor._
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
@@ -34,38 +35,18 @@ class ClaimOnlineController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
+      def wfhRouting = if (request.userAnswers.covidHomeWorking.getOrElse(false)) {
+        Ok(view(OnwardJourney.WorkingFromHomeExpensesOnly))
+      } else {
+        Ok(view(OnwardJourney.IForm))
+      }
 
-      val eligibilityCheckerSessionId = hc.sessionId.get.value
-      val isSaUser: Option[Boolean] = request.userAnswers.registeredForSelfAssessment
-
-      request.userAnswers.covidHomeWorking match {
-
-        case Some(true) =>
-          if(request.userAnswers.claimAnyOtherExpense.getOrElse(false)) {
-            Ok(view(OnwardJourney.WorkingFromHomeExpensesOnly, Some(eligibilityCheckerSessionId), isSaUser.getOrElse(false)))
-          }else {
-            Ok(view(OnwardJourney.WorkingFromHomeExpensesOnly, None, isSaUser.getOrElse(false)))
-          }
-        case Some(false) => Ok(view(OnwardJourney.IForm, None))
-        case _ =>
-
-          request.userAnswers.claimingFor match {
-            case Some(claiming) =>
-              val onwardJourney =
-                if (claiming.forall(_ == UniformsClothingTools)) OnwardJourney.FixedRateExpenses
-                else if (claiming.forall(_ == FeesSubscriptions)) OnwardJourney.ProfessionalSubscriptions
-                else OnwardJourney.IForm
-
-              Ok(view(onwardJourney, None))
-
-            case _ =>
-              request.userAnswers.claimAnyOtherExpense match {
-                case Some(_) =>
-                  val onwardJourney = OnwardJourney.IForm
-                  Ok(view(onwardJourney, Some(eligibilityCheckerSessionId)))
-                case _ => Redirect(routes.SessionExpiredController.onPageLoad)
-              }
-          }
+      request.userAnswers.claimingFor match {
+        case Some(List(UniformsClothingTools)) => Ok(view(OnwardJourney.FixedRateExpenses))
+        case Some(List(FeesSubscriptions)) => Ok(view(OnwardJourney.ProfessionalSubscriptions))
+        case Some(List(HomeWorking)) => wfhRouting
+        case _ if request.userAnswers.claimAnyOtherExpense.contains(true) => wfhRouting
+        case _ => Ok(view(OnwardJourney.IForm))
       }
   }
 }

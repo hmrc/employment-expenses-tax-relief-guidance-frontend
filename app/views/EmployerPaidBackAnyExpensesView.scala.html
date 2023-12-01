@@ -14,41 +14,39 @@
  * limitations under the License.
  *@
 
+@import models.EmployerPaid
+
 @this(
     layout: Layout,
     formHelper: uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF,
     errorSummary: playComponents.error_summary,
     heading: playComponents.heading,
-    govukDetails : GovukDetails,
-    inputYesNoRadio: playComponents.input_yes_no,
+    inputRadioOr: playComponents.input_radio_or,
     submitButton: playComponents.submit_button
 )
 
-@(form: Form[_])(implicit request: Request[_], messages: Messages)
+@(form: Form[_], backButtonOverride: Option[String])(implicit request: Request[_], messages: Messages)
 
 @layout(
-    pageTitle = s"${errorPrefix(form)} ${messages(s"employerPaidBackExpenses.title")}"
+    pageTitle = s"${errorPrefix(form)} ${messages(s"employerPaidBackAnyExpenses.title")}"
 ) {
 
-    @errorSummary(form.errors)
+    @formHelper(action = EmployerPaidBackAnyExpensesController.onSubmit(), 'autoComplete -> "off") {
 
-    @heading(messages(s"employerPaidBackExpenses.heading"))
+        @errorSummary(form.errors, Some("employerPaid.noExpenses"))
 
-    @govukDetails(Details(
-        summary = Text(messages(s"employerPaidBackExpenses.hidden.summary")),
-        content = HtmlContent(messages(s"employerPaidBackExpenses.hidden.guidance"))
-    ))
+        @heading(messages(s"employerPaidBackAnyExpenses.heading"))
 
-    @formHelper(action = EmployerPaidBackExpensesController.onSubmit) {
+        <p class="govuk-body">@messages("employerPaidBackAnyExpenses.info")</p>
 
-        @inputYesNoRadio(
+        @inputRadioOr(
             field = form("value"),
-            label = messages(s"employerPaidBackExpenses.heading"),
-            labelClass = Some("govuk-visually-hidden"),
-            headingIsLegend = false
+            legend = messages("employerPaidBackAnyExpenses.heading"),
+            legendClass = Some("govuk-visually-hidden"),
+            inputs = EmployerPaid.options.toSeq,
+            isPageHeading = false
         )
 
         @submitButton()
     }
-
 }

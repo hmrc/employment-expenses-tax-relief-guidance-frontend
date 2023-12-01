@@ -16,25 +16,25 @@
 
 package views
 
-import forms.EmployerPaidBackWfhExpensesFormProvider
+import forms.EmployerPaidBackAnyExpensesFormProvider
 import play.api.data.Form
 import play.twirl.api.Html
 import views.behaviours.NewViewBehaviours
-import views.html.EmployerPaidBackWfhExpensesView
+import views.html.EmployerPaidBackAnyExpensesView
 
-class EmployerPaidBackWfhExpensesViewSpec extends NewViewBehaviours {
+class EmployerPaidBackAnyExpensesViewSpec extends NewViewBehaviours {
 
-  val messageKeyPrefix = s"employerPaidBackWfhExpenses"
+  val messageKeyPrefix = s"employerPaidBackAnyExpenses"
 
   val application = applicationBuilder().build()
 
-  val view = application.injector.instanceOf[EmployerPaidBackWfhExpensesView]
+  val view = application.injector.instanceOf[EmployerPaidBackAnyExpensesView]
 
-  val form = new EmployerPaidBackWfhExpensesFormProvider()()
+  val form = new EmployerPaidBackAnyExpensesFormProvider()()
 
   def createView(form: Form[_]): Html = view.apply(form, None)(fakeRequest, messages)
 
-  "EmployerPaidBackWFHExpenses view" must {
+  "EmployerPaidBackAnyExpenses view" must {
 
     behave like normalPage(createView(form), messageKeyPrefix)
     behave like pageWithBackLink(createView(form))

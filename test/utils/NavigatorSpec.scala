@@ -17,14 +17,14 @@
 package utils
 
 import base.SpecBase
-import org.mockito.Mockito._
-import org.scalatestplus.mockito.MockitoSugar
 import controllers.routes
 import identifiers._
-import models.{Claimant, ClaimingFor}
-import models.Claimant.{SomeoneElse, You}
+import models.Claimant.You
 import models.ClaimingFor.BuyingEquipment
-import models.EmployerPaid.NoExpenses
+import models.EmployerPaid.{NoExpenses, SomeExpenses}
+import models.{Claimant, ClaimingFor, EmployerPaid}
+import org.mockito.Mockito._
+import org.scalatestplus.mockito.MockitoSugar
 
 class NavigatorSpec extends SpecBase with MockitoSugar {
 
@@ -275,14 +275,14 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimingOverPayAsYouEarnThreshold).thenReturn(Some(false))
 
         navigator.nextPage(ClaimingOverPayAsYouEarnThresholdId)(mockAnswers) mustBe
-          routes.EmployerPaidBackExpensesController.onPageLoad()
+          routes.EmployerPaidBackAnyExpensesController.onPageLoad()
       }
 
       "navigating from the RegisterForSelfAssessment view" in {
         val mockAnswers = mock[UserAnswers]
 
         navigator.nextPage(RegisterForSelfAssessmentId)(mockAnswers) mustBe
-          routes.EmployerPaidBackExpensesController.onPageLoad()
+          routes.EmployerPaidBackAnyExpensesController.onPageLoad()
       }
     }
 
@@ -317,40 +317,47 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
     }
 
     "go to CannotClaimRelief view" when {
-      "answering Yes from the EmployerPaidBackExpenses view" in {
+      "answering Yes all the expenses from the EmployerPaidBackAnyExpenses view" in {
         val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.employerPaidBackExpenses).thenReturn(Some(true))
-        when(mockAnswers.claimant).thenReturn(Some(You))
+        when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(EmployerPaid.AllExpenses))
+        when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.MileageFuel)))
 
-        navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
+        navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
           routes.CannotClaimReliefController.onPageLoad()
       }
 
-      "answering Yes from the EmployerPaidBackExpenses view" when {
+      "answering Yes all expenses from the EmployerPaidBackAnyExpenses view" when {
         "claiming for working from home only expenses" in {
           val mockAnswers = mock[UserAnswers]
-          when(mockAnswers.employerPaidBackExpenses).thenReturn(Some(true))
-          when(mockAnswers.claimant).thenReturn(Some(You))
-          when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(true))
+          when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(EmployerPaid.AllExpenses))
+          when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.HomeWorking)))
 
-          navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
-            routes.CannotClaimReliefController.onPageLoad()
+          navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
+            routes.CannotClaimWFHReliefController.onPageLoad()
         }
       }
     }
 
     "go to the CovidHomeWorkingController view" when {
-      "answering No from the EmployerPaidBackExpenses view" when {
+      "answering No from the EmployerPaidBackAnyExpenses view" when {
         "claiming for working from home only expenses" in {
           val mockAnswers = mock[UserAnswers]
-          when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(true))
-          when(mockAnswers.employerPaidBackWFHExpenses).thenReturn(Some(NoExpenses))
+          when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.HomeWorking)))
+          when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(NoExpenses))
 
-          navigator.nextPage(EmployerPaidBackWfhExpensesId)(mockAnswers) mustBe
+          navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
             routes.WfhDueToCovidController.onPageLoad()
         }
       }
-      "answering Working from Home from the ClaimingFor view and the claimant is You" in {
+      "answering Yes some of my expenses from the EmployerPaidBackAnyExpenses view" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.HomeWorking)))
+        when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(SomeExpenses))
+
+        navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
+          routes.MoreThanFiveJobsController.onPageLoad()
+      }
+       "answering Working from Home from the ClaimingFor view and the claimant is You" in {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.claimingFor).thenReturn(Some(ClaimingFor.HomeWorking :: Nil))
 
@@ -366,9 +373,9 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.FeesSubscriptions)))
         when(mockAnswers.claimant).thenReturn(Some(You))
-        when(mockAnswers.employerPaidBackExpenses).thenReturn(Some(false))
+        when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(employerPaid))
 
-        navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
+        navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
           routes.MoreThanFiveJobsController.onPageLoad()
       }
 
@@ -380,9 +387,9 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
             ClaimingFor.BuyingEquipment))
           )
         when(mockAnswers.claimant).thenReturn(Some(You))
-        when(mockAnswers.employerPaidBackExpenses).thenReturn(Some(false))
+        when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(employerPaid))
 
-        navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
+        navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
           routes.MoreThanFiveJobsController.onPageLoad()
       }
 
@@ -448,9 +455,9 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.MileageFuel)))
         when(mockAnswers.claimant).thenReturn(Some(You))
-        when(mockAnswers.employerPaidBackExpenses).thenReturn(Some(false))
+        when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(employerPaid))
 
-        navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
+        navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
           routes.UseOwnCarController.onPageLoad()
       }
     }
@@ -542,9 +549,9 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.claimant).thenReturn(Some(You))
         when(mockAnswers.claimingFor).thenReturn(Some(List(BuyingEquipment)))
-        when(mockAnswers.employerPaidBackExpenses).thenReturn(Some(false))
+        when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(employerPaid))
 
-        navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
+        navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
           routes.CannotClaimBuyingEquipmentController.onPageLoad()
       }
     }
@@ -599,8 +606,8 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
             routes.SessionExpiredController.onPageLoad
         }
 
-        "no data from EmployerPaidBackExpenses" in {
-          navigator.nextPage(EmployerPaidBackExpensesId)(mockAnswers) mustBe
+        "no data from EmployerPaidBackAnyExpenses" in {
+          navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
             routes.SessionExpiredController.onPageLoad
         }
 
