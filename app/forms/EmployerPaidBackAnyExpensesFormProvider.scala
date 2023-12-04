@@ -25,6 +25,6 @@ class EmployerPaidBackAnyExpensesFormProvider @Inject() extends Mappings {
 
   def apply(): Form[EmployerPaid] =
     Form(
-      "value" -> enumerable[EmployerPaid]("employerPaidBackWfhExpenses.error.required")
+      "value" -> enumerable[EmployerPaid]("employerPaidBackAnyExpenses.error.required")
     )
 }

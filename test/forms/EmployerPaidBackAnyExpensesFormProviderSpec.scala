@@ -27,7 +27,7 @@ class EmployerPaidBackAnyExpensesFormProviderSpec extends OptionFieldBehaviours 
   ".value" must {
 
     val fieldName = "value"
-    val requiredKey = "employerPaidBackWfhExpenses.error.required"
+    val requiredKey = "employerPaidBackAnyExpenses.error.required"
 
     behave like optionsField[EmployerPaid](
       form,
