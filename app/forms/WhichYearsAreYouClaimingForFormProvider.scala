@@ -23,8 +23,8 @@ import javax.inject.Inject
 
 class WhichYearsAreYouClaimingForFormProvider @Inject() extends Mappings {
 
-  def apply(): Form[Int] =
+  def apply(): Form[Boolean] =
     Form(
-      "value" -> int(s"whichYearsAreYouClaimingFor.error.required")
+      "value" -> boolean(s"whichYearsAreYouClaimingFor.error.required")
     )
 }

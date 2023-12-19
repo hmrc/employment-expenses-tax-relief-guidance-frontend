@@ -147,16 +147,14 @@ class Navigator @Inject()() {
   }
 
   private def whichYearsAreYouClaimingForRouting(userAnswers: UserAnswers) = userAnswers.whichYearsAreYouClaimingFor match {
-    case Some(1) => routes.InformCustomerClaimNowInWeeksController.onPageLoad()
-    case Some(2) => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
-    case Some(3) => routes.InformCustomerClaimNowInWeeksController.onPageLoad()
+    case Some(true) => routes.InformCustomerClaimNowInWeeksController.onPageLoad()
+    case Some(false) => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad
   }
 
   private def informCustomerClaimNowInWeeksRouting(userAnswers: UserAnswers) = userAnswers.whichYearsAreYouClaimingFor match {
-    case Some(1) => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
-    case Some(2) => routes.EmployerPaidBackAnyExpensesController.onPageLoad()
-    case Some(3) => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
+    case Some(true) => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
+    case Some(false) => routes.EmployerPaidBackAnyExpensesController.onPageLoad()
     case _ => routes.SessionExpiredController.onPageLoad
   }
 

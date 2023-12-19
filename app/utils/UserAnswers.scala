@@ -50,6 +50,6 @@ class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
 
   def claimingForCurrentYear: Option[Boolean] = cacheMap.getEntry[Boolean](ClaimingForCurrentYearId.toString)
 
-  def whichYearsAreYouClaimingFor: Option[Int] = cacheMap.getEntry[Int](WhichYearsAreYouClaimingForId.toString)
+  def whichYearsAreYouClaimingFor: Option[Boolean] = cacheMap.getEntry[Boolean](WhichYearsAreYouClaimingForId.toString)
 
 }

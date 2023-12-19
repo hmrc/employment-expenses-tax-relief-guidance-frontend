@@ -16,12 +16,13 @@
 
 package views
 
+import controllers.routes
 import forms.WhichYearsAreYouClaimingForFormProvider
 import play.api.data.Form
-import views.behaviours.RadioOptionViewBehaviours
+import views.behaviours.NewYesNoViewBehaviours
 import views.html.WhichYearsAreYouClaimingForView
 
-class WhichYearsAreYouClaimingForViewSpec extends RadioOptionViewBehaviours {
+class WhichYearsAreYouClaimingForViewSpec extends NewYesNoViewBehaviours {
 
   val messageKeyPrefix = s"whichYearsAreYouClaimingFor"
 
@@ -29,16 +30,14 @@ class WhichYearsAreYouClaimingForViewSpec extends RadioOptionViewBehaviours {
 
   val view = application.injector.instanceOf[WhichYearsAreYouClaimingForView]
 
-  val form: Form[Int] = new WhichYearsAreYouClaimingForFormProvider()()
+  val form: Form[Boolean] = new WhichYearsAreYouClaimingForFormProvider()()
 
   def createView(form: Form[_]) = view.apply(form)(fakeRequest, messages)
-
-  val numberOfOptions: Int = 3
 
   "WhichYearsAreYouClaimingFor view" must {
 
       behave like normalPage(createView(form), messageKeyPrefix)
-      behave like radioOptionPage(createView(_), messageKeyPrefix)
+      behave like yesNoPage(createView(_), messageKeyPrefix, routes.WhichYearsAreYouClaimingForController.onSubmit().url)
       behave like pageWithBackLink(createView(form))
     }
 

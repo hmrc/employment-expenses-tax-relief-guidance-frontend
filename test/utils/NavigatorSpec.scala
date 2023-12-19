@@ -141,11 +141,11 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
     }
 
     "go to the InformCustomerClaimNowInWeeks view" when {
-      "answering 'Just the current tax year 2021-2022'" in {
+      "answering 'yes' to which years" in {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.claimAnyOtherExpense).thenReturn(None)
         when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
-        when(mockAnswers.whichYearsAreYouClaimingFor).thenReturn(Some(1))
+        when(mockAnswers.whichYearsAreYouClaimingFor).thenReturn(Some(true))
 
         navigator.nextPage(WhichYearsAreYouClaimingForId)(mockAnswers) mustBe
           routes.InformCustomerClaimNowInWeeksController.onPageLoad()
@@ -153,26 +153,14 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
     }
 
     "go to the EmployerPaidBackWfhExpenses view" when {
-      "answering 'Previous tax years'" in {
+      "answering 'no' to which years" in {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.claimAnyOtherExpense).thenReturn(None)
         when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(false))
-        when(mockAnswers.whichYearsAreYouClaimingFor).thenReturn(Some(2))
+        when(mockAnswers.whichYearsAreYouClaimingFor).thenReturn(Some(false))
 
         navigator.nextPage(WhichYearsAreYouClaimingForId)(mockAnswers) mustBe
           routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
-      }
-    }
-
-    "go to the InformCustomerClaimNowInWeeks view" when {
-      "answering 'Both the current tax year and previous year'" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimAnyOtherExpense).thenReturn(None)
-        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
-        when(mockAnswers.whichYearsAreYouClaimingFor).thenReturn(Some(3))
-
-        navigator.nextPage(WhichYearsAreYouClaimingForId)(mockAnswers) mustBe
-          routes.InformCustomerClaimNowInWeeksController.onPageLoad()
       }
     }
 

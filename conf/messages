@@ -252,18 +252,9 @@ claimingForCurrentYear.yes.text = You can claim tax relief for your working from
 claimingForCurrentYear.no.text = If you want to claim tax relief for previous years, you need to claim it on your Self Assessment tax return.
 claimingForCurrentYear.error.required = Select yes if you are only claiming for the current tax year 2022-2023
 
-whichYearsAreYouClaimingFor.title = Which years are you claiming tax relief for as a result of working from home?
-whichYearsAreYouClaimingFor.heading = Which years are you claiming tax relief for as a result of working from home?
-whichYearsAreYouClaimingFor.bannerGuidance.title = Guidance has changed for the new tax year
-whichYearsAreYouClaimingFor.bannerGuidance.content = The guidance for claiming tax relief for working from home has changed for expenses on or after 6 April 2022.
-whichYearsAreYouClaimingFor.current.tax.year.text = Just the current tax year {0}-{1}
-whichYearsAreYouClaimingFor.current.tax.year.info.text = You can claim tax relief for the current tax year using this service. You can do this before you send your Self Assessment tax return next year.
-whichYearsAreYouClaimingFor.previous.tax.year.text = Previous tax years
-whichYearsAreYouClaimingFor.previous.tax.year.info.text = If you want to claim tax relief for previous years, you will need to claim it on your Self Assessment tax return.
-whichYearsAreYouClaimingFor.both.tax.years.text = Both the current tax year and previous years
-whichYearsAreYouClaimingFor.both.tax.years.info.text.1 = You can claim tax relief for the current tax year using this service.
-whichYearsAreYouClaimingFor.both.tax.years.info.text.2 = If you want to claim tax relief for previous years, you will need to claim it on your Self Assessment tax return.
-whichYearsAreYouClaimingFor.error.required = Select which years you are claiming tax relief for
+whichYearsAreYouClaimingFor.title = Does your claim include tax years on or after 6 April 2023?
+whichYearsAreYouClaimingFor.heading = Does your claim include tax years on or after 6 April 2023?
+whichYearsAreYouClaimingFor.error.required = Select yes if your claim includes tax years on or after 6 April 2023
 
 saCheckDisclaimerCurrentYear.title = Check the following before continuing
 saCheckDisclaimerCurrentYear.heading = Check the following before continuing

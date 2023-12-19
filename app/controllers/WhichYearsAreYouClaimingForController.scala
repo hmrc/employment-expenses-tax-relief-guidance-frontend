@@ -43,7 +43,7 @@ class WhichYearsAreYouClaimingForController @Inject()(
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
 
-      val form: Form[Int] = formProvider()
+      val form: Form[Boolean] = formProvider()
 
       val preparedForm = request.userAnswers.whichYearsAreYouClaimingFor match {
         case None => form
@@ -55,13 +55,13 @@ class WhichYearsAreYouClaimingForController @Inject()(
   def onSubmit: Action[AnyContent] = (getData andThen requireData).async {
     implicit request =>
 
-      val form: Form[Int] = formProvider()
+      val form: Form[Boolean] = formProvider()
 
       form.bindFromRequest().fold(
         (formWithErrors: Form[_]) =>
           Future.successful(BadRequest(view(formWithErrors))),
         value =>
-          dataCacheConnector.save[Int](request.sessionId, WhichYearsAreYouClaimingForId, value).map(cacheMap =>
+          dataCacheConnector.save[Boolean](request.sessionId, WhichYearsAreYouClaimingForId, value).map(cacheMap =>
             Redirect(navigator.nextPage(WhichYearsAreYouClaimingForId)(new UserAnswers(cacheMap)))
           )
       )
