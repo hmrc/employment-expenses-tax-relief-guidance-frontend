@@ -19,56 +19,23 @@
 
 @this(
     layout: Layout,
-    heading: playComponents.heading,
     formHelper: uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF,
-    inputRadio: playComponents.input_radio,
+    inputYesNo: playComponents.input_yes_no,
     submitButton: playComponents.submit_button,
     errorSummary: playComponents.error_summary
 )
 
 @(form: Form[_])(implicit request: Request[_], messages: Messages)
 
-@currentTaxYearHtml = {
-    <p class="govuk-body">@messages(s"whichYearsAreYouClaimingFor.current.tax.year.info.text")</p>
-}
-
-@previousTaxYearHtml = {
-    <p class="govuk-body">@messages(s"whichYearsAreYouClaimingFor.previous.tax.year.info.text")</p>
-}
-
-@bothTaxYearHtml = {
-    <p class="govuk-body">@messages(s"whichYearsAreYouClaimingFor.both.tax.years.info.text.1")</p>
-    <p class="govuk-body">@messages(s"whichYearsAreYouClaimingFor.both.tax.years.info.text.2")</p>
-}
-
 @layout(
     pageTitle = s"${errorPrefix(form)} ${messages(s"whichYearsAreYouClaimingFor.title")}"
 ) {
     @errorSummary(form.errors)
 
-    @heading(messages(s"whichYearsAreYouClaimingFor.heading"))
-
     @formHelper(action = WhichYearsAreYouClaimingForController.onSubmit(), 'autoComplete -> "off") {
-        @inputRadio(
+        @inputYesNo(
             field = form("value"),
-            legend = messages(s"whichYearsAreYouClaimingFor.heading"),
-            legendClass = Some("govuk-visually-hidden"),
-            isPageHeading = false,
-            items = Seq(
-                RadioItem(
-                    content = Text(messages("whichYearsAreYouClaimingFor.current.tax.year.text",
-                                TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)),
-                    value = Some("1"),
-                ),
-                RadioItem(
-                    content = Text(messages("whichYearsAreYouClaimingFor.previous.tax.year.text")),
-                    value = Some("2"),
-                ),
-                RadioItem(
-                    content = Text(messages("whichYearsAreYouClaimingFor.both.tax.years.text")),
-                    value = Some("3"),
-                )
-            )
+            label = messages(s"whichYearsAreYouClaimingFor.heading")
         )
         @submitButton()
     }

@@ -77,19 +77,19 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
       val request = FakeRequest(GET, whichYearsAreYouClaimingForRoute)
       val result = route(application, request).value
-      contentAsString(result).contains("Which years are you claiming tax relief for as a result of working from home?") mustBe true
+      contentAsString(result).contains("Does your claim include tax years on or after 6 April 2023?") mustBe true
 
       application.stop()
     }
 
-    "redirect to the next page when valid data is submitted - just the current tax year 2021-2022" in {
+    "redirect to the next page when valid data is submitted - yes" in {
 
       val validData = Map(ClaimantId.toString -> JsString(claimant.toString))
 
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
 
       val request = FakeRequest(POST, whichYearsAreYouClaimingForRoute)
-        .withFormUrlEncodedBody("value" -> "1")
+        .withFormUrlEncodedBody("value" -> "true")
       val result = route(application, request).value
 
       redirectLocation(result).value mustEqual onwardRoute.url + "/inform-customer-claim-now-in-weeks"
@@ -97,32 +97,17 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
       application.stop()
     }
 
-    "redirect to the next page when valid data is submitted - previous tax years" in {
+    "redirect to the next page when valid data is submitted - no" in {
 
       val validData = Map(ClaimantId.toString -> JsString(claimant.toString))
 
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
 
       val request = FakeRequest(POST, whichYearsAreYouClaimingForRoute)
-        .withFormUrlEncodedBody("value" -> "2")
+        .withFormUrlEncodedBody("value" -> "false")
       val result = route(application, request).value
 
       redirectLocation(result).value mustEqual onwardRoute.url + "/more-than-2500"
-
-      application.stop()
-    }
-
-    "redirect to the next page when valid data is submitted - both the current tax year and previous years" in {
-
-      val validData = Map(ClaimantId.toString -> JsString(claimant.toString))
-
-      val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
-
-      val request = FakeRequest(POST, whichYearsAreYouClaimingForRoute)
-        .withFormUrlEncodedBody("value" -> "3")
-      val result = route(application, request).value
-
-      redirectLocation(result).value mustEqual onwardRoute.url + "/inform-customer-claim-now-in-weeks"
 
       application.stop()
     }

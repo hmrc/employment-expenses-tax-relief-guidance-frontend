@@ -249,18 +249,9 @@ claimingForCurrentYear.yes.text = Gallwch hawlio rhyddhad treth ar gyfer eich tr
 claimingForCurrentYear.no.text = Os hoffech hawlio rhyddhad treth ar gyfer blynyddoedd blaenorol, mae angen i chi ei hawlio ar eich Ffurflen Dreth Hunanasesiad.
 claimingForCurrentYear.error.required = Dewiswch ‘Iawn’ os ydych ond yn hawlio ar gyfer y flwyddyn dreth bresennol 2022-2023
 
-whichYearsAreYouClaimingFor.title = Pa flynyddoedd yr ydych yn hawlio rhyddhad treth ar eu cyfer o ganlyniad i weithio gartref?
-whichYearsAreYouClaimingFor.heading = Pa flynyddoedd yr ydych yn hawlio rhyddhad treth ar eu cyfer o ganlyniad i weithio gartref?
-whichYearsAreYouClaimingFor.bannerGuidance.title = Mae’r arweiniad wedi newid ar gyfer y flwyddyn dreth newydd
-whichYearsAreYouClaimingFor.bannerGuidance.content = Mae’r arweiniad ar gyfer hawlio rhyddhad treth am weithio gartref wedi newid ar gyfer costau ar neu ar ôl 6 Ebrill 2022.
-whichYearsAreYouClaimingFor.current.tax.year.text = Dim ond y flwyddyn dreth bresennol, sef {0}-{1}
-whichYearsAreYouClaimingFor.current.tax.year.info.text = Gallwch hawlio rhyddhad treth ar gyfer y flwyddyn dreth bresennol gan ddefnyddio’r gwasanaeth hwn. Gallwch wneud hyn cyn i chi anfon eich Ffurflen Dreth Hunanasesiad y flwyddyn nesaf.
-whichYearsAreYouClaimingFor.previous.tax.year.text = Blynyddoedd treth blaenorol
-whichYearsAreYouClaimingFor.previous.tax.year.info.text = Os hoffech hawlio rhyddhad treth ar gyfer blynyddoedd blaenorol, bydd angen i chi ei hawlio ar eich Ffurflen Dreth Hunanasesiad.
-whichYearsAreYouClaimingFor.both.tax.years.text = Y flwyddyn dreth bresennol a blynyddoedd blaenorol
-whichYearsAreYouClaimingFor.both.tax.years.info.text.1 = Gallwch hawlio rhyddhad treth ar gyfer y flwyddyn dreth bresennol gan ddefnyddio’r gwasanaeth hwn.
-whichYearsAreYouClaimingFor.both.tax.years.info.text.2 = Os hoffech hawlio rhyddhad treth ar gyfer blynyddoedd blaenorol, bydd angen i chi ei hawlio ar eich Ffurflen Dreth Hunanasesiad.
-whichYearsAreYouClaimingFor.error.required = Dewiswch pa flynyddoedd rydych yn hawlio rhyddhad treth ar eu cyfer
+whichYearsAreYouClaimingFor.title = A yw’ch hawliad yn cynnwys blwyddyn dreth ar neu ar ôl 6 Ebrill 2023?
+whichYearsAreYouClaimingFor.heading = A yw’ch hawliad yn cynnwys blwyddyn dreth ar neu ar ôl 6 Ebrill 2023?
+whichYearsAreYouClaimingFor.error.required = Dewiswch ‘Iawn’ os yw’ch hawliad yn cynnwys blwyddyn dreth ar neu ar ôl 6 Ebrill 2023
 
 saCheckDisclaimerCurrentYear.title = Gwiriwch y canlynol cyn mynd yn eich blaen
 saCheckDisclaimerCurrentYear.heading = Gwiriwch y canlynol cyn mynd yn eich blaen
