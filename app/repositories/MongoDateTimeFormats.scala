@@ -16,20 +16,18 @@
 
 package repositories
 
-import org.joda.time.{DateTime, DateTimeZone}
-import play.api.libs.json.{JsValue, Json, Reads, Writes}
+import java.time.Instant
+import play.api.libs.json.{Json, Reads, Writes}
 
 trait MongoDateTimeFormats {
   import play.api.libs.json.__
 
-  implicit val localDateTimeRead: Reads[DateTime] =
+  implicit val localDateTimeRead: Reads[Instant] =
     (__ \ "$date").read[Long].map {
-      millis:Long => new DateTime(millis, DateTimeZone.UTC)
+      millis:Long => Instant.ofEpochMilli(millis)
     }
 
-  implicit val localDateTimeWrite: Writes[DateTime] = new Writes[DateTime] {
-    def writes(dateTime: DateTime): JsValue = Json.obj(
-      "$date" -> dateTime.toInstant.getMillis
-    )
-  }
+  implicit val localDateTimeWrite: Writes[Instant] = (dateTime: Instant) => Json.obj(
+    "$date" -> dateTime
+  )
 }

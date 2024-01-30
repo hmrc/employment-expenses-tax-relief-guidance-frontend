@@ -17,7 +17,7 @@
 package views.behaviours
 
 import play.twirl.api.HtmlFormat
-import views.{NewViewSpecBase, ViewSpecBase}
+import views.NewViewSpecBase
 
 trait NewViewBehaviours extends NewViewSpecBase {
 

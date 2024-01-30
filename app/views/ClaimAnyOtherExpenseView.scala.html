@@ -42,7 +42,7 @@
         summary = Text(messages(s"claimAnyOtherExpense.summary")),
         content = HtmlContent(detailsContent)
     ))
-    @formHelper(action = ClaimAnyOtherExpenseController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = ClaimAnyOtherExpenseController.onSubmit(), Symbol("autoComplete") -> "off") {
         @inputRadio(
             field = form("value"),
             legend = messages("claimAnyOtherExpense.heading"),

@@ -17,7 +17,6 @@
 package views
 
 import controllers.routes
-import models.Claimant.You
 import play.twirl.api.Html
 import uk.gov.hmrc.time.TaxYear
 import views.behaviours.NewViewBehaviours
@@ -44,7 +43,7 @@ class WillNotPayTaxViewSpec extends NewViewBehaviours {
 
     val link1 = s"""<a class="govuk-link" href="${frontendAppConfig.taxReliefForEmployeesUrl}">${messages(s"willNotPayTax.guidance1")}</a>"""
 
-    val link2 = Html(s"""<a class="govuk-link" href="${routes.RegisteredForSelfAssessmentController.onPageLoad}">${messages("willNotPayTax.link2", TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)}</a>""")
+    val link2 = Html(s"""<a class="govuk-link" href="${routes.RegisteredForSelfAssessmentController.onPageLoad()}">${messages("willNotPayTax.link2", TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)}</a>""")
 
     behave like pageWithBodyText(
       createView,

@@ -30,7 +30,7 @@
     pageTitle = s"${errorPrefix(form)} ${messages(s"useCompanyCar.$useOfOwnCar.title")}"
 ) {
     @errorSummary(form.errors)
-    @formHelper(action = UseCompanyCarController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = UseCompanyCarController.onSubmit(), Symbol("autoComplete") -> "off") {
 
         @inputYesNoRadio(
             field = form("value"),

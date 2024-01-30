@@ -27,7 +27,7 @@
 @layout(
     pageTitle = s"${errorPrefix(form)} ${messages("covidHomeWorking.title")}"
 ) {
-    @formHelper(action = WfhDueToCovidController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = WfhDueToCovidController.onSubmit(), Symbol("autoComplete") -> "off") {
         @errorSummary(form.errors)
         @inputYesNoRadio(
             field = form("value"),

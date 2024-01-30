@@ -16,7 +16,6 @@
 
 package views
 
-import models.Claimant.You
 import views.behaviours.NewViewBehaviours
 import views.html.UseSelfAssessmentView
 

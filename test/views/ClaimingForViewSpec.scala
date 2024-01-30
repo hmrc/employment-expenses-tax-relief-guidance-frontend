@@ -17,7 +17,7 @@
 package views
 
 import forms.ClaimingForFormProvider
-import models.{Claimant, ClaimingFor}
+import models.ClaimingFor
 import play.api.Application
 import play.api.data.Form
 import play.twirl.api.HtmlFormat

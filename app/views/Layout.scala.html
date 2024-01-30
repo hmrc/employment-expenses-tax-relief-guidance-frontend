@@ -14,13 +14,12 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLayout
-@import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcReportTechnicalIssue
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage._
 
 @this(
-    hmrcLayout: HmrcLayout,
+    hmrcStandardPage: HmrcStandardPage,
     appConfig: config.FrontendAppConfig,
-    hmrcReportTechnicalIssue: HmrcReportTechnicalIssue,
+    hmrcReportTechnicalIssueHelper: HmrcReportTechnicalIssueHelper,
     hmrcTimeoutDialogHelper: HmrcTimeoutDialogHelper,
 )
 
@@ -45,20 +44,20 @@
 
 @content = {
     @contentBlock
-    @hmrcReportTechnicalIssue(ReportTechnicalIssue(
-        serviceId = appConfig.contactFormServiceIdentifier,
-        language = if(messages.lang.code == "cy") Cy else En,
-        baseUrl = Some(appConfig.contactHost)
-    ))
+    @hmrcReportTechnicalIssueHelper()
 }
 
-@hmrcLayout(
-    pageTitle = Some(s"$pageTitle – ${messages("service.name")} – ${messages("site.gov.uk")}"),
-    isWelshTranslationAvailable = true,
-    serviceUrl = Some(routes.IndexController.onPageLoad.url),
-    backLink = if(backLinkEnabled) Some(BackLink.mimicsBrowserBackButtonViaJavaScript) else None,
-    additionalHeadBlock = Some(headBlock),
-    additionalScriptsBlock = None,
-    signOutUrl = None,
-    phaseBanner = None
+@hmrcStandardPage(
+    HmrcStandardPageParams(
+        serviceURLs = ServiceURLs(
+            serviceUrl = Some(routes.IndexController.onPageLoad.url),
+        ),
+        templateOverrides = TemplateOverrides(
+            additionalHeadBlock = Some(headBlock)
+        ),
+        serviceName = Some(messages("service.name")),
+        pageTitle = Some(s"$pageTitle – ${messages("service.name")} – ${messages("site.gov.uk")}"),
+        isWelshTranslationAvailable = true,
+        backLink = if(backLinkEnabled) Some(BackLink.mimicsBrowserBackButtonViaJavaScript) else None,
+    )
 )(content)

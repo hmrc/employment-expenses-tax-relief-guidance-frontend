@@ -37,7 +37,7 @@
         <li>@messages(s"claimingFuel.bullet1")</li>
         <li>@messages(s"claimingFuel.bullet2")</li>
     </ul>
-    @formHelper(action = ClaimingFuelController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = ClaimingFuelController.onSubmit(), Symbol("autoComplete") -> "off") {
         @inputYesNoRadio(
             field = form("value"),
             label = messages(s"claimingFuel.heading"),

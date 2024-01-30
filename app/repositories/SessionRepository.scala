@@ -17,10 +17,9 @@
 package repositories
 
 import config.FrontendAppConfig
-
 import javax.inject.{Inject, Singleton}
-import org.joda.time.{DateTime, DateTimeZone}
-import uk.gov.hmrc.mongo.play.json.formats.MongoJodaFormats.Implicits._
+import java.time.Instant
+
 import org.mongodb.scala.model.{IndexModel, IndexOptions, UpdateOptions}
 import org.mongodb.scala.model.Indexes._
 import play.api.libs.json.{JsValue, Json}
@@ -36,7 +35,7 @@ import scala.concurrent.duration.SECONDS
 
 case class DatedCacheMap(id: String,
                          data: Map[String, JsValue],
-                         lastUpdated: DateTime = DateTime.now(DateTimeZone.UTC)
+                         lastUpdated: Instant = Instant.now()
                         )
 
 object DatedCacheMap extends MongoDateTimeFormats {
@@ -58,7 +57,7 @@ class ReactiveMongoRepository(appConfig: FrontendAppConfig,
       IndexModel(ascending("lastUpdated"),
         IndexOptions()
           .name("userAnswersExpiry")
-          .expireAfter(appConfig.mongo_ttl, SECONDS))
+          .expireAfter(appConfig.mongo_ttl.toLong, SECONDS))
       ),
     extraCodecs = Seq(Codecs.playFormatCodec(CacheMap.formats))
   ) {
