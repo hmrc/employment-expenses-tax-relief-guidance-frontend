@@ -31,7 +31,7 @@
     pageTitle = s"${errorPrefix(form)} ${messages(s"employerPaidBackAnyExpenses.title")}"
 ) {
 
-    @formHelper(action = EmployerPaidBackAnyExpensesController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = EmployerPaidBackAnyExpensesController.onSubmit(), Symbol("autoComplete") -> "off") {
 
         @errorSummary(form.errors, Some("employerPaid.noExpenses"))
 

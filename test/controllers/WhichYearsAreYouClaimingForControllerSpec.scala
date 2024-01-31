@@ -20,7 +20,7 @@ import base.SpecBase
 import connectors.DataCacheConnector
 import forms.WhichYearsAreYouClaimingForFormProvider
 import identifiers.{ClaimantId, RegisteredForSelfAssessmentId}
-import org.mockito.Matchers.any
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}

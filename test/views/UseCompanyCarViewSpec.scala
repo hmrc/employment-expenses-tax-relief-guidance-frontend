@@ -19,7 +19,6 @@ package views
 import play.api.data.Form
 import controllers.routes
 import forms.UseCompanyCarFormProvider
-import models.Claimant.You
 import models.UsingOwnCar
 import views.behaviours.NewYesNoViewBehaviours
 import views.html.UseCompanyCarView

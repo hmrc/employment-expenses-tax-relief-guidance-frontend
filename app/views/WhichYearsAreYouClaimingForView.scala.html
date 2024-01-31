@@ -32,7 +32,7 @@
 ) {
     @errorSummary(form.errors)
 
-    @formHelper(action = WhichYearsAreYouClaimingForController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = WhichYearsAreYouClaimingForController.onSubmit(), Symbol("autoComplete") -> "off") {
         @inputYesNo(
             field = form("value"),
             label = messages(s"whichYearsAreYouClaimingFor.heading")

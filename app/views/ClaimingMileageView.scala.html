@@ -74,7 +74,7 @@
         content = HtmlContent(detailsContent)
     ))
 
-    @formHelper(action = ClaimingMileageController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = ClaimingMileageController.onSubmit(), Symbol("autoComplete") -> "off") {
 
         @inputYesNoRadio(
             field = form("value"),

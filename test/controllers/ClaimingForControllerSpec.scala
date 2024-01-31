@@ -20,7 +20,7 @@ import base.SpecBase
 import connectors.DataCacheConnector
 import identifiers.ClaimingForId
 import models.ClaimingFor._
-import org.mockito.Matchers.any
+import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}

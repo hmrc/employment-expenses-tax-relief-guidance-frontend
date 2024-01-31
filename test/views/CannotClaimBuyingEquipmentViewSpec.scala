@@ -16,7 +16,6 @@
 
 package views
 
-import models.Claimant.You
 import play.api.mvc.Call
 import views.behaviours.NewViewBehaviours
 import views.html.CannotClaimBuyingEquipmentView

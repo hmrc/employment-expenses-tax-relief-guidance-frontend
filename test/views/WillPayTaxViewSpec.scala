@@ -18,7 +18,6 @@ package views
 
 import controllers.routes
 import forms.WillPayTaxFormProvider
-import models.Claimant.You
 import play.api.data.Form
 import views.behaviours.NewYesNoViewBehaviours
 import views.html.WillPayTaxView

@@ -28,7 +28,7 @@
     pageTitle = s"${errorPrefix(form)} ${messages(s"useOwnCar.title")}"
 ) {
 
-    @formHelper(action = UseOwnCarController.onSubmit(), 'autoComplete -> "off") {
+    @formHelper(action = UseOwnCarController.onSubmit(), Symbol("autoComplete") -> "off") {
 
         @errorSummary(form.errors)
 

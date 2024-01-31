@@ -23,7 +23,7 @@ import views.html.InformCustomerClaimNowInWeeksView
 
 class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours{
 
-  val application: Application = applicationBuilder().build
+  val application: Application = applicationBuilder().build()
 
   val view: InformCustomerClaimNowInWeeksView = application.injector.instanceOf[InformCustomerClaimNowInWeeksView]
 
