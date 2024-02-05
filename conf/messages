@@ -125,10 +125,10 @@ cannotClaimRelief.title = You cannot claim these expenses
 cannotClaimRelief.heading = You cannot claim these expenses
 cannotClaimRelief.guidance = You cannot claim these expenses because they have all been paid back by your employer.
 
-employerPaidBackAnyExpenses.title = Has your employer paid any of your expenses?
-employerPaidBackAnyExpenses.heading = Has your employer paid any of your expenses?
-employerPaidBackAnyExpenses.info = If your employer has paid or given you an allowance for your expenses, you cannot claim tax relief for these.
-employerPaidBackAnyExpenses.error.required = Select if your employer has paid none, some, or all of your expenses.
+employerPaidBackAnyExpenses.title = Has your employer paid any of your expenses in this claim?
+employerPaidBackAnyExpenses.heading = Has your employer paid any of your expenses in this claim?
+employerPaidBackAnyExpenses.info = If your employer has paid or given you an allowance for your expenses in this claim, you cannot claim tax relief for these.
+employerPaidBackAnyExpenses.error.required = Select if your employer has paid none, some, or all of your expenses in this claim.
 employerPaid.noExpenses = No, none of my expenses
 employerPaid.someExpenses = Yes, some of my expenses
 employerPaid.allExpenses = Yes, all of my expenses

@@ -122,10 +122,10 @@ cannotClaimRelief.title = Ni allwch hawlio’r treuliau hyn
 cannotClaimRelief.heading = Ni allwch hawlio’r treuliau hyn
 cannotClaimRelief.guidance = Ni allwch hawlio’r treuliau hyn oherwydd talwyd y cyfan yn ôl gan eich cyflogwr.
 
-employerPaidBackAnyExpenses.title = A yw’ch cyflogwr wedi talu unrhyw un o’ch costau?
-employerPaidBackAnyExpenses.heading = A yw’ch cyflogwr wedi talu unrhyw un o’ch costau?
-employerPaidBackAnyExpenses.info = Os yw’ch cyflogwr wedi talu neu wedi rhoi lwfans i chi am eich treuliau, ni allwch hawlio rhyddhad treth ar gyfer y rhain.
-employerPaidBackAnyExpenses.error.required = Dewiswch a yw’ch cyflogwr wedi talu rhai o’ch treuliau, dim un, neu bob un ohonyn nhw.
+employerPaidBackAnyExpenses.title = A yw’ch cyflogwr wedi talu unrhyw un o’ch treuliau yn yr hawliad hwn?
+employerPaidBackAnyExpenses.heading = A yw’ch cyflogwr wedi talu unrhyw un o’ch treuliau yn yr hawliad hwn?
+employerPaidBackAnyExpenses.info = Os yw’ch cyflogwr wedi talu neu wedi rhoi lwfans i chi am eich treuliau yn yr hawliad hwn, ni allwch hawlio rhyddhad treth ar gyfer y rhain.
+employerPaidBackAnyExpenses.error.required = Dewiswch a yw’ch cyflogwr wedi talu rhai o’ch treuliau, dim un, neu bob un ohonyn nhw yn yr hawliad hwn.
 employerPaid.noExpenses = Na, dim un o’m treuliau
 employerPaid.someExpenses = Iawn, rhai o’m treuliau
 employerPaid.allExpenses = Iawn, pob un o’m treuliau
