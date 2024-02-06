@@ -76,9 +76,9 @@ registeredForSelfAssessment.accordion.list2.item2 = cildyrnau a chomisiwn
 registeredForSelfAssessment.accordion.list2.item3 = incwm o gynilion, buddsoddiadau a difidendau
 registeredForSelfAssessment.accordion.list2.item4 = incwm tramor
 
-claimingOverPayAsYouEarnThreshold.title = A ydych yn hawlio treuliau o £2,500 neu fwy mewn un flwyddyn dreth?
-claimingOverPayAsYouEarnThreshold.heading = A ydych yn hawlio treuliau o £2,500 neu fwy mewn un flwyddyn dreth?
-claimingOverPayAsYouEarnThreshold.error.required = Dewiswch ‘Iawn’ os ydych yn hawlio treuliau o £2,500 neu fwy mewn un flwyddyn dreth
+claimingOverPayAsYouEarnThreshold.title = A ydych yn hawlio treuliau dros £2,500 mewn un flwyddyn dreth?
+claimingOverPayAsYouEarnThreshold.heading = A ydych yn hawlio treuliau dros £2,500 mewn un flwyddyn dreth?
+claimingOverPayAsYouEarnThreshold.error.required = Dewiswch ‘Iawn’ os ydych yn hawlio dros £2,500 mewn un flwyddyn dreth
 
 useSelfAssessment.title = Dim ond drwy ddefnyddio Hunanasesiad y gallwch hawlio’r treuliau hyn
 useSelfAssessment.heading = Dim ond drwy ddefnyddio Hunanasesiad y gallwch hawlio’r treuliau hyn
