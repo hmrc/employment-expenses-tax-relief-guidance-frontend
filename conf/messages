@@ -78,9 +78,9 @@ registeredForSelfAssessment.accordion.list2.item2 = tips and commission
 registeredForSelfAssessment.accordion.list2.item3 = income from savings, investments and dividends
 registeredForSelfAssessment.accordion.list2.item4 = foreign income
 
-claimingOverPayAsYouEarnThreshold.title = Are you claiming expenses of £2,500 or more in a single tax year?
-claimingOverPayAsYouEarnThreshold.heading = Are you claiming expenses of £2,500 or more in a single tax year?
-claimingOverPayAsYouEarnThreshold.error.required = Select yes if you are claiming expenses of £2,500 or more in a single tax year
+claimingOverPayAsYouEarnThreshold.title = Are you claiming expenses of more than £2,500 in a single tax year?
+claimingOverPayAsYouEarnThreshold.heading = Are you claiming expenses of more than £2,500 in a single tax year?
+claimingOverPayAsYouEarnThreshold.error.required = Select yes if you are claiming more than £2,500 in a single tax year
 
 useSelfAssessment.title = You can only claim these expenses using Self Assessment
 useSelfAssessment.heading = You can only claim these expenses using Self Assessment
