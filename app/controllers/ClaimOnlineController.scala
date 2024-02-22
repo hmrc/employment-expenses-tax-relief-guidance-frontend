@@ -40,8 +40,13 @@ class ClaimOnlineController @Inject()(
       } else {
         Ok(view(OnwardJourney.IForm))
       }
+      val claimingFor = request.userAnswers.claimingFor.getOrElse(List())
+
+      val isMergedJourney = claimingFor.filterNot(claim => claim.equals(HomeWorking) || claim.equals(UniformsClothingTools) || claim.equals(FeesSubscriptions)).size == 0 &&
+        claimingFor.filter(claim => claim.equals(HomeWorking) || claim.equals(UniformsClothingTools) || claim.equals(FeesSubscriptions)).size > 1
 
       request.userAnswers.claimingFor match {
+        case _ if isMergedJourney => Ok(view(OnwardJourney.MergedJourney(claimingFor.contains(HomeWorking), claimingFor.contains(FeesSubscriptions), claimingFor.contains(UniformsClothingTools))))
         case Some(List(UniformsClothingTools)) => Ok(view(OnwardJourney.FixedRateExpenses))
         case Some(List(FeesSubscriptions)) => Ok(view(OnwardJourney.ProfessionalSubscriptions))
         case Some(List(HomeWorking)) => wfhRouting

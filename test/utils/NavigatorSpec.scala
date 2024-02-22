@@ -20,7 +20,7 @@ import base.SpecBase
 import controllers.routes
 import identifiers._
 import models.Claimant.You
-import models.ClaimingFor.BuyingEquipment
+import models.ClaimingFor.{BuyingEquipment, HomeWorking, UniformsClothingTools}
 import models.EmployerPaid.{NoExpenses, SomeExpenses}
 import models.{Claimant, ClaimingFor, EmployerPaid}
 import org.mockito.Mockito._
@@ -75,6 +75,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         "and not claiming for working from home only expenses" in {
           val mockAnswers = mock[UserAnswers]
           when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(false))
+          when(mockAnswers.claimingFor).thenReturn(Some(List()))
           when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(false))
 
           navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
@@ -86,6 +87,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
     "go to the UseSelfAssessment view" when {
       "answering Yes from the RegisterForSelfAssessment view when other expenses selected" in {
         val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor).thenReturn(None)
         when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
         when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(true))
 
@@ -95,6 +97,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
       "answering Yes from the RegisterForSelfAssessment view when other expenses not selected" in {
         val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor).thenReturn(None)
         when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
         when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(false))
 
@@ -104,6 +107,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
       "answering No from the RegisterForSelfAssessment when other expenses selected view" in {
         val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor).thenReturn(None)
         when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(false))
         when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(false))
 
@@ -113,6 +117,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
       "answering Yes from the RegisterForSelfAssessment when other expenses selected view" in {
         val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor).thenReturn(None)
         when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
         when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(false))
 
@@ -122,6 +127,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
       "answering No from the RegisterForSelfAssessment when other expenses not selected view" in {
         val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor).thenReturn(None)
         when(mockAnswers.claimAnyOtherExpense).thenReturn(None)
         when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(false))
 
@@ -131,6 +137,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
       "answering Yes from the RegisterForSelfAssessment when other expenses not selected view" in {
         val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor).thenReturn(None)
         when(mockAnswers.claimAnyOtherExpense).thenReturn(None)
         when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
 
@@ -138,6 +145,23 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           routes.UseSelfAssessmentController.onPageLoad()
       }
 
+      "answering No from the RegisterForSelfAssessment view when its merged journey" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor).thenReturn(Some(List(HomeWorking, UniformsClothingTools)))
+        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(false))
+
+        navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
+          routes.WhichYearsAreYouClaimingForController.onPageLoad()
+      }
+
+      "answering Yes from the RegisterForSelfAssessment view when its merged journey" in {
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor).thenReturn(Some(List(HomeWorking, UniformsClothingTools)))
+        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
+
+        navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
+          routes.UseSelfAssessmentController.onPageLoad()
+      }
     }
 
     "go to the InformCustomerClaimNowInWeeks view" when {
@@ -580,6 +604,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(false))
 
         "no data from RegisteredForSelfAssessment" in {
+          when(mockAnswers.claimingFor).thenReturn(None)
           navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
             routes.SessionExpiredController.onPageLoad
         }
