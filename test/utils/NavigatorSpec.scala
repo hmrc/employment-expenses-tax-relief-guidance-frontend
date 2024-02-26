@@ -312,7 +312,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       "ansering Someone Else on the Claimant view" in {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.claimant).thenReturn(Some(Claimant.SomeoneElse))
-
+        when(mockAnswers.claimingFor).thenReturn(Some(List()))
         navigator.nextPage(ClaimantId)(mockAnswers) mustBe
           routes.UsePrintAndPostController.printAndPostGuidance()
       }

@@ -105,11 +105,12 @@ class Navigator @Inject()() {
     case _                                   => routes.SessionExpiredController.onPageLoad
   }
 
-  private def claimantRouting(userAnswers: UserAnswers) = (userAnswers.claimant, userAnswers.claimingFor) match {
-    case (Some(Claimant.You), Some(List(ClaimingFor.HomeWorking))) | (Some(Claimant.You), None) => routes.DisclaimerController.onPageLoad()
-    case (Some(Claimant.You), Some(_))                                                          => routes.PaidTaxInRelevantYearController.onPageLoad()
-    case (Some(Claimant.SomeoneElse), _)                                                        => routes.UsePrintAndPostController.printAndPostGuidance()
-    case _                                                                                      => routes.SessionExpiredController.onPageLoad
+  private def claimantRouting(userAnswers: UserAnswers) = (userAnswers.claimant, userAnswers.claimingFor, isMergedJourney(userAnswers)) match {
+    case (Some(Claimant.You), Some(List(ClaimingFor.HomeWorking)), _) | (Some(Claimant.You), None, _) => routes.DisclaimerController.onPageLoad()
+    case (Some(Claimant.You), _, true)                                                                => routes.DisclaimerController.onPageLoad()
+    case (Some(Claimant.You), Some(_), _)                                                             => routes.PaidTaxInRelevantYearController.onPageLoad()
+    case (Some(Claimant.SomeoneElse), _, _)                                                           => routes.UsePrintAndPostController.printAndPostGuidance()
+    case _                                                                                            => routes.SessionExpiredController.onPageLoad
   }
 
   private def useOwnCarRouting(userAnswers: UserAnswers) = userAnswers.useOwnCar match {
