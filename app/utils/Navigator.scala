@@ -20,6 +20,7 @@ import javax.inject.{Inject, Singleton}
 import play.api.mvc.Call
 import controllers.routes
 import identifiers._
+import models.ClaimingFor.{FeesSubscriptions, HomeWorking, UniformsClothingTools}
 import models.{Claimant, ClaimingFor}
 import models.EmployerPaid.{AllExpenses, NoExpenses, SomeExpenses}
 
@@ -40,11 +41,12 @@ class Navigator @Inject()() {
       case _           => routes.SessionExpiredController.onPageLoad
     }
 
-  private def registeredForSelfAssessmentRouting(userAnswers: UserAnswers) = (userAnswers.claimAnyOtherExpense, userAnswers.registeredForSelfAssessment) match {
-    case (_, Some(true))                                  => routes.UseSelfAssessmentController.onPageLoad()
-    case (None, Some(false)) | (Some(false), Some(false)) => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
-    case (Some(true), Some(false))                        => routes.WhichYearsAreYouClaimingForController.onPageLoad()
-    case _                                                => routes.SessionExpiredController.onPageLoad
+  private def registeredForSelfAssessmentRouting(userAnswers: UserAnswers) = (userAnswers.claimAnyOtherExpense, userAnswers.registeredForSelfAssessment, isMergedJourney(userAnswers)) match {
+    case (_, Some(false), true)                                 => routes.WhichYearsAreYouClaimingForController.onPageLoad()
+    case (_, Some(true), _)                                     => routes.UseSelfAssessmentController.onPageLoad()
+    case (None, Some(false), _) | (Some(false), Some(false), _) => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
+    case (Some(true), Some(false), _)                           => routes.WhichYearsAreYouClaimingForController.onPageLoad()
+    case _                                                      => routes.SessionExpiredController.onPageLoad
   }
 
   private def claimingOverPayAsYouEarnThresholdRouting(userAnswers: UserAnswers) =
@@ -103,11 +105,12 @@ class Navigator @Inject()() {
     case _                                   => routes.SessionExpiredController.onPageLoad
   }
 
-  private def claimantRouting(userAnswers: UserAnswers) = (userAnswers.claimant, userAnswers.claimingFor) match {
-    case (Some(Claimant.You), Some(List(ClaimingFor.HomeWorking))) | (Some(Claimant.You), None) => routes.DisclaimerController.onPageLoad()
-    case (Some(Claimant.You), Some(_))                                                          => routes.PaidTaxInRelevantYearController.onPageLoad()
-    case (Some(Claimant.SomeoneElse), _)                                                        => routes.UsePrintAndPostController.printAndPostGuidance()
-    case _                                                                                      => routes.SessionExpiredController.onPageLoad
+  private def claimantRouting(userAnswers: UserAnswers) = (userAnswers.claimant, userAnswers.claimingFor, isMergedJourney(userAnswers)) match {
+    case (Some(Claimant.You), Some(List(ClaimingFor.HomeWorking)), _) | (Some(Claimant.You), None, _) => routes.DisclaimerController.onPageLoad()
+    case (Some(Claimant.You), _, true)                                                                => routes.DisclaimerController.onPageLoad()
+    case (Some(Claimant.You), Some(_), _)                                                             => routes.PaidTaxInRelevantYearController.onPageLoad()
+    case (Some(Claimant.SomeoneElse), _, _)                                                           => routes.UsePrintAndPostController.printAndPostGuidance()
+    case _                                                                                            => routes.SessionExpiredController.onPageLoad
   }
 
   private def useOwnCarRouting(userAnswers: UserAnswers) = userAnswers.useOwnCar match {
@@ -195,6 +198,13 @@ class Navigator @Inject()() {
     ClaimingForCurrentYearId -> claimingForCurrentYearControllerRouting,
     SaCheckDisclaimerAllYearsId -> saCheckDisclaimerAllYearsRouting
   )
+
+  def isMergedJourney(userAnswers: UserAnswers): Boolean = {
+    val claimingFor = userAnswers.claimingFor.getOrElse(List())
+    claimingFor.filterNot(claim => claim.equals(HomeWorking) || claim.equals(UniformsClothingTools) || claim.equals(FeesSubscriptions)).size == 0 &&
+      claimingFor.filter(claim => claim.equals(HomeWorking) || claim.equals(UniformsClothingTools) || claim.equals(FeesSubscriptions)).size > 1 &&
+      claimingFor.contains(HomeWorking)
+  }
 
   def nextPage(id: Identifier): UserAnswers => Call =
     routeMap.getOrElse(id, _ => routes.IndexController.onPageLoad)

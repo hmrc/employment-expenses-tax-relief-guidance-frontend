@@ -23,4 +23,5 @@ object OnwardJourney {
   case object ProfessionalSubscriptions extends OnwardJourney
   case object FixedRateExpenses extends OnwardJourney
   case object WorkingFromHomeExpensesOnly extends OnwardJourney
+  case class MergedJourney(wfh: Boolean, psubs: Boolean, fre: Boolean) extends OnwardJourney
 }

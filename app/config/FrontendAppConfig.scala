@@ -45,8 +45,12 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
 
   val workingFromHomeExpensesOnlyEnabled: Boolean = configuration.getOptional[Boolean]("workingFromHomeExpensesOnly.enabled").getOrElse(false)
 
+  val mergedJourneyEnabled: Boolean = configuration.getOptional[Boolean]("mergedJourney.enabled").getOrElse(false)
+
   lazy val claimingForCurrentYearBackButtonOverride: String = configuration.get[String]("claimingForCurrentYear.backButtonOverride.reference")
   lazy val registeredForSelfBackButtonOverride: String = configuration.get[String]("registeredForSelf.backButtonOverride.reference")
+
+  def mergedJourneyUrl(wfh: Boolean, psubs: Boolean, fre: Boolean): String = s"${employeeExpensesUrl}/merged-journey-set-up?wfh=${wfh}&psubs=${psubs}&fre=${fre}"
 
   def languageMap: Map[String, Lang] = Map(
     "english" -> Lang("en"),

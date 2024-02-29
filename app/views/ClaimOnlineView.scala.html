@@ -32,12 +32,14 @@
         case OnwardJourney.ProfessionalSubscriptions => appConfig.professionalSubscriptionsUrl
         case OnwardJourney.IForm => appConfig.employeeExpensesClaimOnlineUrl
         case OnwardJourney.WorkingFromHomeExpensesOnly => appConfig.workingFromHomeExpensesUrl
+        case OnwardJourney.MergedJourney(wfh, psubs, fre) => appConfig.mergedJourneyUrl(wfh, psubs, fre)
     }
 }
 
 @msgPrefix = @{
     onwardJourney match {
         case OnwardJourney.WorkingFromHomeExpensesOnly => "claimOnline.wfh"
+        case OnwardJourney.MergedJourney(wfh, psubs, fre) => if(wfh) "claimOnline.wfh" else "claimOnline"
         case _ => "claimOnline"
     }
 }

@@ -89,5 +89,17 @@ class ClaimOnlineControllerSpec extends SpecBase {
 
       application.stop()
     }
+
+    "return OK and correct view for a GET when user claiming for 2 or more of WFH, PSUB or FRE" in {
+
+      val validCacheMap = CacheMap(cacheMapId, Map("claimingFor" -> Json.toJson(Seq(HomeWorking.string, UniformsClothingTools.string))))
+      val application = applicationBuilder(Some(validCacheMap)).build()
+      val request = FakeRequest(GET, claimOnlineRoute)
+      val result = route(application, request).value
+
+      status(result) mustBe OK
+
+      application.stop()
+    }
   }
 }
