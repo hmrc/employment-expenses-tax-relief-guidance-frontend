@@ -24,7 +24,11 @@
     govukInsetText : GovukInsetText,
     appConfig: FrontendAppConfig
 )
-@(onwardJourney: OnwardJourney)(implicit request: Request[_], messages: Messages)
+@(onwardJourney: OnwardJourney, claimingFor: List[ClaimingFor])(implicit request: Request[_], messages: Messages)
+
+@list = @{
+    claimingFor.flatMap(x => Some(messages(s"claimingFor.$x")))
+}
 
 @href = @{
     onwardJourney match {
@@ -39,7 +43,6 @@
 @msgPrefix = @{
     onwardJourney match {
         case OnwardJourney.WorkingFromHomeExpensesOnly => "claimOnline.wfh"
-        case OnwardJourney.MergedJourney(wfh, psubs, fre) => if(wfh) "claimOnline.wfh" else "claimOnline"
         case _ => "claimOnline"
     }
 }
@@ -49,19 +52,31 @@
 ) {
 
     @heading(messages(s"$msgPrefix.heading"))
+
+    @if(list.size > 1) {
+        <p class="govuk-body">@messages("claimOnline.youCanClaim"):</p>
+        <ul class="govuk-list govuk-list--bullet">
+            @for(claimItem <- list) {
+                <li>@claimItem</li>
+            }
+        </ul>
+    } else {
+        <p class="govuk-body">@messages("claimOnline.youCanClaim") @list.</p>
+    }
+
     @govukInsetText(InsetText(
-        content = Text(messages(s"$msgPrefix.para1"))
+        content = Text(messages("claimOnline.para1"))
     ))
 
-    <p class="govuk-body">@messages(s"$msgPrefix.para2")</p>
+    <p class="govuk-body">@messages("claimOnline.para2")</p>
 
     <ul class="govuk-list govuk-list--bullet">
-        <li>@messages(s"$msgPrefix.bullet1")</li>
-        <li>@messages(s"$msgPrefix.bullet2")</li>
+        <li>@messages("claimOnline.bullet1")</li>
+        <li>@messages("claimOnline.bullet2")</li>
     </ul>
 
     @buttonLink(
-        content = messages(s"$msgPrefix.link.label"),
+        content = messages("claimOnline.link.label"),
         href = href,
         id = Some("continue")
     )
