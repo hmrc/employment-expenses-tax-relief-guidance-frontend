@@ -103,20 +103,15 @@ usePrintAndPost.link.label = Hawlio drwy’r post
 
 claimOnline.title = Rydych yn gymwys i hawlio’r treuliau swydd hyn ar-lein
 claimOnline.heading = Rydych yn gymwys i hawlio’r treuliau swydd hyn ar-lein
+claimOnline.wfh.title = Gallwch hawlio rhyddhad treth ar-lein ar gyfer eich treuliau ychwanegol sy’n gysylltiedig â gweithio gartref
+claimOnline.wfh.heading = Gallwch hawlio rhyddhad treth ar-lein ar gyfer eich treuliau ychwanegol sy’n gysylltiedig â gweithio gartref
+claimOnline.youCanClaim = Gallwch hawlio rhyddhad treth ar gyfer
 claimOnline.para1 =  Er mwyn hawlio’r treuliau hyn, bydd angen Dynodydd Defnyddiwr a chyfrinair Porth y Llywodraeth arnoch. Gallwch greu Dynodydd Defnyddiwr (ID) os nad oes eisoes gennych un.
 claimOnline.para2 = Fel arfer, mae’n cymryd tua 10 munud i greu Dynodydd Defnyddiwr (ID) ar gyfer Porth y Llywodraeth. Bydd yn gweithio orau os oes gennych y canlynol wrth law:
 claimOnline.bullet1 = eich rhif Yswiriant Gwladol
 claimOnline.bullet2 = slip cyflog diweddar, P60 neu basbort dilys y DU
 claimOnline.link.label = Hawlio’ch treuliau ar-lein
 claimOnline.hidden.guidance = rhestr o 2 eitem
-claimOnline.wfh.title = Gallwch hawlio rhyddhad treth ar-lein ar gyfer eich treuliau ychwanegol sy’n gysylltiedig â gweithio gartref
-claimOnline.wfh.heading = Gallwch hawlio rhyddhad treth ar-lein ar gyfer eich treuliau ychwanegol sy’n gysylltiedig â gweithio gartref
-claimOnline.wfh.para1 = Er mwyn hawlio’r treuliau hyn, bydd angen Dynodydd Defnyddiwr a chyfrinair Porth y Llywodraeth arnoch. Gallwch greu Dynodydd Defnyddiwr (ID) os nad oes eisoes gennych un.
-claimOnline.wfh.para2 = Fel arfer, mae’n cymryd tua 10 munud i greu Dynodydd Defnyddiwr (ID) ar gyfer Porth y Llywodraeth. Bydd yn gweithio orau os oes gennych y canlynol wrth law:
-claimOnline.wfh.bullet1 = eich rhif Yswiriant Gwladol
-claimOnline.wfh.bullet2 = slip cyflog diweddar, P60 neu basbort dilys y DU
-claimOnline.wfh.link.label = Hawlio’ch rhyddhad treth ar-lein
-claimOnline.wfh.hidden.guidance = rhestr o 2 eitem
 
 cannotClaimRelief.title = Ni allwch hawlio’r treuliau hyn
 cannotClaimRelief.heading = Ni allwch hawlio’r treuliau hyn

@@ -37,23 +37,24 @@ class ClaimOnlineController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      def wfhRouting = if (request.userAnswers.covidHomeWorking.getOrElse(false)) {
-        Ok(view(OnwardJourney.WorkingFromHomeExpensesOnly))
-      } else {
-        Ok(view(OnwardJourney.IForm))
-      }
       val claimingFor = request.userAnswers.claimingFor.getOrElse(List())
+
+      def wfhRouting = if (request.userAnswers.covidHomeWorking.getOrElse(false)) {
+        Ok(view(OnwardJourney.WorkingFromHomeExpensesOnly, claimingFor))
+      } else {
+        Ok(view(OnwardJourney.IForm, claimingFor))
+      }
 
       val isMergedJourney = claimingFor.filterNot(claim => claim.equals(HomeWorking) || claim.equals(UniformsClothingTools) || claim.equals(FeesSubscriptions)).size == 0 &&
         claimingFor.filter(claim => claim.equals(HomeWorking) || claim.equals(UniformsClothingTools) || claim.equals(FeesSubscriptions)).size > 1
 
       request.userAnswers.claimingFor match {
-        case _ if isMergedJourney && appConfig.mergedJourneyEnabled => Ok(view(OnwardJourney.MergedJourney(claimingFor.contains(HomeWorking), claimingFor.contains(FeesSubscriptions), claimingFor.contains(UniformsClothingTools))))
-        case Some(List(UniformsClothingTools)) => Ok(view(OnwardJourney.FixedRateExpenses))
-        case Some(List(FeesSubscriptions)) => Ok(view(OnwardJourney.ProfessionalSubscriptions))
+        case _ if isMergedJourney && appConfig.mergedJourneyEnabled => Ok(view(OnwardJourney.MergedJourney(claimingFor.contains(HomeWorking), claimingFor.contains(FeesSubscriptions), claimingFor.contains(UniformsClothingTools)), claimingFor))
+        case Some(List(UniformsClothingTools)) => Ok(view(OnwardJourney.FixedRateExpenses, claimingFor))
+        case Some(List(FeesSubscriptions)) => Ok(view(OnwardJourney.ProfessionalSubscriptions, claimingFor))
         case Some(List(HomeWorking)) => wfhRouting
         case _ if request.userAnswers.claimAnyOtherExpense.contains(true) => wfhRouting
-        case _ => Ok(view(OnwardJourney.IForm))
+        case _ => Ok(view(OnwardJourney.IForm, claimingFor))
       }
   }
 }
