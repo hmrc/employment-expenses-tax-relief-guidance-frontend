@@ -69,7 +69,7 @@ class ClaimOnlineViewSpec extends NewViewBehaviours {
       val doc = asDocument(view(OnwardJourney.WorkingFromHomeExpensesOnly, List(HomeWorking))(fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be(frontendAppConfig.workingFromHomeExpensesUrl)
-      assertPageTitleEqualsMessage(doc, "claimOnline.wfh.heading")
+      assertPageTitleEqualsMessage(doc, "claimOnline.heading")
       assertContainsMessages(doc,"claimingFor.homeWorking")
     }
 
@@ -78,7 +78,7 @@ class ClaimOnlineViewSpec extends NewViewBehaviours {
       val doc = asDocument(view(OnwardJourney.WorkingFromHomeExpensesOnly, List(HomeWorking))(fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be(s"${frontendAppConfig.workingFromHomeExpensesUrl}")
-      assertPageTitleEqualsMessage(doc, "claimOnline.wfh.heading")
+      assertPageTitleEqualsMessage(doc, "claimOnline.heading")
       assertContainsMessages(doc,"claimingFor.homeWorking")
     }
 
