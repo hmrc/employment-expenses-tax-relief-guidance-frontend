@@ -40,18 +40,11 @@
     }
 }
 
-@msgPrefix = @{
-    onwardJourney match {
-        case OnwardJourney.WorkingFromHomeExpensesOnly => "claimOnline.wfh"
-        case _ => "claimOnline"
-    }
-}
-
 @layout(
-    pageTitle = messages(s"$msgPrefix.title")
+    pageTitle = messages("claimOnline.title")
 ) {
 
-    @heading(messages(s"$msgPrefix.heading"))
+    @heading(messages("claimOnline.heading"))
 
     @if(list.size > 1) {
         <p class="govuk-body">@messages("claimOnline.youCanClaim"):</p>
