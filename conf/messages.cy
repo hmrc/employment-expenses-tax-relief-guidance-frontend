@@ -101,8 +101,8 @@ usePrintAndPost.title = Gallwch hawlio rhyddhad treth ar y treuliau hyn drwy’r
 usePrintAndPost.heading = Gallwch hawlio rhyddhad treth ar y treuliau hyn drwy’r post
 usePrintAndPost.link.label = Hawlio drwy’r post
 
-claimOnline.title = Rydych yn gymwys i hawlio’r treuliau swydd hyn ar-lein
-claimOnline.heading = Rydych yn gymwys i hawlio’r treuliau swydd hyn ar-lein
+claimOnline.title = Rydych yn gymwys i hawlio’r treuliau swydd hyn
+claimOnline.heading = Rydych yn gymwys i hawlio’r treuliau swydd hyn
 claimOnline.youCanClaim = Gallwch hawlio rhyddhad treth ar gyfer
 claimOnline.para1 =  Er mwyn hawlio’r treuliau hyn, bydd angen Dynodydd Defnyddiwr a chyfrinair Porth y Llywodraeth arnoch. Gallwch greu Dynodydd Defnyddiwr (ID) os nad oes eisoes gennych un.
 claimOnline.para2 = Fel arfer, mae’n cymryd tua 10 munud i greu Dynodydd Defnyddiwr (ID) ar gyfer Porth y Llywodraeth. Bydd yn gweithio orau os oes gennych y canlynol wrth law:
