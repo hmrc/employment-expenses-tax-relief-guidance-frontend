@@ -68,6 +68,5 @@ class CascadeUpsert {
     ClaimingMileageId,
     UseCompanyCarId,
     ClaimingFuelId,
-    CovidHomeWorkingId,
     MoreThanFiveJobsId)
 }

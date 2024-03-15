@@ -87,7 +87,7 @@ class Navigator @Inject()() {
   }
 
   private def employerPaidBackWFHExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackAnyExpenses match {
-    case Some(NoExpenses)   => routes.WfhDueToCovidController.onPageLoad()
+    case Some(NoExpenses)   => routes.ClaimOnlineController.onPageLoad()
     case Some(SomeExpenses) => routes.MoreThanFiveJobsController.onPageLoad()
     case Some(AllExpenses)  => routes.CannotClaimWFHReliefController.onPageLoad()
     case _                  => routes.SessionExpiredController.onPageLoad
@@ -167,17 +167,10 @@ class Navigator @Inject()() {
     case _           => routes.SessionExpiredController.onPageLoad
   }
 
-  private def covidHomeWorkingRouting(userAnswers: UserAnswers) = userAnswers.covidHomeWorking match {
-    case Some(true)  => routes.ClaimOnlineController.onPageLoad()
-    case Some(false) => routes.MoreThanFiveJobsController.onPageLoad()
-    case _           => routes.SessionExpiredController.onPageLoad
-  }
-
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
     ClaimingForId -> claimingForRouting,
     ClaimantId -> claimantRouting,
     ClaimAnyOtherExpenseId -> claimAnyOtherExpenseRouting,
-    CovidHomeWorkingId -> covidHomeWorkingRouting,
     PaidTaxInRelevantYearId -> paidTaxInRelevantYearRouting,
     NotEntitledSomeYearsId -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
     RegisteredForSelfAssessmentId -> registeredForSelfAssessmentRouting,

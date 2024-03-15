@@ -57,10 +57,6 @@ claimAnyOtherExpense.summary = Y mathau o dreuliau y gallwch hawlio ar eu cyfer
 claimAnyOtherExpense.summary.para1 = Gallwch ond hawlio ar gyfer costau aelwyd ychwanegol sy’n ymwneud â’ch gwaith, er enghraifft, galwadau ffôn busnes neu nwy neu drydan ar gyfer lle rydych yn gweithio.
 claimAnyOtherExpense.summary.para2 = Ni allwch hawlio am bethau yr ydych yn eu defnyddio at ddibenion preifat a gwaith, er enghraifft, rent neu gysylltiad band eang, nac ychwaith ar gyfer offer na dodrefn.
 
-covidHomeWorking.title = A wnaethoch ddechrau gweithio gartref ar ôl 1 Ionawr 2020?
-covidHomeWorking.heading = A wnaethoch ddechrau gweithio gartref ar ôl 1 Ionawr 2020?
-covidHomeWorking.error.required = Dewiswch ‘Iawn’ os gwnaethoch ddechrau gweithio gartref ar ôl 01 Ionawr 2020
-
 registeredForSelfAssessment.title = A ydych yn llenwi Ffurflenni Treth Hunanasesiad?
 registeredForSelfAssessment.heading = A ydych yn llenwi Ffurflenni Treth Hunanasesiad?
 registeredForSelfAssessment.error.required = Dewiswch ‘Iawn’ os ydych yn llenwi Ffurflenni Treth Hunanasesiad

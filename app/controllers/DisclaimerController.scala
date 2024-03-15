@@ -21,7 +21,6 @@ import models.ClaimingFor.{FeesSubscriptions, HomeWorking, UniformsClothingTools
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import utils.UserAnswers
 import views.html.DisclaimerView
 
 import javax.inject.Inject
