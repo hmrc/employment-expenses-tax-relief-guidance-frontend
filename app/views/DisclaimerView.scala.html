@@ -21,7 +21,7 @@
         submitButton: playComponents.submit_button
 )
 
-@(isMergedJourney: Boolean)(implicit request: Request[_], messages: Messages)
+@(isMergedJourney: Boolean, isOnlyWorkFromHome: Boolean)(implicit request: Request[_], messages: Messages)
 
 @notificationBannerHtml = {
     <p class="govuk-notification-banner__heading">
@@ -70,7 +70,7 @@
     <p class="govuk-body">@messages("disclaimer.accept")</p>
 
     @submitButton(
-        href = if(isMergedJourney) {
+        href = if(isMergedJourney || isOnlyWorkFromHome) {
             Some(controllers.routes.PaidTaxInRelevantYearController.onPageLoad().url)
         } else {
             Some(controllers.routes.RegisteredForSelfAssessmentController.onPageLoad().url)
