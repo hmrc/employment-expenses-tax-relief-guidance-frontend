@@ -60,4 +60,9 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
     TaxYear.current.back(4).startYear.toString
   }
 
+  //Only to be enabled when WFH is shuttered while the rest of EE works, this will send people to the shutter page if
+  //they select wfh individually or go down a merged journey including wfh
+  //TODO disable and then remove after DL-12790 is live
+  val sendWfhToShutter: Boolean = configuration.getOptional[Boolean]("sendWfhToShutter").getOrElse(false)
+
 }
