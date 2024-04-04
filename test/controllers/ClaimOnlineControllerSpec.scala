@@ -17,7 +17,6 @@
 package controllers
 
 import base.SpecBase
-import identifiers.CovidHomeWorkingId
 import models.ClaimingFor._
 import play.api.libs.json.Json
 import play.api.test.FakeRequest
@@ -57,18 +56,6 @@ class ClaimOnlineControllerSpec extends SpecBase {
     "return OK and correct view for a GET when user not eligible for either employee expenses or professional subscriptions" in {
 
       val validCacheMap = CacheMap(cacheMapId, Map("claimingFor" -> Json.toJson(Seq(UniformsClothingTools.string, MileageFuel.string))))
-      val application = applicationBuilder(Some(validCacheMap)).build()
-      val request = FakeRequest(GET, claimOnlineRoute)
-      val result = route(application, request).value
-
-      status(result) mustBe OK
-
-      application.stop()
-    }
-
-    "return OK and correct view for a GET when user eligible for working from home expenses" in {
-
-      val validCacheMap = CacheMap(cacheMapId, Map(CovidHomeWorkingId.toString -> Json.toJson(true)))
       val application = applicationBuilder(Some(validCacheMap)).build()
       val request = FakeRequest(GET, claimOnlineRoute)
       val result = route(application, request).value
