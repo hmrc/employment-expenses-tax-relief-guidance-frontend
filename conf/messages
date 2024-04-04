@@ -57,10 +57,6 @@ claimAnyOtherExpense.summary = Types of expenses that you can claim for
 claimAnyOtherExpense.summary.para1 = You can only claim for extra household costs to do with your work such as business phone calls and gas and electricity for your work area.
 claimAnyOtherExpense.summary.para2 = You cannot claim for things that you use for both private and work purposes such as rent or broadband, or for equipment or furniture.
 
-covidHomeWorking.title = Did you start working from home after 1 January 2020?
-covidHomeWorking.heading = Did you start working from home after 1 January 2020?
-covidHomeWorking.error.required = Select yes if you started working from home after 1 January 2020
-
 registeredForSelfAssessment.title = Do you complete Self Assessment returns?
 registeredForSelfAssessment.heading = Do you complete Self Assessment returns?
 registeredForSelfAssessment.error.required = Select yes if you complete Self Assessment returns
