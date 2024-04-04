@@ -28,7 +28,7 @@ import org.scalatestplus.mockito.MockitoSugar
 
 class NavigatorSpec extends SpecBase with MockitoSugar {
 
-  val navigator = new Navigator
+  val navigator = new Navigator(frontendAppConfig)
 
   ".firstPage" must {
     "go to the ClaimingFor page" in {

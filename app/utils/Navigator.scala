@@ -16,6 +16,8 @@
 
 package utils
 
+import config.FrontendAppConfig
+
 import javax.inject.{Inject, Singleton}
 import play.api.mvc.Call
 import controllers.routes
@@ -25,7 +27,7 @@ import models.{Claimant, ClaimingFor}
 import models.EmployerPaid.{AllExpenses, NoExpenses, SomeExpenses}
 
 @Singleton
-class Navigator @Inject()() {
+class Navigator @Inject()(appConfig: FrontendAppConfig) {
 
   private def claimingForCurrentYearControllerRouting(userAnswers: UserAnswers) =
     userAnswers.claimingForCurrentYear match {
@@ -100,6 +102,9 @@ class Navigator @Inject()() {
   }
 
   private def claimingForRouting(userAnswers: UserAnswers) = userAnswers.claimingFor match {
+    case Some(list) if appConfig.sendWfhToShutter && list.contains(ClaimingFor.HomeWorking)
+      && list.forall(List(ClaimingFor.HomeWorking, ClaimingFor.UniformsClothingTools, ClaimingFor.FeesSubscriptions).contains)
+                                             => Call("GET", appConfig.workingFromHomeExpensesUrl)
     case Some(List(ClaimingFor.HomeWorking)) => routes.ClaimAnyOtherExpenseController.onPageLoad()
     case Some(_)                             => routes.ClaimantController.onPageLoad()
     case _                                   => routes.SessionExpiredController.onPageLoad
