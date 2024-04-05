@@ -90,9 +90,6 @@ GET        /only-claiming-working-from-home-tax-relief  controllers.ClaimAnyOthe
 GET        /claim-any-other-expense                     controllers.ClaimAnyOtherExpenseController.onPageLoad()
 POST       /claim-any-other-expense                     controllers.ClaimAnyOtherExpenseController.onSubmit()
 
-GET        /start-working-from-home-date                controllers.WfhDueToCovidController.onPageLoad()
-POST       /start-working-from-home-date                controllers.WfhDueToCovidController.onSubmit()
-
 GET        /not-eligible/employer-pays-working-from-home-expenses             controllers.CannotClaimWFHReliefController.onPageLoad()
 
 GET        /disclaimer                                  controllers.DisclaimerController.onPageLoad()
