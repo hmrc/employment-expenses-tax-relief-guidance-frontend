@@ -38,7 +38,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
 
   def injector: Injector = app.injector
 
-  implicit val frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
+  def frontendAppConfig: FrontendAppConfig = injector.instanceOf[FrontendAppConfig]
 
   def messagesApi: MessagesApi = injector.instanceOf[MessagesApi]
 
