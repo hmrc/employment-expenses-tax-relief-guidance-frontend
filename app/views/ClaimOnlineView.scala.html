@@ -32,7 +32,6 @@
 
 @href = @{
     onwardJourney match {
-        case OnwardJourney.MergedJourney(true, _, _) | OnwardJourney.WorkingFromHomeExpensesOnly if appConfig.sendWfhToShutter => appConfig.workingFromHomeExpensesUrl
         case OnwardJourney.FixedRateExpenses => appConfig.employeeExpensesUrl
         case OnwardJourney.ProfessionalSubscriptions => appConfig.professionalSubscriptionsUrl
         case OnwardJourney.IForm => appConfig.employeeExpensesClaimOnlineUrl
