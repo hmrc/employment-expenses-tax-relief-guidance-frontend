@@ -47,7 +47,7 @@ class ClaimOnlineController @Inject()(
         case Some(List(UniformsClothingTools)) => Ok(view(OnwardJourney.FixedRateExpenses, claimingFor))
         case Some(List(FeesSubscriptions)) => Ok(view(OnwardJourney.ProfessionalSubscriptions, claimingFor))
         case Some(List(HomeWorking)) => Ok(view(OnwardJourney.WorkingFromHomeExpensesOnly, claimingFor))
-        case _ if request.userAnswers.claimAnyOtherExpense.contains(true) => Ok(view(OnwardJourney.WorkingFromHomeExpensesOnly, claimingFor))
+        case _ if request.userAnswers.claimAnyOtherExpense.contains(true) => Ok(view(OnwardJourney.WorkingFromHomeExpensesOnly, List(HomeWorking)))
         case _ => Ok(view(OnwardJourney.IForm, claimingFor))
       }
   }
