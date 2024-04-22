@@ -70,7 +70,7 @@ trait CheckboxViewBehaviours[A] extends NewViewBehaviours {
         "contain checkboxes for the values" in {
           val doc = asDocument(createView(form))
           for (option <- options) {
-            assertContainsRadioButton(doc, option.id.get, option.name.get, option.value, false)
+            assertContainsRadioButton(doc, option.id.get, option.name.get, option.value, isChecked = false)
           }
         }
       }
@@ -82,7 +82,7 @@ trait CheckboxViewBehaviours[A] extends NewViewBehaviours {
           s"have the '${option.value}' checkbox selected" in {
             val formWithData = form.bind(Map("value" -> s"${option.value}"))
             val doc = asDocument(createView(formWithData))
-            assertContainsCheckBox(doc, option.id.get, option.name.get, option.value, false)
+            assertContainsCheckBox(doc, option.id.get, option.name.get, option.value, isChecked = false)
           }
         }
       }
@@ -98,7 +98,7 @@ trait CheckboxViewBehaviours[A] extends NewViewBehaviours {
 
         for(option <- options) {
           s"have ${option.value} value selected" in {
-            assertContainsCheckBox(doc, option.id.get, option.name.get, option.value, false)
+            assertContainsCheckBox(doc, option.id.get, option.name.get, option.value, isChecked = false)
           }
         }
       }

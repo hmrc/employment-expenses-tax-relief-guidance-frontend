@@ -17,12 +17,12 @@
 package repositories
 
 import config.FrontendAppConfig
+
 import javax.inject.{Inject, Singleton}
 import java.time.Instant
-
 import org.mongodb.scala.model.{IndexModel, IndexOptions, UpdateOptions}
 import org.mongodb.scala.model.Indexes._
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.{JsValue, Json, OFormat}
 import uk.gov.hmrc.mongo.MongoComponent
 import uk.gov.hmrc.mongo.play.json.PlayMongoRepository
 import org.mongodb.scala.model.Filters._
@@ -40,7 +40,7 @@ case class DatedCacheMap(id: String,
 
 object DatedCacheMap extends MongoDateTimeFormats {
 
-  implicit val formats = Json.format[DatedCacheMap]
+  implicit val formats: OFormat[DatedCacheMap] = Json.format[DatedCacheMap]
 
   def apply(cacheMap: CacheMap): DatedCacheMap = DatedCacheMap(cacheMap.id, cacheMap.data)
 }

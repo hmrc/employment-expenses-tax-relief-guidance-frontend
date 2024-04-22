@@ -18,7 +18,9 @@ package views
 
 import forms.ClaimAnyOtherExpenseFormProvider
 import models.ClaimAnyOtherExpense
+import play.api.Application
 import play.api.data.Form
+import play.twirl.api.Html
 import views.behaviours.NewViewBehaviours
 import views.html.ClaimAnyOtherExpenseView
 
@@ -26,13 +28,13 @@ class ClaimAnyOtherExpenseViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = "claimAnyOtherExpense"
 
-  val application = applicationBuilder().build()
+  val application: Application = applicationBuilder().build()
 
-  val view = application.injector.instanceOf[ClaimAnyOtherExpenseView]
+  val view: ClaimAnyOtherExpenseView = application.injector.instanceOf[ClaimAnyOtherExpenseView]
 
   val form = new ClaimAnyOtherExpenseFormProvider()()
 
-  def createView(form: Form[_]) = view.apply(form)(fakeRequest, messages)
+  def createView(form: Form[_]): Html = view.apply(form)(fakeRequest, messages)
 
   "ClaimAnyOtherExpenseViewSpec view" must {
 
@@ -43,7 +45,7 @@ class ClaimAnyOtherExpenseViewSpec extends NewViewBehaviours {
     "contain radio buttons for the value" in {
       val doc = asDocument(createView(form))
       for (option <- ClaimAnyOtherExpense.options) {
-        assertContainsRadioButton(doc, option.id, "value", option.value, false)
+        assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
       }
     }
 
@@ -51,10 +53,10 @@ class ClaimAnyOtherExpenseViewSpec extends NewViewBehaviours {
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createView(form.bind(Map("value" -> s"${option.value}"))))
-          assertContainsRadioButton(doc, option.id, "value", option.value, true)
+          assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
           for(unselectedOption <- ClaimAnyOtherExpense.options.filterNot(_ == option)) {
-            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, false)
+            assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
           }
         }
       }
