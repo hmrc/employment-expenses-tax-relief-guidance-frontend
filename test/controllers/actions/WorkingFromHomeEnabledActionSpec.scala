@@ -28,16 +28,16 @@ import play.api.mvc.{AnyContent, MessagesControllerComponents, Request, Response
 import play.mvc.Http.HeaderNames
 import utils.MaterializerSupport
 
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class WorkingFromHomeEnabledActionSpec extends SpecBase with MockitoSugar with ScalaFutures with MaterializerSupport {
 
-  implicit val executionContext = scala.concurrent.ExecutionContext.Implicits.global
+  implicit val executionContext: ExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
 
   val BLOCK_EXECUTED_MESSAGE = ""
 
   class SetUp {
-    val mockAppConfig = mock[FrontendAppConfig]
+    val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
 
     class ActionUnderTest(controllerComponents: MessagesControllerComponents) extends WorkingFromHomeEnabledActionImpl(controllerComponents, mockAppConfig) {}
 

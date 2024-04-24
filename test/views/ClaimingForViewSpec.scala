@@ -61,7 +61,7 @@ class ClaimingForViewSpec extends CheckboxViewBehaviours[ClaimingFor] {
       "contain checkboxes for each option" in {
         val doc = asDocument(createView(form))
         for ((option, index) <- ClaimingFor.options().zipWithIndex) {
-          assertContainsRadioButton(doc, option.id.get, s"value[$index]", option.value, false)
+          assertContainsRadioButton(doc, option.id.get, s"value[$index]", option.value, isChecked = false)
         }
       }
     }
