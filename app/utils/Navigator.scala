@@ -79,7 +79,7 @@ class Navigator @Inject()() {
     case Some(AllExpenses)  => routes.CannotClaimReliefController.onPageLoad()
     case Some(SomeExpenses | NoExpenses) => userAnswers.claimingFor match {
       case Some(List(ClaimingFor.MileageFuel))     => routes.UseOwnCarController.onPageLoad()
-      case Some(List(ClaimingFor.BuyingEquipment)) => routes.CannotClaimBuyingEquipmentController.onPageLoad()
+      case Some(List(ClaimingFor.BuyingEquipment)) => routes.MoreThanFiveJobsController.onPageLoad()
       case Some(_)                                 => routes.MoreThanFiveJobsController.onPageLoad()
       case _                                       => routes.SessionExpiredController.onPageLoad
     }
