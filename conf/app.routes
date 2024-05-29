@@ -75,8 +75,6 @@ GET        /cannot-claim-mileage-costs                  controllers.CannotClaimM
 
 GET        /cannot-claim-mileage-fuel-electricity-costs controllers.CannotClaimMileageFuelCostsController.onPageLoad()
 
-GET        /cannot-claim-buying-other-equipment         controllers.CannotClaimBuyingEquipmentController.onPageLoad()
-
 GET        /will-not-pay-tax-in-year                    controllers.WillNotPayTaxController.onPageLoad()
 
 GET        /pay-or-will-pay-tax-in-year                 controllers.WillPayTaxController.onPageLoad()

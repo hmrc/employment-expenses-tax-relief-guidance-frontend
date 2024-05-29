@@ -514,18 +514,6 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       }
     }
 
-    "go to the CannotClaimBuyingEquipment view" when {
-      "choosing only BuyingEquipment from the ClaimingFor view" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimant).thenReturn(Some(You))
-        when(mockAnswers.claimingFor).thenReturn(Some(List(BuyingEquipment)))
-        when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(employerPaid))
-
-        navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
-          routes.CannotClaimBuyingEquipmentController.onPageLoad()
-      }
-    }
-
     "go to WillNotPayTax view" when {
       "answering No to WillPayTax" in {
         val mockAnswers = mock[UserAnswers]
