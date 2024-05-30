@@ -23,13 +23,23 @@
         submitButton: playComponents.submit_button
 )
 
-@()(implicit request: Request[_], messages: Messages)
+@(fuelCosts: Boolean = false, mileageCosts: Boolean = false)(implicit request: Request[_], messages: Messages)
+
+@vehicleText = @{
+    if(fuelCosts && mileageCosts) messages("usePrintAndPost.fuelAndMileage")
+    else if(fuelCosts) messages("usePrintAndPost.fuel")
+    else if(mileageCosts) messages("usePrintAndPost.mileage")
+}
 
 @layout(
     pageTitle = messages("usePrintAndPost.title")
 ) {
 
     @heading(messages("usePrintAndPost.heading"))
+
+    @if(fuelCosts || mileageCosts) {
+        <p class="govuk-body">@vehicleText</p>
+    }
 
     @submitButton(
         href = Some(appConfig.employeeExpensesClaimByPostUrl),

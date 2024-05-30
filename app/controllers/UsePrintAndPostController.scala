@@ -35,7 +35,9 @@ class UsePrintAndPostController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      Ok(view())
+      val fuelCosts = request.userAnswers.claimingFuel.getOrElse(false)
+      val mileageCosts = request.userAnswers.claimingMileage.getOrElse(false)
+      Ok(view(fuelCosts, mileageCosts))
   }
 
   def printAndPostGuidance: Action[AnyContent] = (getData andThen requireData) {

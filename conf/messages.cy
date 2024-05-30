@@ -95,6 +95,9 @@ registerForSelfAssessment.guidance2 = Ewch ati i ddysgu sut i
 
 usePrintAndPost.title = Gallwch hawlio rhyddhad treth ar y treuliau hyn drwy’r post
 usePrintAndPost.heading = Gallwch hawlio rhyddhad treth ar y treuliau hyn drwy’r post
+usePrintAndPost.fuelAndMileage = Mae’n rhaid i chi gynnwys cyfrifiad o’ch costau tanwydd a logiau milltiredd wrth i chi wneud eich hawliad.
+usePrintAndPost.fuel = Mae’n rhaid i chi gynnwys cyfrifiad o’ch costau tanwydd wrth i chi wneud eich hawliad.
+usePrintAndPost.mileage = Mae’n rhaid i chi gynnwys logiau milltiredd wrth i chi wneud eich hawliad.
 usePrintAndPost.link.label = Hawlio drwy’r post
 
 claimOnline.title = Rydych yn gymwys i hawlio’r treuliau swydd hyn
