@@ -269,6 +269,10 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       "answering Yes from the MoreThanFiveJobs view" in {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.moreThanFiveJobs).thenReturn(Some(true))
+        when(mockAnswers.claimingFor).thenReturn(None)
+        when(mockAnswers.claimingMileage).thenReturn(None)
+        when(mockAnswers.claimingFuel).thenReturn(None)
+        when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(None)
 
         navigator.nextPage(MoreThanFiveJobsId)(mockAnswers) mustBe
           routes.UsePrintAndPostController.onPageLoad()
@@ -289,6 +293,10 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       "answering No from the MoreThanFiveJobs view" in {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.moreThanFiveJobs).thenReturn(Some(false))
+        when(mockAnswers.claimingFor).thenReturn(None)
+        when(mockAnswers.claimingMileage).thenReturn(None)
+        when(mockAnswers.claimingFuel).thenReturn(None)
+        when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(None)
 
         navigator.nextPage(MoreThanFiveJobsId)(mockAnswers) mustBe
           routes.ClaimOnlineController.onPageLoad()
@@ -561,6 +569,10 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         }
 
         "no data from MoreThanFiveJobs" in {
+          when(mockAnswers.claimingFor).thenReturn(None)
+          when(mockAnswers.claimingMileage).thenReturn(None)
+          when(mockAnswers.claimingFuel).thenReturn(None)
+          when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(None)
           navigator.nextPage(MoreThanFiveJobsId)(mockAnswers) mustBe
             routes.SessionExpiredController.onPageLoad
         }

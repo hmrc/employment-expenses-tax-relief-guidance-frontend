@@ -97,6 +97,9 @@ registerForSelfAssessment.guidance2 = Find out how to
 
 usePrintAndPost.title = You can claim tax relief for these expenses by post
 usePrintAndPost.heading = You can claim tax relief for these expenses by post
+usePrintAndPost.fuelAndMileage = You must include a calculation of your fuel costs and mileage logs with your claim.
+usePrintAndPost.fuel = You must include a calculation of your fuel costs with your claim.
+usePrintAndPost.mileage = You must include mileage logs with your claim.
 usePrintAndPost.link.label = Claim by post
 
 claimOnline.title = You are eligible to claim these job expenses
