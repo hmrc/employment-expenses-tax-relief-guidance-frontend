@@ -58,7 +58,7 @@ class Navigator @Inject()() {
 
   private def moreThanFiveJobsRouting(userAnswers: UserAnswers) = {
     val claimingVehiclesRoute = userAnswers.claimingFor.contains(List(ClaimingFor.MileageFuel))
-    val vehiclesRedirect = userAnswers.claimingMileage.contains(true) && userAnswers.claimingFuel.contains(false) && userAnswers.employerPaidBackAnyExpenses.contains(EmployerPaid.SomeExpenses)
+    val vehiclesRedirect = userAnswers.claimingMileage.contains(true) && (userAnswers.claimingFuel.contains(false) || userAnswers.useCompanyCar.contains(false)) && userAnswers.employerPaidBackAnyExpenses.contains(EmployerPaid.SomeExpenses)
 
     userAnswers.moreThanFiveJobs match {
       case Some(true)                           => routes.UsePrintAndPostController.onPageLoad()
