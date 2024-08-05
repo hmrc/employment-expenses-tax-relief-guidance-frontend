@@ -32,7 +32,7 @@ trait NewViewBehaviours extends NewViewSpecBase {
       "rendered" must {
         "have the correct banner title" in {
           val doc = asDocument(view)
-          val banner = doc.select(".hmrc-header__service-name")
+          val banner = doc.select(".govuk-header__service-name")
 
           banner.text() mustEqual messages("site.service_name")
         }
