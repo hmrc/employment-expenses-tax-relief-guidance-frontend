@@ -31,7 +31,6 @@
 
 @headBlock = {
     <meta name="format-detection" content="telephone=no" />
-    <link rel="stylesheet" href='@routes.Assets.versioned("stylesheets/application.css")'/>
     @if(timeoutEnabled) {
         @hmrcTimeoutDialogHelper(
             signOutUrl = controllers.routes.SessionExpiredController.onPageLoad.url,

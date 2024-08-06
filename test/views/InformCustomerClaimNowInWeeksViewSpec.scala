@@ -40,7 +40,7 @@ class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours{
 
     "have the correct banner title" in {
       val doc = asDocument(createView())
-      val banner = doc.select(".hmrc-header__service-name")
+      val banner = doc.select(".govuk-header__service-name")
 
       banner.text() mustEqual messages("service.name")
     }

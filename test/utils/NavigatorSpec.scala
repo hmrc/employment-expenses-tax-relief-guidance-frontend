@@ -20,7 +20,7 @@ import base.SpecBase
 import controllers.routes
 import identifiers._
 import models.Claimant.You
-import models.ClaimingFor.{BuyingEquipment, HomeWorking, UniformsClothingTools}
+import models.ClaimingFor.{HomeWorking, UniformsClothingTools}
 import models.EmployerPaid.{NoExpenses, SomeExpenses}
 import models.{Claimant, ClaimingFor, EmployerPaid}
 import org.mockito.Mockito._
