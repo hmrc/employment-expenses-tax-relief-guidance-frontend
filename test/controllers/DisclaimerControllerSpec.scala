@@ -17,6 +17,8 @@
 package controllers
 
 import base.SpecBase
+import config.FrontendAppConfig
+import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -26,12 +28,15 @@ class DisclaimerControllerSpec extends SpecBase {
 
   def disclaimerRoute = routes.DisclaimerController.onPageLoad().url
 
+  def onwardRoute = routes.DisclaimerController.onPageLoad()
+  val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
+
   "Disclaimer Controller" must {
 
     "return OK and the correct view for a GET" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap))
-        .overrides(bind[Navigator].toInstance(new FakeNavigator()))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute,mockAppConfig)))
         .build()
       val request = FakeRequest(GET, disclaimerRoute)
       val result = route(application, request).value

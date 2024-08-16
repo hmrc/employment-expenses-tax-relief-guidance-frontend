@@ -17,6 +17,7 @@
 package controllers
 
 import base.SpecBase
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, when}
@@ -34,6 +35,7 @@ import scala.concurrent.Future
 class ChangeUniformsWorkClothingToolsControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach
   with ScalaFutures with IntegrationPatience {
 
+  private val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
   private val mockDataCacheConnector = mock[DataCacheConnector]
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
@@ -48,7 +50,7 @@ class ChangeUniformsWorkClothingToolsControllerSpec extends SpecBase with Mockit
 
       val application = applicationBuilder(Some(claimantIdCacheMap))
         .overrides(
-          bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
+          bind[Navigator].toInstance(new FakeNavigator(onwardRoute,mockAppConfig)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
         ).build()
 

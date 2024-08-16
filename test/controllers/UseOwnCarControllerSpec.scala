@@ -17,6 +17,7 @@
 package controllers
 
 import base.SpecBase
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import forms.UseOwnCarFormProvider
 import identifiers.{ClaimantId, UseOwnCarId}
@@ -25,6 +26,7 @@ import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.inject.bind
 import play.api.libs.json.{JsBoolean, JsString}
 import play.api.test.FakeRequest
@@ -40,6 +42,7 @@ class UseOwnCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndA
 
   def useOwnCarRoute = routes.UseOwnCarController.onPageLoad().url
 
+  val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
   private val mockDataCacheConnector = mock[DataCacheConnector]
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
@@ -81,7 +84,7 @@ class UseOwnCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndA
 
       val application = applicationBuilder(Some(claimantIdCacheMap))
         .overrides(
-          bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
+          bind[Navigator].toInstance(new FakeNavigator(onwardRoute,mockAppConfig)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
         ).build()
 
@@ -110,7 +113,7 @@ class UseOwnCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndA
     "redirect to Session Expired for a GET if no existing data is found" in {
 
       val application = applicationBuilder()
-        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute,mockAppConfig)))
         .build()
       val request = FakeRequest(GET, useOwnCarRoute)
       val result = route(application, request).value
@@ -124,7 +127,7 @@ class UseOwnCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndA
     "redirect to Session Expired for a POST if no existing data is found" in {
 
       val application = applicationBuilder()
-        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute,mockAppConfig)))
         .build()
       val request = FakeRequest(GET, useOwnCarRoute)
       val result = route(application, request).value

@@ -17,6 +17,7 @@
 package utils
 
 import base.SpecBase
+import config.FrontendAppConfig
 import controllers.routes
 import identifiers._
 import models.Claimant.You
@@ -26,9 +27,12 @@ import models.{Claimant, ClaimingFor, EmployerPaid}
 import org.mockito.Mockito._
 import org.scalatestplus.mockito.MockitoSugar
 
-class NavigatorSpec extends SpecBase with MockitoSugar {
+import javax.inject.Inject
 
-  val navigator = new Navigator
+class NavigatorSpec @Inject() extends SpecBase with MockitoSugar {
+
+  val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
+  val navigator = new Navigator(mockAppConfig);
 
   ".firstPage" must {
     "go to the ClaimingFor page" in {

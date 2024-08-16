@@ -17,6 +17,7 @@
 package controllers
 
 import base.SpecBase
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import identifiers.ClaimingForId
 import models.ClaimingFor._
@@ -40,6 +41,7 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
 
   def claimingForRoute = routes.ClaimingForController.onPageLoad().url
 
+  private val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
   private val mockDataCacheConnector = mock[DataCacheConnector]
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
@@ -79,7 +81,7 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
 
       val application = applicationBuilder()
         .overrides(
-          bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
+          bind[Navigator].toInstance(new FakeNavigator(onwardRoute,mockAppConfig)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
         ).build()
 
@@ -97,7 +99,7 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val application = applicationBuilder()
-        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute,mockAppConfig)))
         .build()
       val request = FakeRequest(POST, claimingForRoute)
         .withFormUrlEncodedBody(("value", "invalid value"))

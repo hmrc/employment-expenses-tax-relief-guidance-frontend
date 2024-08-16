@@ -17,6 +17,7 @@
 package controllers
 
 import base.SpecBase
+import config.FrontendAppConfig
 import identifiers.ClaimingForId
 import models.ClaimingFor.{MileageFuel, UniformsClothingTools}
 import org.scalatest.BeforeAndAfterEach
@@ -33,6 +34,8 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
   def claimantRoute: Call = routes.ClaimantController.onPageLoad()
+
+  private val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
 
   "Claimant Controller" must {
 
@@ -67,7 +70,7 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
     "redirect to the next page when valid data is submitted" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap))
-        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute,mockAppConfig)))
         .build()
       val request = FakeRequest(POST, claimantRoute.url)
         .withFormUrlEncodedBody(("value", claimant.toString))

@@ -17,6 +17,7 @@
 package controllers
 
 import base.SpecBase
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import identifiers.{ClaimantId, ClaimingOverPayAsYouEarnThresholdId}
 import org.mockito.ArgumentMatchers.any
@@ -39,6 +40,7 @@ class ClaimingOverPayAsYouEarnThresholdControllerSpec extends SpecBase with Mock
   def onwardRoute = routes.IndexController.onPageLoad
   def claimingOverRoute = routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad().url
 
+  private val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
   private val mockDataCacheConnector = mock[DataCacheConnector]
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
@@ -77,7 +79,7 @@ class ClaimingOverPayAsYouEarnThresholdControllerSpec extends SpecBase with Mock
     "redirect to the next page when valid data is submitted" in {
       val application = applicationBuilder(Some(claimantIdCacheMap))
         .overrides(
-          bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
+          bind[Navigator].toInstance(new FakeNavigator(onwardRoute,mockAppConfig)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
         ).build()
 

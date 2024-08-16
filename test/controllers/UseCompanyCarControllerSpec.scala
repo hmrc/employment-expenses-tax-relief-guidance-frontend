@@ -17,6 +17,7 @@
 package controllers
 
 import base.SpecBase
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import forms.UseCompanyCarFormProvider
 import identifiers.{ClaimantId, UseCompanyCarId, UseOwnCarId}
@@ -37,6 +38,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
 
+  val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
   def onwardRoute = routes.IndexController.onPageLoad
   def useCompanyCarRoute = routes.UseCompanyCarController.onPageLoad().url
 
@@ -90,7 +92,7 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
 
       val application = applicationBuilder(Some(validCacheMap))
         .overrides(
-          bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
+          bind[Navigator].toInstance(new FakeNavigator(onwardRoute,mockAppConfig)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
         ).build()
 

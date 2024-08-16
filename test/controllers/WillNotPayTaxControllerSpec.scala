@@ -17,12 +17,16 @@
 package controllers
 
 import base.SpecBase
+import config.FrontendAppConfig
+import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.{FakeNavigator, Navigator}
 
 class WillNotPayTaxControllerSpec extends SpecBase {
+
+  val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
 
   def onwardRoute = routes.IndexController.onPageLoad
 
@@ -32,7 +36,7 @@ class WillNotPayTaxControllerSpec extends SpecBase {
     "return OK and the correct view for a GET" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap))
-        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute,mockAppConfig)))
         .build()
       val request = FakeRequest(GET, willNotPayRoute)
       val result = route(application, request).value

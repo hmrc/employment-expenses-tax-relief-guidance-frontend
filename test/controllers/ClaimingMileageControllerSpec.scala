@@ -17,6 +17,7 @@
 package controllers
 
 import base.SpecBase
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import identifiers.{ClaimantId, ClaimingMileageId}
 import org.mockito.ArgumentMatchers.any
@@ -38,6 +39,7 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
   def onwardRoute = routes.IndexController.onPageLoad
   def claimingMileageRoute = routes.ClaimingMileageController.onPageLoad().url
 
+  private val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
   private val mockDataCacheConnector = mock[DataCacheConnector]
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
@@ -73,7 +75,7 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
 
       val application = applicationBuilder(Some(claimantIdCacheMap))
         .overrides(
-          bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
+          bind[Navigator].toInstance(new FakeNavigator(onwardRoute,mockAppConfig)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
         ).build()
 

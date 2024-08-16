@@ -17,6 +17,7 @@
 package controllers
 
 import base.SpecBase
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import identifiers.{ClaimantId, WillPayTaxId}
 import org.mockito.ArgumentMatchers.any
@@ -24,6 +25,7 @@ import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.inject.bind
 import play.api.libs.json.{JsBoolean, JsString}
 import play.api.mvc.Call
@@ -40,6 +42,7 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
   def onwardRoute = Call("GET", "/foo")
   def willPayTaxRoute = routes.WillPayTaxController.onPageLoad().url
 
+  val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
   private val mockDataCacheConnector = mock[DataCacheConnector]
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
@@ -82,7 +85,7 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
 
       val application = applicationBuilder(Some(claimantIdCacheMap))
         .overrides(
-          bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
+          bind[Navigator].toInstance(new FakeNavigator(onwardRoute,mockAppConfig)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
         ).build()
 

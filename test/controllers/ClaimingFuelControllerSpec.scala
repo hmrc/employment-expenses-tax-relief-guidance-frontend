@@ -17,6 +17,7 @@
 package controllers
 
 import base.SpecBase
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import forms.ClaimingFuelFormProvider
 import identifiers.{ClaimantId, ClaimingFuelId}
@@ -40,6 +41,7 @@ class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeA
 
   def claimingFuelRoute = routes.ClaimingFuelController.onPageLoad().url
 
+  private val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
   private val mockDataCacheConnector = mock[DataCacheConnector]
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
@@ -82,7 +84,7 @@ class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeA
 
       val application = applicationBuilder(Some(claimantIdCacheMap))
         .overrides(
-          bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
+          bind[Navigator].toInstance(new FakeNavigator(onwardRoute,mockAppConfig)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
         ).build()
 

@@ -17,15 +17,18 @@
 package controllers
 
 import base.SpecBase
+import config.FrontendAppConfig
+import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.test.Helpers._
 import utils.Navigator
 
 class IndexControllerSpec extends SpecBase {
 
+  val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
   "Index Controller" must {
     "return Moved Permanently (to ClaimingFor) for a GET" in {
 
-      val result = new IndexController(new Navigator, controllerComponents).onPageLoad()(fakeRequest)
+      val result = new IndexController(new Navigator(mockAppConfig), controllerComponents).onPageLoad()(fakeRequest)
 
       status(result) mustBe MOVED_PERMANENTLY
 

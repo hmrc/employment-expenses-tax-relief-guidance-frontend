@@ -17,6 +17,7 @@
 package controllers
 
 import base.SpecBase
+import config.FrontendAppConfig
 import identifiers.ClaimAnyOtherExpenseId
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
@@ -32,6 +33,8 @@ class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
   def claimAnyOtherExpenseRoute: Call = routes.ClaimAnyOtherExpenseController.onPageLoad()
+
+  private val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
 
   "ClaimAnyOtherExpenseController" must {
 
@@ -65,7 +68,7 @@ class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with
     "redirect to the next page when valid data is submitted" in {
 
       val application = applicationBuilder()
-        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute,mockAppConfig)))
         .build()
       val request = FakeRequest(POST, claimAnyOtherExpenseRoute.url)
         .withFormUrlEncodedBody("value" -> "true")

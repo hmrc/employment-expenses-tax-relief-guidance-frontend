@@ -17,6 +17,7 @@
 package controllers
 
 import base.SpecBase
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import forms.RegisteredForSelfAssessmentFormProvider
 import identifiers.{ClaimAnyOtherExpenseId, ClaimantId, RegisteredForSelfAssessmentId}
@@ -41,6 +42,7 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase with MockitoSug
 
   def registeredForSelfAssessmentRoute = routes.RegisteredForSelfAssessmentController.onPageLoad().url
 
+  private val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
   private val mockDataCacheConnector = mock[DataCacheConnector]
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
@@ -88,7 +90,7 @@ class RegisteredForSelfAssessmentControllerSpec extends SpecBase with MockitoSug
     "redirect to the next page when valid data is submitted" in {
       val application = applicationBuilder(Some(claimantIdCacheMap))
         .overrides(
-          bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
+          bind[Navigator].toInstance(new FakeNavigator(onwardRoute,mockAppConfig)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
         ).build()
 

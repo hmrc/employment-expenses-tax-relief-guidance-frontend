@@ -17,6 +17,7 @@
 package controllers
 
 import base.SpecBase
+import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.PaidTaxInRelevantYearFormProvider
@@ -37,6 +38,7 @@ import scala.concurrent.Future
 
 class PaidTaxInRelevantYearControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
 
+  val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
   def onwardRoute = routes.IndexController.onPageLoad
 
   def paidTaxInRelevantYearRoute = routes.PaidTaxInRelevantYearController.onPageLoad().url
@@ -88,7 +90,7 @@ class PaidTaxInRelevantYearControllerSpec extends SpecBase with MockitoSugar wit
     "redirect to the next page when valid data is submitted" in {
       val application = applicationBuilder(Some(claimantIdCacheMap))
         .overrides(
-          bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
+          bind[Navigator].toInstance(new FakeNavigator(onwardRoute,mockAppConfig)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
         ).build()
 

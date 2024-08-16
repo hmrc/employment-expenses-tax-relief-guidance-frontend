@@ -17,6 +17,8 @@
 package controllers
 
 import base.SpecBase
+import config.FrontendAppConfig
+import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -24,16 +26,18 @@ import utils.{FakeNavigator, Navigator}
 
 class NotEntitledSomeYearsControllerSpec extends SpecBase {
 
+
   def onwardRoute = routes.IndexController.onPageLoad
 
   def notEntitledSomeYearsRoute = routes.NotEntitledSomeYearsController.onPageLoad().url
 
+  private val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
   "NotEntitledSomeYears Controller" must {
 
     "return OK and the correct view for a GET" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap))
-        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
+        .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute,mockAppConfig)))
         .build()
       val request = FakeRequest(GET, notEntitledSomeYearsRoute)
       val result = route(application, request).value
