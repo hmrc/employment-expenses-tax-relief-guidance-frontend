@@ -39,5 +39,11 @@ class SessionExpiredController @Inject()(
       } else {
         Ok(view(navigator.firstPage))
       }
+
+     /* if (appConfig.workingFromHomeExpensesOnlyEnabled && appConfig.onlineJourneyShutterEnabled) {
+        Ok(view(Call("GET", appConfig.taxReliefForEmployeesUrl)))
+      } else {
+        Ok(view(navigator.firstPage))
+      }*/
   }
 }
