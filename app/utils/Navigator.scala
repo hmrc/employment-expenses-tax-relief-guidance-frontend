@@ -16,6 +16,8 @@
 
 package utils
 
+import config.FrontendAppConfig
+
 import javax.inject.{Inject, Singleton}
 import play.api.mvc.Call
 import controllers.routes
@@ -25,7 +27,7 @@ import models.{Claimant, ClaimingFor, EmployerPaid}
 import models.EmployerPaid.{AllExpenses, NoExpenses, SomeExpenses}
 
 @Singleton
-class Navigator @Inject()() {
+class Navigator @Inject()(appConfig: FrontendAppConfig) {
 
   private def claimingForCurrentYearControllerRouting(userAnswers: UserAnswers) =
     userAnswers.claimingForCurrentYear match {
@@ -82,6 +84,7 @@ class Navigator @Inject()() {
   }
 
   private def employerPaidBackOtherExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackAnyExpenses match {
+    case Some(AllExpenses | SomeExpenses | NoExpenses) if(appConfig.onlineJourneyShutterEnabled) => routes.UsePrintAndPostController.onPageLoad()
     case Some(AllExpenses)  => routes.CannotClaimReliefController.onPageLoad()
     case Some(SomeExpenses | NoExpenses) => userAnswers.claimingFor match {
       case Some(List(ClaimingFor.MileageFuel))     => routes.UseOwnCarController.onPageLoad()
@@ -93,6 +96,7 @@ class Navigator @Inject()() {
   }
 
   private def employerPaidBackWFHExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackAnyExpenses match {
+    case Some(AllExpenses | SomeExpenses | NoExpenses) if(appConfig.onlineJourneyShutterEnabled) => routes.UsePrintAndPostController.onPageLoad()
     case Some(NoExpenses)   => routes.ClaimOnlineController.onPageLoad()
     case Some(SomeExpenses) => routes.MoreThanFiveJobsController.onPageLoad()
     case Some(AllExpenses)  => routes.CannotClaimWFHReliefController.onPageLoad()
