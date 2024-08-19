@@ -16,9 +16,15 @@
 
 package utils
 
+import base.SpecBase
 import play.api.mvc.Call
 import identifiers.Identifier
 
-class FakeNavigator(desiredRoute: Call = Call("GET", "/")) extends Navigator {
-  override def nextPage(controllerId: Identifier): (UserAnswers) => Call = _ => desiredRoute
+trait NavigatorSupport {
+  self: SpecBase =>
+
+  class FakeNavigator(desiredRoute: Call = Call("GET", "/")) extends Navigator()(frontendAppConfig) {
+    override def nextPage(controllerId: Identifier): (UserAnswers) => Call = _ => desiredRoute
+  }
+
 }

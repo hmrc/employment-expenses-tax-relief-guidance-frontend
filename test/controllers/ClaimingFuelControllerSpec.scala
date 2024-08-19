@@ -28,13 +28,13 @@ import play.api.inject.bind
 import play.api.libs.json.{JsBoolean, JsString}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{CacheMap, FakeNavigator, Navigator}
+import utils.{CacheMap, NavigatorSupport, Navigator}
 import org.mockito.ArgumentMatchers.any
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
+class ClaimingFuelControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience with NavigatorSupport {
 
   def onwardRoute = routes.IndexController.onPageLoad
 

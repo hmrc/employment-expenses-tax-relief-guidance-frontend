@@ -26,13 +26,13 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{CacheMap, FakeNavigator, Navigator}
+import utils.{CacheMap, NavigatorSupport, Navigator}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class ChangeUniformsWorkClothingToolsControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach
-  with ScalaFutures with IntegrationPatience {
+  with ScalaFutures with IntegrationPatience with NavigatorSupport {
 
   private val mockDataCacheConnector = mock[DataCacheConnector]
   override def beforeEach(): Unit = {
