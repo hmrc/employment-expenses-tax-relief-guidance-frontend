@@ -46,6 +46,7 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   val workingFromHomeExpensesOnlyEnabled: Boolean = configuration.getOptional[Boolean]("workingFromHomeExpensesOnly.enabled").getOrElse(false)
 
   val mergedJourneyEnabled: Boolean = configuration.getOptional[Boolean]("mergedJourney.enabled").getOrElse(false)
+  val onlineJourneyShutterEnabled: Boolean = configuration.getOptional[Boolean]("onlineJourneyShutter.enabled").getOrElse(false)
 
   lazy val claimingForCurrentYearBackButtonOverride: String = configuration.get[String]("claimingForCurrentYear.backButtonOverride.reference")
   lazy val registeredForSelfBackButtonOverride: String = configuration.get[String]("registeredForSelf.backButtonOverride.reference")
