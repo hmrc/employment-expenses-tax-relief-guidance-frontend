@@ -27,7 +27,7 @@ import models.{Claimant, ClaimingFor, EmployerPaid}
 import models.EmployerPaid.{AllExpenses, NoExpenses, SomeExpenses}
 
 @Singleton
-class Navigator @Inject()(appConfig: FrontendAppConfig) {
+class Navigator @Inject()(implicit appConfig: FrontendAppConfig) {
 
   private def claimingForCurrentYearControllerRouting(userAnswers: UserAnswers) =
     userAnswers.claimingForCurrentYear match {
