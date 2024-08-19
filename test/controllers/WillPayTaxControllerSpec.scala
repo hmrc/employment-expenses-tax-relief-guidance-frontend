@@ -29,12 +29,12 @@ import play.api.libs.json.{JsBoolean, JsString}
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{CacheMap, FakeNavigator, Navigator}
+import utils.{CacheMap, NavigatorSupport, Navigator}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSugar with BeforeAndAfterEach with IntegrationPatience {
+class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSugar with BeforeAndAfterEach with IntegrationPatience with NavigatorSupport {
 
 
   def onwardRoute = Call("GET", "/foo")

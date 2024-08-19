@@ -20,9 +20,9 @@ import base.SpecBase
 import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{FakeNavigator, Navigator}
+import utils.{NavigatorSupport, Navigator}
 
-class NotEntitledSomeYearsControllerSpec extends SpecBase {
+class NotEntitledSomeYearsControllerSpec extends SpecBase with NavigatorSupport {
 
   def onwardRoute = routes.IndexController.onPageLoad
 
