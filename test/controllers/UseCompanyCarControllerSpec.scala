@@ -30,12 +30,12 @@ import play.api.inject.bind
 import play.api.libs.json.{JsBoolean, JsString}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{CacheMap, FakeNavigator, Navigator}
+import utils.{CacheMap, NavigatorSupport, Navigator}
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
+class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience with NavigatorSupport {
 
   def onwardRoute = routes.IndexController.onPageLoad
   def useCompanyCarRoute = routes.UseCompanyCarController.onPageLoad().url

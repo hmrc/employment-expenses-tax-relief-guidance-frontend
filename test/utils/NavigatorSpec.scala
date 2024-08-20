@@ -17,6 +17,7 @@
 package utils
 
 import base.SpecBase
+import config.FrontendAppConfig
 import controllers.routes
 import identifiers._
 import models.Claimant.You
@@ -344,8 +345,19 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
           routes.MoreThanFiveJobsController.onPageLoad()
       }
-       "answering Working from Home from the ClaimingFor view and the claimant is You" in {
+       "answering Working from Home from the ClaimingFor view and the claimant is You and onlineJourneyShutterEnabled FS is set to true" in {
         val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor).thenReturn(Some(ClaimingFor.HomeWorking :: Nil))
+
+        navigator.nextPage(ClaimingForId)(mockAnswers) mustBe
+          routes.ClaimantController.onPageLoad()
+      }
+
+      "answering Working from Home from the ClaimingFor view and the claimant is You and onlineJourneyShutterEnabled FS is set to false" in {
+        val mockAppConfig = mock[FrontendAppConfig]
+        val navigator = new Navigator()(mockAppConfig)
+        val mockAnswers = mock[UserAnswers]
+        when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(false)
         when(mockAnswers.claimingFor).thenReturn(Some(ClaimingFor.HomeWorking :: Nil))
 
         navigator.nextPage(ClaimingForId)(mockAnswers) mustBe

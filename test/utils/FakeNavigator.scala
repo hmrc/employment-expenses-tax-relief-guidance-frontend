@@ -20,7 +20,6 @@ import base.SpecBase
 import play.api.mvc.Call
 import identifiers.Identifier
 
-
 trait NavigatorSupport {
   self: SpecBase =>
 

@@ -30,13 +30,13 @@ import play.api.libs.json.{JsBoolean, JsString}
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{CacheMap, FakeNavigator, Navigator}
+import utils.{CacheMap, NavigatorSupport, Navigator}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class EmployerPaidBackAnyExpensesControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach
-  with ScalaFutures with IntegrationPatience {
+  with ScalaFutures with IntegrationPatience with NavigatorSupport {
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
 
