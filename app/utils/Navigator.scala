@@ -58,7 +58,7 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) {
       case _           => routes.SessionExpiredController.onPageLoad
     }
 
-  private def moreThanFiveJobsRouting(userAnswers: UserAnswers) = {
+  /*private def moreThanFiveJobsRouting(userAnswers: UserAnswers) = {
     val claimingVehiclesRoute = userAnswers.claimingFor.contains(List(ClaimingFor.MileageFuel))
     val vehiclesRedirect = userAnswers.claimingMileage.contains(true) && (userAnswers.claimingFuel.contains(false) || userAnswers.useCompanyCar.contains(false)) && userAnswers.employerPaidBackAnyExpenses.contains(EmployerPaid.SomeExpenses)
 
@@ -67,6 +67,30 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) {
       case Some(false) if claimingVehiclesRoute => if(vehiclesRedirect) routes.ClaimOnlineController.onPageLoad() else routes.UsePrintAndPostController.onPageLoad()
       case Some(false)                          => routes.ClaimOnlineController.onPageLoad()
       case _                                    => routes.SessionExpiredController.onPageLoad
+    }
+  }*/
+
+  private def moreThanFiveJobsRouting(userAnswers: UserAnswers) = {
+    val claimingVehiclesRoute = userAnswers.claimingFor.contains(List(ClaimingFor.MileageFuel))
+    val vehiclesRedirect = userAnswers.claimingMileage.contains(true) && (userAnswers.claimingFuel.contains(false) || userAnswers.useCompanyCar.contains(false)) && userAnswers.employerPaidBackAnyExpenses.contains(EmployerPaid.SomeExpenses)
+
+    userAnswers.moreThanFiveJobs match {
+      case Some(true) => routes.UsePrintAndPostController.onPageLoad()
+      //case Some(false) if (claimingVehiclesRoute || appConfig.onlineJourneyShutterEnabled) => routes.UsePrintAndPostController.onPageLoad()
+      // case Some(false) if claimingVehiclesRoute => if (vehiclesRedirect && appConfig.onlineJourneyShutterEnabled) routes.UsePrintAndPostController.onPageLoad()
+      case Some(false) if (appConfig.onlineJourneyShutterEnabled) => routes.UsePrintAndPostController.onPageLoad()
+
+      case Some(false) if claimingVehiclesRoute => {
+        if (vehiclesRedirect) {
+          if (appConfig.onlineJourneyShutterEnabled) {
+            routes.UsePrintAndPostController.onPageLoad()
+          } else routes.ClaimOnlineController.onPageLoad()
+        } else routes.UsePrintAndPostController.onPageLoad()
+      }
+
+      case Some(false) => routes.ClaimOnlineController.onPageLoad()
+
+      case _ => routes.SessionExpiredController.onPageLoad
     }
   }
 
@@ -84,21 +108,23 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) {
   }
 
   private def employerPaidBackOtherExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackAnyExpenses match {
-    case Some(AllExpenses)  => routes.CannotClaimReliefController.onPageLoad()
-    case Some(SomeExpenses | NoExpenses) => userAnswers.claimingFor match {
-      case Some(List(ClaimingFor.MileageFuel))     => routes.UseOwnCarController.onPageLoad()
-      case Some(List(ClaimingFor.BuyingEquipment)) => routes.MoreThanFiveJobsController.onPageLoad()
-      case Some(_)                                 => routes.MoreThanFiveJobsController.onPageLoad()
-      case _                                       => routes.SessionExpiredController.onPageLoad
+    case Some(SomeExpenses | NoExpenses) if (appConfig.onlineJourneyShutterEnabled) => routes.UsePrintAndPostController.onPageLoad()
+    case Some(AllExpenses)                                                          => routes.CannotClaimReliefController.onPageLoad()
+    case Some(SomeExpenses | NoExpenses)          => userAnswers.claimingFor match {
+      case Some(List(ClaimingFor.MileageFuel))                                      => routes.UseOwnCarController.onPageLoad()
+      case Some(List(ClaimingFor.BuyingEquipment))                                  => routes.MoreThanFiveJobsController.onPageLoad()
+      case Some(_) => routes.MoreThanFiveJobsController.onPageLoad()
+      case _                                                                        => routes.SessionExpiredController.onPageLoad
     }
     case _ => routes.SessionExpiredController.onPageLoad
   }
 
   private def employerPaidBackWFHExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackAnyExpenses match {
-    case Some(NoExpenses)   => routes.ClaimOnlineController.onPageLoad()
-    case Some(SomeExpenses) => routes.MoreThanFiveJobsController.onPageLoad()
-    case Some(AllExpenses)  => routes.CannotClaimWFHReliefController.onPageLoad()
-    case _                  => routes.SessionExpiredController.onPageLoad
+    case Some(SomeExpenses | NoExpenses) if (appConfig.onlineJourneyShutterEnabled) => routes.UsePrintAndPostController.onPageLoad()
+    case Some(NoExpenses)                                                           => routes.ClaimOnlineController.onPageLoad()
+    case Some(SomeExpenses)                                                         => routes.MoreThanFiveJobsController.onPageLoad()
+    case Some(AllExpenses)                                                          => routes.CannotClaimWFHReliefController.onPageLoad()
+    case _                                                                          => routes.SessionExpiredController.onPageLoad
   }
 
   private def paidTaxInRelevantYearRouting(userAnswers: UserAnswers) = userAnswers.paidTaxInRelevantYear match {
