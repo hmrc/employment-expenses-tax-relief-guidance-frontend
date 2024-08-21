@@ -322,6 +322,50 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           routes.UsePrintAndPostController.onPageLoad()
       }
 
+      "answering anything other than MileageFuel from the ClaimingFor view and the claimant is You view and onlineJourneyShutterEnabled FS is set to true" in {
+        val mockAppConfig = mock[FrontendAppConfig]
+        val navigator = new Navigator()(mockAppConfig)
+        val mockAnswers = mock[UserAnswers]
+        when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
+        when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.FeesSubscriptions)))
+        when(mockAnswers.claimant).thenReturn(Some(You))
+        when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(employerPaid))
+
+        navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
+          routes.UsePrintAndPostController.onPageLoad()
+      }
+
+      "answering MileageFuel and another option from the ClaimingFor view and the claimant is You is and onlineJourneyShutterEnabled FS is set to true" in {
+        val mockAppConfig = mock[FrontendAppConfig]
+        val navigator = new Navigator()(mockAppConfig)
+        when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
+        val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor)
+          .thenReturn(Some(List(
+            ClaimingFor.MileageFuel,
+            ClaimingFor.BuyingEquipment))
+          )
+        when(mockAnswers.claimant).thenReturn(Some(You))
+        when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(employerPaid))
+
+        navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
+          routes.UsePrintAndPostController.onPageLoad()
+      }
+
+      "go to the UseOwnCar view" when {
+        "answering MileageFuel form the ClaimingFor view and onlineJourneyShutterEnabled FS is set to true" in {
+          val mockAppConfig = mock[FrontendAppConfig]
+          val navigator = new Navigator()(mockAppConfig)
+          val mockAnswers = mock[UserAnswers]
+          when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
+          when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.MileageFuel)))
+          when(mockAnswers.claimant).thenReturn(Some(You))
+          when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(employerPaid))
+
+          navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
+            routes.UsePrintAndPostController.onPageLoad()
+        }
+      }
 
     }
 
@@ -424,8 +468,11 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
     "go to the MoreThanFiveJobs view" when {
 
-      "answering anything other than MileageFuel from the ClaimingFor view and the claimant is You" in {
+      "answering anything other than MileageFuel from the ClaimingFor view and the claimant is You view and onlineJourneyShutterEnabled FS is set to false" in {
+        val mockAppConfig = mock[FrontendAppConfig]
+        val navigator = new Navigator()(mockAppConfig)
         val mockAnswers = mock[UserAnswers]
+        when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(false)
         when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.FeesSubscriptions)))
         when(mockAnswers.claimant).thenReturn(Some(You))
         when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(employerPaid))
@@ -434,7 +481,10 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           routes.MoreThanFiveJobsController.onPageLoad()
       }
 
-      "answering MileageFuel and another option from the ClaimingFor view and the claimant is You" in {
+      "answering MileageFuel and another option from the ClaimingFor view and the claimant is You is and onlineJourneyShutterEnabled FS is set to false" in {
+        val mockAppConfig = mock[FrontendAppConfig]
+        val navigator = new Navigator()(mockAppConfig)
+        when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(false)
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.claimingFor)
           .thenReturn(Some(List(
@@ -497,8 +547,11 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
     }
 
     "go to the UseOwnCar view" when {
-      "answering MileageFuel form the ClaimingFor view" in {
+      "answering MileageFuel form the ClaimingFor view and onlineJourneyShutterEnabled FS is set to false" in {
+        val mockAppConfig = mock[FrontendAppConfig]
+        val navigator = new Navigator()(mockAppConfig)
         val mockAnswers = mock[UserAnswers]
+        when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(false)
         when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.MileageFuel)))
         when(mockAnswers.claimant).thenReturn(Some(You))
         when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(employerPaid))
