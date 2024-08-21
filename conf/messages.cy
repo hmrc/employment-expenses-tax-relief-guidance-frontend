@@ -150,9 +150,11 @@ notEntitledSomeYears.link.label = Hawlio ar gyfer blynyddoedd pan wnaethoch dalu
 
 claimingFor.title = Dewiswch yr holl dreuliau rydych am eu hawlio
 claimingFor.heading = Dewiswch yr holl dreuliau rydych am eu hawlio
+claimingFor.insetText = You must send HMRC evidence to show why you get tax relief. You must print and post a completed form to HMRC to claim on your expenses._CY //TODO update welsh
 claimingFor.error.required = Dewiswch yr holl dreuliau rydych am eu hawlio
 claimingFor.uniformsClothingTools = Gwisgoedd unffurf, dillad ac offer ar gyfer gwaith
-claimingFor.uniformsClothingTools.description = Mae hyn yn cynnwys cost golchi eich gwisg, neu atgyweirio neu ddisodli dillad amddiffynnol neu fân offer rydych chi’n berchen arnynt ond rydych chi’n eu defnyddio ar gyfer gwaith. Does dim rhaid i chi roi unrhyw dderbynebau.
+claimingFor.uniformsClothingTools.oldDescription = Mae hyn yn cynnwys cost golchi eich gwisg, neu atgyweirio neu ddisodli dillad amddiffynnol neu fân offer rydych chi’n berchen arnynt ond rydych chi’n eu defnyddio ar gyfer gwaith. Does dim rhaid i chi roi unrhyw dderbynebau.
+claimingFor.uniformsClothingTools.description = This includes the cost of washing your uniform, or repairing or replacing protective clothing or small tools that you own but you use for work. You only need to provide evidence where you are claiming more than the fixed amount of tax relief._CY //TODO update welsh
 claimingFor.mileageFuel = Cerbydau rydych yn eu defnyddio ar gyfer gwaith
 claimingFor.mileageFuel.description = Mae hyn yn cynnwys costau milltiroedd a thanwydd, yn dibynnu a ydych yn defnyddio eich cerbyd eich hun neu gerbyd cwmni.
 claimingFor.travelExpenses = Teithio a threuliau dros nos

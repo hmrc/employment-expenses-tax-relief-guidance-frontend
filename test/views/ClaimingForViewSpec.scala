@@ -53,14 +53,14 @@ class ClaimingForViewSpec extends CheckboxViewBehaviours[ClaimingFor] {
 
   "ClaimingFor view" must {
     behave like normalPage(createView(form), messageKeyPrefix)
-    behave like checkboxPage(form, createView, messageKeyPrefix, ClaimingFor.options())
+    behave like checkboxPage(form, createView, messageKeyPrefix, ClaimingFor.options(onlineJourneyShutterEnabled = true))
   }
 
   "ClaimingFor view" when {
     "rendered" must {
       "contain checkboxes for each option" in {
         val doc = asDocument(createView(form))
-        for ((option, index) <- ClaimingFor.options().zipWithIndex) {
+        for ((option, index) <- ClaimingFor.options(onlineJourneyShutterEnabled = true).zipWithIndex) {
           assertContainsRadioButton(doc, option.id.get, s"value[$index]", option.value, isChecked = false)
         }
       }

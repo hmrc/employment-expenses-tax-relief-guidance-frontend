@@ -39,7 +39,7 @@ object ClaimingFor {
     HomeWorking, UniformsClothingTools, MileageFuel, TravelExpenses, FeesSubscriptions, BuyingEquipment, Other
   )
 
-  def options()(implicit messages: Messages): List[CheckboxItem] = {
+  def options(onlineJourneyShutterEnabled: Boolean)(implicit messages: Messages): List[CheckboxItem] = {
 
     val feesOption = {
 
@@ -66,8 +66,8 @@ object ClaimingFor {
         value = HomeWorking.toString,
         content = Text(messages(s"claimingFor.$HomeWorking")),
         hint = Some(Hint(
-          content = HtmlContent(messages(s"claimingFor.$HomeWorking.description")))
-        )
+          content = if(onlineJourneyShutterEnabled) HtmlContent(messages(s"claimingFor.$HomeWorking.description")) else HtmlContent(messages(s"claimingFor.$HomeWorking.oldDescription"))
+        ))
       ),
       new CheckboxItem(
         name = Some("value[1]"),

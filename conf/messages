@@ -152,9 +152,11 @@ notEntitledSomeYears.link.label = Claim for years you paid tax
 
 claimingFor.title = Select all the expenses you want to claim
 claimingFor.heading = Select all the expenses you want to claim
+claimingFor.insetText = You must send HMRC evidence to show why you get tax relief. You must print and post a completed form to HMRC to claim on your expenses.
 claimingFor.error.required = Select all the expenses you want to claim
 claimingFor.uniformsClothingTools = Uniforms, work clothing and tools
-claimingFor.uniformsClothingTools.description = This includes the cost of washing your uniform, or repairing or replacing protective clothing or small tools that you own but you use for work. You do not need to provide any receipts.
+claimingFor.uniformsClothingTools.oldDescription = This includes the cost of washing your uniform, or repairing or replacing protective clothing or small tools that you own but you use for work. You do not need to provide any receipts.
+claimingFor.uniformsClothingTools.description = This includes the cost of washing your uniform, or repairing or replacing protective clothing or small tools that you own but you use for work. You only need to provide evidence where you are claiming more than the fixed amount of tax relief.
 claimingFor.mileageFuel = Vehicles you use for work
 claimingFor.mileageFuel.description = This includes costs for mileage and fuel, depending on if you use your own vehicle or a company vehicle.
 claimingFor.travelExpenses = Travel and overnight expenses
