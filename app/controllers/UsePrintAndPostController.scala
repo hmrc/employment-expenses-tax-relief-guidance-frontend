@@ -23,24 +23,29 @@ import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import views.html.UsePrintAndPostView
+import views.html.{UsePrintAndPostDetailedView, UsePrintAndPostView}
 
 class UsePrintAndPostController @Inject()(
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            val controllerComponents: MessagesControllerComponents,
                                            view: UsePrintAndPostView,
-                                           appConfig: FrontendAppConfig
+                                           appConfig: FrontendAppConfig,
+                                           detailedView: UsePrintAndPostDetailedView
                                          ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      val fuelCosts = request.userAnswers.claimingFuel.getOrElse(false)
-      val mileageCosts = request.userAnswers.claimingMileage.getOrElse(false)
-      Ok(view(fuelCosts, mileageCosts))
+      if (appConfig.onlineJourneyShutterEnabled) {
+        Ok(detailedView(request.userAnswers.claimingFor.getOrElse(Nil)))
+      }else {
+        val fuelCosts = request.userAnswers.claimingFuel.getOrElse(false)
+        val mileageCosts = request.userAnswers.claimingMileage.getOrElse(false)
+        Ok(view(fuelCosts, mileageCosts))
+      }
   }
 
   def printAndPostGuidance: Action[AnyContent] = (getData andThen requireData) {
-      Redirect(appConfig.employeeExpensesClaimByPostUrl)
+    Redirect(appConfig.employeeExpensesClaimByPostUrl)
   }
 }
