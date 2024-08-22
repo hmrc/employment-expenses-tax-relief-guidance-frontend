@@ -64,9 +64,9 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) {
 
     userAnswers.moreThanFiveJobs match {
 
-      case Some(true) => routes.UsePrintAndPostController.onPageLoad()
+      case Some(true)                                               => routes.UsePrintAndPostController.onPageLoad()
       case Some(false) if appConfig.onlineJourneyShutterEnabled     => routes.UsePrintAndPostController.onPageLoad()
-      case Some(false) if claimingVehiclesRoute && vehiclesRedirect => routes.ClaimOnlineController.onPageLoad()
+      case Some(false) if claimingVehiclesRoute                     => if(vehiclesRedirect) routes.ClaimOnlineController.onPageLoad() else routes.UsePrintAndPostController.onPageLoad()
       case Some(false)                                              => routes.ClaimOnlineController.onPageLoad()
       case _                                                        => routes.SessionExpiredController.onPageLoad
     }
