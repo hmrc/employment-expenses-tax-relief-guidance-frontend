@@ -16,8 +16,9 @@
 
 package views
 
+import models.ClaimingFor.{BuyingEquipment, FeesSubscriptions, HomeWorking, MileageFuel, Other, TravelExpenses, UniformsClothingTools}
 import views.behaviours.NewViewBehaviours
-import views.html.{UsePrintAndPostDetailedView, UsePrintAndPostView}
+import views.html.UsePrintAndPostDetailedView
 
 class UsePrintAndPostDetailedViewSpec extends NewViewBehaviours {
 
@@ -27,13 +28,17 @@ class UsePrintAndPostDetailedViewSpec extends NewViewBehaviours {
 
   val view = application.injector.instanceOf[UsePrintAndPostDetailedView]
 
-  /*def createView = view.apply(fakeRequest.)(fakeRequest, messages)
+  val claimingListFor =  List(
+    HomeWorking, UniformsClothingTools, MileageFuel, TravelExpenses, FeesSubscriptions, BuyingEquipment, Other
+  )
+
+  def createView = view.apply(claimingListFor)(fakeRequest, messages)
 
   "UsePrintAndPost view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithBackLink(createView)
   }
-*/
+
   application.stop()
 }

@@ -15,6 +15,7 @@
  *@
 
 @import config.FrontendAppConfig
+@import models.ClaimingFor._
 
 @this(
 layout: Layout,
@@ -23,6 +24,7 @@ heading: playComponents.heading,
 govukInsetText : GovukInsetText,
 appConfig: FrontendAppConfig,
 h3 : playComponents.h3,
+h2 : playComponents.h2,
 p  : playComponents.p,
 submitButton: playComponents.submit_button
 )
@@ -43,7 +45,7 @@ pageTitle = messages("usePrintAndPostDetailed.title")
 content = Text(messages("usePrintAndPostDetailed.para1"))
 ))
 
-@h3(messages("usePrintAndPostDetailed.youCanClaim"))
+@h2(messages("usePrintAndPostDetailed.youCanClaim"))
 
 @if(list.size > 1) {
 
@@ -58,11 +60,11 @@ content = Text(messages("usePrintAndPostDetailed.para1"))
 
 
 
-@h3(messages("usePrintAndPostDetailed.evidenceToSupport"))
+@h2(messages("usePrintAndPostDetailed.evidenceToSupport"))
 
     @for(claimItem <- claimingFor) {
 
-        @if(messages(s"claimingFor.$claimItem") !=  messages("usePrintAndPostDetailed.otherExpense")){
+        @if(!List(BuyingEquipment,Other).contains(claimItem)){
 
             @h3(messages(s"claimingFor.$claimItem"))
             @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1")}
@@ -71,13 +73,19 @@ content = Text(messages("usePrintAndPostDetailed.para1"))
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2")}
             }
         }
-
-
     }
 
-@submitButton(
-href = Some(appConfig.employeeExpensesClaimByPostUrl),
-content = Some(messages("usePrintAndPostDetailed.link.label"))
-)
+    @if(List(BuyingEquipment,Other).intersect(claimingFor).nonEmpty){
+        @h3(messages("usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.header"))
+        @p(){@messages("usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.1")}
+    }
+
+<div class="govuk-body">
+    @submitButton(
+    href = Some(appConfig.employeeExpensesClaimByPostUrl),
+    content = Some(messages("usePrintAndPostDetailed.link.label"))
+    )
+</div>
+
 }
 

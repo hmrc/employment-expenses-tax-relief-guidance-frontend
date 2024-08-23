@@ -18,6 +18,8 @@ package controllers
 
 import config.FrontendAppConfig
 import controllers.actions._
+import models.ClaimingFor
+import models.ClaimingFor.values
 
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
@@ -37,7 +39,10 @@ class UsePrintAndPostController @Inject()(
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
       if (appConfig.onlineJourneyShutterEnabled) {
-        Ok(detailedView(request.userAnswers.claimingFor.getOrElse(Nil)))
+
+        val claimingForList = request.userAnswers.claimingFor.getOrElse(Nil)
+        val sortedList = values.flatMap(value => claimingForList.find(_ == value))
+        Ok(detailedView(sortedList))
       }else {
         val fuelCosts = request.userAnswers.claimingFuel.getOrElse(false)
         val mileageCosts = request.userAnswers.claimingMileage.getOrElse(false)
