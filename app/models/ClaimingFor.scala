@@ -66,8 +66,8 @@ object ClaimingFor {
         value = HomeWorking.toString,
         content = Text(messages(s"claimingFor.$HomeWorking")),
         hint = Some(Hint(
-          content = if(onlineJourneyShutterEnabled) HtmlContent(messages(s"claimingFor.$HomeWorking.description")) else HtmlContent(messages(s"claimingFor.$HomeWorking.oldDescription"))
-        ))
+          content = HtmlContent(messages(s"claimingFor.$HomeWorking.description")))
+        )
       ),
       new CheckboxItem(
         name = Some("value[1]"),
@@ -75,8 +75,8 @@ object ClaimingFor {
         value = UniformsClothingTools.toString,
         content = Text(messages(s"claimingFor.$UniformsClothingTools")),
         hint = Some(Hint(
-          content = HtmlContent(messages(s"claimingFor.$UniformsClothingTools.description")))
-        )
+          content = if(onlineJourneyShutterEnabled) HtmlContent(messages(s"claimingFor.$UniformsClothingTools.description")) else HtmlContent(messages(s"claimingFor.$UniformsClothingTools.oldDescription"))
+        ))
       ),
       new CheckboxItem(
         name = Some("value[2]"),
