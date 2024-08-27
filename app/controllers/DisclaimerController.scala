@@ -34,11 +34,6 @@ class DisclaimerController  @Inject()(
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      val claimingFor = request.userAnswers.claimingFor.getOrElse(List())
-      val isOnlyWorkFromHome = claimingFor.size == 1 && claimingFor.contains(HomeWorking)
-      val isMergedJourney = claimingFor.filterNot(claim => claim.equals(HomeWorking) || claim.equals(UniformsClothingTools) || claim.equals(FeesSubscriptions)).size == 0 &&
-        claimingFor.filter(claim => claim.equals(HomeWorking) || claim.equals(UniformsClothingTools) || claim.equals(FeesSubscriptions)).size > 1 &&
-        claimingFor.contains(HomeWorking)
-      Ok(view(isMergedJourney, isOnlyWorkFromHome))
+      Ok(view())
   }
 }

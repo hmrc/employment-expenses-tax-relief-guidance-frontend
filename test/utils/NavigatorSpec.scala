@@ -86,67 +86,29 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
     }
 
     "go to the UseSelfAssessment view" when {
-      "answering Yes from the RegisterForSelfAssessment view when other expenses selected" in {
+      "answering Yes from the RegisterForSelfAssessment view" in {
         val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimingFor).thenReturn(None)
+        when(mockAnswers.claimingFor).thenReturn(Some(List(HomeWorking, UniformsClothingTools)))
         when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
-        when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(true))
 
         navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
           routes.UseSelfAssessmentController.onPageLoad()
       }
+    }
 
-      "answering Yes from the RegisterForSelfAssessment view when other expenses not selected" in {
+    "go to the ClaimingOverPayAsYouEarnThreshold view" when {
+      "answering No from the RegisterForSelfAssessment when HomeWorking is not selected" in {
         val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimingFor).thenReturn(None)
-        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
-        when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(false))
-
-        navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
-          routes.UseSelfAssessmentController.onPageLoad()
-      }
-
-      "answering No from the RegisterForSelfAssessment when other expenses selected view" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimingFor).thenReturn(None)
-        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(false))
-        when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(false))
-
-        navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
-          routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
-      }
-
-      "answering Yes from the RegisterForSelfAssessment when other expenses selected view" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimingFor).thenReturn(None)
-        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
-        when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(false))
-
-        navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
-          routes.UseSelfAssessmentController.onPageLoad()
-      }
-
-      "answering No from the RegisterForSelfAssessment when other expenses not selected view" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimingFor).thenReturn(None)
-        when(mockAnswers.claimAnyOtherExpense).thenReturn(None)
+        when(mockAnswers.claimingFor).thenReturn(Some(List(UniformsClothingTools)))
         when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(false))
 
         navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
           routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
       }
+    }
 
-      "answering Yes from the RegisterForSelfAssessment when other expenses not selected view" in {
-        val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimingFor).thenReturn(None)
-        when(mockAnswers.claimAnyOtherExpense).thenReturn(None)
-        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
-
-        navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
-          routes.UseSelfAssessmentController.onPageLoad()
-      }
-
-      "answering No from the RegisterForSelfAssessment view when its merged journey" in {
+    "go to the WhichYearsAreYouClaimingFor view" when {
+      "answering No from the RegisterForSelfAssessment when HomeWorking is selected" in {
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.claimingFor).thenReturn(Some(List(HomeWorking, UniformsClothingTools)))
         when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(false))
@@ -155,13 +117,14 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           routes.WhichYearsAreYouClaimingForController.onPageLoad()
       }
 
-      "answering Yes from the RegisterForSelfAssessment view when its merged journey" in {
+      "answering No from the RegisterForSelfAssessment when no claims are selected (started from wfh entry)" in {
         val mockAnswers = mock[UserAnswers]
-        when(mockAnswers.claimingFor).thenReturn(Some(List(HomeWorking, UniformsClothingTools)))
-        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(true))
+        when(mockAnswers.claimingFor).thenReturn(None)
+        when(mockAnswers.claimAnyOtherExpense).thenReturn(Some(true))
+        when(mockAnswers.registeredForSelfAssessment).thenReturn(Some(false))
 
         navigator.nextPage(RegisteredForSelfAssessmentId)(mockAnswers) mustBe
-          routes.UseSelfAssessmentController.onPageLoad()
+          routes.WhichYearsAreYouClaimingForController.onPageLoad()
       }
     }
 
@@ -498,7 +461,10 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           routes.MoreThanFiveJobsController.onPageLoad()
       }
 
-      "answering No to useCompanyCar, having answered Yes to ClaimingMileage, when the claimant is You" in {
+      "answering No to useCompanyCar, having answered Yes to ClaimingMileage, when the claimant is You, journey shutter is 'false'" in {
+        val mockAppConfig = mock[FrontendAppConfig]
+        val navigator = new Navigator()(mockAppConfig)
+        when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(false)
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.useCompanyCar).thenReturn(Some(false))
         when(mockAnswers.useOwnCar).thenReturn(Some(true))
@@ -509,7 +475,10 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           routes.MoreThanFiveJobsController.onPageLoad()
       }
 
-      "answering Yes to ClaimingFuel when the claimant is You" in {
+      "answering Yes to ClaimingFuel when the claimant is You, journey shutter is 'false'" in {
+        val mockAppConfig = mock[FrontendAppConfig]
+        val navigator = new Navigator()(mockAppConfig)
+        when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(false)
         val mockAnswers = mock[UserAnswers]
         when(mockAnswers.claimingFuel).thenReturn(Some(true))
         when(mockAnswers.claimant).thenReturn(Some(You))
