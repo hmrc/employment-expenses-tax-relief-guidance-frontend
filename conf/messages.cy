@@ -100,6 +100,23 @@ usePrintAndPost.fuel = Mae’n rhaid i chi gynnwys cyfrifiad o’ch costau tanwy
 usePrintAndPost.mileage = Mae’n rhaid i chi gynnwys logiau milltiredd wrth i chi wneud eich hawliad.
 usePrintAndPost.link.label = Hawlio drwy’r post
 
+usePrintAndPostDetailed.title = You are eligible to claim these job expenses
+usePrintAndPostDetailed.heading = You are eligible to claim these job expenses
+usePrintAndPostDetailed.youCanClaim = You can claim tax relief for:
+usePrintAndPostDetailed.para1 =  You must send HMRC evidence to show why you get tax relief. You must print and post a completed form to HMRC to claim on your expenses as detailed below.
+usePrintAndPostDetailed.para2 = Evidence to support your claim for tax relief
+usePrintAndPostDetailed.evidenceToSupport = Evidence to support your claim for tax relief
+usePrintAndPostDetailed.homeWorking.1 = If it''s your choice to work from home, you can''t claim this expense.
+usePrintAndPostDetailed.homeWorking.2 = Only claims on or after 6 April 2022 require evidence, such as a copy of your employment contract. If it''s not in your contract, we need something else that says why you must work from home.
+usePrintAndPostDetailed.feesSubscriptions.1 = You must send copies of receipts, or other evidence, to HMRC that show how much you paid for each professional subscription.
+usePrintAndPostDetailed.uniformsClothingTools.1 = You do not need to keep receipts or a record of what you have spent if you are claiming a fixed amount of tax relief.
+usePrintAndPostDetailed.uniformsClothingTools.2 = You must send receipts to HMRC if you want to claim the exact amount you have spent.
+usePrintAndPostDetailed.mileageFuel.1 = You must send a copy of your mileage log to HMRC for each job. This should show the reason for every journey, and the postcodes for the start and finishing points.
+usePrintAndPostDetailed.travelExpenses.1 = You must send copies of receipts to HMRC that show the date of your stay or meal, and the name of the hotel or restaurant.
+usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.header = Buying other equipment and other expenses
+usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.1 = You must send a full list of your other expenses to HMRC. Include details of which job they are for. We also need copies of receipts, or other evidence, that show the name of the item and that you''ve paid for it.
+usePrintAndPostDetailed.link.label = Continue
+
 claimOnline.title = Rydych yn gymwys i hawlio’r treuliau swydd hyn
 claimOnline.heading = Rydych yn gymwys i hawlio’r treuliau swydd hyn
 claimOnline.youCanClaim = Gallwch hawlio rhyddhad treth ar gyfer
