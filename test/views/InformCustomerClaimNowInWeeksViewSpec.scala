@@ -32,6 +32,7 @@ class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours{
   val title = "Claims on or after 6 April 2023 are now calculated in weeks"
   val para1 = "If you work at home one or more days in a week, you can claim for that whole week."
   val para2 = "If you are not sure how many weeks you will be eligible to claim for, we advise you to wait until you know because any further changes cannot be made using this service and may take longer to process."
+  val para2_new = "If you are not sure how many weeks you will be eligible to claim for, we advise you to wait until you know because any further changes may take longer to process."
   val para3 = "If you would like to claim now, we will check to see if you are eligible."
 
 
@@ -50,7 +51,7 @@ class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours{
         val doc = asDocument(createView())
         assertContainsMessages(doc, title)
         assertContainsMessages(doc, para1)
-        assertContainsMessages(doc, para2)
+        assertContainsMessages(doc, para2_new)
         assertContainsMessages(doc, para3)
 
       }

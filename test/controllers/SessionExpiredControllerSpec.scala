@@ -35,6 +35,7 @@ class SessionExpiredControllerSpec extends SpecBase with MockitoSugar {
     val application = applicationBuilder()
       .overrides(bind[FrontendAppConfig].toInstance(mockAppConfig))
       .build()
+      
     val request = FakeRequest(GET, routes.SessionExpiredController.onPageLoad.url)
 
     "Return OK and correct view for get when the WFH toggle is disabled" in {
