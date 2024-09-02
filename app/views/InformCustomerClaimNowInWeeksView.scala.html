@@ -15,12 +15,14 @@
  *@
 
 @import controllers.routes._
+@import config.FrontendAppConfig
 
 @this(
     layout: Layout,
     heading: playComponents.heading,
     formHelper: uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF,
-    button: GovukButton
+    button: GovukButton,
+    appConfig: FrontendAppConfig
 )
 
 @()(implicit request: Request[_], messages: Messages)
@@ -33,8 +35,13 @@ pageTitle = messages(s"informCustomerClaimNowInWeeks.heading")
 
     <p class="govuk-body">@messages("informCustomerClaimNowInWeeks.para1")</p>
 
-    <p class="govuk-body">@messages("informCustomerClaimNowInWeeks.para2")</p>
+     @if(appConfig.onlineJourneyShutterEnabled) {
+       <p class="govuk-body">@messages("informCustomerClaimNowInWeeks.para2")</p>
+     }else{
+        <p class="govuk-body">@messages("informCustomerClaimNowInWeeks.para2_old")</p>
+     }
 
+   
     <p class="govuk-body">@messages("informCustomerClaimNowInWeeks.para3")</p>
 
     @formHelper(action = InformCustomerClaimNowInWeeksController.onSubmit(), Symbol("autoComplete") -> "off") {
