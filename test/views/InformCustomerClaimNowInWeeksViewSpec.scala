@@ -20,10 +20,22 @@ import play.api.Application
 import play.twirl.api.Html
 import views.behaviours.NewViewBehaviours
 import views.html.InformCustomerClaimNowInWeeksView
+import config.FrontendAppConfig
+import base.SpecBase
+import org.mockito.Mockito.when
+import org.scalatestplus.mockito.MockitoSugar
+import play.api.inject.bind
+import play.api.test.FakeRequest
+import play.api.test.Helpers._
 
-class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours{
+class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours with MockitoSugar{
 
-  val application: Application = applicationBuilder().build()
+  val mockAppConfig = mock[FrontendAppConfig]
+
+
+  val application = applicationBuilder()
+        .overrides(bind[FrontendAppConfig].toInstance(mockAppConfig))
+        .build()
 
   val view: InformCustomerClaimNowInWeeksView = application.injector.instanceOf[InformCustomerClaimNowInWeeksView]
 
@@ -39,6 +51,7 @@ class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours{
 
   "Inform customer claim now in weeks view" should {
 
+
     "have the correct banner title" in {
       val doc = asDocument(createView())
       val banner = doc.select(".govuk-header__service-name")
@@ -47,13 +60,22 @@ class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours{
     }
 
     "show content" when {
-      "when all informCustomerClaimNowInWeeksView content is displayed" in {
+      "when onlineJourneyShutterEnabled is enabled- all informCustomerClaimNowInWeeksView content is displayed " in {
+        when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
         val doc = asDocument(createView())
         assertContainsMessages(doc, title)
         assertContainsMessages(doc, para1)
         assertContainsMessages(doc, para2_new)
         assertContainsMessages(doc, para3)
 
+      }
+      "when onlineJourneyShutterEnabled is disabled- all informCustomerClaimNowInWeeksView content is displayed " in {
+        when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(false)
+        val doc = asDocument(createView())
+        assertContainsMessages(doc, title)
+        assertContainsMessages(doc, para1)
+        assertContainsMessages(doc, para2)
+        assertContainsMessages(doc, para3)
       }
     }
 
