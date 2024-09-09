@@ -14,14 +14,18 @@
  * limitations under the License.
  *@
 
+@import config.FrontendAppConfig
+
 @this(
         layout: Layout,
+        govukInsetText : GovukInsetText,
         heading: playComponents.heading,
         govukNotificationBanner: GovukNotificationBanner,
-        submitButton: playComponents.submit_button
+        submitButton: playComponents.submit_button,
+        appConfig: FrontendAppConfig
 )
 
-@(isMergedJourney: Boolean, isOnlyWorkFromHome: Boolean)(implicit request: Request[_], messages: Messages)
+@()(implicit request: Request[_], messages: Messages)
 
 @notificationBannerHtml = {
     <p class="govuk-notification-banner__heading">
@@ -41,6 +45,12 @@
     ))
 
     <h2 class="govuk-heading-m">@messages("disclaimer.claim.after.h2")</h2>
+
+    @if(appConfig.onlineJourneyShutterEnabled) {
+        @govukInsetText(InsetText(
+            content = Text(messages("disclaimer.claim.after.insetText"))
+        ))
+    }
     <p class="govuk-body">@messages("disclaimer.claim.after.p1")</p>
     <p class="govuk-body">@messages("disclaimer.claim.p1")</p>
     <p class="govuk-body">@messages("disclaimer.claim.after.p2")</p>
@@ -51,6 +61,11 @@
     </ul>
 
     <h2 class="govuk-heading-m">@messages("disclaimer.claim.before.h2")</h2>
+    @if(appConfig.onlineJourneyShutterEnabled) {
+        @govukInsetText(InsetText(
+            content = Text(messages("disclaimer.claim.before.insetText"))
+        ))
+    }
     <p class="govuk-body">@messages("disclaimer.claim.before.p1")</p>
     <ul class="govuk-list govuk-list--bullet">
         <li>@messages("disclaimer.claim.before.l1")</li>
@@ -70,11 +85,7 @@
     <p class="govuk-body">@messages("disclaimer.accept")</p>
 
     @submitButton(
-        href = if(isMergedJourney || isOnlyWorkFromHome) {
-            Some(controllers.routes.PaidTaxInRelevantYearController.onPageLoad().url)
-        } else {
-            Some(controllers.routes.RegisteredForSelfAssessmentController.onPageLoad().url)
-        },
+        href = Some(controllers.routes.PaidTaxInRelevantYearController.onPageLoad().url),
         content = Some(messages("disclaimer.button.continue"))
     ) <br>
 }

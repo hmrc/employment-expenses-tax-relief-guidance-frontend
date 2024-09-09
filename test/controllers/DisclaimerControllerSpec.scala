@@ -20,9 +20,9 @@ import base.SpecBase
 import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{FakeNavigator, Navigator}
+import utils.{NavigatorSupport, Navigator}
 
-class DisclaimerControllerSpec extends SpecBase {
+class DisclaimerControllerSpec extends SpecBase with NavigatorSupport {
 
   def disclaimerRoute = routes.DisclaimerController.onPageLoad().url
 

@@ -26,9 +26,9 @@ import play.api.libs.json.JsBoolean
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{CacheMap, FakeNavigator, Navigator}
+import utils.{CacheMap, NavigatorSupport, Navigator}
 
-class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
+class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience with NavigatorSupport {
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
   def claimAnyOtherExpenseRoute: Call = routes.ClaimAnyOtherExpenseController.onPageLoad()

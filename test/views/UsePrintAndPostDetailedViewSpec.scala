@@ -16,27 +16,27 @@
 
 package views
 
-import controllers.routes
-import play.api.Application
-import play.api.mvc.Call
-import play.twirl.api.HtmlFormat
+import models.ClaimingFor.{BuyingEquipment, FeesSubscriptions, HomeWorking, MileageFuel, Other, TravelExpenses, UniformsClothingTools}
 import views.behaviours.NewViewBehaviours
-import views.html.DisclaimerView
+import views.html.UsePrintAndPostDetailedView
 
-class DisclaimerViewSpec extends NewViewBehaviours {
+class UsePrintAndPostDetailedViewSpec extends NewViewBehaviours {
 
-  val messageKeyPrefix: String = "disclaimer"
+  val messageKeyPrefix = "usePrintAndPostDetailed"
 
-  val application: Application = applicationBuilder().build()
+  val application = applicationBuilder().build()
 
-  val view: DisclaimerView = app.injector.instanceOf[DisclaimerView]
+  val view = application.injector.instanceOf[UsePrintAndPostDetailedView]
 
-  def onwardRoute: Call = routes.IndexController.onPageLoad
+  val claimingListFor =  List(
+    HomeWorking, UniformsClothingTools, MileageFuel, TravelExpenses, FeesSubscriptions, BuyingEquipment, Other
+  )
 
-  def createView: HtmlFormat.Appendable = view.apply()(fakeRequest, messages)
+  def createView = view.apply(claimingListFor)(fakeRequest, messages)
 
-  "DisclaimerView" must {
+  "UsePrintAndPost view" must {
     behave like normalPage(createView, messageKeyPrefix)
+
     behave like pageWithBackLink(createView)
   }
 

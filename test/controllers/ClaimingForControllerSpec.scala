@@ -29,12 +29,12 @@ import play.api.inject.bind
 import play.api.libs.json.{JsArray, JsString}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{CacheMap, FakeNavigator, Navigator}
+import utils.{CacheMap, NavigatorSupport, Navigator}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience {
+class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience with NavigatorSupport {
 
   def onwardRoute = routes.IndexController.onPageLoad
 
@@ -84,7 +84,7 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
         ).build()
 
       val request = FakeRequest(POST, claimingForRoute)
-        .withFormUrlEncodedBody(("value[0]", options().head.value))
+        .withFormUrlEncodedBody(("value[0]", options(onlineJourneyShutterEnabled = true).head.value))
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
