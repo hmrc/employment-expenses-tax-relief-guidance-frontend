@@ -326,7 +326,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(employerPaid))
 
           navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
-            routes.UsePrintAndPostController.onPageLoad()
+            routes.UseOwnCarController.onPageLoad()
         }
       }
 
