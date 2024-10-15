@@ -167,11 +167,16 @@ notEntitledSomeYears.link.label = Hawlio ar gyfer blynyddoedd pan wnaethoch dalu
 
 claimingFor.title = Dewiswch yr holl dreuliau rydych am eu hawlio
 claimingFor.heading = Dewiswch yr holl dreuliau rydych am eu hawlio
-claimingFor.insetText = Mae’n rhaid i chi anfon tystiolaeth i CThEF i ddangos pam eich bod yn cael rhyddhad treth. Mae’n rhaid i chi argraffu ac anfon ffurflen wedi’i llenwi i CThEF i hawlio ar eich treuliau.
+claimingFor.insetText_old = Mae’n rhaid i chi anfon tystiolaeth i CThEF i ddangos pam eich bod yn cael rhyddhad treth. Mae’n rhaid i chi argraffu ac anfon ffurflen wedi’i llenwi i CThEF i hawlio ar eich treuliau.
+claimingFor.insetText = Mae’n rhaid i chi lenwi’r ffurflen a’i hanfon drwy’r post er mwyn hawlio’ch treuliau. Gallwch wneud eich hawliad ar-lein os ydych yn hawlio treuliau ar gyfer gwisgoedd unffurf, dillad gwaith ac offer (treuliau cyfradd unffurf) yn unig.
 claimingFor.error.required = Dewiswch yr holl dreuliau rydych am eu hawlio
-claimingFor.uniformsClothingTools = Gwisgoedd unffurf, dillad ac offer ar gyfer gwaith
+claimingFor.uniformsClothingTools_old = Gwisgoedd unffurf, dillad ac offer ar gyfer gwaith
+claimingFor.uniformsClothingTools = Gwisgoedd unffurf, dillad gwaith ac offer (Treuliau cyfradd unffurf)
 claimingFor.uniformsClothingTools.oldDescription = Mae hyn yn cynnwys cost golchi eich gwisg, neu atgyweirio neu ddisodli dillad amddiffynnol neu fân offer rydych chi’n berchen arnynt ond rydych chi’n eu defnyddio ar gyfer gwaith. Does dim rhaid i chi roi unrhyw dderbynebau.
-claimingFor.uniformsClothingTools.description = Mae hyn yn cynnwys cost golchi’ch gwisg, neu atgyweirio neu amnewid dillad amddiffynnol neu offer bach yr ydych yn berchen arnynt ond rydych yn eu defnyddio ar gyfer gwaith. Dim ond lle rydych yn hawlio mwy na’r swm sefydlog o ryddhad treth y mae angen i chi roi tystiolaeth.
+claimingFor.uniformsClothingTools.description_old = Mae hyn yn cynnwys cost golchi’ch gwisg, neu atgyweirio neu amnewid dillad amddiffynnol neu offer bach yr ydych yn berchen arnynt ond rydych yn eu defnyddio ar gyfer gwaith. Dim ond lle rydych yn hawlio mwy na’r swm sefydlog o ryddhad treth y mae angen i chi roi tystiolaeth.
+
+claimingFor.uniformsClothingTools.description = Mae hyn yn cynnwys cost golchi’ch gwisg, neu atgyweirio neu amnewid dillad amddiffynnol neu offer bach yr ydych yn berchen arnynt ond rydych yn eu defnyddio ar gyfer gwaith. Dim ond lle rydych yn hawlio mwy na’r swm sefydlog o ryddhad treth y mae angen i chi roi tystiolaeth. I gael rhagor o wybodaeth {0} gwiriwch faint o ryddhad treth y gallwch ei hawlio ar gyfer gwisgoedd unffurf, dillad gwaith ac offer (yn agor ffenestr newydd) {1}
+
 claimingFor.mileageFuel = Cerbydau rydych yn eu defnyddio ar gyfer gwaith
 claimingFor.mileageFuel.description = Mae hyn yn cynnwys costau milltiroedd a thanwydd, yn dibynnu a ydych yn defnyddio eich cerbyd eich hun neu gerbyd cwmni.
 claimingFor.travelExpenses = Teithio a threuliau dros nos
