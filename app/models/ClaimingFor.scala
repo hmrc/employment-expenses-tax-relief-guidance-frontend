@@ -43,7 +43,7 @@ object ClaimingFor {
 
     val feesOption = {
 
-      val href = "https://www.gov.uk/government/publications/professional-bodies-approved-for-tax-relief-list-3"
+      val href = "https://www.gov.uk/guidance/job-expenses-for-uniforms-work-clothing-and-tools"
       val eventBody = s"""${messages(s"claimingFor.title")}:${messages(s"claimingFor.$FeesSubscriptions")}"""
       val start = link_start(href, eventBody, newWindow = true)
       val end = "</a>"
@@ -59,6 +59,25 @@ object ClaimingFor {
       )
     }
 
+    val freOption = {
+            val href = "https://www.gov.uk/government/publications/professional-bodies-approved-for-tax-relief-list-3"
+            val eventBody = s"""${messages(s"claimingFor.title")}:${messages(s"claimingFor.$UniformsClothingTools")}"""
+            val start = link_start(href, eventBody, newWindow = true)
+            val end = "</a>"
+
+            new CheckboxItem(
+                    name = Some("value[1]"),
+                    id = Some(s"claimingFor.$UniformsClothingTools"),
+                    value = UniformsClothingTools.toString,
+                    content = Text(messages(s"claimingFor.$UniformsClothingTools")),
+                    hint = Some(Hint(
+                      //content = if(onlineJourneyShutterEnabled) HtmlContent(messages(s"claimingFor.$UniformsClothingTools.description")) else HtmlContent(messages(s"claimingFor.$UniformsClothingTools.oldDescription"))
+                    content = if(onlineJourneyShutterEnabled) HtmlContent(messages(s"claimingFor.$UniformsClothingTools.description" , start, end)) else HtmlContent(messages(s"claimingFor.$UniformsClothingTools.oldDescription"))
+
+                      ))
+                  )
+    }
+
     List(
       new CheckboxItem(
         name = Some("value[0]"),
@@ -69,15 +88,8 @@ object ClaimingFor {
           content = if(onlineJourneyShutterEnabled) HtmlContent(messages(s"claimingFor.$HomeWorking.description")) else HtmlContent(messages(s"claimingFor.$HomeWorking.oldDescription"))
         ))
       ),
-      new CheckboxItem(
-        name = Some("value[1]"),
-        id = Some(s"claimingFor.$UniformsClothingTools"),
-        value = UniformsClothingTools.toString,
-        content = Text(messages(s"claimingFor.$UniformsClothingTools")),
-        hint = Some(Hint(
-          content = if(onlineJourneyShutterEnabled) HtmlContent(messages(s"claimingFor.$UniformsClothingTools.description")) else HtmlContent(messages(s"claimingFor.$UniformsClothingTools.oldDescription"))
-        ))
-      ),
+      freOption
+      ,
       new CheckboxItem(
         name = Some("value[2]"),
         id = Some(s"claimingFor.$MileageFuel"),
