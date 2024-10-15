@@ -118,7 +118,7 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) {
     case (Some(Claimant.You), _) if isClaimingWfh(userAnswers) =>
       routes.DisclaimerController.onPageLoad()
     case (Some(Claimant.You), Some(_)) =>
-      routes.PaidTaxInRelevantYearController.onPageLoad()
+      routes.WillPayTaxController.onPageLoad() //is this depdent on the FS
     case (Some(Claimant.SomeoneElse), _) =>
       routes.UsePrintAndPostController.printAndPostGuidance()
     case _ =>

@@ -34,15 +34,52 @@ submitButton: playComponents.submit_button
 claimingFor.flatMap(x => Some(messages(s"claimingFor.$x")))
 }
 
+@pageTitleMsg =@{if(appConfig.freOnlyJourneyEnabled){
+    messages("usePrintAndPostDetailedFreFS.title")
+
+}else{
+    messages("usePrintAndPostDetailed.title")
+
+}
+}
+
+
+@headingMsg =@{if(appConfig.freOnlyJourneyEnabled){
+                    messages("usePrintAndPostDetailedFreFS.heading")
+
+                    }else{
+                    messages("usePrintAndPostDetailed.heading")
+
+                    }
+}
+
+@insetMsg =@{if(appConfig.freOnlyJourneyEnabled){
+                messages("usePrintAndPostDetailedFreFS.para1")
+
+                }else{
+                messages("usePrintAndPostDetailed.para1")
+
+                }
+}
+
+@btnMsg= @{if(appConfig.freOnlyJourneyEnabled){
+            messages("usePrintAndPostDetailedFreFS.link.label")
+
+            }else{
+            messages("usePrintAndPostDetailed.link.label")
+
+            }
+}
 
 @layout(
-pageTitle = messages("usePrintAndPostDetailed.title")
+pageTitle = pageTitleMsg
+
 ) {
 
-@heading(messages("usePrintAndPostDetailed.heading"))
+@heading(messages(headingMsg))
 
 @govukInsetText(InsetText(
-content = Text(messages("usePrintAndPostDetailed.para1"))
+content = Text(messages(insetMsg))
 ))
 
 @h2(messages("usePrintAndPostDetailed.youCanClaim"))
@@ -83,7 +120,7 @@ content = Text(messages("usePrintAndPostDetailed.para1"))
 <div class="govuk-body">
     @submitButton(
     href = Some(appConfig.employeeExpensesClaimByPostUrl),
-    content = Some(messages("usePrintAndPostDetailed.link.label"))
+    content = Some(btnMsg)
     )
 </div>
 
