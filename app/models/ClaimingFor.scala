@@ -39,11 +39,10 @@ object ClaimingFor {
     HomeWorking, UniformsClothingTools, MileageFuel, TravelExpenses, FeesSubscriptions, BuyingEquipment, Other
   )
 
-  def options(onlineJourneyShutterEnabled: Boolean)(implicit messages: Messages): List[CheckboxItem] = {
+  def options(onlineJourneyShutterEnabled: Boolean, freOnlyJourneyEnabled: Boolean)(implicit messages: Messages): List[CheckboxItem] = {
 
     val feesOption = {
-
-      val href = "https://www.gov.uk/guidance/job-expenses-for-uniforms-work-clothing-and-tools"
+      val href = "https://www.gov.uk/government/publications/professional-bodies-approved-for-tax-relief-list-3"
       val eventBody = s"""${messages(s"claimingFor.title")}:${messages(s"claimingFor.$FeesSubscriptions")}"""
       val start = link_start(href, eventBody, newWindow = true)
       val end = "</a>"
@@ -60,22 +59,21 @@ object ClaimingFor {
     }
 
     val freOption = {
-            val href = "https://www.gov.uk/government/publications/professional-bodies-approved-for-tax-relief-list-3"
-            val eventBody = s"""${messages(s"claimingFor.title")}:${messages(s"claimingFor.$UniformsClothingTools")}"""
-            val start = link_start(href, eventBody, newWindow = true)
-            val end = "</a>"
+      val href = "https://www.gov.uk/guidance/job-expenses-for-uniforms-work-clothing-and-tools"
+      val eventBody = s"""${messages(s"claimingFor.title")}:${messages(s"claimingFor.$UniformsClothingTools")}"""
+      val start = link_start(href, eventBody, newWindow = true)
+      val end = "</a>"
 
-            new CheckboxItem(
-                    name = Some("value[1]"),
-                    id = Some(s"claimingFor.$UniformsClothingTools"),
-                    value = UniformsClothingTools.toString,
-                    content = Text(messages(s"claimingFor.$UniformsClothingTools")),
-                    hint = Some(Hint(
-                      //content = if(onlineJourneyShutterEnabled) HtmlContent(messages(s"claimingFor.$UniformsClothingTools.description")) else HtmlContent(messages(s"claimingFor.$UniformsClothingTools.oldDescription"))
-                    content = if(onlineJourneyShutterEnabled) HtmlContent(messages(s"claimingFor.$UniformsClothingTools.description" , start, end)) else HtmlContent(messages(s"claimingFor.$UniformsClothingTools.oldDescription"))
+      new CheckboxItem(
+              name = Some("value[1]"),
+              id = Some(s"claimingFor.$UniformsClothingTools"),
+              value = UniformsClothingTools.toString,
+              content = if(freOnlyJourneyEnabled) {Text(messages(s"claimingFor.$UniformsClothingTools"))} else Text(messages(s"claimingFor.$UniformsClothingTools._old")),
+              hint = Some(Hint(
+              content = if(freOnlyJourneyEnabled) HtmlContent(messages(s"claimingFor.$UniformsClothingTools.description" , start, end)) else if(onlineJourneyShutterEnabled) HtmlContent(messages(s"claimingFor.$UniformsClothingTools.description_old")) else HtmlContent(messages(s"claimingFor.$UniformsClothingTools.oldDescription"))
 
-                      ))
-                  )
+                ))
+            )
     }
 
     List(
