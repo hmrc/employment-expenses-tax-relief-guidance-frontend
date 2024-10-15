@@ -61,6 +61,7 @@ trait CheckboxViewBehaviours[A] extends NewViewBehaviours {
       "contain a label for each input" in {
         val doc = asDocument(createView(form))
         for (option <- options) {
+          println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"+doc.select(s"label[for=${option.id.get}]"))
           doc.select(s"label[for=${option.id.get}]").text mustEqual option.content.asHtml.toString()
         }
       }
