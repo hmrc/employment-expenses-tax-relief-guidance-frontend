@@ -100,22 +100,28 @@ usePrintAndPost.fuel = Mae’n rhaid i chi gynnwys cyfrifiad o’ch costau tanwy
 usePrintAndPost.mileage = Mae’n rhaid i chi gynnwys logiau milltiredd wrth i chi wneud eich hawliad.
 usePrintAndPost.link.label = Hawlio drwy’r post
 
-usePrintAndPostDetailed.title = Rydych yn gymwys i hawlio’r treuliau swydd hyn
-usePrintAndPostDetailed.heading = Rydych yn gymwys i hawlio’r treuliau swydd hyn
+usePrintAndPostDetailed.title_old = Rydych yn gymwys i hawlio’r treuliau swydd hyn
+usePrintAndPostDetailed.title = Rydych yn gymwys i hawlio’r treuliau swydd hyn drwy’r post
+usePrintAndPostDetailed.heading_old = Rydych yn gymwys i hawlio’r treuliau swydd hyn
+usePrintAndPostDetailed.heading = Rydych yn gymwys i hawlio’r treuliau swydd hyn drwy’r post
 usePrintAndPostDetailed.youCanClaim = Gallwch hawlio rhyddhad treth ar gyfer:
 usePrintAndPostDetailed.para1 =  Mae’n rhaid i chi anfon tystiolaeth i CThEF i ddangos pam eich bod yn cael rhyddhad treth. Mae’n rhaid i chi argraffu ac anfon ffurflen wedi’i llenwi i CThEF i hawlio ar eich treuliau fel y nodir isod.
+usePrintAndPostDetailed.para1_old =  Mae’n rhaid i chi anfon tystiolaeth i CThEF i ddangos pam eich bod yn cael rhyddhad treth. Mae’n rhaid i chi argraffu ac anfon ffurflen wedi’i llenwi i CThEF i hawlio ar eich treuliau fel y nodir isod.
 usePrintAndPostDetailed.para2 = Tystiolaeth i gefnogi’ch hawliad am ryddhad treth
 usePrintAndPostDetailed.evidenceToSupport = Tystiolaeth i gefnogi’ch hawliad am ryddhad treth
 usePrintAndPostDetailed.homeWorking.1 = Os mai eich dewis chi yw gweithio gartref, ni allwch hawlio’r gost hon.
 usePrintAndPostDetailed.homeWorking.2 = Dim ond hawliadau ar neu ar ôl 6 Ebrill 2022 sydd angen tystiolaeth, fel copi o’ch contract cyflogaeth. Os nad yw yn eich contract, mae angen rhywbeth arall arnom sy’n dweud pam mae’n rhaid i chi weithio gartref.
 usePrintAndPostDetailed.feesSubscriptions.1 = Mae’n rhaid i chi anfon derbynebau at CThEF os ydych am hawlio’r union swm rydych wedi’i wario.
-usePrintAndPostDetailed.uniformsClothingTools.1 = Nid oes angen i chi gadw derbynebau na chofnod o’r hyn rydych wedi’i wario os ydych yn hawlio swm penodol o ryddhad treth.
-usePrintAndPostDetailed.uniformsClothingTools.2 = Mae’n rhaid i chi anfon derbynebau at CThEF os ydych am hawlio’r union swm rydych wedi’i wario.
-usePrintAndPostDetailed.mileageFuel.1 = Mae’n rhaid i chi anfon copi o’ch log milltiroedd at CThEF ar gyfer pob swydd. Dylai hyn ddangos y rheswm dros bob taith, a’r codau post ar gyfer y pwyntiau dechrau a gorffen.
+usePrintAndPostDetailed.uniformsClothingTools.1_old = Nid oes angen i chi gadw derbynebau na chofnod o’r hyn rydych wedi’i wario os ydych yn hawlio swm penodol o ryddhad treth.
+usePrintAndPostDetailed.uniformsClothingTools.1 = Os ydych yn hawlio’r union swm a wariwyd gennych, bydd yn rhaid i chi anfon tystiolaeth i CThEF er mwyn hawlio rhyddhad treth.
+usePrintAndPostDetailed.uniformsClothingTools.2_old = Mae’n rhaid i chi anfon derbynebau at CThEF os ydych am hawlio’r union swm rydych wedi’i wario.
+usePrintAndPostDetailed.uniformsClothingTools.2 = Mae’n rhaid i chi lenwi’r ffurflen a’i hanfon drwy’r post er mwyn hawlio’ch treuliau.
+usePrintAndPostDetailed.uniformsClothingTools.3 = Fodd bynnag, os ydych yn hawlio’r swm sefydlog o ryddhad treth, ni fydd angen i chi gadw derbyniadau na chofnodionusePrintAndPostDetailed.mileageFuel.1 = Mae’n rhaid i chi anfon copi o’ch log milltiroedd at CThEF ar gyfer pob swydd. Dylai hyn ddangos y rheswm dros bob taith, a’r codau post ar gyfer y pwyntiau dechrau a gorffen.
 usePrintAndPostDetailed.travelExpenses.1 = Mae’n rhaid i chi anfon copïau o dderbynebau at CThEF sy’n dangos dyddiad eich arhosiad neu bryd bwyd, ac enw’r gwesty neu’r bwyty.
 usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.header = Prynu offer a threuliau eraill
 usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.1 = YMae’n rhaid i chi anfon rhestr lawn o’ch costau eraill at CThEF. Cynhwyswch fanylion am ba swydd y maent ar ei gyfer. Mae arnom angen copïau o dderbynebau hefyd, neu dystiolaeth arall, sy’n dangos enw’r eitem a’ch bod wedi talu amdani.
-usePrintAndPostDetailed.link.label = Yn eich blaen
+usePrintAndPostDetailed.link.label_old = Yn eich blaen
+usePrintAndPostDetailed.link.label = Hawlio drwy’r post
 
 claimOnline.title = Rydych yn gymwys i hawlio’r treuliau swydd hyn
 claimOnline.heading = Rydych yn gymwys i hawlio’r treuliau swydd hyn
