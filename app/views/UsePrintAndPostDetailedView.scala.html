@@ -34,52 +34,20 @@ submitButton: playComponents.submit_button
 claimingFor.flatMap(x => Some(messages(s"claimingFor.$x")))
 }
 
-@pageTitleMsg =@{if(appConfig.freOnlyJourneyEnabled){
-    messages("usePrintAndPostDetailedFreFS.title")
-
-}else{
-    messages("usePrintAndPostDetailed.title")
-
-}
+@helperMessageKey(key: String) = @{
+    if (appConfig.freOnlyJourneyEnabled) key else s"${key}_old"
 }
 
-
-@headingMsg =@{if(appConfig.freOnlyJourneyEnabled){
-                    messages("usePrintAndPostDetailedFreFS.heading")
-
-                    }else{
-                    messages("usePrintAndPostDetailed.heading")
-
-                    }
-}
-
-@insetMsg =@{if(appConfig.freOnlyJourneyEnabled){
-                messages("usePrintAndPostDetailedFreFS.para1")
-
-                }else{
-                messages("usePrintAndPostDetailed.para1")
-
-                }
-}
-
-@btnMsg= @{if(appConfig.freOnlyJourneyEnabled){
-            messages("usePrintAndPostDetailedFreFS.link.label")
-
-            }else{
-            messages("usePrintAndPostDetailed.link.label")
-
-            }
-}
 
 @layout(
-pageTitle = pageTitleMsg
+pageTitle =  messages(helperMessageKey("usePrintAndPostDetailed.title"))
 
 ) {
 
-@heading(messages(headingMsg))
+@heading(messages(helperMessageKey("usePrintAndPostDetailed.heading")))
 
 @govukInsetText(InsetText(
-content = Text(messages(insetMsg))
+content = Text(messages(helperMessageKey("usePrintAndPostDetailed.para1"))))
 ))
 
 @h2(messages("usePrintAndPostDetailed.youCanClaim"))
@@ -109,6 +77,9 @@ content = Text(messages(insetMsg))
             @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.2")){
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2")}
             }
+            @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.3") && appConfig.freOnlyJourneyEnabled){
+                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.3")}
+            }
         }
     }
 
@@ -120,7 +91,7 @@ content = Text(messages(insetMsg))
 <div class="govuk-body">
     @submitButton(
     href = Some(appConfig.employeeExpensesClaimByPostUrl),
-    content = Some(btnMsg)
+    content = Some(messages(helperMessageKey("usePrintAndPostDetailed.link.label")))
     )
 </div>
 
