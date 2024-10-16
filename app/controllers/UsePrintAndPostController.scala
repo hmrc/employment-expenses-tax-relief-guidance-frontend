@@ -39,11 +39,11 @@ class UsePrintAndPostController @Inject()(
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
       if (appConfig.onlineJourneyShutterEnabled) {
-
-        val claimingForList = request.userAnswers.claimingFor.getOrElse(Nil)
+        val claimingOnlyWFH = request.userAnswers.claimAnyOtherExpense.getOrElse(false)
+        val claimingForList = if (claimingOnlyWFH) List(ClaimingFor.HomeWorking) else request.userAnswers.claimingFor.getOrElse(Nil)
         val sortedList = values.flatMap(value => claimingForList.find(_ == value))
         Ok(detailedView(sortedList))
-      }else {
+      } else {
         val fuelCosts = request.userAnswers.claimingFuel.getOrElse(false)
         val mileageCosts = request.userAnswers.claimingMileage.getOrElse(false)
         Ok(view(fuelCosts, mileageCosts))
