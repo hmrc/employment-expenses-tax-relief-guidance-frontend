@@ -105,8 +105,8 @@ usePrintAndPostDetailed.title = Rydych yn gymwys i hawlio’r treuliau swydd hyn
 usePrintAndPostDetailed.heading_old = Rydych yn gymwys i hawlio’r treuliau swydd hyn
 usePrintAndPostDetailed.heading = Rydych yn gymwys i hawlio’r treuliau swydd hyn drwy’r post
 usePrintAndPostDetailed.youCanClaim = Gallwch hawlio rhyddhad treth ar gyfer:
-usePrintAndPostDetailed.para1 =  Mae’n rhaid i chi anfon tystiolaeth i CThEF i ddangos pam eich bod yn cael rhyddhad treth. Mae’n rhaid i chi argraffu ac anfon ffurflen wedi’i llenwi i CThEF i hawlio ar eich treuliau fel y nodir isod.
 usePrintAndPostDetailed.para1_old =  Mae’n rhaid i chi anfon tystiolaeth i CThEF i ddangos pam eich bod yn cael rhyddhad treth. Mae’n rhaid i chi argraffu ac anfon ffurflen wedi’i llenwi i CThEF i hawlio ar eich treuliau fel y nodir isod.
+usePrintAndPostDetailed.para1 =  Cyn anfon eich hawliad, gwiriwch yr arweiniad isod ynghylch pob gwahanol fath o draul. Efallai y bydd angen i chi anfon tystiolaeth i CThEF ar gyfer rhai hawliadau. Mae’n rhaid i chi lenwi’r ffurflen a’i hanfon drwy’r post er mwyn hawlio’ch treuliau.
 usePrintAndPostDetailed.para2 = Tystiolaeth i gefnogi’ch hawliad am ryddhad treth
 usePrintAndPostDetailed.evidenceToSupport = Tystiolaeth i gefnogi’ch hawliad am ryddhad treth
 usePrintAndPostDetailed.homeWorking.1_old = Os mai eich dewis chi yw gweithio gartref, ni allwch hawlio’r gost hon.
@@ -119,7 +119,7 @@ usePrintAndPostDetailed.uniformsClothingTools.1_old = Nid oes angen i chi gadw d
 usePrintAndPostDetailed.uniformsClothingTools.1 = Os ydych yn hawlio’r union swm a wariwyd gennych, bydd yn rhaid i chi anfon tystiolaeth i CThEF er mwyn hawlio rhyddhad treth.
 usePrintAndPostDetailed.uniformsClothingTools.2_old = Mae’n rhaid i chi anfon derbynebau at CThEF os ydych am hawlio’r union swm rydych wedi’i wario.
 usePrintAndPostDetailed.uniformsClothingTools.2 = Mae’n rhaid i chi lenwi’r ffurflen a’i hanfon drwy’r post er mwyn hawlio’ch treuliau.
-usePrintAndPostDetailed.uniformsClothingTools.3 = Fodd bynnag, os ydych yn hawlio’r swm sefydlog o ryddhad treth, ni fydd angen i chi gadw derbyniadau na chofnodionusePrintAndPostDetailed.mileageFuel.1 = Mae’n rhaid i chi anfon copi o’ch log milltiroedd at CThEF ar gyfer pob swydd. Dylai hyn ddangos y rheswm dros bob taith, a’r codau post ar gyfer y pwyntiau dechrau a gorffen.
+usePrintAndPostDetailed.uniformsClothingTools.3 = Fodd bynnag, os ydych yn hawlio’r swm sefydlog o ryddhad treth, ni fydd angen i chi gadw derbyniadau na chofnodion
 usePrintAndPostDetailed.mileageFuel.1 = Mae’n rhaid i chi anfon copi o’ch log milltiroedd at CThEF ar gyfer pob swydd. Dylai hyn ddangos y rheswm dros bob taith, a’r codau post ar gyfer y pwyntiau dechrau a gorffen.
 usePrintAndPostDetailed.travelExpenses.1 = Mae’n rhaid i chi anfon copïau o dderbynebau at CThEF sy’n dangos dyddiad eich arhosiad neu bryd bwyd, ac enw’r gwesty neu’r bwyty.
 usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.header = Prynu offer a threuliau eraill
@@ -137,8 +137,11 @@ claimOnline.bullet2 = slip cyflog diweddar, P60 neu basbort dilys y DU
 claimOnline.link.label = Hawlio’ch treuliau ar-lein
 claimOnline.hidden.guidance = rhestr o 2 eitem
 
-cannotClaimRelief.title = Ni allwch hawlio’r treuliau hyn
-cannotClaimRelief.heading = Ni allwch hawlio’r treuliau hyn
+cannotClaimRelief.title_old = Ni allwch hawlio’r treuliau hyn
+cannotClaimRelief.title = You are not eligible to claim
+cannotClaimRelief.heading_old = Ni allwch hawlio’r treuliau hyn
+cannotClaimRelief.heading = You are not eligible to claim
+cannotClaimRelief.body =  You cannot claim these expenses that have been paid for by your employer.
 cannotClaimRelief.guidance = Ni allwch hawlio’r treuliau hyn oherwydd talwyd y cyfan yn ôl gan eich cyflogwr.
 
 employerPaidBackAnyExpenses.title = A yw’ch cyflogwr wedi talu unrhyw un o’ch treuliau yn yr hawliad hwn?

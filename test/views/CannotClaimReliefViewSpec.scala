@@ -18,19 +18,47 @@ package views
 
 import views.behaviours.NewViewBehaviours
 import views.html.CannotClaimReliefView
+import config.FrontendAppConfig
+import org.mockito.Mockito._
+import org.scalatestplus.mockito.MockitoSugar
 
-class CannotClaimReliefViewSpec extends NewViewBehaviours {
+class CannotClaimReliefViewSpec extends NewViewBehaviours with MockitoSugar {
 
   val messageKeyPrefix = s"cannotClaimRelief"
-
+  val mockAppConfig = mock[FrontendAppConfig]
   val application = applicationBuilder().build()
   val view = application.injector.instanceOf[CannotClaimReliefView]
 
-  def createView = view.apply()(fakeRequest, messages)
+  def createView(appConfig: FrontendAppConfig) = view.apply()(fakeRequest, messages)
 
   "CannotClaimRelief view" must {
-    behave like pageWithBackLink(createView)
-  }
+    when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
+    val viewWithFalseFlag = createView(mockAppConfig)
+    behave like pageWithBackLink(viewWithFalseFlag)
+    }
 
-  application.stop()
-}
+    "CannotClaimRelief view when freOnlyJourneyEnabled is false" must {
+      when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
+
+      val viewWithFalseFlag = createView(mockAppConfig)
+
+      "contain the old heading and guidance link" in {
+        val doc = asDocument(viewWithFalseFlag)
+        assertContainsText(doc, messages(s"${messageKeyPrefix}.heading_old"))
+      }
+    }
+
+    "CannotClaimRelief view when freOnlyJourneyEnabled is true" must {
+      when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
+
+      val viewWithFalseFlag = createView(mockAppConfig)
+
+      "contain the new heading and body text" in {
+        val doc = asDocument(viewWithFalseFlag)
+        assertContainsText(doc, messages(s"${messageKeyPrefix}.heading"))
+        assertContainsText(doc, messages(s"${messageKeyPrefix}.body"))
+      }
+    }
+
+    application.stop()
+  }

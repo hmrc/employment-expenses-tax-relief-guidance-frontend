@@ -139,8 +139,11 @@ claimOnline.bullet2 = a recent payslip or P60 or a valid UK passport
 claimOnline.link.label = Claim your expenses online
 claimOnline.hidden.guidance = list of 2 items
 
-cannotClaimRelief.title = You cannot claim these expenses
-cannotClaimRelief.heading = You cannot claim these expenses
+cannotClaimRelief.title_old = You cannot claim these expenses
+cannotClaimRelief.title = You are not eligible to claim
+cannotClaimRelief.heading_old = You cannot claim these expenses
+cannotClaimRelief.heading = You are not eligible to claim
+cannotClaimRelief.body =  You cannot claim these expenses that have been paid for by your employer.
 cannotClaimRelief.guidance = You cannot claim these expenses because they have all been paid back by your employer.
 
 employerPaidBackAnyExpenses.title = Has your employer paid any of your expenses in this claim?
