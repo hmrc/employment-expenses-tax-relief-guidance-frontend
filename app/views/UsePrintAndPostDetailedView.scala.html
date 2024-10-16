@@ -28,21 +28,30 @@ h2 : playComponents.h2,
 p  : playComponents.p,
 submitButton: playComponents.submit_button
 )
+
+
+
 @(claimingFor: List[ClaimingFor])(implicit request: Request[_], messages: Messages)
 
+
 @list = @{
-claimingFor.flatMap(x => Some(messages(s"claimingFor.$x")))
+ claimingFor.flatMap(x => Some(messages(s"claimingFor.$x")))
+}
+
+@helperMessageKey(key: String) = @{
+  if (appConfig.freOnlyJourneyEnabled) key else s"${key}_old"
 }
 
 
+
 @layout(
-pageTitle = messages("usePrintAndPostDetailed.title")
+pageTitle = messages(helperMessageKey("usePrintAndPostDetailed.title"))
 ) {
 
-@heading(messages("usePrintAndPostDetailed.heading"))
+@heading(messages(helperMessageKey("usePrintAndPostDetailed.heading")))
 
 @govukInsetText(InsetText(
-content = Text(messages("usePrintAndPostDetailed.para1"))
+content = Text(messages(helperMessageKey("usePrintAndPostDetailed.para1")))
 ))
 
 @h2(messages("usePrintAndPostDetailed.youCanClaim"))
@@ -67,10 +76,13 @@ content = Text(messages("usePrintAndPostDetailed.para1"))
         @if(!List(BuyingEquipment,Other).contains(claimItem)){
 
             @h3(messages(s"claimingFor.$claimItem"))
-            @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1")}
+            @p(){@messages(helperMessageKey(s"usePrintAndPostDetailed.$claimItem.1"))}
 
             @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.2")){
-                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2")}
+                @p(){@messages(helperMessageKey(s"usePrintAndPostDetailed.$claimItem.2"))}
+            }
+            @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.3") && appConfig.freOnlyJourneyEnabled){
+                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.3")}
             }
         }
     }
@@ -83,7 +95,7 @@ content = Text(messages("usePrintAndPostDetailed.para1"))
 <div class="govuk-body">
     @submitButton(
     href = Some(appConfig.employeeExpensesClaimByPostUrl),
-    content = Some(messages("usePrintAndPostDetailed.link.label"))
+    content = Some(messages(helperMessageKey("usePrintAndPostDetailed.link.label")))
     )
 </div>
 
