@@ -52,7 +52,8 @@ class ClaimOnlineViewSpec extends NewViewBehaviours {
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be(frontendAppConfig.employeeExpensesUrl)
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
-      assertContainsMessages(doc,"claimingFor.uniformsClothingTools")
+      //assertContainsMessages(doc,"claimingFor.uniformsClothingTools")
+      assertContainsMessages(doc,"claimOnline.fre.para2")
     }
 
     "When the onward journey is Professional Subscriptions Include a call to action button with a link to the IForm which can be replaced by Optimizely" in {

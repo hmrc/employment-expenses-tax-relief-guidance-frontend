@@ -334,3 +334,8 @@ informCustomerClaimNowInWeeks.para2_old = If you are not sure how many weeks you
 informCustomerClaimNowInWeeks.para2 = If you are not sure how many weeks you will be eligible to claim for, we advise you to wait until you know because any further changes may take longer to process.
 informCustomerClaimNowInWeeks.para3 = If you would like to claim now, we will check to see if you are eligible.
 
+
+claimOnline.fre.para1 = You can claim tax relief for:
+claimOnline.fre.para2 = Uniform, work clothes and tools (Flat rate expenses)
+claimOnline.fre.para3 = To claim these expenses, sign in to access HMRC online services.
+claimOnline.fre.button = Claim your tax relief online

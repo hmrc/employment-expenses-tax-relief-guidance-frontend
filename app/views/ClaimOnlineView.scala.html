@@ -40,37 +40,62 @@
     }
 }
 
+@mainContent = {
+      @if(appConfig.freOnlyJourneyEnabled && onwardJourney == OnwardJourney.FixedRateExpenses) {
+        <p class="govuk-body">@messages("claimOnline.fre.para1")</p>
+        <p class="govuk-body">@messages("claimOnline.fre.para2")</p>
+        
+
+        @govukInsetText(InsetText(
+            content = Text(messages("claimOnline.fre.para3"))
+        ))
+
+        <div class="govuk-!-margin-top-8">
+        @buttonLink(
+                content = messages("claimOnline.fre.button"),
+                href = href,
+                id = Some("continue")
+            )
+        <div>
+    } else {
+        @if(list.size > 1) {
+            <p class="govuk-body">@messages("claimOnline.youCanClaim"):</p>
+            <ul class="govuk-list govuk-list--bullet">
+                @for(claimItem <- list) {
+                    <li>@claimItem</li>
+                }
+            </ul>
+        } else {
+            <p class="govuk-body">@messages("claimOnline.youCanClaim") @list.head</p>
+        }
+
+        @govukInsetText(InsetText(
+            content = Text(messages("claimOnline.para1"))
+        ))
+
+        <p class="govuk-body">@messages("claimOnline.para2")</p>
+
+        <ul class="govuk-list govuk-list--bullet">
+            <li>@messages("claimOnline.bullet1")</li>
+            <li>@messages("claimOnline.bullet2")</li>
+        </ul>
+
+         @buttonLink(
+            content = messages("claimOnline.link.label"),
+            href = href,
+            id = Some("continue")
+    )
+    }
+}
+
+
+
 @layout(
     pageTitle = messages("claimOnline.title")
 ) {
 
     @heading(messages("claimOnline.heading"))
 
-    @if(list.size > 1) {
-        <p class="govuk-body">@messages("claimOnline.youCanClaim"):</p>
-        <ul class="govuk-list govuk-list--bullet">
-            @for(claimItem <- list) {
-                <li>@claimItem</li>
-            }
-        </ul>
-    } else {
-        <p class="govuk-body">@messages("claimOnline.youCanClaim") @list.</p>
-    }
+    @mainContent
 
-    @govukInsetText(InsetText(
-        content = Text(messages("claimOnline.para1"))
-    ))
-
-    <p class="govuk-body">@messages("claimOnline.para2")</p>
-
-    <ul class="govuk-list govuk-list--bullet">
-        <li>@messages("claimOnline.bullet1")</li>
-        <li>@messages("claimOnline.bullet2")</li>
-    </ul>
-
-    @buttonLink(
-        content = messages("claimOnline.link.label"),
-        href = href,
-        id = Some("continue")
-    )
 }
