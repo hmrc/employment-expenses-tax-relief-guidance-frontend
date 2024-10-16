@@ -48,7 +48,6 @@ content = Text(messages("usePrintAndPostDetailed.para1"))
 @h2(messages("usePrintAndPostDetailed.youCanClaim"))
 
 @if(list.size > 1) {
-
 <ul class="govuk-list govuk-list--bullet">
     @for(claimItem <- list) {
     <li>@claimItem</li>
@@ -58,27 +57,25 @@ content = Text(messages("usePrintAndPostDetailed.para1"))
 <p class="govuk-body">@list</p>
 }
 
-
-
 @h2(messages("usePrintAndPostDetailed.evidenceToSupport"))
 
-    @for(claimItem <- claimingFor) {
+@for(claimItem <- claimingFor) {
 
-        @if(!List(BuyingEquipment,Other).contains(claimItem)){
+@if(!List(BuyingEquipment,Other).contains(claimItem)){
 
-            @h3(messages(s"claimingFor.$claimItem"))
-            @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1")}
+@h3(messages(s"claimingFor.$claimItem"))
+@p(){@messages(s"usePrintAndPostDetailed.$claimItem.1")}
 
-            @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.2")){
-                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2")}
-            }
-        }
-    }
+@if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.2")){
+@p(){@messages(s"usePrintAndPostDetailed.$claimItem.2")}
+}
+}
+}
 
-    @if(List(BuyingEquipment,Other).intersect(claimingFor).nonEmpty){
-        @h3(messages("usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.header"))
-        @p(){@messages("usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.1")}
-    }
+@if(List(BuyingEquipment,Other).intersect(claimingFor).nonEmpty){
+@h3(messages("usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.header"))
+@p(){@messages("usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.1")}
+}
 
 <div class="govuk-body">
     @submitButton(
@@ -88,4 +85,3 @@ content = Text(messages("usePrintAndPostDetailed.para1"))
 </div>
 
 }
-

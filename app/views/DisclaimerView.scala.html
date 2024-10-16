@@ -17,75 +17,85 @@
 @import config.FrontendAppConfig
 
 @this(
-        layout: Layout,
-        govukInsetText : GovukInsetText,
-        heading: playComponents.heading,
-        govukNotificationBanner: GovukNotificationBanner,
-        submitButton: playComponents.submit_button,
-        appConfig: FrontendAppConfig
+    layout: Layout,
+    govukInsetText : GovukInsetText,
+    heading: playComponents.heading,
+    govukNotificationBanner: GovukNotificationBanner,
+    submitButton: playComponents.submit_button,
+    appConfig: FrontendAppConfig
 )
 
 @()(implicit request: Request[_], messages: Messages)
 
 @notificationBannerHtml = {
     <p class="govuk-notification-banner__heading">
+        @if(appConfig.freOnlyJourneyEnabled) {
         @messages("disclaimer.guidance.summary")
+        } else {
+        @messages("disclaimer.guidance.OldSummary")
+        }
     </p>
 }
 
 @layout(
-    pageTitle = messages("disclaimer.title")
+pageTitle = messages("disclaimer.title")
 ) {
 
-    @heading(messages("disclaimer.heading"))
+@heading(messages("disclaimer.heading"))
 
-    @govukNotificationBanner(NotificationBanner(
-        title = HtmlContent(messages("disclaimer.guidance.header")),
-        content = HtmlContent(notificationBannerHtml)
-    ))
+@govukNotificationBanner(NotificationBanner(
+title = HtmlContent(messages("disclaimer.guidance.header")),
+content = HtmlContent(notificationBannerHtml)
+))
 
-    <h2 class="govuk-heading-m">@messages("disclaimer.claim.after.h2")</h2>
+<h2 class="govuk-heading-m">@messages("disclaimer.claim.after.h2")</h2>
 
-    @if(appConfig.onlineJourneyShutterEnabled) {
+@if(appConfig.onlineJourneyShutterEnabled) {
+    @if(appConfig.freOnlyJourneyEnabled) {
         @govukInsetText(InsetText(
             content = Text(messages("disclaimer.claim.after.insetText"))
         ))
-    }
-    <p class="govuk-body">@messages("disclaimer.claim.after.p1")</p>
-    <p class="govuk-body">@messages("disclaimer.claim.p1")</p>
-    <p class="govuk-body">@messages("disclaimer.claim.after.p2")</p>
-    <ul class="govuk-list govuk-list--bullet">
-        <li>@messages("disclaimer.claim.after.l1")</li>
-        <li>@messages("disclaimer.claim.after.l2")</li>
-        <li>@messages("disclaimer.claim.after.l3")</li>
-    </ul>
-
-    <h2 class="govuk-heading-m">@messages("disclaimer.claim.before.h2")</h2>
-    @if(appConfig.onlineJourneyShutterEnabled) {
+    } else{
         @govukInsetText(InsetText(
-            content = Text(messages("disclaimer.claim.before.insetText"))
+        content = Text(messages("disclaimer.claim.after.insetOldText"))
         ))
     }
-    <p class="govuk-body">@messages("disclaimer.claim.before.p1")</p>
-    <ul class="govuk-list govuk-list--bullet">
-        <li>@messages("disclaimer.claim.before.l1")</li>
-        <li>@messages("disclaimer.claim.before.l2")</li>
-        <li>@messages("disclaimer.claim.before.l3")</li>
-    </ul>
+}
+<p class="govuk-body">@messages("disclaimer.claim.after.p1")</p>
+<p class="govuk-body">@messages("disclaimer.claim.p1")</p>
+<p class="govuk-body">@messages("disclaimer.claim.after.p2")</p>
+<ul class="govuk-list govuk-list--bullet">
+    <li>@messages("disclaimer.claim.after.l1")</li>
+    <li>@messages("disclaimer.claim.after.l2")</li>
+    <li>@messages("disclaimer.claim.after.l3")</li>
+</ul>
 
-    <div class="govuk-warning-text">
-        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-        <strong class="govuk-warning-text__text">
-            <span class="govuk-warning-text__assistive">Warning</span>
-            @messages("disclaimer.warning1")<br>
-            @messages("disclaimer.warning2")<br>
-        </strong>
-    </div>
+<h2 class="govuk-heading-m">@messages("disclaimer.claim.before.h2")</h2>
+@if(appConfig.onlineJourneyShutterEnabled) {
+    @govukInsetText(InsetText(
+    content = Text(messages("disclaimer.claim.before.insetText"))
+    ))
+}
+<p class="govuk-body">@messages("disclaimer.claim.before.p1")</p>
+<ul class="govuk-list govuk-list--bullet">
+    <li>@messages("disclaimer.claim.before.l1")</li>
+    <li>@messages("disclaimer.claim.before.l2")</li>
+    <li>@messages("disclaimer.claim.before.l3")</li>
+</ul>
 
-    <p class="govuk-body">@messages("disclaimer.accept")</p>
+<div class="govuk-warning-text">
+    <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+    <strong class="govuk-warning-text__text">
+        <span class="govuk-warning-text__assistive">Warning</span>
+        @messages("disclaimer.warning1")<br>
+        @messages("disclaimer.warning2")<br>
+    </strong>
+</div>
 
-    @submitButton(
-        href = Some(controllers.routes.PaidTaxInRelevantYearController.onPageLoad().url),
-        content = Some(messages("disclaimer.button.continue"))
+<p class="govuk-body">@messages("disclaimer.accept")</p>
+
+@submitButton(
+    href = Some(controllers.routes.PaidTaxInRelevantYearController.onPageLoad().url),
+    content = Some(messages("disclaimer.button.continue"))
     ) <br>
 }

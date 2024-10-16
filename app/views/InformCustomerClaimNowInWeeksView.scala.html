@@ -27,11 +27,20 @@
 
 @()(implicit request: Request[_], messages: Messages)
 
+@helperMessageKey(key: String) = @{
+if (appConfig.freOnlyJourneyEnabled) key else s"${key}_old"
+}
+
 @layout(
-pageTitle = messages(s"informCustomerClaimNowInWeeks.heading")
+pageTitle = messages(helperMessageKey("informCustomerClaimNowInWeeks.title"))
 ) {
 
-    @heading(messages("informCustomerClaimNowInWeeks.heading"))
+@if(appConfig.freOnlyJourneyEnabled) {
+@heading(messages("informCustomerClaimNowInWeeks.heading"))
+} else {
+@heading(messages("informCustomerClaimNowInWeeks.oldHeading"))
+}
+
 
     <p class="govuk-body">@messages("informCustomerClaimNowInWeeks.para1")</p>
 
