@@ -135,10 +135,10 @@ claimOnline.link.label = Hawlio’ch treuliau ar-lein
 claimOnline.hidden.guidance = rhestr o 2 eitem
 
 cannotClaimRelief.title_old = Ni allwch hawlio’r treuliau hyn
-cannotClaimRelief.title = You are not eligible to claim
+cannotClaimRelief.title = Nid ydych yn gymwys i hawlio
 cannotClaimRelief.heading_old = Ni allwch hawlio’r treuliau hyn
-cannotClaimRelief.heading = You are not eligible to claim
-cannotClaimRelief.body =  You cannot claim these expenses that have been paid for by your employer.
+cannotClaimRelief.heading = Nid ydych yn gymwys i hawlio
+cannotClaimRelief.body =  Ni allwch hawlio’r treuliau hyn y mae’ch cyflogwr wedi talu amdanynt.
 cannotClaimRelief.guidance = Ni allwch hawlio’r treuliau hyn oherwydd talwyd y cyfan yn ôl gan eich cyflogwr.
 
 employerPaidBackAnyExpenses.title = A yw’ch cyflogwr wedi talu unrhyw un o’ch treuliau yn yr hawliad hwn?
@@ -330,3 +330,8 @@ informCustomerClaimNowInWeeks.para1 = Os ydych chi’n gweithio gartref am un di
 informCustomerClaimNowInWeeks.para2_old = Os nad ydych yn siŵr sawl wythnos y byddwch yn gymwys i hawlio ar eu cyfer, rydym yn eich cynghori i aros hyd nes eich bod yn gwybod. Mae hyn oherwydd nad oes modd gwneud unrhyw newidiadau pellach gan ddefnyddio’r gwasanaeth hwn ac efallai y bydd yn cymryd mwy o amser i brosesu.
 informCustomerClaimNowInWeeks.para2 = Os nad ydych yn siŵr faint o wythnosau y byddwch yn gymwys i hawlio ar eu cyfer, rydym yn eich cynghori i aros hyd nes eich bod yn gwybod, oherwydd gall unrhyw newidiadau pellach cymryd mwy o amser i brosesu.
 informCustomerClaimNowInWeeks.para3 = Os hoffech hawlio nawr, byddwn yn gwirio i weld a ydych yn gymwys.
+
+claimOnline.fre.para1 =  Gallwch hawlio rhyddhad treth ar gyfer:
+claimOnline.fre.para2 = Gwisgoedd unffurf, dillad gwaith ac offer (Treuliau cyfradd unffurf)
+claimOnline.fre.para3 = I hawlio’r treuliau hyn, mewngofnodwch i wasanaethau ar-lein CThEF.
+claimOnline.fre.button = Hawlio’ch rhyddhad treth ar-lein

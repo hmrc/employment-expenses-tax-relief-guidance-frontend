@@ -45,6 +45,7 @@ class CannotClaimReliefViewSpec extends NewViewBehaviours with MockitoSugar {
       "contain the old heading and guidance link" in {
         val doc = asDocument(viewWithFalseFlag)
         assertContainsText(doc, messages(s"${messageKeyPrefix}.heading_old"))
+        assertContainsText(doc, messages(s"${messageKeyPrefix}.guidance"))
       }
     }
 
