@@ -122,9 +122,6 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
       assertContainsMessages(doc,"claimingFor.homeWorking")
     }
 
-   // behave like normalPage(createView, messageKeyPrefix)
-
-
   }
 
   "ClaimOnline view when freOnlyJourneyEnabled is enabled" must {
