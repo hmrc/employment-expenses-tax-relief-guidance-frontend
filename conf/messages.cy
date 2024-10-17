@@ -100,22 +100,32 @@ usePrintAndPost.fuel = Mae’n rhaid i chi gynnwys cyfrifiad o’ch costau tanwy
 usePrintAndPost.mileage = Mae’n rhaid i chi gynnwys logiau milltiredd wrth i chi wneud eich hawliad.
 usePrintAndPost.link.label = Hawlio drwy’r post
 
-usePrintAndPostDetailed.title = Rydych yn gymwys i hawlio’r treuliau swydd hyn
-usePrintAndPostDetailed.heading = Rydych yn gymwys i hawlio’r treuliau swydd hyn
+usePrintAndPostDetailed.title_old = Rydych yn gymwys i hawlio’r treuliau swydd hyn
+usePrintAndPostDetailed.title = Rydych yn gymwys i hawlio’r treuliau swydd hyn drwy’r post
+usePrintAndPostDetailed.heading_old = Rydych yn gymwys i hawlio’r treuliau swydd hyn
+usePrintAndPostDetailed.heading = Rydych yn gymwys i hawlio’r treuliau swydd hyn drwy’r post
 usePrintAndPostDetailed.youCanClaim = Gallwch hawlio rhyddhad treth ar gyfer:
-usePrintAndPostDetailed.para1 =  Mae’n rhaid i chi anfon tystiolaeth i CThEF i ddangos pam eich bod yn cael rhyddhad treth. Mae’n rhaid i chi argraffu ac anfon ffurflen wedi’i llenwi i CThEF i hawlio ar eich treuliau fel y nodir isod.
+usePrintAndPostDetailed.para1_old =  Mae’n rhaid i chi anfon tystiolaeth i CThEF i ddangos pam eich bod yn cael rhyddhad treth. Mae’n rhaid i chi argraffu ac anfon ffurflen wedi’i llenwi i CThEF i hawlio ar eich treuliau fel y nodir isod.
+usePrintAndPostDetailed.para1 =  Cyn anfon eich hawliad, gwiriwch yr arweiniad isod ynghylch pob gwahanol fath o draul. Efallai y bydd angen i chi anfon tystiolaeth i CThEF ar gyfer rhai hawliadau. Mae’n rhaid i chi lenwi’r ffurflen a’i hanfon drwy’r post er mwyn hawlio’ch treuliau.
 usePrintAndPostDetailed.para2 = Tystiolaeth i gefnogi’ch hawliad am ryddhad treth
 usePrintAndPostDetailed.evidenceToSupport = Tystiolaeth i gefnogi’ch hawliad am ryddhad treth
-usePrintAndPostDetailed.homeWorking.1 = Os mai eich dewis chi yw gweithio gartref, ni allwch hawlio’r gost hon.
-usePrintAndPostDetailed.homeWorking.2 = Dim ond hawliadau ar neu ar ôl 6 Ebrill 2022 sydd angen tystiolaeth, fel copi o’ch contract cyflogaeth. Os nad yw yn eich contract, mae angen rhywbeth arall arnom sy’n dweud pam mae’n rhaid i chi weithio gartref.
+usePrintAndPostDetailed.homeWorking.1_old = Os mai eich dewis chi yw gweithio gartref, ni allwch hawlio’r gost hon.
+usePrintAndPostDetailed.homeWorking.1 = Dim ond hawliadau a wneir ar neu ar ôl 6 Ebrill 2022 a fydd angen tystiolaeth. Gallai hyn fod yn gopi o’ch contract cyflogaeth.
+usePrintAndPostDetailed.homeWorking.2_old = Dim ond hawliadau ar neu ar ôl 6 Ebrill 2022 sydd angen tystiolaeth, fel copi o’ch contract cyflogaeth. Os nad yw yn eich contract, mae angen rhywbeth arall arnom sy’n dweud pam mae’n rhaid i chi weithio gartref.
+usePrintAndPostDetailed.homeWorking.2 = Os nad yw’r wybodaeth berthnasol wedi’i nodi yn eich contract, bydd angen i chi anfon tystiolaeth arall atom sy’n dangos pam mae’n rhaid i chi weithio gartref. Er enghraifft, llythyr gan eich cyflogwr sy’n esbonio pam mae’n rhaid i chi weithio gartref.
+usePrintAndPostDetailed.homeWorking.3 = Os mai eich dewis chi yw gweithio gartref, ni allwch hawlio’r draul hon.
 usePrintAndPostDetailed.feesSubscriptions.1 = Mae’n rhaid i chi anfon derbynebau at CThEF os ydych am hawlio’r union swm rydych wedi’i wario.
-usePrintAndPostDetailed.uniformsClothingTools.1 = Nid oes angen i chi gadw derbynebau na chofnod o’r hyn rydych wedi’i wario os ydych yn hawlio swm penodol o ryddhad treth.
-usePrintAndPostDetailed.uniformsClothingTools.2 = Mae’n rhaid i chi anfon derbynebau at CThEF os ydych am hawlio’r union swm rydych wedi’i wario.
+usePrintAndPostDetailed.uniformsClothingTools.1_old = Nid oes angen i chi gadw derbynebau na chofnod o’r hyn rydych wedi’i wario os ydych yn hawlio swm penodol o ryddhad treth.
+usePrintAndPostDetailed.uniformsClothingTools.1 = Os ydych yn hawlio’r union swm a wariwyd gennych, bydd yn rhaid i chi anfon tystiolaeth i CThEF er mwyn hawlio rhyddhad treth.
+usePrintAndPostDetailed.uniformsClothingTools.2_old = Mae’n rhaid i chi anfon derbynebau at CThEF os ydych am hawlio’r union swm rydych wedi’i wario.
+usePrintAndPostDetailed.uniformsClothingTools.2 = Mae’n rhaid i chi lenwi’r ffurflen a’i hanfon drwy’r post er mwyn hawlio’ch treuliau.
+usePrintAndPostDetailed.uniformsClothingTools.3 = Fodd bynnag, os ydych yn hawlio’r swm sefydlog o ryddhad treth, ni fydd angen i chi gadw derbyniadau na chofnodion
 usePrintAndPostDetailed.mileageFuel.1 = Mae’n rhaid i chi anfon copi o’ch log milltiroedd at CThEF ar gyfer pob swydd. Dylai hyn ddangos y rheswm dros bob taith, a’r codau post ar gyfer y pwyntiau dechrau a gorffen.
 usePrintAndPostDetailed.travelExpenses.1 = Mae’n rhaid i chi anfon copïau o dderbynebau at CThEF sy’n dangos dyddiad eich arhosiad neu bryd bwyd, ac enw’r gwesty neu’r bwyty.
 usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.header = Prynu offer a threuliau eraill
 usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.1 = YMae’n rhaid i chi anfon rhestr lawn o’ch costau eraill at CThEF. Cynhwyswch fanylion am ba swydd y maent ar ei gyfer. Mae arnom angen copïau o dderbynebau hefyd, neu dystiolaeth arall, sy’n dangos enw’r eitem a’ch bod wedi talu amdani.
-usePrintAndPostDetailed.link.label = Yn eich blaen
+usePrintAndPostDetailed.link.label_old = Yn eich blaen
+usePrintAndPostDetailed.link.label = Hawlio drwy’r post
 
 claimOnline.title = Rydych yn gymwys i hawlio’r treuliau swydd hyn
 claimOnline.heading = Rydych yn gymwys i hawlio’r treuliau swydd hyn
@@ -127,8 +137,11 @@ claimOnline.bullet2 = slip cyflog diweddar, P60 neu basbort dilys y DU
 claimOnline.link.label = Hawlio’ch treuliau ar-lein
 claimOnline.hidden.guidance = rhestr o 2 eitem
 
-cannotClaimRelief.title = Ni allwch hawlio’r treuliau hyn
-cannotClaimRelief.heading = Ni allwch hawlio’r treuliau hyn
+cannotClaimRelief.title_old = Ni allwch hawlio’r treuliau hyn
+cannotClaimRelief.title = Nid ydych yn gymwys i hawlio
+cannotClaimRelief.heading_old = Ni allwch hawlio’r treuliau hyn
+cannotClaimRelief.heading = Nid ydych yn gymwys i hawlio
+cannotClaimRelief.body =  Ni allwch hawlio’r treuliau hyn y mae’ch cyflogwr wedi talu amdanynt.
 cannotClaimRelief.guidance = Ni allwch hawlio’r treuliau hyn oherwydd talwyd y cyfan yn ôl gan eich cyflogwr.
 
 employerPaidBackAnyExpenses.title = A yw’ch cyflogwr wedi talu unrhyw un o’ch treuliau yn yr hawliad hwn?
@@ -167,11 +180,16 @@ notEntitledSomeYears.link.label = Hawlio ar gyfer blynyddoedd pan wnaethoch dalu
 
 claimingFor.title = Dewiswch yr holl dreuliau rydych am eu hawlio
 claimingFor.heading = Dewiswch yr holl dreuliau rydych am eu hawlio
-claimingFor.insetText = Mae’n rhaid i chi anfon tystiolaeth i CThEF i ddangos pam eich bod yn cael rhyddhad treth. Mae’n rhaid i chi argraffu ac anfon ffurflen wedi’i llenwi i CThEF i hawlio ar eich treuliau.
+claimingFor.insetText_old = Mae’n rhaid i chi anfon tystiolaeth i CThEF i ddangos pam eich bod yn cael rhyddhad treth. Mae’n rhaid i chi argraffu ac anfon ffurflen wedi’i llenwi i CThEF i hawlio ar eich treuliau.
+claimingFor.insetText = Mae’n rhaid i chi lenwi’r ffurflen a’i hanfon drwy’r post er mwyn hawlio’ch treuliau. Gallwch wneud eich hawliad ar-lein os ydych yn hawlio treuliau ar gyfer gwisgoedd unffurf, dillad gwaith ac offer (treuliau cyfradd unffurf) yn unig.
 claimingFor.error.required = Dewiswch yr holl dreuliau rydych am eu hawlio
-claimingFor.uniformsClothingTools = Gwisgoedd unffurf, dillad ac offer ar gyfer gwaith
+claimingFor.uniformsClothingTools_old = Gwisgoedd unffurf, dillad ac offer ar gyfer gwaith
+claimingFor.uniformsClothingTools = Gwisgoedd unffurf, dillad gwaith ac offer (Treuliau cyfradd unffurf)
 claimingFor.uniformsClothingTools.oldDescription = Mae hyn yn cynnwys cost golchi eich gwisg, neu atgyweirio neu ddisodli dillad amddiffynnol neu fân offer rydych chi’n berchen arnynt ond rydych chi’n eu defnyddio ar gyfer gwaith. Does dim rhaid i chi roi unrhyw dderbynebau.
-claimingFor.uniformsClothingTools.description = Mae hyn yn cynnwys cost golchi’ch gwisg, neu atgyweirio neu amnewid dillad amddiffynnol neu offer bach yr ydych yn berchen arnynt ond rydych yn eu defnyddio ar gyfer gwaith. Dim ond lle rydych yn hawlio mwy na’r swm sefydlog o ryddhad treth y mae angen i chi roi tystiolaeth.
+claimingFor.uniformsClothingTools.description_old = Mae hyn yn cynnwys cost golchi’ch gwisg, neu atgyweirio neu amnewid dillad amddiffynnol neu offer bach yr ydych yn berchen arnynt ond rydych yn eu defnyddio ar gyfer gwaith. Dim ond lle rydych yn hawlio mwy na’r swm sefydlog o ryddhad treth y mae angen i chi roi tystiolaeth.
+
+claimingFor.uniformsClothingTools.description = Mae hyn yn cynnwys cost golchi’ch gwisg, neu atgyweirio neu amnewid dillad amddiffynnol neu offer bach yr ydych yn berchen arnynt ond rydych yn eu defnyddio ar gyfer gwaith. Dim ond lle rydych yn hawlio mwy na’r swm sefydlog o ryddhad treth y mae angen i chi roi tystiolaeth. I gael rhagor o wybodaeth {0} gwiriwch faint o ryddhad treth y gallwch ei hawlio ar gyfer gwisgoedd unffurf, dillad gwaith ac offer (yn agor ffenestr newydd) {1}
+
 claimingFor.mileageFuel = Cerbydau rydych yn eu defnyddio ar gyfer gwaith
 claimingFor.mileageFuel.description = Mae hyn yn cynnwys costau milltiroedd a thanwydd, yn dibynnu a ydych yn defnyddio eich cerbyd eich hun neu gerbyd cwmni.
 claimingFor.travelExpenses = Teithio a threuliau dros nos
@@ -315,3 +333,8 @@ informCustomerClaimNowInWeeks.para1 = Os ydych chi’n gweithio gartref am un di
 informCustomerClaimNowInWeeks.para2_old = Os nad ydych yn siŵr sawl wythnos y byddwch yn gymwys i hawlio ar eu cyfer, rydym yn eich cynghori i aros hyd nes eich bod yn gwybod. Mae hyn oherwydd nad oes modd gwneud unrhyw newidiadau pellach gan ddefnyddio’r gwasanaeth hwn ac efallai y bydd yn cymryd mwy o amser i brosesu.
 informCustomerClaimNowInWeeks.para2 = Os nad ydych yn siŵr faint o wythnosau y byddwch yn gymwys i hawlio ar eu cyfer, rydym yn eich cynghori i aros hyd nes eich bod yn gwybod, oherwydd gall unrhyw newidiadau pellach cymryd mwy o amser i brosesu.
 informCustomerClaimNowInWeeks.para3 = Os hoffech hawlio nawr, byddwn yn gwirio i weld a ydych yn gymwys.
+
+claimOnline.fre.para1 =  Gallwch hawlio rhyddhad treth ar gyfer:
+claimOnline.fre.para2 = Gwisgoedd unffurf, dillad gwaith ac offer (Treuliau cyfradd unffurf)
+claimOnline.fre.para3 = I hawlio’r treuliau hyn, mewngofnodwch i wasanaethau ar-lein CThEF.
+claimOnline.fre.button = Hawlio’ch rhyddhad treth ar-lein

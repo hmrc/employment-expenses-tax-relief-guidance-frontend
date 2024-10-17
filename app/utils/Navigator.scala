@@ -86,6 +86,8 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) {
 
   private def employerPaidBackOtherExpensesRouting(userAnswers: UserAnswers) =
     (userAnswers.employerPaidBackAnyExpenses, userAnswers.claimingFor) match {
+      case (Some(SomeExpenses | NoExpenses), Some(List(ClaimingFor.UniformsClothingTools)))
+                                                      if appConfig.freOnlyJourneyEnabled => routes.MoreThanFiveJobsController.onPageLoad()
       case (Some(SomeExpenses | NoExpenses), Some(List(ClaimingFor.MileageFuel)))        => routes.UseOwnCarController.onPageLoad()
       case (Some(SomeExpenses | NoExpenses), _) if appConfig.onlineJourneyShutterEnabled => routes.UsePrintAndPostController.onPageLoad()
       case (Some(AllExpenses), _)                                                        => routes.CannotClaimReliefController.onPageLoad()
