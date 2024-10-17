@@ -34,8 +34,18 @@ submitButton: playComponents.submit_button
 @(claimingFor: List[ClaimingFor])(implicit request: Request[_], messages: Messages)
 
 
+
+
 @list = @{
- claimingFor.flatMap(x => Some(messages(s"claimingFor.$x")))
+claimingFor.flatMap(journey => {
+if (appConfig.freOnlyJourneyEnabled && journey == ClaimingFor.UniformsClothingTools) {
+Some(messages(s"claimingFor.$journey"))
+} else if (!appConfig.freOnlyJourneyEnabled && journey == ClaimingFor.UniformsClothingTools) {
+Some(messages(s"claimingFor.${journey}_old"))
+} else {
+Some(messages(s"claimingFor.$journey"))
+}
+})
 }
 
 @helperMessageKey(key: String) = @{

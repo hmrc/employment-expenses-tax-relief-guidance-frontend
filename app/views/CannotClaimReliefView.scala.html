@@ -29,10 +29,10 @@
     ) {
 
        @if(appConfig.freOnlyJourneyEnabled){
-        @heading(messages(s"cannotClaimRelief.heading"))
+        @heading(messages("cannotClaimRelief.heading"))
         <p class="govuk-body">@messages("cannotClaimRelief.body")</p>
        }else {
-         @heading(messages(s"cannotClaimRelief.heading_old"))
+         @heading(messages("cannotClaimRelief.heading_old"))
          <p class="govuk-body"><a id="can_not_claim_link" class="govuk-link" href="@appConfig.jobExpensesGuidanceUrl">@messages(s"cannotClaimRelief.guidance")</a></p>
         }
 

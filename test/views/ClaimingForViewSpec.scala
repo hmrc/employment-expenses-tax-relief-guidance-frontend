@@ -16,42 +16,61 @@
 
 package views
 
+import config.FrontendAppConfig
 import forms.ClaimingForFormProvider
 import models.ClaimingFor
+import org.mockito.Mockito.when
+import org.scalatestplus.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.Application
 import play.api.data.Form
-import play.twirl.api.HtmlFormat
+import play.api.inject.bind
+import play.api.inject.guice.GuiceApplicationBuilder
+import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import views.behaviours.CheckboxViewBehaviours
 import views.html.ClaimingForView
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 
-class ClaimingForViewSpec extends CheckboxViewBehaviours[ClaimingFor] {
+class ClaimingForViewSpec extends CheckboxViewBehaviours[ClaimingFor] with MockitoSugar {
 
   val messageKeyPrefix: String = s"claimingFor"
+  val mockAppConfig = mock[FrontendAppConfig]
 
-  val application: Application = applicationBuilder().build()
+  val application: Application = GuiceApplicationBuilder()
+    .overrides(bind[FrontendAppConfig].toInstance(mockAppConfig)) // Bind the mock AppConfig
+    .configure("play.http.router" -> "testOnlyDoNotUseInAppConf.Routes") // Ensure routing is set up correctly
+    .build()
 
   val view: ClaimingForView = application.injector.instanceOf[ClaimingForView]
 
   val form = new ClaimingForFormProvider()()
 
-  def createView(form: Form[_]): HtmlFormat.Appendable = view.apply(form)(fakeRequest, messages)
+  def createView(form: Form[_]): Html = view.apply(form)(fakeRequest, messages)
 
-  def checkboxItem(keyPrefix: String): CheckboxItem = {
-    new CheckboxItem(
-      name = Some("value[0]"),
-      id = Some(s"claimingFor.$keyPrefix"),
-      value = keyPrefix,
-      content = Text(messages(s"claimingFor.$keyPrefix")),
-      hint = Some(Hint(
-        content = HtmlContent(messages(s"claimingFor.$keyPrefix.$claimant.description")))
-      )
-    )
-  }
+
+  //def createView(form: Form[_]): HtmlFormat.Appendable = view.apply(form)(fakeRequest, messages)
+
+//  def checkboxItem(keyPrefix: String): CheckboxItem = {
+//    new CheckboxItem(
+//      name = Some("value[0]"),
+//      id = Some(s"claimingFor.$keyPrefix"),
+//      value = keyPrefix,
+//      content = Text(messages(s"claimingFor.$keyPrefix")),
+//      hint = Some(Hint(
+//        content = HtmlContent(messages(s"claimingFor.$keyPrefix.$claimant.description")))
+//      )
+//    )
+//  }
 
   "ClaimingFor view" must {
+    when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
+    behave like normalPage(createView(form), messageKeyPrefix)
+    behave like checkboxPage(form, createView, messageKeyPrefix, ClaimingFor.options(onlineJourneyShutterEnabled = false, freOnlyJourneyEnabled = false))
+  }
+  "ClaimingFor view when freOnlyJourneyEnabled is enabled" must {
+    when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
     behave like normalPage(createView(form), messageKeyPrefix)
     behave like checkboxPage(form, createView, messageKeyPrefix, ClaimingFor.options(onlineJourneyShutterEnabled = false, freOnlyJourneyEnabled = true))
   }
