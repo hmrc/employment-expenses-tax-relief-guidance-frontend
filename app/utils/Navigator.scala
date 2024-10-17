@@ -91,6 +91,7 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) {
       case (Some(SomeExpenses | NoExpenses), Some(List(ClaimingFor.MileageFuel)))        => routes.UseOwnCarController.onPageLoad()
       case (Some(SomeExpenses | NoExpenses), _) if appConfig.onlineJourneyShutterEnabled => routes.UsePrintAndPostController.onPageLoad()
       case (Some(AllExpenses), _)                                                        => routes.CannotClaimReliefController.onPageLoad()
+      case (Some(SomeExpenses | NoExpenses), _)                                          => routes.MoreThanFiveJobsController.onPageLoad()
       case _                                                                             => routes.SessionExpiredController.onPageLoad
     }
 
