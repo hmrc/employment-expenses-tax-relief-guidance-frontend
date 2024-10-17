@@ -63,8 +63,20 @@ submitButton: playComponents.submit_button
     }
 }
 
-@helperMessageKey(key: String) = @{
-  if (appConfig.freOnlyJourneyEnabled) key else s"${key}_old"
+@helperMessageKey(key: String, claimItem: Option[ClaimingFor] = None) = @{
+  claimItem match {
+    // Handle "UniformsClothingTools" case based on freOnlyJourneyEnabled
+    case Some(ClaimingFor.UniformsClothingTools) if !appConfig.freOnlyJourneyEnabled => s"${key}_old"
+
+    // For other claim items when freOnlyJourneyEnabled is true
+    case Some(_) if appConfig.freOnlyJourneyEnabled => key
+
+    // Handle None case based on freOnlyJourneyEnabled
+    case None => if (!appConfig.freOnlyJourneyEnabled) s"${key}_old" else key
+
+    // Default case
+    case _ => key
+  }
 }
 
 
@@ -100,11 +112,11 @@ content = Text(messages(helperMessageKey("usePrintAndPostDetailed.para1")))
 
         @if(!List(BuyingEquipment,Other).contains(claimItem)){
 
-            @h3(messages(s"claimingFor.$claimItem"))
-            @p(){@messages(helperMessageKey(s"usePrintAndPostDetailed.$claimItem.1"))}
+            @h3(messages(helperMessageKey(s"claimingFor.$claimItem", Some(claimItem))))
+            @p(){@messages(helperMessageKey(s"usePrintAndPostDetailed.$claimItem.1", Some(claimItem)))}
 
             @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.2")){
-                @p(){@messages(helperMessageKey(s"usePrintAndPostDetailed.$claimItem.2"))}
+                @p(){@messages(helperMessageKey(s"usePrintAndPostDetailed.$claimItem.2"), Some(claimItem))}
             }
             @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.3") && appConfig.freOnlyJourneyEnabled){
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.3")}
