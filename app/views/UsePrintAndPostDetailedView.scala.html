@@ -109,9 +109,6 @@ content = Text(messages(helperMessageKey("usePrintAndPostDetailed.para1")))
             @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.3") && appConfig.freOnlyJourneyEnabled){
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.3")}
             }
-            @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.3") && appConfig.freOnlyJourneyEnabled){
-                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.3")}
-            }
         }
     }
 

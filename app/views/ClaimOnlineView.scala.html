@@ -16,6 +16,7 @@
 
 @import config.FrontendAppConfig
 @import viewmodels.OnwardJourney
+@import models.ClaimingFor
 
 @this(
     layout: Layout,
@@ -27,7 +28,15 @@
 @(onwardJourney: OnwardJourney, claimingFor: List[ClaimingFor])(implicit request: Request[_], messages: Messages)
 
 @list = @{
-    claimingFor.flatMap(x => Some(messages(s"claimingFor.$x")))
+    claimingFor.flatMap(journey => {
+                                if (appConfig.freOnlyJourneyEnabled && onwardJourney == OnwardJourney.FixedRateExpenses) {
+                                    Some(messages(s"claimingFor.$journey"))
+                                } else if (!appConfig.freOnlyJourneyEnabled && (onwardJourney == OnwardJourney.FixedRateExpenses || journey == ClaimingFor.UniformsClothingTools)) {
+                                    Some(messages(s"claimingFor.${journey}_old"))
+                                } else {
+                                 Some(messages(s"claimingFor.$journey"))
+                                }
+                            })
 }
 
 @href = @{
