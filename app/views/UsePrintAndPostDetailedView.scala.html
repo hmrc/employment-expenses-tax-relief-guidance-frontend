@@ -30,26 +30,36 @@ submitButton: playComponents.submit_button
 )
 
 
-
 @(claimingFor: List[ClaimingFor])(implicit request: Request[_], messages: Messages)
 
 
-
-
-@list = @{
-claimingFor.flatMap(journey => {
-if (appConfig.freOnlyJourneyEnabled && journey == ClaimingFor.UniformsClothingTools) {
-Some(messages(s"claimingFor.$journey"))
-} else if (!appConfig.freOnlyJourneyEnabled && journey == ClaimingFor.UniformsClothingTools) {
-Some(messages(s"claimingFor.${journey}_old"))
-} else {
-Some(messages(s"claimingFor.$journey"))
+@list = @{ 
+  claimingFor.flatMap { journey =>
+    // Match conditions for appConfig and journey to determine the correct message key
+    val messageKey = (appConfig.freOnlyJourneyEnabled, journey) match {
+      case (false, j) if j != ClaimingFor.UniformsClothingTools => s"claimingFor.${j}"
+      case (true, ClaimingFor.UniformsClothingTools) => s"claimingFor.$journey"
+      case (false, ClaimingFor.UniformsClothingTools) => s"claimingFor.${journey}_old"
+      case _ => s"claimingFor.$journey"
+    }
+    Some(messages(messageKey))
+  }
 }
-})
-}
 
-@helperMessageKey(key: String) = @{
-  if (appConfig.freOnlyJourneyEnabled) key else s"${key}_old"
+@helperMessageKey(key: String, claimItem: Option[ClaimingFor] = None) = @{
+  claimItem match {
+    // Handle "UniformsClothingTools" case based on freOnlyJourneyEnabled
+    case Some(ClaimingFor.UniformsClothingTools) if !appConfig.freOnlyJourneyEnabled => s"${key}_old"
+    
+    // For other claim items when freOnlyJourneyEnabled is true
+    case Some(_) if appConfig.freOnlyJourneyEnabled => key
+
+    // Handle None case based on freOnlyJourneyEnabled
+    case None => if (!appConfig.freOnlyJourneyEnabled) s"${key}_old" else key
+
+    // Default case
+    case _ => key
+  }
 }
 
 
@@ -85,11 +95,11 @@ content = Text(messages(helperMessageKey("usePrintAndPostDetailed.para1")))
 
         @if(!List(BuyingEquipment,Other).contains(claimItem)){
 
-            @h3(messages(s"claimingFor.$claimItem"))
-            @p(){@messages(helperMessageKey(s"usePrintAndPostDetailed.$claimItem.1"))}
+            @h3(messages(helperMessageKey(s"claimingFor.$claimItem", Some(claimItem))))
+            @p(){@messages(helperMessageKey(s"usePrintAndPostDetailed.$claimItem.1", Some(claimItem)))}
 
             @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.2")){
-                @p(){@messages(helperMessageKey(s"usePrintAndPostDetailed.$claimItem.2"))}
+                @p(){@messages(helperMessageKey(s"usePrintAndPostDetailed.$claimItem.2"), Some(claimItem))}
             }
             @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.3") && appConfig.freOnlyJourneyEnabled){
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.3")}
