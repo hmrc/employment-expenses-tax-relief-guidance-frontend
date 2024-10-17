@@ -30,7 +30,6 @@ submitButton: playComponents.submit_button
 )
 
 
-
 @(claimingFor: List[ClaimingFor])(implicit request: Request[_], messages: Messages)
 
 
@@ -71,13 +70,14 @@ submitButton: playComponents.submit_button
     // For other claim items when freOnlyJourneyEnabled is true
     case Some(_) if appConfig.freOnlyJourneyEnabled => key
 
-    // Handle None case based on freOnlyJourneyEnabled
-    case None => if (!appConfig.freOnlyJourneyEnabled) s"${key}_old" else key
+        // Handle None case based on freOnlyJourneyEnabled
+        case None => if (!appConfig.freOnlyJourneyEnabled) s"${key}_old" else key
 
-    // Default case
-    case _ => key
-  }
+        // Default case
+        case _ => key
+    }
 }
+
 
 
 
