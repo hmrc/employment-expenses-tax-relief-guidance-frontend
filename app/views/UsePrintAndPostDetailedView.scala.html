@@ -31,23 +31,44 @@ submitButton: playComponents.submit_button
 @(claimingFor: List[ClaimingFor])(implicit request: Request[_], messages: Messages)
 
 @list = @{
-claimingFor.flatMap(x => Some(messages(s"claimingFor.$x")))
+    claimingFor.flatMap { journey =>
+        // Match conditions for appConfig and journey to determine the correct message key
+        val messageKey = (appConfig.freOnlyJourneyEnabled, journey) match {
+            case (false, j) if (j != ClaimingFor.UniformsClothingTools  || j !=ClaimingFor.HomeWorking) => s"claimingFor.${j}"
+            case (true, j) if (j == ClaimingFor.UniformsClothingTools  || j ==ClaimingFor.HomeWorking) => s"claimingFor.${j}"
+            case (false, j) if (j == ClaimingFor.UniformsClothingTools  || j ==ClaimingFor.HomeWorking) => s"claimingFor.${j}_old"
+            case _ => s"claimingFor.$journey"
+        }
+        Some(messages(messageKey))
+    }
 }
 
-@helperMessageKey(key: String) = @{
-    if (appConfig.freOnlyJourneyEnabled) key else s"${key}_old"
+@helperMessageKey(key: String, claimItem: Option[ClaimingFor] = None) = @{
+    claimItem match {
+        // Handle "UniformsClothingTools" case based on freOnlyJourneyEnabled
+        case Some(ClaimingFor.UniformsClothingTools) if !appConfig.freOnlyJourneyEnabled => s"${key}_old"
+        case Some(ClaimingFor.HomeWorking) if !appConfig.freOnlyJourneyEnabled => s"${key}_old"
+        // For other claim items when freOnlyJourneyEnabled is true
+        case Some(_) if appConfig.freOnlyJourneyEnabled => key
+
+        // Handle None case based on freOnlyJourneyEnabled
+        case None => if (!appConfig.freOnlyJourneyEnabled) s"${key}_old" else key
+
+        // Default case
+        case _ => key
+    }
 }
 
 
 @layout(
-pageTitle =  messages(helperMessageKey("usePrintAndPostDetailed.title"))
+    pageTitle =  messages(helperMessageKey("usePrintAndPostDetailed.title"))
 
 ) {
 
 @heading(messages(helperMessageKey("usePrintAndPostDetailed.heading")))
 
 @govukInsetText(InsetText(
-content = Text(messages(helperMessageKey("usePrintAndPostDetailed.para1"))))
+    content = Text(messages(helperMessageKey("usePrintAndPostDetailed.para1"))))
 ))
 
 @h2(messages("usePrintAndPostDetailed.youCanClaim"))
