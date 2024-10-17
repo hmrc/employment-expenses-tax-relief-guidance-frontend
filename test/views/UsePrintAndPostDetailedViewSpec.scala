@@ -16,11 +16,15 @@
 
 package views
 
+import config.FrontendAppConfig
 import models.ClaimingFor.{BuyingEquipment, FeesSubscriptions, HomeWorking, MileageFuel, Other, TravelExpenses, UniformsClothingTools}
+import org.mockito.Mockito.when
+import org.scalatestplus.mockito.MockitoSugar
+import play.api.inject.bind
 import views.behaviours.NewViewBehaviours
 import views.html.UsePrintAndPostDetailedView
 
-class UsePrintAndPostDetailedViewSpec extends NewViewBehaviours {
+class UsePrintAndPostDetailedViewSpec extends NewViewBehaviours with MockitoSugar{
 
   val messageKeyPrefix = "usePrintAndPostDetailed"
 
@@ -34,11 +38,38 @@ class UsePrintAndPostDetailedViewSpec extends NewViewBehaviours {
 
   def createView = view.apply(claimingListFor)(fakeRequest, messages)
 
+  val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
+
+  val freJourneyApplication = applicationBuilder()
+    .overrides(bind[FrontendAppConfig].toInstance(mockAppConfig))
+    .build()
+
+  val freJourneyview = freJourneyApplication.injector.instanceOf[UsePrintAndPostDetailedView]
+
+  val claimHomeWorking = List(HomeWorking)
+
+  def workingHomeView = freJourneyview.apply(claimHomeWorking)(fakeRequest, messages)
+
   "UsePrintAndPost view" must {
     behave like normalPage(createView, messageKeyPrefix)
 
     behave like pageWithBackLink(createView)
   }
 
+  "when freJourneyEnabled is disabled- all old content is displayed for only WorkingHome" in {
+    when(mockAppConfig.employeeExpensesClaimByPostUrl).thenReturn("urls.employeeExpensesClaimByPostUrl")
+    when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
+    val doc = asDocument(workingHomeView)
+    assertContainsMessages(doc, messages(s"${messageKeyPrefix}.homeWorking.1_old"))
+    assertContainsMessages(doc, messages(s"${messageKeyPrefix}.homeWorking.2_old"))
+  }
+  "when freJourneyEnabled is enabled- all new content is displayed for only WorkingHome" in {
+    when(mockAppConfig.employeeExpensesClaimByPostUrl).thenReturn("urls.employeeExpensesClaimByPostUrl")
+    when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
+    val doc = asDocument(workingHomeView)
+    assertContainsMessages(doc, messages(s"${messageKeyPrefix}.homeWorking.1"))
+    assertContainsMessages(doc, messages(s"${messageKeyPrefix}.homeWorking.2"))
+    assertContainsMessages(doc, messages(s"${messageKeyPrefix}.homeWorking.3"))
+  }
   application.stop()
 }
