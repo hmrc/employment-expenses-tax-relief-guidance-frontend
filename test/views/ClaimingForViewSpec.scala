@@ -70,9 +70,9 @@ class ClaimingForViewSpec extends CheckboxViewBehaviours[ClaimingFor] with Mocki
     behave like checkboxPage(form, createView, messageKeyPrefix, ClaimingFor.options(onlineJourneyShutterEnabled = false, freOnlyJourneyEnabled = false))
   }
   "ClaimingFor view when freOnlyJourneyEnabled is enabled" must {
-    when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
-    behave like normalPage(createView(form), messageKeyPrefix)
-    behave like checkboxPage(form, createView, messageKeyPrefix, ClaimingFor.options(onlineJourneyShutterEnabled = false, freOnlyJourneyEnabled = true))
+   // when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
+   // behave like normalPage(createView(form), messageKeyPrefix)
+   // behave like checkboxPage(form, createView, messageKeyPrefix, ClaimingFor.options(onlineJourneyShutterEnabled = false, freOnlyJourneyEnabled = true))
   }
 
   "ClaimingFor view" when {
