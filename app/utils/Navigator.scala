@@ -88,13 +88,13 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) {
   private def employerPaidBackOtherExpensesRouting(userAnswers: UserAnswers) =
     (userAnswers.employerPaidBackAnyExpenses, userAnswers.claimingFor) match {
       case (Some(SomeExpenses | NoExpenses), Some(List(ClaimingFor.UniformsClothingTools)))
-                                                      if appConfig.freOnlyJourneyEnabled => routes.MoreThanFiveJobsController.onPageLoad()
-      case (Some(SomeExpenses | NoExpenses), Some(List(ClaimingFor.MileageFuel)))        => routes.UseOwnCarController.onPageLoad()
-      case (Some(SomeExpenses | NoExpenses), _) if appConfig.onlineJourneyShutterEnabled
-                                                      || appConfig.freOnlyJourneyEnabled => routes.UsePrintAndPostController.onPageLoad()
-      case (Some(AllExpenses), _)                                                        => routes.CannotClaimReliefController.onPageLoad()
-      case (Some(SomeExpenses | NoExpenses), _)                                          => routes.MoreThanFiveJobsController.onPageLoad()
-      case _                                                                             => routes.SessionExpiredController.onPageLoad
+                                                      if appConfig.freOnlyJourneyEnabled  => routes.MoreThanFiveJobsController.onPageLoad()
+      case (Some(SomeExpenses | NoExpenses), Some(List(ClaimingFor.MileageFuel)))         => routes.UseOwnCarController.onPageLoad()
+      case (Some(SomeExpenses | NoExpenses), _) if (appConfig.onlineJourneyShutterEnabled
+                                                      || appConfig.freOnlyJourneyEnabled) => routes.UsePrintAndPostController.onPageLoad()
+      case (Some(AllExpenses), _)                                                         => routes.CannotClaimReliefController.onPageLoad()
+      case (Some(SomeExpenses | NoExpenses), _)                                           => routes.MoreThanFiveJobsController.onPageLoad()
+      case _                                                                              => routes.SessionExpiredController.onPageLoad
     }
 
   private def employerPaidBackWFHExpensesRouting(userAnswers: UserAnswers) = userAnswers.employerPaidBackAnyExpenses match {
