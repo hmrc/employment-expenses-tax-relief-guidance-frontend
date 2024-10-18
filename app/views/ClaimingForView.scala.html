@@ -39,10 +39,16 @@
     @heading(messages(s"claimingFor.heading"))
 
     @formHelper(action = ClaimingForController.onSubmit()) {
-        @if(appConfig.onlineJourneyShutterEnabled) {
+        @if(appConfig.freOnlyJourneyEnabled) {
+            
             @govukInsetText(InsetText(
                 content = Text(messages("claimingFor.insetText"))
             ))
+        } else{
+            @govukInsetText(InsetText(
+                content = Text(messages("claimingFor.insetText_old"))
+            ))
+
         }
         @govUkCheckboxes(Checkboxes(
             fieldset = Some(Fieldset(
@@ -53,7 +59,7 @@
                 ))
             )),
             name = "value",
-            items = ClaimingFor.options(appConfig.onlineJourneyShutterEnabled),
+            items = ClaimingFor.options(appConfig.onlineJourneyShutterEnabled, appConfig.freOnlyJourneyEnabled),
             errorMessage = form.errors.headOption.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
         ))
 
