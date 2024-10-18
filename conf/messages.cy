@@ -189,6 +189,7 @@ claimingFor.travelExpenses.description = Mae hyn yn cynnwys yr arian a wariwyd g
 claimingFor.feesSubscriptions = Ffioedd a thanysgrifiadau proffesiynol
 claimingFor.feesSubscriptions.description = Mae hyn yn cynnwys tanysgrifiadau neu ffioedd proffesiynol yr ydych yn eu talu i {0}sefydliadau proffesiynol cymeradwy (yn agor ffenestr neu dab newydd){1} er mwyn gallu gwneud eich swydd. Bydd angen i chi wybod y ffi flynyddol lawn, ac unrhyw gyfraniadau gan gyflogwyr.
 claimingFor.homeWorking = Gweithio gartref
+claimingFor.homeWorking_old = Gweithio gartref
 claimingFor.homeWorking.description = Gallwch ond hawlio costau ychwanegol i'r cartref fel galwadau ffôn busnes, nwy a thrydan ar gyfer yr ystafell rydych yn gweithio ynddi. Ni allwch hawlio am bethau rydych chi'n eu defnyddio at ddibenion preifat a gwaith fel rhent, band eang, offer neu ddodrefn.
 claimingFor.homeWorking.oldDescription = Mae hyn yn cynnwys cost pethau a ddefnyddir ar gyfer eich gwaith yn unig, megis gwresogi a goleuo’r ystafell rydych yn gweithio ynddi, neu gost galwadau ffôn busnes. Mae’n rhaid i chi gadw cofnodion o’r hyn yr ydych wedi’i wario.
 claimingFor.buyingEquipment = Prynu offer eraill
