@@ -102,10 +102,13 @@ usePrintAndPost.fuel = You must include a calculation of your fuel costs with yo
 usePrintAndPost.mileage = You must include mileage logs with your claim.
 usePrintAndPost.link.label = Claim by post
 
-usePrintAndPostDetailed.title = You are eligible to claim these job expenses
-usePrintAndPostDetailed.heading = You are eligible to claim these job expenses
+usePrintAndPostDetailed.title_old = You are eligible to claim these job expenses
+usePrintAndPostDetailed.title = You are eligible to claim these expenses by post
+usePrintAndPostDetailed.heading_old = You are eligible to claim these job expenses
+usePrintAndPostDetailed.heading = You are eligible to claim these expenses by post
 usePrintAndPostDetailed.youCanClaim = You can claim tax relief for:
-usePrintAndPostDetailed.para1 =  You must send HMRC evidence to show why you get tax relief. You must print and post a completed form to HMRC to claim on your expenses as detailed below.
+usePrintAndPostDetailed.para1_old =  You must send HMRC evidence to show why you get tax relief. You must print and post a completed form to HMRC to claim on your expenses as detailed below.
+usePrintAndPostDetailed.para1 =  Before sending your claim, check the guidance below for each type of expense. You may need to send evidence to HMRC for some claims. Complete a form and send it by post to claim your expenses.
 usePrintAndPostDetailed.para2 = Evidence to support your claim for tax relief
 usePrintAndPostDetailed.evidenceToSupport = Evidence to support your claim for tax relief
 usePrintAndPostDetailed.homeWorking.1_old= If it''s your choice to work from home, you can''t claim this expense.
@@ -115,13 +118,17 @@ usePrintAndPostDetailed.homeWorking.2_old = If it''s not in your contract, you''
 usePrintAndPostDetailed.homeWorking.3 = If you''re given a choice to work from home, you cannot claim this expense.
 
 usePrintAndPostDetailed.feesSubscriptions.1 = You must send copies of receipts, or other evidence, to HMRC that show how much you paid for each professional subscription.
-usePrintAndPostDetailed.uniformsClothingTools.1 = You do not need to keep receipts or a record of what you have spent if you are claiming a fixed amount of tax relief.
-usePrintAndPostDetailed.uniformsClothingTools.2 = You must send receipts to HMRC if you want to claim the exact amount you have spent.
+usePrintAndPostDetailed.uniformsClothingTools.1_old = You do not need to keep receipts or a record of what you have spent if you are claiming a fixed amount of tax relief.
+usePrintAndPostDetailed.uniformsClothingTools.1 = You must send evidence to HMRC to claim tax relief if you are claiming the exact amount you have spent.
+usePrintAndPostDetailed.uniformsClothingTools.2_old = You must send receipts to HMRC if you want to claim the exact amount you have spent.
+usePrintAndPostDetailed.uniformsClothingTools.2 = Complete a form and send it by post to claim your expenses.
+usePrintAndPostDetailed.uniformsClothingTools.3 =However, if you are claiming a fixed amount of tax relief, you do not need to keep receipts or records.
 usePrintAndPostDetailed.mileageFuel.1 = You must send a copy of your mileage log to HMRC for each job. This should show the reason for every journey, and the postcodes for the start and finishing points.
 usePrintAndPostDetailed.travelExpenses.1 = You must send copies of receipts to HMRC that show the date of your stay or meal, and the name of the hotel or restaurant.
 usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.header = Buying other equipment and other expenses
 usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.1 = You must send a full list of your other expenses to HMRC. Include details of which job they are for. We also need copies of receipts, or other evidence, that show the name of the item and that you''ve paid for it.
-usePrintAndPostDetailed.link.label = Continue
+usePrintAndPostDetailed.link.label_old = Continue
+usePrintAndPostDetailed.link.label = Claim by post
 
 claimOnline.title = You are eligible to claim these job expenses
 claimOnline.heading = You are eligible to claim these job expenses
@@ -319,10 +326,9 @@ timeout.exit = Sign out now
 
 informCustomerClaimNowInWeeks.title = Claims for tax years on or after 6 April 2023 are now calculated in weeks
 informCustomerClaimNowInWeeks.title_old = Claims on or after 6 April 2023 are now calculated in weeks
-informCustomerClaimNowInWeeks.oldHeading = Claims on or after 6 April 2023 are now calculated in weeks
+informCustomerClaimNowInWeeks.OldHeading = Claims on or after 6 April 2023 are now calculated in weeks
 informCustomerClaimNowInWeeks.heading = Claims for tax years on or after 6 April 2023 are now calculated in weeks
 informCustomerClaimNowInWeeks.para1 = If you work at home one or more days in a week, you can claim for that whole week.
 informCustomerClaimNowInWeeks.para2_old = If you are not sure how many weeks you will be eligible to claim for, we advise you to wait until you know because any further changes cannot be made using this service and may take longer to process.
 informCustomerClaimNowInWeeks.para2 = If you are not sure how many weeks you will be eligible to claim for, we advise you to wait until you know because any further changes may take longer to process.
 informCustomerClaimNowInWeeks.para3 = If you would like to claim now, we will check to see if you are eligible.
-
