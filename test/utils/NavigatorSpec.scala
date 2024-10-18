@@ -248,6 +248,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           val navigator = new Navigator()(mockAppConfig)
           val mockAnswers = mock[UserAnswers]
           when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
+          when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
           when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.HomeWorking)))
           when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(NoExpenses))
 
@@ -262,6 +263,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
         val mockAnswers = mock[UserAnswers]
         when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
+        when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
         when(mockAnswers.moreThanFiveJobs).thenReturn(Some(false))
         when(mockAnswers.claimingFor).thenReturn(None)
         when(mockAnswers.claimingMileage).thenReturn(None)
@@ -277,6 +279,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         val navigator = new Navigator()(mockAppConfig)
         val mockAnswers = mock[UserAnswers]
         when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
+        when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
         when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.HomeWorking)))
         when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(SomeExpenses))
 
@@ -290,6 +293,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         val navigator = new Navigator()(mockAppConfig)
         val mockAnswers = mock[UserAnswers]
         when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
+        when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
         when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.FeesSubscriptions)))
         when(mockAnswers.claimant).thenReturn(Some(You))
         when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(employerPaid))
@@ -321,6 +325,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           val navigator = new Navigator()(mockAppConfig)
           val mockAnswers = mock[UserAnswers]
           when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
+          when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
           when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.MileageFuel)))
           when(mockAnswers.claimant).thenReturn(Some(You))
           when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(employerPaid))
@@ -328,6 +333,21 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
             routes.UseOwnCarController.onPageLoad()
         }
+      }
+
+      "answering Yes from the MoreThanFiveJobs view and claiming for uniforms clothing tools only and " +
+                                                                        "freOnlyJourneyEnabled FS is set to true" in {
+        val mockAppConfig = mock[FrontendAppConfig]
+        val navigator = new Navigator()(mockAppConfig)
+
+        val mockAnswers = mock[UserAnswers]
+        when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
+        when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
+        when(mockAnswers.moreThanFiveJobs).thenReturn(Some(true))
+        when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.UniformsClothingTools)))
+
+        navigator.nextPage(MoreThanFiveJobsId)(mockAnswers) mustBe
+          routes.UsePrintAndPostController.onPageLoad()
       }
 
     }
@@ -354,6 +374,21 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimingMileage).thenReturn(None)
         when(mockAnswers.claimingFuel).thenReturn(None)
         when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(None)
+
+        navigator.nextPage(MoreThanFiveJobsId)(mockAnswers) mustBe
+          routes.ClaimOnlineController.onPageLoad()
+      }
+
+      "answering No from the MoreThanFiveJobs view and claiming for uniforms clothing tools only and " +
+                                                                        "freOnlyJourneyEnabled FS is set to true" in {
+        val mockAppConfig = mock[FrontendAppConfig]
+        val navigator = new Navigator()(mockAppConfig)
+
+        val mockAnswers = mock[UserAnswers]
+        when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
+        when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
+        when(mockAnswers.moreThanFiveJobs).thenReturn(Some(false))
+        when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.UniformsClothingTools)))
 
         navigator.nextPage(MoreThanFiveJobsId)(mockAnswers) mustBe
           routes.ClaimOnlineController.onPageLoad()

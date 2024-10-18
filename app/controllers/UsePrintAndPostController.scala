@@ -38,7 +38,7 @@ class UsePrintAndPostController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      if (appConfig.onlineJourneyShutterEnabled) {
+      if (appConfig.onlineJourneyShutterEnabled || appConfig.freOnlyJourneyEnabled) {
 
         val claimingForList = request.userAnswers.claimingFor.getOrElse(Nil)
         val sortedList = values.flatMap(value => claimingForList.find(_ == value))
