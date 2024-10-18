@@ -33,34 +33,35 @@ submitButton: playComponents.submit_button
 @(claimingFor: List[ClaimingFor])(implicit request: Request[_], messages: Messages)
 
 
-@list = @{ 
-  claimingFor.flatMap { journey =>
-    // Match conditions for appConfig and journey to determine the correct message key
-    val messageKey = (appConfig.freOnlyJourneyEnabled, journey) match {
-      case (false, j) if j != ClaimingFor.UniformsClothingTools => s"claimingFor.${j}"
-      case (true, ClaimingFor.UniformsClothingTools) => s"claimingFor.$journey"
-      case (false, ClaimingFor.UniformsClothingTools) => s"claimingFor.${journey}_old"
-      case _ => s"claimingFor.$journey"
+@list = @{
+    claimingFor.flatMap { journey =>
+        // Match conditions for appConfig and journey to determine the correct message key
+        val messageKey = (appConfig.freOnlyJourneyEnabled, journey) match {
+        case (false, j) if (j != ClaimingFor.UniformsClothingTools  || j !=ClaimingFor.HomeWorking) => s"claimingFor.${j}"
+        case (true, j) if (j == ClaimingFor.UniformsClothingTools  || j ==ClaimingFor.HomeWorking) => s"claimingFor.${j}"
+        case (false, j) if (j == ClaimingFor.UniformsClothingTools  || j ==ClaimingFor.HomeWorking) => s"claimingFor.${j}_old"
+        case _ => s"claimingFor.$journey"
     }
     Some(messages(messageKey))
-  }
+    }
 }
 
 @helperMessageKey(key: String, claimItem: Option[ClaimingFor] = None) = @{
-  claimItem match {
-    // Handle "UniformsClothingTools" case based on freOnlyJourneyEnabled
-    case Some(ClaimingFor.UniformsClothingTools) if !appConfig.freOnlyJourneyEnabled => s"${key}_old"
-    
-    // For other claim items when freOnlyJourneyEnabled is true
-    case Some(_) if appConfig.freOnlyJourneyEnabled => key
+    claimItem match {
+        // Handle "UniformsClothingTools" case based on freOnlyJourneyEnabled
+        case Some(ClaimingFor.UniformsClothingTools) if !appConfig.freOnlyJourneyEnabled => s"${key}_old"
+        case Some(ClaimingFor.HomeWorking) if !appConfig.freOnlyJourneyEnabled => s"${key}_old"
+        // For other claim items when freOnlyJourneyEnabled is true
+        case Some(_) if appConfig.freOnlyJourneyEnabled => key
 
-    // Handle None case based on freOnlyJourneyEnabled
-    case None => if (!appConfig.freOnlyJourneyEnabled) s"${key}_old" else key
+        // Handle None case based on freOnlyJourneyEnabled
+        case None => if (!appConfig.freOnlyJourneyEnabled) s"${key}_old" else key
 
-    // Default case
-    case _ => key
-  }
+        // Default case
+        case _ => key
+    }
 }
+
 
 
 
