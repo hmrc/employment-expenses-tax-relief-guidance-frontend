@@ -16,29 +16,66 @@
 
 package views
 
+import config.FrontendAppConfig
 import controllers.routes
+import org.scalatestplus.mockito.MockitoSugar
 import play.api.Application
+import play.api.inject.bind
 import play.api.mvc.Call
-import play.twirl.api.HtmlFormat
+//import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.NewViewBehaviours
+import config.FrontendAppConfig
+import org.mockito.Mockito.when
 import views.html.DisclaimerView
+import play.api.Application
+import play.twirl.api.Html
 
-class DisclaimerViewSpec extends NewViewBehaviours {
+
+
+class DisclaimerViewSpec extends NewViewBehaviours with MockitoSugar {
 
   val messageKeyPrefix: String = "disclaimer"
 
-  val application: Application = applicationBuilder().build()
+  val mockAppConfig = mock[FrontendAppConfig]
 
-  val view: DisclaimerView = app.injector.instanceOf[DisclaimerView]
+  val application: Application = applicationBuilder()
+    .overrides(bind[FrontendAppConfig].toInstance(mockAppConfig))
+    .build()
+
+  val view: DisclaimerView = application.injector.instanceOf[DisclaimerView]
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
 
-  def createView: HtmlFormat.Appendable = view.apply()(fakeRequest, messages)
+  def createView(): Html = view.apply()(fakeRequest, messages)
 
-  "DisclaimerView" must {
-    behave like normalPage(createView, messageKeyPrefix)
-    behave like pageWithBackLink(createView)
+  "DisclaimerView" should {
+    behave like normalPage(createView(), messageKeyPrefix)
+    behave like pageWithBackLink(createView())
   }
+    "show new summary" when {
+      "when onlinefreJourneyEnabled is enabled- all disclaimerView content is displayed " in {
+        when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
+        val doc = asDocument(createView())
+        assertContainsMessages(doc, messages(s"${messageKeyPrefix}.guidance.summary"))
+      }
 
-  application.stop()
-}
+     "when onlinefreJourneyEnabled is disabled- all disclaimerView content is displayed " in {
+        when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
+        val doc = asDocument(createView())
+        assertContainsMessages(doc,messages(s"${messageKeyPrefix}.guidance.OldSummary"))
+      }
+      "when onlinefreJourneyEnabled is enabled- all disclaimerView insetText is displayed " in {
+        when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
+        when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
+        val doc = asDocument(createView())
+        assertContainsMessages(doc, messages(s"${messageKeyPrefix}.claim.after.insetText"))
+      }
+      "when onlinefreJourneyEnabled is disabled- all disclaimerView insetText is displayed " in {
+        when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
+        when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
+        val doc = asDocument(createView())
+        assertContainsMessages(doc, messages(s"${messageKeyPrefix}.claim.after.insetOldText"))
+      }
+    }
+    application.stop()
+  }
