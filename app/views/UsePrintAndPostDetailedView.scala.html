@@ -36,9 +36,9 @@
 @list = @{
   claimingFor.flatMap { journey =>
     val messageKey = (appConfig.freOnlyJourneyEnabled, journey) match {
-     case (false, j) if (j != ClaimingFor.UniformsClothingTools  || j !=ClaimingFor.HomeWorking) => s"claimingFor.${j}"
-     case (true, j) if (j == ClaimingFor.UniformsClothingTools  || j ==ClaimingFor.HomeWorking) => s"claimingFor.${j}"
-     case (false, j) if (j == ClaimingFor.UniformsClothingTools  || j ==ClaimingFor.HomeWorking) => s"claimingFor.${j}_old"
+     case (false, j) if (j != ClaimingFor.UniformsClothingTools  || j != ClaimingFor.HomeWorking) => s"claimingFor.${j}"
+     case (true, j) if (j == ClaimingFor.UniformsClothingTools  || j == ClaimingFor.HomeWorking) => s"claimingFor.${j}"
+     case (false, j) if (j == ClaimingFor.UniformsClothingTools  || j == ClaimingFor.HomeWorking) => s"claimingFor.${j}_old"
      case _ => s"claimingFor.$journey"
     }
     Some(messages(messageKey))
