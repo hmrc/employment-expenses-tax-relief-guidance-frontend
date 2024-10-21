@@ -20,7 +20,7 @@ import config.FrontendAppConfig
 import controllers.actions._
 import models.ClaimingFor
 import models.ClaimingFor.values
-import play.api.{Logger, Logging}
+
 
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
@@ -35,7 +35,7 @@ class UsePrintAndPostController @Inject()(
                                            view: UsePrintAndPostView,
                                            appConfig: FrontendAppConfig,
                                            detailedView: UsePrintAndPostDetailedView,
-                                         ) extends FrontendBaseController with I18nSupport  with Logging{
+                                         ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
