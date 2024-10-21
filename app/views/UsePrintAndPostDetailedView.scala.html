@@ -50,6 +50,8 @@
   }
 }
 
+
+
 @layout(
     pageTitle = messages(helperMessageKey("usePrintAndPostDetailed.title"))
     ) {
@@ -82,7 +84,7 @@
            }else{
                 @h3(messages(helperMessageKey(s"claimingFor.$claimItem", Some(claimItem))))
             }
-           
+
             @p(){@messages(helperMessageKey(s"usePrintAndPostDetailed.$claimItem.1", Some(claimItem)))}
 
             @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.2")){

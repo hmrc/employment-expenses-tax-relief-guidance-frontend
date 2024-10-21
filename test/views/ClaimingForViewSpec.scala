@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,56 +16,82 @@
 
 package views
 
+import config.FrontendAppConfig
 import forms.ClaimingForFormProvider
 import models.ClaimingFor
+import org.mockito.Mockito.when
+import org.scalatestplus.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.Application
 import play.api.data.Form
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
+import play.api.inject.bind
+import play.api.inject.guice.GuiceApplicationBuilder
+import play.twirl.api.Html
 import views.behaviours.CheckboxViewBehaviours
 import views.html.ClaimingForView
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
-import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 
-class ClaimingForViewSpec extends CheckboxViewBehaviours[ClaimingFor] {
+class ClaimingForViewSpec extends CheckboxViewBehaviours[ClaimingFor] with MockitoSugar {
 
-  val messageKeyPrefix: String = s"claimingFor"
-
-  val application: Application = applicationBuilder().build()
-
-  val view: ClaimingForView = application.injector.instanceOf[ClaimingForView]
-
+  val messageKeyPrefix: String = "claimingFor"
   val form = new ClaimingForFormProvider()()
 
-  def createView(form: Form[_]): HtmlFormat.Appendable = view.apply(form)(fakeRequest, messages)
+  // Create an instance of the application with the provided `freOnlyJourneyEnabled` value
+  def createApp(freJourneyEnabled: Boolean): Application = {
+    val mockAppConfig = mock[FrontendAppConfig]
+    when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(freJourneyEnabled)
 
-  def checkboxItem(keyPrefix: String): CheckboxItem = {
-    new CheckboxItem(
-      name = Some("value[0]"),
-      id = Some(s"claimingFor.$keyPrefix"),
-      value = keyPrefix,
-      content = Text(messages(s"claimingFor.$keyPrefix")),
-      hint = Some(Hint(
-        content = HtmlContent(messages(s"claimingFor.$keyPrefix.$claimant.description")))
-      )
-    )
+    GuiceApplicationBuilder()
+      .overrides(bind[FrontendAppConfig].toInstance(mockAppConfig))
+      .configure("play.http.router" -> "testOnlyDoNotUseInAppConf.Routes")
+      .build()
   }
 
-  "ClaimingFor view" must {
-    behave like normalPage(createView(form), messageKeyPrefix)
-    behave like checkboxPage(form, createView, messageKeyPrefix, ClaimingFor.options(onlineJourneyShutterEnabled = true))
+  // Create the view using the provided form and application
+  def createView(form: Form[_], freJourneyEnabled: Boolean): Html = {
+    val app = createApp(freJourneyEnabled)
+    val view: ClaimingForView = app.injector.instanceOf[ClaimingForView]
+    val result = view.apply(form)(fakeRequest, messages)
+    app.stop()
+    result
   }
 
   "ClaimingFor view" when {
+
+    "freOnlyJourneyEnabled is true" must {
+
+        val doc = asDocument(createView(form, freJourneyEnabled = true))
+
+        behave like normalPage(createView(form, freJourneyEnabled = true), messageKeyPrefix)
+        behave like checkboxPage(
+          form,
+          form => createView(form, freJourneyEnabled = true),
+          messageKeyPrefix,
+          ClaimingFor.options(onlineJourneyShutterEnabled = false, freOnlyJourneyEnabled = true)
+        )
+
+    }
+
+    "freOnlyJourneyEnabled is false" must {
+
+        val doc = asDocument(createView(form, freJourneyEnabled = false))
+
+        behave like normalPage(createView(form, freJourneyEnabled = false), messageKeyPrefix)
+        behave like checkboxPage(
+          form,
+          form => createView(form, freJourneyEnabled = false),
+          messageKeyPrefix,
+          ClaimingFor.options(onlineJourneyShutterEnabled = false, freOnlyJourneyEnabled = false)
+        )
+
+    }
+
     "rendered" must {
       "contain checkboxes for each option" in {
-        val doc = asDocument(createView(form))
-        for ((option, index) <- ClaimingFor.options(onlineJourneyShutterEnabled = true).zipWithIndex) {
+        val doc = asDocument(createView(form, freJourneyEnabled = true))
+        for ((option, index) <- ClaimingFor.options(onlineJourneyShutterEnabled = false, freOnlyJourneyEnabled = true).zipWithIndex) {
           assertContainsRadioButton(doc, option.id.get, s"value[$index]", option.value, isChecked = false)
         }
       }
     }
   }
-
-  application.stop()
 }

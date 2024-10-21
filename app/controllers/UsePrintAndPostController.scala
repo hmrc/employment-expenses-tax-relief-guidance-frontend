@@ -39,7 +39,7 @@ class UsePrintAndPostController @Inject()(
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      if (appConfig.onlineJourneyShutterEnabled) {
+      if (appConfig.onlineJourneyShutterEnabled || appConfig.freOnlyJourneyEnabled) {
 
         val claimingOnlyWFH = request.userAnswers.claimAnyOtherExpense.getOrElse(false)
         val claimingForList = if (claimingOnlyWFH) List(ClaimingFor.HomeWorking) else request.userAnswers.claimingFor.getOrElse(Nil)
