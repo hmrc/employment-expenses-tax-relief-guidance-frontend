@@ -343,7 +343,3 @@ claimOnline.fre.para2 = Gwisgoedd unffurf, dillad gwaith ac offer (Treuliau cyfr
 claimOnline.fre.para3 = I hawlio’r treuliau hyn, mewngofnodwch i wasanaethau ar-lein CThEF.
 claimOnline.fre.button = Hawlio’ch rhyddhad treth ar-lein
 
-claimOnline.fre.para1 =  Gallwch hawlio rhyddhad treth ar gyfer:
-claimOnline.fre.para2 = Gwisgoedd unffurf, dillad gwaith ac offer (Treuliau cyfradd unffurf)
-claimOnline.fre.para3 = I hawlio’r treuliau hyn, mewngofnodwch i wasanaethau ar-lein CThEF.
-claimOnline.fre.button = Hawlio’ch rhyddhad treth ar-lein

@@ -28,13 +28,13 @@
 @()(implicit request: Request[_], messages: Messages)
 
 @notificationBannerHtml = {
-<p class="govuk-notification-banner__heading">
-    @if(appConfig.freOnlyJourneyEnabled) {
-        @messages("disclaimer.guidance.summary")
-    } else {
-        @messages("disclaimer.guidance.OldSummary")
-    }
-</p>
+    <p class="govuk-notification-banner__heading">
+        @if(appConfig.freOnlyJourneyEnabled) {
+            @messages("disclaimer.guidance.summary")
+        } else {
+            @messages("disclaimer.guidance.OldSummary")
+        }
+    </p>
 }
 
 
