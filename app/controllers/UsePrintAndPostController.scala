@@ -34,7 +34,7 @@ class UsePrintAndPostController @Inject()(
                                            val controllerComponents: MessagesControllerComponents,
                                            view: UsePrintAndPostView,
                                            appConfig: FrontendAppConfig,
-                                           detailedView: UsePrintAndPostDetailedView,
+                                           detailedView: UsePrintAndPostDetailedView
                                          ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
