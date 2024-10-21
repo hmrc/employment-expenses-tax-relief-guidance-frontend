@@ -35,11 +35,11 @@ if (appConfig.freOnlyJourneyEnabled) key else s"${key}_old"
 pageTitle = messages(helperMessageKey("informCustomerClaimNowInWeeks.title"))
 ) {
 
-@if(appConfig.freOnlyJourneyEnabled) {
-@heading(messages("informCustomerClaimNowInWeeks.heading"))
-} else {
-@heading(messages("informCustomerClaimNowInWeeks.OldHeading"))
-}
+    @if(appConfig.freOnlyJourneyEnabled) {
+        @heading(messages("informCustomerClaimNowInWeeks.heading"))
+    } else {
+        @heading(messages("informCustomerClaimNowInWeeks.OldHeading"))
+    }
 
 
     <p class="govuk-body">@messages("informCustomerClaimNowInWeeks.para1")</p>
