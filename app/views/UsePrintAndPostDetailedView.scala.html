@@ -42,7 +42,7 @@ submitButton: playComponents.submit_button
         case (false, j) if (j == ClaimingFor.UniformsClothingTools  || j ==ClaimingFor.HomeWorking) => s"claimingFor.${j}_old"
         case _ => s"claimingFor.$journey"
     }
-    Some(messages(messageKey))
+        Some(messages(messageKey))
     }
 }
 
