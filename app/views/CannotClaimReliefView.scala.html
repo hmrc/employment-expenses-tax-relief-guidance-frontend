@@ -25,10 +25,15 @@
 @()(implicit request: Request[_], messages: Messages)
 
     @layout(
-        pageTitle = messages(s"cannotClaimRelief.title")
+        pageTitle = if(appConfig.freOnlyJourneyEnabled) messages(s"cannotClaimRelief.title") else messages(s"cannotClaimRelief.title_old")
     ) {
-        @heading(messages(s"cannotClaimRelief.heading"))
 
-        <p class="govuk-body"><a class="govuk-link" href="@appConfig.jobExpensesGuidanceUrl">@messages(s"cannotClaimRelief.guidance")</a></p>
+       @if(appConfig.freOnlyJourneyEnabled){
+        @heading(messages("cannotClaimRelief.heading"))
+        <p class="govuk-body">@messages("cannotClaimRelief.body")</p>
+       }else {
+         @heading(messages("cannotClaimRelief.heading_old"))
+         <p class="govuk-body"><a id="can_not_claim_link" class="govuk-link" href="@appConfig.jobExpensesGuidanceUrl">@messages(s"cannotClaimRelief.guidance")</a></p>
+        }
 
     }
