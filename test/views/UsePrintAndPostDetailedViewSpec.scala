@@ -32,11 +32,12 @@ class UsePrintAndPostDetailedViewSpec extends NewViewBehaviours with MockitoSuga
   val claimingListFor =  List(
     HomeWorking, UniformsClothingTools, MileageFuel, TravelExpenses, FeesSubscriptions, BuyingEquipment, Other
   )
+  val claimKeyList_freOff= List("homeWorking.1_old","homeWorking.2_old","uniformsClothingTools.1_old","uniformsClothingTools.2_old")
+  val claimKeyList_freOn= List("homeWorking.1","homeWorking.2","homeWorking.3","uniformsClothingTools.1","uniformsClothingTools.2","uniformsClothingTools.3")
   val uniformsClothingTools = List(UniformsClothingTools)
-
   val claimHomeWorking = List(HomeWorking)
 
-  def createView(freJourneyEnabled: Boolean = false, claimingFor: List[ClaimingFor]) = {
+  def createView(freJourneyEnabled: Boolean = false, claimingFor: List[ClaimingFor],messageKeyList:List[String]) = {
     val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
     when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(freJourneyEnabled)
     when(mockAppConfig.employeeExpensesClaimByPostUrl).thenReturn("urls.employeeExpensesClaimByPostUrl")
@@ -47,31 +48,31 @@ class UsePrintAndPostDetailedViewSpec extends NewViewBehaviours with MockitoSuga
 
     val freJourneyView = freJourneyApplication.injector.instanceOf[UsePrintAndPostDetailedView]
 
-    val result = freJourneyView.apply(claimingFor)(fakeRequest, messages)
+    val result = freJourneyView.apply(claimingFor,messageKeyList)(fakeRequest, messages)
 
     freJourneyApplication.stop() // Ensure the application is stopped after the view is created
     result
   }
 
   "UsePrintAndPost view" must {
-    behave like normalPage(createView(freJourneyEnabled = true, uniformsClothingTools), messageKeyPrefix)
-    behave like pageWithBackLink(createView(freJourneyEnabled = true, uniformsClothingTools))
+    behave like normalPage(createView(freJourneyEnabled = true, uniformsClothingTools,claimKeyList_freOn), messageKeyPrefix)
+    behave like pageWithBackLink(createView(freJourneyEnabled = true, uniformsClothingTools,claimKeyList_freOn))
   }
 
   "when freJourneyEnabled is disabled- all old content is displayed for only uniformsClothingToolsView" in {
-    val doc = asDocument(createView(freJourneyEnabled = false, uniformsClothingTools))
+    val doc = asDocument(createView(freJourneyEnabled = false, uniformsClothingTools,claimKeyList_freOff))
     assertPageTitleEqualsMessage(doc, "usePrintAndPostDetailed.title_old")
     assertContainsMessages(doc, messages(s"${messageKeyPrefix}.uniformsClothingTools.1_old"))
     assertContainsMessages(doc, messages(s"${messageKeyPrefix}.uniformsClothingTools.2_old"))
   }
 
   "when freJourneyEnabled is disabled- all old content is displayed for only WorkingHome" in {
-    val doc = asDocument(createView(freJourneyEnabled = false, claimHomeWorking))
+    val doc = asDocument(createView(freJourneyEnabled = false, claimHomeWorking,claimKeyList_freOff))
     assertContainsMessages(doc, messages(s"${messageKeyPrefix}.homeWorking.1_old"))
     assertContainsMessages(doc, messages(s"${messageKeyPrefix}.homeWorking.2_old"))
   }
   "when freJourneyEnabled is enabled- all new content is displayed for only WorkingHome" in {
-    val doc = asDocument(createView(freJourneyEnabled = true, claimHomeWorking))
+    val doc = asDocument(createView(freJourneyEnabled = true, claimHomeWorking,claimKeyList_freOn))
     assertContainsMessages(doc, messages(s"${messageKeyPrefix}.homeWorking.1"))
     assertContainsMessages(doc, messages(s"${messageKeyPrefix}.homeWorking.2"))
     assertContainsMessages(doc, messages(s"${messageKeyPrefix}.homeWorking.3"))
@@ -79,7 +80,7 @@ class UsePrintAndPostDetailedViewSpec extends NewViewBehaviours with MockitoSuga
 
   "when freJourneyEnabled is enabled- all new content is displayed for only uniformsClothingToolsView" in {
 
-    val doc = asDocument(createView(freJourneyEnabled = true, uniformsClothingTools))
+    val doc = asDocument(createView(freJourneyEnabled = true, uniformsClothingTools,claimKeyList_freOn))
     assertPageTitleEqualsMessage(doc, "usePrintAndPostDetailed.title")
     assertContainsMessages(doc, messages(s"${messageKeyPrefix}.uniformsClothingTools.1"))
     assertContainsMessages(doc, messages(s"${messageKeyPrefix}.uniformsClothingTools.2"))

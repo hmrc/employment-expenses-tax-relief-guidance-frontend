@@ -22,7 +22,6 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.Application
 import play.api.inject.bind
 import play.api.mvc.Call
-//import play.twirl.api.{Html, HtmlFormat}
 import views.behaviours.NewViewBehaviours
 import config.FrontendAppConfig
 import org.mockito.Mockito.when

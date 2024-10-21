@@ -189,7 +189,6 @@ claimingFor.travelExpenses.description = Mae hyn yn cynnwys yr arian a wariwyd g
 claimingFor.feesSubscriptions = Ffioedd a thanysgrifiadau proffesiynol
 claimingFor.feesSubscriptions.description = Mae hyn yn cynnwys tanysgrifiadau neu ffioedd proffesiynol yr ydych yn eu talu i {0}sefydliadau proffesiynol cymeradwy (yn agor ffenestr neu dab newydd){1} er mwyn gallu gwneud eich swydd. Bydd angen i chi wybod y ffi flynyddol lawn, ac unrhyw gyfraniadau gan gyflogwyr.
 claimingFor.homeWorking = Gweithio gartref
-claimingFor.homeWorking_old = Gweithio gartref
 claimingFor.homeWorking.description = Gallwch ond hawlio costau ychwanegol i'r cartref fel galwadau ffôn busnes, nwy a thrydan ar gyfer yr ystafell rydych yn gweithio ynddi. Ni allwch hawlio am bethau rydych chi'n eu defnyddio at ddibenion preifat a gwaith fel rhent, band eang, offer neu ddodrefn.
 claimingFor.homeWorking.oldDescription = Mae hyn yn cynnwys cost pethau a ddefnyddir ar gyfer eich gwaith yn unig, megis gwresogi a goleuo’r ystafell rydych yn gweithio ynddi, neu gost galwadau ffôn busnes. Mae’n rhaid i chi gadw cofnodion o’r hyn yr ydych wedi’i wario.
 claimingFor.buyingEquipment = Prynu offer eraill
@@ -324,7 +323,7 @@ timeout.exit = Allgofnodi nawr
 
 informCustomerClaimNowInWeeks.title = Mae hawliadau a wneir ar gyfer blynyddoedd treth ar neu ar ôl 6 Ebrill 2023 bellach yn cael eu cyfrifo mewn wythnosau
 informCustomerClaimNowInWeeks.title_old = Bydd hawliadau ar neu ar ôl 6 Ebrill 2023 yn cael eu cyfrifo mewn wythnosau
-informCustomerClaimNowInWeeks.OldHeading = Bydd hawliadau ar neu ar ôl 6 Ebrill 2023 yn cael eu cyfrifo mewn wythnosau
+informCustomerClaimNowInWeeks.oldHeading = Bydd hawliadau ar neu ar ôl 6 Ebrill 2023 yn cael eu cyfrifo mewn wythnosau
 informCustomerClaimNowInWeeks.heading = Mae hawliadau a wneir ar gyfer blynyddoedd treth ar neu ar ôl 6 Ebrill 2023 bellach yn cael eu cyfrifo mewn wythnosau
 informCustomerClaimNowInWeeks.para1 = Os ydych chi’n gweithio gartref am un diwrnod neu fwy mewn wythnos, gallwch hawlio am yr wythnos gyfan.
 informCustomerClaimNowInWeeks.para2_old = Os nad ydych yn siŵr sawl wythnos y byddwch yn gymwys i hawlio ar eu cyfer, rydym yn eich cynghori i aros hyd nes eich bod yn gwybod. Mae hyn oherwydd nad oes modd gwneud unrhyw newidiadau pellach gan ddefnyddio’r gwasanaeth hwn ac efallai y bydd yn cymryd mwy o amser i brosesu.

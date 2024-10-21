@@ -82,7 +82,7 @@ class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours with Mocki
       "when onlinefreJourneyEnabled is disabled- all informCustomerClaimNowInWeeksView content is displayed " in {
         when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
         val doc = asDocument(createView())
-        assertContainsMessages(doc, messages(s"${messageKeyPrefix}.OldHeading"))
+        assertContainsMessages(doc, messages(s"${messageKeyPrefix}.oldHeading"))
       }
     }
 
