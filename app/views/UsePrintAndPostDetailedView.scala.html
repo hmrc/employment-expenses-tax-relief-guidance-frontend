@@ -18,15 +18,15 @@
 @import models.ClaimingFor._
 
 @this(
-layout: Layout,
-buttonLink: playComponents.button_link,
-heading: playComponents.heading,
-govukInsetText : GovukInsetText,
-appConfig: FrontendAppConfig,
-h3 : playComponents.h3,
-h2 : playComponents.h2,
-p  : playComponents.p,
-submitButton: playComponents.submit_button
+    layout: Layout,
+    buttonLink: playComponents.button_link,
+    heading: playComponents.heading,
+    govukInsetText : GovukInsetText,
+    appConfig: FrontendAppConfig,
+    h3 : playComponents.h3,
+    h2 : playComponents.h2,
+    p  : playComponents.p,
+    submitButton: playComponents.submit_button
 )
 
 
@@ -78,17 +78,14 @@ content = Text(messages(helperMessageKey("usePrintAndPostDetailed.para1")))
 @h2(messages("usePrintAndPostDetailed.youCanClaim"))
 
 @if(list.size > 1) {
-
-<ul class="govuk-list govuk-list--bullet">
-    @for(claimItem <- list) {
-    <li>@claimItem</li>
-    }
-</ul>
+    <ul class="govuk-list govuk-list--bullet">
+        @for(claimItem <- list) {
+            <li>@claimItem</li>
+        }
+    </ul>
 } else {
-<p class="govuk-body">@list</p>
+    <p class="govuk-body">@list</p>
 }
-
-
 
 @h2(messages("usePrintAndPostDetailed.evidenceToSupport"))
 
@@ -117,6 +114,7 @@ content = Text(messages(helperMessageKey("usePrintAndPostDetailed.para1")))
     @submitButton(
     href = Some(appConfig.employeeExpensesClaimByPostUrl),
     content = Some(messages(helperMessageKey("usePrintAndPostDetailed.link.label")))
+
     )
 </div>
 
