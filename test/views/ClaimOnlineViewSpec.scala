@@ -61,7 +61,7 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
       button.attr("href") must be("/digital-forms/form/tax-relief-for-expenses-of-employment/draft/guide")
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
       assertContainsMessages(doc,"claimingFor.homeWorking")
-      assertContainsMessages(doc,"claimingFor.uniformsClothingTools_old")
+      assertContainsMessages(doc,"claimingFor.uniformsClothingTools")
       assertContainsMessages(doc,"claimingFor.mileageFuel")
       assertContainsMessages(doc,"claimingFor.travelExpenses")
       assertRenderedByAttribute(doc, "data-module", Some("hmrc-back-link"))
@@ -77,7 +77,7 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be(mockAppConfig.employeeExpensesUrl)
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
-      assertContainsMessages(doc,"claimingFor.uniformsClothingTools_old")
+      assertContainsMessages(doc,"claimingFor.uniformsClothingTools")
     }
 
     "When the onward journey is Professional Subscriptions Include a call to action button with a link to the IForm which can be replaced by Optimizely" in {
