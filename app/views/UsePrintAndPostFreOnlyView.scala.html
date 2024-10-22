@@ -36,13 +36,13 @@ claimingFor.flatMap(x => Some(messages(s"claimingFor.$x")))
 
 
 @layout(
-pageTitle = messages("usePrintAndPostDetailed.title")
+pageTitle = messages("usePrintAndPostDetailed.title_freOnly")
 ) {
 
-@heading(messages("usePrintAndPostDetailed.heading"))
+@heading(messages("usePrintAndPostDetailed.heading_freOnly"))
 
 @govukInsetText(InsetText(
-content = Text(messages("usePrintAndPostDetailed.para1"))
+content = Text(messages("usePrintAndPostDetailed.para1_freOnly"))
 ))
 
 @h2(messages("usePrintAndPostDetailed.youCanClaim"))
@@ -51,7 +51,12 @@ content = Text(messages("usePrintAndPostDetailed.para1"))
 
 <ul class="govuk-list govuk-list--bullet">
     @for(claimItem <- list) {
+    @if(claimItem.contains("Uniforms")){
+    <li>@messages(s"claimingFor.uniformsClothingTools_freOnly")</li>
+    }else{
+    @println("@@@@"+claimItem)
     <li>@claimItem</li>
+    }
     }
 </ul>
 } else {
@@ -65,12 +70,23 @@ content = Text(messages("usePrintAndPostDetailed.para1"))
     @for(claimItem <- claimingFor) {
 
         @if(!List(BuyingEquipment,Other).contains(claimItem)){
+@if(List(UniformsClothingTools).contains(claimItem)){
+          @h3(messages(s"claimingFor.uniformsClothingTools_freOnly"))
+}else{
+@h3(messages(s"claimingFor.$claimItem"))
+}
+         @if(List(HomeWorking, UniformsClothingTools).contains(claimItem)){
+            
+            @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly")}
 
-            @h3(messages(s"claimingFor.$claimItem"))
-            @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1")}
-
-            @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.2")){
-                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2")}
+                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2_freOnly")}
+               @p(){@messages(s"usePrintAndPostDetailed.$claimItem.3_freOnly")}
+                 }else{
+               
+                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1")}
+                
+                @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.2")){
+                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2")}}
             }
         }
     }
@@ -83,7 +99,7 @@ content = Text(messages("usePrintAndPostDetailed.para1"))
 <div class="govuk-body">
     @submitButton(
     href = Some(appConfig.employeeExpensesClaimByPostUrl),
-    content = Some(messages("usePrintAndPostDetailed.link.label"))
+    content = Some(messages("usePrintAndPostDetailed.link.label_freOnly"))
     )
 </div>
 

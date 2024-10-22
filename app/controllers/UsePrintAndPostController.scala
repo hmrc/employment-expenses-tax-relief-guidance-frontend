@@ -20,13 +20,13 @@ import config.FrontendAppConfig
 import controllers.actions._
 import models.ClaimingFor
 import models.ClaimingFor.values
-
+import play.api.{Logger, Logging}
 
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import views.html.{UsePrintAndPostDetailedView, UsePrintAndPostView}
+import views.html.{UsePrintAndPostDetailedView, UsePrintAndPostView, UsePrintAndPostFreOnlyView}
 
 class UsePrintAndPostController @Inject()(
                                            getData: DataRetrievalAction,
@@ -34,29 +34,23 @@ class UsePrintAndPostController @Inject()(
                                            val controllerComponents: MessagesControllerComponents,
                                            view: UsePrintAndPostView,
                                            appConfig: FrontendAppConfig,
-                                           detailedView: UsePrintAndPostDetailedView
+                                           detailedView: UsePrintAndPostDetailedView,
+                                           freView: UsePrintAndPostFreOnlyView
                                          ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      if (appConfig.onlineJourneyShutterEnabled || appConfig.freOnlyJourneyEnabled) {
 
-        val claimingOnlyWFH = request.userAnswers.claimAnyOtherExpense.getOrElse(false)
-        val claimingForList = if (claimingOnlyWFH) List(ClaimingFor.HomeWorking) else request.userAnswers.claimingFor.getOrElse(Nil)
+        if (appConfig.freOnlyJourneyEnabled){
+          val claimingForList = request.userAnswers.claimingFor.getOrElse(Nil)
+          val sortedList = values.flatMap(value => claimingForList.find(_ == value))
+          Ok(freView(sortedList))
+        }else  if (appConfig.onlineJourneyShutterEnabled) {{
+        val claimingForList = request.userAnswers.claimingFor.getOrElse(Nil)
         val sortedList = values.flatMap(value => claimingForList.find(_ == value))
-        val messageKeyList = {
-          claimingForList.map { journey =>
-            val messageKey = (appConfig.freOnlyJourneyEnabled, journey) match {
-              case (false, j) if (j != ClaimingFor.UniformsClothingTools || j != ClaimingFor.HomeWorking) => s"claimingFor.${j}"
-              case (true, j) if (j == ClaimingFor.UniformsClothingTools || j == ClaimingFor.HomeWorking) => s"claimingFor.${j}"
-              case (false, j) if (j == ClaimingFor.UniformsClothingTools || j == ClaimingFor.HomeWorking) => s"claimingFor.${j}_old"
-              case _ => s"claimingFor.$journey"
-            }
-            messageKey
-          }
+        Ok(detailedView(sortedList))
         }
-        Ok(detailedView(sortedList, messageKeyList))
-      } else {
+      }else {
         val fuelCosts = request.userAnswers.claimingFuel.getOrElse(false)
         val mileageCosts = request.userAnswers.claimingMileage.getOrElse(false)
         Ok(view(fuelCosts, mileageCosts))
