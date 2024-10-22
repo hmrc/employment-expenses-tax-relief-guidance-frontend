@@ -54,7 +54,6 @@ content = Text(messages("usePrintAndPostDetailed.para1_freOnly"))
     @if(claimItem.contains("Uniforms")){
     <li>@messages(s"claimingFor.uniformsClothingTools_freOnly")</li>
     }else{
-    @println("@@@@"+claimItem)
     <li>@claimItem</li>
     }
     }

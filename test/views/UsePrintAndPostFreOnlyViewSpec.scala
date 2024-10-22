@@ -17,72 +17,56 @@ package views
    * limitations under the License.
    */
   import config.FrontendAppConfig
+  import controllers.routes
   import models.ClaimingFor.{BuyingEquipment, FeesSubscriptions, HomeWorking, MileageFuel, Other, TravelExpenses, UniformsClothingTools}
   import org.mockito.Mockito.when
   import org.scalatestplus.mockito.MockitoSugar
   import play.api.inject.bind
   import views.behaviours.NewViewBehaviours
-  import views.html.UsePrintAndPostDetailedView
+  import views.html.UsePrintAndPostFreOnlyView
   import models.ClaimingFor
+  import play.api.mvc.Call
+  import play.twirl.api.Html
 
   class  UsePrintAndPostFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar{
 
-    val messageKeyPrefix = "usePrintAndPostFreOnlyViewSpec"
+    val messageKeyPrefix = "usePrintAndPostDetailed"
 
     val claimingListFor =  List(
       HomeWorking, UniformsClothingTools, MileageFuel, TravelExpenses, FeesSubscriptions, BuyingEquipment, Other
     )
 
-    val uniformsClothingTools = List(UniformsClothingTools)
-    val claimHomeWorking = List(HomeWorking)
+    val application = applicationBuilder()
+      .build()
+    def createView(): Html = view.apply(claimingListFor)(fakeRequest, messages)
 
-    def createView(claimingFor: List[ClaimingFor]) = {
-      val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
-      /*when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(freJourneyEnabled)
-      when(mockAppConfig.employeeExpensesClaimByPostUrl).thenReturn("urls.employeeExpensesClaimByPostUrl")
+    val view: UsePrintAndPostFreOnlyView = application.injector.instanceOf[UsePrintAndPostFreOnlyView]
 
-      val freJourneyApplication = applicationBuilder()
-        .overrides(bind[FrontendAppConfig].toInstance(mockAppConfig))
-        .build()
+    def onwardRoute: Call = routes.IndexController.onPageLoad
 
-      val freJourneyView = freJourneyApplication.injector.instanceOf[UsePrintAndPostDetailedView]
 
-      val result = freJourneyView.apply(claimingFor)(fakeRequest, messages)
+    "when freJourneyEnabled is enabled- all new content is displayed for title and heading" in {
+      val doc = asDocument(createView())
+      assertPageTitleEqualsMessage(doc, "usePrintAndPostDetailed.title_freOnly")
+      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.heading_freOnly"))
 
-      freJourneyApplication.stop() // Ensure the application is stopped after the view is created
-      result
     }
 
 
-    "when freJourneyEnabled is disabled- all old content is displayed for only uniformsClothingToolsView" in {
-      val doc = asDocument(createView(freJourneyEnabled = false )
-      assertPageTitleEqualsMessage(doc, "usePrintAndPostDetailed.title_old")
-      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.uniformsClothingTools.1_old"))
-      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.uniformsClothingTools.2_old"))
-    }
-
-    "when freJourneyEnabled is disabled- all old content is displayed for only WorkingHome" in {
-      val doc = asDocument(createView(freJourneyEnabled = false ))
-      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.homeWorking.1_old"))
-      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.homeWorking.2_old"))
-    }
     "when freJourneyEnabled is enabled- all new content is displayed for only WorkingHome" in {
-      val doc = asDocument(createView(freJourneyEnabled = true))
-      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.homeWorking.1"))
-      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.homeWorking.2"))
-      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.homeWorking.3"))
+      val doc = asDocument(createView())
+      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.homeWorking.1_freOnly"))
+      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.homeWorking.2_freOnly"))
+      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.homeWorking.3_freOnly"))
     }
 
     "when freJourneyEnabled is enabled- all new content is displayed for only uniformsClothingToolsView" in {
 
-      val doc = asDocument(createView(freJourneyEnabled = true, ))
-      assertPageTitleEqualsMessage(doc, "usePrintAndPostDetailed.title")
-      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.uniformsClothingTools.1"))
-      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.uniformsClothingTools.2"))
-      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.uniformsClothingTools.3"))
+      val doc = asDocument(createView())
 
-      val button = doc.getElementById("submit")
-      button.attr("href") must be("urls.employeeExpensesClaimByPostUrl")*/
+      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.uniformsClothingTools.1_freOnly"))
+      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.uniformsClothingTools.2_freOnly"))
+      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.uniformsClothingTools.3_freOnly"))
 
     }
   }

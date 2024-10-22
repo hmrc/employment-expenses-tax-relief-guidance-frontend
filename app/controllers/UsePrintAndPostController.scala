@@ -18,9 +18,8 @@ package controllers
 
 import config.FrontendAppConfig
 import controllers.actions._
-import models.ClaimingFor
 import models.ClaimingFor.values
-import play.api.{Logger, Logging}
+
 
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
