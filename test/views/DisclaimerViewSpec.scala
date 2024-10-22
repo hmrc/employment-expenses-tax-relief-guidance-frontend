@@ -55,25 +55,25 @@ class DisclaimerViewSpec extends NewViewBehaviours with MockitoSugar {
       "when onlinefreJourneyEnabled is enabled- all disclaimerView content is displayed " in {
         when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
         val doc = asDocument(createView())
-        assertContainsMessages(doc, messages(s"${messageKeyPrefix}.guidance.summary"))
+        assertContainsMessages(doc, messages(s"${messageKeyPrefix}.guidance.summary_freOnly"))
       }
 
      "when onlinefreJourneyEnabled is disabled- all disclaimerView content is displayed " in {
         when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
         val doc = asDocument(createView())
-        assertContainsMessages(doc,messages(s"${messageKeyPrefix}.guidance.OldSummary"))
+        assertContainsMessages(doc,messages(s"${messageKeyPrefix}.guidance.summary"))
       }
       "when onlinefreJourneyEnabled is enabled- all disclaimerView insetText is displayed " in {
         when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
         when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
         val doc = asDocument(createView())
-        assertContainsMessages(doc, messages(s"${messageKeyPrefix}.claim.after.insetText"))
+        assertContainsMessages(doc, messages(s"${messageKeyPrefix}.claim.after.insetText_freOnly"))
       }
       "when onlinefreJourneyEnabled is disabled- all disclaimerView insetText is displayed " in {
         when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
         when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
         val doc = asDocument(createView())
-        assertContainsMessages(doc, messages(s"${messageKeyPrefix}.claim.after.insetOldText"))
+        assertContainsMessages(doc, messages(s"${messageKeyPrefix}.claim.after.insetText"))
       }
     }
     application.stop()
