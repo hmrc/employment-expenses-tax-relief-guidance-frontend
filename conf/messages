@@ -103,21 +103,32 @@ usePrintAndPost.mileage = You must include mileage logs with your claim.
 usePrintAndPost.link.label = Claim by post
 
 usePrintAndPostDetailed.title = You are eligible to claim these job expenses
+usePrintAndPostDetailed.title_freOnly = You are eligible to claim these expenses by post
 usePrintAndPostDetailed.heading = You are eligible to claim these job expenses
+usePrintAndPostDetailed.heading_freOnly = You are eligible to claim these expenses by post
 usePrintAndPostDetailed.youCanClaim = You can claim tax relief for:
 usePrintAndPostDetailed.para1 =  You must send HMRC evidence to show why you get tax relief. You must print and post a completed form to HMRC to claim on your expenses as detailed below.
+usePrintAndPostDetailed.para1_freOnly =  Before sending your claim, check the guidance below for each type of expense. You may need to send evidence to HMRC for some claims. Complete a form and send it by post to claim your expenses.
 usePrintAndPostDetailed.para2 = Evidence to support your claim for tax relief
 usePrintAndPostDetailed.evidenceToSupport = Evidence to support your claim for tax relief
 usePrintAndPostDetailed.homeWorking.1 = If it''s your choice to work from home, you can''t claim this expense.
+usePrintAndPostDetailed.homeWorking.1_freOnly = Only claims for tax years on or after 6 April 2022 need evidence. This could be a copy of your employment contract.
+usePrintAndPostDetailed.homeWorking.2_freOnly = If it''s not in your contract, you''ll need to send other evidence that shows why you must work from home. For example, a letter from your employer explaining why you must work from home.
 usePrintAndPostDetailed.homeWorking.2 = Only claims on or after 6 April 2022 require evidence, such as a copy of your employment contract. If it''s not in your contract, we need something else that says why you must work from home.
+usePrintAndPostDetailed.homeWorking.3_freOnly = If you''re given a choice to work from home, you cannot claim this expense.
+
 usePrintAndPostDetailed.feesSubscriptions.1 = You must send copies of receipts, or other evidence, to HMRC that show how much you paid for each professional subscription.
 usePrintAndPostDetailed.uniformsClothingTools.1 = You do not need to keep receipts or a record of what you have spent if you are claiming a fixed amount of tax relief.
-usePrintAndPostDetailed.uniformsClothingTools.2 = You must send receipts to HMRC if you want to claim the exact amount you have spent.
+usePrintAndPostDetailed.uniformsClothingTools.1_freOnly = You must send evidence to HMRC to claim tax relief if you are claiming the exact amount you have spent.
+usePrintAndPostDetailed.uniformsClothingTools.2= You must send receipts to HMRC if you want to claim the exact amount you have spent.
+usePrintAndPostDetailed.uniformsClothingTools.2_freOnly = Complete a form and send it by post to claim your expenses.
+usePrintAndPostDetailed.uniformsClothingTools.3_freOnly = However, if you are claiming a fixed amount of tax relief, you do not need to keep receipts or records.
 usePrintAndPostDetailed.mileageFuel.1 = You must send a copy of your mileage log to HMRC for each job. This should show the reason for every journey, and the postcodes for the start and finishing points.
 usePrintAndPostDetailed.travelExpenses.1 = You must send copies of receipts to HMRC that show the date of your stay or meal, and the name of the hotel or restaurant.
 usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.header = Buying other equipment and other expenses
 usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.1 = You must send a full list of your other expenses to HMRC. Include details of which job they are for. We also need copies of receipts, or other evidence, that show the name of the item and that you''ve paid for it.
 usePrintAndPostDetailed.link.label = Continue
+usePrintAndPostDetailed.link.label_freOnly = Claim by post
 
 claimOnline.title = You are eligible to claim these job expenses
 claimOnline.heading = You are eligible to claim these job expenses
@@ -129,8 +140,11 @@ claimOnline.bullet2 = a recent payslip or P60 or a valid UK passport
 claimOnline.link.label = Claim your expenses online
 claimOnline.hidden.guidance = list of 2 items
 
-cannotClaimRelief.title = You cannot claim these expenses
-cannotClaimRelief.heading = You cannot claim these expenses
+cannotClaimRelief.title_old = You cannot claim these expenses
+cannotClaimRelief.title = You are not eligible to claim
+cannotClaimRelief.heading_old = You cannot claim these expenses
+cannotClaimRelief.heading = You are not eligible to claim
+cannotClaimRelief.body =  You cannot claim these expenses that have been paid for by your employer.
 cannotClaimRelief.guidance = You cannot claim these expenses because they have all been paid back by your employer.
 
 employerPaidBackAnyExpenses.title = Has your employer paid any of your expenses in this claim?
@@ -169,11 +183,14 @@ notEntitledSomeYears.link.label = Claim for years you paid tax
 
 claimingFor.title = Select all the expenses you want to claim
 claimingFor.heading = Select all the expenses you want to claim
-claimingFor.insetText = You must send HMRC evidence to show why you get tax relief. You must print and post a completed form to HMRC to claim on your expenses.
+claimingFor.insetText_old = You must send HMRC evidence to show why you get tax relief. You must print and post a completed form to HMRC to claim on your expenses.
+claimingFor.insetText = You must complete a form and send it by post to claim your expenses. If you are only claiming for uniform, work clothing, and tools (flat rate expenses), you can do this online.
 claimingFor.error.required = Select all the expenses you want to claim
 claimingFor.uniformsClothingTools = Uniforms, work clothing and tools
+claimingFor.uniformsClothingTools_freOnly = Uniform, work clothing and tools (Flat rate expenses)
 claimingFor.uniformsClothingTools.oldDescription = This includes the cost of washing your uniform, or repairing or replacing protective clothing or small tools that you own but you use for work. You do not need to provide any receipts.
 claimingFor.uniformsClothingTools.description = This includes the cost of washing your uniform, or repairing or replacing protective clothing or small tools that you own but you use for work. You only need to provide evidence where you are claiming more than the fixed amount of tax relief.
+claimingFor.uniformsClothingTools.description_freOnly = This includes the cost of washing your uniform, or repairing or replacing protective clothing or small tools that you own but you use for work. You only need to provide evidence where you are claiming more than the fixed amount of tax relief. For more information {0} check how much tax relief you can claim for uniforms, work clothing and tools (opens in a new window or tab) {1}
 claimingFor.mileageFuel = Vehicles you use for work
 claimingFor.mileageFuel.description = This includes costs for mileage and fuel, depending on if you use your own vehicle or a company vehicle.
 claimingFor.travelExpenses = Travel and overnight expenses
@@ -288,8 +305,10 @@ disclaimer.title = You must read the following before making a claim
 disclaimer.heading = You must read the following before making a claim
 disclaimer.guidance.header = Guidance has changed from 6 April 2022
 disclaimer.guidance.summary = The guidance for claiming tax relief for working from home has changed for expenses on or after 6 April 2022.
+disclaimer.guidance.summary_freOnly = The guidance for claiming working from home expenses for tax years on or after 6 April 2022 has changed.
 disclaimer.claim.after.h2 = Claiming tax relief on or after 6 April 2022
 disclaimer.claim.after.insetText = You must send HMRC evidence to show why you get tax relief. You must print and post a completed form to HMRC to claim on your expenses.
+disclaimer.claim.after.insetText_freOnly = You must send evidence to HMRC to show why you get tax relief. You must print and post a completed form to HMRC to claim your expenses.
 disclaimer.claim.after.p1 = You can claim if your employer has not already paid your expenses and you have additional household costs as a result of working from home.
 disclaimer.claim.after.p2 = One of the following rules must also apply:
 disclaimer.claim.after.l1 = there are no appropriate facilities available for you to perform your job on your employer''s premises
@@ -311,10 +330,17 @@ timeout.message = For your security, we will delete your answers and you will be
 timeout.continue = Get another 15 minutes
 timeout.exit = Sign out now
 
+informCustomerClaimNowInWeeks.title_freOnly = Claims for tax years on or after 6 April 2023 are now calculated in weeks
 informCustomerClaimNowInWeeks.title = Claims on or after 6 April 2023 are now calculated in weeks
 informCustomerClaimNowInWeeks.heading = Claims on or after 6 April 2023 are now calculated in weeks
+informCustomerClaimNowInWeeks.heading_freOnly = Claims for tax years on or after 6 April 2023 are now calculated in weeks
 informCustomerClaimNowInWeeks.para1 = If you work at home one or more days in a week, you can claim for that whole week.
 informCustomerClaimNowInWeeks.para2_old = If you are not sure how many weeks you will be eligible to claim for, we advise you to wait until you know because any further changes cannot be made using this service and may take longer to process.
 informCustomerClaimNowInWeeks.para2 = If you are not sure how many weeks you will be eligible to claim for, we advise you to wait until you know because any further changes may take longer to process.
+
 informCustomerClaimNowInWeeks.para3 = If you would like to claim now, we will check to see if you are eligible.
 
+claimOnline.fre.para1 = You can claim tax relief for:
+claimOnline.fre.para2 = Uniform, work clothes and tools (Flat rate expenses)
+claimOnline.fre.para3 = To claim these expenses, sign in to access HMRC online services.
+claimOnline.fre.button = Claim your tax relief online

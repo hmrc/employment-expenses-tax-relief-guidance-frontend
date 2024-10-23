@@ -84,7 +84,7 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
         ).build()
 
       val request = FakeRequest(POST, claimingForRoute)
-        .withFormUrlEncodedBody(("value[0]", options(onlineJourneyShutterEnabled = true).head.value))
+        .withFormUrlEncodedBody(("value[0]", options(onlineJourneyShutterEnabled = true, freOnlyJourneyEnabled = false).head.value))
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
