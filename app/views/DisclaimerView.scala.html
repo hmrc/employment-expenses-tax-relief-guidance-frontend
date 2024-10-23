@@ -29,9 +29,14 @@
 
 @notificationBannerHtml = {
     <p class="govuk-notification-banner__heading">
-        @messages("disclaimer.guidance.summary")
+        @if(appConfig.freOnlyJourneyEnabled) {
+            @messages("disclaimer.guidance.summary_freOnly")
+        } else {
+            @messages("disclaimer.guidance.summary")
+        }
     </p>
 }
+
 
 @layout(
     pageTitle = messages("disclaimer.title")
@@ -47,9 +52,15 @@
     <h2 class="govuk-heading-m">@messages("disclaimer.claim.after.h2")</h2>
 
     @if(appConfig.onlineJourneyShutterEnabled) {
-        @govukInsetText(InsetText(
-            content = Text(messages("disclaimer.claim.after.insetText"))
+        @if(appConfig.freOnlyJourneyEnabled) {
+            @govukInsetText(InsetText(
+                content = Text(messages("disclaimer.claim.after.insetText_freOnly"))
+            ))
+        } else {
+            @govukInsetText(InsetText(
+                content = Text(messages("disclaimer.claim.after.insetText"))
         ))
+      }
     }
     <p class="govuk-body">@messages("disclaimer.claim.after.p1")</p>
     <p class="govuk-body">@messages("disclaimer.claim.p1")</p>

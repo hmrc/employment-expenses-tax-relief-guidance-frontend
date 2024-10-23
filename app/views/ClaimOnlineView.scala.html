@@ -29,12 +29,10 @@
 
 @list = @{
     claimingFor.flatMap(journey => {
-                                if (appConfig.freOnlyJourneyEnabled && onwardJourney == OnwardJourney.FixedRateExpenses) {
-                                    Some(messages(s"claimingFor.$journey"))
-                                } else if (!appConfig.freOnlyJourneyEnabled && (onwardJourney == OnwardJourney.FixedRateExpenses || journey == ClaimingFor.UniformsClothingTools)) {
-                                    Some(messages(s"claimingFor.${journey}_old"))
+                                if(appConfig.freOnlyJourneyEnabled && (onwardJourney == OnwardJourney.FixedRateExpenses || journey == ClaimingFor.UniformsClothingTools)) {
+                                    Some(messages(s"claimingFor.${journey}_freOnly"))
                                 } else {
-                                 Some(messages(s"claimingFor.$journey"))
+                                    Some(messages(s"claimingFor.$journey"))
                                 }
                             })
 }
@@ -65,7 +63,7 @@
                 href = href,
                 id = Some("continue")
             )
-        <div>
+        </div>
     } else {
         @if(list.size > 1) {
             <p class="govuk-body">@messages("claimOnline.youCanClaim"):</p>
