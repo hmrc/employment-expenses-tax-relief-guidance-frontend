@@ -31,8 +31,7 @@
     claimingFor.flatMap(journey => {
                                 if(appConfig.freOnlyJourneyEnabled && (onwardJourney == OnwardJourney.FixedRateExpenses || journey == ClaimingFor.UniformsClothingTools)) {
                                     Some(messages(s"claimingFor.${journey}_freOnly"))
-                                }
-                                else {
+                                } else {
                                     Some(messages(s"claimingFor.$journey"))
                                 }
                             })

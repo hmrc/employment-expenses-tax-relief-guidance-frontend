@@ -53,9 +53,7 @@
 @h2(messages("usePrintAndPostDetailed.youCanClaim"))
 
     @if(list.size > 1) {
-    
         <ul class="govuk-list govuk-list--bullet">
-            
             @for(claimItem <- list) {
                 <li>@claimItem</li>
             }
