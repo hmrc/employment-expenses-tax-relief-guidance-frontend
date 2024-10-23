@@ -68,9 +68,9 @@ object ClaimingFor {
               name = Some("value[1]"),
               id = Some(s"claimingFor.$UniformsClothingTools"),
               value = UniformsClothingTools.toString,
-              content = if(freOnlyJourneyEnabled) {Text(messages(s"claimingFor.$UniformsClothingTools"))} else Text(messages(s"claimingFor.${UniformsClothingTools}_old")),
+              content = if(freOnlyJourneyEnabled) {Text(messages(s"claimingFor.${UniformsClothingTools}_freOnly"))} else Text(messages(s"claimingFor.${UniformsClothingTools}")),
               hint = Some(Hint(
-              content = if(freOnlyJourneyEnabled) HtmlContent(messages(s"claimingFor.$UniformsClothingTools.description" , start, end)) else if(onlineJourneyShutterEnabled) HtmlContent(messages(s"claimingFor.$UniformsClothingTools.description_old")) else HtmlContent(messages(s"claimingFor.$UniformsClothingTools.oldDescription"))
+              content = if(freOnlyJourneyEnabled) HtmlContent(messages(s"claimingFor.$UniformsClothingTools.description_freOnly" , start, end)) else if(onlineJourneyShutterEnabled) HtmlContent(messages(s"claimingFor.$UniformsClothingTools.description")) else HtmlContent(messages(s"claimingFor.$UniformsClothingTools.oldDescription"))
 
                 ))
             )

@@ -29,12 +29,12 @@
 
 @list = @{
     claimingFor.flatMap(journey => {
-                                if (appConfig.freOnlyJourneyEnabled && onwardJourney == OnwardJourney.FixedRateExpenses) {
+                                if(appConfig.freOnlyJourneyEnabled && (onwardJourney == OnwardJourney.FixedRateExpenses || journey == ClaimingFor.UniformsClothingTools)) {
+                                    Some(messages(s"claimingFor.${journey}_freOnly"))
+                                } else if (!appConfig.freOnlyJourneyEnabled) {
                                     Some(messages(s"claimingFor.$journey"))
-                                } else if (!appConfig.freOnlyJourneyEnabled && (onwardJourney == OnwardJourney.FixedRateExpenses || journey == ClaimingFor.UniformsClothingTools)) {
-                                    Some(messages(s"claimingFor.${journey}_old"))
                                 } else {
-                                 Some(messages(s"claimingFor.$journey"))
+                                    Some(messages(s"claimingFor.$journey"))
                                 }
                             })
 }
