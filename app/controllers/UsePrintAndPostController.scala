@@ -40,17 +40,16 @@ class UsePrintAndPostController @Inject()(
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
 
-      if (appConfig.freOnlyJourneyEnabled) {
+      if (appConfig.freOnlyJourneyEnabled || appConfig.onlineJourneyShutterEnabled) {
         val claimingForList = request.userAnswers.claimingFor.getOrElse(Nil)
         val sortedList = values.flatMap(value => claimingForList.find(_ == value))
-        Ok(freView(sortedList))
-      } else if (appConfig.onlineJourneyShutterEnabled) {
-        {
-          val claimingForList = request.userAnswers.claimingFor.getOrElse(Nil)
-          val sortedList = values.flatMap(value => claimingForList.find(_ == value))
-          Ok(detailedView(sortedList))
+        if(appConfig.freOnlyJourneyEnabled){
+           Ok(freView(sortedList))
+        }else{
+           Ok(detailedView(sortedList))
         }
-      } else {
+      } 
+       else {
         val fuelCosts = request.userAnswers.claimingFuel.getOrElse(false)
         val mileageCosts = request.userAnswers.claimingMileage.getOrElse(false)
         Ok(view(fuelCosts, mileageCosts))
