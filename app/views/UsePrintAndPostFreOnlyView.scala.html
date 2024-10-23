@@ -90,10 +90,10 @@ submitButton: playComponents.submit_button
             }
         }
 
-    @if(List(BuyingEquipment,Other).intersect(claimingFor).nonEmpty){
-        @h3(messages("usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.header"))
-        @p(){@messages("usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.1")}
-    }
+        @if(List(BuyingEquipment,Other).intersect(claimingFor).nonEmpty){
+            @h3(messages("usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.header"))
+            @p(){@messages("usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.1")}
+        }
 
 <div class="govuk-body">
     @submitButton(

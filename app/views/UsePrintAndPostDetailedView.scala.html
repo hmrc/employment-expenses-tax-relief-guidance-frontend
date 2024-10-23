@@ -18,15 +18,15 @@
 @import models.ClaimingFor._
 
 @this(
-layout: Layout,
-buttonLink: playComponents.button_link,
-heading: playComponents.heading,
-govukInsetText : GovukInsetText,
-appConfig: FrontendAppConfig,
-h3 : playComponents.h3,
-h2 : playComponents.h2,
-p  : playComponents.p,
-submitButton: playComponents.submit_button
+    layout: Layout,
+    buttonLink: playComponents.button_link,
+    heading: playComponents.heading,
+    govukInsetText : GovukInsetText,
+    appConfig: FrontendAppConfig,
+    h3 : playComponents.h3,
+    h2 : playComponents.h2,
+    p  : playComponents.p,
+    submitButton: playComponents.submit_button
 )
 @(claimingFor: List[ClaimingFor])(implicit request: Request[_], messages: Messages)
 
@@ -49,13 +49,13 @@ content = Text(messages("usePrintAndPostDetailed.para1"))
 
 @if(list.size > 1) {
 
-<ul class="govuk-list govuk-list--bullet">
-    @for(claimItem <- list) {
-    <li>@claimItem</li>
-    }
-</ul>
+    <ul class="govuk-list govuk-list--bullet">
+        @for(claimItem <- list) {
+        <li>@claimItem</li>
+        }
+    </ul>
 } else {
-<p class="govuk-body">@list</p>
+    <p class="govuk-body">@list</p>
 }
 
 
@@ -82,9 +82,9 @@ content = Text(messages("usePrintAndPostDetailed.para1"))
 
 <div class="govuk-body">
     @submitButton(
-    href = Some(appConfig.employeeExpensesClaimByPostUrl),
-    content = Some(messages("usePrintAndPostDetailed.link.label"))
-    )
+        href = Some(appConfig.employeeExpensesClaimByPostUrl),
+        content = Some(messages("usePrintAndPostDetailed.link.label"))
+        )
 </div>
 
 }

@@ -32,6 +32,7 @@ class UsePrintAndPostControllerSpec extends SpecBase {
       val request = FakeRequest(GET, usePrintAndPostRoute)
       val result = route(application, request).value
 
+
       status(result) mustBe OK
 
       application.stop()
@@ -47,9 +48,9 @@ class UsePrintAndPostControllerSpec extends SpecBase {
 
       application.stop()
     }
-    "return OK and the correct view for a GET when onlineJourneyShutterEnabled and freJourney is set to false" in {
+    "return OK and the correct view for a GET when  freJourney is set to false" in {
 
-      val application = applicationBuilder(Some(claimantIdCacheMap)).configure("onlineJourneyShutter.enabled" ->false).
+      val application = applicationBuilder(Some(claimantIdCacheMap)).
                        configure("freOnlyJourney.enabled" ->false).build()
       val request = FakeRequest(GET, usePrintAndPostRoute)
       val result = route(application, request).value
