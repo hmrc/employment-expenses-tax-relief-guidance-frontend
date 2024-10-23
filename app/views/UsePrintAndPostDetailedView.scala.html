@@ -31,32 +31,32 @@
 @(claimingFor: List[ClaimingFor])(implicit request: Request[_], messages: Messages)
 
 @list = @{
-claimingFor.flatMap(x => Some(messages(s"claimingFor.$x")))
+    claimingFor.flatMap(x => Some(messages(s"claimingFor.$x")))
 }
 
 
 @layout(
-pageTitle = messages("usePrintAndPostDetailed.title")
+    pageTitle = messages("usePrintAndPostDetailed.title")
 ) {
 
 @heading(messages("usePrintAndPostDetailed.heading"))
 
 @govukInsetText(InsetText(
-content = Text(messages("usePrintAndPostDetailed.para1"))
+    content = Text(messages("usePrintAndPostDetailed.para1"))
 ))
 
 @h2(messages("usePrintAndPostDetailed.youCanClaim"))
 
-@if(list.size > 1) {
-
-    <ul class="govuk-list govuk-list--bullet">
-        @for(claimItem <- list) {
-        <li>@claimItem</li>
-        }
-    </ul>
-} else {
-    <p class="govuk-body">@list</p>
-}
+    @if(list.size > 1) {
+    
+        <ul class="govuk-list govuk-list--bullet">
+            @for(claimItem <- list) {
+                <li>@claimItem</li>
+            }
+        </ul>
+    } else {
+        <p class="govuk-body">@list</p>
+    }
 
 
 
@@ -82,8 +82,8 @@ content = Text(messages("usePrintAndPostDetailed.para1"))
 
 <div class="govuk-body">
     @submitButton(
-        href = Some(appConfig.employeeExpensesClaimByPostUrl),
-        content = Some(messages("usePrintAndPostDetailed.link.label"))
+            href = Some(appConfig.employeeExpensesClaimByPostUrl),
+            content = Some(messages("usePrintAndPostDetailed.link.label"))
         )
 </div>
 

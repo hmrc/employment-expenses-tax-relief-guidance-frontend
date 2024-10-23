@@ -34,7 +34,7 @@ class UsePrintAndPostController @Inject()(
                                            view: UsePrintAndPostView,
                                            appConfig: FrontendAppConfig,
                                            detailedView: UsePrintAndPostDetailedView,
-                                           freView: UsePrintAndPostFreOnlyView
+                                           freOnlyView: UsePrintAndPostFreOnlyView
                                          ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
@@ -43,13 +43,13 @@ class UsePrintAndPostController @Inject()(
       if (appConfig.freOnlyJourneyEnabled || appConfig.onlineJourneyShutterEnabled) {
         val claimingForList = request.userAnswers.claimingFor.getOrElse(Nil)
         val sortedList = values.flatMap(value => claimingForList.find(_ == value))
-        if(appConfig.freOnlyJourneyEnabled){
-           Ok(freView(sortedList))
-        }else{
-           Ok(detailedView(sortedList))
+        if (appConfig.freOnlyJourneyEnabled) {
+          Ok(freOnlyView(sortedList))
+        } else {
+          Ok(detailedView(sortedList))
         }
-      } 
-       else {
+      }
+      else {
         val fuelCosts = request.userAnswers.claimingFuel.getOrElse(false)
         val mileageCosts = request.userAnswers.claimingMileage.getOrElse(false)
         Ok(view(fuelCosts, mileageCosts))

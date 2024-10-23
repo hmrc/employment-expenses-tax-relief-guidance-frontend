@@ -29,12 +29,11 @@
 
 @helperMessageKey(key: String) = @{
     if (!appConfig.freOnlyJourneyEnabled) key else s"${key}_freOnly"
-    }
+}
 
 @layout(
     pageTitle = messages(helperMessageKey("informCustomerClaimNowInWeeks.title"))
-    ) {
-
+) {
     @if(appConfig.freOnlyJourneyEnabled) {
         @heading(messages("informCustomerClaimNowInWeeks.heading_freOnly"))
     } else {
@@ -46,7 +45,7 @@
 
      @if(appConfig.onlineJourneyShutterEnabled) {
        <p class="govuk-body">@messages("informCustomerClaimNowInWeeks.para2")</p>
-     }else{
+     } else{
         <p class="govuk-body">@messages("informCustomerClaimNowInWeeks.para2_old")</p>
      }
 

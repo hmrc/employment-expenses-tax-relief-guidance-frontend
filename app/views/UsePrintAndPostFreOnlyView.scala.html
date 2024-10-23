@@ -41,31 +41,28 @@
 
 
 @layout(
-pageTitle = messages("usePrintAndPostDetailed.title_freOnly")
+    pageTitle = messages("usePrintAndPostDetailed.title_freOnly")
 ) {
 
 @heading(messages("usePrintAndPostDetailed.heading_freOnly"))
 
 @govukInsetText(InsetText(
-content = Text(messages("usePrintAndPostDetailed.para1_freOnly"))
+    content = Text(messages("usePrintAndPostDetailed.para1_freOnly"))
 ))
 
 @h2(messages("usePrintAndPostDetailed.youCanClaim"))
 
-@if(list.size > 1) {
-
-    <ul class="govuk-list govuk-list--bullet">
-   
-        @for(claimItem <- list) {
+    @if(list.size > 1) {
     
-           
-                <li>@claimItem</li>
+        <ul class="govuk-list govuk-list--bullet">
             
-        }
-    </ul>
-} else {
-    <p class="govuk-body">@list</p>
-}
+            @for(claimItem <- list) {
+                <li>@claimItem</li>
+            }
+        </ul>
+    } else {
+        <p class="govuk-body">@list</p>
+    }
 
 
 
@@ -76,21 +73,23 @@ content = Text(messages("usePrintAndPostDetailed.para1_freOnly"))
         @if(!List(BuyingEquipment,Other).contains(claimItem)){
 
             @if(List(UniformsClothingTools).contains(claimItem)){
-              @h3(messages(s"claimingFor.${claimItem}_freOnly"))
-            }else{
+                @h3(messages(s"claimingFor.${claimItem}_freOnly"))
+            } else {
                 @h3(messages(s"claimingFor.$claimItem"))
             }
             
             @if(List(HomeWorking, UniformsClothingTools).contains(claimItem)){
-                
+
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly")}
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2_freOnly")}
-                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.3_freOnly")} 
-            }else{
-                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1")}
+                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.3_freOnly")}
 
-                @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.2")){
-                    @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2")}
+            } else {
+                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1")
+            }
+
+            @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.2")){
+                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2")}
                 }
             }
         }
@@ -103,8 +102,8 @@ content = Text(messages("usePrintAndPostDetailed.para1_freOnly"))
 
 <div class="govuk-body govuk-!-margin-top-8">
     @submitButton(
-        href = Some(appConfig.employeeExpensesClaimByPostUrl),
-        content = Some(messages("usePrintAndPostDetailed.link.label_freOnly"))
+            href = Some(appConfig.employeeExpensesClaimByPostUrl),
+            content = Some(messages("usePrintAndPostDetailed.link.label_freOnly"))
         )
 </div>
 
