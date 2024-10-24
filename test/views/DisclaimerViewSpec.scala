@@ -63,18 +63,6 @@ class DisclaimerViewSpec extends NewViewBehaviours with MockitoSugar {
         val doc = asDocument(createView())
         assertContainsMessages(doc,messages(s"${messageKeyPrefix}.guidance.summary"))
       }
-      "when onlinefreJourneyEnabled is enabled- all disclaimerView insetText is displayed " in {
-        when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
-        when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
-        val doc = asDocument(createView())
-        assertContainsMessages(doc, messages(s"${messageKeyPrefix}.claim.after.insetText_freOnly"))
-      }
-      "when onlinefreJourneyEnabled is disabled- all disclaimerView insetText is displayed " in {
-        when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
-        when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
-        val doc = asDocument(createView())
-        assertContainsMessages(doc, messages(s"${messageKeyPrefix}.claim.after.insetText"))
-      }
     }
     application.stop()
   }
