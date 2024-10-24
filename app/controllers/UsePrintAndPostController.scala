@@ -18,14 +18,14 @@ package controllers
 
 import config.FrontendAppConfig
 import controllers.actions._
-import models.ClaimingFor
 import models.ClaimingFor.values
+
 
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import views.html.{UsePrintAndPostDetailedView, UsePrintAndPostView}
+import views.html.{UsePrintAndPostDetailedView, UsePrintAndPostView, UsePrintAndPostFreOnlyView}
 
 class UsePrintAndPostController @Inject()(
                                            getData: DataRetrievalAction,
@@ -33,17 +33,23 @@ class UsePrintAndPostController @Inject()(
                                            val controllerComponents: MessagesControllerComponents,
                                            view: UsePrintAndPostView,
                                            appConfig: FrontendAppConfig,
-                                           detailedView: UsePrintAndPostDetailedView
+                                           detailedView: UsePrintAndPostDetailedView,
+                                           freOnlyView: UsePrintAndPostFreOnlyView
                                          ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
-      if (appConfig.onlineJourneyShutterEnabled) {
-        val claimingOnlyWFH = request.userAnswers.claimAnyOtherExpense.getOrElse(false)
-        val claimingForList = if (claimingOnlyWFH) List(ClaimingFor.HomeWorking) else request.userAnswers.claimingFor.getOrElse(Nil)
+
+      if (appConfig.freOnlyJourneyEnabled || appConfig.onlineJourneyShutterEnabled) {
+        val claimingForList = request.userAnswers.claimingFor.getOrElse(Nil)
         val sortedList = values.flatMap(value => claimingForList.find(_ == value))
-        Ok(detailedView(sortedList))
-      } else {
+        if (appConfig.freOnlyJourneyEnabled) {
+          Ok(freOnlyView(sortedList))
+        } else {
+          Ok(detailedView(sortedList))
+        }
+      }
+      else {
         val fuelCosts = request.userAnswers.claimingFuel.getOrElse(false)
         val mileageCosts = request.userAnswers.claimingMileage.getOrElse(false)
         Ok(view(fuelCosts, mileageCosts))

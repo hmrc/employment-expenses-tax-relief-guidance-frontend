@@ -31,18 +31,23 @@
 @(claimingFor: List[ClaimingFor])(implicit request: Request[_], messages: Messages)
 
 @list = @{
-    claimingFor.flatMap(x => Some(messages(s"claimingFor.$x")))
-}
+    claimingFor.flatMap(x => {
+        if(ClaimingFor.UniformsClothingTools == x)
+            Some(messages(s"claimingFor.${x}_freOnly"))
+        else
+            Some(messages(s"claimingFor.${x}"))
+        })
+   }
 
 
 @layout(
-    pageTitle = messages("usePrintAndPostDetailed.title")
+    pageTitle = messages("usePrintAndPostDetailed.title_freOnly")
 ) {
 
-@heading(messages("usePrintAndPostDetailed.heading"))
+@heading(messages("usePrintAndPostDetailed.heading_freOnly"))
 
 @govukInsetText(InsetText(
-    content = Text(messages("usePrintAndPostDetailed.para1"))
+    content = Text(messages("usePrintAndPostDetailed.para1_freOnly"))
 ))
 
 @h2(messages("usePrintAndPostDetailed.youCanClaim"))
@@ -65,11 +70,25 @@
 
         @if(!List(BuyingEquipment,Other).contains(claimItem)){
 
-            @h3(messages(s"claimingFor.$claimItem"))
-            @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1")}
+            @if(List(UniformsClothingTools).contains(claimItem)){
+                @h3(messages(s"claimingFor.${claimItem}_freOnly"))
+            } else {
+                @h3(messages(s"claimingFor.$claimItem"))
+            }
+            
+            @if(List(HomeWorking, UniformsClothingTools).contains(claimItem)){
+
+                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly")}
+                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2_freOnly")}
+                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.3_freOnly")}
+
+            } else {
+                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1")
+            }
 
             @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.2")){
-                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2")}
+                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2")}
+                }
             }
         }
     }
@@ -79,10 +98,10 @@
         @p(){@messages("usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.1")}
     }
 
-<div class="govuk-body">
+<div class="govuk-body govuk-!-margin-top-8">
     @submitButton(
             href = Some(appConfig.employeeExpensesClaimByPostUrl),
-            content = Some(messages("usePrintAndPostDetailed.link.label"))
+            content = Some(messages("usePrintAndPostDetailed.link.label_freOnly"))
         )
 </div>
 

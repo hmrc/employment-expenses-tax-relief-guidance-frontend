@@ -32,6 +32,7 @@ class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours with Mocki
 
   val mockAppConfig = mock[FrontendAppConfig]
 
+  val messageKeyPrefix: String = "informCustomerClaimNowInWeeks"
 
   val application = applicationBuilder()
         .overrides(bind[FrontendAppConfig].toInstance(mockAppConfig))
@@ -41,12 +42,10 @@ class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours with Mocki
 
   def createView(): Html = view.apply()(fakeRequest, messages)
 
-  val title = "Claims on or after 6 April 2023 are now calculated in weeks"
   val para1 = "If you work at home one or more days in a week, you can claim for that whole week."
   val para2_old = "If you are not sure how many weeks you will be eligible to claim for, we advise you to wait until you know because any further changes cannot be made using this service and may take longer to process."
   val para2= "If you are not sure how many weeks you will be eligible to claim for, we advise you to wait until you know because any further changes may take longer to process."
   val para3 = "If you would like to claim now, we will check to see if you are eligible."
-
 
 
   "Inform customer claim now in weeks view" should {
@@ -63,7 +62,6 @@ class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours with Mocki
       "when onlineJourneyShutterEnabled is enabled- all informCustomerClaimNowInWeeksView content is displayed " in {
         when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
         val doc = asDocument(createView())
-        assertContainsMessages(doc, title)
         assertContainsMessages(doc, para1)
         assertContainsMessages(doc, para2)
         assertContainsMessages(doc, para3)
@@ -72,10 +70,19 @@ class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours with Mocki
       "when onlineJourneyShutterEnabled is disabled- all informCustomerClaimNowInWeeksView content is displayed " in {
         when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(false)
         val doc = asDocument(createView())
-        assertContainsMessages(doc, title)
         assertContainsMessages(doc, para1)
         assertContainsMessages(doc, para2_old)
         assertContainsMessages(doc, para3)
+      }
+      "when onlinefreJourneyEnabled is enabled- all informCustomerClaimNowInWeeksView content is displayed " in {
+        when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
+        val doc = asDocument(createView())
+        assertContainsMessages(doc, messages(s"${messageKeyPrefix}.heading_freOnly"))
+      }
+      "when onlinefreJourneyEnabled is disabled- all informCustomerClaimNowInWeeksView content is displayed " in {
+        when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
+        val doc = asDocument(createView())
+        assertContainsMessages(doc, messages(s"${messageKeyPrefix}.heading"))
       }
     }
 
