@@ -52,16 +52,10 @@
     <h2 class="govuk-heading-m">@messages("disclaimer.claim.after.h2")</h2>
 
     @if(appConfig.onlineJourneyShutterEnabled) {
-        @if(appConfig.freOnlyJourneyEnabled) {
-            @govukInsetText(InsetText(
-                content = Text(messages("disclaimer.claim.after.insetText_freOnly"))
-            ))
-        } else {
             @govukInsetText(InsetText(
                 content = Text(messages("disclaimer.claim.after.insetText"))
         ))
       }
-    }
     <p class="govuk-body">@messages("disclaimer.claim.after.p1")</p>
     <p class="govuk-body">@messages("disclaimer.claim.p1")</p>
     <p class="govuk-body">@messages("disclaimer.claim.after.p2")</p>
