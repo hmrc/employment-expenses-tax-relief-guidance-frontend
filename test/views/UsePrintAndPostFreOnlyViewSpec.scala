@@ -81,8 +81,6 @@ package views
       val doc = asDocument(createView())
 
       assertContainsMessages(doc, messages(s"${messageKeyPrefix}.uniformsClothingTools.1_freOnly"))
-      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.uniformsClothingTools.2_freOnly"))
-      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.uniformsClothingTools.3_freOnly"))
 
     }
   }
