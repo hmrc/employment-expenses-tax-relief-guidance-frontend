@@ -40,6 +40,10 @@ class RegisterForSelfAssessmentViewSpec extends NewViewBehaviours {
     behave like normalPage(createView, messageKeyPrefix)
     behave like pageWithBackLink(createView)
     behave like pageWithHyperLink(createView, frontendAppConfig.fileSelfAssessmentLoginUrl)
+    behave like pageWithBodyText(
+         createView,
+         "registerForSelfAssessment.link.external.label"
+    )
   }
 
   application.stop()

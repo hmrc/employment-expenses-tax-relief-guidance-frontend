@@ -89,7 +89,7 @@ registerForSelfAssessment.title = Dim ond drwy ddefnyddio Hunanasesiad y gallwch
 registerForSelfAssessment.heading = Dim ond drwy ddefnyddio Hunanasesiad y gallwch hawlio’r treuliau hyn
 registerForSelfAssessment.guidance = Os oes blynyddoedd treth pan fo’ch treuliau’n llai na £2,500,
 registerForSelfAssessment.link.continue.label = gwiriwch a allwch hawlio rhyddhad treth
-registerForSelfAssessment.link.external.label =  cofrestru ar gyfer Ffurflenni Treth Hunanasesiad a’u cyflwyno
+registerForSelfAssessment.link.external.label =  cofrestru ar gyfer Ffurflenni Treth Hunanasesiad a’u cyflwyno (yn agor tab newydd)
 registerForSelfAssessment.guidance1 = Gan fod eich treuliau yn fwy na £2,500 mewn rhai o’r blynyddoedd treth rydych yn hawlio ar eu cyfer, mae’n rhaid i chi eu hawlio fel rhan o’ch Ffurflen Dreth Hunanasesiad.
 registerForSelfAssessment.guidance2 = Ewch ati i ddysgu sut i
 
