@@ -200,7 +200,7 @@ claimingFor.homeWorking = Gweithio gartref
 claimingFor.homeWorking.description = Gallwch ond hawlio costau ychwanegol i'r cartref fel galwadau ffôn busnes, nwy a thrydan ar gyfer yr ystafell rydych yn gweithio ynddi. Ni allwch hawlio am bethau rydych chi'n eu defnyddio at ddibenion preifat a gwaith fel rhent, band eang, offer neu ddodrefn.
 claimingFor.homeWorking.oldDescription = Mae hyn yn cynnwys cost pethau a ddefnyddir ar gyfer eich gwaith yn unig, megis gwresogi a goleuo’r ystafell rydych yn gweithio ynddi, neu gost galwadau ffôn busnes. Mae’n rhaid i chi gadw cofnodion o’r hyn yr ydych wedi’i wario.
 claimingFor.buyingEquipment = Prynu offer eraill
-claimingFor.buyingEquipment.description = Os oes rhaid i chi brynu offer sylweddol i wneud eich gwaith, fel cyfrifiadur, efallai y gallwch hawlio rhyddhad treth ar y gost. Os ydych yn dewis prynu’r offer, ni allwch hawlio rhyddhad treth.
+claimingFor.buyingEquipment.description = You can only claim tax relief on equipment costs if it is needed for your job and used only for work. If it doesn''t meet the criteria, you may be able to claim through {0} capital allowances (opens in a new window or tab){1}.
 claimingFor.other = Treuliau eraill
 
 claimingFuel.title = A ydych eisiau hawlio’r arian y gwnaethoch ei wario ar danwydd ar gyfer eich cerbyd cwmni?
