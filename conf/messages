@@ -201,7 +201,7 @@ claimingFor.homeWorking = Working from home
 claimingFor.homeWorking.description = You can only claim for extra household costs such as business phone calls, gas and electricity for the room you work in. You cannot claim for things that you use for both private and work purposes such as rent, broadband, equipment or furniture.
 claimingFor.homeWorking.oldDescription = This includes the cost of things used only for your work, such as heating and lighting the room you work in.
 claimingFor.buyingEquipment = Buying other equipment
-claimingFor.buyingEquipment.description = If you must buy substantial equipment to do your work, like a computer, you may be able to claim tax relief on the cost. If you choose to buy the equipment, you cannot claim tax relief.
+claimingFor.buyingEquipment.description = You can only claim tax relief on equipment costs if it is needed for your job and used only for work. If it doesn''t meet the criteria, you may be able to claim through {0} capital allowances (opens in a new window or tab){1}.
 claimingFor.other = Other expenses
 
 claimingFuel.title = Do you want to claim money you spent on fuel for your company vehicle?

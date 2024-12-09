@@ -75,6 +75,22 @@ object ClaimingFor {
                 ))
             )
     }
+    val buyingOption = {
+      val href = "https://www.gov.uk/capital-allowances/annual-investment-allowance"
+      val eventBody = s"""${messages(s"claimingFor.title")}:${messages(s"claimingFor.$BuyingEquipment")}"""
+      val start = link_start(href, eventBody, newWindow = true)
+      val end = "</a>"
+
+      new CheckboxItem(
+        name = Some("value[5]"),
+        id = Some(s"claimingFor.$BuyingEquipment"),
+        value = BuyingEquipment.toString,
+        content = Text(messages(s"claimingFor.$BuyingEquipment")),
+        hint = Some(Hint(
+          content = HtmlContent(messages(s"claimingFor.$BuyingEquipment.description",start, end)))
+        )
+      )
+    }
 
     List(
       new CheckboxItem(
@@ -107,15 +123,7 @@ object ClaimingFor {
         )
       ),
       feesOption,
-      new CheckboxItem(
-        name = Some("value[5]"),
-        id = Some(s"claimingFor.$BuyingEquipment"),
-        value = BuyingEquipment.toString,
-        content = Text(messages(s"claimingFor.$BuyingEquipment")),
-        hint = Some(Hint(
-          content = HtmlContent(messages(s"claimingFor.$BuyingEquipment.description")))
-        )
-      ),
+      buyingOption,
       new CheckboxItem(
         name = Some("value[6]"),
         id = Some(s"claimingFor.$Other"),
