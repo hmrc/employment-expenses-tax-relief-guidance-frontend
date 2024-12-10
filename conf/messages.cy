@@ -339,6 +339,6 @@ informCustomerClaimNowInWeeks.para3 = Os hoffech hawlio nawr, byddwn yn gwirio i
 
 claimOnline.fre.para1 =  Gallwch hawlio rhyddhad treth ar gyfer:
 claimOnline.fre.para2 = Gwisgoedd unffurf, dillad gwaith ac offer (Treuliau cyfradd unffurf)
-claimOnline.fre.para3 = I hawlio’r treuliau hyn, mewngofnodwch i gael at wasanaethau ar-lein CThEF.
+claimOnline.fre.para3 = I hawlio’r treuliau hyn, gwnewch yn siŵr bod eich manylion ar gyfer mewngofnodi i wasanaethau CThEF wrth law.
 claimOnline.fre.button = Hawlio’ch rhyddhad treth ar-lein
 
