@@ -200,7 +200,7 @@ claimingFor.homeWorking = Gweithio gartref
 claimingFor.homeWorking.description = Gallwch ond hawlio costau ychwanegol i'r cartref fel galwadau ffôn busnes, nwy a thrydan ar gyfer yr ystafell rydych yn gweithio ynddi. Ni allwch hawlio am bethau rydych chi'n eu defnyddio at ddibenion preifat a gwaith fel rhent, band eang, offer neu ddodrefn.
 claimingFor.homeWorking.oldDescription = Mae hyn yn cynnwys cost pethau a ddefnyddir ar gyfer eich gwaith yn unig, megis gwresogi a goleuo’r ystafell rydych yn gweithio ynddi, neu gost galwadau ffôn busnes. Mae’n rhaid i chi gadw cofnodion o’r hyn yr ydych wedi’i wario.
 claimingFor.buyingEquipment = Prynu offer eraill
-claimingFor.buyingEquipment.description = Dim ond os oes angen yr offer arnoch at ddiben eich swydd y gallwch hawlio rhyddhad treth, a bod yr offer hyn dim ond yn cael eu defnyddio at ddiben gwaith. Os nad ydynt yn bodloni’r meini prawf, efallai y bydd modd i chi hawlio gan ddefnyddio lwfansau cyfalaf {0}(yn agor ffenestr neu dab newydd){1}.
+claimingFor.buyingEquipment.description = Dim ond os oes angen yr offer arnoch at ddiben eich swydd y gallwch hawlio rhyddhad treth, a bod yr offer hyn dim ond yn cael eu defnyddio at ddiben gwaith. Os nad ydynt yn bodloni’r meini prawf, efallai y bydd modd i chi hawlio gan ddefnyddio {0} lwfansau cyfalaf (yn agor ffenestr neu dab newydd){1}.
 claimingFor.other = Treuliau eraill
 
 claimingFuel.title = A ydych eisiau hawlio’r arian y gwnaethoch ei wario ar danwydd ar gyfer eich cerbyd cwmni?
