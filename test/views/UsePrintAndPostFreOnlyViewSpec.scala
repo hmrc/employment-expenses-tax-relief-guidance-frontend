@@ -44,7 +44,7 @@ package views
   import org.jsoup.nodes.Element
   import play.api.mvc.Call
   import play.twirl.api.Html
-  import viewmodels.OnwardJourney
+
 
   class  UsePrintAndPostFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar{
 
