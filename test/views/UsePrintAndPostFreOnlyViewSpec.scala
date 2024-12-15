@@ -45,7 +45,6 @@ package views
   import play.api.mvc.Call
   import play.twirl.api.Html
 
-
   class  UsePrintAndPostFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar{
 
     val messageKeyPrefix = "usePrintAndPostDetailed"
