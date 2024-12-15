@@ -41,12 +41,15 @@ package views
   import views.behaviours.NewViewBehaviours
   import views.html.UsePrintAndPostFreOnlyView
   import models.ClaimingFor
+  import org.jsoup.nodes.Element
   import play.api.mvc.Call
   import play.twirl.api.Html
+  import viewmodels.OnwardJourney
 
   class  UsePrintAndPostFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar{
 
     val messageKeyPrefix = "usePrintAndPostDetailed"
+    val mockAppConfig = mock[FrontendAppConfig]
 
     val claimingListFor =  List(
       HomeWorking, UniformsClothingTools, MileageFuel, TravelExpenses, FeesSubscriptions, BuyingEquipment, Other
@@ -81,6 +84,16 @@ package views
       val doc = asDocument(createView())
 
       assertContainsMessages(doc, messages(s"${messageKeyPrefix}.uniformsClothingTools.1_freOnly"))
+
+    }
+
+    "when freJourneyEnabled is enabled- Include a call to action button with the correct link" in {
+      when(mockAppConfig.employeeExpensesClaimByIformUrl).thenReturn("https://tax.service.gov.uk/digital-forms/form/tax-relief-for-expenses-of-employment/draft/guide")
+
+      val doc = asDocument(createView())
+      val button: Element = doc.getElementById("startyourclaim")
+      button.attr("href") must be(mockAppConfig.employeeExpensesClaimByIformUrl)
+      assertPageTitleEqualsMessage(doc, "usePrintAndPostDetailed.title_freOnly")
 
     }
   }
