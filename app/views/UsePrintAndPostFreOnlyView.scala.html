@@ -47,7 +47,12 @@
 @heading(messages("usePrintAndPostDetailed.heading_freOnly"))
 
 @govukInsetText(InsetText(
-    content = Text(messages("usePrintAndPostDetailed.para1_freOnly"))
+    content =  HtmlContent(
+                    s"""
+                    ${messages("usePrintAndPostDetailed.para1_freOnly")} <br><br>
+                    ${messages("usePrintAndPostDetailed.para2_freOnly")} <a href="${appConfig.employeeExpensesClaimByPostUrl}" target="_blank">${messages("usePrintAndPostDetailed.para2_freOnly.link.label")}</a>
+                    """
+                )
 ))
 
 @h2(messages("usePrintAndPostDetailed.youCanClaim"))
@@ -76,11 +81,20 @@
                 @h3(messages(s"claimingFor.$claimItem"))
             }
             
-            @if(List(HomeWorking, UniformsClothingTools).contains(claimItem)){
+            @if(List(HomeWorking).contains(claimItem)){
 
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly")}
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2_freOnly")}
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.3_freOnly")}
+
+            } else if(List(UniformsClothingTools).contains(claimItem)){
+                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly")}
+            } else if(List(MileageFuel).contains(claimItem)){
+
+                <div class="govuk-body">
+                    <p>@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly")</p>
+                    <p>@messages(s"usePrintAndPostDetailed.$claimItem.2_freOnly")</p>
+                </div>
 
             } else {
                  @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1")
@@ -99,10 +113,11 @@
     }
 
 <div class="govuk-body govuk-!-margin-top-8">
-    @submitButton(
-            href = Some(appConfig.employeeExpensesClaimByPostUrl),
-            content = Some(messages("usePrintAndPostDetailed.link.label_freOnly"))
-        )
+    @buttonLink(
+        content = messages("usePrintAndPostDetailed.link.label_freOnly"),
+        href = appConfig.employeeExpensesClaimByIformUrl,
+        id = Some("startyourclaim")
+    )
 </div>
 
 }
