@@ -25,7 +25,7 @@ import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import views.html.{UsePrintAndPostDetailedView, UsePrintAndPostView, UsePrintAndPostFreOnlyView}
+import views.html.{UsePrintAndPostDetailedView, UsePrintAndPostView, UsePrintAndPostFreOnlyView,UseIformFreOnlyView}
 
 class UsePrintAndPostController @Inject()(
                                            getData: DataRetrievalAction,
@@ -34,7 +34,8 @@ class UsePrintAndPostController @Inject()(
                                            view: UsePrintAndPostView,
                                            appConfig: FrontendAppConfig,
                                            detailedView: UsePrintAndPostDetailedView,
-                                           freOnlyView: UsePrintAndPostFreOnlyView
+                                           freOnlyPrintAndPostView: UsePrintAndPostFreOnlyView,
+                                           freOnlyIformView: UseIformFreOnlyView
                                          ) extends FrontendBaseController with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
@@ -44,7 +45,14 @@ class UsePrintAndPostController @Inject()(
         val claimingForList = request.userAnswers.claimingFor.getOrElse(Nil)
         val sortedList = values.flatMap(value => claimingForList.find(_ == value))
         if (appConfig.freOnlyJourneyEnabled) {
-          Ok(freOnlyView(sortedList))
+          if (request.userAnswers.moreThanFiveJobs.isDefined) {
+            request.userAnswers.moreThanFiveJobs match {
+              case Some(true) => Ok(freOnlyPrintAndPostView(sortedList))
+              case Some(false) => Ok(freOnlyIformView(sortedList))
+            }
+          } else {
+            Ok(freOnlyIformView(sortedList))
+          }
         } else {
           Ok(detailedView(sortedList))
         }

@@ -41,13 +41,18 @@
 
 
 @layout(
-    pageTitle = messages("usePrintAndPostDetailed.title_freOnly")
+    pageTitle = messages("usePrintAndPostDetailed.title_freOnly_iform")
 ) {
 
-@heading(messages("usePrintAndPostDetailed.heading_freOnly"))
+@heading(messages("usePrintAndPostDetailed.heading_freOnly_iform"))
 
 @govukInsetText(InsetText(
-    content = Text(messages("usePrintAndPostDetailed.para1_freOnly"))
+    content =  HtmlContent(
+                    s"""
+                    ${messages("usePrintAndPostDetailed.para1_freOnly_iform")} <br><br>
+                    ${messages("usePrintAndPostDetailed.para2_freOnly_iform")} <a href="${appConfig.employeeExpensesClaimByPostUrl}" target="_blank">${messages("usePrintAndPostDetailed.para2_freOnly.link.label_iform")}</a>
+                    """
+                )
 ))
 
 @h2(messages("usePrintAndPostDetailed.youCanClaim"))
@@ -75,7 +80,7 @@
             } else {
                 @h3(messages(s"claimingFor.$claimItem"))
             }
-
+            
             @if(List(HomeWorking).contains(claimItem)){
 
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly")}
@@ -84,6 +89,13 @@
 
             } else if(List(UniformsClothingTools).contains(claimItem)){
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly_iform")}
+            } else if(List(MileageFuel).contains(claimItem)){
+
+                <div class="govuk-body">
+                    <p>@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly_iform")</p>
+                    <p>@messages(s"usePrintAndPostDetailed.$claimItem.2_freOnly_iform")</p>
+                </div>
+
             } else {
                  @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1")
             }
@@ -101,10 +113,11 @@
     }
 
 <div class="govuk-body govuk-!-margin-top-8">
-    @submitButton(
-            href = Some(appConfig.employeeExpensesClaimByPostUrl),
-            content = Some(messages("usePrintAndPostDetailed.link.label_freOnly"))
-        )
+    @buttonLink(
+        content = messages("usePrintAndPostDetailed.link.label_freOnly_iform"),
+        href = appConfig.employeeExpensesClaimByIformUrl,
+        id = Some("startyourclaim")
+    )
 </div>
 
 }
