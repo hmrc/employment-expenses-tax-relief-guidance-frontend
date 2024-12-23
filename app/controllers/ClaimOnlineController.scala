@@ -41,7 +41,6 @@ class ClaimOnlineController @Inject()(
 
       val isMergedJourney = claimingFor.filterNot(claim => claim.equals(HomeWorking) || claim.equals(UniformsClothingTools) || claim.equals(FeesSubscriptions)).size == 0 &&
         claimingFor.filter(claim => claim.equals(HomeWorking) || claim.equals(UniformsClothingTools) || claim.equals(FeesSubscriptions)).size > 1
-      print("Useranswers", request.userAnswers.moreThanFiveJobs)
       request.userAnswers.claimingFor match {
         case _ if isMergedJourney && appConfig.mergedJourneyEnabled => Ok(view(OnwardJourney.MergedJourney(claimingFor.contains(HomeWorking), claimingFor.contains(FeesSubscriptions), claimingFor.contains(UniformsClothingTools)), claimingFor))
         case Some(List(UniformsClothingTools)) => Ok(view(OnwardJourney.FixedRateExpenses, claimingFor))
