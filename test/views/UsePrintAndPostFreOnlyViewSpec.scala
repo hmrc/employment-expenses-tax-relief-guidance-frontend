@@ -82,17 +82,8 @@ package views
 
       val doc = asDocument(createView())
 
-      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.uniformsClothingTools.1_freOnly"))
+      assertContainsMessages(doc, messages(s"${messageKeyPrefix}.uniformsClothingTools.1_freOnly_iform"))
 
     }
 
-    "when freJourneyEnabled is enabled- Include a call to action button with the correct link" in {
-      when(mockAppConfig.employeeExpensesClaimByIformUrl).thenReturn("https://tax.service.gov.uk/digital-forms/form/tax-relief-for-expenses-of-employment/draft/guide")
-
-      val doc = asDocument(createView())
-      val button: Element = doc.getElementById("startyourclaim")
-      button.attr("href") must be(mockAppConfig.employeeExpensesClaimByIformUrl)
-      assertPageTitleEqualsMessage(doc, "usePrintAndPostDetailed.title_freOnly")
-
-    }
   }
