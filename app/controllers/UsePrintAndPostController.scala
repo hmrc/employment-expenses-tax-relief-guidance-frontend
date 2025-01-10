@@ -18,7 +18,7 @@ package controllers
 
 import config.FrontendAppConfig
 import controllers.actions._
-import models.ClaimingFor.values
+import models.ClaimingFor.{values,MileageFuel}
 
 
 import javax.inject.Inject
@@ -43,7 +43,16 @@ class UsePrintAndPostController @Inject()(
 
       if (appConfig.freOnlyJourneyEnabled || appConfig.onlineJourneyShutterEnabled) {
         val claimingForList = request.userAnswers.claimingFor.getOrElse(Nil)
-        val sortedList = values.flatMap(value => claimingForList.find(_ == value))
+        var filterList = request.userAnswers.claimingFor.getOrElse(Nil)
+        if(request.userAnswers.claimingFor.exists(_.contains(MileageFuel)))
+        {
+          (request.userAnswers.claimingMileage, request.userAnswers.claimingFuel) match {
+            case (Some(false), None) | (None, Some(false)) | (Some(false), Some(false)) |
+                 (None, None) => filterList = claimingForList.filterNot(x => x == MileageFuel)
+            case _ =>
+          }
+        }
+        val sortedList = values.flatMap(value => filterList.find(_ == value))
         if (appConfig.freOnlyJourneyEnabled) {
           if (request.userAnswers.moreThanFiveJobs.isDefined) {
             request.userAnswers.moreThanFiveJobs match {
