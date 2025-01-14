@@ -18,14 +18,15 @@ package controllers
 
 import config.FrontendAppConfig
 import controllers.actions._
-import models.ClaimingFor.{values,MileageFuel}
-
+import models.ClaimingFor
+import models.ClaimingFor.{MileageFuel, values}
 
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import views.html.{UsePrintAndPostDetailedView, UsePrintAndPostView, UsePrintAndPostFreOnlyView,UseIformFreOnlyView}
+import utils.UserAnswers
+import views.html.{UseIformFreOnlyView, UsePrintAndPostDetailedView, UsePrintAndPostFreOnlyView, UsePrintAndPostView}
 
 class UsePrintAndPostController @Inject()(
                                            getData: DataRetrievalAction,
@@ -42,17 +43,7 @@ class UsePrintAndPostController @Inject()(
     implicit request =>
 
       if (appConfig.freOnlyJourneyEnabled || appConfig.onlineJourneyShutterEnabled) {
-        val claimingForList = request.userAnswers.claimingFor.getOrElse(Nil)
-        var filterList = request.userAnswers.claimingFor.getOrElse(Nil)
-        if(request.userAnswers.claimingFor.exists(_.contains(MileageFuel)))
-        {
-          (request.userAnswers.claimingMileage, request.userAnswers.claimingFuel) match {
-            case (Some(false), None) | (None, Some(false)) | (Some(false), Some(false)) |
-                 (None, None) => filterList = claimingForList.filterNot(x => x == MileageFuel)
-            case _ =>
-          }
-        }
-        val sortedList = values.flatMap(value => filterList.find(_ == value))
+        val sortedList = buildClaimingForList(request.userAnswers)
         if (appConfig.freOnlyJourneyEnabled) {
           if (request.userAnswers.moreThanFiveJobs.isDefined) {
             request.userAnswers.moreThanFiveJobs match {
@@ -71,6 +62,20 @@ class UsePrintAndPostController @Inject()(
         val mileageCosts = request.userAnswers.claimingMileage.getOrElse(false)
         Ok(view(fuelCosts, mileageCosts))
       }
+  }
+
+  private def buildClaimingForList(userAnswers: UserAnswers): List[ClaimingFor] = {
+    val containsMileageFuel = userAnswers.claimingFor.exists(_.contains(MileageFuel))
+    val isClaimingMileage = userAnswers.claimingMileage.getOrElse(false)
+    val isClaimingFuel = userAnswers.claimingFuel.getOrElse(false)
+    val claimingForList = userAnswers.claimingFor.getOrElse(Nil)
+    val filterList =
+      if (containsMileageFuel && (isClaimingMileage || isClaimingFuel)) {
+        claimingForList
+      } else {
+        claimingForList.filterNot(_ == MileageFuel)
+      }
+    values.flatMap(value => filterList.find(_ == value))
   }
 
   def printAndPostGuidance: Action[AnyContent] = (getData andThen requireData) {
