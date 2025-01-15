@@ -17,11 +17,21 @@
 package utils
 
 import models.ClaimingFor
-import models.ClaimingFor.MileageFuel
+import models.ClaimingFor.{HomeWorking, MileageFuel}
 
 class ClaimingForListBuilder {
 
   def buildClaimingForList(userAnswers: UserAnswers): List[ClaimingFor] = {
+    def onlyWfhClaim = userAnswers.claimAnyOtherExpense.getOrElse(false)
+
+    if (onlyWfhClaim) {
+      List(HomeWorking)
+    } else {
+      buildListFromUserAnswers(userAnswers)
+    }
+  }
+
+  private def buildListFromUserAnswers(userAnswers: UserAnswers): List[ClaimingFor] = {
     def containsMileageFuel = userAnswers.claimingFor.exists(_.contains(MileageFuel))
     def isClaimingMileage = userAnswers.claimingMileage.getOrElse(false)
     def isClaimingFuel = userAnswers.claimingFuel.getOrElse(false)

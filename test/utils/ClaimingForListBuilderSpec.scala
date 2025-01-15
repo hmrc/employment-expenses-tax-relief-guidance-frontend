@@ -17,7 +17,7 @@
 package utils
 
 import models.ClaimingFor
-import models.ClaimingFor.MileageFuel
+import models.ClaimingFor.{HomeWorking, MileageFuel}
 import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar.mock
@@ -38,11 +38,22 @@ class ClaimingForListBuilderSpec extends PlaySpec with BeforeAndAfterEach {
 
   "ClaimingForListBuilder on buildClaimingForList" must {
 
+    "return List with ONLY HomeWorking" when {
+      "claimAnyOtherExpense is true" in {
+        when(userAnswers.claimAnyOtherExpense).thenReturn(Some(true))
+
+        val result = claimingForListBuilder.buildClaimingForList(userAnswers)
+
+        result must contain theSameElementsAs List(HomeWorking)
+      }
+    }
+
     "return List with MileageFuel" when {
 
       val expectedClaimingForList = claimingForList
 
-      "claimingFor contains MileageFuel and both claimingMileage and claimingFuel are enabled" in {
+      "claimingFor contains MileageFuel and both claimingMileage and claimingFuel are true" in {
+        when(userAnswers.claimAnyOtherExpense).thenReturn(Some(false))
         when(userAnswers.claimingFor).thenReturn(Some(claimingForList))
         when(userAnswers.claimingMileage).thenReturn(Some(true))
         when(userAnswers.claimingFuel).thenReturn(Some(true))
@@ -52,7 +63,8 @@ class ClaimingForListBuilderSpec extends PlaySpec with BeforeAndAfterEach {
         result must contain theSameElementsAs expectedClaimingForList
       }
 
-      "claimingFor contains MileageFuel, claimingMileage is enabled but claimingFuel is disabled" in {
+      "claimingFor contains MileageFuel, claimingMileage is true but claimingFuel is false" in {
+        when(userAnswers.claimAnyOtherExpense).thenReturn(Some(false))
         when(userAnswers.claimingFor).thenReturn(Some(claimingForList))
         when(userAnswers.claimingMileage).thenReturn(Some(true))
         when(userAnswers.claimingFuel).thenReturn(Some(false))
@@ -62,7 +74,8 @@ class ClaimingForListBuilderSpec extends PlaySpec with BeforeAndAfterEach {
         result must contain theSameElementsAs expectedClaimingForList
       }
 
-      "claimingFor contains MileageFuel, claimingMileage is disabled but claimingFuel is enabled" in {
+      "claimingFor contains MileageFuel, claimingMileage is false but claimingFuel is true" in {
+        when(userAnswers.claimAnyOtherExpense).thenReturn(Some(false))
         when(userAnswers.claimingFor).thenReturn(Some(claimingForList))
         when(userAnswers.claimingMileage).thenReturn(Some(false))
         when(userAnswers.claimingFuel).thenReturn(Some(true))
@@ -72,7 +85,8 @@ class ClaimingForListBuilderSpec extends PlaySpec with BeforeAndAfterEach {
         result must contain theSameElementsAs expectedClaimingForList
       }
 
-      "claimingFor contains MileageFuel, claimingMileage is enabled but claimingFuel is empty" in {
+      "claimingFor contains MileageFuel, claimingMileage is true but claimingFuel is empty" in {
+        when(userAnswers.claimAnyOtherExpense).thenReturn(Some(false))
         when(userAnswers.claimingFor).thenReturn(Some(claimingForList))
         when(userAnswers.claimingMileage).thenReturn(Some(true))
         when(userAnswers.claimingFuel).thenReturn(None)
@@ -82,7 +96,8 @@ class ClaimingForListBuilderSpec extends PlaySpec with BeforeAndAfterEach {
         result must contain theSameElementsAs expectedClaimingForList
       }
 
-      "claimingFor contains MileageFuel, claimingMileage is empty but claimingFuel is enabled" in {
+      "claimingFor contains MileageFuel, claimingMileage is empty but claimingFuel is true" in {
+        when(userAnswers.claimAnyOtherExpense).thenReturn(Some(false))
         when(userAnswers.claimingFor).thenReturn(Some(claimingForList))
         when(userAnswers.claimingMileage).thenReturn(None)
         when(userAnswers.claimingFuel).thenReturn(Some(true))
@@ -97,7 +112,8 @@ class ClaimingForListBuilderSpec extends PlaySpec with BeforeAndAfterEach {
 
       val expectedClaimingForList = claimingForList.filterNot(_ == MileageFuel)
 
-      "claimingFor contains MileageFuel but both claimingMileage and claimingFuel are disabled" in {
+      "claimingFor contains MileageFuel but both claimingMileage and claimingFuel are false" in {
+        when(userAnswers.claimAnyOtherExpense).thenReturn(Some(false))
         when(userAnswers.claimingFor).thenReturn(Some(claimingForList))
         when(userAnswers.claimingMileage).thenReturn(Some(false))
         when(userAnswers.claimingFuel).thenReturn(Some(false))
@@ -108,6 +124,7 @@ class ClaimingForListBuilderSpec extends PlaySpec with BeforeAndAfterEach {
       }
 
       "claimingFor contains MileageFuel but both claimingMileage and claimingFuel are empty" in {
+        when(userAnswers.claimAnyOtherExpense).thenReturn(Some(false))
         when(userAnswers.claimingFor).thenReturn(Some(claimingForList))
         when(userAnswers.claimingMileage).thenReturn(None)
         when(userAnswers.claimingFuel).thenReturn(None)
@@ -118,6 +135,7 @@ class ClaimingForListBuilderSpec extends PlaySpec with BeforeAndAfterEach {
       }
 
       "claimingFor contains NO MileageFuel" in {
+        when(userAnswers.claimAnyOtherExpense).thenReturn(Some(false))
         val claimingForListWithoutMileageFuel = claimingForList.filterNot(_ == MileageFuel)
         when(userAnswers.claimingFor).thenReturn(Some(claimingForListWithoutMileageFuel))
 
