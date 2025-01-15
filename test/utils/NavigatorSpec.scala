@@ -239,7 +239,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(None)
 
         navigator.nextPage(MoreThanFiveJobsId)(mockAnswers) mustBe
-          routes.ClaimOnlineController.onPageLoad()
+          routes.UsePrintAndPostController.onPageLoad()
       }
 
       "answering No from the EmployerPaidBackAnyExpenses view" when {
@@ -396,7 +396,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(None)
 
         navigator.nextPage(MoreThanFiveJobsId)(mockAnswers) mustBe
-          routes.UsePrintAndPostController.onPageLoad()
+          routes.ClaimOnlineController.onPageLoad()
       }
 
     }
