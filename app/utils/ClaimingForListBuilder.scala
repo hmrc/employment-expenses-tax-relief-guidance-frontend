@@ -17,22 +17,21 @@
 package utils
 
 import models.ClaimingFor
-import models.ClaimingFor.{MileageFuel, values}
+import models.ClaimingFor.MileageFuel
 
 class ClaimingForListBuilder {
 
   def buildClaimingForList(userAnswers: UserAnswers): List[ClaimingFor] = {
-    val containsMileageFuel = userAnswers.claimingFor.exists(_.contains(MileageFuel))
-    val isClaimingMileage = userAnswers.claimingMileage.getOrElse(false)
-    val isClaimingFuel = userAnswers.claimingFuel.getOrElse(false)
+    def containsMileageFuel = userAnswers.claimingFor.exists(_.contains(MileageFuel))
+    def isClaimingMileage = userAnswers.claimingMileage.getOrElse(false)
+    def isClaimingFuel = userAnswers.claimingFuel.getOrElse(false)
+
     val claimingForList = userAnswers.claimingFor.getOrElse(Nil)
 
-    val filterList =
-      if (containsMileageFuel && (isClaimingMileage || isClaimingFuel)) {
-        claimingForList
-      } else {
-        claimingForList.filterNot(_ == MileageFuel)
-      }
-    values.flatMap(value => filterList.find(_ == value))
+    if (containsMileageFuel && (isClaimingMileage || isClaimingFuel)) {
+      claimingForList
+    } else {
+      claimingForList.filterNot(_ == MileageFuel)
+    }
   }
 }
