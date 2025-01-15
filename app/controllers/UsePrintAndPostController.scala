@@ -19,7 +19,7 @@ package controllers
 import config.FrontendAppConfig
 import controllers.actions._
 import models.ClaimingFor
-import models.ClaimingFor.{MileageFuel, values}
+import models.ClaimingFor.{HomeWorking, MileageFuel, values}
 
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
@@ -69,6 +69,10 @@ class UsePrintAndPostController @Inject()(
     val isClaimingMileage = userAnswers.claimingMileage.getOrElse(false)
     val isClaimingFuel = userAnswers.claimingFuel.getOrElse(false)
     val claimingForList = userAnswers.claimingFor.getOrElse(Nil)
+    val onlyWfhClaim = userAnswers.claimAnyOtherExpense.getOrElse(false)
+    if(onlyWfhClaim) {
+      return List(HomeWorking)
+    }
     val filterList =
       if (containsMileageFuel && (isClaimingMileage || isClaimingFuel)) {
         claimingForList
