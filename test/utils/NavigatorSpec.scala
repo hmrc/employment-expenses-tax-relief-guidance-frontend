@@ -317,7 +317,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(employerPaid))
 
         navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
-          routes.UsePrintAndPostController.onPageLoad()
+          routes.UseOwnCarController.onPageLoad()
       }
 
       "go to the UseOwnCar view" when {
@@ -553,7 +553,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(employerPaid))
 
         navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
-          routes.MoreThanFiveJobsController.onPageLoad()
+          routes.UseOwnCarController.onPageLoad()
       }
 
       "answering No to useCompanyCar, having answered Yes to ClaimingMileage, when the claimant is You, journey shutter is 'false'" in {
@@ -561,6 +561,11 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         val navigator = new Navigator()(mockAppConfig)
         when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(false)
         val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor)
+          .thenReturn(Some(List(
+            ClaimingFor.MileageFuel,
+            ClaimingFor.BuyingEquipment))
+          )
         when(mockAnswers.useCompanyCar).thenReturn(Some(false))
         when(mockAnswers.useOwnCar).thenReturn(Some(true))
         when(mockAnswers.claimingMileage).thenReturn(Some(true))
@@ -575,6 +580,11 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         val navigator = new Navigator()(mockAppConfig)
         when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(false)
         val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor)
+          .thenReturn(Some(List(
+            ClaimingFor.MileageFuel,
+            ClaimingFor.BuyingEquipment))
+          )
         when(mockAnswers.claimingFuel).thenReturn(Some(true))
         when(mockAnswers.claimant).thenReturn(Some(You))
 
@@ -584,6 +594,11 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
       "answering No to ClaimingFuel, having previously answered Yes to ClaimingMileage, when the claimant is You" in {
         val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor)
+          .thenReturn(Some(List(
+            ClaimingFor.MileageFuel,
+            ClaimingFor.BuyingEquipment))
+          )
         when(mockAnswers.useOwnCar).thenReturn(Some(true))
         when(mockAnswers.claimingMileage).thenReturn(Some(true))
         when(mockAnswers.claimingFuel).thenReturn(Some(false))
@@ -683,29 +698,44 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
     "go to the CannotClaimMileage view" when {
       "answering No to UseCompanyCar and having previously answered No to UseOwnCar" in {
         val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor)
+          .thenReturn(Some(List(
+            ClaimingFor.MileageFuel,
+            ClaimingFor.BuyingEquipment))
+          )
         when(mockAnswers.useOwnCar).thenReturn(Some(false))
         when(mockAnswers.useCompanyCar).thenReturn(Some(false))
         when(mockAnswers.claimant).thenReturn(Some(You))
 
         navigator.nextPage(UseCompanyCarId)(mockAnswers) mustBe
-          routes.CannotClaimMileageCostsController.onPageLoad()
+          routes.UsePrintAndPostController.onPageLoad()
       }
 
       "answering No to UseCompanyCar, having previously answered Yes to UseOwnCar and No to ClaimingMileage" in {
         val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor)
+          .thenReturn(Some(List(
+            ClaimingFor.MileageFuel,
+            ClaimingFor.BuyingEquipment))
+          )
         when(mockAnswers.useOwnCar).thenReturn(Some(true))
         when(mockAnswers.claimingMileage).thenReturn(Some(false))
         when(mockAnswers.useCompanyCar).thenReturn(Some(false))
         when(mockAnswers.claimant).thenReturn(Some(You))
 
         navigator.nextPage(UseCompanyCarId)(mockAnswers) mustBe
-          routes.CannotClaimMileageCostsController.onPageLoad()
+          routes.UsePrintAndPostController.onPageLoad()
       }
     }
 
     "go to the ClaimingFuel view" when {
       "answering Yes to UseCompanyCar" in {
         val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor)
+          .thenReturn(Some(List(
+            ClaimingFor.MileageFuel,
+            ClaimingFor.BuyingEquipment))
+          )
         when(mockAnswers.useCompanyCar).thenReturn(Some(true))
         when(mockAnswers.claimant).thenReturn(Some(You))
 
@@ -717,21 +747,31 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
     "go to the CannotClaimMileageFuelCosts view" when {
       "answering No to ClaimingFuel, having already answered No to UseOwnCar" in {
         val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor)
+          .thenReturn(Some(List(
+            ClaimingFor.MileageFuel,
+            ClaimingFor.BuyingEquipment))
+          )
         when(mockAnswers.claimingFuel).thenReturn(Some(false))
         when(mockAnswers.useOwnCar).thenReturn(Some(false))
 
         navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
-          routes.CannotClaimMileageFuelCostsController.onPageLoad()
+          routes.UsePrintAndPostController.onPageLoad()
       }
 
       "answering No to ClaimingFuel, having already answered Yes to UseOwnCar and No to ClaimingMileage" in {
         val mockAnswers = mock[UserAnswers]
+        when(mockAnswers.claimingFor)
+          .thenReturn(Some(List(
+            ClaimingFor.MileageFuel,
+            ClaimingFor.BuyingEquipment))
+          )
         when(mockAnswers.claimingFuel).thenReturn(Some(false))
         when(mockAnswers.useOwnCar).thenReturn(Some(true))
         when(mockAnswers.claimingMileage).thenReturn(Some(false))
 
         navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
-          routes.CannotClaimMileageFuelCostsController.onPageLoad()
+          routes.UsePrintAndPostController.onPageLoad()
       }
     }
 
@@ -817,6 +857,11 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
         "Missing data from useCompanyCar" in {
           val someAnswers = mock[UserAnswers]
+          when(someAnswers.claimingFor)
+            .thenReturn(Some(List(
+              ClaimingFor.MileageFuel,
+              ClaimingFor.BuyingEquipment))
+            )
           when(someAnswers.useCompanyCar) thenReturn Some(false)
           when(mockAnswers.claimant).thenReturn(Some(You))
 
@@ -831,6 +876,11 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
         "missing data from ClaimingFuel(false)" in {
           val someAnswers = mock[UserAnswers]
+          when(someAnswers.claimingFor)
+            .thenReturn(Some(List(
+              ClaimingFor.MileageFuel,
+              ClaimingFor.BuyingEquipment))
+            )
           when(someAnswers.claimingFuel) thenReturn Some(false)
           when(mockAnswers.claimant).thenReturn(Some(You))
 
