@@ -18,21 +18,19 @@ package controllers
 
 import config.FrontendAppConfig
 import controllers.actions._
-import models.ClaimingFor
-import models.ClaimingFor.{MileageFuel, values}
-
-import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import utils.{ClaimingForListBuilder, UserAnswers}
+import utils.ClaimingForListBuilder
 import views.html.{UseIformFreOnlyView, UsePrintAndPostDetailedView, UsePrintAndPostFreOnlyView, UsePrintAndPostView}
+
+import javax.inject.Inject
 
 class UsePrintAndPostController @Inject()(
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            val controllerComponents: MessagesControllerComponents,
-  claimingForListBuilder: ClaimingForListBuilder,
+                                           claimingForListBuilder: ClaimingForListBuilder,
                                            view: UsePrintAndPostView,
                                            appConfig: FrontendAppConfig,
                                            detailedView: UsePrintAndPostDetailedView,
@@ -43,25 +41,23 @@ class UsePrintAndPostController @Inject()(
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
 
-      if (appConfig.freOnlyJourneyEnabled || appConfig.onlineJourneyShutterEnabled) {
-        val sortedList = claimingForListBuilder.buildClaimingForList(request.userAnswers)
+      (appConfig.freOnlyJourneyEnabled, appConfig.onlineJourneyShutterEnabled) match {
 
-        if (appConfig.freOnlyJourneyEnabled) {
-          if (request.userAnswers.moreThanFiveJobs.isDefined) {
-            request.userAnswers.moreThanFiveJobs match {
-              case Some(true) => Ok(freOnlyPrintAndPostView(sortedList))
-              case Some(false) => Ok(freOnlyIformView(sortedList))
-            }
-          } else {
-            Ok(freOnlyIformView(sortedList))
+        case (true, _) =>
+          val sortedList = claimingForListBuilder.buildClaimingForList(request.userAnswers)
+          request.userAnswers.moreThanFiveJobs match {
+            case Some(true) => Ok(freOnlyPrintAndPostView(sortedList))
+            case _          => Ok(freOnlyIformView(sortedList))
           }
-        } else {
+
+        case (false, true) =>
+          val sortedList = claimingForListBuilder.buildClaimingForList(request.userAnswers)
           Ok(detailedView(sortedList))
-        }
-      } else {
-        val fuelCosts = request.userAnswers.claimingFuel.getOrElse(false)
-        val mileageCosts = request.userAnswers.claimingMileage.getOrElse(false)
-        Ok(view(fuelCosts, mileageCosts))
+
+        case _ =>
+          val fuelCosts = request.userAnswers.claimingFuel.getOrElse(false)
+          val mileageCosts = request.userAnswers.claimingMileage.getOrElse(false)
+          Ok(view(fuelCosts, mileageCosts))
       }
   }
 
