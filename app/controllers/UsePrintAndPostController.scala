@@ -45,14 +45,7 @@ class UsePrintAndPostController @Inject()(
       if (appConfig.freOnlyJourneyEnabled || appConfig.onlineJourneyShutterEnabled) {
         val sortedList = buildClaimingForList(request.userAnswers)
         if (appConfig.freOnlyJourneyEnabled) {
-          if (request.userAnswers.moreThanFiveJobs.isDefined) {
-            request.userAnswers.moreThanFiveJobs match {
-              case Some(true) => Ok(freOnlyPrintAndPostView(sortedList))
-              case Some(false) => Ok(freOnlyIformView(sortedList))
-            }
-          } else {
-            Ok(freOnlyIformView(sortedList))
-          }
+          Ok(freOnlyPrintAndPostView(sortedList))
         } else {
           Ok(detailedView(sortedList))
         }
