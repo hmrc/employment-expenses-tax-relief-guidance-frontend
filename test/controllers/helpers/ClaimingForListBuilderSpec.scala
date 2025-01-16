@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package utils
+package controllers.helpers
 
 import models.ClaimingFor
 import models.ClaimingFor.{HomeWorking, MileageFuel}
@@ -22,6 +22,7 @@ import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach
 import org.scalatestplus.mockito.MockitoSugar.mock
 import org.scalatestplus.play.PlaySpec
+import utils.UserAnswers
 
 class ClaimingForListBuilderSpec extends PlaySpec with BeforeAndAfterEach {
 

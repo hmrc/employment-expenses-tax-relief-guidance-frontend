@@ -18,6 +18,7 @@ package controllers
 
 import base.SpecBase
 import config.FrontendAppConfig
+import controllers.helpers.ClaimingForListBuilder
 import identifiers._
 import models.ClaimingFor
 import models.ClaimingFor.MileageFuel
@@ -30,9 +31,9 @@ import play.api.inject.bind
 import play.api.libs.json.Reads
 import play.api.mvc.Request
 import play.api.test.FakeRequest
-import play.api.test.Helpers.{route, _}
+import play.api.test.Helpers._
 import play.twirl.api.HtmlFormat
-import utils.{CacheMap, ClaimingForListBuilder, UserAnswers}
+import utils.{CacheMap, UserAnswers}
 import views.html.{UseIformFreOnlyView, UsePrintAndPostDetailedView, UsePrintAndPostFreOnlyView, UsePrintAndPostView}
 
 import scala.concurrent.ExecutionContext.Implicits.global

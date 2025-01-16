@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package utils
+package controllers.helpers
 
 import models.ClaimingFor
 import models.ClaimingFor.{HomeWorking, MileageFuel}
+import utils.UserAnswers
 
 class ClaimingForListBuilder {
 
