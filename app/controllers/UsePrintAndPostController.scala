@@ -18,20 +18,19 @@ package controllers
 
 import config.FrontendAppConfig
 import controllers.actions._
-import models.ClaimingFor
-import models.ClaimingFor.{HomeWorking, MileageFuel, values}
-
-import javax.inject.Inject
+import controllers.helpers.ClaimingForListBuilder
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
-import utils.UserAnswers
 import views.html.{UseIformFreOnlyView, UsePrintAndPostDetailedView, UsePrintAndPostFreOnlyView, UsePrintAndPostView}
+
+import javax.inject.Inject
 
 class UsePrintAndPostController @Inject()(
                                            getData: DataRetrievalAction,
                                            requireData: DataRequiredAction,
                                            val controllerComponents: MessagesControllerComponents,
+                                           claimingForListBuilder: ClaimingForListBuilder,
                                            view: UsePrintAndPostView,
                                            appConfig: FrontendAppConfig,
                                            detailedView: UsePrintAndPostDetailedView,
@@ -42,44 +41,24 @@ class UsePrintAndPostController @Inject()(
   def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
     implicit request =>
 
-      if (appConfig.freOnlyJourneyEnabled || appConfig.onlineJourneyShutterEnabled) {
-        val sortedList = buildClaimingForList(request.userAnswers)
-        if (appConfig.freOnlyJourneyEnabled) {
-          if (request.userAnswers.moreThanFiveJobs.isDefined) {
-            request.userAnswers.moreThanFiveJobs match {
-              case Some(true) => Ok(freOnlyPrintAndPostView(sortedList))
-              case Some(false) => Ok(freOnlyIformView(sortedList))
-            }
-          } else {
-            Ok(freOnlyIformView(sortedList))
-          }
-        } else {
-          Ok(detailedView(sortedList))
-        }
-      }
-      else {
-        val fuelCosts = request.userAnswers.claimingFuel.getOrElse(false)
-        val mileageCosts = request.userAnswers.claimingMileage.getOrElse(false)
-        Ok(view(fuelCosts, mileageCosts))
-      }
-  }
+      (appConfig.freOnlyJourneyEnabled, appConfig.onlineJourneyShutterEnabled) match {
 
-  private def buildClaimingForList(userAnswers: UserAnswers): List[ClaimingFor] = {
-    val containsMileageFuel = userAnswers.claimingFor.exists(_.contains(MileageFuel))
-    val isClaimingMileage = userAnswers.claimingMileage.getOrElse(false)
-    val isClaimingFuel = userAnswers.claimingFuel.getOrElse(false)
-    val claimingForList = userAnswers.claimingFor.getOrElse(Nil)
-    val onlyWfhClaim = userAnswers.claimAnyOtherExpense.getOrElse(false)
-    if(onlyWfhClaim) {
-      return List(HomeWorking)
-    }
-    val filterList =
-      if (containsMileageFuel && (isClaimingMileage || isClaimingFuel)) {
-        claimingForList
-      } else {
-        claimingForList.filterNot(_ == MileageFuel)
+        case (true, _) =>
+          val sortedList = claimingForListBuilder.buildClaimingForList(request.userAnswers)
+          request.userAnswers.moreThanFiveJobs match {
+            case Some(true) => Ok(freOnlyPrintAndPostView(sortedList))
+            case _          => Ok(freOnlyIformView(sortedList))
+          }
+
+        case (false, true) =>
+          val sortedList = claimingForListBuilder.buildClaimingForList(request.userAnswers)
+          Ok(detailedView(sortedList))
+
+        case _ =>
+          val fuelCosts = request.userAnswers.claimingFuel.getOrElse(false)
+          val mileageCosts = request.userAnswers.claimingMileage.getOrElse(false)
+          Ok(view(fuelCosts, mileageCosts))
       }
-    values.flatMap(value => filterList.find(_ == value))
   }
 
   def printAndPostGuidance: Action[AnyContent] = (getData andThen requireData) {
