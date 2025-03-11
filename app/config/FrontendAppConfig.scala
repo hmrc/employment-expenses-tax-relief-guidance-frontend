@@ -49,6 +49,7 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   val mergedJourneyEnabled: Boolean = configuration.getOptional[Boolean]("mergedJourney.enabled").getOrElse(false)
   val onlineJourneyShutterEnabled: Boolean = configuration.getOptional[Boolean]("onlineJourneyShutter.enabled").getOrElse(false)
   val freOnlyJourneyEnabled: Boolean = configuration.getOptional[Boolean]("freOnlyJourney.enabled").getOrElse(false)
+  val pegaServiceJourney: Boolean = configuration.getOptional[Boolean]("pegaServiceJourney.enabled").getOrElse(false)
 
   lazy val claimingForCurrentYearBackButtonOverride: String = configuration.get[String]("claimingForCurrentYear.backButtonOverride.reference")
   lazy val registeredForSelfBackButtonOverride: String = configuration.get[String]("registeredForSelf.backButtonOverride.reference")
