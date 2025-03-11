@@ -256,18 +256,6 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
             routes.UsePrintAndPostController.onPageLoad()
         }
 
-        "claiming for uniform clothing  only expenses  and pegaServiceJourney is set to true" in {
-          val mockAppConfig = mock[FrontendAppConfig]
-          val navigator = new Navigator()(mockAppConfig)
-          val mockAnswers = mock[UserAnswers]
-          when(mockAppConfig.pegaServiceJourney).thenReturn(true)
-          when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.UniformsClothingTools)))
-          when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(NoExpenses))
-
-          navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
-            routes.UsePrintAndPostController.onPageLoad()
-        }
-
       }
 
       "answering No from the MoreThanFiveJobs view and onlineJourneyShutterEnabled FS is set to true" in {
@@ -657,13 +645,14 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         val navigator = new Navigator()(mockAppConfig)
         val mockAnswers = mock[UserAnswers]
         when(mockAppConfig.onlineJourneyShutterEnabled).thenReturn(true)
+        when(mockAppConfig.pegaServiceJourney).thenReturn(true)
         when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
         when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.UniformsClothingTools)))
         when(mockAnswers.claimant).thenReturn(Some(You))
         when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(employerPaid))
 
         navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
-          routes.MoreThanFiveJobsController.onPageLoad()
+          routes.UsePrintAndPostController.onPageLoad()
       }
 
       "answering any expenses from the ClaimingFor view and freOnlyJourneyEnabled and onlineJourneyShutterEnabled is set to false" in {
