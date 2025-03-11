@@ -255,6 +255,19 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
             routes.UsePrintAndPostController.onPageLoad()
         }
+
+        "claiming for uniform clothing  only expenses  and pegaServiceJourney is set to true" in {
+          val mockAppConfig = mock[FrontendAppConfig]
+          val navigator = new Navigator()(mockAppConfig)
+          val mockAnswers = mock[UserAnswers]
+          when(mockAppConfig.pegaServiceJourney).thenReturn(true)
+          when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.UniformsClothingTools)))
+          when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(NoExpenses))
+
+          navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
+            routes.UsePrintAndPostController.onPageLoad()
+        }
+
       }
 
       "answering No from the MoreThanFiveJobs view and onlineJourneyShutterEnabled FS is set to true" in {

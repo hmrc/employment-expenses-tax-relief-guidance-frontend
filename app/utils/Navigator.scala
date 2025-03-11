@@ -90,6 +90,7 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) {
   private def employerPaidBackOtherExpensesRouting(userAnswers: UserAnswers) = {
     val containsMileage = userAnswers.claimingFor.exists(_.contains(ClaimingFor.MileageFuel))
     (userAnswers.employerPaidBackAnyExpenses, userAnswers.claimingFor) match {
+      case (Some(SomeExpenses | NoExpenses), Some(List(ClaimingFor.UniformsClothingTools))) if appConfig.pegaServiceJourney => routes.UsePrintAndPostController.onPageLoad()
       case (Some(SomeExpenses | NoExpenses), Some(List(ClaimingFor.UniformsClothingTools))) if appConfig.freOnlyJourneyEnabled => routes.MoreThanFiveJobsController.onPageLoad()
       case (Some(SomeExpenses | NoExpenses), _) if containsMileage => routes.UseOwnCarController.onPageLoad()
       case (Some(SomeExpenses | NoExpenses), _) if (appConfig.onlineJourneyShutterEnabled || appConfig.freOnlyJourneyEnabled) => routes.UsePrintAndPostController.onPageLoad()
