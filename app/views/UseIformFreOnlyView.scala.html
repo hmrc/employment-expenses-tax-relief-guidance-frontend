@@ -45,7 +45,7 @@
 ) {
 
 @heading(messages("usePrintAndPostDetailed.heading_freOnly_iform"))
-@if(List(UniformsClothingTools,HomeWorking).intersect(claimingFor).nonEmpty && appConfig.pegaServiceJourney){
+@if(List(HomeWorking).intersect(claimingFor).nonEmpty && appConfig.pegaServiceJourney){
 @govukInsetText(InsetText(
     content =  HtmlContent(
                     s"""
