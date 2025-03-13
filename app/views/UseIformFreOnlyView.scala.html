@@ -40,7 +40,8 @@
    }
 
 @pegaServiceJourneyInsertText = @{
-    if(List(HomeWorking).intersect(claimingFor).nonEmpty && claimingFor.size == 1 && appConfig.pegaServiceJourney){
+
+if (claimingFor.contains(HomeWorking) && claimingFor.size == 1 && appConfig.pegaServiceJourney){
         messages("usePrintAndPostDetailed.para1_freOnly_pegaService")
     } else {
         messages("usePrintAndPostDetailed.para1_freOnly_iform")
