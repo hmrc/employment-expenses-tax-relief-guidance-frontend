@@ -50,10 +50,18 @@ class  UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar{
   val claimingListFor =  List(
     HomeWorking, UniformsClothingTools, MileageFuel, TravelExpenses, FeesSubscriptions, BuyingEquipment, Other
   )
+  val claimingList =  List(
+    HomeWorking
+  )
+
 
   val application = applicationBuilder()
     .build()
+
+
   def createView(): Html = view.apply(claimingListFor)(fakeRequest, messages)
+
+  def createViewHomeworking(): Html = view.apply(claimingList)(fakeRequest, messages)
 
   val view: UseIformFreOnlyView = application.injector.instanceOf[UseIformFreOnlyView]
 
@@ -66,6 +74,23 @@ class  UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar{
     assertContainsMessages(doc, messages(s"${messageKeyPrefix}.heading_freOnly_iform"))
 
   }
+  "when pegaJourneyEnabled is enabled - all new content is displayed for only WorkingHome" in {
+    val doc = asDocument(createViewHomeworking())
+    when(mockAppConfig.pegaServiceJourney).thenReturn(true)
+    assertContainsMessages(doc, messages(s"${messageKeyPrefix}.para1_freOnly_pegaService"))
+  }
+  "when pegaJourneyEnabled is disabled and - all new content is displayed for only WorkingHome " in {
+    val doc = asDocument(createViewHomeworking())
+    when(mockAppConfig.pegaServiceJourney).thenReturn(false)
+    assertContainsMessages(doc,  messages(s"${messageKeyPrefix}.para1_freOnly_iform"))
+  }
+
+  "when pegaJourneyEnabled is disabled and - all new content is displayed for any other expenses including working from home " in {
+    val doc = asDocument(createView())
+    when(mockAppConfig.pegaServiceJourney).thenReturn(false)
+    assertContainsMessages(doc,  messages(s"${messageKeyPrefix}.para1_freOnly_iform"))
+  }
+
 
 
   "when freJourneyEnabled is enabled- all new content is displayed for only WorkingHome" in {
