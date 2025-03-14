@@ -77,7 +77,7 @@ class  UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar{
     assertContainsMessages(doc, messages(s"${messageKeyPrefix}.para1_freOnly_pegaService"))
   }
 
-  "when pegaJourneyEnabled is enabled - new content is displayed for  merged Journey" in {
+  "when pegaJourneyEnabled is enabled - old content is displayed for  merged Journey" in {
     val doc = asDocument(createView())
     assertContainsMessages(doc,  messages(s"${messageKeyPrefix}.para1_freOnly_iform"))
   }
