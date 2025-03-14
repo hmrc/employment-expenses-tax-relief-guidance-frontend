@@ -39,20 +39,29 @@
         })
    }
 
+@pegaServiceJourneyInsertText = @{
 
+if (claimingFor == List(HomeWorking) && appConfig.pegaServiceJourney){
+        messages("usePrintAndPostDetailed.para1_freOnly_pegaService")
+    } else {
+        messages("usePrintAndPostDetailed.para1_freOnly_iform")
+    }
+}
 @layout(
     pageTitle = messages("usePrintAndPostDetailed.title_freOnly_iform")
 ) {
 
 @heading(messages("usePrintAndPostDetailed.heading_freOnly_iform"))
-
 @govukInsetText(InsetText(
-    content =  HtmlContent(
-                    s"""
-                    ${messages("usePrintAndPostDetailed.para1_freOnly_iform")} <br><br>
-                    ${messages("usePrintAndPostDetailed.para2_freOnly_iform")} <a href="${appConfig.employeeExpensesClaimByPostUrl}" target="_blank">${messages("usePrintAndPostDetailed.para2_freOnly.link.label_iform")}</a>
-                    """
-                )
+        content = HtmlContent(
+        s"""
+        ${pegaServiceJourneyInsertText} <br><br>
+        ${messages("usePrintAndPostDetailed.para2_freOnly_iform")}
+        <a href="${appConfig.employeeExpensesClaimByPostUrl}" target="_blank">
+            ${messages("usePrintAndPostDetailed.para2_freOnly.link.label_iform")}
+        </a>
+        """
+    )
 ))
 
 @h2(messages("usePrintAndPostDetailed.youCanClaim"))
@@ -80,7 +89,7 @@
             } else {
                 @h3(messages(s"claimingFor.$claimItem"))
             }
-            
+
             @if(List(HomeWorking).contains(claimItem)){
 
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly")}

@@ -51,9 +51,15 @@ class  UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar{
     HomeWorking, UniformsClothingTools, MileageFuel, TravelExpenses, FeesSubscriptions, BuyingEquipment, Other
   )
 
+  val claimingListForHomeWorking =  List(
+    HomeWorking
+  )
+
   val application = applicationBuilder()
     .build()
   def createView(): Html = view.apply(claimingListFor)(fakeRequest, messages)
+
+  def createViewHomeworking(): Html = view.apply(claimingListForHomeWorking)(fakeRequest, messages)
 
   val view: UseIformFreOnlyView = application.injector.instanceOf[UseIformFreOnlyView]
 
@@ -65,6 +71,15 @@ class  UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar{
     assertPageTitleEqualsMessage(doc, "usePrintAndPostDetailed.title_freOnly_iform")
     assertContainsMessages(doc, messages(s"${messageKeyPrefix}.heading_freOnly_iform"))
 
+  }
+  "when pegaJourneyEnabled is enabled - new content is displayed for only WorkingHome" in {
+    val doc = asDocument(createViewHomeworking())
+    assertContainsMessages(doc, messages(s"${messageKeyPrefix}.para1_freOnly_pegaService"))
+  }
+
+  "when pegaJourneyEnabled is enabled - old content is displayed for  merged Journey" in {
+    val doc = asDocument(createView())
+    assertContainsMessages(doc,  messages(s"${messageKeyPrefix}.para1_freOnly_iform"))
   }
 
 
