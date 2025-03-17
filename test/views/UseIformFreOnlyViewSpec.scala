@@ -98,12 +98,21 @@ class  UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar{
 
   }
 
-  "when freJourneyEnabled is enabled- Include a call to action button with the correct link" in {
+  "when freJourneyEnabled is enabled- Include a call to action button with the correct link to iForm" in {
     when(mockAppConfig.employeeExpensesClaimByIformUrl).thenReturn("https://tax.service.gov.uk/digital-forms/form/tax-relief-for-expenses-of-employment/draft/guide")
 
     val doc = asDocument(createView())
     val button: Element = doc.getElementById("startyourclaim")
     button.attr("href") must be(mockAppConfig.employeeExpensesClaimByIformUrl)
+    assertPageTitleEqualsMessage(doc, "usePrintAndPostDetailed.title_freOnly_iform")
+
+  }
+  "when pegaJourneyEnabled is enabled- Include a call to action button with the correct link to Pega service" in {
+    when(mockAppConfig.employeeExpensesClaimByPegaServicesUrl).thenReturn("https://account-np.hmrc.gov.uk/pay-as-you-earn/claim-tax-relief-for-job-expenses/dev")
+
+    val doc = asDocument(createViewHomeworking())
+    val button: Element = doc.getElementById("startyourclaim")
+    button.attr("href") must be(mockAppConfig.employeeExpensesClaimByPegaServicesUrl)
     assertPageTitleEqualsMessage(doc, "usePrintAndPostDetailed.title_freOnly_iform")
 
   }

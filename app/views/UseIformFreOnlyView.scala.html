@@ -47,6 +47,14 @@ if (claimingFor == List(HomeWorking) && appConfig.pegaServiceJourney){
         messages("usePrintAndPostDetailed.para1_freOnly_iform")
     }
 }
+
+@redirectionLink = @{
+if (claimingFor == List(HomeWorking) && appConfig.pegaServiceJourney){
+       appConfig.employeeExpensesClaimByPegaServicesUrl
+   } else {
+       appConfig.employeeExpensesClaimByIformUrl
+   }
+}
 @layout(
     pageTitle = messages("usePrintAndPostDetailed.title_freOnly_iform")
 ) {
@@ -124,7 +132,7 @@ if (claimingFor == List(HomeWorking) && appConfig.pegaServiceJourney){
 <div class="govuk-body govuk-!-margin-top-8">
     @buttonLink(
         content = messages("usePrintAndPostDetailed.link.label_freOnly_iform"),
-        href = appConfig.employeeExpensesClaimByIformUrl,
+        href = redirectionLink,
         id = Some("startyourclaim")
     )
 </div>
