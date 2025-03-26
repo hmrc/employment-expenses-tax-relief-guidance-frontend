@@ -6,7 +6,7 @@ import uk.gov.hmrc.DefaultBuildSettings
 lazy val appName: String = "employment-expenses-tax-relief-guidance-frontend"
 
 ThisBuild / majorVersion := 0
-ThisBuild / scalaVersion := "2.13.13"
+ThisBuild / scalaVersion := "2.13.16"
 
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
