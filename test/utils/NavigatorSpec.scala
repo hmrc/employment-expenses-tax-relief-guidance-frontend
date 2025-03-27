@@ -253,7 +253,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(NoExpenses))
 
           navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
-            routes.UsePrintAndPostController.onPageLoad()
+            routes.MoreThanFiveJobsController.onPageLoad()
         }
       }
 
@@ -285,7 +285,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
 
         navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
-          routes.UsePrintAndPostController.onPageLoad()
+          routes.MoreThanFiveJobsController.onPageLoad()
       }
 
       "answering anything other than MileageFuel from the ClaimingFor view and the claimant is You view and onlineJourneyShutterEnabled FS is set to true" in {
@@ -299,7 +299,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(employerPaid))
 
         navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
-          routes.UsePrintAndPostController.onPageLoad()
+          routes.MoreThanFiveJobsController.onPageLoad()
       }
 
       "answering MileageFuel and another option from the ClaimingFor view and the claimant is You is and onlineJourneyShutterEnabled FS is set to true" in {
@@ -365,7 +365,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(employerPaid))
 
         navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
-          routes.UsePrintAndPostController.onPageLoad()
+          routes.MoreThanFiveJobsController.onPageLoad()
       }
 
       "answering Yes some of my expenses from the EmployerPaidBackAnyExpenses view and freOnlyJourneyEnabled FS is set to true" in {
@@ -378,7 +378,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(SomeExpenses))
 
         navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
-          routes.UsePrintAndPostController.onPageLoad()
+          routes.MoreThanFiveJobsController.onPageLoad()
       }
 
       "answering No from the MoreThanFiveJobs view and " +
@@ -486,7 +486,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
     "go to the ClaimOnline view" when {
       "answering No from the EmployerPaidBackAnyExpenses view" when {
-        "claiming for working from home only expenses  and onlineJourneyShutterEnabled FS is set to false" in {
+        "claiming for working from home only expenses and onlineJourneyShutterEnabled FS is set to false" in {
           val mockAppConfig = mock[FrontendAppConfig]
           val navigator = new Navigator()(mockAppConfig)
           val mockAnswers = mock[UserAnswers]
@@ -495,7 +495,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(Some(NoExpenses))
 
           navigator.nextPage(EmployerPaidBackAnyExpensesId)(mockAnswers) mustBe
-            routes.ClaimOnlineController.onPageLoad()
+            routes.MoreThanFiveJobsController.onPageLoad()
         }
       }
       "answering Yes some of my expenses from the EmployerPaidBackAnyExpenses view and onlineJourneyShutterEnabled FS is set to false" in {
@@ -723,7 +723,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimant).thenReturn(Some(You))
 
         navigator.nextPage(UseCompanyCarId)(mockAnswers) mustBe
-          routes.UsePrintAndPostController.onPageLoad()
+          routes.MoreThanFiveJobsController.onPageLoad()
       }
 
       "answering No to UseCompanyCar, having previously answered Yes to UseOwnCar and No to ClaimingMileage" in {
@@ -739,7 +739,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimant).thenReturn(Some(You))
 
         navigator.nextPage(UseCompanyCarId)(mockAnswers) mustBe
-          routes.UsePrintAndPostController.onPageLoad()
+          routes.MoreThanFiveJobsController.onPageLoad()
       }
     }
 
@@ -771,7 +771,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.useOwnCar).thenReturn(Some(false))
 
         navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
-          routes.UsePrintAndPostController.onPageLoad()
+          routes.MoreThanFiveJobsController.onPageLoad()
       }
 
       "answering No to ClaimingFuel, having already answered Yes to UseOwnCar and No to ClaimingMileage" in {
@@ -786,7 +786,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimingMileage).thenReturn(Some(false))
 
         navigator.nextPage(ClaimingFuelId)(mockAnswers) mustBe
-          routes.UsePrintAndPostController.onPageLoad()
+          routes.MoreThanFiveJobsController.onPageLoad()
       }
     }
 
