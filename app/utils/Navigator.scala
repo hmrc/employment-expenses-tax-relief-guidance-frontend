@@ -144,7 +144,8 @@ private def paidTaxInRelevantYearRouting(userAnswers: UserAnswers) = userAnswers
     case Some(true) => routes.ClaimingFuelController.onPageLoad()
     case Some(false) =>
       (userAnswers.useOwnCar, userAnswers.claimingMileage) match {
-        case (Some(true), _) => routes.MoreThanFiveJobsController.onPageLoad()
+        case (Some(true), Some(true))  => routes.MoreThanFiveJobsController.onPageLoad()
+        case (Some(true), Some(false)) if isMergedJourney(userAnswers) => routes.MoreThanFiveJobsController.onPageLoad()
         case (Some(true), Some(false)) => routes.CannotClaimMileageCostsController.onPageLoad()
         case (Some(false), _) if isMergedJourney(userAnswers) => routes.MoreThanFiveJobsController.onPageLoad()
         case (Some(false), _) => routes.CannotClaimMileageCostsController.onPageLoad()
