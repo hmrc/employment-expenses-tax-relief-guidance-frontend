@@ -149,6 +149,7 @@ private def paidTaxInRelevantYearRouting(userAnswers: UserAnswers) = userAnswers
 
         case _ => routes.SessionExpiredController.onPageLoad
       }
+    case _ => routes.SessionExpiredController.onPageLoad
   }
 
   private def claimingFuelRouting(userAnswers: UserAnswers) =

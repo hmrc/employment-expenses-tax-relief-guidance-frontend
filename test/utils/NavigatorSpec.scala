@@ -653,7 +653,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
             routes.MoreThanFiveJobsController.onPageLoad()
         }
       }
-    }
+  }
 
     "go to the UseOwnCar view" when {
       "answering MileageFuel form the ClaimingFor view and onlineJourneyShutterEnabled FS is set to false" in {
@@ -912,5 +912,4 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       }
 
     }
-  }
 }
