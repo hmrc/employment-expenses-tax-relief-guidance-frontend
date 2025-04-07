@@ -27,4 +27,5 @@ class ClaimingMileageFormProvider @Inject() extends Mappings {
     Form(
       "value" -> boolean(s"claimingMileage.error.required")
     )
+
 }

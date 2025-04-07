@@ -28,4 +28,5 @@ class RadioOptionSpec extends SpecBase {
       radioOption.message.key mustBe "prefix.option"
     }
   }
+
 }

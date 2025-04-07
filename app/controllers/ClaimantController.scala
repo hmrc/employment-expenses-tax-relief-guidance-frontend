@@ -31,39 +31,39 @@ import views.html.ClaimantView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class ClaimantController @Inject()(
-                                    dataCacheConnector: DataCacheConnector,
-                                    navigator: Navigator,
-                                    getData: DataRetrievalAction,
-                                    requireData: DataRequiredAction,
-                                    formProvider: ClaimantFormProvider,
-                                    val controllerComponents: MessagesControllerComponents,
-                                    view: ClaimantView
-                                  )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
+class ClaimantController @Inject() (
+    dataCacheConnector: DataCacheConnector,
+    navigator: Navigator,
+    getData: DataRetrievalAction,
+    requireData: DataRequiredAction,
+    formProvider: ClaimantFormProvider,
+    val controllerComponents: MessagesControllerComponents,
+    view: ClaimantView
+)(implicit ec: ExecutionContext)
+    extends FrontendBaseController
+    with I18nSupport
+    with Enumerable.Implicits {
 
   val form: Form[Claimant] = formProvider()
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
-    implicit request =>
-      val preparedForm = request.userAnswers.claimant match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-      Ok(view(preparedForm))
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
+    val preparedForm = request.userAnswers.claimant match {
+      case None        => form
+      case Some(value) => form.fill(value)
+    }
+    Ok(view(preparedForm))
   }
 
-  def onSubmit: Action[AnyContent] = (getData andThen requireData) async {
-    implicit request =>
-      form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(formWithErrors))),
-        value => {
-          dataCacheConnector.save[Claimant](request.sessionId, ClaimantId, value).map(cacheMap =>
-            Redirect(navigator.nextPage(ClaimantId)(new UserAnswers(cacheMap)))
-          )
-
-        }
-
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+    form
+      .bindFromRequest()
+      .fold(
+        (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors))),
+        value =>
+          dataCacheConnector
+            .save[Claimant](request.sessionId, ClaimantId, value)
+            .map(cacheMap => Redirect(navigator.nextPage(ClaimantId)(new UserAnswers(cacheMap))))
       )
   }
+
 }

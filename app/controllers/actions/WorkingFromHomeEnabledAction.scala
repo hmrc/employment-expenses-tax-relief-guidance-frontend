@@ -16,7 +16,6 @@
 
 package controllers.actions
 
-
 import com.google.inject.{ImplementedBy, Inject}
 import config.FrontendAppConfig
 import controllers.routes
@@ -25,24 +24,21 @@ import play.api.mvc._
 
 import scala.concurrent.{ExecutionContext, Future}
 
+class WorkingFromHomeEnabledActionImpl @Inject() (
+    controllerComponents: MessagesControllerComponents,
+    frontendAppConfig: FrontendAppConfig
+)(implicit val executionContext: ExecutionContext)
+    extends WorkingFromHomeEnabledAction {
 
-class WorkingFromHomeEnabledActionImpl @Inject()(
-                                                  controllerComponents: MessagesControllerComponents,
-                                                  frontendAppConfig: FrontendAppConfig
-                                                )(implicit val executionContext: ExecutionContext) extends WorkingFromHomeEnabledAction {
-
-  override def invokeBlock[A](request: Request[A], block: Request[A] => Future[Result]): Future[Result] = {
+  override def invokeBlock[A](request: Request[A], block: Request[A] => Future[Result]): Future[Result] =
     if (frontendAppConfig.workingFromHomeExpensesOnlyEnabled) {
       block(request)
     } else {
       Future.successful(Redirect(routes.IndexController.onPageLoad))
     }
-  }
 
   override def parser: BodyParser[AnyContent] = controllerComponents.parsers.anyContent
 }
 
 @ImplementedBy(classOf[WorkingFromHomeEnabledActionImpl])
 trait WorkingFromHomeEnabledAction extends ActionBuilder[Request, AnyContent] with ActionFunction[Request, Request]
-
-

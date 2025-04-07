@@ -21,18 +21,20 @@ import play.twirl.api.HtmlFormat
 
 trait NewYesNoViewBehaviours extends NewQuestionViewBehaviours[Boolean] {
 
-  def yesNoPage(createView: (Form[Boolean]) => HtmlFormat.Appendable,
-                messageKeyPrefix: String,
-                expectedFormAction: String,
-                headingArgs: Any*): Unit = {
+  def yesNoPage(
+      createView: (Form[Boolean]) => HtmlFormat.Appendable,
+      messageKeyPrefix: String,
+      expectedFormAction: String,
+      headingArgs: Any*
+  ): Unit =
 
     "behave like a page with a Yes/No question" when {
       "rendered" must {
         "contain a legend for the question" in {
-          val doc = asDocument(createView(form))
+          val doc     = asDocument(createView(form))
           val legends = doc.getElementsByTag("legend")
           legends.size mustBe 1
-          legends.first.text contains messages(s"$messageKeyPrefix.heading", headingArgs:_*)
+          legends.first.text contains messages(s"$messageKeyPrefix.heading", headingArgs: _*)
         }
 
         "contain an input for the value" in {
@@ -53,13 +55,11 @@ trait NewYesNoViewBehaviours extends NewQuestionViewBehaviours[Boolean] {
         }
       }
 
-      "rendered with a value of true" must {
-        behave like answeredYesNoPage(createView, answer = true)
-      }
+      "rendered with a value of true" must
+        behave.like(answeredYesNoPage(createView, answer = true))
 
-      "rendered with a value of false" must {
-        behave like answeredYesNoPage(createView, answer = false)
-      }
+      "rendered with a value of false" must
+        behave.like(answeredYesNoPage(createView, answer = false))
 
       "rendered with an error" must {
         "show an error summary" in {
@@ -68,14 +68,12 @@ trait NewYesNoViewBehaviours extends NewQuestionViewBehaviours[Boolean] {
         }
 
         "show an error in the value field's label" in {
-          val doc = asDocument(createView(form.withError(error)))
+          val doc       = asDocument(createView(form.withError(error)))
           val errorSpan = doc.getElementById("value-error")
           errorSpan.text mustBe s"Error: ${messages(errorMessage)}"
         }
       }
     }
-  }
-
 
   def answeredYesNoPage(createView: Form[Boolean] => HtmlFormat.Appendable, answer: Boolean): Unit = {
 
@@ -90,4 +88,5 @@ trait NewYesNoViewBehaviours extends NewQuestionViewBehaviours[Boolean] {
       assertNotRenderedById(doc, "error-summary_header")
     }
   }
+
 }

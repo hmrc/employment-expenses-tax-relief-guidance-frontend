@@ -27,68 +27,79 @@ sealed trait ClaimingFor
 
 object ClaimingFor {
 
-  case object HomeWorking extends WithName("homeWorking") with ClaimingFor
+  case object HomeWorking           extends WithName("homeWorking") with ClaimingFor
   case object UniformsClothingTools extends WithName("uniformsClothingTools") with ClaimingFor
-  case object MileageFuel extends WithName("mileageFuel") with ClaimingFor
-  case object TravelExpenses extends WithName("travelExpenses") with ClaimingFor
-  case object FeesSubscriptions extends WithName("feesSubscriptions") with ClaimingFor
-  case object BuyingEquipment extends WithName("buyingEquipment") with ClaimingFor
-  case object Other extends WithName("other") with ClaimingFor
+  case object MileageFuel           extends WithName("mileageFuel") with ClaimingFor
+  case object TravelExpenses        extends WithName("travelExpenses") with ClaimingFor
+  case object FeesSubscriptions     extends WithName("feesSubscriptions") with ClaimingFor
+  case object BuyingEquipment       extends WithName("buyingEquipment") with ClaimingFor
+  case object Other                 extends WithName("other") with ClaimingFor
 
   val values: List[ClaimingFor] = List(
-    HomeWorking, UniformsClothingTools, MileageFuel, TravelExpenses, FeesSubscriptions, BuyingEquipment, Other
+    HomeWorking,
+    UniformsClothingTools,
+    MileageFuel,
+    TravelExpenses,
+    FeesSubscriptions,
+    BuyingEquipment,
+    Other
   )
 
-  def options(onlineJourneyShutterEnabled: Boolean, freOnlyJourneyEnabled: Boolean)(implicit messages: Messages): List[CheckboxItem] = {
+  def options(onlineJourneyShutterEnabled: Boolean, freOnlyJourneyEnabled: Boolean)(
+      implicit messages: Messages
+  ): List[CheckboxItem] = {
 
     val feesOption = {
-      val href = "https://www.gov.uk/government/publications/professional-bodies-approved-for-tax-relief-list-3"
+      val href      = "https://www.gov.uk/government/publications/professional-bodies-approved-for-tax-relief-list-3"
       val eventBody = s"""${messages(s"claimingFor.title")}:${messages(s"claimingFor.$FeesSubscriptions")}"""
-      val start = link_start(href, eventBody, newWindow = true)
-      val end = "</a>"
+      val start     = link_start(href, eventBody, newWindow = true)
+      val end       = "</a>"
 
       new CheckboxItem(
         name = Some("value[4]"),
         id = Some(s"claimingFor.$FeesSubscriptions"),
         value = FeesSubscriptions.toString,
         content = Text(messages(s"claimingFor.$FeesSubscriptions")),
-        hint = Some(Hint(
-          content = HtmlContent(messages(s"claimingFor.$FeesSubscriptions.description", start, end)))
-        )
+        hint = Some(Hint(content = HtmlContent(messages(s"claimingFor.$FeesSubscriptions.description", start, end))))
       )
     }
 
     val freOption = {
-      val href = "https://www.gov.uk/guidance/job-expenses-for-uniforms-work-clothing-and-tools"
+      val href      = "https://www.gov.uk/guidance/job-expenses-for-uniforms-work-clothing-and-tools"
       val eventBody = s"""${messages(s"claimingFor.title")}:${messages(s"claimingFor.$UniformsClothingTools")}"""
-      val start = link_start(href, eventBody, newWindow = true)
-      val end = "</a>"
+      val start     = link_start(href, eventBody, newWindow = true)
+      val end       = "</a>"
 
       new CheckboxItem(
-              name = Some("value[1]"),
-              id = Some(s"claimingFor.$UniformsClothingTools"),
-              value = UniformsClothingTools.toString,
-              content = if(freOnlyJourneyEnabled) {Text(messages(s"claimingFor.${UniformsClothingTools}_freOnly"))} else Text(messages(s"claimingFor.${UniformsClothingTools}")),
-              hint = Some(Hint(
-              content = if(freOnlyJourneyEnabled) HtmlContent(messages(s"claimingFor.$UniformsClothingTools.description_freOnly" , start, end)) else if(onlineJourneyShutterEnabled) HtmlContent(messages(s"claimingFor.$UniformsClothingTools.description")) else HtmlContent(messages(s"claimingFor.$UniformsClothingTools.oldDescription"))
-
-                ))
-            )
+        name = Some("value[1]"),
+        id = Some(s"claimingFor.$UniformsClothingTools"),
+        value = UniformsClothingTools.toString,
+        content = if (freOnlyJourneyEnabled) { Text(messages(s"claimingFor.${UniformsClothingTools}_freOnly")) }
+        else Text(messages(s"claimingFor.$UniformsClothingTools")),
+        hint = Some(
+          Hint(
+            content =
+              if (freOnlyJourneyEnabled)
+                HtmlContent(messages(s"claimingFor.$UniformsClothingTools.description_freOnly", start, end))
+              else if (onlineJourneyShutterEnabled)
+                HtmlContent(messages(s"claimingFor.$UniformsClothingTools.description"))
+              else HtmlContent(messages(s"claimingFor.$UniformsClothingTools.oldDescription"))
+          )
+        )
+      )
     }
     val buyingOption = {
-      val href = "https://www.gov.uk/capital-allowances/annual-investment-allowance"
+      val href      = "https://www.gov.uk/capital-allowances/annual-investment-allowance"
       val eventBody = s"""${messages(s"claimingFor.title")}:${messages(s"claimingFor.$BuyingEquipment")}"""
-      val start = link_start(href, eventBody, newWindow = true)
-      val end = "</a>"
+      val start     = link_start(href, eventBody, newWindow = true)
+      val end       = "</a>"
 
       new CheckboxItem(
         name = Some("value[5]"),
         id = Some(s"claimingFor.$BuyingEquipment"),
         value = BuyingEquipment.toString,
         content = Text(messages(s"claimingFor.$BuyingEquipment")),
-        hint = Some(Hint(
-          content = HtmlContent(messages(s"claimingFor.$BuyingEquipment.description",start, end)))
-        )
+        hint = Some(Hint(content = HtmlContent(messages(s"claimingFor.$BuyingEquipment.description", start, end))))
       )
     }
 
@@ -98,29 +109,28 @@ object ClaimingFor {
         id = Some(s"claimingFor.$HomeWorking"),
         value = HomeWorking.toString,
         content = Text(messages(s"claimingFor.$HomeWorking")),
-        hint = Some(Hint(
-          content = if(onlineJourneyShutterEnabled) HtmlContent(messages(s"claimingFor.$HomeWorking.description")) else HtmlContent(messages(s"claimingFor.$HomeWorking.oldDescription"))
-        ))
+        hint = Some(
+          Hint(
+            content =
+              if (onlineJourneyShutterEnabled) HtmlContent(messages(s"claimingFor.$HomeWorking.description"))
+              else HtmlContent(messages(s"claimingFor.$HomeWorking.oldDescription"))
+          )
+        )
       ),
-      freOption
-      ,
+      freOption,
       new CheckboxItem(
         name = Some("value[2]"),
         id = Some(s"claimingFor.$MileageFuel"),
         value = MileageFuel.toString,
         content = Text(messages(s"claimingFor.$MileageFuel")),
-        hint = Some(Hint(
-          content = HtmlContent(messages(s"claimingFor.$MileageFuel.description")))
-        )
+        hint = Some(Hint(content = HtmlContent(messages(s"claimingFor.$MileageFuel.description"))))
       ),
       new CheckboxItem(
         name = Some("value[3]"),
         id = Some(s"claimingFor.$TravelExpenses"),
         value = TravelExpenses.toString,
         content = Text(messages(s"claimingFor.$TravelExpenses")),
-        hint = Some(Hint(
-          content = HtmlContent(messages(s"claimingFor.$TravelExpenses.description")))
-        )
+        hint = Some(Hint(content = HtmlContent(messages(s"claimingFor.$TravelExpenses.description"))))
       ),
       feesOption,
       buyingOption,
@@ -145,4 +155,5 @@ object ClaimingFor {
     BuyingEquipment.toString       -> BuyingEquipment,
     Other.toString                 -> Other
   )
+
 }

@@ -31,46 +31,50 @@ import views.html.ClaimingForView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class ClaimingForController @Inject()(
-                                        dataCacheConnector: DataCacheConnector,
-                                        navigator: Navigator,
-                                        getData: DataRetrievalAction,
-                                        formProvider: ClaimingForFormProvider,
-                                        val controllerComponents: MessagesControllerComponents,
-                                        view: ClaimingForView
-                                     )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
+class ClaimingForController @Inject() (
+    dataCacheConnector: DataCacheConnector,
+    navigator: Navigator,
+    getData: DataRetrievalAction,
+    formProvider: ClaimingForFormProvider,
+    val controllerComponents: MessagesControllerComponents,
+    view: ClaimingForView
+)(implicit ec: ExecutionContext)
+    extends FrontendBaseController
+    with I18nSupport
+    with Enumerable.Implicits {
 
-  def onPageLoad: Action[AnyContent] = getData {
-    implicit request =>
-      val form = formProvider()
-      val preparedForm = request.userAnswers.flatMap(_.claimingFor) match {
-        case None => form
-        case Some(value) => form.fill(value.toSet)
-      }
+  def onPageLoad: Action[AnyContent] = getData { implicit request =>
+    val form = formProvider()
+    val preparedForm = request.userAnswers.flatMap(_.claimingFor) match {
+      case None        => form
+      case Some(value) => form.fill(value.toSet)
+    }
 
-      val backLinkEnabled: Boolean = request.userAnswers.flatMap(_.claimAnyOtherExpense) match {
-        case None | Some(true) => false
-        case Some(false)       => true
-      }
+    val backLinkEnabled: Boolean = request.userAnswers.flatMap(_.claimAnyOtherExpense) match {
+      case None | Some(true) => false
+      case Some(false)       => true
+    }
 
-      Ok(view(preparedForm, backLinkEnabled))
+    Ok(view(preparedForm, backLinkEnabled))
   }
 
-  def onSubmit: Action[AnyContent] = getData.async {
-    implicit request =>
-      val form = formProvider()
+  def onSubmit: Action[AnyContent] = getData.async { implicit request =>
+    val form = formProvider()
 
-      val backLinkEnabled: Boolean = request.userAnswers.flatMap(_.claimAnyOtherExpense) match {
-        case None | Some(true) => false
-        case Some(false) => true
-      }
+    val backLinkEnabled: Boolean = request.userAnswers.flatMap(_.claimAnyOtherExpense) match {
+      case None | Some(true) => false
+      case Some(false)       => true
+    }
 
-      form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(formWithErrors, backLinkEnabled))),
+    form
+      .bindFromRequest()
+      .fold(
+        (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors, backLinkEnabled))),
         value =>
-          dataCacheConnector.save[Set[ClaimingFor]](request.sessionId, ClaimingForId, value).map(cacheMap =>
-            Redirect(navigator.nextPage(ClaimingForId)(new UserAnswers(cacheMap))))
+          dataCacheConnector
+            .save[Set[ClaimingFor]](request.sessionId, ClaimingForId, value)
+            .map(cacheMap => Redirect(navigator.nextPage(ClaimingForId)(new UserAnswers(cacheMap))))
       )
   }
+
 }

@@ -38,4 +38,5 @@ class CannotClaimReliefSomeYearsControllerSpec extends SpecBase {
       application.stop()
     }
   }
+
 }

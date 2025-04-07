@@ -34,8 +34,8 @@ class ClaimingForListBuilder {
 
   private def buildListFromUserAnswers(userAnswers: UserAnswers): List[ClaimingFor] = {
     def containsMileageFuel = userAnswers.claimingFor.exists(_.contains(MileageFuel))
-    def isClaimingMileage = userAnswers.claimingMileage.getOrElse(false)
-    def isClaimingFuel = userAnswers.claimingFuel.getOrElse(false)
+    def isClaimingMileage   = userAnswers.claimingMileage.getOrElse(false)
+    def isClaimingFuel      = userAnswers.claimingFuel.getOrElse(false)
 
     val claimingForList = userAnswers.claimingFor.getOrElse(Nil)
 
@@ -45,4 +45,5 @@ class ClaimingForListBuilder {
       claimingForList.filterNot(_ == MileageFuel)
     }
   }
+
 }

@@ -27,4 +27,5 @@ class WillPayTaxFormProvider @Inject() extends Mappings {
     Form(
       "value" -> boolean(s"willPayTax.error.required", year)
     )
+
 }

@@ -25,17 +25,18 @@ import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import utils.Navigator
 import views.html.NotEntitledSomeYearsView
 
-class NotEntitledSomeYearsController @Inject()(
-                                                navigator: Navigator,
-                                                getData: DataRetrievalAction,
-                                                requireData: DataRequiredAction,
-                                                val controllerComponents: MessagesControllerComponents,
-                                                view: NotEntitledSomeYearsView
-                                              ) extends FrontendBaseController with I18nSupport {
+class NotEntitledSomeYearsController @Inject() (
+    navigator: Navigator,
+    getData: DataRetrievalAction,
+    requireData: DataRequiredAction,
+    val controllerComponents: MessagesControllerComponents,
+    view: NotEntitledSomeYearsView
+) extends FrontendBaseController
+    with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
-    implicit request =>
-      val nextPage = navigator.nextPage(NotEntitledSomeYearsId)(request.userAnswers)
-      Ok(view(nextPage))
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
+    val nextPage = navigator.nextPage(NotEntitledSomeYearsId)(request.userAnswers)
+    Ok(view(nextPage))
   }
+
 }

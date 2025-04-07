@@ -36,4 +36,5 @@ class CannotClaimMileageFuelCostsControllerSpec extends SpecBase {
       application.stop()
     }
   }
+
 }

@@ -37,20 +37,22 @@ class RegisteredForSelfAssessmentViewSpec extends NewYesNoViewBehaviours {
 
   "RegisteredForSelfAssessment view" must {
 
-    behave like normalPage(createView(form), messageKeyPrefix)
-    behave like yesNoPage(createView, messageKeyPrefix, routes.RegisteredForSelfAssessmentController.onSubmit().url)
-    behave like pageWithBackLink(createView(form))
-    behave like pageWithBodyText(
-      createView(form),
-      "registeredForSelfAssessment.accordion.list1.item1",
-      "registeredForSelfAssessment.accordion.guidance1",
-      "registeredForSelfAssessment.accordion.list1.item1",
-      "registeredForSelfAssessment.accordion.list1.item2",
-      "registeredForSelfAssessment.accordion.guidance2",
-      "registeredForSelfAssessment.accordion.list2.item1",
-      "registeredForSelfAssessment.accordion.list2.item2",
-      "registeredForSelfAssessment.accordion.list2.item3",
-      "registeredForSelfAssessment.accordion.list2.item4"
+    behave.like(normalPage(createView(form), messageKeyPrefix))
+    behave.like(yesNoPage(createView, messageKeyPrefix, routes.RegisteredForSelfAssessmentController.onSubmit().url))
+    behave.like(pageWithBackLink(createView(form)))
+    behave.like(
+      pageWithBodyText(
+        createView(form),
+        "registeredForSelfAssessment.accordion.list1.item1",
+        "registeredForSelfAssessment.accordion.guidance1",
+        "registeredForSelfAssessment.accordion.list1.item1",
+        "registeredForSelfAssessment.accordion.list1.item2",
+        "registeredForSelfAssessment.accordion.guidance2",
+        "registeredForSelfAssessment.accordion.list2.item1",
+        "registeredForSelfAssessment.accordion.list2.item2",
+        "registeredForSelfAssessment.accordion.list2.item3",
+        "registeredForSelfAssessment.accordion.list2.item4"
+      )
     )
   }
 

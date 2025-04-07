@@ -36,11 +36,11 @@ class UseOwnCarViewSpec extends NewYesNoViewBehaviours {
 
   "UseOwnCar view" must {
 
-    behave like normalPage(createView(form), messageKeyPrefix)
+    behave.like(normalPage(createView(form), messageKeyPrefix))
 
-    behave like yesNoPage(createView, messageKeyPrefix, routes.UseOwnCarController.onSubmit().url)
+    behave.like(yesNoPage(createView, messageKeyPrefix, routes.UseOwnCarController.onSubmit().url))
 
-    behave like pageWithBackLink(createView(form))
+    behave.like(pageWithBackLink(createView(form)))
   }
 
   application.stop()

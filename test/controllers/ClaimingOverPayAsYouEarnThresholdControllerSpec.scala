@@ -28,21 +28,27 @@ import play.api.inject.bind
 import play.api.libs.json.{JsBoolean, JsString}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{CacheMap, NavigatorSupport, Navigator}
+import utils.{CacheMap, Navigator, NavigatorSupport}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ClaimingOverPayAsYouEarnThresholdControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach
-  with ScalaFutures with IntegrationPatience with NavigatorSupport {
+class ClaimingOverPayAsYouEarnThresholdControllerSpec
+    extends SpecBase
+    with MockitoSugar
+    with BeforeAndAfterEach
+    with ScalaFutures
+    with IntegrationPatience
+    with NavigatorSupport {
 
-  def onwardRoute = routes.IndexController.onPageLoad
+  def onwardRoute       = routes.IndexController.onPageLoad
   def claimingOverRoute = routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad().url
 
   private val mockDataCacheConnector = mock[DataCacheConnector]
+
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
-    when(mockDataCacheConnector.save(any(),any(),any())(any())) thenReturn Future(new CacheMap("id", Map()))
+    when(mockDataCacheConnector.save(any(), any(), any())(any())).thenReturn(Future(new CacheMap("id", Map())))
   }
 
   "ClaimingOverPayAsYouEarnThreshold Controller" must {
@@ -50,8 +56,8 @@ class ClaimingOverPayAsYouEarnThresholdControllerSpec extends SpecBase with Mock
     "return OK and the correct view for a GET" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
-      val request = FakeRequest(GET, claimingOverRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, claimingOverRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe OK
 
@@ -62,24 +68,24 @@ class ClaimingOverPayAsYouEarnThresholdControllerSpec extends SpecBase with Mock
 
       val validData = Map(
         ClaimingOverPayAsYouEarnThresholdId.toString -> JsBoolean(true),
-        ClaimantId.toString -> JsString(claimant.toString)
+        ClaimantId.toString                          -> JsString(claimant.toString)
       )
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
-      val request = FakeRequest(GET, claimingOverRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, claimingOverRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe OK
 
       application.stop()
     }
 
-
     "redirect to the next page when valid data is submitted" in {
       val application = applicationBuilder(Some(claimantIdCacheMap))
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
-        ).build()
+        )
+        .build()
 
       val request = FakeRequest(POST, claimingOverRoute)
         .withFormUrlEncodedBody(("value", "true"))
@@ -94,8 +100,8 @@ class ClaimingOverPayAsYouEarnThresholdControllerSpec extends SpecBase with Mock
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
-      val request = FakeRequest(POST, claimingOverRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(POST, claimingOverRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe BAD_REQUEST
 
@@ -106,8 +112,8 @@ class ClaimingOverPayAsYouEarnThresholdControllerSpec extends SpecBase with Mock
     "redirect to Session Expired for a GET if no existing data is found" in {
 
       val application = applicationBuilder().build()
-      val request = FakeRequest(GET, claimingOverRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, claimingOverRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(sessionExpiredUrl)
@@ -118,8 +124,8 @@ class ClaimingOverPayAsYouEarnThresholdControllerSpec extends SpecBase with Mock
     "redirect to Session Expired for a POST if no existing data is found" in {
 
       val application = applicationBuilder().build()
-      val request = FakeRequest(POST, claimingOverRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(POST, claimingOverRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(sessionExpiredUrl)
@@ -127,4 +133,5 @@ class ClaimingOverPayAsYouEarnThresholdControllerSpec extends SpecBase with Mock
       application.stop()
     }
   }
+
 }

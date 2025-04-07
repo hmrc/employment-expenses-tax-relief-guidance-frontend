@@ -33,28 +33,33 @@ import utils.CacheMap
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach
-  with ScalaFutures with IntegrationPatience {
+class WhichYearsAreYouClaimingForControllerSpec
+    extends SpecBase
+    with MockitoSugar
+    with BeforeAndAfterEach
+    with ScalaFutures
+    with IntegrationPatience {
 
   def onwardRoute = routes.IndexController.onPageLoad
 
   def whichYearsAreYouClaimingForRoute = routes.WhichYearsAreYouClaimingForController.onPageLoad().url
 
   private val mockDataCacheConnector = mock[DataCacheConnector]
+
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
-    when(mockDataCacheConnector.save(any(),any(),any())(any())) thenReturn Future(new CacheMap("id", Map()))
+    when(mockDataCacheConnector.save(any(), any(), any())(any())).thenReturn(Future(new CacheMap("id", Map())))
   }
 
   val formProvider = new WhichYearsAreYouClaimingForFormProvider()
-  val form = formProvider()
+  val form         = formProvider()
 
   "WhichYearsAreYouClaimingFor Controller" must {
 
     "redirect to session expired controller/view when we have no existing session data" in {
       val application = applicationBuilder().build()
-      val request = FakeRequest(GET, whichYearsAreYouClaimingForRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, whichYearsAreYouClaimingForRoute)
+      val result      = route(application, request).value
 
       status(result) mustEqual SEE_OTHER
       redirectLocation(result) mustBe Some(routes.SessionExpiredController.onPageLoad.url)
@@ -64,19 +69,21 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
 
     "return OK and the correct view for a GET" in {
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
-      val request = FakeRequest(GET, whichYearsAreYouClaimingForRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, whichYearsAreYouClaimingForRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe OK
       application.stop()
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validData = Map(ClaimantId.toString -> JsString(claimant.toString),
-        RegisteredForSelfAssessmentId.toString -> JsBoolean(true))
+      val validData = Map(
+        ClaimantId.toString                    -> JsString(claimant.toString),
+        RegisteredForSelfAssessmentId.toString -> JsBoolean(true)
+      )
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
-      val request = FakeRequest(GET, whichYearsAreYouClaimingForRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, whichYearsAreYouClaimingForRoute)
+      val result      = route(application, request).value
       contentAsString(result).contains("Does your claim include tax years on or after 6 April 2023?") mustBe true
 
       application.stop()
@@ -129,8 +136,8 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
 
     "redirect to Session Expired for a GET if no existing data is found" in {
       val application = applicationBuilder().build()
-      val request = FakeRequest(GET, whichYearsAreYouClaimingForRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, whichYearsAreYouClaimingForRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl
@@ -140,8 +147,8 @@ class WhichYearsAreYouClaimingForControllerSpec extends SpecBase with MockitoSug
     }
     "redirect to Session Expired for a POST if no existing data is found" in {
       val application = applicationBuilder().build()
-      val request = FakeRequest(POST, whichYearsAreYouClaimingForRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(POST, whichYearsAreYouClaimingForRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl

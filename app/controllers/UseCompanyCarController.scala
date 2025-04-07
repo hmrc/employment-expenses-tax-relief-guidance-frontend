@@ -33,58 +33,54 @@ import views.html.UseCompanyCarView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class UseCompanyCarController @Inject()(
-                                         dataCacheConnector: DataCacheConnector,
-                                         navigator: Navigator,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         formProvider: UseCompanyCarFormProvider,
-                                         val controllerComponents: MessagesControllerComponents,
-                                         view: UseCompanyCarView
-                                       )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
+class UseCompanyCarController @Inject() (
+    dataCacheConnector: DataCacheConnector,
+    navigator: Navigator,
+    getData: DataRetrievalAction,
+    requireData: DataRequiredAction,
+    formProvider: UseCompanyCarFormProvider,
+    val controllerComponents: MessagesControllerComponents,
+    view: UseCompanyCarView
+)(implicit ec: ExecutionContext)
+    extends FrontendBaseController
+    with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData).async {
-    implicit request =>
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+    getUseOfOwnCar { useOfOwnCar =>
+      val form: Form[Boolean] = formProvider(useOfOwnCar)
 
-      getUseOfOwnCar {
-        useOfOwnCar =>
-
-          val form: Form[Boolean] = formProvider(useOfOwnCar)
-
-          val preparedForm = request.userAnswers.useCompanyCar match {
-            case None => form
-            case Some(value) => form.fill(value)
-          }
-          Future.successful(Ok(view(preparedForm, useOfOwnCar)))
+      val preparedForm = request.userAnswers.useCompanyCar match {
+        case None        => form
+        case Some(value) => form.fill(value)
       }
-  }
-
-  def onSubmit: Action[AnyContent] = (getData andThen requireData).async {
-    implicit request =>
-
-      getUseOfOwnCar {
-        useOfOwnCar =>
-
-          val form: Form[Boolean] = formProvider(useOfOwnCar)
-
-          form.bindFromRequest().fold(
-            (formWithErrors: Form[_]) =>
-              Future.successful(BadRequest(view(formWithErrors, useOfOwnCar))),
-            value =>
-              dataCacheConnector.save[Boolean](request.sessionId, UseCompanyCarId, value).map(cacheMap =>
-                Redirect(navigator.nextPage(UseCompanyCarId)(new UserAnswers(cacheMap)))
-              )
-          )
-      }
-  }
-
-  private def getUseOfOwnCar(block: UseOfOwnCar => Future[Result])
-                            (implicit request: DataRequest[AnyContent]): Future[Result] = {
-
-    request.userAnswers.useOwnCar match {
-      case Some(true) => block(UsingOwnCar)
-      case Some(false) => block(NotUsingOwnCar)
-      case None => Future.successful(Redirect(routes.SessionExpiredController.onPageLoad))
+      Future.successful(Ok(view(preparedForm, useOfOwnCar)))
     }
   }
+
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+    getUseOfOwnCar { useOfOwnCar =>
+      val form: Form[Boolean] = formProvider(useOfOwnCar)
+
+      form
+        .bindFromRequest()
+        .fold(
+          (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors, useOfOwnCar))),
+          value =>
+            dataCacheConnector
+              .save[Boolean](request.sessionId, UseCompanyCarId, value)
+              .map(cacheMap => Redirect(navigator.nextPage(UseCompanyCarId)(new UserAnswers(cacheMap))))
+        )
+    }
+  }
+
+  private def getUseOfOwnCar(
+      block: UseOfOwnCar => Future[Result]
+  )(implicit request: DataRequest[AnyContent]): Future[Result] =
+
+    request.userAnswers.useOwnCar match {
+      case Some(true)  => block(UsingOwnCar)
+      case Some(false) => block(NotUsingOwnCar)
+      case None        => Future.successful(Redirect(routes.SessionExpiredController.onPageLoad))
+    }
+
 }

@@ -27,4 +27,5 @@ class MoreThanFiveJobsFormProvider @Inject() extends Mappings {
     Form(
       "value" -> boolean("moreThanFiveJobs.error.required")
     )
+
 }

@@ -24,20 +24,20 @@ import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import utils.Navigator
 import views.html.SessionExpiredView
 
-class SessionExpiredController @Inject()(
-                                          navigator: Navigator,
-                                          val controllerComponents: MessagesControllerComponents,
-                                          view: SessionExpiredView,
-                                          appConfig: FrontendAppConfig
-                                        ) extends FrontendBaseController with I18nSupport {
+class SessionExpiredController @Inject() (
+    navigator: Navigator,
+    val controllerComponents: MessagesControllerComponents,
+    view: SessionExpiredView,
+    appConfig: FrontendAppConfig
+) extends FrontendBaseController
+    with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = Action {
-    implicit request =>
-
-      if (appConfig.workingFromHomeExpensesOnlyEnabled) {
-        Ok(view(Call("GET", appConfig.taxReliefForEmployeesUrl)))
-      } else {
-        Ok(view(navigator.firstPage))
-      }
+  def onPageLoad: Action[AnyContent] = Action { implicit request =>
+    if (appConfig.workingFromHomeExpensesOnlyEnabled) {
+      Ok(view(Call("GET", appConfig.taxReliefForEmployeesUrl)))
+    } else {
+      Ok(view(navigator.firstPage))
+    }
   }
+
 }

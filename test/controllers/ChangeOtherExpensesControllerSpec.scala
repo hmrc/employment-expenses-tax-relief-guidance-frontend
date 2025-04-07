@@ -31,13 +31,19 @@ import utils.{CacheMap, Navigator, NavigatorSupport}
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ChangeOtherExpensesControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach
-  with ScalaFutures with IntegrationPatience with NavigatorSupport {
+class ChangeOtherExpensesControllerSpec
+    extends SpecBase
+    with MockitoSugar
+    with BeforeAndAfterEach
+    with ScalaFutures
+    with IntegrationPatience
+    with NavigatorSupport {
 
   private val mockDataCacheConnector = mock[DataCacheConnector]
+
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
-    when(mockDataCacheConnector.save(any(),any(),any())(any())) thenReturn Future(new CacheMap("id", Map()))
+    when(mockDataCacheConnector.save(any(), any(), any())(any())).thenReturn(Future(new CacheMap("id", Map())))
   }
 
   def onwardRoute = routes.IndexController.onPageLoad
@@ -50,19 +56,20 @@ class ChangeOtherExpensesControllerSpec extends SpecBase with MockitoSugar with 
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
-        ).build()
+        )
+        .build()
 
       val request = FakeRequest(GET, routes.ChangeOtherExpensesController.onPageLoad().url)
 
       val result = route(application, request)
 
-      result.map {
-        result =>
-          status(result) mustBe SEE_OTHER
-          redirectLocation(result) mustBe Some(onwardRoute.url)
+      result.map { result =>
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result) mustBe Some(onwardRoute.url)
       }
 
       application.stop()
     }
   }
+
 }

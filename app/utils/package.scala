@@ -20,11 +20,9 @@ package object utils {
 
   implicit class RichField(field: Field) {
 
-    def values: Seq[String] = {
-      field.value.toSeq ++ field.indexes.flatMap {
-        i =>
-          field(s"[$i]").value
-      }
-    }
+    def values: Seq[String] =
+      field.value.toSeq ++ field.indexes.flatMap(i => field(s"[$i]").value)
+
   }
+
 }

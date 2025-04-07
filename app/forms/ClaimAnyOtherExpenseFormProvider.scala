@@ -27,4 +27,5 @@ class ClaimAnyOtherExpenseFormProvider @Inject() extends Mappings {
     Form(
       "value" -> boolean("claimAnyOtherExpense.error.required")
     )
+
 }

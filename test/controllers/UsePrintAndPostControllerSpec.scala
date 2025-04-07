@@ -41,13 +41,13 @@ import scala.concurrent.ExecutionContext.Implicits.global
 class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach with BeforeAndAfterAll {
 
   private val claimingForListBuilder = mock[ClaimingForListBuilder]
-  private val cacheMap = mock[CacheMap]
-  private val appConfig = mock[FrontendAppConfig]
+  private val cacheMap               = mock[CacheMap]
+  private val appConfig              = mock[FrontendAppConfig]
 
-  private val usePrintAndPostView = mock[UsePrintAndPostView]
+  private val usePrintAndPostView         = mock[UsePrintAndPostView]
   private val usePrintAndPostDetailedView = mock[UsePrintAndPostDetailedView]
-  private val usePrintAndPostFreOnlyView = mock[UsePrintAndPostFreOnlyView]
-  private val useIformFreOnlyView = mock[UseIformFreOnlyView]
+  private val usePrintAndPostFreOnlyView  = mock[UsePrintAndPostFreOnlyView]
+  private val useIformFreOnlyView         = mock[UseIformFreOnlyView]
 
   private val application = applicationBuilder(Some(cacheMap))
     .overrides(
@@ -79,9 +79,12 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
 
     when(cacheMap.getEntry(any[String])(any[Reads[_]])).thenReturn(None)
 
-    when(usePrintAndPostView.apply(any[Boolean], any[Boolean])(any[Request[_]], any[Messages])).thenReturn(HtmlFormat.empty)
-    when(usePrintAndPostDetailedView.apply(any[List[ClaimingFor]])(any[Request[_]], any[Messages])).thenReturn(HtmlFormat.empty)
-    when(usePrintAndPostFreOnlyView.apply(any[List[ClaimingFor]])(any[Request[_]], any[Messages])).thenReturn(HtmlFormat.empty)
+    when(usePrintAndPostView.apply(any[Boolean], any[Boolean])(any[Request[_]], any[Messages]))
+      .thenReturn(HtmlFormat.empty)
+    when(usePrintAndPostDetailedView.apply(any[List[ClaimingFor]])(any[Request[_]], any[Messages]))
+      .thenReturn(HtmlFormat.empty)
+    when(usePrintAndPostFreOnlyView.apply(any[List[ClaimingFor]])(any[Request[_]], any[Messages]))
+      .thenReturn(HtmlFormat.empty)
     when(useIformFreOnlyView.apply(any[List[ClaimingFor]])(any[Request[_]], any[Messages])).thenReturn(HtmlFormat.empty)
   }
 
@@ -93,7 +96,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
   "UsePrintAndPostController" must {
 
     def usePrintAndPostRoute = routes.UsePrintAndPostController.onPageLoad().url
-    def testRequest = FakeRequest(GET, usePrintAndPostRoute)
+    def testRequest          = FakeRequest(GET, usePrintAndPostRoute)
 
     "return OK and the correct view for a GET" when {
 
@@ -208,4 +211,5 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
       }
     }
   }
+
 }

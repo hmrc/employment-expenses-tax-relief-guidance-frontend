@@ -33,7 +33,6 @@ import play.api.mvc.{AnyContentAsEmpty, MessagesControllerComponents}
 import play.api.test.FakeRequest
 import utils.{CacheMap, UserAnswers}
 
-
 trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
 
   def injector: Injector = app.injector
@@ -67,6 +66,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
       Some(CacheMap(cacheMapId, Map(ClaimantId.toString -> JsString(claimant.toString)))),
       controllerComponents
     )
+
   implicit def messages: Messages = messagesApi.preferred(fakeRequest)
 
   protected def applicationBuilder(cacheMap: Option[CacheMap] = None): GuiceApplicationBuilder =
@@ -75,4 +75,5 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
         bind[DataRequiredAction].to[DataRequiredActionImpl],
         bind[DataRetrievalAction].toInstance(new FakeDataRetrievalAction(cacheMap, controllerComponents))
       )
+
 }

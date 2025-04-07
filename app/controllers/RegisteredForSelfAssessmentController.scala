@@ -32,40 +32,40 @@ import views.html.RegisteredForSelfAssessmentView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class RegisteredForSelfAssessmentController @Inject()(
-                                                       dataCacheConnector: DataCacheConnector,
-                                                       navigator: Navigator,
-                                                       getData: DataRetrievalAction,
-                                                       requireData: DataRequiredAction,
-                                                       formProvider: RegisteredForSelfAssessmentFormProvider,
-                                                       val controllerComponents: MessagesControllerComponents,
-                                                       view: RegisteredForSelfAssessmentView,
-                                                       appConfig: FrontendAppConfig
-                                                     )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
+class RegisteredForSelfAssessmentController @Inject() (
+    dataCacheConnector: DataCacheConnector,
+    navigator: Navigator,
+    getData: DataRetrievalAction,
+    requireData: DataRequiredAction,
+    formProvider: RegisteredForSelfAssessmentFormProvider,
+    val controllerComponents: MessagesControllerComponents,
+    view: RegisteredForSelfAssessmentView,
+    appConfig: FrontendAppConfig
+)(implicit ec: ExecutionContext)
+    extends FrontendBaseController
+    with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
-    implicit request =>
-      val form: Form[Boolean] = formProvider()
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
+    val form: Form[Boolean] = formProvider()
 
-      val preparedForm = request.userAnswers.registeredForSelfAssessment match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
+    val preparedForm = request.userAnswers.registeredForSelfAssessment match {
+      case None        => form
+      case Some(value) => form.fill(value)
+    }
 
-      Ok(view(preparedForm))
+    Ok(view(preparedForm))
   }
 
-  def onSubmit: Action[AnyContent] = (getData andThen requireData).async {
-    implicit request =>
-
-      formProvider().bindFromRequest().fold(
-        (formWithErrors: Form[_]) => {
-          Future.successful(BadRequest(view(formWithErrors)))
-        },
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+    formProvider()
+      .bindFromRequest()
+      .fold(
+        (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors))),
         value =>
-          dataCacheConnector.save[Boolean](request.sessionId, RegisteredForSelfAssessmentId, value).map(cacheMap =>
-            Redirect(navigator.nextPage(RegisteredForSelfAssessmentId)(new UserAnswers(cacheMap)))
-          )
+          dataCacheConnector
+            .save[Boolean](request.sessionId, RegisteredForSelfAssessmentId, value)
+            .map(cacheMap => Redirect(navigator.nextPage(RegisteredForSelfAssessmentId)(new UserAnswers(cacheMap))))
       )
   }
+
 }

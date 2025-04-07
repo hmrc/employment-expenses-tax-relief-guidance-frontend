@@ -32,42 +32,43 @@ import views.html.ClaimAnyOtherExpenseView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-
-
-class ClaimAnyOtherExpenseController @Inject()(
-                                                dataCacheConnector: DataCacheConnector,
-                                                navigator: Navigator,
-                                                getData: DataRetrievalAction,
-                                                flowEnabled: WorkingFromHomeEnabledAction,
-                                                formProvider: ClaimAnyOtherExpenseFormProvider,
-                                                val controllerComponents: MessagesControllerComponents,
-                                                view: ClaimAnyOtherExpenseView
-                                   )(implicit ec: ExecutionContext) extends FrontendBaseController
-  with I18nSupport with Enumerable.Implicits with Logging {
+class ClaimAnyOtherExpenseController @Inject() (
+    dataCacheConnector: DataCacheConnector,
+    navigator: Navigator,
+    getData: DataRetrievalAction,
+    flowEnabled: WorkingFromHomeEnabledAction,
+    formProvider: ClaimAnyOtherExpenseFormProvider,
+    val controllerComponents: MessagesControllerComponents,
+    view: ClaimAnyOtherExpenseView
+)(implicit ec: ExecutionContext)
+    extends FrontendBaseController
+    with I18nSupport
+    with Enumerable.Implicits
+    with Logging {
 
   val form: Form[Boolean] = formProvider()
 
-  def redirectToHome: Action[AnyContent] = (flowEnabled andThen getData) {
-      Redirect(routes.ClaimAnyOtherExpenseController.onPageLoad())
-  }
-  def onPageLoad: Action[AnyContent] = (flowEnabled andThen getData) {
-    implicit request =>
-      val preparedForm = request.userAnswers.flatMap(_.claimAnyOtherExpense) match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-      Ok(view(preparedForm))
+  def redirectToHome: Action[AnyContent] = flowEnabled.andThen(getData) {
+    Redirect(routes.ClaimAnyOtherExpenseController.onPageLoad())
   }
 
-  def onSubmit: Action[AnyContent] = (flowEnabled andThen getData).async {
-    implicit request =>
-      form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) => {
-          Future.successful(BadRequest(view(formWithErrors)))
-        },
+  def onPageLoad: Action[AnyContent] = flowEnabled.andThen(getData) { implicit request =>
+    val preparedForm = request.userAnswers.flatMap(_.claimAnyOtherExpense) match {
+      case None        => form
+      case Some(value) => form.fill(value)
+    }
+    Ok(view(preparedForm))
+  }
+
+  def onSubmit: Action[AnyContent] = flowEnabled.andThen(getData).async { implicit request =>
+    form
+      .bindFromRequest()
+      .fold(
+        (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors))),
         value =>
-          dataCacheConnector.save[Boolean](request.sessionId, ClaimAnyOtherExpenseId, value).map(cacheMap =>
-          Redirect(navigator.nextPage(ClaimAnyOtherExpenseId)(new UserAnswers(cacheMap))))
+          dataCacheConnector
+            .save[Boolean](request.sessionId, ClaimAnyOtherExpenseId, value)
+            .map(cacheMap => Redirect(navigator.nextPage(ClaimAnyOtherExpenseId)(new UserAnswers(cacheMap))))
       )
   }
 

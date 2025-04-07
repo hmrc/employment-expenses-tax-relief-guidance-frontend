@@ -22,19 +22,19 @@ sealed trait EmployerPaid
 
 object EmployerPaid {
 
-  case object NoExpenses extends WithName("noExpenses") with EmployerPaid
+  case object NoExpenses   extends WithName("noExpenses") with EmployerPaid
   case object SomeExpenses extends WithName("someExpenses") with EmployerPaid
-  case object AllExpenses extends WithName("allExpenses") with EmployerPaid
+  case object AllExpenses  extends WithName("allExpenses") with EmployerPaid
 
   val values: Set[EmployerPaid] = Set(
-    NoExpenses, SomeExpenses, AllExpenses
+    NoExpenses,
+    SomeExpenses,
+    AllExpenses
   )
 
-  val options: Set[RadioOption] = values.map {
-    value =>
-      RadioOption("employerPaid", value.toString)
-  }
+  val options: Set[RadioOption] = values.map(value => RadioOption("employerPaid", value.toString))
 
   implicit val enumerable: Enumerable[EmployerPaid] =
     Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+
 }

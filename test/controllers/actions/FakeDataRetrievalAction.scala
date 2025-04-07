@@ -23,16 +23,17 @@ import utils.{CacheMap, UserAnswers}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class FakeDataRetrievalAction @Inject()(cacheMapToReturn: Option[CacheMap], mcc: MessagesControllerComponents) extends DataRetrievalAction {
+class FakeDataRetrievalAction @Inject() (cacheMapToReturn: Option[CacheMap], mcc: MessagesControllerComponents)
+    extends DataRetrievalAction {
+
   override protected def transform[A](request: Request[A]): Future[OptionalDataRequest[A]] =
     cacheMapToReturn match {
-      case None => Future(OptionalDataRequest(request, "id", None))
+      case None           => Future(OptionalDataRequest(request, "id", None))
       case Some(cacheMap) => Future(OptionalDataRequest(request, "id", Some(new UserAnswers(cacheMap))))
-  }
+    }
 
   override protected implicit val executionContext: ExecutionContext =
     scala.concurrent.ExecutionContext.Implicits.global
 
-
-  override def parser: BodyParser[AnyContent] = mcc.parsers.anyContent//Helpers.stubBodyParser[AnyContent]()
+  override def parser: BodyParser[AnyContent] = mcc.parsers.anyContent // Helpers.stubBodyParser[AnyContent]()
 }

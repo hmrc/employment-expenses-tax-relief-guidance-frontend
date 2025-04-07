@@ -36,10 +36,10 @@ class WhichYearsAreYouClaimingForViewSpec extends NewYesNoViewBehaviours {
 
   "WhichYearsAreYouClaimingFor view" must {
 
-      behave like normalPage(createView(form), messageKeyPrefix)
-      behave like yesNoPage(createView(_), messageKeyPrefix, routes.WhichYearsAreYouClaimingForController.onSubmit().url)
-      behave like pageWithBackLink(createView(form))
-    }
+    behave.like(normalPage(createView(form), messageKeyPrefix))
+    behave.like(yesNoPage(createView(_), messageKeyPrefix, routes.WhichYearsAreYouClaimingForController.onSubmit().url))
+    behave.like(pageWithBackLink(createView(form)))
+  }
 
   application.stop()
 }

@@ -26,42 +26,42 @@ import views.html.{UseIformFreOnlyView, UsePrintAndPostDetailedView, UsePrintAnd
 
 import javax.inject.Inject
 
-class UsePrintAndPostController @Inject()(
-                                           getData: DataRetrievalAction,
-                                           requireData: DataRequiredAction,
-                                           val controllerComponents: MessagesControllerComponents,
-                                           claimingForListBuilder: ClaimingForListBuilder,
-                                           view: UsePrintAndPostView,
-                                           appConfig: FrontendAppConfig,
-                                           detailedView: UsePrintAndPostDetailedView,
-                                           freOnlyPrintAndPostView: UsePrintAndPostFreOnlyView,
-                                           freOnlyIformView: UseIformFreOnlyView
-                                         ) extends FrontendBaseController with I18nSupport {
+class UsePrintAndPostController @Inject() (
+    getData: DataRetrievalAction,
+    requireData: DataRequiredAction,
+    val controllerComponents: MessagesControllerComponents,
+    claimingForListBuilder: ClaimingForListBuilder,
+    view: UsePrintAndPostView,
+    appConfig: FrontendAppConfig,
+    detailedView: UsePrintAndPostDetailedView,
+    freOnlyPrintAndPostView: UsePrintAndPostFreOnlyView,
+    freOnlyIformView: UseIformFreOnlyView
+) extends FrontendBaseController
+    with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
-    implicit request =>
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
+    (appConfig.freOnlyJourneyEnabled, appConfig.onlineJourneyShutterEnabled) match {
 
-      (appConfig.freOnlyJourneyEnabled, appConfig.onlineJourneyShutterEnabled) match {
+      case (true, _) =>
+        val sortedList = claimingForListBuilder.buildClaimingForList(request.userAnswers)
+        request.userAnswers.moreThanFiveJobs match {
+          case Some(true) => Ok(freOnlyPrintAndPostView(sortedList))
+          case _          => Ok(freOnlyIformView(sortedList))
+        }
 
-        case (true, _) =>
-          val sortedList = claimingForListBuilder.buildClaimingForList(request.userAnswers)
-          request.userAnswers.moreThanFiveJobs match {
-            case Some(true) => Ok(freOnlyPrintAndPostView(sortedList))
-            case _          => Ok(freOnlyIformView(sortedList))
-          }
+      case (false, true) =>
+        val sortedList = claimingForListBuilder.buildClaimingForList(request.userAnswers)
+        Ok(detailedView(sortedList))
 
-        case (false, true) =>
-          val sortedList = claimingForListBuilder.buildClaimingForList(request.userAnswers)
-          Ok(detailedView(sortedList))
-
-        case _ =>
-          val fuelCosts = request.userAnswers.claimingFuel.getOrElse(false)
-          val mileageCosts = request.userAnswers.claimingMileage.getOrElse(false)
-          Ok(view(fuelCosts, mileageCosts))
-      }
+      case _ =>
+        val fuelCosts    = request.userAnswers.claimingFuel.getOrElse(false)
+        val mileageCosts = request.userAnswers.claimingMileage.getOrElse(false)
+        Ok(view(fuelCosts, mileageCosts))
+    }
   }
 
-  def printAndPostGuidance: Action[AnyContent] = (getData andThen requireData) {
+  def printAndPostGuidance: Action[AnyContent] = getData.andThen(requireData) {
     Redirect(appConfig.employeeExpensesClaimByPostUrl)
   }
+
 }
