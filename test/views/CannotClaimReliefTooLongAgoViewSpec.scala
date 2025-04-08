@@ -29,7 +29,7 @@ class CannotClaimReliefTooLongAgoViewSpec extends NewViewBehaviours {
   val messageKeyPrefix = s"cannotClaimReliefTooLongAgo"
 
   val application = applicationBuilder().build()
-  val view = application.injector.instanceOf[CannotClaimReliefTooLongAgoView]
+  val view        = application.injector.instanceOf[CannotClaimReliefTooLongAgoView]
 
   def createView = view.apply(startYear, endYear)(fakeRequest, messages)
 
@@ -37,11 +37,11 @@ class CannotClaimReliefTooLongAgoViewSpec extends NewViewBehaviours {
 
   "CannotClaimReliefTooLongAgo view" must {
 
-    behave like pageWithBackLink(createView)
-    behave like pageWithHyperLink(createView, taxReliefForEmployeesUrl)
+    behave.like(pageWithBackLink(createView))
+    behave.like(pageWithHyperLink(createView, taxReliefForEmployeesUrl))
 
     "display the correct browser title" in {
-      val doc = asDocument(createView)
+      val doc               = asDocument(createView)
       val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title", frontendAppConfig.earliestTaxYear)
       assertEqualsMessage(doc, "title", expectedFullTitle)
     }

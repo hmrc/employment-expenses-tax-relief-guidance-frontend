@@ -22,31 +22,27 @@ import play.twirl.api.HtmlFormat
 trait RadioOptionViewBehaviours extends NewQuestionViewBehaviours[Int] {
   val numberOfOptions: Int
 
-  def radioOptionPage(createView: (Form[Int]) => HtmlFormat.Appendable,
-                messageKeyPrefix: String,
-                headingArgs: Any*) = {
+  def radioOptionPage(createView: (Form[Int]) => HtmlFormat.Appendable, messageKeyPrefix: String, headingArgs: Any*) =
 
     "behave like a page with a radio options question" when {
       "rendered" must {
         "contain a legend for the question" in {
-          val doc = asDocument(createView(form))
+          val doc     = asDocument(createView(form))
           val legends = doc.getElementsByTag("legend")
           legends.size mustBe 1
-          legends.first.text contains messages(s"$messageKeyPrefix.heading", headingArgs:_*)
+          legends.first.text contains messages(s"$messageKeyPrefix.heading", headingArgs: _*)
         }
 
         "contain an input for the value" in {
           val doc = asDocument(createView(form))
-          for(i <- 1 to numberOfOptions) {
+          for (i <- 1 to numberOfOptions)
             assertRenderedById(doc, answerId(i))
-          }
         }
 
         "have no values checked when rendered with no form" in {
           val doc = asDocument(createView(form))
-          for(i <- 1 to numberOfOptions) {
+          for (i <- 1 to numberOfOptions)
             assert(!doc.getElementById(answerId(i)).hasAttr("checked"))
-          }
         }
 
         "not render an error summary" in {
@@ -55,9 +51,8 @@ trait RadioOptionViewBehaviours extends NewQuestionViewBehaviours[Int] {
         }
       }
 
-      "render with a value" must {
-        behave like answeredRadioOptionPage(createView)
-      }
+      "render with a value" must
+        behave.like(answeredRadioOptionPage(createView))
 
       "render with an error" must {
         "show an error summary" in {
@@ -66,34 +61,30 @@ trait RadioOptionViewBehaviours extends NewQuestionViewBehaviours[Int] {
         }
 
         "show an error in the value field's label" in {
-          val doc = asDocument(createView(form.withError(error)))
+          val doc       = asDocument(createView(form.withError(error)))
           val errorSpan = doc.getElementById("value-error")
           errorSpan.text mustBe s"Error: ${messages(errorMessage)}"
         }
       }
     }
-  }
 
-
-  def answeredRadioOptionPage(createView: Form[Int] => HtmlFormat.Appendable) = {
-    for(answer <- 1 to numberOfOptions){
+  def answeredRadioOptionPage(createView: Form[Int] => HtmlFormat.Appendable) =
+    for (answer <- 1 to numberOfOptions) {
       s"have only the correct value ($answer) checked" in {
         val doc = asDocument(createView(form.fill(answer)))
         assert(doc.getElementById(answerId(answer)).hasAttr("checked"))
-        for(notAnswer <- 1 to numberOfOptions){
-          if(notAnswer != answer){
+        for (notAnswer <- 1 to numberOfOptions)
+          if (notAnswer != answer) {
             assert(!doc.getElementById(answerId(notAnswer)).hasAttr("checked"))
           }
-        }
       }
       s"not render an error summary for value ($answer)" in {
         val doc = asDocument(createView(form.fill(answer)))
         assertNotRenderedById(doc, "error-summary_header")
       }
     }
-  }
 
-  private def answerId(answer: Int): String = {
-    s"value${if(answer != 1) s"-$answer" else ""}"
-  }
+  private def answerId(answer: Int): String =
+    s"value${if (answer != 1) s"-$answer" else ""}"
+
 }

@@ -25,24 +25,19 @@ import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import utils.Navigator
 import views.html.InformCustomerClaimNowInWeeksView
 
-class InformCustomerClaimNowInWeeksController @Inject()(
-                                                 getData: DataRetrievalAction,
-                                                 requireData: DataRequiredAction,
-                                                 navigator: Navigator,
-                                                 informClaimNowInWeeksView: InformCustomerClaimNowInWeeksView,
-                                                 val controllerComponents: MessagesControllerComponents
-                                               ) extends FrontendBaseController with I18nSupport {
+class InformCustomerClaimNowInWeeksController @Inject() (
+    getData: DataRetrievalAction,
+    requireData: DataRequiredAction,
+    navigator: Navigator,
+    informClaimNowInWeeksView: InformCustomerClaimNowInWeeksView,
+    val controllerComponents: MessagesControllerComponents
+) extends FrontendBaseController
+    with I18nSupport {
 
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData)(implicit request => Ok(informClaimNowInWeeksView()))
 
-
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
-    implicit request =>
-      Ok(informClaimNowInWeeksView())
-  }
-
-  def onSubmit: Action[AnyContent] = (getData andThen requireData) {
-    implicit request =>
-      Redirect(navigator.nextPage(InformCustomerClaimNowInWeeksId)(request.userAnswers))
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
+    Redirect(navigator.nextPage(InformCustomerClaimNowInWeeksId)(request.userAnswers))
   }
 
 }

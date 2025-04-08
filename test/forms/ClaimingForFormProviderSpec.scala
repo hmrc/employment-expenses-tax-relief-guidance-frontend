@@ -26,20 +26,25 @@ class ClaimingForFormProviderSpec extends OptionFieldBehaviours {
 
   ".value" must {
 
-    val fieldName = "value"
+    val fieldName   = "value"
     val requiredKey = s"claimingFor.error.required"
 
-    behave like optionsField[ClaimingFor](
-      form,
-      fieldName,
-      validValues  = ClaimingFor.values.toSet,
-      invalidError = FormError(fieldName, s"claimingFor.error.required")
+    behave.like(
+      optionsField[ClaimingFor](
+        form,
+        fieldName,
+        validValues = ClaimingFor.values.toSet,
+        invalidError = FormError(fieldName, s"claimingFor.error.required")
+      )
     )
 
-    behave like mandatoryField(
-      form,
-      fieldName,
-      requiredError = FormError(fieldName, requiredKey)
+    behave.like(
+      mandatoryField(
+        form,
+        fieldName,
+        requiredError = FormError(fieldName, requiredKey)
+      )
     )
   }
+
 }

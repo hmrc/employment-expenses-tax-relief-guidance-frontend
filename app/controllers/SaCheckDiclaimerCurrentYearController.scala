@@ -24,15 +24,13 @@ import views.html.SaCheckDisclaimerCurrentYearView
 
 import javax.inject.Inject
 
-class SaCheckDisclaimerCurrentYearController @Inject()(
-                                                       getData: DataRetrievalAction,
-                                                       requireData: DataRequiredAction,
-                                                       val controllerComponents: MessagesControllerComponents,
-                                                       view: SaCheckDisclaimerCurrentYearView
-                                                     ) extends FrontendBaseController with I18nSupport {
+class SaCheckDisclaimerCurrentYearController @Inject() (
+    getData: DataRetrievalAction,
+    requireData: DataRequiredAction,
+    val controllerComponents: MessagesControllerComponents,
+    view: SaCheckDisclaimerCurrentYearView
+) extends FrontendBaseController
+    with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
-    implicit request =>
-      Ok(view())
-  }
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData)(implicit request => Ok(view()))
 }

@@ -20,7 +20,7 @@ import base.SpecBase
 import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{NavigatorSupport, Navigator}
+import utils.{Navigator, NavigatorSupport}
 
 class NotEntitledSomeYearsControllerSpec extends SpecBase with NavigatorSupport {
 
@@ -36,11 +36,12 @@ class NotEntitledSomeYearsControllerSpec extends SpecBase with NavigatorSupport 
         .overrides(bind[Navigator].toInstance(new FakeNavigator(onwardRoute)))
         .build()
       val request = FakeRequest(GET, notEntitledSomeYearsRoute)
-      val result = route(application, request).value
+      val result  = route(application, request).value
 
       status(result) mustBe OK
 
       application.stop()
     }
   }
+
 }

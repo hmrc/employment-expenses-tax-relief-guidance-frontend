@@ -28,19 +28,21 @@ import utils.{Enumerable, Navigator, UserAnswers}
 
 import scala.concurrent.ExecutionContext
 
-class ChangeOtherExpensesController @Inject()(
-                                               dataCacheConnector: DataCacheConnector,
-                                               navigator: Navigator,
-                                               getData: DataRetrievalAction,
-                                               requireData: DataRequiredAction,
-                                               val controllerComponents: MessagesControllerComponents
-                                             )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport with Enumerable.Implicits {
+class ChangeOtherExpensesController @Inject() (
+    dataCacheConnector: DataCacheConnector,
+    navigator: Navigator,
+    getData: DataRetrievalAction,
+    requireData: DataRequiredAction,
+    val controllerComponents: MessagesControllerComponents
+)(implicit ec: ExecutionContext)
+    extends FrontendBaseController
+    with I18nSupport
+    with Enumerable.Implicits {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData).async {
-    implicit request =>
-
-      dataCacheConnector.save[Set[ClaimingFor]](request.sessionId, ClaimingForId, Set(ClaimingFor.Other)).map(cacheMap =>
-        Redirect(navigator.nextPage(ChangeOtherExpensesId)(new UserAnswers(cacheMap)))
-      )
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+    dataCacheConnector
+      .save[Set[ClaimingFor]](request.sessionId, ClaimingForId, Set(ClaimingFor.Other))
+      .map(cacheMap => Redirect(navigator.nextPage(ChangeOtherExpensesId)(new UserAnswers(cacheMap))))
   }
+
 }

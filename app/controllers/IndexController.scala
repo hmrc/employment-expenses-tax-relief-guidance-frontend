@@ -22,13 +22,14 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import utils.Navigator
 
-class IndexController @Inject()(
-                                 navigator: Navigator,
-                                 val controllerComponents: MessagesControllerComponents
-                               ) extends FrontendBaseController with I18nSupport {
+class IndexController @Inject() (
+    navigator: Navigator,
+    val controllerComponents: MessagesControllerComponents
+) extends FrontendBaseController
+    with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = Action {
-      MovedPermanently(navigator.firstPage.url)
+    MovedPermanently(navigator.firstPage.url)
   }
-}
 
+}

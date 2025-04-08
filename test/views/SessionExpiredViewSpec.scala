@@ -29,10 +29,8 @@ class SessionExpiredViewSpec extends NewViewBehaviours {
 
   def createView: Html = view.apply(routes.ClaimantController.onPageLoad())(fakeRequest, messages)
 
-  "Session Expired view" must {
-
-    behave like normalPage(createView, "session_expired")
-  }
+  "Session Expired view" must
+    behave.like(normalPage(createView, "session_expired"))
 
   application.stop()
 }

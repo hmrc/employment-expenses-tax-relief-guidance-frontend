@@ -33,7 +33,7 @@ class CascadeUpsertSpec extends SpecBase {
     "the key doesn't already exists" must {
       "add the key to the cache map" in {
         val originalCacheMap = new CacheMap("id", Map())
-        val result = cascadeUpsert(Key, "value", originalCacheMap)
+        val result           = cascadeUpsert(Key, "value", originalCacheMap)
         result.data mustEqual Map(Key.toString -> JsString("value"))
       }
     }
@@ -41,7 +41,7 @@ class CascadeUpsertSpec extends SpecBase {
     "data already exists for that key" must {
       "replace the value held against the key" in {
         val originalCacheMap = new CacheMap("id", Map("key" -> JsString("original value")))
-        val result = cascadeUpsert(Key, "new value", originalCacheMap)
+        val result           = cascadeUpsert(Key, "new value", originalCacheMap)
         result.data mustEqual Map(Key.toString -> JsString("new value"))
       }
     }
@@ -51,7 +51,7 @@ class CascadeUpsertSpec extends SpecBase {
     "the key doesn't already exist" must {
       "add the key to the cache map and save the value in a sequence" in {
         val originalCacheMap = new CacheMap("id", Map())
-        val result = cascadeUpsert.addRepeatedValue(Key, "value", originalCacheMap)
+        val result           = cascadeUpsert.addRepeatedValue(Key, "value", originalCacheMap)
         result.data mustEqual Map(Key.toString -> Json.toJson(Seq("value")))
       }
     }
@@ -59,7 +59,7 @@ class CascadeUpsertSpec extends SpecBase {
     "the key already exists" must {
       "add the new value to the existing sequence" in {
         val originalCacheMap = new CacheMap("id", Map("key" -> Json.toJson(Seq("value"))))
-        val result = cascadeUpsert.addRepeatedValue(Key, "new value", originalCacheMap)
+        val result           = cascadeUpsert.addRepeatedValue(Key, "new value", originalCacheMap)
         result.data mustEqual Map(Key.toString -> Json.toJson(Seq("value", "new value")))
       }
     }
@@ -67,21 +67,24 @@ class CascadeUpsertSpec extends SpecBase {
 
   ".apply" when {
 
-    val fullCacheMap = new CacheMap("id", Map(
-      ClaimingForId.toString                       -> JsArray(Seq(JsString(ClaimingFor.TravelExpenses.toString))),
-      ClaimAnyOtherExpenseId.toString              -> JsBoolean(false),
-      ClaimantId.toString                          -> JsString(Claimant.You.toString),
-      WillPayTaxId.toString                        -> JsBoolean(true),
-      PaidTaxInRelevantYearId.toString             -> JsBoolean(true),
-      RegisteredForSelfAssessmentId.toString       -> JsBoolean(false),
-      ClaimingOverPayAsYouEarnThresholdId.toString -> JsBoolean(false),
-      EmployerPaidBackAnyExpensesId.toString       -> JsBoolean(false),
-      UseOwnCarId.toString                         -> JsBoolean(true),
-      ClaimingMileageId.toString                   -> JsBoolean(true),
-      UseCompanyCarId.toString                     -> JsBoolean(true),
-      ClaimingFuelId.toString                      -> JsBoolean(true),
-      MoreThanFiveJobsId.toString                  -> JsBoolean(false)
-    ))
+    val fullCacheMap = new CacheMap(
+      "id",
+      Map(
+        ClaimingForId.toString                       -> JsArray(Seq(JsString(ClaimingFor.TravelExpenses.toString))),
+        ClaimAnyOtherExpenseId.toString              -> JsBoolean(false),
+        ClaimantId.toString                          -> JsString(Claimant.You.toString),
+        WillPayTaxId.toString                        -> JsBoolean(true),
+        PaidTaxInRelevantYearId.toString             -> JsBoolean(true),
+        RegisteredForSelfAssessmentId.toString       -> JsBoolean(false),
+        ClaimingOverPayAsYouEarnThresholdId.toString -> JsBoolean(false),
+        EmployerPaidBackAnyExpensesId.toString       -> JsBoolean(false),
+        UseOwnCarId.toString                         -> JsBoolean(true),
+        ClaimingMileageId.toString                   -> JsBoolean(true),
+        UseCompanyCarId.toString                     -> JsBoolean(true),
+        ClaimingFuelId.toString                      -> JsBoolean(true),
+        MoreThanFiveJobsId.toString                  -> JsBoolean(false)
+      )
+    )
 
     "the answer for ClaimingFor is changed" must {
       "delete data for all later screens" in {
@@ -256,4 +259,5 @@ class CascadeUpsertSpec extends SpecBase {
       }
     }
   }
+
 }

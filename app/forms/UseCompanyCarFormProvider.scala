@@ -28,4 +28,5 @@ class UseCompanyCarFormProvider @Inject() extends Mappings {
     Form(
       "value" -> boolean(s"useCompanyCar.$useOfOwnCar.error.required")
     )
+
 }

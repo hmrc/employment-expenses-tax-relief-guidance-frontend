@@ -28,31 +28,34 @@ import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 
-class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours with MockitoSugar{
+class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours with MockitoSugar {
 
   val mockAppConfig = mock[FrontendAppConfig]
 
   val messageKeyPrefix: String = "informCustomerClaimNowInWeeks"
 
   val application = applicationBuilder()
-        .overrides(bind[FrontendAppConfig].toInstance(mockAppConfig))
-        .build()
+    .overrides(bind[FrontendAppConfig].toInstance(mockAppConfig))
+    .build()
 
   val view: InformCustomerClaimNowInWeeksView = application.injector.instanceOf[InformCustomerClaimNowInWeeksView]
 
   def createView(): Html = view.apply()(fakeRequest, messages)
 
   val para1 = "If you work at home one or more days in a week, you can claim for that whole week."
-  val para2_old = "If you are not sure how many weeks you will be eligible to claim for, we advise you to wait until you know because any further changes cannot be made using this service and may take longer to process."
-  val para2= "If you are not sure how many weeks you will be eligible to claim for, we advise you to wait until you know because any further changes may take longer to process."
-  val para3 = "If you would like to claim now, we will check to see if you are eligible."
 
+  val para2_old =
+    "If you are not sure how many weeks you will be eligible to claim for, we advise you to wait until you know because any further changes cannot be made using this service and may take longer to process."
+
+  val para2 =
+    "If you are not sure how many weeks you will be eligible to claim for, we advise you to wait until you know because any further changes may take longer to process."
+
+  val para3 = "If you would like to claim now, we will check to see if you are eligible."
 
   "Inform customer claim now in weeks view" should {
 
-
     "have the correct banner title" in {
-      val doc = asDocument(createView())
+      val doc    = asDocument(createView())
       val banner = doc.select(".govuk-header__service-name")
 
       banner.text() mustEqual messages("service.name")
@@ -77,16 +80,17 @@ class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours with Mocki
       "when onlinefreJourneyEnabled is enabled- all informCustomerClaimNowInWeeksView content is displayed " in {
         when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
         val doc = asDocument(createView())
-        assertContainsMessages(doc, messages(s"${messageKeyPrefix}.heading_freOnly"))
+        assertContainsMessages(doc, messages(s"$messageKeyPrefix.heading_freOnly"))
       }
       "when onlinefreJourneyEnabled is disabled- all informCustomerClaimNowInWeeksView content is displayed " in {
         when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
         val doc = asDocument(createView())
-        assertContainsMessages(doc, messages(s"${messageKeyPrefix}.heading"))
+        assertContainsMessages(doc, messages(s"$messageKeyPrefix.heading"))
       }
     }
 
-    behave like pageWithBackLink(createView())
+    behave.like(pageWithBackLink(createView()))
 
   }
+
 }

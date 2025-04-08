@@ -24,13 +24,12 @@ class CannotClaimWFHReliefViewSpec extends NewViewBehaviours {
   val messageKeyPrefix = s"cannotClaimWfhRelief"
 
   val application = applicationBuilder().build()
-  val view = application.injector.instanceOf[CannotClaimWFHReliefView]
+  val view        = application.injector.instanceOf[CannotClaimWFHReliefView]
 
   def createView = view.apply()(fakeRequest, messages)
 
-  "CannotClaimWFHRelief view" must {
-    behave like pageWithBackLink(createView)
-  }
+  "CannotClaimWFHRelief view" must
+    behave.like(pageWithBackLink(createView))
 
   application.stop()
 }

@@ -31,41 +31,41 @@ import views.html.WillPayTaxView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class WillPayTaxController @Inject()(
-                                      appConfig: FrontendAppConfig,
-                                      dataCacheConnector: DataCacheConnector,
-                                      navigator: Navigator,
-                                      getData: DataRetrievalAction,
-                                      requireData: DataRequiredAction,
-                                      formProvider: WillPayTaxFormProvider,
-                                      val controllerComponents: MessagesControllerComponents,
-                                      view: WillPayTaxView
-                                    )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
+class WillPayTaxController @Inject() (
+    appConfig: FrontendAppConfig,
+    dataCacheConnector: DataCacheConnector,
+    navigator: Navigator,
+    getData: DataRetrievalAction,
+    requireData: DataRequiredAction,
+    formProvider: WillPayTaxFormProvider,
+    val controllerComponents: MessagesControllerComponents,
+    view: WillPayTaxView
+)(implicit ec: ExecutionContext)
+    extends FrontendBaseController
+    with I18nSupport {
 
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+    val form: Form[Boolean] = formProvider(appConfig.earliestTaxYear)
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData).async {
-    implicit request =>
-
-      val form: Form[Boolean] = formProvider(appConfig.earliestTaxYear)
-
-      val preparedForm = request.userAnswers.willPayTax match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-      Future.successful(Ok(view(preparedForm)))
+    val preparedForm = request.userAnswers.willPayTax match {
+      case None        => form
+      case Some(value) => form.fill(value)
+    }
+    Future.successful(Ok(view(preparedForm)))
   }
 
-  def onSubmit: Action[AnyContent] = (getData andThen requireData).async {
-    implicit request =>
-      val form: Form[Boolean] = formProvider(appConfig.earliestTaxYear)
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+    val form: Form[Boolean] = formProvider(appConfig.earliestTaxYear)
 
-      form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(formWithErrors))),
+    form
+      .bindFromRequest()
+      .fold(
+        (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors))),
         value =>
-          dataCacheConnector.save[Boolean](request.sessionId, WillPayTaxId, value).map(cacheMap =>
-            Redirect(navigator.nextPage(WillPayTaxId)(new UserAnswers(cacheMap)))
-          )
+          dataCacheConnector
+            .save[Boolean](request.sessionId, WillPayTaxId, value)
+            .map(cacheMap => Redirect(navigator.nextPage(WillPayTaxId)(new UserAnswers(cacheMap))))
       )
   }
+
 }

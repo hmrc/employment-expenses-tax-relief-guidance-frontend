@@ -27,4 +27,5 @@ class ClaimingFuelFormProvider @Inject() extends Mappings {
     Form(
       "value" -> boolean(s"claimingFuel.error.required")
     )
+
 }

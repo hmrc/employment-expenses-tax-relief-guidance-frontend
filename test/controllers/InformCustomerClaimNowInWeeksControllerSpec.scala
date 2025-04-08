@@ -37,4 +37,5 @@ class InformCustomerClaimNowInWeeksControllerSpec extends SpecBase {
       application.stop()
     }
   }
+
 }

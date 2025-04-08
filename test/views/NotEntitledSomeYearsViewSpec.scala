@@ -34,9 +34,9 @@ class NotEntitledSomeYearsViewSpec extends NewViewBehaviours {
   def createView: HtmlFormat.Appendable = view.apply(onwardRoute)(fakeRequest, messages)
 
   "NotEntitledSomeYears view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave.like(normalPage(createView, messageKeyPrefix))
 
-    behave like pageWithBackLink(createView)
+    behave.like(pageWithBackLink(createView))
   }
 
   application.stop()

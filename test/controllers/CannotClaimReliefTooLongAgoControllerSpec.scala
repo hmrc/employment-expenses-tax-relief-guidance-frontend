@@ -36,4 +36,5 @@ class CannotClaimReliefTooLongAgoControllerSpec extends SpecBase {
       application.stop()
     }
   }
+
 }

@@ -30,36 +30,46 @@ import play.api.inject.bind
 import play.api.libs.json.{JsBoolean, JsString}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{CacheMap, NavigatorSupport, Navigator}
+import utils.{CacheMap, Navigator, NavigatorSupport}
 
 import scala.concurrent.Future
 import scala.concurrent.ExecutionContext.Implicits.global
 
-class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience with NavigatorSupport {
+class UseCompanyCarControllerSpec
+    extends SpecBase
+    with MockitoSugar
+    with BeforeAndAfterEach
+    with ScalaFutures
+    with IntegrationPatience
+    with NavigatorSupport {
 
-  def onwardRoute = routes.IndexController.onPageLoad
+  def onwardRoute        = routes.IndexController.onPageLoad
   def useCompanyCarRoute = routes.UseCompanyCarController.onPageLoad().url
 
   private val mockDataCacheConnector = mock[DataCacheConnector]
+
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
-    when(mockDataCacheConnector.save(any(),any(),any())(any())) thenReturn Future(new CacheMap("id", Map()))
+    when(mockDataCacheConnector.save(any(), any(), any())(any())).thenReturn(Future(new CacheMap("id", Map())))
   }
 
-  val useOfOwnCar = UsingOwnCar
+  val useOfOwnCar  = UsingOwnCar
   val formProvider = new UseCompanyCarFormProvider()
-  val form = formProvider(useOfOwnCar)
+  val form         = formProvider(useOfOwnCar)
 
   "UseCompanyCar Controller" must {
 
     "return OK and the correct view for a GET" in {
-      val validCacheMap = CacheMap(cacheMapId, Map(
-        UseOwnCarId.toString -> JsBoolean(true),
-        ClaimantId.toString -> JsString(claimant.toString)
-      ))
+      val validCacheMap = CacheMap(
+        cacheMapId,
+        Map(
+          UseOwnCarId.toString -> JsBoolean(true),
+          ClaimantId.toString  -> JsString(claimant.toString)
+        )
+      )
       val application = applicationBuilder(Some(validCacheMap)).build()
-      val request = FakeRequest(GET, useCompanyCarRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, useCompanyCarRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe OK
 
@@ -67,15 +77,18 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
     }
 
     "populate the view correctly on a GET when the question has previously been answered" in {
-      val validCacheMap = CacheMap(cacheMapId, Map(
-        UseOwnCarId.toString -> JsBoolean(true),
-        UseCompanyCarId.toString -> JsBoolean(true),
-        ClaimantId.toString -> JsString(claimant.toString)
-      ))
+      val validCacheMap = CacheMap(
+        cacheMapId,
+        Map(
+          UseOwnCarId.toString     -> JsBoolean(true),
+          UseCompanyCarId.toString -> JsBoolean(true),
+          ClaimantId.toString      -> JsString(claimant.toString)
+        )
+      )
 
       val application = applicationBuilder(Some(validCacheMap)).build()
-      val request = FakeRequest(GET, useCompanyCarRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, useCompanyCarRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe OK
 
@@ -83,16 +96,20 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
     }
 
     "redirect to the next page when valid data is submitted" in {
-      val validCacheMap = CacheMap(cacheMapId, Map(
-        UseOwnCarId.toString -> JsBoolean(true),
-        ClaimantId.toString -> JsString(claimant.toString)
-      ))
+      val validCacheMap = CacheMap(
+        cacheMapId,
+        Map(
+          UseOwnCarId.toString -> JsBoolean(true),
+          ClaimantId.toString  -> JsString(claimant.toString)
+        )
+      )
 
       val application = applicationBuilder(Some(validCacheMap))
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
-        ).build()
+        )
+        .build()
 
       val request = FakeRequest(POST, useCompanyCarRoute)
         .withFormUrlEncodedBody(("value", "true"))
@@ -105,10 +122,13 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
     }
 
     "return a Bad Request and errors when invalid data is submitted" in {
-      val validCacheMap = CacheMap(cacheMapId, Map(
-        UseOwnCarId.toString -> JsBoolean(true),
-        ClaimantId.toString -> JsString(claimant.toString)
-      ))
+      val validCacheMap = CacheMap(
+        cacheMapId,
+        Map(
+          UseOwnCarId.toString -> JsBoolean(true),
+          ClaimantId.toString  -> JsString(claimant.toString)
+        )
+      )
       val application = applicationBuilder(Some(validCacheMap)).build()
       val request = FakeRequest(POST, useCompanyCarRoute)
         .withFormUrlEncodedBody(("value", "invalid value"))
@@ -121,8 +141,8 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
 
     "redirect to Session Expired for a GET if no existing data is found" in {
       val application = applicationBuilder().build()
-      val request = FakeRequest(GET, useCompanyCarRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, useCompanyCarRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(sessionExpiredUrl)
@@ -142,4 +162,5 @@ class UseCompanyCarControllerSpec extends SpecBase with MockitoSugar with Before
       application.stop()
     }
   }
+
 }

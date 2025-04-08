@@ -27,74 +27,86 @@ import models.{Claimant, ClaimingFor, EmployerPaid}
 import models.EmployerPaid.{AllExpenses, NoExpenses, SomeExpenses}
 
 @Singleton
-class Navigator @Inject()(implicit appConfig: FrontendAppConfig) {
+class Navigator @Inject() (implicit appConfig: FrontendAppConfig) {
 
   private def claimingForCurrentYearControllerRouting(userAnswers: UserAnswers) =
     userAnswers.claimingForCurrentYear match {
-      case Some(true) => routes.SaCheckDisclaimerCurrentYearController.onPageLoad()
+      case Some(true)  => routes.SaCheckDisclaimerCurrentYearController.onPageLoad()
       case Some(false) => routes.UseSelfAssessmentController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad
+      case _           => routes.SessionExpiredController.onPageLoad
     }
 
   private def saCheckDisclaimerAllYearsRouting(userAnswers: UserAnswers) =
     userAnswers.claimingForCurrentYear match {
-      case Some(true) => routes.SaCheckDisclaimerAllYearsController.onPageLoad()
+      case Some(true)  => routes.SaCheckDisclaimerAllYearsController.onPageLoad()
       case Some(false) => routes.UseSelfAssessmentController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad
+      case _           => routes.SessionExpiredController.onPageLoad
     }
 
-  private def registeredForSelfAssessmentRouting(userAnswers: UserAnswers) = (userAnswers.claimingFor, userAnswers.registeredForSelfAssessment) match {
-    case (_, Some(false)) if isClaimingWfh(userAnswers) =>
-      routes.WhichYearsAreYouClaimingForController.onPageLoad()
-    case (Some(_), Some(false)) =>
-      routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
-    case (_, Some(true)) =>
-      routes.UseSelfAssessmentController.onPageLoad()
-    case _ =>
-      routes.SessionExpiredController.onPageLoad
-  }
+  private def registeredForSelfAssessmentRouting(userAnswers: UserAnswers) =
+    (userAnswers.claimingFor, userAnswers.registeredForSelfAssessment) match {
+      case (_, Some(false)) if isClaimingWfh(userAnswers) =>
+        routes.WhichYearsAreYouClaimingForController.onPageLoad()
+      case (Some(_), Some(false)) =>
+        routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
+      case (_, Some(true)) =>
+        routes.UseSelfAssessmentController.onPageLoad()
+      case _ =>
+        routes.SessionExpiredController.onPageLoad
+    }
 
   private def claimingOverPayAsYouEarnThresholdRouting(userAnswers: UserAnswers) =
     userAnswers.claimingOverPayAsYouEarnThreshold match {
-      case Some(true) => routes.RegisterForSelfAssessmentController.onPageLoad()
+      case Some(true)  => routes.RegisterForSelfAssessmentController.onPageLoad()
       case Some(false) => routes.EmployerPaidBackAnyExpensesController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad
+      case _           => routes.SessionExpiredController.onPageLoad
     }
 
   private def moreThanFiveJobsRouting(userAnswers: UserAnswers) = {
     val claimingVehiclesRoute = userAnswers.claimingFor.contains(List(ClaimingFor.MileageFuel))
     val uniformsClothingTools = userAnswers.claimingFor.contains(List(ClaimingFor.UniformsClothingTools))
-    val vehiclesRedirect = userAnswers.claimingMileage.contains(true) && (userAnswers.claimingFuel.contains(false) || userAnswers.useCompanyCar.contains(false)) && userAnswers.employerPaidBackAnyExpenses.contains(EmployerPaid.SomeExpenses)
+    val vehiclesRedirect = userAnswers.claimingMileage.contains(true) && (userAnswers.claimingFuel.contains(
+      false
+    ) || userAnswers.useCompanyCar.contains(false)) && userAnswers.employerPaidBackAnyExpenses.contains(
+      EmployerPaid.SomeExpenses
+    )
 
     userAnswers.moreThanFiveJobs match {
 
       case Some(true) => routes.UsePrintAndPostController.onPageLoad()
-      case Some(false) if uniformsClothingTools && appConfig.freOnlyJourneyEnabled => routes.ClaimOnlineController.onPageLoad()
-      case Some(false) if appConfig.freOnlyJourneyEnabled || appConfig.onlineJourneyShutterEnabled => routes.UsePrintAndPostController.onPageLoad()
-      case Some(false) if claimingVehiclesRoute => if (vehiclesRedirect) routes.ClaimOnlineController.onPageLoad() else routes.UsePrintAndPostController.onPageLoad()
+      case Some(false) if uniformsClothingTools && appConfig.freOnlyJourneyEnabled =>
+        routes.ClaimOnlineController.onPageLoad()
+      case Some(false) if appConfig.freOnlyJourneyEnabled || appConfig.onlineJourneyShutterEnabled =>
+        routes.UsePrintAndPostController.onPageLoad()
+      case Some(false) if claimingVehiclesRoute =>
+        if (vehiclesRedirect) routes.ClaimOnlineController.onPageLoad()
+        else routes.UsePrintAndPostController.onPageLoad()
       case Some(false) => routes.ClaimOnlineController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad
+      case _           => routes.SessionExpiredController.onPageLoad
     }
 
   }
 
-  private def employerPaidBackExpensesRouting(userAnswers: UserAnswers) = {
+  private def employerPaidBackExpensesRouting(userAnswers: UserAnswers) =
     if (isClaimingWfh(userAnswers)) {
       employerPaidBackWFHExpensesRouting(userAnswers)
     } else {
       employerPaidBackOtherExpensesRouting(userAnswers)
     }
-  }
 
   private def employerPaidBackOtherExpensesRouting(userAnswers: UserAnswers) = {
     val containsMileage = userAnswers.claimingFor.exists(_.contains(ClaimingFor.MileageFuel))
     (userAnswers.employerPaidBackAnyExpenses, userAnswers.claimingFor) match {
-      case (Some(SomeExpenses | NoExpenses), Some(List(ClaimingFor.UniformsClothingTools))) if appConfig.freOnlyJourneyEnabled => routes.MoreThanFiveJobsController.onPageLoad()
+      case (Some(SomeExpenses | NoExpenses), Some(List(ClaimingFor.UniformsClothingTools)))
+          if appConfig.freOnlyJourneyEnabled =>
+        routes.MoreThanFiveJobsController.onPageLoad()
       case (Some(SomeExpenses | NoExpenses), _) if containsMileage => routes.UseOwnCarController.onPageLoad()
-      case (Some(SomeExpenses | NoExpenses), _) if (appConfig.onlineJourneyShutterEnabled || appConfig.freOnlyJourneyEnabled) => routes.MoreThanFiveJobsController.onPageLoad()
-      case (Some(AllExpenses), _) => routes.CannotClaimReliefController.onPageLoad()
+      case (Some(SomeExpenses | NoExpenses), _)
+          if appConfig.onlineJourneyShutterEnabled || appConfig.freOnlyJourneyEnabled =>
+        routes.MoreThanFiveJobsController.onPageLoad()
+      case (Some(AllExpenses), _)               => routes.CannotClaimReliefController.onPageLoad()
       case (Some(SomeExpenses | NoExpenses), _) => routes.MoreThanFiveJobsController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad
+      case _                                    => routes.SessionExpiredController.onPageLoad
     }
 
   }
@@ -103,13 +115,13 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) {
     val containsMileage = userAnswers.claimingFor.exists(_.contains(ClaimingFor.MileageFuel))
     userAnswers.employerPaidBackAnyExpenses match {
       case Some(SomeExpenses | NoExpenses) if containsMileage => routes.UseOwnCarController.onPageLoad()
-      case Some(SomeExpenses | NoExpenses) => routes.MoreThanFiveJobsController.onPageLoad()
-      case Some(AllExpenses) => routes.CannotClaimWFHReliefController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad
+      case Some(SomeExpenses | NoExpenses)                    => routes.MoreThanFiveJobsController.onPageLoad()
+      case Some(AllExpenses)                                  => routes.CannotClaimWFHReliefController.onPageLoad()
+      case _                                                  => routes.SessionExpiredController.onPageLoad
     }
   }
 
-private def paidTaxInRelevantYearRouting(userAnswers: UserAnswers) = userAnswers.paidTaxInRelevantYear match {
+  private def paidTaxInRelevantYearRouting(userAnswers: UserAnswers) = userAnswers.paidTaxInRelevantYear match {
     case Some(true)  => routes.WillPayTaxController.onPageLoad()
     case Some(false) => routes.CannotClaimReliefTooLongAgoController.onPageLoad()
     case _           => routes.SessionExpiredController.onPageLoad
@@ -143,9 +155,9 @@ private def paidTaxInRelevantYearRouting(userAnswers: UserAnswers) = userAnswers
     case Some(true) => routes.ClaimingFuelController.onPageLoad()
     case Some(false) =>
       (userAnswers.useOwnCar, userAnswers.claimingMileage, isMergedJourney(userAnswers)) match {
-        case (Some(true), Some(true), _)  => routes.MoreThanFiveJobsController.onPageLoad()
-        case (Some(_), _, true) => routes.MoreThanFiveJobsController.onPageLoad()
-        case (Some(_), _, false) => routes.CannotClaimMileageCostsController.onPageLoad()
+        case (Some(true), Some(true), _) => routes.MoreThanFiveJobsController.onPageLoad()
+        case (Some(_), _, true)          => routes.MoreThanFiveJobsController.onPageLoad()
+        case (Some(_), _, false)         => routes.CannotClaimMileageCostsController.onPageLoad()
 
         case _ => routes.SessionExpiredController.onPageLoad
       }
@@ -157,9 +169,9 @@ private def paidTaxInRelevantYearRouting(userAnswers: UserAnswers) = userAnswers
       case Some(true) => routes.MoreThanFiveJobsController.onPageLoad()
       case Some(false) =>
         (userAnswers.useOwnCar, userAnswers.claimingMileage, isMergedJourney(userAnswers)) match {
-          case (Some(true), Some(true), _)  => routes.MoreThanFiveJobsController.onPageLoad()
-          case (Some(_), _, true) => routes.MoreThanFiveJobsController.onPageLoad()
-          case (Some(_), _, false) => routes.CannotClaimMileageCostsController.onPageLoad()
+          case (Some(true), Some(true), _) => routes.MoreThanFiveJobsController.onPageLoad()
+          case (Some(_), _, true)          => routes.MoreThanFiveJobsController.onPageLoad()
+          case (Some(_), _, false)         => routes.CannotClaimMileageCostsController.onPageLoad()
 
           case _ => routes.SessionExpiredController.onPageLoad
         }
@@ -172,17 +184,19 @@ private def paidTaxInRelevantYearRouting(userAnswers: UserAnswers) = userAnswers
     case _           => routes.SessionExpiredController.onPageLoad
   }
 
-  private def whichYearsAreYouClaimingForRouting(userAnswers: UserAnswers) = userAnswers.whichYearsAreYouClaimingFor match {
-    case Some(true) => routes.InformCustomerClaimNowInWeeksController.onPageLoad()
-    case Some(false) => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
-    case _ => routes.SessionExpiredController.onPageLoad
-  }
+  private def whichYearsAreYouClaimingForRouting(userAnswers: UserAnswers) =
+    userAnswers.whichYearsAreYouClaimingFor match {
+      case Some(true)  => routes.InformCustomerClaimNowInWeeksController.onPageLoad()
+      case Some(false) => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
+      case _           => routes.SessionExpiredController.onPageLoad
+    }
 
-  private def informCustomerClaimNowInWeeksRouting(userAnswers: UserAnswers) = userAnswers.whichYearsAreYouClaimingFor match {
-    case Some(true) => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
-    case Some(false) => routes.EmployerPaidBackAnyExpensesController.onPageLoad()
-    case _ => routes.SessionExpiredController.onPageLoad
-  }
+  private def informCustomerClaimNowInWeeksRouting(userAnswers: UserAnswers) =
+    userAnswers.whichYearsAreYouClaimingFor match {
+      case Some(true)  => routes.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
+      case Some(false) => routes.EmployerPaidBackAnyExpensesController.onPageLoad()
+      case _           => routes.SessionExpiredController.onPageLoad
+    }
 
   private def claimAnyOtherExpenseRouting(userAnswers: UserAnswers) = userAnswers.claimAnyOtherExpense match {
     case Some(true)  => routes.ClaimantController.onPageLoad()
@@ -191,34 +205,33 @@ private def paidTaxInRelevantYearRouting(userAnswers: UserAnswers) = userAnswers
   }
 
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
-    ClaimingForId -> claimingForRouting,
-    ClaimantId -> claimantRouting,
-    ClaimAnyOtherExpenseId -> claimAnyOtherExpenseRouting,
-    PaidTaxInRelevantYearId -> paidTaxInRelevantYearRouting,
-    NotEntitledSomeYearsId -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
-    RegisteredForSelfAssessmentId -> registeredForSelfAssessmentRouting,
+    ClaimingForId                       -> claimingForRouting,
+    ClaimantId                          -> claimantRouting,
+    ClaimAnyOtherExpenseId              -> claimAnyOtherExpenseRouting,
+    PaidTaxInRelevantYearId             -> paidTaxInRelevantYearRouting,
+    NotEntitledSomeYearsId              -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
+    RegisteredForSelfAssessmentId       -> registeredForSelfAssessmentRouting,
     ClaimingOverPayAsYouEarnThresholdId -> claimingOverPayAsYouEarnThresholdRouting,
-    MoreThanFiveJobsId -> moreThanFiveJobsRouting,
-    EmployerPaidBackAnyExpensesId -> employerPaidBackExpensesRouting,
-    ClaimingMileageId -> (_ => routes.UseCompanyCarController.onPageLoad()),
-    UseOwnCarId -> useOwnCarRouting,
-    UseCompanyCarId -> useCompanyCarRouting,
-    ClaimingFuelId -> claimingFuelRouting,
-    WillPayTaxId -> willPayTaxRouting,
-    WhichYearsAreYouClaimingForId -> whichYearsAreYouClaimingForRouting,
-    InformCustomerClaimNowInWeeksId -> informCustomerClaimNowInWeeksRouting,
-    WillNotPayTaxId -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
-    RegisterForSelfAssessmentId -> (_ => routes.EmployerPaidBackAnyExpensesController.onPageLoad()),
-    ChangeOtherExpensesId -> (_ => routes.ClaimantController.onPageLoad()),
-    ChangeUniformsWorkClothingToolsId -> (_ => routes.ClaimantController.onPageLoad()),
-    ClaimingForCurrentYearId -> claimingForCurrentYearControllerRouting,
-    SaCheckDisclaimerAllYearsId -> saCheckDisclaimerAllYearsRouting
+    MoreThanFiveJobsId                  -> moreThanFiveJobsRouting,
+    EmployerPaidBackAnyExpensesId       -> employerPaidBackExpensesRouting,
+    ClaimingMileageId                   -> (_ => routes.UseCompanyCarController.onPageLoad()),
+    UseOwnCarId                         -> useOwnCarRouting,
+    UseCompanyCarId                     -> useCompanyCarRouting,
+    ClaimingFuelId                      -> claimingFuelRouting,
+    WillPayTaxId                        -> willPayTaxRouting,
+    WhichYearsAreYouClaimingForId       -> whichYearsAreYouClaimingForRouting,
+    InformCustomerClaimNowInWeeksId     -> informCustomerClaimNowInWeeksRouting,
+    WillNotPayTaxId                     -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
+    RegisterForSelfAssessmentId         -> (_ => routes.EmployerPaidBackAnyExpensesController.onPageLoad()),
+    ChangeOtherExpensesId               -> (_ => routes.ClaimantController.onPageLoad()),
+    ChangeUniformsWorkClothingToolsId   -> (_ => routes.ClaimantController.onPageLoad()),
+    ClaimingForCurrentYearId            -> claimingForCurrentYearControllerRouting,
+    SaCheckDisclaimerAllYearsId         -> saCheckDisclaimerAllYearsRouting
   )
 
-  private def isClaimingWfh(userAnswers: UserAnswers): Boolean = {
+  private def isClaimingWfh(userAnswers: UserAnswers): Boolean =
     userAnswers.claimingFor.exists(_.contains(HomeWorking)) ||
       (userAnswers.claimingFor.isEmpty && userAnswers.claimAnyOtherExpense.contains(true))
-  }
 
   private def isMergedJourney(userAnswers: UserAnswers): Boolean = {
     val claimsForMergedJourney: Set[ClaimingFor] =

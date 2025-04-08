@@ -37,18 +37,28 @@ class WillNotPayTaxViewSpec extends NewViewBehaviours {
   application.stop()
 
   "WillNotPayTax view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave.like(normalPage(createView, messageKeyPrefix))
 
-    behave like pageWithBackLink(createView)
+    behave.like(pageWithBackLink(createView))
 
-    val link1 = s"""<a class="govuk-link" href="${frontendAppConfig.taxReliefForEmployeesUrl}">${messages(s"willNotPayTax.guidance1")}</a>"""
+    val link1 = s"""<a class="govuk-link" href="${frontendAppConfig.taxReliefForEmployeesUrl}">${messages(
+        s"willNotPayTax.guidance1"
+      )}</a>"""
 
-    val link2 = Html(s"""<a class="govuk-link" href="${routes.RegisteredForSelfAssessmentController.onPageLoad()}">${messages("willNotPayTax.link2", TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)}</a>""")
+    val link2 =
+      Html(s"""<a class="govuk-link" href="${routes.RegisteredForSelfAssessmentController.onPageLoad()}">${messages(
+          "willNotPayTax.link2",
+          TaxYear.current.startYear.toString,
+          TaxYear.current.finishYear.toString
+        )}</a>""")
 
-    behave like pageWithBodyText(
-      createView,
-      Html(link1).toString,
-      Html(messages(s"willNotPayTax.guidance2", link2)).toString
+    behave.like(
+      pageWithBodyText(
+        createView,
+        Html(link1).toString,
+        Html(messages(s"willNotPayTax.guidance2", link2)).toString
+      )
     )
   }
+
 }

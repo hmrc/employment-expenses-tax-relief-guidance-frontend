@@ -25,15 +25,13 @@ import views.html.DisclaimerView
 
 import javax.inject.Inject
 
-class DisclaimerController  @Inject()(
-                                       getData: DataRetrievalAction,
-                                       requireData: DataRequiredAction,
-                                       val controllerComponents: MessagesControllerComponents,
-                                       view: DisclaimerView
-                                     ) extends FrontendBaseController with I18nSupport {
+class DisclaimerController @Inject() (
+    getData: DataRetrievalAction,
+    requireData: DataRequiredAction,
+    val controllerComponents: MessagesControllerComponents,
+    view: DisclaimerView
+) extends FrontendBaseController
+    with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
-    implicit request =>
-      Ok(view())
-  }
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData)(implicit request => Ok(view()))
 }

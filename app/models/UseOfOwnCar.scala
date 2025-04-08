@@ -19,5 +19,5 @@ package models
 import utils.WithName
 
 sealed trait UseOfOwnCar
-case object UsingOwnCar extends WithName("usingOwnCar") with UseOfOwnCar
+case object UsingOwnCar    extends WithName("usingOwnCar") with UseOfOwnCar
 case object NotUsingOwnCar extends WithName("notUsingOwnCar") with UseOfOwnCar

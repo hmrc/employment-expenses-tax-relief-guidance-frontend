@@ -25,20 +25,19 @@ import scala.io.Source
 
 class MessagesSpec extends SpecBase {
 
-  private val MatchSingleQuoteOnly = """\w+'{1}\w+""".r
+  private val MatchSingleQuoteOnly   = """\w+'{1}\w+""".r
   private val MatchBacktickQuoteOnly = """`+""".r
-  private val MatchOpenQuoteOnly = """‘+""".r
-  private val MatchClosingQuoteOnly = """’+""".r
+  private val MatchOpenQuoteOnly     = """‘+""".r
+  private val MatchClosingQuoteOnly  = """’+""".r
 
   private val englishMessages = parseMessages("conf/messages")
-  private val welshMessages = parseMessages("conf/messages.cy")
+  private val welshMessages   = parseMessages("conf/messages.cy")
 
   "All message files" should {
-    "have the same set of keys" in {
+    "have the same set of keys" in
       withClue(describeMismatch(englishMessages.keySet, welshMessages.keySet)) {
         welshMessages.keySet mustBe englishMessages.keySet
       }
-    }
 
     "have a non-empty message for each key" in {
       assertNonEmpty("English", englishMessages)
@@ -54,28 +53,32 @@ class MessagesSpec extends SpecBase {
     }
   }
 
-  private def parseMessages(filename: String): Map[String, String] = {
-    Messages.parse(new MessageSource {override def read: String = Source.fromFile(filename).mkString}, filename) match {
+  private def parseMessages(filename: String): Map[String, String] =
+    Messages.parse(
+      new MessageSource { override def read: String = Source.fromFile(filename).mkString },
+      filename
+    ) match {
       case Right(messages) => messages
       case Left(e)         => throw e
     }
-  }
 
   private def countMessagesWithArgs(messages: Map[String, String]) = messages.values.filter(_.contains("{0}"))
 
-  private def assertNonEmpty(label: String, messages: Map[String, String]) = messages.foreach { case (key: String, value: String) =>
-    withClue(s"In $label, there is an empty value for the key:[$key][$value]") {
-      value.trim.isEmpty mustBe false
-    }
+  private def assertNonEmpty(label: String, messages: Map[String, String]) = messages.foreach {
+    case (key: String, value: String) =>
+      withClue(s"In $label, there is an empty value for the key:[$key][$value]") {
+        value.trim.isEmpty mustBe false
+      }
   }
 
-  private def assertCorrectUseOfQuotes(label: String, messages: Map[String, String]) = messages.foreach { case (key: String, value: String) =>
-    withClue(s"In $label, there is an unescaped or invalid quote:[$key][$value]") {
-      MatchSingleQuoteOnly.findFirstIn(value).isDefined mustBe false
-      MatchBacktickQuoteOnly.findFirstIn(value).isDefined mustBe false
-      MatchOpenQuoteOnly.findFirstIn(value).isDefined mustBe false
-      MatchClosingQuoteOnly.findFirstIn(value).isDefined mustBe false
-    }
+  private def assertCorrectUseOfQuotes(label: String, messages: Map[String, String]) = messages.foreach {
+    case (key: String, value: String) =>
+      withClue(s"In $label, there is an unescaped or invalid quote:[$key][$value]") {
+        MatchSingleQuoteOnly.findFirstIn(value).isDefined mustBe false
+        MatchBacktickQuoteOnly.findFirstIn(value).isDefined mustBe false
+        MatchOpenQuoteOnly.findFirstIn(value).isDefined mustBe false
+        MatchClosingQuoteOnly.findFirstIn(value).isDefined mustBe false
+      }
   }
 
   private def listMissingMessageKeys(header: String, missingKeys: Set[String]) = {
@@ -84,6 +87,12 @@ class MessagesSpec extends SpecBase {
   }
 
   private def describeMismatch(englishKeySet: Set[String], welshKeySet: Set[String]) =
-    if (englishKeySet.size > welshKeySet.size) listMissingMessageKeys("The following message keys are missing from the Welsh Set:", englishKeySet -- welshKeySet)
-    else listMissingMessageKeys("The following message keys are missing from the English Set:", welshKeySet -- englishKeySet)
+    if (englishKeySet.size > welshKeySet.size)
+      listMissingMessageKeys("The following message keys are missing from the Welsh Set:", englishKeySet -- welshKeySet)
+    else
+      listMissingMessageKeys(
+        "The following message keys are missing from the English Set:",
+        welshKeySet -- englishKeySet
+      )
+
 }

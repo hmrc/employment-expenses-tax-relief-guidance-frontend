@@ -30,9 +30,9 @@ class UsePrintAndPostViewSpec extends NewViewBehaviours {
   def createView = view.apply()(fakeRequest, messages)
 
   "UsePrintAndPost view" must {
-    behave like normalPage(createView, messageKeyPrefix)
+    behave.like(normalPage(createView, messageKeyPrefix))
 
-    behave like pageWithBackLink(createView)
+    behave.like(pageWithBackLink(createView))
   }
 
   application.stop()
