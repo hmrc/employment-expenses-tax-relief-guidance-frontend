@@ -28,20 +28,27 @@ import play.api.inject.bind
 import play.api.libs.json.{JsBoolean, JsString}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{CacheMap, NavigatorSupport, Navigator}
+import utils.{CacheMap, Navigator, NavigatorSupport}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience with NavigatorSupport {
+class ClaimingMileageControllerSpec
+    extends SpecBase
+    with MockitoSugar
+    with BeforeAndAfterEach
+    with ScalaFutures
+    with IntegrationPatience
+    with NavigatorSupport {
 
-  def onwardRoute = routes.IndexController.onPageLoad
+  def onwardRoute          = routes.IndexController.onPageLoad
   def claimingMileageRoute = routes.ClaimingMileageController.onPageLoad().url
 
   private val mockDataCacheConnector = mock[DataCacheConnector]
+
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
-    when(mockDataCacheConnector.save(any(),any(),any())(any())) thenReturn Future(new CacheMap("id", Map()))
+    when(mockDataCacheConnector.save(any(), any(), any())(any())).thenReturn(Future(new CacheMap("id", Map())))
   }
 
   "ClaimingMileage Controller" must {
@@ -49,8 +56,8 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
     "return OK and the correct view for a GET" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
-      val request = FakeRequest(GET, claimingMileageRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, claimingMileageRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe OK
 
@@ -59,10 +66,11 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val validData = Map(ClaimantId.toString -> JsString(claimant.toString), ClaimingMileageId.toString -> JsBoolean(true))
+      val validData =
+        Map(ClaimantId.toString -> JsString(claimant.toString), ClaimingMileageId.toString -> JsBoolean(true))
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
-      val request = FakeRequest(GET, claimingMileageRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, claimingMileageRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe OK
 
@@ -75,7 +83,8 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
-        ).build()
+        )
+        .build()
 
       val request = FakeRequest(POST, claimingMileageRoute)
         .withFormUrlEncodedBody("value" -> "true")
@@ -101,8 +110,8 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
     "redirect to Session Expired for a GET if no existing data is found" in {
 
       val application = applicationBuilder().build()
-      val request = FakeRequest(GET, claimingMileageRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, claimingMileageRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl
@@ -113,8 +122,8 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
     "redirect to Session Expired for a POST if no existing data is found" in {
 
       val application = applicationBuilder().build()
-      val request = FakeRequest(POST, claimingMileageRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(POST, claimingMileageRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl
@@ -122,4 +131,5 @@ class ClaimingMileageControllerSpec extends SpecBase with MockitoSugar with Befo
       application.stop()
     }
   }
+
 }

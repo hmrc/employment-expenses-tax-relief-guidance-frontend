@@ -32,6 +32,7 @@ class ClaimingForFormProvider @Inject() extends Mappings {
 
   private def claimingForMapping: Mapping[Set[ClaimingFor]] =
     set(nonEmptyText)
-        .verifying(s"claimingFor.error.required", _.forall(ClaimingFor.mappings.keySet.contains _))
-        .transform(_.map(ClaimingFor.mappings.apply), _.map(_.toString))
+      .verifying(s"claimingFor.error.required", _.forall(ClaimingFor.mappings.keySet.contains _))
+      .transform(_.map(ClaimingFor.mappings.apply), _.map(_.toString))
+
 }

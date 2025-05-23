@@ -29,21 +29,27 @@ import play.api.libs.json.{JsBoolean, JsString}
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{CacheMap, NavigatorSupport, Navigator}
+import utils.{CacheMap, Navigator, NavigatorSupport}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSugar with BeforeAndAfterEach with IntegrationPatience with NavigatorSupport {
+class WillPayTaxControllerSpec
+    extends SpecBase
+    with ScalaFutures
+    with MockitoSugar
+    with BeforeAndAfterEach
+    with IntegrationPatience
+    with NavigatorSupport {
 
-
-  def onwardRoute = Call("GET", "/foo")
+  def onwardRoute     = Call("GET", "/foo")
   def willPayTaxRoute = routes.WillPayTaxController.onPageLoad().url
 
   private val mockDataCacheConnector = mock[DataCacheConnector]
+
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
-    when(mockDataCacheConnector.save(any(),any(),any())(any())) thenReturn Future(new CacheMap("id", Map()))
+    when(mockDataCacheConnector.save(any(), any(), any())(any())).thenReturn(Future(new CacheMap("id", Map())))
   }
 
   "WillPayTax Controller" must {
@@ -51,8 +57,8 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
     "return OK and the correct view for a GET" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
-      val request = FakeRequest(GET, willPayTaxRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, willPayTaxRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe OK
 
@@ -64,14 +70,14 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
       val validData = new CacheMap(
         cacheMapId,
         Map(
-          ClaimantId.toString -> JsString(claimant.toString),
+          ClaimantId.toString   -> JsString(claimant.toString),
           WillPayTaxId.toString -> JsBoolean(true)
         )
       )
 
       val application = applicationBuilder(Some(validData)).build()
-      val request = FakeRequest(GET, willPayTaxRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, willPayTaxRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe OK
 
@@ -84,7 +90,8 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
-        ).build()
+        )
+        .build()
 
       val request = FakeRequest(POST, willPayTaxRoute)
         .withFormUrlEncodedBody(("value", "true"))
@@ -111,8 +118,8 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
     "redirect to Session Expired for a GET if no existing data is found" in {
 
       val application = applicationBuilder().build()
-      val request = FakeRequest(GET, routes.WillNotPayTaxController.onPageLoad().url)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, routes.WillNotPayTaxController.onPageLoad().url)
+      val result      = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(sessionExpiredUrl)
@@ -133,4 +140,5 @@ class WillPayTaxControllerSpec extends SpecBase with ScalaFutures with MockitoSu
       application.stop()
     }
   }
+
 }

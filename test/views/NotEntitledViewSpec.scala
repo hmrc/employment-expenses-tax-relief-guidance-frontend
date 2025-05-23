@@ -33,9 +33,9 @@ class NotEntitledViewSpec extends NewViewBehaviours {
   val taxReliefForEmployeesUrl = frontendAppConfig.taxReliefForEmployeesUrl
 
   "NotEntitled view" must {
-    behave like normalPage(createView, messageKeyPrefix)
-    behave like pageWithBackLink(createView)
-    behave like pageWithHyperLink(createView, taxReliefForEmployeesUrl)
+    behave.like(normalPage(createView, messageKeyPrefix))
+    behave.like(pageWithBackLink(createView))
+    behave.like(pageWithHyperLink(createView, taxReliefForEmployeesUrl))
   }
 
   application.stop()

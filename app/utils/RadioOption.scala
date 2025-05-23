@@ -26,6 +26,7 @@ case class Message(key: String, args: Any*) {
 
   def string(implicit messages: Messages): String =
     messages(key, args: _*)
+
 }
 
 case class RadioOption(id: String, value: String, message: Message, hint: Option[Message] = None)
@@ -38,4 +39,5 @@ object RadioOption {
       option,
       Message(s"$keyPrefix.$option", messageArgs)
     )
+
 }

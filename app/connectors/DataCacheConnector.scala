@@ -26,74 +26,72 @@ import utils.{CacheMap, CascadeUpsert}
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class DataCacheConnectorImpl @Inject()(val sessionRepository: SessionRepository,
-                                       val cascadeUpsert: CascadeUpsert
-                                      )(implicit executionContext: ExecutionContext) extends DataCacheConnector {
+class DataCacheConnectorImpl @Inject() (val sessionRepository: SessionRepository, val cascadeUpsert: CascadeUpsert)(
+    implicit executionContext: ExecutionContext
+) extends DataCacheConnector {
 
-  def save(cacheMap: CacheMap): Future[CacheMap] = {
-    sessionRepository().upsert(cacheMap).map { _ => cacheMap }
-  }
+  def save(cacheMap: CacheMap): Future[CacheMap] =
+    sessionRepository().upsert(cacheMap).map(_ => cacheMap)
 
-  def save[A](cacheId: String, key: Identifier, value: A)(implicit fmt: Format[A]): Future[CacheMap] = {
+  def save[A](cacheId: String, key: Identifier, value: A)(implicit fmt: Format[A]): Future[CacheMap] =
     sessionRepository().get(cacheId).flatMap { optionalCacheMap =>
       val updatedCacheMap = cascadeUpsert(key, value, optionalCacheMap.getOrElse(new CacheMap(cacheId, Map())))
-      sessionRepository().upsert(updatedCacheMap).map {_ => updatedCacheMap}
+      sessionRepository().upsert(updatedCacheMap).map(_ => updatedCacheMap)
     }
-  }
 
-  def remove(cacheId: String, key: Identifier): Future[Boolean] = {
+  def remove(cacheId: String, key: Identifier): Future[Boolean] =
     sessionRepository().get(cacheId).flatMap { optionalCacheMap =>
       optionalCacheMap.fold(Future(false)) { cacheMap =>
-        val newCacheMap = cacheMap copy (data = cacheMap.data - key.toString)
+        val newCacheMap = cacheMap.copy(data = cacheMap.data - key.toString)
         sessionRepository().upsert(newCacheMap)
       }
     }
-  }
 
   def fetch(cacheId: String): Future[Option[CacheMap]] =
     sessionRepository().get(cacheId)
 
-  def fetchBySessionId(sessionId: String): Future[Option[CacheMap]] = {
+  def fetchBySessionId(sessionId: String): Future[Option[CacheMap]] =
     sessionRepository().get(SessionId(sessionId).toString)
-  }
 
-  def getEntry[A](cacheId: String, key: Identifier)(implicit fmt: Format[A]): Future[Option[A]] = {
-    fetch(cacheId).map { optionalCacheMap =>
-      optionalCacheMap.flatMap { cacheMap => cacheMap.getEntry(key.toString)}
-    }
-  }
+  def getEntry[A](cacheId: String, key: Identifier)(implicit fmt: Format[A]): Future[Option[A]] =
+    fetch(cacheId).map(optionalCacheMap => optionalCacheMap.flatMap(cacheMap => cacheMap.getEntry(key.toString)))
 
-  def addToCollection[A](cacheId: String, collectionKey: Identifier, value: A)(implicit fmt: Format[A]): Future[CacheMap] = {
+  def addToCollection[A](cacheId: String, collectionKey: Identifier, value: A)(
+      implicit fmt: Format[A]
+  ): Future[CacheMap] =
     sessionRepository().get(cacheId).flatMap { optionalCacheMap =>
-      val updatedCacheMap = cascadeUpsert.addRepeatedValue(collectionKey, value, optionalCacheMap.getOrElse(new CacheMap(cacheId, Map())))
-      sessionRepository().upsert(updatedCacheMap).map {_ => updatedCacheMap}
+      val updatedCacheMap =
+        cascadeUpsert.addRepeatedValue(collectionKey, value, optionalCacheMap.getOrElse(new CacheMap(cacheId, Map())))
+      sessionRepository().upsert(updatedCacheMap).map(_ => updatedCacheMap)
     }
-  }
 
-  def removeFromCollection[A](cacheId: String, collectionKey: Identifier, item: A)(implicit fmt: Format[A]): Future[CacheMap] = {
+  def removeFromCollection[A](cacheId: String, collectionKey: Identifier, item: A)(
+      implicit fmt: Format[A]
+  ): Future[CacheMap] =
     sessionRepository().get(cacheId).flatMap { optionalCacheMap =>
-      optionalCacheMap.fold(throw new Exception(s"Couldn't find document with key $cacheId")) {cacheMap =>
+      optionalCacheMap.fold(throw new Exception(s"Couldn't find document with key $cacheId")) { cacheMap =>
         val newSeq = cacheMap.data(collectionKey.toString).as[Seq[A]].filterNot(x => x == item)
         val newCacheMap = if (newSeq.isEmpty) {
-          cacheMap copy (data = cacheMap.data - collectionKey.toString)
+          cacheMap.copy(data = cacheMap.data - collectionKey.toString)
         } else {
-          cacheMap copy (data = cacheMap.data + (collectionKey.toString -> Json.toJson(newSeq)))
+          cacheMap.copy(data = cacheMap.data + (collectionKey.toString -> Json.toJson(newSeq)))
         }
 
-        sessionRepository().upsert(newCacheMap).map {_ => newCacheMap}
+        sessionRepository().upsert(newCacheMap).map(_ => newCacheMap)
       }
     }
-  }
 
-  def replaceInCollection[A](cacheId: String, collectionKey: Identifier, index: Int, item: A)(implicit fmt: Format[A]): Future[CacheMap] = {
+  def replaceInCollection[A](cacheId: String, collectionKey: Identifier, index: Int, item: A)(
+      implicit fmt: Format[A]
+  ): Future[CacheMap] =
     sessionRepository().get(cacheId).flatMap { optionalCacheMap =>
-      optionalCacheMap.fold(throw new Exception(s"Couldn't find document with key $cacheId")) {cacheMap =>
-        val newSeq = cacheMap.data(collectionKey.toString).as[Seq[A]].updated(index, item)
-        val updatedCacheMap = cacheMap copy (data = cacheMap.data + (collectionKey.toString -> Json.toJson(newSeq)))
-        sessionRepository().upsert(updatedCacheMap).map {_ => updatedCacheMap}
+      optionalCacheMap.fold(throw new Exception(s"Couldn't find document with key $cacheId")) { cacheMap =>
+        val newSeq          = cacheMap.data(collectionKey.toString).as[Seq[A]].updated(index, item)
+        val updatedCacheMap = cacheMap.copy(data = cacheMap.data + (collectionKey.toString -> Json.toJson(newSeq)))
+        sessionRepository().upsert(updatedCacheMap).map(_ => updatedCacheMap)
       }
     }
-  }
+
 }
 
 trait DataCacheConnector {
@@ -110,9 +108,16 @@ trait DataCacheConnector {
 
   def getEntry[A](cacheId: String, key: Identifier)(implicit fmt: Format[A]): Future[Option[A]]
 
-  def addToCollection[A](cacheId: String, collectionKey: Identifier, value: A)(implicit fmt: Format[A]): Future[CacheMap]
+  def addToCollection[A](cacheId: String, collectionKey: Identifier, value: A)(
+      implicit fmt: Format[A]
+  ): Future[CacheMap]
 
-  def removeFromCollection[A](cacheId: String, collectionKey: Identifier, item: A)(implicit fmt: Format[A]): Future[CacheMap]
+  def removeFromCollection[A](cacheId: String, collectionKey: Identifier, item: A)(
+      implicit fmt: Format[A]
+  ): Future[CacheMap]
 
-  def replaceInCollection[A](cacheId: String, collectionKey: Identifier, index: Int, item: A)(implicit fmt: Format[A]): Future[CacheMap]
+  def replaceInCollection[A](cacheId: String, collectionKey: Identifier, index: Int, item: A)(
+      implicit fmt: Format[A]
+  ): Future[CacheMap]
+
 }

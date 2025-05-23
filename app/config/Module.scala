@@ -27,4 +27,5 @@ class Module extends AbstractModule {
     bind(classOf[DataRequiredAction]).to(classOf[DataRequiredActionImpl]).asEagerSingleton()
     bind(classOf[DataCacheConnector]).to(classOf[DataCacheConnectorImpl]).asEagerSingleton()
   }
+
 }

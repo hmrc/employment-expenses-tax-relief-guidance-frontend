@@ -33,10 +33,7 @@ import utils.CacheMap
 import scala.concurrent.{ExecutionContext, Future}
 import scala.concurrent.duration.SECONDS
 
-case class DatedCacheMap(id: String,
-                         data: Map[String, JsValue],
-                         lastUpdated: Instant = Instant.now()
-                        )
+case class DatedCacheMap(id: String, data: Map[String, JsValue], lastUpdated: Instant = Instant.now())
 
 object DatedCacheMap extends MongoDateTimeFormats {
 
@@ -45,55 +42,53 @@ object DatedCacheMap extends MongoDateTimeFormats {
   def apply(cacheMap: CacheMap): DatedCacheMap = DatedCacheMap(cacheMap.id, cacheMap.data)
 }
 
-class ReactiveMongoRepository(appConfig: FrontendAppConfig,
-                              mongo: MongoComponent
-                             )(implicit executionContext: ExecutionContext)
-  extends PlayMongoRepository[DatedCacheMap](
-    collectionName = appConfig.serviceName,
-    mongoComponent = mongo,
-    domainFormat = DatedCacheMap.formats,
-    indexes = Seq(
-      IndexModel(ascending("id"), IndexOptions().name("userAnswersId")),
-      IndexModel(ascending("lastUpdated"),
-        IndexOptions()
-          .name("userAnswersExpiry")
-          .expireAfter(appConfig.mongo_ttl.toLong, SECONDS))
+class ReactiveMongoRepository(appConfig: FrontendAppConfig, mongo: MongoComponent)(
+    implicit executionContext: ExecutionContext
+) extends PlayMongoRepository[DatedCacheMap](
+      collectionName = appConfig.serviceName,
+      mongoComponent = mongo,
+      domainFormat = DatedCacheMap.formats,
+      indexes = Seq(
+        IndexModel(ascending("id"), IndexOptions().name("userAnswersId")),
+        IndexModel(
+          ascending("lastUpdated"),
+          IndexOptions()
+            .name("userAnswersExpiry")
+            .expireAfter(appConfig.mongo_ttl.toLong, SECONDS)
+        )
       ),
-    extraCodecs = Seq(Codecs.playFormatCodec(CacheMap.formats))
-  ) {
+      extraCodecs = Seq(Codecs.playFormatCodec(CacheMap.formats))
+    ) {
 
-  val fieldName = "lastUpdated"
-  val createdIndexName = "userAnswersExpiry"
-  val expireAfterSeconds = "expireAfterSeconds"
+  val fieldName           = "lastUpdated"
+  val createdIndexName    = "userAnswersExpiry"
+  val expireAfterSeconds  = "expireAfterSeconds"
   val timeToLiveInSeconds = appConfig.mongo_ttl
 
   def upsert(cm: CacheMap): Future[Boolean] = {
     val dcm = DatedCacheMap(cm)
-    collection.updateOne(
-      filter = equal("id", dcm.id),
-      update = combine(
-        set("data", Codecs.toBson(dcm.data)),
-        set("lastUpdated", Codecs.toBson(dcm.lastUpdated))),
-      UpdateOptions().upsert(true)
-    ).toFuture().map(_.wasAcknowledged())
+    collection
+      .updateOne(
+        filter = equal("id", dcm.id),
+        update = combine(set("data", Codecs.toBson(dcm.data)), set("lastUpdated", Codecs.toBson(dcm.lastUpdated))),
+        UpdateOptions().upsert(true)
+      )
+      .toFuture()
+      .map(_.wasAcknowledged())
 
   }
 
-  def get(id: String): Future[Option[CacheMap]] = {
+  def get(id: String): Future[Option[CacheMap]] =
     collection.find[CacheMap](and(equal("id", id))).headOption()
-  }
-
-
 
 }
 
 @Singleton
-class SessionRepository @Inject()(appConfig: FrontendAppConfig,
-                                  mongo: MongoComponent
-                                 )(implicit executionContext: ExecutionContext) {
+class SessionRepository @Inject() (appConfig: FrontendAppConfig, mongo: MongoComponent)(
+    implicit executionContext: ExecutionContext
+) {
 
   private lazy val sessionRepository = new ReactiveMongoRepository(appConfig, mongo)
 
   def apply(): ReactiveMongoRepository = sessionRepository
 }
-

@@ -41,15 +41,15 @@ class DataRequiredActionSpec extends SpecBase with MockitoSugar with ScalaFuture
 
       "redirect to Session Expired" in {
         val incomingRequest = OptionalDataRequest(fakeRequest, sessionId, None)
-        val action = new Harness()
-        val futureResult = action.callRefine(incomingRequest)
+        val action          = new Harness()
+        val futureResult    = action.callRefine(incomingRequest)
 
         whenReady(futureResult) {
 
           case Left(httpResult) =>
             httpResult.header.status mustBe SEE_OTHER
             httpResult.header.headers(LOCATION) mustEqual sessionExpiredUrl
-            
+
           case Right(_) =>
             fail("Expected left but got right")
         }
@@ -59,15 +59,14 @@ class DataRequiredActionSpec extends SpecBase with MockitoSugar with ScalaFuture
     "there is data in the incoming request" must {
 
       "return a DataRequest" in {
-        val answers = mock[UserAnswers]
+        val answers         = mock[UserAnswers]
         val incomingRequest = OptionalDataRequest(fakeRequest, sessionId, Some(answers))
-        val action = new Harness()
-        val futureResult = action.callRefine(incomingRequest)
+        val action          = new Harness()
+        val futureResult    = action.callRefine(incomingRequest)
 
-        whenReady(futureResult) { result =>
-          result.isRight mustBe true
-        }
+        whenReady(futureResult)(result => result.isRight mustBe true)
       }
     }
   }
+
 }

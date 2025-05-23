@@ -31,38 +31,41 @@ import views.html.PaidTaxInRelevantYearView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class PaidTaxInRelevantYearController @Inject()(
-                                                appConfig: FrontendAppConfig,
-                                                dataCacheConnector: DataCacheConnector,
-                                                navigator: Navigator,
-                                                getData: DataRetrievalAction,
-                                                requireData: DataRequiredAction,
-                                                formProvider: PaidTaxInRelevantYearFormProvider,
-                                                val controllerComponents: MessagesControllerComponents,
-                                                view: PaidTaxInRelevantYearView
-                                               )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
+class PaidTaxInRelevantYearController @Inject() (
+    appConfig: FrontendAppConfig,
+    dataCacheConnector: DataCacheConnector,
+    navigator: Navigator,
+    getData: DataRetrievalAction,
+    requireData: DataRequiredAction,
+    formProvider: PaidTaxInRelevantYearFormProvider,
+    val controllerComponents: MessagesControllerComponents,
+    view: PaidTaxInRelevantYearView
+)(implicit ec: ExecutionContext)
+    extends FrontendBaseController
+    with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData).async {
-    implicit request =>
-      val form: Form[Boolean] = formProvider(appConfig.earliestTaxYear)
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+    val form: Form[Boolean] = formProvider(appConfig.earliestTaxYear)
 
-      val preparedForm = request.userAnswers.paidTaxInRelevantYear match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-      Future.successful(Ok(view(preparedForm)))
+    val preparedForm = request.userAnswers.paidTaxInRelevantYear match {
+      case None        => form
+      case Some(value) => form.fill(value)
+    }
+    Future.successful(Ok(view(preparedForm)))
   }
 
-  def onSubmit: Action[AnyContent] = (getData andThen requireData).async {
-    implicit request =>
-      val form: Form[Boolean] = formProvider(appConfig.earliestTaxYear)
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+    val form: Form[Boolean] = formProvider(appConfig.earliestTaxYear)
 
-      form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(formWithErrors))),
+    form
+      .bindFromRequest()
+      .fold(
+        (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors))),
         value =>
-          dataCacheConnector.save[Boolean](request.sessionId, PaidTaxInRelevantYearId, value).map(cacheMap =>
-            Redirect(navigator.nextPage(PaidTaxInRelevantYearId)(new UserAnswers(cacheMap))))
+          dataCacheConnector
+            .save[Boolean](request.sessionId, PaidTaxInRelevantYearId, value)
+            .map(cacheMap => Redirect(navigator.nextPage(PaidTaxInRelevantYearId)(new UserAnswers(cacheMap))))
       )
   }
+
 }

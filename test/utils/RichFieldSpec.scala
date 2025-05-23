@@ -60,4 +60,5 @@ class RichFieldSpec extends AnyWordSpec with Matchers {
       field.values mustEqual Seq("foo")
     }
   }
+
 }

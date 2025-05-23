@@ -35,18 +35,17 @@ class PaidTaxInRelevantYearViewSpec extends NewYesNoViewBehaviours {
 
   def createView(form: Form[_]): Html = view.apply(form)(fakeRequest, messages)
 
-
   "PaidTaxInRelevantYear view" must {
 
     "have the correct banner title" in {
-      val doc = asDocument(createView(form))
+      val doc    = asDocument(createView(form))
       val banner = doc.select(".govuk-header__service-name")
 
       banner.text() mustEqual messages("site.service_name")
     }
 
     "display the correct browser title" in {
-      val doc = asDocument(createView(form))
+      val doc               = asDocument(createView(form))
       val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title", frontendAppConfig.earliestTaxYear)
       assertEqualsMessage(doc, "title", expectedFullTitle)
     }
@@ -56,14 +55,16 @@ class PaidTaxInRelevantYearViewSpec extends NewYesNoViewBehaviours {
       assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.heading", frontendAppConfig.earliestTaxYear)
     }
 
-    behave like yesNoPage(
-      createView,
-      messageKeyPrefix,
-      routes.PaidTaxInRelevantYearController.onSubmit().url,
-      frontendAppConfig.earliestTaxYear
+    behave.like(
+      yesNoPage(
+        createView,
+        messageKeyPrefix,
+        routes.PaidTaxInRelevantYearController.onSubmit().url,
+        frontendAppConfig.earliestTaxYear
+      )
     )
 
-    behave like pageWithBackLink(createView(form))
+    behave.like(pageWithBackLink(createView(form)))
   }
 
   application.stop()

@@ -43,9 +43,11 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
 
   val view = application.injector.instanceOf[ClaimOnlineView]
 
-  def createView(journey: OnwardJourney, selectedList: List[ClaimingFor])(implicit request: play.api.mvc.Request[_], messages: play.api.i18n.Messages) = {
+  def createView(journey: OnwardJourney, selectedList: List[ClaimingFor])(
+      implicit request: play.api.mvc.Request[_],
+      messages: play.api.i18n.Messages
+  ) =
     view.apply(journey, selectedList)
-  }
 
   "ClaimOnline view when freOnlyJourneyEnabled is disabled" must {
     "When the onward journey is IForm Include a call to action button with the correct link" in {
@@ -53,17 +55,23 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
       when(mockAppConfig.employeeExpensesUrl).thenReturn("http://example.com/employee-expenses")
       when(mockAppConfig.professionalSubscriptionsUrl).thenReturn("http://example.com/professional-subscriptions")
       when(mockAppConfig.workingFromHomeExpensesUrl).thenReturn("http://example.com/working-from-home")
-      when(mockAppConfig.employeeExpensesClaimOnlineUrl).thenReturn("/digital-forms/form/tax-relief-for-expenses-of-employment/draft/guide")
+      when(mockAppConfig.employeeExpensesClaimOnlineUrl).thenReturn(
+        "/digital-forms/form/tax-relief-for-expenses-of-employment/draft/guide"
+      )
 
-
-      val doc = asDocument(createView(OnwardJourney.IForm, List(HomeWorking, UniformsClothingTools, MileageFuel, TravelExpenses))(fakeRequest, messages))
+      val doc = asDocument(
+        createView(OnwardJourney.IForm, List(HomeWorking, UniformsClothingTools, MileageFuel, TravelExpenses))(
+          fakeRequest,
+          messages
+        )
+      )
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be("/digital-forms/form/tax-relief-for-expenses-of-employment/draft/guide")
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
-      assertContainsMessages(doc,"claimingFor.homeWorking")
-      assertContainsMessages(doc,"claimingFor.uniformsClothingTools")
-      assertContainsMessages(doc,"claimingFor.mileageFuel")
-      assertContainsMessages(doc,"claimingFor.travelExpenses")
+      assertContainsMessages(doc, "claimingFor.homeWorking")
+      assertContainsMessages(doc, "claimingFor.uniformsClothingTools")
+      assertContainsMessages(doc, "claimingFor.mileageFuel")
+      assertContainsMessages(doc, "claimingFor.travelExpenses")
       assertRenderedByAttribute(doc, "data-module", Some("hmrc-back-link"))
     }
 
@@ -73,11 +81,12 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
       when(mockAppConfig.professionalSubscriptionsUrl).thenReturn("http://example.com/professional-subscriptions")
       when(mockAppConfig.workingFromHomeExpensesUrl).thenReturn("http://example.com/working-from-home")
 
-      val doc = asDocument(createView(OnwardJourney.FixedRateExpenses, List(UniformsClothingTools))(fakeRequest, messages))
+      val doc =
+        asDocument(createView(OnwardJourney.FixedRateExpenses, List(UniformsClothingTools))(fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be(mockAppConfig.employeeExpensesUrl)
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
-      assertContainsMessages(doc,"claimingFor.uniformsClothingTools")
+      assertContainsMessages(doc, "claimingFor.uniformsClothingTools")
     }
 
     "When the onward journey is Professional Subscriptions Include a call to action button with a link to the IForm which can be replaced by Optimizely" in {
@@ -87,11 +96,12 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
       when(mockAppConfig.workingFromHomeExpensesUrl).thenReturn("http://example.com/working-from-home")
 
       val view = application.injector.instanceOf[ClaimOnlineView]
-      val doc = asDocument(view(OnwardJourney.ProfessionalSubscriptions, List(FeesSubscriptions))(fakeRequest, messages))
+      val doc =
+        asDocument(view(OnwardJourney.ProfessionalSubscriptions, List(FeesSubscriptions))(fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be(mockAppConfig.professionalSubscriptionsUrl)
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
-      assertContainsMessages(doc,"claimingFor.feesSubscriptions")
+      assertContainsMessages(doc, "claimingFor.feesSubscriptions")
     }
 
     "When the onward journey is Employee Working From Home Expenses Include a call to action button with the correct link" in {
@@ -101,11 +111,11 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
       when(mockAppConfig.workingFromHomeExpensesUrl).thenReturn("http://example.com/working-from-home")
 
       val view = application.injector.instanceOf[ClaimOnlineView]
-      val doc = asDocument(view(OnwardJourney.WorkingFromHomeExpensesOnly, List(HomeWorking))(fakeRequest, messages))
+      val doc  = asDocument(view(OnwardJourney.WorkingFromHomeExpensesOnly, List(HomeWorking))(fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be(mockAppConfig.workingFromHomeExpensesUrl)
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
-      assertContainsMessages(doc,"claimingFor.homeWorking")
+      assertContainsMessages(doc, "claimingFor.homeWorking")
     }
 
     "When the onward journey is Employee Working From Home Expenses Include a call to action button with the correct link & including wfh link" in {
@@ -115,11 +125,11 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
       when(mockAppConfig.workingFromHomeExpensesUrl).thenReturn("http://example.com/working-from-home")
 
       val view = application.injector.instanceOf[ClaimOnlineView]
-      val doc = asDocument(view(OnwardJourney.WorkingFromHomeExpensesOnly, List(HomeWorking))(fakeRequest, messages))
+      val doc  = asDocument(view(OnwardJourney.WorkingFromHomeExpensesOnly, List(HomeWorking))(fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be(s"${mockAppConfig.workingFromHomeExpensesUrl}")
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
-      assertContainsMessages(doc,"claimingFor.homeWorking")
+      assertContainsMessages(doc, "claimingFor.homeWorking")
     }
 
   }
@@ -131,15 +141,17 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
       when(mockAppConfig.professionalSubscriptionsUrl).thenReturn("http://example.com/professional-subscriptions")
       when(mockAppConfig.workingFromHomeExpensesUrl).thenReturn("http://example.com/working-from-home")
 
-      val doc = asDocument(createView(OnwardJourney.FixedRateExpenses, List(UniformsClothingTools))(fakeRequest, messages))
+      val doc =
+        asDocument(createView(OnwardJourney.FixedRateExpenses, List(UniformsClothingTools))(fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be(mockAppConfig.employeeExpensesUrl)
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
-      assertContainsMessages(doc,"claimOnline.fre.para1")
-      assertContainsMessages(doc,"claimOnline.fre.para2")
-      assertContainsMessages(doc,"claimOnline.fre.para3")
-      assertContainsMessages(doc,"claimOnline.fre.button")
+      assertContainsMessages(doc, "claimOnline.fre.para1")
+      assertContainsMessages(doc, "claimOnline.fre.para2")
+      assertContainsMessages(doc, "claimOnline.fre.para3")
+      assertContainsMessages(doc, "claimOnline.fre.button")
     }
   }
+
   application.stop()
 }

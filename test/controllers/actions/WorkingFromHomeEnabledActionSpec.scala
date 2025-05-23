@@ -39,11 +39,15 @@ class WorkingFromHomeEnabledActionSpec extends SpecBase with MockitoSugar with S
   class SetUp {
     val mockAppConfig: FrontendAppConfig = mock[FrontendAppConfig]
 
-    class ActionUnderTest(controllerComponents: MessagesControllerComponents) extends WorkingFromHomeEnabledActionImpl(controllerComponents, mockAppConfig) {}
+    class ActionUnderTest(controllerComponents: MessagesControllerComponents)
+        extends WorkingFromHomeEnabledActionImpl(controllerComponents, mockAppConfig) {}
 
     val action = new ActionUnderTest(controllerComponents)
 
-    val successfulOkayBlock: Request[AnyContent] => Future[Result] = { _ => Future.successful(Result(ResponseHeader(OK), HttpEntity.NoEntity)) }
+    val successfulOkayBlock: Request[AnyContent] => Future[Result] = { _ =>
+      Future.successful(Result(ResponseHeader(OK), HttpEntity.NoEntity))
+    }
+
   }
 
   "The ActionBuilder" when {

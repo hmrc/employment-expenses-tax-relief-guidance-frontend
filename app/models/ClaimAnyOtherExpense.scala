@@ -22,20 +22,24 @@ sealed trait ClaimAnyOtherExpense
 
 object ClaimAnyOtherExpense extends Enumerable.Implicits {
   case object YesClaimAnyOtherExpense extends WithName("yesClaimAnyOtherExpense") with ClaimAnyOtherExpense
-  case object NoClaimAnyOtherExpense extends WithName("noClaimAnyOtherExpense") with ClaimAnyOtherExpense
+  case object NoClaimAnyOtherExpense  extends WithName("noClaimAnyOtherExpense") with ClaimAnyOtherExpense
 
   private val keyPrefix = "claimAnyOtherExpense"
 
   val values: Seq[ClaimAnyOtherExpense] = Seq(
-    YesClaimAnyOtherExpense, NoClaimAnyOtherExpense
+    YesClaimAnyOtherExpense,
+    NoClaimAnyOtherExpense
   )
 
-  val options: Seq[RadioOption] = values.map {
-    value => RadioOption(id = s"$keyPrefix.$value",
+  val options: Seq[RadioOption] = values.map { value =>
+    RadioOption(
+      id = s"$keyPrefix.$value",
       value = s"${value == YesClaimAnyOtherExpense}",
-      message = Message(s"$keyPrefix.$value"))
+      message = Message(s"$keyPrefix.$value")
+    )
   }
 
   implicit val enumerable: Enumerable[ClaimAnyOtherExpense] =
     Enumerable(values.map(v => v.toString -> v): _*)
+
 }

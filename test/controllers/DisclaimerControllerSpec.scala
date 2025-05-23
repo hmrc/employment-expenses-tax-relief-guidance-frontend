@@ -20,7 +20,7 @@ import base.SpecBase
 import play.api.inject.bind
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{NavigatorSupport, Navigator}
+import utils.{Navigator, NavigatorSupport}
 
 class DisclaimerControllerSpec extends SpecBase with NavigatorSupport {
 
@@ -34,11 +34,12 @@ class DisclaimerControllerSpec extends SpecBase with NavigatorSupport {
         .overrides(bind[Navigator].toInstance(new FakeNavigator()))
         .build()
       val request = FakeRequest(GET, disclaimerRoute)
-      val result = route(application, request).value
+      val result  = route(application, request).value
 
       status(result) mustBe OK
 
       application.stop()
     }
   }
+
 }

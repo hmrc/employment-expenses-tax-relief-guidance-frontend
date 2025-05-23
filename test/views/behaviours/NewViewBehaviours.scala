@@ -24,21 +24,19 @@ trait NewViewBehaviours extends NewViewSpecBase {
   protected def getFullTitle(messageKey: String, args: Any*) =
     messages(messageKey, args: _*) + " – " + messages("service.name") + " – " + messages("site.gov.uk")
 
-  def normalPage(view: HtmlFormat.Appendable,
-                 messageKeyPrefix: String,
-                 expectedGuidanceKeys: String*) = {
+  def normalPage(view: HtmlFormat.Appendable, messageKeyPrefix: String, expectedGuidanceKeys: String*) =
 
     "behave like a normal page" when {
       "rendered" must {
         "have the correct banner title" in {
-          val doc = asDocument(view)
+          val doc    = asDocument(view)
           val banner = doc.select(".govuk-header__service-name")
 
           banner.text() mustEqual messages("site.service_name")
         }
 
         "display the correct browser title" in {
-          val doc = asDocument(view)
+          val doc               = asDocument(view)
           val expectedFullTitle = getFullTitle(s"$messageKeyPrefix.title")
           assertEqualsMessage(doc, "title", expectedFullTitle)
         }
@@ -59,9 +57,8 @@ trait NewViewBehaviours extends NewViewSpecBase {
         }
       }
     }
-  }
 
-  def pageWithBackLink(view: HtmlFormat.Appendable) = {
+  def pageWithBackLink(view: HtmlFormat.Appendable) =
 
     "behave like a page with a back link" must {
       "have a back link" in {
@@ -69,25 +66,19 @@ trait NewViewBehaviours extends NewViewSpecBase {
         assertRenderedByAttribute(doc, "data-module", Some("hmrc-back-link"))
       }
     }
-  }
 
-  def pageWithBodyText(view: HtmlFormat.Appendable, messageKey: String*): Unit = {
+  def pageWithBodyText(view: HtmlFormat.Appendable, messageKey: String*): Unit =
 
     "behave like a page with body text" must {
 
       "display content" in {
         val doc = asDocument(view)
-        for (key <- messageKey) {
+        for (key <- messageKey)
           assertContainsMessages(doc, key)
-        }
       }
     }
-  }
 
-  def pageWithHyperLink(view: HtmlFormat.Appendable,
-                        url: String,
-                        id: String = "govuk-link",
-                        index: Int = 1): Unit = {
+  def pageWithHyperLink(view: HtmlFormat.Appendable, url: String, id: String = "govuk-link", index: Int = 1): Unit =
 
     "behave like a page with a url link" must {
       "display link" in {
@@ -95,5 +86,5 @@ trait NewViewBehaviours extends NewViewSpecBase {
         doc.getElementsByClass(id).get(index).attr("href") mustBe url
       }
     }
-  }
+
 }

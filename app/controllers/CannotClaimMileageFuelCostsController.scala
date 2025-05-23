@@ -23,15 +23,13 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import views.html.CannotClaimMileageFuelCostsView
 
-class CannotClaimMileageFuelCostsController @Inject()(
-                                                       getData: DataRetrievalAction,
-                                                       requireData: DataRequiredAction,
-                                                       val controllerComponents: MessagesControllerComponents,
-                                                       view: CannotClaimMileageFuelCostsView
-                                                     ) extends FrontendBaseController with I18nSupport {
+class CannotClaimMileageFuelCostsController @Inject() (
+    getData: DataRetrievalAction,
+    requireData: DataRequiredAction,
+    val controllerComponents: MessagesControllerComponents,
+    view: CannotClaimMileageFuelCostsView
+) extends FrontendBaseController
+    with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
-    implicit request =>
-      Ok(view())
-  }
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData)(implicit request => Ok(view()))
 }

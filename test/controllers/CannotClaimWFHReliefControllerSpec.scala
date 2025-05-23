@@ -36,4 +36,5 @@ class CannotClaimWFHReliefControllerSpec extends SpecBase {
       application.stop()
     }
   }
+
 }

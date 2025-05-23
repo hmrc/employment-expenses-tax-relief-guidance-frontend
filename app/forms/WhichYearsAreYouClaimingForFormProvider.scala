@@ -27,4 +27,5 @@ class WhichYearsAreYouClaimingForFormProvider @Inject() extends Mappings {
     Form(
       "value" -> boolean(s"whichYearsAreYouClaimingFor.error.required")
     )
+
 }

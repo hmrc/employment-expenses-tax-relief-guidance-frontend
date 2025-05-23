@@ -29,8 +29,6 @@ import views.html.DisclaimerView
 import play.api.Application
 import play.twirl.api.Html
 
-
-
 class DisclaimerViewSpec extends NewViewBehaviours with MockitoSugar {
 
   val messageKeyPrefix: String = "disclaimer"
@@ -48,21 +46,23 @@ class DisclaimerViewSpec extends NewViewBehaviours with MockitoSugar {
   def createView(): Html = view.apply()(fakeRequest, messages)
 
   "DisclaimerView" should {
-    behave like normalPage(createView(), messageKeyPrefix)
-    behave like pageWithBackLink(createView())
+    behave.like(normalPage(createView(), messageKeyPrefix))
+    behave.like(pageWithBackLink(createView()))
   }
-    "show new summary" when {
-      "when onlinefreJourneyEnabled is enabled- all disclaimerView content is displayed " in {
-        when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
-        val doc = asDocument(createView())
-        assertContainsMessages(doc, messages(s"${messageKeyPrefix}.guidance.summary_freOnly"))
-      }
 
-     "when onlinefreJourneyEnabled is disabled- all disclaimerView content is displayed " in {
-        when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
-        val doc = asDocument(createView())
-        assertContainsMessages(doc,messages(s"${messageKeyPrefix}.guidance.summary"))
-      }
+  "show new summary" when {
+    "when onlinefreJourneyEnabled is enabled- all disclaimerView content is displayed " in {
+      when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
+      val doc = asDocument(createView())
+      assertContainsMessages(doc, messages(s"$messageKeyPrefix.guidance.summary_freOnly"))
     }
-    application.stop()
+
+    "when onlinefreJourneyEnabled is disabled- all disclaimerView content is displayed " in {
+      when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
+      val doc = asDocument(createView())
+      assertContainsMessages(doc, messages(s"$messageKeyPrefix.guidance.summary"))
+    }
   }
+
+  application.stop()
+}

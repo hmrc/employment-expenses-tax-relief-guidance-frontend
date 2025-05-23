@@ -28,7 +28,7 @@ class ClaimingForListBuilderSpec extends PlaySpec with BeforeAndAfterEach {
 
   private val claimingForListBuilder = new ClaimingForListBuilder
 
-  private val userAnswers = mock[UserAnswers]
+  private val userAnswers     = mock[UserAnswers]
   private val claimingForList = ClaimingFor.values
 
   override def beforeEach(): Unit = {
@@ -146,4 +146,5 @@ class ClaimingForListBuilderSpec extends PlaySpec with BeforeAndAfterEach {
       }
     }
   }
+
 }

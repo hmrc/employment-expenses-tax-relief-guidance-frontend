@@ -27,25 +27,37 @@ import play.api.libs.json.{JsArray, JsString}
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{CacheMap, NavigatorSupport, Navigator}
+import utils.{CacheMap, Navigator, NavigatorSupport}
 
-class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience with NavigatorSupport {
+class ClaimantControllerSpec
+    extends SpecBase
+    with MockitoSugar
+    with BeforeAndAfterEach
+    with ScalaFutures
+    with IntegrationPatience
+    with NavigatorSupport {
 
-  def onwardRoute: Call = routes.IndexController.onPageLoad
+  def onwardRoute: Call   = routes.IndexController.onPageLoad
   def claimantRoute: Call = routes.ClaimantController.onPageLoad()
 
   "Claimant Controller" must {
 
     "return OK and the correct view for a GET" in {
 
-      val application = applicationBuilder(Some(CacheMap(cacheMapId, Map(
-        ClaimingForId.toString -> JsArray(List(
-          JsString(MileageFuel.toString),
-          JsString(UniformsClothingTools.toString)))
-      )
-      ))).build()
+      val application = applicationBuilder(
+        Some(
+          CacheMap(
+            cacheMapId,
+            Map(
+              ClaimingForId.toString -> JsArray(
+                List(JsString(MileageFuel.toString), JsString(UniformsClothingTools.toString))
+              )
+            )
+          )
+        )
+      ).build()
       val request = FakeRequest(GET, claimantRoute.url)
-      val result = route(application, request).value
+      val result  = route(application, request).value
 
       status(result) mustEqual OK
 
@@ -94,8 +106,8 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
     "redirect to Session Expired for a GET if no existing data is found" in {
 
       val application = applicationBuilder().build()
-      val request = FakeRequest(GET, claimantRoute.url)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, claimantRoute.url)
+      val result      = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(sessionExpiredUrl)
@@ -103,12 +115,11 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
       application.stop()
     }
 
-
     "redirect to Session Expired for a POST if no existing data is found" in {
 
       val application = applicationBuilder().build()
-      val request = FakeRequest(GET, claimantRoute.url)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, claimantRoute.url)
+      val result      = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result) mustBe Some(sessionExpiredUrl)
@@ -116,4 +127,5 @@ class ClaimantControllerSpec extends SpecBase with MockitoSugar with BeforeAndAf
       application.stop()
     }
   }
+
 }

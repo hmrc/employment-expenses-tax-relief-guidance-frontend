@@ -33,7 +33,7 @@ import views.html.ClaimingForView
 class ClaimingForViewSpec extends CheckboxViewBehaviours[ClaimingFor] with MockitoSugar {
 
   val messageKeyPrefix: String = "claimingFor"
-  val form = new ClaimingForFormProvider()()
+  val form                     = new ClaimingForFormProvider()()
 
   // Create an instance of the application with the provided `freOnlyJourneyEnabled` value
   def createApp(freJourneyEnabled: Boolean): Application = {
@@ -48,9 +48,9 @@ class ClaimingForViewSpec extends CheckboxViewBehaviours[ClaimingFor] with Mocki
 
   // Create the view using the provided form and application
   def createView(form: Form[_], freJourneyEnabled: Boolean): Html = {
-    val app = createApp(freJourneyEnabled)
+    val app                   = createApp(freJourneyEnabled)
     val view: ClaimingForView = app.injector.instanceOf[ClaimingForView]
-    val result = view.apply(form)(fakeRequest, messages)
+    val result                = view.apply(form)(fakeRequest, messages)
     app.stop()
     result
   }
@@ -59,39 +59,47 @@ class ClaimingForViewSpec extends CheckboxViewBehaviours[ClaimingFor] with Mocki
 
     "freOnlyJourneyEnabled is true" must {
 
-        val doc = asDocument(createView(form, freJourneyEnabled = true))
+      val doc = asDocument(createView(form, freJourneyEnabled = true))
 
-        behave like normalPage(createView(form, freJourneyEnabled = true), messageKeyPrefix)
-        behave like checkboxPage(
+      behave.like(normalPage(createView(form, freJourneyEnabled = true), messageKeyPrefix))
+      behave.like(
+        checkboxPage(
           form,
           form => createView(form, freJourneyEnabled = true),
           messageKeyPrefix,
           ClaimingFor.options(onlineJourneyShutterEnabled = false, freOnlyJourneyEnabled = true)
         )
+      )
 
     }
 
     "freOnlyJourneyEnabled is false" must {
 
-        val doc = asDocument(createView(form, freJourneyEnabled = false))
+      val doc = asDocument(createView(form, freJourneyEnabled = false))
 
-        behave like normalPage(createView(form, freJourneyEnabled = false), messageKeyPrefix)
-        behave like checkboxPage(
+      behave.like(normalPage(createView(form, freJourneyEnabled = false), messageKeyPrefix))
+      behave.like(
+        checkboxPage(
           form,
           form => createView(form, freJourneyEnabled = false),
           messageKeyPrefix,
           ClaimingFor.options(onlineJourneyShutterEnabled = false, freOnlyJourneyEnabled = false)
         )
+      )
 
     }
 
     "rendered" must {
       "contain checkboxes for each option" in {
         val doc = asDocument(createView(form, freJourneyEnabled = true))
-        for ((option, index) <- ClaimingFor.options(onlineJourneyShutterEnabled = false, freOnlyJourneyEnabled = true).zipWithIndex) {
+        for (
+          (option, index) <- ClaimingFor
+            .options(onlineJourneyShutterEnabled = false, freOnlyJourneyEnabled = true)
+            .zipWithIndex
+        )
           assertContainsRadioButton(doc, option.id.get, s"value[$index]", option.value, isChecked = false)
-        }
       }
     }
   }
+
 }

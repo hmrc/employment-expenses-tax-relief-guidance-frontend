@@ -44,30 +44,24 @@ class MoreThanFiveJobsController @Inject()(
 
   val form: Form[Boolean] = formProvider()
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
-    implicit request =>
-      val preparedForm = request.userAnswers.moreThanFiveJobs match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-      Ok(view(preparedForm))
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
+    val preparedForm = request.userAnswers.moreThanFiveJobs match {
+      case None        => form
+      case Some(value) => form.fill(value)
+    }
+    Ok(view(preparedForm))
   }
 
-  def onSubmit: Action[AnyContent] = (getData andThen requireData).async {
-    implicit request =>
-      form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(formWithErrors))),
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+    form
+      .bindFromRequest()
+      .fold(
+        (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors))),
         value =>
           dataCacheConnector
             .save[Boolean](request.sessionId, MoreThanFiveJobsId, value)
             .map(cacheMap => Redirect(navigator.nextPage(MoreThanFiveJobsId)(new UserAnswers(cacheMap))))
-//          appConfig.pegaJourneyEnabled match {
-//            case true => Future.successful(Redirect(appConfig.claimingMoreThanOneJobUrl))
-//            case false => dataCacheConnector.save[Boolean](request.sessionId, MoreThanFiveJobsId, value).map(cacheMap =>
-//              Redirect(navigator.nextPage(MoreThanFiveJobsId)(new UserAnswers(cacheMap)))
-//            )
-//          }
       )
   }
+
 }

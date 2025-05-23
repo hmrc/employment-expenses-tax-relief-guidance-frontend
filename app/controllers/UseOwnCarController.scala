@@ -30,40 +30,40 @@ import views.html.UseOwnCarView
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class UseOwnCarController @Inject()(
-                                     dataCacheConnector: DataCacheConnector,
-                                     navigator: Navigator,
-                                     getData: DataRetrievalAction,
-                                     requireData: DataRequiredAction,
-                                     formProvider: UseOwnCarFormProvider,
-                                     val controllerComponents: MessagesControllerComponents,
-                                     view: UseOwnCarView
-                                   )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
+class UseOwnCarController @Inject() (
+    dataCacheConnector: DataCacheConnector,
+    navigator: Navigator,
+    getData: DataRetrievalAction,
+    requireData: DataRequiredAction,
+    formProvider: UseOwnCarFormProvider,
+    val controllerComponents: MessagesControllerComponents,
+    view: UseOwnCarView
+)(implicit ec: ExecutionContext)
+    extends FrontendBaseController
+    with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData) {
-    implicit request =>
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
+    val form: Form[Boolean] = formProvider()
 
-      val form: Form[Boolean] = formProvider()
-
-      val preparedForm = request.userAnswers.useOwnCar match {
-        case None => form
-        case Some(value) => form.fill(value)
-      }
-      Ok(view(preparedForm))
+    val preparedForm = request.userAnswers.useOwnCar match {
+      case None        => form
+      case Some(value) => form.fill(value)
+    }
+    Ok(view(preparedForm))
   }
 
-  def onSubmit: Action[AnyContent] = (getData andThen requireData).async {
-    implicit request =>
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+    val form: Form[Boolean] = formProvider()
 
-      val form: Form[Boolean] = formProvider()
-
-      form.bindFromRequest().fold(
-        (formWithErrors: Form[_]) =>
-          Future.successful(BadRequest(view(formWithErrors))),
+    form
+      .bindFromRequest()
+      .fold(
+        (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors))),
         value =>
-          dataCacheConnector.save[Boolean](request.sessionId, UseOwnCarId, value).map(cacheMap =>
-            Redirect(navigator.nextPage(UseOwnCarId)(new UserAnswers(cacheMap)))
-          )
+          dataCacheConnector
+            .save[Boolean](request.sessionId, UseOwnCarId, value)
+            .map(cacheMap => Redirect(navigator.nextPage(UseOwnCarId)(new UserAnswers(cacheMap))))
       )
   }
+
 }

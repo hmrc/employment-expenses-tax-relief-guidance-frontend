@@ -29,21 +29,28 @@ import play.api.inject.bind
 import play.api.libs.json.{JsArray, JsString}
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{CacheMap, NavigatorSupport, Navigator}
+import utils.{CacheMap, Navigator, NavigatorSupport}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience with NavigatorSupport {
+class ClaimingForControllerSpec
+    extends SpecBase
+    with MockitoSugar
+    with BeforeAndAfterEach
+    with ScalaFutures
+    with IntegrationPatience
+    with NavigatorSupport {
 
   def onwardRoute = routes.IndexController.onPageLoad
 
   def claimingForRoute = routes.ClaimingForController.onPageLoad().url
 
   private val mockDataCacheConnector = mock[DataCacheConnector]
+
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
-    when(mockDataCacheConnector.save(any(),any(),any())(any())) thenReturn Future(new CacheMap("id", Map()))
+    when(mockDataCacheConnector.save(any(), any(), any())(any())).thenReturn(Future(new CacheMap("id", Map())))
   }
 
   "ClaimingFor Controller" must {
@@ -51,29 +58,27 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
     "return OK and the correct view for a GET" in {
 
       val application = applicationBuilder().build()
-      val request = FakeRequest(GET, claimingForRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, claimingForRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe OK
 
       application.stop()
     }
-
 
     "populate the view correctly on a GET when the question has previously been answered" in {
       val validData = Map(
-        ClaimingForId.toString -> JsArray(Seq(JsString(values.head.toString))),
+        ClaimingForId.toString -> JsArray(Seq(JsString(values.head.toString)))
       )
 
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
-      val request = FakeRequest(GET, claimingForRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, claimingForRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe OK
 
       application.stop()
     }
-
 
     "redirect to the next page when valid data is submitted" in {
 
@@ -81,10 +86,13 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
         .overrides(
           bind[Navigator].toInstance(new FakeNavigator(onwardRoute)),
           bind[DataCacheConnector].toInstance(mockDataCacheConnector)
-        ).build()
+        )
+        .build()
 
       val request = FakeRequest(POST, claimingForRoute)
-        .withFormUrlEncodedBody(("value[0]", options(onlineJourneyShutterEnabled = true, freOnlyJourneyEnabled = false).head.value))
+        .withFormUrlEncodedBody(
+          ("value[0]", options(onlineJourneyShutterEnabled = true, freOnlyJourneyEnabled = false).head.value)
+        )
       val result = route(application, request).value
 
       status(result) mustBe SEE_OTHER
@@ -92,7 +100,6 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
 
       application.stop()
     }
-
 
     "return a Bad Request and errors when invalid data is submitted" in {
 
@@ -109,4 +116,5 @@ class ClaimingForControllerSpec extends SpecBase with MockitoSugar with BeforeAn
     }
 
   }
+
 }

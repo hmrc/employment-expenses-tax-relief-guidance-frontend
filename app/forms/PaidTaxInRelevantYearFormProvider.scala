@@ -27,4 +27,5 @@ class PaidTaxInRelevantYearFormProvider @Inject() extends Mappings {
     Form(
       "value" -> boolean(s"paidTaxInRelevantYear.error.required", year)
     )
+
 }

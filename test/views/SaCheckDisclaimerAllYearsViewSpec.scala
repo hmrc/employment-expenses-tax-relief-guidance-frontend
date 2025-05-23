@@ -31,9 +31,9 @@ class SaCheckDisclaimerAllYearsViewSpec extends NewViewBehaviours {
 
   "UseSelfAssessment view" must {
 
-    behave like normalPage(createView, messageKeyPrefix)
+    behave.like(normalPage(createView, messageKeyPrefix))
 
-    behave like pageWithBackLink(createView)
+    behave.like(pageWithBackLink(createView))
   }
 
   application.stop()

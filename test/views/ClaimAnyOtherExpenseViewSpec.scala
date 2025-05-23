@@ -38,31 +38,27 @@ class ClaimAnyOtherExpenseViewSpec extends NewViewBehaviours {
 
   "ClaimAnyOtherExpenseViewSpec view" must {
 
-    behave like normalPage(createView(form), messageKeyPrefix)
+    behave.like(normalPage(createView(form), messageKeyPrefix))
 
-    behave like pageWithBackLink(createView(form))
+    behave.like(pageWithBackLink(createView(form)))
 
     "contain radio buttons for the value" in {
       val doc = asDocument(createView(form))
-      for (option <- ClaimAnyOtherExpense.options) {
+      for (option <- ClaimAnyOtherExpense.options)
         assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
-      }
     }
 
-    for(option <- ClaimAnyOtherExpense.options) {
+    for (option <- ClaimAnyOtherExpense.options)
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createView(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
-          for(unselectedOption <- ClaimAnyOtherExpense.options.filterNot(_ == option)) {
+          for (unselectedOption <- ClaimAnyOtherExpense.options.filterNot(_ == option))
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
-          }
         }
       }
-    }
   }
-
 
   application.stop()
 }

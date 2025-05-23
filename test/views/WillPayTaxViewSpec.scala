@@ -38,14 +38,17 @@ class WillPayTaxViewSpec extends NewYesNoViewBehaviours {
 
     application.stop()
 
-    behave like normalPage(createView(form), messageKeyPrefix)
+    behave.like(normalPage(createView(form), messageKeyPrefix))
 
-    behave like yesNoPage(
+    behave.like(
+      yesNoPage(
         createView,
         messageKeyPrefix,
         routes.WillPayTaxController.onSubmit().url
+      )
     )
 
-    behave like pageWithBackLink(createView(form))
+    behave.like(pageWithBackLink(createView(form)))
   }
+
 }

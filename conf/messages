@@ -112,6 +112,7 @@ usePrintAndPostDetailed.youCanClaim = You can claim tax relief for:
 usePrintAndPostDetailed.para1 =  You must send HMRC evidence to show why you get tax relief. You must print and post a completed form to HMRC to claim on your expenses as detailed below.
 usePrintAndPostDetailed.para1_freOnly =  Before sending your claim, check the guidance below for each type of expense. You may need to send evidence to HMRC for some claims. Complete a form and send it by post to claim your expenses.
 usePrintAndPostDetailed.para1_freOnly_iform = Before sending your claim, check the guidance below for each type of expense. To claim these expenses, sign in to complete an online form.
+usePrintAndPostDetailed.para1_freOnly_pegaService = Before sending your claim, check the guidance below for each type of expense. To claim these expenses, sign in to access HMRC online services
 usePrintAndPostDetailed.para2_freOnly_iform = If you cannot claim online, you can make a
 usePrintAndPostDetailed.para2_freOnly.link.label_iform = claim by post (opens in a new window or tab)
 usePrintAndPostDetailed.para2 = Evidence to support your claim for tax relief

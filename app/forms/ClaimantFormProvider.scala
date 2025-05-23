@@ -28,4 +28,5 @@ class ClaimantFormProvider @Inject() extends Mappings {
     Form(
       "value" -> enumerable[Claimant]("claimant.error.required")
     )
+
 }

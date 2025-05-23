@@ -27,4 +27,5 @@ class ClaimingOverPayAsYouEarnThresholdFormProvider @Inject() extends Mappings {
     Form(
       "value" -> boolean(s"claimingOverPayAsYouEarnThreshold.error.required")
     )
+
 }

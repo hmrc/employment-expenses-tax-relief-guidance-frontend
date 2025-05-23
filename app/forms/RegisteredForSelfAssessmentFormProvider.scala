@@ -27,4 +27,5 @@ class RegisteredForSelfAssessmentFormProvider @Inject() extends Mappings {
     Form(
       "value" -> boolean(s"registeredForSelfAssessment.error.required")
     )
+
 }

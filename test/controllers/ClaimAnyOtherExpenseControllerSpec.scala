@@ -26,11 +26,17 @@ import play.api.libs.json.JsBoolean
 import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
-import utils.{CacheMap, NavigatorSupport, Navigator}
+import utils.{CacheMap, Navigator, NavigatorSupport}
 
-class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with BeforeAndAfterEach with ScalaFutures with IntegrationPatience with NavigatorSupport {
+class ClaimAnyOtherExpenseControllerSpec
+    extends SpecBase
+    with MockitoSugar
+    with BeforeAndAfterEach
+    with ScalaFutures
+    with IntegrationPatience
+    with NavigatorSupport {
 
-  def onwardRoute: Call = routes.IndexController.onPageLoad
+  def onwardRoute: Call               = routes.IndexController.onPageLoad
   def claimAnyOtherExpenseRoute: Call = routes.ClaimAnyOtherExpenseController.onPageLoad()
 
   "ClaimAnyOtherExpenseController" must {
@@ -38,8 +44,8 @@ class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with
     "return OK and the correct view for a GET" in {
 
       val application = applicationBuilder().build()
-      val request = FakeRequest(GET, claimAnyOtherExpenseRoute.url)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, claimAnyOtherExpenseRoute.url)
+      val result      = route(application, request).value
 
       status(result) mustEqual OK
 
@@ -50,10 +56,10 @@ class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with
 
       for (answer <- Seq(true, false)) {
 
-        val validData = Map(ClaimAnyOtherExpenseId.toString -> JsBoolean(answer))
+        val validData   = Map(ClaimAnyOtherExpenseId.toString -> JsBoolean(answer))
         val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
-        val request = FakeRequest(GET, claimAnyOtherExpenseRoute.url)
-        val result = route(application, request).value
+        val request     = FakeRequest(GET, claimAnyOtherExpenseRoute.url)
+        val result      = route(application, request).value
 
         status(result) mustEqual OK
 
@@ -80,12 +86,13 @@ class ClaimAnyOtherExpenseControllerSpec extends SpecBase with MockitoSugar with
     "return a Bad Request and errors when invalid data is submitted" in {
 
       val application = applicationBuilder().build()
-      val request = FakeRequest(POST, claimAnyOtherExpenseRoute.url)
-      val result = route(application, request).value
+      val request     = FakeRequest(POST, claimAnyOtherExpenseRoute.url)
+      val result      = route(application, request).value
 
       status(result) mustBe BAD_REQUEST
 
       application.stop()
     }
   }
+
 }

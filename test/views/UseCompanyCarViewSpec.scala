@@ -39,11 +39,11 @@ class UseCompanyCarViewSpec extends NewYesNoViewBehaviours {
 
   "UseCompanyCar view" must {
 
-    behave like normalPage(createView(form), messageKeyPrefix)
+    behave.like(normalPage(createView(form), messageKeyPrefix))
 
-    behave like yesNoPage(createView, messageKeyPrefix, routes.UseCompanyCarController.onSubmit().url)
+    behave.like(yesNoPage(createView, messageKeyPrefix, routes.UseCompanyCarController.onSubmit().url))
 
-    behave like pageWithBackLink(createView(form))
+    behave.like(pageWithBackLink(createView(form)))
   }
 
   application.stop()

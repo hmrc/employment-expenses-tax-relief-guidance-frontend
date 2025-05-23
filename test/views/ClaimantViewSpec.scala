@@ -37,32 +37,29 @@ class ClaimantViewSpec extends NewViewBehaviours {
   def createView(form: Form[_]): Html = view.apply(form)(fakeRequest, messages)
 
   "Claimant view" must {
-    behave like normalPage(createView(form), messageKeyPrefix)
-    behave like pageWithBackLink(createView(form))
+    behave.like(normalPage(createView(form), messageKeyPrefix))
+    behave.like(pageWithBackLink(createView(form)))
   }
 
   "Claimant view" when {
     "rendered" must {
       "contain radio buttons for the value" in {
         val doc = asDocument(createView(form))
-        for (option <- Claimant.options) {
+        for (option <- Claimant.options)
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
-        }
       }
     }
 
-    for(option <- Claimant.options) {
+    for (option <- Claimant.options)
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createView(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
-          for(unselectedOption <- Claimant.options.filterNot(o => o == option)) {
+          for (unselectedOption <- Claimant.options.filterNot(o => o == option))
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
-          }
         }
       }
-    }
   }
 
   application.stop()

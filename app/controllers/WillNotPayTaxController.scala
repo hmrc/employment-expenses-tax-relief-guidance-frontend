@@ -27,21 +27,19 @@ import views.html.WillNotPayTaxView
 
 import scala.concurrent.Future
 
-class WillNotPayTaxController @Inject()(
-                                         navigator: Navigator,
-                                         getData: DataRetrievalAction,
-                                         requireData: DataRequiredAction,
-                                         val controllerComponents: MessagesControllerComponents,
-                                         view: WillNotPayTaxView
-                                       ) extends FrontendBaseController with I18nSupport {
+class WillNotPayTaxController @Inject() (
+    navigator: Navigator,
+    getData: DataRetrievalAction,
+    requireData: DataRequiredAction,
+    val controllerComponents: MessagesControllerComponents,
+    view: WillNotPayTaxView
+) extends FrontendBaseController
+    with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = (getData andThen requireData).async {
-    implicit request =>
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+    val nextPage = navigator.nextPage(WillNotPayTaxId)(request.userAnswers)
 
-      val nextPage = navigator.nextPage(WillNotPayTaxId)(request.userAnswers)
-
-      Future.successful(
-        Ok(view(nextPage)))
+    Future.successful(Ok(view(nextPage)))
   }
 
 }
