@@ -69,6 +69,7 @@ class Navigator @Inject()(implicit appConfig: FrontendAppConfig) {
     userAnswers.moreThanFiveJobs match {
 
       case Some(true) => routes.UsePrintAndPostController.onPageLoad()
+      case Some(false) if uniformsClothingTools && appConfig.pegaJourneyEnabled => Call("GET", appConfig.employeeExpensesUrl)
       case Some(false) if uniformsClothingTools && appConfig.freOnlyJourneyEnabled => routes.ClaimOnlineController.onPageLoad()
       case Some(false) if appConfig.freOnlyJourneyEnabled => routes.UsePrintAndPostController.onPageLoad()
       case Some(false) if appConfig.onlineJourneyShutterEnabled => routes.UsePrintAndPostController.onPageLoad()

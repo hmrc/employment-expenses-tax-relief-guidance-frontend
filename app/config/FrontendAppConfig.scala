@@ -38,6 +38,7 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   lazy val professionalSubscriptionsUrl: String = configuration.get[String]("urls.professionalSubscriptionsUrl")
   lazy val employeeExpensesClaimOnlineUrl: String = configuration.get[String]("urls.employeeExpensesClaimOnlineUrl")
   lazy val employeeExpensesClaimByPostUrl: String = configuration.get[String]("urls.employeeExpensesClaimByPostUrl")
+  lazy val industryTypeUrl: String = configuration.get[String]("urls.industryTypeUrl")
   lazy val employeeExpensesClaimByIformUrl: String = configuration.get[String]("urls.employeeExpensesClaimByIformUrl")
   lazy val fileSelfAssessmentLoginUrl: String = configuration.get[String]("urls.fileSelfAssessmentLoginUrl")
   lazy val annualInvestmentAllowanceUrl: String = configuration.get[String]("urls.annualInvestmentAllowanceUrl")
@@ -49,6 +50,7 @@ class FrontendAppConfig @Inject()(configuration: Configuration) {
   val mergedJourneyEnabled: Boolean = configuration.getOptional[Boolean]("mergedJourney.enabled").getOrElse(false)
   val onlineJourneyShutterEnabled: Boolean = configuration.getOptional[Boolean]("onlineJourneyShutter.enabled").getOrElse(false)
   val freOnlyJourneyEnabled: Boolean = configuration.getOptional[Boolean]("freOnlyJourney.enabled").getOrElse(false)
+  val pegaJourneyEnabled: Boolean = configuration.getOptional[Boolean]("pegaJourney.enabled").getOrElse(false)
 
   lazy val claimingForCurrentYearBackButtonOverride: String = configuration.get[String]("claimingForCurrentYear.backButtonOverride.reference")
   lazy val registeredForSelfBackButtonOverride: String = configuration.get[String]("registeredForSelf.backButtonOverride.reference")

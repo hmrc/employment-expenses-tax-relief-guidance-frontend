@@ -104,6 +104,22 @@ class MoreThanFiveJobsControllerSpec extends SpecBase with MockitoSugar with Bef
 
     }
 
+    "redirect to do you have more than one job page when pega journey is enabled" in {
+      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
+      val pegaJourneyEnabled = frontendAppConfig.pegaJourneyEnabled
+      if (pegaJourneyEnabled) {
+        val request = FakeRequest(POST, routes.MoreThanFiveJobsController.onSubmit().url)
+        val result = route(application, request).value
+
+        println(result)
+        status(result) mustBe SEE_OTHER
+        redirectLocation(result).value mustBe frontendAppConfig.claimingMoreThanOneJobUrl
+
+        application.stop()
+      }
+    }
+
+
     "redirect to Session Expired for a GET if no existing data is found" in {
       val application = applicationBuilder().build()
       val request = FakeRequest(GET, moreThanFiveJobsRoute)
