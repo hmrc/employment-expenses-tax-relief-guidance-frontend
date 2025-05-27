@@ -31,16 +31,18 @@ import config.FrontendAppConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
-class MoreThanFiveJobsController @Inject()(
-                                            dataCacheConnector: DataCacheConnector,
-                                            navigator: Navigator,
-                                            getData: DataRetrievalAction,
-                                            requireData: DataRequiredAction,
-                                            formProvider: MoreThanFiveJobsFormProvider,
-                                            val controllerComponents: MessagesControllerComponents,
-                                            view: MoreThanFiveJobsView,
-                                            appConfig: FrontendAppConfig
-                                          )(implicit ec: ExecutionContext) extends FrontendBaseController with I18nSupport {
+class MoreThanFiveJobsController @Inject() (
+    dataCacheConnector: DataCacheConnector,
+    navigator: Navigator,
+    getData: DataRetrievalAction,
+    requireData: DataRequiredAction,
+    formProvider: MoreThanFiveJobsFormProvider,
+    val controllerComponents: MessagesControllerComponents,
+    view: MoreThanFiveJobsView,
+    appConfig: FrontendAppConfig
+)(implicit ec: ExecutionContext)
+    extends FrontendBaseController
+    with I18nSupport {
 
   val form: Form[Boolean] = formProvider()
 

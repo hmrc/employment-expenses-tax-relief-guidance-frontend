@@ -262,8 +262,8 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
       "answering No from the MoreThanFiveJobs view and pega journey is enabled" in {
         val mockAppConfig = mock[FrontendAppConfig]
-        val navigator = new Navigator()(mockAppConfig)
-        val expectedCall = Call("GET", mockAppConfig.employeeExpensesUrl)
+        val navigator     = new Navigator()(mockAppConfig)
+        val expectedCall  = Call("GET", mockAppConfig.employeeExpensesUrl)
 
         val mockAnswers = mock[UserAnswers]
         when(mockAppConfig.pegaServiceJourney).thenReturn(true)

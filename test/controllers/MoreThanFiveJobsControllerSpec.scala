@@ -60,8 +60,8 @@ class MoreThanFiveJobsControllerSpec
 
     "return OK and the correct view for a GET" in {
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
-      val request = FakeRequest(GET, moreThanFiveJobsRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, moreThanFiveJobsRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe OK
 
@@ -72,8 +72,8 @@ class MoreThanFiveJobsControllerSpec
       val validData =
         Map(MoreThanFiveJobsId.toString -> JsBoolean(true), ClaimantId.toString -> JsString(claimant.toString))
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
-      val request = FakeRequest(GET, moreThanFiveJobsRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, moreThanFiveJobsRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe OK
 
@@ -101,8 +101,8 @@ class MoreThanFiveJobsControllerSpec
 
     "return a Bad Request and errors when invalid data is submitted" in {
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
-      val request = FakeRequest(POST, moreThanFiveJobsRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(POST, moreThanFiveJobsRoute)
+      val result      = route(application, request).value
 
       status(result) mustEqual BAD_REQUEST
 
@@ -112,8 +112,8 @@ class MoreThanFiveJobsControllerSpec
 
     "redirect to Session Expired for a GET if no existing data is found" in {
       val application = applicationBuilder().build()
-      val request = FakeRequest(GET, moreThanFiveJobsRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(GET, moreThanFiveJobsRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl
@@ -123,8 +123,8 @@ class MoreThanFiveJobsControllerSpec
 
     "redirect to Session Expired for a POST if no existing data is found" in {
       val application = applicationBuilder().build()
-      val request = FakeRequest(POST, moreThanFiveJobsRoute)
-      val result = route(application, request).value
+      val request     = FakeRequest(POST, moreThanFiveJobsRoute)
+      val result      = route(application, request).value
 
       status(result) mustBe SEE_OTHER
       redirectLocation(result).value mustBe sessionExpiredUrl

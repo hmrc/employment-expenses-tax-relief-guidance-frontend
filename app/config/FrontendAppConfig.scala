@@ -31,13 +31,13 @@ class FrontendAppConfig @Inject() (configuration: Configuration) {
 
   lazy val mongo_ttl: Int = configuration.get[Int]("mongodb.timeToLiveInSeconds")
 
-  lazy val selfAssessmentTaxReturnsUrl: String = configuration.get[String]("urls.selfAssessmentTaxReturn")
-  lazy val taxReliefForEmployeesUrl: String = configuration.get[String]("urls.taxReliefForEmployees")
-  lazy val buisnessMileageFuelCostsUrl: String = configuration.get[String]("urls.buisnessMileageFuelCostsUrl")
-  lazy val employeeExpensesUrl: String = configuration.get[String]("urls.employeeExpensesUrl")
-  lazy val professionalSubscriptionsUrl: String = configuration.get[String]("urls.professionalSubscriptionsUrl")
-  lazy val employeeExpensesClaimOnlineUrl: String = configuration.get[String]("urls.employeeExpensesClaimOnlineUrl")
-  lazy val employeeExpensesClaimByPostUrl: String = configuration.get[String]("urls.employeeExpensesClaimByPostUrl")
+  lazy val selfAssessmentTaxReturnsUrl: String     = configuration.get[String]("urls.selfAssessmentTaxReturn")
+  lazy val taxReliefForEmployeesUrl: String        = configuration.get[String]("urls.taxReliefForEmployees")
+  lazy val buisnessMileageFuelCostsUrl: String     = configuration.get[String]("urls.buisnessMileageFuelCostsUrl")
+  lazy val employeeExpensesUrl: String             = configuration.get[String]("urls.employeeExpensesUrl")
+  lazy val professionalSubscriptionsUrl: String    = configuration.get[String]("urls.professionalSubscriptionsUrl")
+  lazy val employeeExpensesClaimOnlineUrl: String  = configuration.get[String]("urls.employeeExpensesClaimOnlineUrl")
+  lazy val employeeExpensesClaimByPostUrl: String  = configuration.get[String]("urls.employeeExpensesClaimByPostUrl")
   lazy val employeeExpensesClaimByIformUrl: String = configuration.get[String]("urls.employeeExpensesClaimByIformUrl")
 
   lazy val employeeExpensesClaimByPegaServicesUrl: String =
