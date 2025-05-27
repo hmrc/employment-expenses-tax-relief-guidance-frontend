@@ -38,7 +38,6 @@ class FrontendAppConfig @Inject() (configuration: Configuration) {
   lazy val professionalSubscriptionsUrl: String = configuration.get[String]("urls.professionalSubscriptionsUrl")
   lazy val employeeExpensesClaimOnlineUrl: String = configuration.get[String]("urls.employeeExpensesClaimOnlineUrl")
   lazy val employeeExpensesClaimByPostUrl: String = configuration.get[String]("urls.employeeExpensesClaimByPostUrl")
-  lazy val industryTypeUrl: String = configuration.get[String]("urls.industryTypeUrl")
   lazy val employeeExpensesClaimByIformUrl: String = configuration.get[String]("urls.employeeExpensesClaimByIformUrl")
 
   lazy val employeeExpensesClaimByPegaServicesUrl: String =

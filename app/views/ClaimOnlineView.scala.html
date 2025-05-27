@@ -39,7 +39,6 @@
 
 @href = @{
     onwardJourney match {
-        case OnwardJourney.FixedRateExpenses if appConfig.pegaJourneyEnabled => appConfig.industryTypeUrl
         case OnwardJourney.FixedRateExpenses => appConfig.employeeExpensesUrl
         case OnwardJourney.ProfessionalSubscriptions => appConfig.professionalSubscriptionsUrl
         case OnwardJourney.IForm => appConfig.employeeExpensesClaimOnlineUrl
