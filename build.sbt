@@ -11,8 +11,6 @@ ThisBuild / scalaVersion := "2.13.16"
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
   .disablePlugins(JUnitXmlReportPlugin) // Required to prevent https://github.com/scalatest/scalatest/issues/1427
-  .settings(DefaultBuildSettings.scalaSettings *)
-  .settings(DefaultBuildSettings.defaultSettings() *)
   .settings(inConfig(Test)(testSettings) *)
   .settings(
     scalacOptions ++= Seq(
@@ -45,10 +43,7 @@ lazy val root = (project in file("."))
     dependencyOverrides += "commons-codec" % "commons-codec" % "1.12",
     retrieveManaged                       := true,
     update / evictionWarningOptions :=
-      EvictionWarningOptions.default.withWarnScalaVersionEviction(false),
-    resolvers ++= Seq(
-      Resolver.jcenterRepo
-    )
+      EvictionWarningOptions.default.withWarnScalaVersionEviction(false)
   )
 
 lazy val testSettings: Seq[Def.Setting[_]] = Seq(
