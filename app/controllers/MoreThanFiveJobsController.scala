@@ -27,7 +27,6 @@ import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import utils.{Navigator, UserAnswers}
 import views.html.MoreThanFiveJobsView
-import config.FrontendAppConfig
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -39,7 +38,6 @@ class MoreThanFiveJobsController @Inject() (
     formProvider: MoreThanFiveJobsFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: MoreThanFiveJobsView,
-    appConfig: FrontendAppConfig
 )(implicit ec: ExecutionContext)
     extends FrontendBaseController
     with I18nSupport {

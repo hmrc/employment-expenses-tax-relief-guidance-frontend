@@ -33,6 +33,12 @@ GET        /use-self-assessment                         controllers.UseSelfAsses
 GET        /more-than-5-jobs                            controllers.MoreThanFiveJobsController.onPageLoad()
 POST       /more-than-5-jobs                            controllers.MoreThanFiveJobsController.onSubmit()
 
+GET         /claim-by-alternative                       controllers.ClaimByAlternativeController.onPageLoad()
+POST        /claim-by-alternative                       controllers.ClaimByAlternativeController.onSubmit()
+
+GET         /claiming-for-more-than-one-job             controllers.MultipleEmploymentsController.onPageLoad()
+POST        /claiming-for-more-than-one-job             controllers.MultipleEmploymentsController.onSubmit()
+
 GET        /register-self-assessment                    controllers.RegisterForSelfAssessmentController.onPageLoad()
 
 GET        /use-print-and-post-form                     controllers.UsePrintAndPostController.onPageLoad()

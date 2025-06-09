@@ -263,7 +263,6 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       "answering No from the MoreThanFiveJobs view and pega journey is enabled" in {
         val mockAppConfig = mock[FrontendAppConfig]
         val navigator     = new Navigator()(mockAppConfig)
-        val expectedCall  = Call("GET", mockAppConfig.employeeExpensesUrl)
 
         val mockAnswers = mock[UserAnswers]
         when(mockAppConfig.pegaServiceJourney).thenReturn(true)
@@ -273,7 +272,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimingFuel).thenReturn(None)
         when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(None)
         navigator.nextPage(MoreThanFiveJobsId)(mockAnswers) mustBe
-          expectedCall
+          routes.MultipleEmploymentsController.onPageLoad()
       }
 
       "answering MileageFuel and another option from the ClaimingFor view and the claimant is You is and onlineJourneyShutterEnabled FS is set to true" in {

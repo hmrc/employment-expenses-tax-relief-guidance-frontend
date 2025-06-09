@@ -87,6 +87,19 @@ moreThanFiveJobs.title = Are you claiming for more than 5 different jobs?
 moreThanFiveJobs.heading = Are you claiming for more than 5 different jobs?
 moreThanFiveJobs.error.required = Select yes if you are claiming for more than 5 different jobs
 
+multipleEmployments.title = How many jobs are you claiming for?
+multipleEmployments.heading = How many jobs are you claiming for?
+multipleEmployments.checkYourAnswersLabel = How many jobs are you claiming for?
+multipleEmployments.error.required = Select if you have one job, or more than one job
+multipleEmployments.oneJob = One job
+multipleEmployments.moreThanOneJob = More than one job
+
+claimByAlternative.title = If you are claiming for more than one job you must use an online form or claim by post
+claimByAlternative.heading = If you are claiming for more than one job you must use an online form or claim by post
+claimByAlternative.paragraph = Use the {0} or {1}.
+claimByAlternative.onlineFormLinkText = online form
+claimByAlternative.claimByPostLinkText = claim by post
+
 registerForSelfAssessment.title = You can only claim these expenses using Self Assessment
 registerForSelfAssessment.heading = You can only claim these expenses using Self Assessment
 registerForSelfAssessment.guidance = If there are tax years where your expenses are less than £2,500,

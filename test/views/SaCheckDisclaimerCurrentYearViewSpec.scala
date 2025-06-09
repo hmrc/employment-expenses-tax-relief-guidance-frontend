@@ -19,7 +19,7 @@ package views
 import views.behaviours.NewViewBehaviours
 import views.html.SaCheckDisclaimerCurrentYearView
 
-class SaCheckDiclaimerCurrentYearViewSpec extends NewViewBehaviours {
+class SaCheckDisclaimerCurrentYearViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = "saCheckDisclaimerCurrentYear"
 
