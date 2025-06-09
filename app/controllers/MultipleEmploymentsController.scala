@@ -33,18 +33,18 @@ import views.html.MultipleEmploymentsView
 import scala.concurrent.{ExecutionContext, Future}
 
 class MultipleEmploymentsController @Inject() (
-                                                dataCacheConnector: DataCacheConnector,
-                                                navigator: Navigator,
-                                                getData: DataRetrievalAction,
-                                                requireData: DataRequiredAction,
-                                                formProvider: MultipleEmploymentsFormProvider,
-                                                val controllerComponents: MessagesControllerComponents,
-                                                view: MultipleEmploymentsView,
-                                              )(implicit ec: ExecutionContext)
-  extends FrontendBaseController
+    dataCacheConnector: DataCacheConnector,
+    navigator: Navigator,
+    getData: DataRetrievalAction,
+    requireData: DataRequiredAction,
+    formProvider: MultipleEmploymentsFormProvider,
+    val controllerComponents: MessagesControllerComponents,
+    view: MultipleEmploymentsView
+)(implicit ec: ExecutionContext)
+    extends FrontendBaseController
     with I18nSupport {
 
-  val form:Form[MultipleEmployments] = formProvider()
+  val form: Form[MultipleEmployments] = formProvider()
 
   def onPageLoad: Action[AnyContent] =
     getData.andThen(requireData) { implicit request =>
@@ -70,5 +70,3 @@ class MultipleEmploymentsController @Inject() (
     }
 
 }
-
-

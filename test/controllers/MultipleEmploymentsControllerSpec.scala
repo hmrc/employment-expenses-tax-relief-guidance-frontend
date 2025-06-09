@@ -39,12 +39,13 @@ import utils.{CacheMap, Navigator, NavigatorSupport}
 
 import scala.concurrent.Future
 
-class MultipleEmploymentsControllerSpec extends SpecBase
-  with MockitoSugar
-  with BeforeAndAfterEach
-  with ScalaFutures
-  with IntegrationPatience
-  with NavigatorSupport  {
+class MultipleEmploymentsControllerSpec
+    extends SpecBase
+    with MockitoSugar
+    with BeforeAndAfterEach
+    with ScalaFutures
+    with IntegrationPatience
+    with NavigatorSupport {
 
   def onwardRoute: Call = Call("GET", "/foo")
 
@@ -55,9 +56,8 @@ class MultipleEmploymentsControllerSpec extends SpecBase
     when(mockDataCacheConnector.save(any(), any(), any())(any())).thenReturn(Future(new CacheMap("id", Map())))
   }
 
-  val formProvider = new MultipleEmploymentsFormProvider()
+  val formProvider                    = new MultipleEmploymentsFormProvider()
   val form: Form[MultipleEmployments] = formProvider()
-
 
   lazy val multipleEmploymentsRoute: String = routes.MultipleEmploymentsController.onPageLoad().url
 
@@ -78,7 +78,7 @@ class MultipleEmploymentsControllerSpec extends SpecBase
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val validData = Map(MultipleEmploymentsId.toString -> JsString(values.head.toString))
+      val validData   = Map(MultipleEmploymentsId.toString -> JsString(values.head.toString))
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
 
       val request = FakeRequest(GET, multipleEmploymentsRoute)

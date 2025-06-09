@@ -16,7 +16,6 @@
 
 package models
 
-
 import utils.{Enumerable, RadioOption, WithName}
 
 sealed trait MultipleEmployments

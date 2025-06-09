@@ -90,13 +90,12 @@ class Navigator @Inject() (implicit appConfig: FrontendAppConfig) {
 
   }
 
-  private def multipleEmploymentsRouting(userAnswers: UserAnswers): Call = {
+  private def multipleEmploymentsRouting(userAnswers: UserAnswers): Call =
     userAnswers.multipleEmployments match {
       case Some(MoreThanOneJob) => routes.ClaimByAlternativeController.onPageLoad()
-      case Some(OneJob) => routes.ClaimOnlineController.onPageLoad()
-      case _ => routes.SessionExpiredController.onPageLoad
+      case Some(OneJob)         => routes.ClaimOnlineController.onPageLoad()
+      case _                    => routes.SessionExpiredController.onPageLoad
     }
-  }
 
   private def employerPaidBackExpensesRouting(userAnswers: UserAnswers) =
     if (isClaimingWfh(userAnswers)) {

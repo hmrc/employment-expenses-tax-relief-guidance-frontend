@@ -37,7 +37,7 @@ class MoreThanFiveJobsController @Inject() (
     requireData: DataRequiredAction,
     formProvider: MoreThanFiveJobsFormProvider,
     val controllerComponents: MessagesControllerComponents,
-    view: MoreThanFiveJobsView,
+    view: MoreThanFiveJobsView
 )(implicit ec: ExecutionContext)
     extends FrontendBaseController
     with I18nSupport {

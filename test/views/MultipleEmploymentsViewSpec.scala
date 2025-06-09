@@ -23,6 +23,7 @@ import play.api.data.Form
 import play.twirl.api.Html
 import views.behaviours.NewViewBehaviours
 import views.html.MultipleEmploymentsView
+
 class MultipleEmploymentsViewSpec extends NewViewBehaviours {
 
   val messageKeyPrefix = "multipleEmployments"
@@ -42,9 +43,8 @@ class MultipleEmploymentsViewSpec extends NewViewBehaviours {
 
     "contain radio buttons for the value" in {
       val doc = asDocument(createView(form))
-      for (option <- MultipleEmployments.options) {
+      for (option <- MultipleEmployments.options)
         assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
-      }
     }
 
     for (option <- MultipleEmployments.options)

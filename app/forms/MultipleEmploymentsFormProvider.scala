@@ -22,8 +22,10 @@ import models.MultipleEmployments
 import play.api.data.Form
 
 class MultipleEmploymentsFormProvider @Inject() extends Mappings {
+
   def apply(): Form[MultipleEmployments] =
     Form(
       "value" -> enumerable[MultipleEmployments]("multipleEmployments.error.required")
     )
+
 }
