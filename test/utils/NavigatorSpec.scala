@@ -278,8 +278,8 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
       "answering More Than One Job in the Multiple Employments View and pega journey is enabled" in {
         val mockAppConfig = mock[FrontendAppConfig]
-        val navigator = new Navigator()(mockAppConfig)
-        val mockAnswers = mock[UserAnswers]
+        val navigator     = new Navigator()(mockAppConfig)
+        val mockAnswers   = mock[UserAnswers]
         when(mockAppConfig.pegaServiceJourney).thenReturn(true)
         when(mockAnswers.multipleEmployments).thenReturn(Some(MoreThanOneJob))
         when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.UniformsClothingTools)))
@@ -292,8 +292,8 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
 
       "answering One Job in the Multiple Employments View and pega journey is enabled" in {
         val mockAppConfig = mock[FrontendAppConfig]
-        val navigator = new Navigator()(mockAppConfig)
-        val mockAnswers = mock[UserAnswers]
+        val navigator     = new Navigator()(mockAppConfig)
+        val mockAnswers   = mock[UserAnswers]
         when(mockAppConfig.pegaServiceJourney).thenReturn(true)
         when(mockAnswers.multipleEmployments).thenReturn(Some(OneJob))
         when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.UniformsClothingTools)))
