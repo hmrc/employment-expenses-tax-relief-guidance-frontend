@@ -20,7 +20,6 @@
 @this(
 layout: Layout,
 frontendAppConfig: FrontendAppConfig,
-formHelper: FormWithCSRF,
 heading: playComponents.heading
 )
 
@@ -34,10 +33,7 @@ heading: playComponents.heading
 pageTitle = messages("claimByAlternative.title")
 ) {
 
-@formHelper(action = ClaimByAlternativeController.onSubmit(), Symbol("autoComplete") -> "off") {
-
 @heading(messages(s"claimByAlternative.heading"))
 
 <p class="govuk-body">@Html(messages("claimByAlternative.paragraph", claimOnlineLink, claimByPostLink))</p>
-}
 }

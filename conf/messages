@@ -87,12 +87,12 @@ moreThanFiveJobs.title = Are you claiming for more than 5 different jobs?
 moreThanFiveJobs.heading = Are you claiming for more than 5 different jobs?
 moreThanFiveJobs.error.required = Select yes if you are claiming for more than 5 different jobs
 
-multipleEmployments.title = How many jobs are you claiming for?
-multipleEmployments.heading = How many jobs are you claiming for?
-multipleEmployments.checkYourAnswersLabel = How many jobs are you claiming for?
-multipleEmployments.error.required = Select if you have one job, or more than one job
-multipleEmployments.oneJob = One job
-multipleEmployments.moreThanOneJob = More than one job
+claimingForMoreThanOneJob.title = How many jobs are you claiming for?
+claimingForMoreThanOneJob.heading = How many jobs are you claiming for?
+claimingForMoreThanOneJob.checkYourAnswersLabel = How many jobs are you claiming for?
+claimingForMoreThanOneJob.error.required = Select if you have one job, or more than one job
+claimingForMoreThanOneJob.oneJob = One job
+claimingForMoreThanOneJob.moreThanOneJob = More than one job
 
 claimByAlternative.title = If you are claiming for more than one job you must use an online form or claim by post
 claimByAlternative.heading = If you are claiming for more than one job you must use an online form or claim by post

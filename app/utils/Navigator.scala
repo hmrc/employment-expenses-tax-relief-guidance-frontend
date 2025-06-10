@@ -23,7 +23,7 @@ import play.api.mvc.Call
 import controllers.routes
 import identifiers._
 import models.ClaimingFor._
-import models.MultipleEmployments._
+import models.ClaimingForMoreThanOneJob.{MoreThanOneJob, OneJob}
 import models.{Claimant, ClaimingFor, EmployerPaid}
 import models.EmployerPaid.{AllExpenses, NoExpenses, SomeExpenses}
 
@@ -76,7 +76,7 @@ class Navigator @Inject() (implicit appConfig: FrontendAppConfig) {
 
       case Some(true) => routes.UsePrintAndPostController.onPageLoad()
       case Some(false) if uniformsClothingTools && appConfig.pegaServiceJourney =>
-        routes.MultipleEmploymentsController.onPageLoad()
+        routes.ClaimingForMoreThanOneJobController.onPageLoad()
       case Some(false) if uniformsClothingTools && appConfig.freOnlyJourneyEnabled =>
         routes.ClaimOnlineController.onPageLoad()
       case Some(false) if appConfig.freOnlyJourneyEnabled || appConfig.onlineJourneyShutterEnabled =>
@@ -90,8 +90,8 @@ class Navigator @Inject() (implicit appConfig: FrontendAppConfig) {
 
   }
 
-  private def multipleEmploymentsRouting(userAnswers: UserAnswers): Call =
-    userAnswers.multipleEmployments match {
+  private def claimingForMoreThanOneJobRouting(userAnswers: UserAnswers): Call =
+    userAnswers.claimingForMoreThanOneJob match {
       case Some(MoreThanOneJob) => routes.ClaimByAlternativeController.onPageLoad()
       case Some(OneJob)         => routes.ClaimOnlineController.onPageLoad()
       case _                    => routes.SessionExpiredController.onPageLoad
@@ -223,7 +223,7 @@ class Navigator @Inject() (implicit appConfig: FrontendAppConfig) {
     RegisteredForSelfAssessmentId       -> registeredForSelfAssessmentRouting,
     ClaimingOverPayAsYouEarnThresholdId -> claimingOverPayAsYouEarnThresholdRouting,
     MoreThanFiveJobsId                  -> moreThanFiveJobsRouting,
-    MultipleEmploymentsId               -> multipleEmploymentsRouting,
+    ClaimingForMoreThanOneJobId         -> claimingForMoreThanOneJobRouting,
     EmployerPaidBackAnyExpensesId       -> employerPaidBackExpensesRouting,
     ClaimingMileageId                   -> (_ => routes.UseCompanyCarController.onPageLoad()),
     UseOwnCarId                         -> useOwnCarRouting,

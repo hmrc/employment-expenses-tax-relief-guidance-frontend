@@ -16,44 +16,44 @@
 
 package views
 
-import forms.MultipleEmploymentsFormProvider
-import models.MultipleEmployments
+import forms.ClaimingForMoreThanOneJobFormProvider
+import models.ClaimingForMoreThanOneJob
 import play.api.Application
 import play.api.data.Form
 import play.twirl.api.Html
 import views.behaviours.NewViewBehaviours
-import views.html.MultipleEmploymentsView
+import views.html.ClaimingForMoreThanOneJobView
 
-class MultipleEmploymentsViewSpec extends NewViewBehaviours {
+class ClaimingForMoreThanOneJobViewSpec extends NewViewBehaviours {
 
-  val messageKeyPrefix = "multipleEmployments"
+  val messageKeyPrefix = "claimingForMoreThanOneJob"
 
   val application: Application = applicationBuilder().build()
 
-  val view: MultipleEmploymentsView = application.injector.instanceOf[MultipleEmploymentsView]
+  val view: ClaimingForMoreThanOneJobView = application.injector.instanceOf[ClaimingForMoreThanOneJobView]
 
-  val form = new MultipleEmploymentsFormProvider()()
+  val form = new ClaimingForMoreThanOneJobFormProvider()()
 
   def createView(form: Form[_]): Html = view.apply(form)(fakeRequest, messages)
 
-  "MultipleEmployments view" must {
+  "ClaimingForMoreThanOneJob view" must {
 
     behave.like(normalPage(createView(form), messageKeyPrefix))
     behave.like(pageWithBackLink(createView(form)))
 
     "contain radio buttons for the value" in {
       val doc = asDocument(createView(form))
-      for (option <- MultipleEmployments.options)
+      for (option <- ClaimingForMoreThanOneJob.options)
         assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = false)
     }
 
-    for (option <- MultipleEmployments.options)
+    for (option <- ClaimingForMoreThanOneJob.options)
       s"rendered with a value of '${option.value}'" must {
         s"have the '${option.value}' radio button selected" in {
           val doc = asDocument(createView(form.bind(Map("value" -> s"${option.value}"))))
           assertContainsRadioButton(doc, option.id, "value", option.value, isChecked = true)
 
-          for (unselectedOption <- MultipleEmployments.options.filterNot(_ == option))
+          for (unselectedOption <- ClaimingForMoreThanOneJob.options.filterNot(_ == option))
             assertContainsRadioButton(doc, unselectedOption.id, "value", unselectedOption.value, isChecked = false)
         }
       }

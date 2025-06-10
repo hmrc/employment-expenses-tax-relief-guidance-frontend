@@ -18,22 +18,22 @@ package models
 
 import utils.{Enumerable, RadioOption, WithName}
 
-sealed trait MultipleEmployments
+sealed trait ClaimingForMoreThanOneJob
 
-object MultipleEmployments extends Enumerable.Implicits {
+object ClaimingForMoreThanOneJob extends Enumerable.Implicits {
 
-  case object OneJob         extends WithName("oneJob") with MultipleEmployments
-  case object MoreThanOneJob extends WithName("moreThanOneJob") with MultipleEmployments
+  case object OneJob         extends WithName("oneJob") with ClaimingForMoreThanOneJob
+  case object MoreThanOneJob extends WithName("moreThanOneJob") with ClaimingForMoreThanOneJob
 
-  val values: Seq[MultipleEmployments] = Seq(
+  val values: Seq[ClaimingForMoreThanOneJob] = Seq(
     OneJob,
     MoreThanOneJob
   )
 
   val options: Seq[RadioOption] =
-    values.map(value => RadioOption("multipleEmployments", value.toString))
+    values.map(value => RadioOption("claimingForMoreThanOneJob", value.toString))
 
-  implicit val enumerable: Enumerable[MultipleEmployments] =
+  implicit val enumerable: Enumerable[ClaimingForMoreThanOneJob] =
     Enumerable(values.map(v => v.toString -> v): _*)
 
 }

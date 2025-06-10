@@ -17,7 +17,7 @@
 package controllers
 
 import base.SpecBase
-import models.MultipleEmployments._
+import models.ClaimingForMoreThanOneJob._
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
@@ -28,9 +28,9 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import scala.concurrent.ExecutionContext.Implicits.global
 import connectors.DataCacheConnector
-import forms.MultipleEmploymentsFormProvider
-import identifiers.MultipleEmploymentsId
-import models.MultipleEmployments
+import forms.ClaimingForMoreThanOneJobFormProvider
+import identifiers.ClaimingForMoreThanOneJobId
+import models.ClaimingForMoreThanOneJob
 import org.mockito.Mockito.reset
 import org.scalatest.BeforeAndAfterEach
 import play.api.data.Form
@@ -39,7 +39,7 @@ import utils.{CacheMap, Navigator, NavigatorSupport}
 
 import scala.concurrent.Future
 
-class MultipleEmploymentsControllerSpec
+class ClaimingForMoreThanOneJobControllerSpec
     extends SpecBase
     with MockitoSugar
     with BeforeAndAfterEach
@@ -56,18 +56,18 @@ class MultipleEmploymentsControllerSpec
     when(mockDataCacheConnector.save(any(), any(), any())(any())).thenReturn(Future(new CacheMap("id", Map())))
   }
 
-  val formProvider                    = new MultipleEmploymentsFormProvider()
-  val form: Form[MultipleEmployments] = formProvider()
+  val formProvider                          = new ClaimingForMoreThanOneJobFormProvider()
+  val form: Form[ClaimingForMoreThanOneJob] = formProvider()
 
-  lazy val multipleEmploymentsRoute: String = routes.MultipleEmploymentsController.onPageLoad().url
+  lazy val claimingForMoreThanOneJobRoute: String = routes.ClaimingForMoreThanOneJobController.onPageLoad().url
 
-  "MultipleEmployments Controller" must {
+  "ClaimingForMoreThanOneJob Controller" must {
 
     "return OK for a GET" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
 
-      val request = FakeRequest(GET, multipleEmploymentsRoute)
+      val request = FakeRequest(GET, claimingForMoreThanOneJobRoute)
 
       val result = route(application, request).value
 
@@ -78,10 +78,10 @@ class MultipleEmploymentsControllerSpec
 
     "populate the view correctly on a GET when the question has previously been answered" in {
 
-      val validData   = Map(MultipleEmploymentsId.toString -> JsString(values.head.toString))
+      val validData   = Map(ClaimingForMoreThanOneJobId.toString -> JsString(values.head.toString))
       val application = applicationBuilder(Some(new CacheMap(cacheMapId, validData))).build()
 
-      val request = FakeRequest(GET, multipleEmploymentsRoute)
+      val request = FakeRequest(GET, claimingForMoreThanOneJobRoute)
 
       val result = route(application, request).value
       status(result) mustEqual OK
@@ -100,8 +100,8 @@ class MultipleEmploymentsControllerSpec
           .build()
 
       val request =
-        FakeRequest(POST, multipleEmploymentsRoute)
-          .withFormUrlEncodedBody(("value", MultipleEmployments.options.head.value))
+        FakeRequest(POST, claimingForMoreThanOneJobRoute)
+          .withFormUrlEncodedBody(("value", ClaimingForMoreThanOneJob.options.head.value))
 
       val result = route(application, request).value
 
@@ -117,7 +117,7 @@ class MultipleEmploymentsControllerSpec
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
 
       val request =
-        FakeRequest(POST, multipleEmploymentsRoute)
+        FakeRequest(POST, claimingForMoreThanOneJobRoute)
           .withFormUrlEncodedBody(("value", ""))
 
       val result = route(application, request).value
@@ -130,7 +130,7 @@ class MultipleEmploymentsControllerSpec
 
       val application = applicationBuilder().build()
 
-      val request = FakeRequest(GET, multipleEmploymentsRoute)
+      val request = FakeRequest(GET, claimingForMoreThanOneJobRoute)
 
       val result = route(application, request).value
 
@@ -146,8 +146,8 @@ class MultipleEmploymentsControllerSpec
       val application = applicationBuilder().build()
 
       val request =
-        FakeRequest(POST, multipleEmploymentsRoute)
-          .withFormUrlEncodedBody(("value", MultipleEmployments.options.head.value))
+        FakeRequest(POST, claimingForMoreThanOneJobRoute)
+          .withFormUrlEncodedBody(("value", ClaimingForMoreThanOneJob.options.head.value))
 
       val result = route(application, request).value
 

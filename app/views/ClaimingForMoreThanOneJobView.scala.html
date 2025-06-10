@@ -28,18 +28,18 @@
 @(form: Form[_])(implicit request: Request[_], messages: Messages)
 
 @layout(
-    pageTitle = s"${errorPrefix(form)} ${messages("multipleEmployments.title")}"
+    pageTitle = s"${errorPrefix(form)} ${messages("claimingForMoreThanOneJob.title")}"
 ) {
 
-    @formHelper(action = MultipleEmploymentsController.onSubmit()) {
+    @formHelper(action = ClaimingForMoreThanOneJobController.onSubmit()) {
     @errorSummary(form.errors)
 
     @inputRadio(
         field = form("value"),
         inline = true,
-        legend = messages("multipleEmployments.heading"),
+        legend = messages("claimingForMoreThanOneJob.heading"),
         isPageHeading = true,
-        items = MultipleEmployments.options map { radioOption =>
+        items = ClaimingForMoreThanOneJob.options.map { radioOption =>
             RadioItem(
                 id = Some(radioOption.id),
                 value = Some(radioOption.value),

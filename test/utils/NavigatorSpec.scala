@@ -23,7 +23,7 @@ import identifiers._
 import models.Claimant.You
 import models.ClaimingFor.{HomeWorking, UniformsClothingTools}
 import models.EmployerPaid.{NoExpenses, SomeExpenses}
-import models.MultipleEmployments.{MoreThanOneJob, OneJob}
+import models.ClaimingForMoreThanOneJob.{MoreThanOneJob, OneJob}
 import models.{Claimant, ClaimingFor, EmployerPaid}
 import org.mockito.Mockito._
 import org.scalatestplus.mockito.MockitoSugar
@@ -273,34 +273,24 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimingFuel).thenReturn(None)
         when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(None)
         navigator.nextPage(MoreThanFiveJobsId)(mockAnswers) mustBe
-          routes.MultipleEmploymentsController.onPageLoad()
+          routes.ClaimingForMoreThanOneJobController.onPageLoad()
       }
 
-      "answering More Than One Job in the Multiple Employments View and pega journey is enabled" in {
+      "answering More Than One Job in the Multiple Employments View" in {
         val mockAppConfig = mock[FrontendAppConfig]
         val navigator     = new Navigator()(mockAppConfig)
         val mockAnswers   = mock[UserAnswers]
-        when(mockAppConfig.pegaServiceJourney).thenReturn(true)
-        when(mockAnswers.multipleEmployments).thenReturn(Some(MoreThanOneJob))
-        when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.UniformsClothingTools)))
-        when(mockAnswers.claimingMileage).thenReturn(None)
-        when(mockAnswers.claimingFuel).thenReturn(None)
-        when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(None)
-        navigator.nextPage(MultipleEmploymentsId)(mockAnswers) mustBe
+        when(mockAnswers.claimingForMoreThanOneJob).thenReturn(Some(MoreThanOneJob))
+        navigator.nextPage(ClaimingForMoreThanOneJobId)(mockAnswers) mustBe
           routes.ClaimByAlternativeController.onPageLoad()
       }
 
-      "answering One Job in the Multiple Employments View and pega journey is enabled" in {
+      "answering One Job in the Multiple Employments View" in {
         val mockAppConfig = mock[FrontendAppConfig]
         val navigator     = new Navigator()(mockAppConfig)
         val mockAnswers   = mock[UserAnswers]
-        when(mockAppConfig.pegaServiceJourney).thenReturn(true)
-        when(mockAnswers.multipleEmployments).thenReturn(Some(OneJob))
-        when(mockAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.UniformsClothingTools)))
-        when(mockAnswers.claimingMileage).thenReturn(None)
-        when(mockAnswers.claimingFuel).thenReturn(None)
-        when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(None)
-        navigator.nextPage(MultipleEmploymentsId)(mockAnswers) mustBe
+        when(mockAnswers.claimingForMoreThanOneJob).thenReturn(Some(OneJob))
+        navigator.nextPage(ClaimingForMoreThanOneJobId)(mockAnswers) mustBe
           routes.ClaimOnlineController.onPageLoad()
       }
 

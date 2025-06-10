@@ -14,18 +14,8 @@
  * limitations under the License.
  */
 
-package forms
+package identifiers
 
-import javax.inject.Inject
-import forms.mappings.Mappings
-import models.MultipleEmployments
-import play.api.data.Form
-
-class MultipleEmploymentsFormProvider @Inject() extends Mappings {
-
-  def apply(): Form[MultipleEmployments] =
-    Form(
-      "value" -> enumerable[MultipleEmployments]("multipleEmployments.error.required")
-    )
-
+case object ClaimingForMoreThanOneJobId extends Identifier {
+  override def toString: String = "claimingForMoreThanOneJob"
 }

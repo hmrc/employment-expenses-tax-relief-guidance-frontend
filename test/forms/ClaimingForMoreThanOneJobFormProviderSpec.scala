@@ -17,10 +17,10 @@
 package forms
 
 import forms.behaviours.OptionFieldBehaviours
-import models.MultipleEmployments
+import models.ClaimingForMoreThanOneJob
 import play.api.data.FormError
 
-class MultipleEmploymentsFormProviderSpec extends OptionFieldBehaviours {
+class ClaimingForMoreThanOneJobFormProviderSpec extends OptionFieldBehaviours {
 
   val form = new EmployerPaidBackAnyExpensesFormProvider()()
 
@@ -30,10 +30,10 @@ class MultipleEmploymentsFormProviderSpec extends OptionFieldBehaviours {
     val requiredKey = "employerPaidBackAnyExpenses.error.required"
 
     behave.like(
-      optionsField[MultipleEmployments](
+      optionsField[ClaimingForMoreThanOneJob](
         form,
         fieldName,
-        MultipleEmployments.values.toSet,
+        ClaimingForMoreThanOneJob.values.toSet,
         invalidError = FormError(fieldName, "error.invalid")
       )
     )

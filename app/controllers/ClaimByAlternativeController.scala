@@ -34,8 +34,4 @@ class ClaimByAlternativeController @Inject() (
 
   def onPageLoad: Action[AnyContent] = getData.andThen(requireData)(implicit request => Ok(view()))
 
-  def onSubmit: Action[AnyContent] = getData.andThen(requireData) {
-    Redirect("https://www.gov.uk/guidance/claim-income-tax-relief-for-your-employment-expenses-p87")
-  }
-
 }

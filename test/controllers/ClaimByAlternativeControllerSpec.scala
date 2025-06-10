@@ -22,13 +22,15 @@ import play.api.test.Helpers._
 
 class ClaimByAlternativeControllerSpec extends SpecBase {
 
+  lazy val claimByAlternativeRoute: String = routes.ClaimByAlternativeController.onPageLoad().url
+
   "ClaimByAlternative Controller" must {
 
     "return OK for a GET" in {
 
       val application = applicationBuilder(Some(claimantIdCacheMap)).build()
 
-      val request = FakeRequest(GET, routes.ClaimByAlternativeController.onPageLoad().url)
+      val request = FakeRequest(GET, claimByAlternativeRoute)
 
       val result = route(application, request).value
 
@@ -37,15 +39,17 @@ class ClaimByAlternativeControllerSpec extends SpecBase {
       application.stop()
     }
 
-    "return 303 on POST" in {
+    "redirect to Session Expired for a GET if no existing data is found" in {
 
-      val application = applicationBuilder(Some(claimantIdCacheMap)).build()
+      val application = applicationBuilder().build()
 
-      val request = FakeRequest(POST, routes.ClaimByAlternativeController.onSubmit().url)
+      val request = FakeRequest(GET, claimByAlternativeRoute)
 
       val result = route(application, request).value
 
       status(result) mustEqual SEE_OTHER
+
+      redirectLocation(result).value mustEqual routes.SessionExpiredController.onPageLoad.url
 
       application.stop()
     }
