@@ -276,7 +276,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           routes.ClaimingForMoreThanOneJobController.onPageLoad()
       }
 
-      "answering More Than One Job in the Multiple Employments View" in {
+      "answering More Than One Job in the ClaimingForMoreThanOneJob view" in {
         val mockAppConfig = mock[FrontendAppConfig]
         val navigator     = new Navigator()(mockAppConfig)
         val mockAnswers   = mock[UserAnswers]
@@ -285,7 +285,7 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           routes.ClaimByAlternativeController.onPageLoad()
       }
 
-      "answering One Job in the Multiple Employments View" in {
+      "answering One Job in the ClaimingForMoreThanOneJob view" in {
         val mockAppConfig = mock[FrontendAppConfig]
         val navigator     = new Navigator()(mockAppConfig)
         val mockAnswers   = mock[UserAnswers]
