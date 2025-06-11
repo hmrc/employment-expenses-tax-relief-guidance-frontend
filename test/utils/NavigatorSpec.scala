@@ -23,6 +23,7 @@ import identifiers._
 import models.Claimant.You
 import models.ClaimingFor.{HomeWorking, UniformsClothingTools}
 import models.EmployerPaid.{NoExpenses, SomeExpenses}
+import models.ClaimingForMoreThanOneJob.{MoreThanOneJob, OneJob}
 import models.{Claimant, ClaimingFor, EmployerPaid}
 import org.mockito.Mockito._
 import org.scalatestplus.mockito.MockitoSugar
@@ -263,7 +264,6 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
       "answering No from the MoreThanFiveJobs view and pega journey is enabled" in {
         val mockAppConfig = mock[FrontendAppConfig]
         val navigator     = new Navigator()(mockAppConfig)
-        val expectedCall  = Call("GET", mockAppConfig.employeeExpensesUrl)
 
         val mockAnswers = mock[UserAnswers]
         when(mockAppConfig.pegaServiceJourney).thenReturn(true)
@@ -273,7 +273,34 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
         when(mockAnswers.claimingFuel).thenReturn(None)
         when(mockAnswers.employerPaidBackAnyExpenses).thenReturn(None)
         navigator.nextPage(MoreThanFiveJobsId)(mockAnswers) mustBe
-          expectedCall
+          routes.ClaimingForMoreThanOneJobController.onPageLoad()
+      }
+
+      "answering More Than One Job in the ClaimingForMoreThanOneJob view" in {
+        val mockAppConfig = mock[FrontendAppConfig]
+        val navigator     = new Navigator()(mockAppConfig)
+        val mockAnswers   = mock[UserAnswers]
+        when(mockAnswers.claimingForMoreThanOneJob).thenReturn(Some(MoreThanOneJob))
+        navigator.nextPage(ClaimingForMoreThanOneJobId)(mockAnswers) mustBe
+          routes.ClaimByAlternativeController.onPageLoad()
+      }
+
+      "answering One Job in the ClaimingForMoreThanOneJob view" in {
+        val mockAppConfig = mock[FrontendAppConfig]
+        val navigator     = new Navigator()(mockAppConfig)
+        val mockAnswers   = mock[UserAnswers]
+        when(mockAnswers.claimingForMoreThanOneJob).thenReturn(Some(OneJob))
+        navigator.nextPage(ClaimingForMoreThanOneJobId)(mockAnswers) mustBe
+          routes.ClaimOnlineController.onPageLoad()
+      }
+
+      "where ClaimingForMoreThanOneJob returns None" in {
+        val mockAppConfig = mock[FrontendAppConfig]
+        val navigator     = new Navigator()(mockAppConfig)
+        val mockAnswers   = mock[UserAnswers]
+        when(mockAnswers.claimingForMoreThanOneJob).thenReturn(None)
+        navigator.nextPage(ClaimingForMoreThanOneJobId)(mockAnswers) mustBe
+          routes.SessionExpiredController.onPageLoad
       }
 
       "answering MileageFuel and another option from the ClaimingFor view and the claimant is You is and onlineJourneyShutterEnabled FS is set to true" in {

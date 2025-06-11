@@ -27,6 +27,7 @@ import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.libs.json.{JsArray, JsString}
+import play.api.mvc.Call
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import utils.{CacheMap, Navigator, NavigatorSupport}
@@ -42,9 +43,9 @@ class ClaimingForControllerSpec
     with IntegrationPatience
     with NavigatorSupport {
 
-  def onwardRoute = routes.IndexController.onPageLoad
+  def onwardRoute: Call = routes.IndexController.onPageLoad
 
-  def claimingForRoute = routes.ClaimingForController.onPageLoad().url
+  def claimingForRoute: String = routes.ClaimingForController.onPageLoad().url
 
   private val mockDataCacheConnector = mock[DataCacheConnector]
 

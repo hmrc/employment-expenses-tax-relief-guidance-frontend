@@ -15,7 +15,9 @@ lazy val root = (project in file("."))
   .settings(
     scalacOptions ++= Seq(
       "-Wconf:cat=unused-imports&src=html/.*:s",
-      "-Wconf:cat=unused-imports&src=routes/.*:s"
+      "-Wconf:cat=unused-imports&src=routes/.*:s",
+      "-Wconf:cat=unused-imports&src=.*routes.*:s",
+      "-Wconf:cat=unused-privates&src=.*routes.*:s"
     )
   )
   .settings(

@@ -85,6 +85,19 @@ moreThanFiveJobs.title = A ydych yn hawlio ar gyfer mwy na 5 swydd wahanol?
 moreThanFiveJobs.heading = A ydych yn hawlio ar gyfer mwy na 5 swydd wahanol?
 moreThanFiveJobs.error.required = Dewiswch ‘Iawn’ os ydych yn hawlio rhyddhad treth ar gyfer mwy na 5 swydd wahanol
 
+claimingForMoreThanOneJob.title=Faint o swyddi yr ydych yn hawlio ar eu cyfer?
+claimingForMoreThanOneJob.heading=Faint o swyddi yr ydych yn hawlio ar eu cyfer?
+claimingForMoreThanOneJob.checkYourAnswersLabel=Faint o swyddi yr ydych yn hawlio ar eu cyfer?
+claimingForMoreThanOneJob.error.required=Dewiswch a oes gennych un swydd, neu fwy nag un swydd
+claimingForMoreThanOneJob.oneJob=Un swydd
+claimingForMoreThanOneJob.moreThanOneJob=Mwy nag un swydd
+
+claimByAlternative.title=Os ydych yn hawlio am fwy nag un swydd mae''n rhaid i chi ddefnyddio ffurflen ar-lein neu hawlio drwy''r post
+claimByAlternative.heading=Os ydych yn hawlio am fwy nag un swydd mae''n rhaid i chi ddefnyddio ffurflen ar-lein neu hawlio drwy''r post
+claimByAlternative.paragraph=Defnyddiwch y {0} neu {1}.
+claimByAlternative.onlineFormLinkText=ffurflen ar-lein
+claimByAlternative.claimByPostLinkText=hawlio drwy''r post
+
 registerForSelfAssessment.title = Dim ond drwy ddefnyddio Hunanasesiad y gallwch hawlio’r treuliau hyn
 registerForSelfAssessment.heading = Dim ond drwy ddefnyddio Hunanasesiad y gallwch hawlio’r treuliau hyn
 registerForSelfAssessment.guidance = Os oes blynyddoedd treth pan fo’ch treuliau’n llai na £2,500,
