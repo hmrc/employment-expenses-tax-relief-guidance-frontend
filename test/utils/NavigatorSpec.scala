@@ -294,6 +294,15 @@ class NavigatorSpec extends SpecBase with MockitoSugar {
           routes.ClaimOnlineController.onPageLoad()
       }
 
+      "where ClaimingForMoreThanOneJob returns None" in {
+        val mockAppConfig = mock[FrontendAppConfig]
+        val navigator     = new Navigator()(mockAppConfig)
+        val mockAnswers   = mock[UserAnswers]
+        when(mockAnswers.claimingForMoreThanOneJob).thenReturn(None)
+        navigator.nextPage(ClaimingForMoreThanOneJobId)(mockAnswers) mustBe
+          routes.SessionExpiredController.onPageLoad
+      }
+
       "answering MileageFuel and another option from the ClaimingFor view and the claimant is You is and onlineJourneyShutterEnabled FS is set to true" in {
         val mockAppConfig = mock[FrontendAppConfig]
         val navigator     = new Navigator()(mockAppConfig)
