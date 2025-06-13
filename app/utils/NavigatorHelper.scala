@@ -21,14 +21,26 @@ import models.EmployerPaid
 
 class NavigatorHelper {
 
-  def isClaimingWfh(userAnswers: UserAnswers): Boolean =
-    userAnswers.claimingFor.exists(_.contains(HomeWorking)) ||
-      (userAnswers.claimingFor.exists(_.isEmpty) && userAnswers.claimAnyOtherExpense.contains(true)) ||
-      (userAnswers.claimingFor.isEmpty && userAnswers.claimAnyOtherExpense.contains(true))
+  def isClaimingWfh(userAnswers: UserAnswers): Boolean = {
+    def isClaimingForHomeWorking: Boolean = userAnswers.claimingFor.exists(_.contains(HomeWorking))
 
-  def vehiclesRedirect(userAnswers: UserAnswers): Boolean =
-    userAnswers.claimingMileage.contains(true) &&
-      (userAnswers.claimingFuel.contains(false) || userAnswers.useCompanyCar.contains(false)) &&
+    def isClaimingAnyOtherExpense: Boolean =
+      (userAnswers.claimingFor.isEmpty || userAnswers.claimingFor.exists(_.isEmpty)) &&
+        userAnswers.claimAnyOtherExpense.contains(true)
+
+    isClaimingForHomeWorking || isClaimingAnyOtherExpense
+  }
+
+  def vehiclesRedirect(userAnswers: UserAnswers): Boolean = {
+    def isClaimingMileage: Boolean = userAnswers.claimingMileage.contains(true)
+
+    def didEmployerPayBackSomeExpenses: Boolean =
       userAnswers.employerPaidBackAnyExpenses.contains(EmployerPaid.SomeExpenses)
+
+    def isNotClaimingFuelOrUsingCompanyCar: Boolean =
+      userAnswers.claimingFuel.contains(false) || userAnswers.useCompanyCar.contains(false)
+
+    isClaimingMileage && didEmployerPayBackSomeExpenses && isNotClaimingFuelOrUsingCompanyCar
+  }
 
 }

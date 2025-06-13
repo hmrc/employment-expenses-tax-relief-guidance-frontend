@@ -21,7 +21,7 @@ import controllers.routes
 import identifiers._
 import models.ClaimingForMoreThanOneJob.{MoreThanOneJob, OneJob}
 import models.EmployerPaid.{AllExpenses, NoExpenses, SomeExpenses}
-import models.{Claimant, ClaimingFor, EmployerPaid}
+import models.{Claimant, ClaimingFor}
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito._
 import org.scalatest.BeforeAndAfterEach
