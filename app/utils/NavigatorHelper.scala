@@ -23,6 +23,7 @@ class NavigatorHelper {
 
   def isClaimingWfh(userAnswers: UserAnswers): Boolean =
     userAnswers.claimingFor.exists(_.contains(HomeWorking)) ||
+      (userAnswers.claimingFor.exists(_.isEmpty) && userAnswers.claimAnyOtherExpense.contains(true)) ||
       (userAnswers.claimingFor.isEmpty && userAnswers.claimAnyOtherExpense.contains(true))
 
   def vehiclesRedirect(userAnswers: UserAnswers): Boolean =

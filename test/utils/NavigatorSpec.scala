@@ -40,8 +40,6 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
   override def beforeEach(): Unit =
     reset(navigatorHelper, frontendAppConfig, userAnswers)
 
-  private val employerPaid: EmployerPaid.NoExpenses.type = NoExpenses
-
   "Navigator on firstPage" must {
     "return Call to ClaimingFor page" in {
       navigator.firstPage mustBe routes.ClaimingForController.onPageLoad()
