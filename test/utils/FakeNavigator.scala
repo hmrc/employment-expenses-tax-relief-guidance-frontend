@@ -23,7 +23,7 @@ import identifiers.Identifier
 trait NavigatorSupport {
   self: SpecBase =>
 
-  class FakeNavigator(desiredRoute: Call = Call("GET", "/")) extends Navigator()(frontendAppConfig) {
+  class FakeNavigator(desiredRoute: Call = Call("GET", "/")) extends Navigator(new NavigatorHelper)(frontendAppConfig) {
     override def nextPage(controllerId: Identifier): (UserAnswers) => Call = _ => desiredRoute
   }
 
