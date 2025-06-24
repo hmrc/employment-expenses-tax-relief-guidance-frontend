@@ -23,7 +23,6 @@ import org.mockito.Mockito._
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.Application
-import play.api.test.Helpers._
 import play.api.inject.bind
 
 class CannotClaimReliefViewSpec extends NewViewBehaviours with MockitoSugar {

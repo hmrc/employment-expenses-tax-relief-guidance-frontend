@@ -65,7 +65,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
   override def beforeEach(): Unit = {
     super.beforeEach()
 
-    reset(
+    reset[Object](
       claimingForListBuilder,
       cacheMap,
       appConfig,

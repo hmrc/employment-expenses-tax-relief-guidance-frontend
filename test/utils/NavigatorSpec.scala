@@ -38,7 +38,7 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
   private val navigator = new Navigator(navigatorHelper)(frontendAppConfig)
 
   override def beforeEach(): Unit =
-    reset(navigatorHelper, frontendAppConfig, userAnswers)
+    reset[Object](navigatorHelper, frontendAppConfig, userAnswers)
 
   "Navigator on firstPage" must {
     "return Call to ClaimingFor page" in {
@@ -248,7 +248,7 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
     "provided with NotEntitledSomeYearsId identifier" must {
       "return Call to RegisteredForSelfAssessmentController" in {
         navigator.nextPage(NotEntitledSomeYearsId)(userAnswers) mustBe
-          routes.RegisteredForSelfAssessmentController.onPageLoad
+          routes.RegisteredForSelfAssessmentController.onPageLoad()
       }
     }
 
@@ -614,7 +614,7 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
     "provided with ClaimingMileageId identifier" must {
       "return Call to UseCompanyCarController" in {
         navigator.nextPage(ClaimingMileageId)(userAnswers) mustBe
-          routes.UseCompanyCarController.onPageLoad
+          routes.UseCompanyCarController.onPageLoad()
       }
     }
 
@@ -953,28 +953,28 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
     "provided with WillNotPayTaxId identifier" must {
       "return Call to UseCompanyCarController" in {
         navigator.nextPage(WillNotPayTaxId)(userAnswers) mustBe
-          routes.RegisteredForSelfAssessmentController.onPageLoad
+          routes.RegisteredForSelfAssessmentController.onPageLoad()
       }
     }
 
     "provided with RegisterForSelfAssessmentId identifier" must {
       "return Call to UseCompanyCarController" in {
         navigator.nextPage(RegisterForSelfAssessmentId)(userAnswers) mustBe
-          routes.EmployerPaidBackAnyExpensesController.onPageLoad
+          routes.EmployerPaidBackAnyExpensesController.onPageLoad()
       }
     }
 
     "provided with ChangeOtherExpensesId identifier" must {
       "return Call to UseCompanyCarController" in {
         navigator.nextPage(ChangeOtherExpensesId)(userAnswers) mustBe
-          routes.ClaimantController.onPageLoad
+          routes.ClaimantController.onPageLoad()
       }
     }
 
     "provided with ChangeUniformsWorkClothingToolsId identifier" must {
       "return Call to UseCompanyCarController" in {
         navigator.nextPage(ChangeUniformsWorkClothingToolsId)(userAnswers) mustBe
-          routes.ClaimantController.onPageLoad
+          routes.ClaimantController.onPageLoad()
       }
     }
 
