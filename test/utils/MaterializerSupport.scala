@@ -17,11 +17,11 @@
 package utils
 
 import org.apache.pekko.actor.ActorSystem
-import org.apache.pekko.stream.ActorMaterializer
+import org.apache.pekko.stream.Materializer
 
 trait MaterializerSupport {
 
-  implicit val system: ActorSystem             = ActorSystem("Sys")
-  implicit val materializer: ActorMaterializer = ActorMaterializer()
+  implicit val system: ActorSystem        = ActorSystem("Sys")
+  implicit val materializer: Materializer = Materializer(system)
 
 }

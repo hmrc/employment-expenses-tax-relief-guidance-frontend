@@ -21,7 +21,6 @@ import forms.ClaimingForFormProvider
 import models.ClaimingFor
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
-import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.Application
 import play.api.data.Form
 import play.api.inject.bind
@@ -59,8 +58,6 @@ class ClaimingForViewSpec extends CheckboxViewBehaviours[ClaimingFor] with Mocki
 
     "freOnlyJourneyEnabled is true" must {
 
-      val doc = asDocument(createView(form, freJourneyEnabled = true))
-
       behave.like(normalPage(createView(form, freJourneyEnabled = true), messageKeyPrefix))
       behave.like(
         checkboxPage(
@@ -74,8 +71,6 @@ class ClaimingForViewSpec extends CheckboxViewBehaviours[ClaimingFor] with Mocki
     }
 
     "freOnlyJourneyEnabled is false" must {
-
-      val doc = asDocument(createView(form, freJourneyEnabled = false))
 
       behave.like(normalPage(createView(form, freJourneyEnabled = false), messageKeyPrefix))
       behave.like(

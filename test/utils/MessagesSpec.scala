@@ -17,7 +17,6 @@
 package utils
 
 import base.SpecBase
-import org.scalatest.Ignore
 import play.api.i18n.Messages
 import play.api.i18n.Messages.MessageSource
 

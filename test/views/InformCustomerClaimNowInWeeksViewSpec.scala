@@ -16,17 +16,13 @@
 
 package views
 
-import play.api.Application
 import play.twirl.api.Html
 import views.behaviours.NewViewBehaviours
 import views.html.InformCustomerClaimNowInWeeksView
 import config.FrontendAppConfig
-import base.SpecBase
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
-import play.api.test.FakeRequest
-import play.api.test.Helpers._
 
 class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours with MockitoSugar {
 

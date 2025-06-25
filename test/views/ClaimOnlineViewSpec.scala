@@ -25,7 +25,6 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.Application
 import play.api.inject.bind
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.twirl.api.Html
 import viewmodels.OnwardJourney
 import views.behaviours.NewViewBehaviours
 import views.html.ClaimOnlineView

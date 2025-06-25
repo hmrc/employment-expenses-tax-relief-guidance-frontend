@@ -23,10 +23,8 @@ import play.api.Application
 import play.api.inject.bind
 import play.api.mvc.Call
 import views.behaviours.NewViewBehaviours
-import config.FrontendAppConfig
 import org.mockito.Mockito.when
 import views.html.DisclaimerView
-import play.api.Application
 import play.twirl.api.Html
 
 class DisclaimerViewSpec extends NewViewBehaviours with MockitoSugar {

@@ -42,13 +42,9 @@ import models.ClaimingFor.{
   TravelExpenses,
   UniformsClothingTools
 }
-import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
-import play.api.inject.bind
 import views.behaviours.NewViewBehaviours
 import views.html.UsePrintAndPostFreOnlyView
-import models.ClaimingFor
-import org.jsoup.nodes.Element
 import play.api.mvc.Call
 import play.twirl.api.Html
 
