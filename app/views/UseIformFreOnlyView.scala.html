@@ -65,7 +65,7 @@ if (claimingFor == List(HomeWorking) && appConfig.pegaServiceJourney){
         s"""
         ${pegaServiceJourneyInsertText} <br><br>
         ${messages("usePrintAndPostDetailed.para2_freOnly_iform")}
-        <a href="${appConfig.employeeExpensesClaimByPostUrl}" target="_blank">
+        <a class="govuk-link" href="${appConfig.employeeExpensesClaimByPostUrl}" target="_blank">
             ${messages("usePrintAndPostDetailed.para2_freOnly.link.label_iform")}
         </a>
         """
