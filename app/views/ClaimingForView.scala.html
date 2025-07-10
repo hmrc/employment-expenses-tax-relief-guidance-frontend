@@ -60,7 +60,10 @@
             )),
             name = "value",
             items = ClaimingFor.options(appConfig.onlineJourneyShutterEnabled, appConfig.freOnlyJourneyEnabled),
-            errorMessage = form.errors.headOption.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
+            errorMessage = form.errors.headOption.map(err => ErrorMessage(
+                content = Text(messages(err.message, err.args:_*)), 
+                visuallyHiddenText = Some(messages("error.inline.prefix"))
+            ))
         ))
 
         @submitButton()

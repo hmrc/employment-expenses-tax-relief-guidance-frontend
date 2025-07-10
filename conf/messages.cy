@@ -18,6 +18,7 @@ error.non_numeric = Rhowch werth gan ddefnyddio rhifau yn unig
 error.number = Nodwch rif dilys
 error.required = Nodwch werth
 error.summary.title = Mae problem wedi codi
+error.inline.prefix = Gwall
 
 session_expired.title = Er eich diogelwch, gwnaethom ddileu’ch atebion
 session_expired.heading = Er eich diogelwch, gwnaethom ddileu’ch atebion
