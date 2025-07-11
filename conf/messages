@@ -18,6 +18,7 @@ error.non_numeric = Give a value using only numbers
 error.number = Please enter a valid number
 error.required = Please enter a value
 error.summary.title = There is a problem
+error.inline.prefix = Error
 
 session_expired.title = For your security, we deleted your answers
 session_expired.heading = For your security, we deleted your answers
