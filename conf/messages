@@ -36,6 +36,7 @@ site.save_and_continue = Continue
 site.service_name = Check if you can claim work related expenses
 site.textarea.char_limit = (Limit is {0} characters)
 site.gov.uk = GOV.UK
+site.warning = Warning
 
 claimant.title = Who are you claiming expenses for?
 claimant.heading = Who are you claiming expenses for?
@@ -344,8 +345,7 @@ disclaimer.claim.before.p1 = You can claim if all the following rules apply:
 disclaimer.claim.before.l1 = your employer has not already paid your expenses
 disclaimer.claim.before.l2 = government guidelines have required you to work from home or self-isolate
 disclaimer.claim.before.l3 = you have additional household costs as a result of working from home
-disclaimer.warning1 = Guidance has changed from 6 April 2022.
-disclaimer.warning2 = You must ensure you meet the rules for claiming, as you may be prosecuted if you deliberately give incorrect or misleading information.
+disclaimer.warning = Guidance has changed from 6 April 2022. You must ensure you meet the rules for claiming, as you may be prosecuted if you deliberately give incorrect or misleading information.
 disclaimer.accept = By clicking accept and continue, you are accepting that you meet the rules for the years you are claiming for.
 disclaimer.button.continue = Accept and continue
 
