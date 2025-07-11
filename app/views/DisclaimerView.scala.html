@@ -21,6 +21,7 @@
         govukInsetText : GovukInsetText,
         heading: playComponents.heading,
         govukNotificationBanner: GovukNotificationBanner,
+        govukWarningText: GovukWarningText,
         submitButton: playComponents.submit_button,
         appConfig: FrontendAppConfig
 )
@@ -78,14 +79,10 @@
         <li>@messages("disclaimer.claim.before.l3")</li>
     </ul>
 
-    <div class="govuk-warning-text">
-        <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
-        <strong class="govuk-warning-text__text">
-            <span class="govuk-warning-text__assistive">Warning</span>
-            @messages("disclaimer.warning1")<br>
-            @messages("disclaimer.warning2")<br>
-        </strong>
-    </div>
+    @govukWarningText(WarningText(
+        iconFallbackText = Some(messages("site.warning")),
+        content = Text(messages("disclaimer.warning"))
+    ))
 
     <p class="govuk-body">@messages("disclaimer.accept")</p>
 

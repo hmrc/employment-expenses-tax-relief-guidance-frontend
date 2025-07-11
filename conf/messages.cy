@@ -36,6 +36,7 @@ site.save_and_continue = Yn eich blaen
 site.service_name = Gwiriwch a allwch hawlio treuliau sy’n ymwneud â gwaith
 site.textarea.char_limit = (Y terfyn yw {0} o gymeriadau)
 site.gov.uk = GOV.UK
+site.warning = Rhybudd
 
 claimant.title = Ar gyfer pwy yr ydych yn hawlio treuliau?
 claimant.heading = Ar gyfer pwy yr ydych yn hawlio treuliau?
@@ -343,8 +344,7 @@ disclaimer.claim.before.p1 = Gallwch wneud hawliad os yw pob un o’r rheolau ca
 disclaimer.claim.before.l1 = nid yw’ch cyflogwr wedi talu’ch treuliau’n barod
 disclaimer.claim.before.l2 = mae canllawiau’r llywodraeth wedi gofyn eich bod yn gweithio gartref neu’n hunanynysu
 disclaimer.claim.before.l3 = mae costau’ch aelwyd wedi cynyddu o ganlyniad i weithio gartref
-disclaimer.warning1 = Mae’r arweiniad wedi newid ers 6 Ebrill 2022.
-disclaimer.warning2 = Mae’n rhaid i chi sicrhau eich bod yn bodloni’r rheolau ar gyfer hawlio, gan y gallech gael eich erlyn os byddwch yn rhoi gwybodaeth anwir neu gamarweiniol yn fwriadol.
+disclaimer.warning = Mae’r arweiniad wedi newid ers 6 Ebrill 2022. Mae’n rhaid i chi sicrhau eich bod yn bodloni’r rheolau ar gyfer hawlio, gan y gallech gael eich erlyn os byddwch yn rhoi gwybodaeth anwir neu gamarweiniol yn fwriadol.
 disclaimer.accept = Drwy glicio ar ‘Derbyn ac yn eich blaen’, rydych yn derbyn eich bod yn bodloni’r rheolau ar gyfer y blynyddoedd rydych yn hawlio amdanynt.
 disclaimer.button.continue = Derbyn ac yn eich blaen
 
