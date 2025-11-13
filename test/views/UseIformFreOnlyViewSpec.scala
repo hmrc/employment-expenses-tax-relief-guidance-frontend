@@ -32,15 +32,7 @@ package views
  * limitations under the License.
  */
 import config.FrontendAppConfig
-import models.ClaimingFor.{
-  BuyingEquipment,
-  FeesSubscriptions,
-  HomeWorking,
-  MileageFuel,
-  Other,
-  TravelExpenses,
-  UniformsClothingTools
-}
+import models.ClaimingFor.{BuyingEquipment, FeesSubscriptions, HomeWorking, MileageFuel, Other, TravelExpenses, UniformsClothingTools}
 import org.jsoup.nodes.Element
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
@@ -49,7 +41,8 @@ import play.twirl.api.Html
 import views.behaviours.NewViewBehaviours
 import views.html.UseIformFreOnlyView
 import controllers.routes
-
+import play.api.inject
+import play.api.inject.guice.GuiceApplicationBuilder
 class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar {
 
   val messageKeyPrefix = "usePrintAndPostDetailed"
@@ -88,7 +81,17 @@ class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar {
   }
 
   "when pegaJourneyEnabled is enabled - new content is displayed for only WorkingHome" in {
-    val doc = asDocument(createViewHomeworking())
+    when(mockAppConfig.pegaServiceJourney).thenReturn(true)
+    when(mockAppConfig.employeeExpensesClaimByPegaServicesUrl).thenReturn(
+      "https://account-np.hmrc.gov.uk/pay-as-you-earn/claim-tax-relief-for-job-expenses/dev"
+    )
+    val application = new GuiceApplicationBuilder()
+      .configure("metrics.enabled" -> false)
+      .overrides(inject.bind[FrontendAppConfig].toInstance(mockAppConfig))
+      .build()
+    val view: UseIformFreOnlyView = application.injector.instanceOf[UseIformFreOnlyView]
+
+    val doc = asDocument(view.apply(claimingListForHomeWorking)(fakeRequest, messages))
     assertContainsMessages(doc, messages(s"$messageKeyPrefix.para1_freOnly_pegaService"))
   }
 
@@ -125,11 +128,16 @@ class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar {
   }
 
   "when pegaJourneyEnabled is enabled- Include a call to action button with the correct link to Pega service" in {
+    when(mockAppConfig.pegaServiceJourney).thenReturn(true)
     when(mockAppConfig.employeeExpensesClaimByPegaServicesUrl).thenReturn(
       "https://account-np.hmrc.gov.uk/pay-as-you-earn/claim-tax-relief-for-job-expenses/dev"
     )
-
-    val doc             = asDocument(createViewHomeworking())
+    val application = new GuiceApplicationBuilder()
+      .configure("metrics.enabled" -> false)
+      .overrides(inject.bind[FrontendAppConfig].toInstance(mockAppConfig))
+      .build()
+    val view: UseIformFreOnlyView = application.injector.instanceOf[UseIformFreOnlyView]
+    val doc = asDocument(view.apply(claimingListForHomeWorking)(fakeRequest, messages))
     val button: Element = doc.getElementById("startyourclaim")
     button.attr("href") must be(mockAppConfig.employeeExpensesClaimByPegaServicesUrl)
     assertPageTitleEqualsMessage(doc, "usePrintAndPostDetailed.title_freOnly_iform")
