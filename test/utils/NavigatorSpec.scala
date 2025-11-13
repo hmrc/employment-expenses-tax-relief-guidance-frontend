@@ -372,7 +372,6 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
           "UserAnswers.claimingFor is UniformsClothingTools and pegaServiceJourney is true" in {
             when(userAnswers.moreThanFiveJobs).thenReturn(Some(false))
             when(userAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.UniformsClothingTools)))
-            when(frontendAppConfig.pegaServiceJourney).thenReturn(true)
 
             navigator.nextPage(MoreThanFiveJobsId)(userAnswers) mustBe
               routes.ClaimingForMoreThanOneJobController.onPageLoad()
@@ -384,7 +383,6 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
           "UserAnswers.claimingFor is UniformsClothingTools, pegaServiceJourney is false, and freOnlyJourneyEnabled is true" in {
             when(userAnswers.moreThanFiveJobs).thenReturn(Some(false))
             when(userAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.UniformsClothingTools)))
-            when(frontendAppConfig.pegaServiceJourney).thenReturn(false)
             when(frontendAppConfig.freOnlyJourneyEnabled).thenReturn(true)
 
             navigator.nextPage(MoreThanFiveJobsId)(userAnswers) mustBe routes.ClaimOnlineController.onPageLoad()
@@ -394,7 +392,6 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
             "NavigatorHelper.vehiclesRedirect returns true" in {
               when(userAnswers.moreThanFiveJobs).thenReturn(Some(false))
               when(userAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.MileageFuel)))
-              when(frontendAppConfig.pegaServiceJourney).thenReturn(false)
               when(frontendAppConfig.freOnlyJourneyEnabled).thenReturn(false)
               when(frontendAppConfig.onlineJourneyShutterEnabled).thenReturn(false)
               when(navigatorHelper.vehiclesRedirect(any[UserAnswers])).thenReturn(true)
@@ -412,7 +409,6 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
             s"UserAnswers.claimingFor is: $claimingFor, pegaServiceJourney is $pegaServiceJourney, freOnlyJourneyEnabled is false, and onlineJourneyShutterEnabled is false" in {
               when(userAnswers.moreThanFiveJobs).thenReturn(Some(false))
               when(userAnswers.claimingFor).thenReturn(Some(List(claimingFor)))
-              when(frontendAppConfig.pegaServiceJourney).thenReturn(pegaServiceJourney)
               when(frontendAppConfig.freOnlyJourneyEnabled).thenReturn(false)
               when(frontendAppConfig.onlineJourneyShutterEnabled).thenReturn(false)
 
@@ -456,7 +452,6 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
             "NavigatorHelper.vehiclesRedirect returns false" in {
               when(userAnswers.moreThanFiveJobs).thenReturn(Some(false))
               when(userAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.MileageFuel)))
-              when(frontendAppConfig.pegaServiceJourney).thenReturn(false)
               when(frontendAppConfig.freOnlyJourneyEnabled).thenReturn(false)
               when(frontendAppConfig.onlineJourneyShutterEnabled).thenReturn(false)
               when(navigatorHelper.vehiclesRedirect(any[UserAnswers])).thenReturn(false)
