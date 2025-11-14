@@ -41,12 +41,14 @@ import play.twirl.api.Html
 import views.behaviours.NewViewBehaviours
 import views.html.UseIformFreOnlyView
 import controllers.routes
+import org.scalatest.BeforeAndAfterEach
 import play.api.inject
 import play.api.inject.guice.GuiceApplicationBuilder
-class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar {
+
+class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar with BeforeAndAfterEach {
 
   val messageKeyPrefix = "usePrintAndPostDetailed"
-  val mockAppConfig    = mock[FrontendAppConfig]
+  val appConfig    = mock[FrontendAppConfig]
 
   val claimingListFor = List(
     HomeWorking,
@@ -63,6 +65,8 @@ class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar {
   )
 
   val application = applicationBuilder()
+    .configure("metrics.enabled" -> false)
+    .overrides(inject.bind[FrontendAppConfig].toInstance(appConfig))
     .build()
 
   def createView(): Html = view.apply(claimingListFor)(fakeRequest, messages)
@@ -73,26 +77,35 @@ class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar {
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
 
-  "when freJourneyEnabled is enabled- all new content is displayed for title and heading" in {
+  override def beforeEach(): Unit = {
+    super.beforeEach()
+
+    when(appConfig.employeeExpensesClaimByPostUrl).thenReturn("https://www.gov.uk/guidance/send-an-income-tax-relief-claim-for-job-expenses-by-post-or-phone")
+    when(appConfig.employeeExpensesClaimByPegaServicesUrl).thenReturn(
+      "https://account-np.hmrc.gov.uk/pay-as-you-earn/claim-tax-relief-for-job-expenses/dev"
+    )
+    when(appConfig.employeeExpensesClaimByIformUrl).thenReturn(
+      "https://tax.service.gov.uk/digital-forms/form/tax-relief-for-expenses-of-employment/draft/guide"
+    )
+    when(appConfig.pegaServiceJourney).thenReturn(false)
+  }
+
+  "when freJourneyEnabled is enabled - all new content is displayed for title and heading" in {
     val doc = asDocument(createView())
     assertPageTitleEqualsMessage(doc, "usePrintAndPostDetailed.title_freOnly_iform")
     assertContainsMessages(doc, messages(s"$messageKeyPrefix.heading_freOnly_iform"))
-
   }
 
   "when pegaJourneyEnabled is enabled - new content is displayed for only WorkingHome" in {
-    when(mockAppConfig.pegaServiceJourney).thenReturn(true)
-    when(mockAppConfig.employeeExpensesClaimByPegaServicesUrl).thenReturn(
-      "https://account-np.hmrc.gov.uk/pay-as-you-earn/claim-tax-relief-for-job-expenses/dev"
-    )
-    val application = new GuiceApplicationBuilder()
-      .configure("metrics.enabled" -> false)
-      .overrides(inject.bind[FrontendAppConfig].toInstance(mockAppConfig))
-      .build()
-    val view: UseIformFreOnlyView = application.injector.instanceOf[UseIformFreOnlyView]
+    when(appConfig.pegaServiceJourney).thenReturn(true)
 
     val doc = asDocument(view.apply(claimingListForHomeWorking)(fakeRequest, messages))
     assertContainsMessages(doc, messages(s"$messageKeyPrefix.para1_freOnly_pegaService"))
+  }
+
+  "when pegaJourneyEnabled is disabled - new content is displayed for only WorkingHome" in {
+    val doc = asDocument(view.apply(claimingListForHomeWorking)(fakeRequest, messages))
+    assertContainsMessages(doc, messages(s"$messageKeyPrefix.para1_freOnly_iform"))
   }
 
   "when pegaJourneyEnabled is enabled - old content is displayed for  merged Journey" in {
@@ -108,40 +121,31 @@ class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar {
   }
 
   "when freJourneyEnabled is enabled- all new content is displayed for only uniformsClothingToolsView" in {
-
     val doc = asDocument(createView())
 
     assertContainsMessages(doc, messages(s"$messageKeyPrefix.uniformsClothingTools.1_freOnly_iform"))
-
   }
 
   "when freJourneyEnabled is enabled- Include a call to action button with the correct link to iForm" in {
-    when(mockAppConfig.employeeExpensesClaimByIformUrl).thenReturn(
-      "https://tax.service.gov.uk/digital-forms/form/tax-relief-for-expenses-of-employment/draft/guide"
-    )
-
     val doc             = asDocument(createView())
     val button: Element = doc.getElementById("startyourclaim")
-    button.attr("href") must be(mockAppConfig.employeeExpensesClaimByIformUrl)
-    assertPageTitleEqualsMessage(doc, "usePrintAndPostDetailed.title_freOnly_iform")
-
+    button.attr("href") must be(appConfig.employeeExpensesClaimByIformUrl)
+    assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.title_freOnly_iform")
   }
 
-  "when pegaJourneyEnabled is enabled- Include a call to action button with the correct link to Pega service" in {
-    when(mockAppConfig.pegaServiceJourney).thenReturn(true)
-    when(mockAppConfig.employeeExpensesClaimByPegaServicesUrl).thenReturn(
-      "https://account-np.hmrc.gov.uk/pay-as-you-earn/claim-tax-relief-for-job-expenses/dev"
-    )
-    val application = new GuiceApplicationBuilder()
-      .configure("metrics.enabled" -> false)
-      .overrides(inject.bind[FrontendAppConfig].toInstance(mockAppConfig))
-      .build()
-    val view: UseIformFreOnlyView = application.injector.instanceOf[UseIformFreOnlyView]
+  "when pegaJourneyEnabled is enabled - Include a call to action button with the correct link to Pega service" in {
+    when(appConfig.pegaServiceJourney).thenReturn(true)
     val doc = asDocument(view.apply(claimingListForHomeWorking)(fakeRequest, messages))
     val button: Element = doc.getElementById("startyourclaim")
-    button.attr("href") must be(mockAppConfig.employeeExpensesClaimByPegaServicesUrl)
-    assertPageTitleEqualsMessage(doc, "usePrintAndPostDetailed.title_freOnly_iform")
+    button.attr("href") must be(appConfig.employeeExpensesClaimByPegaServicesUrl)
+    assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.title_freOnly_iform")
+  }
 
+  "when pegaJourneyEnabled is dissabled - Include a call to action button with the correct link to IForm service" in {
+    val doc = asDocument(view.apply(claimingListForHomeWorking)(fakeRequest, messages))
+    val button: Element = doc.getElementById("startyourclaim")
+    button.attr("href") must be(appConfig.employeeExpensesClaimByIformUrl)
+    assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.title_freOnly_iform")
   }
 
 }
