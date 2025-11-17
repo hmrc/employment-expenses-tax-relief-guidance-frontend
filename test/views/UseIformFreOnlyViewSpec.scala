@@ -32,7 +32,15 @@ package views
  * limitations under the License.
  */
 import config.FrontendAppConfig
-import models.ClaimingFor.{BuyingEquipment, FeesSubscriptions, HomeWorking, MileageFuel, Other, TravelExpenses, UniformsClothingTools}
+import models.ClaimingFor.{
+  BuyingEquipment,
+  FeesSubscriptions,
+  HomeWorking,
+  MileageFuel,
+  Other,
+  TravelExpenses,
+  UniformsClothingTools
+}
 import org.jsoup.nodes.Element
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar
@@ -48,7 +56,7 @@ import play.api.inject.guice.GuiceApplicationBuilder
 class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar with BeforeAndAfterEach {
 
   val messageKeyPrefix = "usePrintAndPostDetailed"
-  val appConfig    = mock[FrontendAppConfig]
+  val appConfig        = mock[FrontendAppConfig]
 
   val claimingListFor = List(
     HomeWorking,
@@ -80,7 +88,9 @@ class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar with B
   override def beforeEach(): Unit = {
     super.beforeEach()
 
-    when(appConfig.employeeExpensesClaimByPostUrl).thenReturn("https://www.gov.uk/guidance/send-an-income-tax-relief-claim-for-job-expenses-by-post-or-phone")
+    when(appConfig.employeeExpensesClaimByPostUrl).thenReturn(
+      "https://www.gov.uk/guidance/send-an-income-tax-relief-claim-for-job-expenses-by-post-or-phone"
+    )
     when(appConfig.employeeExpensesClaimByPegaServicesUrl).thenReturn(
       "https://account-np.hmrc.gov.uk/pay-as-you-earn/claim-tax-relief-for-job-expenses/dev"
     )
@@ -135,14 +145,14 @@ class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar with B
 
   "when pegaJourneyEnabled is enabled - Include a call to action button with the correct link to Pega service" in {
     when(appConfig.pegaServiceJourney).thenReturn(true)
-    val doc = asDocument(view.apply(claimingListForHomeWorking)(fakeRequest, messages))
+    val doc             = asDocument(view.apply(claimingListForHomeWorking)(fakeRequest, messages))
     val button: Element = doc.getElementById("startyourclaim")
     button.attr("href") must be(appConfig.employeeExpensesClaimByPegaServicesUrl)
     assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.title_freOnly_iform")
   }
 
   "when pegaJourneyEnabled is dissabled - Include a call to action button with the correct link to IForm service" in {
-    val doc = asDocument(view.apply(claimingListForHomeWorking)(fakeRequest, messages))
+    val doc             = asDocument(view.apply(claimingListForHomeWorking)(fakeRequest, messages))
     val button: Element = doc.getElementById("startyourclaim")
     button.attr("href") must be(appConfig.employeeExpensesClaimByIformUrl)
     assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.title_freOnly_iform")
