@@ -369,24 +369,16 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
           .filterNot(_ == ClaimingFor.MileageFuel)
 
         "return Call to ClaimingForMoreThanOneJobController" when {
-          "UserAnswers.claimingFor is UniformsClothingTools and pegaServiceJourney is true" in {
+          "UserAnswers.claimingFor is UniformsClothingTools and freOnlyJourneyEnabled is true" in {
             when(userAnswers.moreThanFiveJobs).thenReturn(Some(false))
             when(userAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.UniformsClothingTools)))
-
+            when(frontendAppConfig.freOnlyJourneyEnabled).thenReturn(true)
             navigator.nextPage(MoreThanFiveJobsId)(userAnswers) mustBe
               routes.ClaimingForMoreThanOneJobController.onPageLoad()
           }
         }
 
         "return Call to ClaimOnlineController" when {
-
-          "UserAnswers.claimingFor is UniformsClothingTools, pegaServiceJourney is false, and freOnlyJourneyEnabled is true" in {
-            when(userAnswers.moreThanFiveJobs).thenReturn(Some(false))
-            when(userAnswers.claimingFor).thenReturn(Some(List(ClaimingFor.UniformsClothingTools)))
-            when(frontendAppConfig.freOnlyJourneyEnabled).thenReturn(true)
-
-            navigator.nextPage(MoreThanFiveJobsId)(userAnswers) mustBe routes.ClaimOnlineController.onPageLoad()
-          }
 
           "UserAnswers.claimingFor is MileageFuel" when {
             "NavigatorHelper.vehiclesRedirect returns true" in {
@@ -400,13 +392,8 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
             }
           }
 
-          val testData = for {
-            claimingFor        <- claimingForWithoutClothingAndFuel
-            pegaServiceJourney <- Seq(true, false)
-          } yield (claimingFor, pegaServiceJourney)
-
-          testData.foreach { case (claimingFor, pegaServiceJourney) =>
-            s"UserAnswers.claimingFor is: $claimingFor, pegaServiceJourney is $pegaServiceJourney, freOnlyJourneyEnabled is false, and onlineJourneyShutterEnabled is false" in {
+          claimingForWithoutClothingAndFuel.foreach { claimingFor =>
+            s"UserAnswers.claimingFor is: $claimingFor, freOnlyJourneyEnabled is false, and onlineJourneyShutterEnabled is false" in {
               when(userAnswers.moreThanFiveJobs).thenReturn(Some(false))
               when(userAnswers.claimingFor).thenReturn(Some(List(claimingFor)))
               when(frontendAppConfig.freOnlyJourneyEnabled).thenReturn(false)
@@ -474,6 +461,7 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
     "provided with ClaimingForMoreThanOneJobId identifier" when {
 
       "UserAnswers.claimingForMoreThanOneJob is MoreThanOneJob" must {
+
         "return Call to ClaimByAlternativeController" in {
           when(userAnswers.claimingForMoreThanOneJob).thenReturn(Some(MoreThanOneJob))
 
