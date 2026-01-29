@@ -76,6 +76,7 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
 
     "When the onward journey is Employee Expenses Include a call to action button with the correct link" in {
       when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
+      when(mockAppConfig.freOnlyPegaServiceJourney).thenReturn(false)
       when(mockAppConfig.employeeExpensesUrl).thenReturn("http://example.com/employee-expenses")
       when(mockAppConfig.professionalSubscriptionsUrl).thenReturn("http://example.com/professional-subscriptions")
       when(mockAppConfig.workingFromHomeExpensesUrl).thenReturn("http://example.com/working-from-home")
@@ -134,16 +135,19 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
   }
 
   "ClaimOnline view when freOnlyJourneyEnabled is enabled" must {
-    "When the onward journey is Employee Expenses Include a call to action button with the correct link" in {
+    "When the onward journey is to the Pega Service, Include a call to action button with the correct link" in {
       when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
-      when(mockAppConfig.employeeExpensesUrl).thenReturn("http://example.com/employee-expenses")
+      when(mockAppConfig.freOnlyPegaServiceJourney).thenReturn(true)
+      when(mockAppConfig.freOnlyPegaUrl).thenReturn(
+        "https://account-np.hmrc.gov.uk/pay-as-you-earn/claim-tax-relief-for-job-expenses/dev/claim/flat-rate-expenses"
+      )
       when(mockAppConfig.professionalSubscriptionsUrl).thenReturn("http://example.com/professional-subscriptions")
       when(mockAppConfig.workingFromHomeExpensesUrl).thenReturn("http://example.com/working-from-home")
 
       val doc =
         asDocument(createView(OnwardJourney.FixedRateExpenses, List(UniformsClothingTools))(fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
-      button.attr("href") must be(mockAppConfig.employeeExpensesUrl)
+      button.attr("href") must be(mockAppConfig.freOnlyPegaUrl)
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
       assertContainsMessages(doc, "claimOnline.fre.para1")
       assertContainsMessages(doc, "claimOnline.fre.para2")

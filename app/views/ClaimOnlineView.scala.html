@@ -39,7 +39,11 @@
 
 @href = @{
     onwardJourney match {
-        case OnwardJourney.FixedRateExpenses => appConfig.employeeExpensesUrl
+        case OnwardJourney.FixedRateExpenses => if(appConfig.freOnlyPegaServiceJourney) {
+            appConfig.freOnlyPegaUrl
+        }else {
+            appConfig.employeeExpensesUrl
+        }
         case OnwardJourney.ProfessionalSubscriptions => appConfig.professionalSubscriptionsUrl
         case OnwardJourney.IForm => appConfig.employeeExpensesClaimOnlineUrl
         case OnwardJourney.WorkingFromHomeExpensesOnly => appConfig.workingFromHomeExpensesUrl
