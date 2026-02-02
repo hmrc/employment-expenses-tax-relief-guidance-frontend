@@ -43,6 +43,8 @@ class FrontendAppConfig @Inject() (configuration: Configuration) {
   lazy val employeeExpensesClaimByPegaServicesUrl: String =
     configuration.get[String]("employeeExpensesClaimByPegaServices.url")
 
+  lazy val freOnlyPegaUrl: String = configuration.get[String]("freOnlyPegaLink.url")
+
   lazy val fileSelfAssessmentLoginUrl: String   = configuration.get[String]("urls.fileSelfAssessmentLoginUrl")
   lazy val annualInvestmentAllowanceUrl: String = configuration.get[String]("urls.annualInvestmentAllowanceUrl")
   lazy val workingFromHomeExpensesUrl: String   = configuration.get[String]("urls.workingFromHomeExpensesUrl")
@@ -58,6 +60,9 @@ class FrontendAppConfig @Inject() (configuration: Configuration) {
 
   val freOnlyJourneyEnabled: Boolean = configuration.getOptional[Boolean]("freOnlyJourney.enabled").getOrElse(false)
   val pegaServiceJourney: Boolean    = configuration.getOptional[Boolean]("pegaServiceJourney.enabled").getOrElse(false)
+
+  val freOnlyPegaServiceJourney: Boolean =
+    configuration.getOptional[Boolean]("freOnlyPegaServiceJourney.enabled").getOrElse(false)
 
   lazy val claimingForCurrentYearBackButtonOverride: String =
     configuration.get[String]("claimingForCurrentYear.backButtonOverride.reference")
