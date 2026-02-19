@@ -64,6 +64,9 @@ class FrontendAppConfig @Inject() (configuration: Configuration) {
   val freOnlyPegaServiceJourney: Boolean =
     configuration.getOptional[Boolean]("freOnlyPegaServiceJourney.enabled").getOrElse(false)
 
+  val workingFromHomeExpensesJourney: Boolean =
+    configuration.getOptional[Boolean]("workingFromHomeExpensesJourney.enabled").getOrElse(false)
+
   lazy val claimingForCurrentYearBackButtonOverride: String =
     configuration.get[String]("claimingForCurrentYear.backButtonOverride.reference")
 
