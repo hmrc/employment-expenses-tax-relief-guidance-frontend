@@ -30,10 +30,10 @@
 
 @notificationBannerHtml = {
     <p class="govuk-notification-banner__heading">
-        @if(appConfig.freOnlyJourneyEnabled) {
-            @messages("disclaimer.guidance.summary_freOnly")
+        @if(appConfig.workingFromHomePolicyChangeEnabled) {
+            @messages("disclaimer.guidance.summary_wfhPolicyChange",appConfig.earliestTaxYear)
         } else {
-            @messages("disclaimer.guidance.summary")
+           @messages("disclaimer.guidance.summary_freOnly")
         }
     </p>
 }
@@ -50,11 +50,16 @@
         content = HtmlContent(notificationBannerHtml)
     ))
 
-    <h2 class="govuk-heading-m">@messages("disclaimer.claim.after.h2")</h2>
 
-    @if(appConfig.onlineJourneyShutterEnabled) {
-            @govukInsetText(InsetText(
-                content = Text(messages("disclaimer.claim.after.insetText"))
+    @if(appConfig.workingFromHomePolicyChangeEnabled) {
+        <h2 class="govuk-heading-m">@messages("disclaimer.claim.after.h2_wfhPolicyChange",appConfig.earliestTaxYear)</h2>
+    } else {
+        <h2 class="govuk-heading-m">@messages("disclaimer.claim.after.h2")</h2>
+    }
+
+    @if(!appConfig.workingFromHomePolicyChangeEnabled) {
+        @govukInsetText(InsetText(
+            content = Text(messages("disclaimer.claim.after.insetText"))
         ))
       }
     <p class="govuk-body">@messages("disclaimer.claim.after.p1")</p>
@@ -66,28 +71,47 @@
         <li>@messages("disclaimer.claim.after.l3")</li>
     </ul>
 
-    <h2 class="govuk-heading-m">@messages("disclaimer.claim.before.h2")</h2>
-    @if(appConfig.onlineJourneyShutterEnabled) {
-        @govukInsetText(InsetText(
-            content = Text(messages("disclaimer.claim.before.insetText"))
+
+    @if(!appConfig.workingFromHomePolicyChangeEnabled) {
+        <h2 class="govuk-heading-m">@messages("disclaimer.claim.before.h2")</h2>
+            @govukInsetText(InsetText(
+                content = Text(messages("disclaimer.claim.before.insetText"))
+            ))
+
+        <p class="govuk-body">@messages("disclaimer.claim.before.p1")</p>
+        <ul class="govuk-list govuk-list--bullet">
+            <li>@messages("disclaimer.claim.before.l1")</li>
+            <li>@messages("disclaimer.claim.before.l2")</li>
+            <li>@messages("disclaimer.claim.before.l3")</li>
+        </ul>
+    }
+
+    @if(appConfig.workingFromHomePolicyChangeEnabled) {
+        @govukWarningText(WarningText(
+            iconFallbackText = Some(messages("site.warning")),
+            content = Text(messages("disclaimer.warning_wfhPolicyChange"))
+    ))
+    } else {
+        @govukWarningText(WarningText(
+            iconFallbackText = Some(messages("site.warning")),
+            content = Text(messages("disclaimer.warning"))
         ))
     }
-    <p class="govuk-body">@messages("disclaimer.claim.before.p1")</p>
-    <ul class="govuk-list govuk-list--bullet">
-        <li>@messages("disclaimer.claim.before.l1")</li>
-        <li>@messages("disclaimer.claim.before.l2")</li>
-        <li>@messages("disclaimer.claim.before.l3")</li>
-    </ul>
+    @if(appConfig.workingFromHomePolicyChangeEnabled) {
+        <p class="govuk-body">@messages("disclaimer.accept_wfhPolicyChange")</p>
+    } else {
+        <p class="govuk-body">@messages("disclaimer.accept")</p>
+    }
 
-    @govukWarningText(WarningText(
-        iconFallbackText = Some(messages("site.warning")),
-        content = Text(messages("disclaimer.warning"))
-    ))
-
-    <p class="govuk-body">@messages("disclaimer.accept")</p>
 
     @submitButton(
         href = Some(controllers.routes.PaidTaxInRelevantYearController.onPageLoad().url),
-        content = Some(messages("disclaimer.button.continue"))
-    ) <br>
+        content = Some(
+        if (appConfig.workingFromHomePolicyChangeEnabled)
+            messages("disclaimer.button.continue_wfhPolicyChange")
+        else
+            messages("disclaimer.button.continue")
+    ))
+    <br>
+
 }
