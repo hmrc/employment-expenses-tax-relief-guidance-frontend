@@ -52,13 +52,13 @@ class DisclaimerViewSpec extends NewViewBehaviours with MockitoSugar {
     behave.like(pageWithBackLink(createView()))
   }
 
-
   "DisclaimerView title and heading" in {
     val doc = asDocument(createView())
     assertPageTitleEqualsMessage(doc, "disclaimer.title")
     assertContainsMessages(doc, messages(s"$messageKeyPrefix.heading"))
 
   }
+
   "show new summary" when {
     "when workingFromHomePolicyChangeEnabled is enabled- notificationBanner content  is displayed " in {
       when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(true)
@@ -78,6 +78,12 @@ class DisclaimerViewSpec extends NewViewBehaviours with MockitoSugar {
     }
   }
 
+  "when workingFromHomePolicyChangeEnabled is disabled -  insert  text is displayed " in {
+    when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(false)
+    val doc = asDocument(createView())
+    doc.text() must include(messages("disclaimer.claim.after.insetText"))
+    doc.text() must include(messages("disclaimer.claim.before.insetText"))
+  }
 
   "when workingFromHomePolicyChangeEnabled is enabled-  warning content is displayed " in {
     when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(true)
@@ -104,5 +110,6 @@ class DisclaimerViewSpec extends NewViewBehaviours with MockitoSugar {
     val doc = asDocument(createView())
     assertContainsMessages(doc, messages(s"$messageKeyPrefix.button.continue"))
   }
+
   application.stop()
 }
