@@ -28,7 +28,9 @@
     p  : playComponents.p,
     submitButton: playComponents.submit_button
 )
+
 @(claimingFor: List[ClaimingFor])(implicit request: Request[_], messages: Messages)
+@startYear = {@appConfig.earliestTaxYear}
 
 @list = @{
     claimingFor.flatMap(x => {
@@ -36,21 +38,28 @@
             Some(messages(s"claimingFor.${x}_freOnly"))
         else
             Some(messages(s"claimingFor.${x}"))
-        })
-   }
+    })
+}
 
 
 @layout(
     pageTitle = messages("usePrintAndPostDetailed.title_freOnly")
 ) {
 
-@heading(messages("usePrintAndPostDetailed.heading_freOnly"))
 
-@govukInsetText(InsetText(
-    content = Text(messages("usePrintAndPostDetailed.para1_freOnly"))
-))
+  @heading(messages("usePrintAndPostDetailed.heading_freOnly"))
 
-@h2(messages("usePrintAndPostDetailed.youCanClaim"))
+  @if(claimingFor.contains(HomeWorking) && appConfig.workingFromHomePolicyChangeEnabled){
+      @p(){@messages("usePrintAndPostWfhPolicyChange.post.p1")}
+  } else {
+      @govukInsetText(InsetText(
+          content = Text(messages("usePrintAndPostDetailed.para1_freOnly"))
+      ))
+  }
+
+
+
+  @h2(messages("usePrintAndPostDetailed.youCanClaim"))
 
     @if(list.size > 1) {
         <ul class="govuk-list govuk-list--bullet">
@@ -64,7 +73,7 @@
 
 
 
-@h2(messages("usePrintAndPostDetailed.evidenceToSupport"))
+  @h2(messages("usePrintAndPostDetailed.evidenceToSupport"))
 
     @for(claimItem <- claimingFor) {
 
@@ -77,20 +86,25 @@
             }
 
             @if(List(HomeWorking).contains(claimItem)){
-
-                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly")}
-                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2_freOnly")}
+                @if(appConfig.workingFromHomePolicyChangeEnabled){
+                    @p(){@messages("usePrintAndPostWfhPolicyChange.postAndForm.p1", startYear)}
+                    @p("govuk-body govuk-!-margin-bottom-1"){@messages("usePrintAndPostWfhPolicyChange.postAndForm.p2")}
+                    <div class="govuk-!-margin-left-4">
+                        <ul class="govuk-list govuk-list--bullet">
+                          <li>@messages("usePrintAndPostWfhPolicyChange.postAndForm.bullet1")</li>
+                          <li>@messages("usePrintAndPostWfhPolicyChange.postAndForm.bullet2")</li>
+                        </ul>
+                    </div>
+                } else {
+                    @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly")}
+                    @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2_freOnly")}
+                }
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.3_freOnly")}
 
             } else if(List(UniformsClothingTools).contains(claimItem)){
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly_iform")}
             } else {
-                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1")
-            }
-
-            @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.2")){
-                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2")}
-                }
+                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1")}
             }
         }
     }
@@ -100,12 +114,18 @@
         @p(){@messages("usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.1")}
     }
 
-<div class="govuk-body govuk-!-margin-top-8">
-    @submitButton(
-            href = Some(appConfig.employeeExpensesClaimByPostUrl),
+  <div class="govuk-body govuk-!-margin-top-8">
+      @if(claimingFor.contains(HomeWorking) && appConfig.workingFromHomePolicyChangeEnabled){
+          <a class="govuk-link" href="@appConfig.employeeExpensesClaimByPostUrl"
+             target="_blank" rel="noopener noreferrer">
+            @messages("usePrintAndPostWfhPolicyChange.post.submit.link")
+          </a>
+      } else {
+        @submitButton(
+            href = Option(appConfig.employeeExpensesClaimByPostUrl),
             content = Some(messages("usePrintAndPostDetailed.link.label_freOnly"))
         )
-</div>
-
+      }
+  </div>
 }
 

@@ -26,6 +26,7 @@ import views.behaviours.NewViewBehaviours
 import org.mockito.Mockito.when
 import views.html.DisclaimerView
 import play.twirl.api.Html
+import uk.gov.hmrc.time.TaxYear
 
 class DisclaimerViewSpec extends NewViewBehaviours with MockitoSugar {
 
@@ -43,23 +44,71 @@ class DisclaimerViewSpec extends NewViewBehaviours with MockitoSugar {
 
   def createView(): Html = view.apply()(fakeRequest, messages)
 
+  val earliestTaxYear: String =
+    TaxYear.current.back(4).startYear.toString
+
   "DisclaimerView" should {
     behave.like(normalPage(createView(), messageKeyPrefix))
     behave.like(pageWithBackLink(createView()))
   }
 
+  "DisclaimerView title and heading" in {
+    val doc = asDocument(createView())
+    assertPageTitleEqualsMessage(doc, "disclaimer.title")
+    assertContainsMessages(doc, messages(s"$messageKeyPrefix.heading"))
+
+  }
+
   "show new summary" when {
-    "when onlinefreJourneyEnabled is enabled- all disclaimerView content is displayed " in {
-      when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
+    "when workingFromHomePolicyChangeEnabled is enabled- notificationBanner content  is displayed " in {
+      when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(true)
+      when(mockAppConfig.earliestTaxYear).thenReturn(earliestTaxYear)
       val doc = asDocument(createView())
-      assertContainsMessages(doc, messages(s"$messageKeyPrefix.guidance.summary_freOnly"))
+      doc.text() must include(messages("disclaimer.guidance.summary_wfhPolicyChange", earliestTaxYear))
+      doc.text() must include(messages("disclaimer.claim.after.h2_wfhPolicyChange", earliestTaxYear))
+      doc.text() must include(messages("disclaimer.accept_wfhPolicyChange"))
     }
 
-    "when onlinefreJourneyEnabled is disabled- all disclaimerView content is displayed " in {
-      when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
+    "when workingFromHomePolicyChangeEnabled is disabled- notificationBanner content  is displayed" in {
+      when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(false)
       val doc = asDocument(createView())
-      assertContainsMessages(doc, messages(s"$messageKeyPrefix.guidance.summary"))
+      assertContainsMessages(doc, messages(s"$messageKeyPrefix.guidance.summary_freOnly"))
+      assertContainsMessages(doc, messages(s"$messageKeyPrefix.accept"))
+      assertContainsMessages(doc, messages(s"$messageKeyPrefix.claim.before.insetText"))
     }
+  }
+
+  "when workingFromHomePolicyChangeEnabled is disabled -  insert  text is displayed " in {
+    when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(false)
+    val doc = asDocument(createView())
+    doc.text() must include(messages("disclaimer.claim.after.insetText"))
+    doc.text() must include(messages("disclaimer.claim.before.insetText"))
+  }
+
+  "when workingFromHomePolicyChangeEnabled is enabled-  warning content is displayed " in {
+    when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(true)
+    val doc = asDocument(createView())
+    doc.text() must include(messages("disclaimer.warning_wfhPolicyChange"))
+  }
+
+  "when workingFromHomePolicyChangeEnabled is disabled-  warning content is displayed " in {
+    when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(false)
+    val doc = asDocument(createView())
+    assertContainsMessages(doc, messages(s"$messageKeyPrefix.warning"))
+
+  }
+
+  "when workingFromHomePolicyChangeEnabled is enabled-  button content is displayed " in {
+    when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(true)
+    val doc = asDocument(createView())
+    assertContainsMessages(doc, messages(s"$messageKeyPrefix.button.continue_wfhPolicyChange"))
+
+  }
+
+  "when workingFromHomePolicyChangeEnabled is disabled-  button content is displayed " in {
+    when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(false)
+    val doc = asDocument(createView())
+    assertContainsMessages(doc, messages(s"$messageKeyPrefix.button.continue"))
   }
 
   application.stop()

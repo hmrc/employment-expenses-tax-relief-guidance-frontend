@@ -47,11 +47,17 @@ import views.behaviours.NewViewBehaviours
 import views.html.UsePrintAndPostFreOnlyView
 import play.api.mvc.Call
 import play.twirl.api.Html
+import org.mockito.Mockito.when
+import play.api.inject.bind
+import uk.gov.hmrc.time.TaxYear
 
 class UsePrintAndPostFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar {
 
-  val messageKeyPrefix = "usePrintAndPostDetailed"
-  val mockAppConfig    = mock[FrontendAppConfig]
+  val messageKeyPrefix                     = "usePrintAndPostDetailed"
+  val workFromHomePolicyChangeSharedPrefix = "usePrintAndPostWfhPolicyChange.postAndForm"
+  val workFromHomePolicyChangePostPrefix   = "usePrintAndPostWfhPolicyChange.post"
+  val mockAppConfig: FrontendAppConfig     = mock[FrontendAppConfig]
+  val claimStartYear: String               = TaxYear.current.back(4).startYear.toString
 
   val claimingListFor = List(
     HomeWorking,
@@ -63,8 +69,10 @@ class UsePrintAndPostFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar
     Other
   )
 
-  val application = applicationBuilder()
-    .build()
+  private val application =
+    applicationBuilder()
+      .overrides(bind[FrontendAppConfig].toInstance(mockAppConfig))
+      .build()
 
   def createView(): Html = view.apply(claimingListFor)(fakeRequest, messages)
 
@@ -72,24 +80,39 @@ class UsePrintAndPostFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
 
-  "when freJourneyEnabled is enabled- all new content is displayed for title and heading" in {
+  "The correct content is displayed for title and heading" in {
     val doc = asDocument(createView())
     assertPageTitleEqualsMessage(doc, "usePrintAndPostDetailed.title_freOnly")
     assertContainsMessages(doc, messages(s"$messageKeyPrefix.heading_freOnly"))
 
   }
 
-  "when freJourneyEnabled is enabled- all new content is displayed for only WorkingHome" in {
+  "The correct content is displayed when working from home policy change is enabled" in {
+    when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(true)
+    when(mockAppConfig.earliestTaxYear).thenReturn(claimStartYear)
+    val doc = asDocument(createView())
+    assertContainsMessages(doc, messages(s"$workFromHomePolicyChangePostPrefix.p1"))
+    assertContainsMessages(doc, messages(s"$workFromHomePolicyChangeSharedPrefix.p1", claimStartYear))
+    assertContainsMessages(doc, messages(s"$workFromHomePolicyChangeSharedPrefix.p2"))
+    assertContainsMessages(doc, messages(s"$workFromHomePolicyChangeSharedPrefix.bullet1"))
+    assertContainsMessages(doc, messages(s"$workFromHomePolicyChangeSharedPrefix.bullet2"))
+    assertContainsMessages(doc, messages(s"$workFromHomePolicyChangePostPrefix.submit.link"))
+  }
+
+  "The correct content is displayed for working from home when working from home policy change is disabled" in {
+    when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(false)
+    when(mockAppConfig.employeeExpensesClaimByPostUrl).thenReturn(
+      "https://www.gov.uk/guidance/send-an-income-tax-relief-claim-for-job-expenses-by-post-or-phone"
+    )
     val doc = asDocument(createView())
     assertContainsMessages(doc, messages(s"$messageKeyPrefix.homeWorking.1_freOnly"))
     assertContainsMessages(doc, messages(s"$messageKeyPrefix.homeWorking.2_freOnly"))
     assertContainsMessages(doc, messages(s"$messageKeyPrefix.homeWorking.3_freOnly"))
+    assertContainsMessages(doc, messages("usePrintAndPostDetailed.link.label_freOnly"))
   }
 
-  "when freJourneyEnabled is enabled- all new content is displayed for only uniformsClothingToolsView" in {
-
+  "The correct content is displayed for only uniformsClothingToolsView" in {
     val doc = asDocument(createView())
-
     assertContainsMessages(doc, messages(s"$messageKeyPrefix.uniformsClothingTools.1_freOnly_iform"))
 
   }

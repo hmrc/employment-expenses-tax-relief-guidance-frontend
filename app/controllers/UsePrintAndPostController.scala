@@ -19,6 +19,7 @@ package controllers
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.helpers.ClaimingForListBuilder
+import models.ClaimingFor.HomeWorking
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
@@ -31,32 +32,17 @@ class UsePrintAndPostController @Inject() (
     requireData: DataRequiredAction,
     val controllerComponents: MessagesControllerComponents,
     claimingForListBuilder: ClaimingForListBuilder,
-    view: UsePrintAndPostView,
     appConfig: FrontendAppConfig,
-    detailedView: UsePrintAndPostDetailedView,
     freOnlyPrintAndPostView: UsePrintAndPostFreOnlyView,
     freOnlyIformView: UseIformFreOnlyView
 ) extends FrontendBaseController
     with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
-    (appConfig.freOnlyJourneyEnabled, appConfig.onlineJourneyShutterEnabled) match {
-
-      case (true, _) =>
-        val sortedList = claimingForListBuilder.buildClaimingForList(request.userAnswers)
-        request.userAnswers.moreThanFiveJobs match {
-          case Some(true) => Ok(freOnlyPrintAndPostView(sortedList))
-          case _          => Ok(freOnlyIformView(sortedList))
-        }
-
-      case (false, true) =>
-        val sortedList = claimingForListBuilder.buildClaimingForList(request.userAnswers)
-        Ok(detailedView(sortedList))
-
-      case _ =>
-        val fuelCosts    = request.userAnswers.claimingFuel.getOrElse(false)
-        val mileageCosts = request.userAnswers.claimingMileage.getOrElse(false)
-        Ok(view(fuelCosts, mileageCosts))
+    val sortedList = claimingForListBuilder.buildClaimingForList(request.userAnswers)
+    request.userAnswers.moreThanFiveJobs match {
+      case Some(true) => Ok(freOnlyPrintAndPostView(sortedList))
+      case _          => Ok(freOnlyIformView(sortedList))
     }
   }
 
