@@ -346,8 +346,15 @@ disclaimer.claim.before.l1 = your employer has not already paid your expenses
 disclaimer.claim.before.l2 = government guidelines have required you to work from home or self-isolate
 disclaimer.claim.before.l3 = you have additional household costs as a result of working from home
 disclaimer.warning = Guidance has changed from 6 April 2022. You must ensure you meet the rules for claiming, as you may be prosecuted if you deliberately give incorrect or misleading information.
+
 disclaimer.accept = By clicking accept and continue, you are accepting that you meet the rules for the years you are claiming for.
 disclaimer.button.continue = Accept and continue
+
+disclaimer.claim.after.h2_wfhPolicyChange = Claiming tax relief from 6 April {0} to 5 April 2026
+disclaimer.warning_wfhPolicyChange = You may be prosecuted if you deliberately give false information.
+disclaimer.accept_wfhPolicyChange = By continuing, you are accepting that you meet the rules for the years that you are claiming for.
+disclaimer.guidance.summary_wfhPolicyChange = The guidance for claiming working from home expenses has changed. You can claim for tax years from 6 April {0} to 5 April 2026.
+disclaimer.button.continue_wfhPolicyChange = Continue
 
 timeout.message = For your security, we will delete your answers and you will be signed out in
 timeout.continue = Get another 15 minutes
@@ -367,3 +374,5 @@ claimOnline.fre.para1 = You can claim tax relief for:
 claimOnline.fre.para2 = Uniform, work clothes and tools (Flat rate expenses)
 claimOnline.fre.para3 = To claim these expenses, have your HMRC sign in details ready.
 claimOnline.fre.button = Claim your tax relief online
+
+

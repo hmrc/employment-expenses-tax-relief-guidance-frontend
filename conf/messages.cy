@@ -348,6 +348,12 @@ disclaimer.warning = Mae’r arweiniad wedi newid ers 6 Ebrill 2022. Mae’n rha
 disclaimer.accept = Drwy glicio ar ‘Derbyn ac yn eich blaen’, rydych yn derbyn eich bod yn bodloni’r rheolau ar gyfer y blynyddoedd rydych yn hawlio amdanynt.
 disclaimer.button.continue = Derbyn ac yn eich blaen
 
+disclaimer.claim.after.h2_wfhPolicyChange = Claiming tax relief from 6 April {0} to 5 April 2026
+disclaimer.warning_wfhPolicyChange = You may be prosecuted if you deliberately give false information.
+disclaimer.accept_wfhPolicyChange = By continuing, you are accepting that you meet the rules for the years that you are claiming for.
+disclaimer.guidance.summary_wfhPolicyChange = The guidance for claiming working from home expenses has changed. You can claim for tax years from 6 April {0} to 5 April 2026.
+disclaimer.button.continue_wfhPolicyChange = Continue
+
 timeout.message = Er eich diogelwch, byddwn yn dileu’ch atebion a byddwch yn cael eich allgofnodi cyn pen
 timeout.continue = Hoffwn gael 15 munud arall
 timeout.exit = Allgofnodi nawr
