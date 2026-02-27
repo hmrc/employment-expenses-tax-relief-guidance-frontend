@@ -158,6 +158,9 @@ usePrintAndPostWfhPolicyChange.postAndForm.p2 = This could include:
 usePrintAndPostWfhPolicyChange.postAndForm.bullet1 = your employment contract
 usePrintAndPostWfhPolicyChange.postAndForm.bullet2 = a letter from your employer
 usePrintAndPostWfhPolicyChange.post.submit.link = Claim tax relief for your job expenses by post (opens in new tab)
+usePrintAndPostWfhPolicyChange.form.p1 = You''ll need to sign in to claim online.
+usePrintAndPostWfhPolicyChange.form.p2 = If you cannot claim online, you can
+usePrintAndPostWfhPolicyChange.form.p3 = claim by post (opens in new tab)
 
 claimOnline.title = Rydych yn gymwys i hawlio’r treuliau swydd hyn
 claimOnline.heading = Rydych yn gymwys i hawlio’r treuliau swydd hyn
