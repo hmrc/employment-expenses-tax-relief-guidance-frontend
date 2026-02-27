@@ -88,13 +88,11 @@
             @if(List(HomeWorking).contains(claimItem)){
                 @if(appConfig.workingFromHomePolicyChangeEnabled){
                     @p(){@messages("usePrintAndPostWfhPolicyChange.postAndForm.p1", startYear)}
-                    @p("govuk-body govuk-!-margin-bottom-1"){@messages("usePrintAndPostWfhPolicyChange.postAndForm.p2")}
-                    <div class="govuk-!-margin-left-4">
-                        <ul class="govuk-list govuk-list--bullet">
-                          <li>@messages("usePrintAndPostWfhPolicyChange.postAndForm.bullet1")</li>
-                          <li>@messages("usePrintAndPostWfhPolicyChange.postAndForm.bullet2")</li>
-                        </ul>
-                    </div>
+                    @p("govuk-body govuk-!-margin-bottom-2"){@messages("usePrintAndPostWfhPolicyChange.postAndForm.p2")}
+                    <ul class="govuk-list govuk-list--bullet">
+                      <li>@messages("usePrintAndPostWfhPolicyChange.postAndForm.bullet1")</li>
+                      <li>@messages("usePrintAndPostWfhPolicyChange.postAndForm.bullet2")</li>
+                    </ul>
                 } else {
                     @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly")}
                     @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2_freOnly")}
