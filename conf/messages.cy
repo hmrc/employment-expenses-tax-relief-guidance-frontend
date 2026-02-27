@@ -151,6 +151,13 @@ usePrintAndPostDetailed.anyOtherExpenseAndBuyingEquipment.1 = YMae’n rhaid i c
 usePrintAndPostDetailed.link.label = Yn eich blaen
 usePrintAndPostDetailed.link.label_freOnly = Hawlio drwy’r post
 usePrintAndPostDetailed.link.label_freOnly_iform = Dechrau’ch hawliad
+########TODO###############
+usePrintAndPostWfhPolicyChange.post.p1 = Claim these expenses by completing a form and sending it by post.
+usePrintAndPostWfhPolicyChange.postAndForm.p1 = Claims for tax years from 6 April {0} to 5 April 2026 must include evidence that shows why you need to work from home.
+usePrintAndPostWfhPolicyChange.postAndForm.p2 = This could include:
+usePrintAndPostWfhPolicyChange.postAndForm.bullet1 = your employment contract
+usePrintAndPostWfhPolicyChange.postAndForm.bullet2 = a letter from your employer
+usePrintAndPostWfhPolicyChange.post.submit.link = Claim tax relief for your job expenses by post (opens in new tab)
 
 claimOnline.title = Rydych yn gymwys i hawlio’r treuliau swydd hyn
 claimOnline.heading = Rydych yn gymwys i hawlio’r treuliau swydd hyn

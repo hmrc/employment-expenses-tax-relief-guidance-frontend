@@ -21,7 +21,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxItem
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import utils.{Enumerable, WithName}
-import views.html.playComponents.link_start
+import views.html.playComponents.link
 
 sealed trait ClaimingFor
 
@@ -52,7 +52,7 @@ object ClaimingFor {
     val feesOption = {
       val href      = "https://www.gov.uk/government/publications/professional-bodies-approved-for-tax-relief-list-3"
       val eventBody = s"""${messages(s"claimingFor.title")}:${messages(s"claimingFor.$FeesSubscriptions")}"""
-      val start     = link_start(href, eventBody, newWindow = true)
+      val start     = link(href, eventBody, newWindow = true)
       val end       = "</a>"
 
       new CheckboxItem(
@@ -67,7 +67,7 @@ object ClaimingFor {
     val freOption = {
       val href      = "https://www.gov.uk/guidance/job-expenses-for-uniforms-work-clothing-and-tools"
       val eventBody = s"""${messages(s"claimingFor.title")}:${messages(s"claimingFor.$UniformsClothingTools")}"""
-      val start     = link_start(href, eventBody, newWindow = true)
+      val start     = link(href, eventBody, newWindow = true)
       val end       = "</a>"
 
       new CheckboxItem(
@@ -91,7 +91,7 @@ object ClaimingFor {
     val buyingOption = {
       val href      = "https://www.gov.uk/capital-allowances/annual-investment-allowance"
       val eventBody = s"""${messages(s"claimingFor.title")}:${messages(s"claimingFor.$BuyingEquipment")}"""
-      val start     = link_start(href, eventBody, newWindow = true)
+      val start     = link(href, eventBody, newWindow = true)
       val end       = "</a>"
 
       new CheckboxItem(
