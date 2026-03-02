@@ -30,6 +30,8 @@
 )
 @(claimingFor: List[ClaimingFor])(implicit request: Request[_], messages: Messages)
 
+@startYear = @{appConfig.earliestTaxYear}
+
 @list = @{
     claimingFor.flatMap(x => {
         if(ClaimingFor.UniformsClothingTools == x)
@@ -39,14 +41,16 @@
         })
    }
 
-@pegaServiceJourneyInsertText = @{
 
-if (claimingFor == List(HomeWorking) && appConfig.pegaServiceJourney){
+@pegaServiceJourneyInsetText = @{
+
+    if (claimingFor == List(HomeWorking) && appConfig.pegaServiceJourney){
         messages("usePrintAndPostDetailed.para1_freOnly_pegaService")
     } else {
         messages("usePrintAndPostDetailed.para1_freOnly_iform")
     }
 }
+
 
 @redirectionLink = @{
 if (claimingFor == List(HomeWorking) && appConfig.pegaServiceJourney){
@@ -55,38 +59,60 @@ if (claimingFor == List(HomeWorking) && appConfig.pegaServiceJourney){
        appConfig.employeeExpensesClaimByIformUrl
    }
 }
+
+@buttonText = @{
+    if(appConfig.workingFromHomePolicyChangeEnabled){
+        messages("usePrintAndPostDetailed.link.label")
+    } else {
+        messages("usePrintAndPostDetailed.link.label_freOnly_iform")
+    }
+}
+
 @layout(
     pageTitle = messages("usePrintAndPostDetailed.title_freOnly_iform")
 ) {
 
-@heading(messages("usePrintAndPostDetailed.heading_freOnly_iform"))
-@govukInsetText(InsetText(
-        content = HtmlContent(
-        s"""
-        ${pegaServiceJourneyInsertText} <br><br>
-        ${messages("usePrintAndPostDetailed.para2_freOnly_iform")}
-        <a class="govuk-link" href="${appConfig.employeeExpensesClaimByPostUrl}" target="_blank">
-            ${messages("usePrintAndPostDetailed.para2_freOnly.link.label_iform")}
-        </a>
-        """
-    )
-))
+    @heading(messages("usePrintAndPostDetailed.heading_freOnly_iform"))
 
-@h2(messages("usePrintAndPostDetailed.youCanClaim"))
 
-    @if(list.size > 1) {
-        <ul class="govuk-list govuk-list--bullet">
-            @for(claimItem <- list) {
-                <li>@claimItem</li>
-            }
-        </ul>
+    @if(appConfig.workingFromHomePolicyChangeEnabled) {
+        @p(){@messages("usePrintAndPostWfhPolicyChange.form.p1")}
+        @p(){@messages("usePrintAndPostWfhPolicyChange.form.p2")
+        <a class="govuk-link" href="@appConfig.employeeExpensesClaimByPostUrl" target="_blank" rel="noopener noreferrer">
+            @messages("usePrintAndPostWfhPolicyChange.form.p3")
+        </a>}
+
     } else {
-        <p class="govuk-body">@list</p>
+
+        @govukInsetText(InsetText(
+            content = HtmlContent(
+            s"""
+            ${pegaServiceJourneyInsetText} <br><br>
+            ${messages("usePrintAndPostDetailed.para2_freOnly_iform")}
+            <a class="govuk-link" href="${appConfig.employeeExpensesClaimByPostUrl}" target="_blank" rel="noopener noreferrer">
+                ${messages("usePrintAndPostDetailed.para2_freOnly.link.label_iform")}
+            </a>
+            """
+            )
+        ))
     }
 
 
+    @h2(messages("usePrintAndPostDetailed.youCanClaim"))
 
-@h2(messages("usePrintAndPostDetailed.evidenceToSupport"))
+        @if(list.size > 1) {
+            <ul class="govuk-list govuk-list--bullet">
+                @for(claimItem <- list) {
+                    <li>@claimItem</li>
+                }
+            </ul>
+        } else {
+            <p class="govuk-body">@list</p>
+        }
+
+
+
+    @h2(messages("usePrintAndPostDetailed.evidenceToSupport"))
 
     @for(claimItem <- claimingFor) {
 
@@ -100,8 +126,17 @@ if (claimingFor == List(HomeWorking) && appConfig.pegaServiceJourney){
 
             @if(List(HomeWorking).contains(claimItem)){
 
-                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly")}
-                @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2_freOnly")}
+                @if(appConfig.workingFromHomePolicyChangeEnabled){
+                    @p(){@messages("usePrintAndPostWfhPolicyChange.postAndForm.p1", startYear)}
+                    @p("govuk-body govuk-!-margin-bottom-2"){@messages("usePrintAndPostWfhPolicyChange.postAndForm.p2")}
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>@messages("usePrintAndPostWfhPolicyChange.postAndForm.bullet1")</li>
+                        <li>@messages("usePrintAndPostWfhPolicyChange.postAndForm.bullet2")</li>
+                    </ul>
+                } else {
+                    @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly")}
+                    @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2_freOnly")}
+                }
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.3_freOnly")}
 
             } else if(List(UniformsClothingTools).contains(claimItem)){
@@ -117,8 +152,8 @@ if (claimingFor == List(HomeWorking) && appConfig.pegaServiceJourney){
                  @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1")
             }
 
-            @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.2")){
-                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2")}
+                @if(messages.isDefinedAt(s"usePrintAndPostDetailed.$claimItem.2")){
+                     @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2")}
                 }
             }
         }
@@ -131,7 +166,7 @@ if (claimingFor == List(HomeWorking) && appConfig.pegaServiceJourney){
 
 <div class="govuk-body govuk-!-margin-top-8">
     @buttonLink(
-        content = messages("usePrintAndPostDetailed.link.label_freOnly_iform"),
+        content = buttonText,
         href = redirectionLink,
         id = Some("startyourclaim")
     )
