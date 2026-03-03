@@ -153,7 +153,7 @@ usePrintAndPostDetailed.link.label_freOnly = Hawlio drwy’r post
 usePrintAndPostDetailed.link.label_freOnly_iform = Dechrau’ch hawliad
 ########TODO###############
 usePrintAndPostWfhPolicyChange.post.p1 = Hawliwch y treuliau hyn drwy lenwi ffurflen a’i hanfon drwy’r post.
-usePrintAndPostWfhPolicyChange.postAndForm.p1 = Mae’n rhaid i hawliadau ar gyfer blynyddoedd treth 6 Ebrill 2022 i 5 Ebrill 2026 gynnwys tystiolaeth sy’n dangos pam mae angen i chi weithio gartref.
+usePrintAndPostWfhPolicyChange.postAndForm.p1 = Mae’n rhaid i hawliadau ar gyfer blynyddoedd treth 6 Ebrill {0} i 5 Ebrill 2026 gynnwys tystiolaeth sy’n dangos pam mae angen i chi weithio gartref.
 usePrintAndPostWfhPolicyChange.postAndForm.p2 = Gall hyn gynnwys:
 usePrintAndPostWfhPolicyChange.postAndForm.bullet1 = eich contract cyflogaeth
 usePrintAndPostWfhPolicyChange.postAndForm.bullet2 = llythyr gan eich cyflogwr
@@ -161,10 +161,10 @@ usePrintAndPostWfhPolicyChange.post.submit.link = Hawlio rhyddhad treth ar gyfer
 usePrintAndPostWfhPolicyChange.form.p1 = Bydd angen i chi fewngofnodi i wneud hawliad ar-lein.
 usePrintAndPostWfhPolicyChange.form.p2 = Os na allwch hawlio ar-lein, gallwch
 usePrintAndPostWfhPolicyChange.form.p3 = hawlio drwy’r post (yn agor tab newydd)
-disclaimer.claim.after.h2_wfhPolicyChange = Hawlio rhyddhad treth o 6 Ebrill 2022 i 5 Ebrill 2026
+disclaimer.claim.after.h2_wfhPolicyChange = Hawlio rhyddhad treth o 6 Ebrill {0} i 5 Ebrill 2026
 disclaimer.warning_wfhPolicyChange = Gallech gael eich erlyn os byddwch yn rhoi gwybodaeth ffug yn fwriadol.
 disclaimer.accept_wfhPolicyChange = Drwy glicio ar ‘Parhau’, rydych yn derbyn eich bod yn bodloni’r rheolau ar gyfer y blynyddoedd rydych yn hawlio amdanynt.
-disclaimer.guidance.summary_wfhPolicyChange = Mae’r arweiniad ar gyfer hawlio treuliau gweithio gartref wedi newid. Gallwch hawlio ar gyfer blynyddoedd treth o 6 Ebrill 2022 tan 5 Ebrill 2026.
+disclaimer.guidance.summary_wfhPolicyChange = Mae’r arweiniad ar gyfer hawlio treuliau gweithio gartref wedi newid. Gallwch hawlio ar gyfer blynyddoedd treth o 6 Ebrill {0} tan 5 Ebrill 2026.
 disclaimer.button.continue_wfhPolicyChange = Parhau
 
 claimOnline.title = Rydych yn gymwys i hawlio’r treuliau swydd hyn
