@@ -339,7 +339,6 @@ saCheckDisclaimerAllYears.warning.text = You will not receive tax relief for pre
 disclaimer.title = You must read the following before making a claim
 disclaimer.heading = You must read the following before making a claim
 disclaimer.guidance.header = Guidance has changed from 6 April 2022
-disclaimer.guidance.summary = The guidance for claiming tax relief for working from home has changed for expenses on or after 6 April 2022.
 disclaimer.guidance.summary_freOnly = The guidance for claiming working from home expenses for tax years on or after 6 April 2022 has changed.
 disclaimer.claim.after.h2 = Claiming tax relief on or after 6 April 2022
 disclaimer.claim.after.insetText = You must send HMRC evidence to support your claim for tax relief.
