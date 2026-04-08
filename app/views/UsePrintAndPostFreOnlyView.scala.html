@@ -49,7 +49,7 @@
 
   @heading(messages("usePrintAndPostDetailed.heading_freOnly"))
 
-  @if(claimingFor.contains(HomeWorking) && appConfig.workingFromHomePolicyChangeEnabled){
+  @if(claimingFor.contains(HomeWorking)){
       @p(){@messages("usePrintAndPostWfhPolicyChange.post.p1")}
   } else {
       @govukInsetText(InsetText(
@@ -86,19 +86,13 @@
             }
 
             @if(List(HomeWorking).contains(claimItem)){
-                @if(appConfig.workingFromHomePolicyChangeEnabled){
-                    @p(){@messages("usePrintAndPostWfhPolicyChange.postAndForm.p1", startYear)}
-                    @p("govuk-body govuk-!-margin-bottom-2"){@messages("usePrintAndPostWfhPolicyChange.postAndForm.p2")}
-                    <ul class="govuk-list govuk-list--bullet">
-                      <li>@messages("usePrintAndPostWfhPolicyChange.postAndForm.bullet1")</li>
-                      <li>@messages("usePrintAndPostWfhPolicyChange.postAndForm.bullet2")</li>
-                    </ul>
-                } else {
-                    @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly")}
-                    @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2_freOnly")}
-                }
+                @p(){@messages("usePrintAndPostWfhPolicyChange.postAndForm.p1", startYear)}
+                @p("govuk-body govuk-!-margin-bottom-2"){@messages("usePrintAndPostWfhPolicyChange.postAndForm.p2")}
+                <ul class="govuk-list govuk-list--bullet">
+                  <li>@messages("usePrintAndPostWfhPolicyChange.postAndForm.bullet1")</li>
+                  <li>@messages("usePrintAndPostWfhPolicyChange.postAndForm.bullet2")</li>
+                </ul>
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.3_freOnly")}
-
             } else if(List(UniformsClothingTools).contains(claimItem)){
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly_iform")}
             } else {
@@ -113,7 +107,7 @@
     }
 
   <div class="govuk-body govuk-!-margin-top-8">
-      @if(claimingFor.contains(HomeWorking) && appConfig.workingFromHomePolicyChangeEnabled){
+      @if(claimingFor.contains(HomeWorking)){
           <a class="govuk-link" href="@appConfig.employeeExpensesClaimByPostUrl"
              target="_blank" rel="noopener noreferrer">
             @messages("usePrintAndPostWfhPolicyChange.post.submit.link")

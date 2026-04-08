@@ -59,56 +59,25 @@ class DisclaimerViewSpec extends NewViewBehaviours with MockitoSugar {
 
   }
 
-  "show new summary" when {
-    "when workingFromHomePolicyChangeEnabled is enabled- notificationBanner content  is displayed " in {
-      when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(true)
+  "show guidance summary" when {
+    "when notificationBanner content  is displayed " in {
       when(mockAppConfig.earliestTaxYear).thenReturn(earliestTaxYear)
       val doc = asDocument(createView())
       doc.text() must include(messages("disclaimer.guidance.summary_wfhPolicyChange", earliestTaxYear))
       doc.text() must include(messages("disclaimer.claim.after.h2_wfhPolicyChange", earliestTaxYear))
       doc.text() must include(messages("disclaimer.accept_wfhPolicyChange"))
     }
-
-    "when workingFromHomePolicyChangeEnabled is disabled- notificationBanner content  is displayed" in {
-      when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(false)
-      val doc = asDocument(createView())
-      assertContainsMessages(doc, messages(s"$messageKeyPrefix.guidance.summary_freOnly"))
-      assertContainsMessages(doc, messages(s"$messageKeyPrefix.accept"))
-      assertContainsMessages(doc, messages(s"$messageKeyPrefix.claim.before.insetText"))
-    }
   }
 
-  "when workingFromHomePolicyChangeEnabled is disabled -  insert  text is displayed " in {
-    when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(false)
-    val doc = asDocument(createView())
-    doc.text() must include(messages("disclaimer.claim.after.insetText"))
-    doc.text() must include(messages("disclaimer.claim.before.insetText"))
-  }
-
-  "when workingFromHomePolicyChangeEnabled is enabled-  warning content is displayed " in {
-    when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(true)
+  "when warning content is displayed " in {
     val doc = asDocument(createView())
     doc.text() must include(messages("disclaimer.warning_wfhPolicyChange"))
   }
 
-  "when workingFromHomePolicyChangeEnabled is disabled-  warning content is displayed " in {
-    when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(false)
-    val doc = asDocument(createView())
-    assertContainsMessages(doc, messages(s"$messageKeyPrefix.warning"))
-
-  }
-
-  "when workingFromHomePolicyChangeEnabled is enabled-  button content is displayed " in {
-    when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(true)
+  "when button content is displayed " in {
     val doc = asDocument(createView())
     assertContainsMessages(doc, messages(s"$messageKeyPrefix.button.continue_wfhPolicyChange"))
 
-  }
-
-  "when workingFromHomePolicyChangeEnabled is disabled-  button content is displayed " in {
-    when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(false)
-    val doc = asDocument(createView())
-    assertContainsMessages(doc, messages(s"$messageKeyPrefix.button.continue"))
   }
 
   application.stop()

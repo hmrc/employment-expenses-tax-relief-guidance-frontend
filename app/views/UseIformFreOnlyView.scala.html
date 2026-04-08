@@ -61,11 +61,7 @@ if (claimingFor == List(HomeWorking) && appConfig.pegaServiceJourney){
 }
 
 @buttonText = @{
-    if(appConfig.workingFromHomePolicyChangeEnabled){
-        messages("usePrintAndPostDetailed.link.label")
-    } else {
-        messages("usePrintAndPostDetailed.link.label_freOnly_iform")
-    }
+    messages("usePrintAndPostDetailed.link.label")
 }
 
 @layout(
@@ -75,7 +71,7 @@ if (claimingFor == List(HomeWorking) && appConfig.pegaServiceJourney){
     @heading(messages("usePrintAndPostDetailed.heading_freOnly_iform"))
 
 
-    @if(appConfig.workingFromHomePolicyChangeEnabled) {
+    @if(claimingFor.contains(HomeWorking)) {
         @p(){@messages("usePrintAndPostWfhPolicyChange.form.p1")}
         @p(){@messages("usePrintAndPostWfhPolicyChange.form.p2")
         <a class="govuk-link" href="@appConfig.employeeExpensesClaimByPostUrl" target="_blank" rel="noopener noreferrer">
@@ -126,17 +122,12 @@ if (claimingFor == List(HomeWorking) && appConfig.pegaServiceJourney){
 
             @if(List(HomeWorking).contains(claimItem)){
 
-                @if(appConfig.workingFromHomePolicyChangeEnabled){
-                    @p(){@messages("usePrintAndPostWfhPolicyChange.postAndForm.p1", startYear)}
-                    @p("govuk-body govuk-!-margin-bottom-2"){@messages("usePrintAndPostWfhPolicyChange.postAndForm.p2")}
-                    <ul class="govuk-list govuk-list--bullet">
-                        <li>@messages("usePrintAndPostWfhPolicyChange.postAndForm.bullet1")</li>
-                        <li>@messages("usePrintAndPostWfhPolicyChange.postAndForm.bullet2")</li>
-                    </ul>
-                } else {
-                    @p(){@messages(s"usePrintAndPostDetailed.$claimItem.1_freOnly")}
-                    @p(){@messages(s"usePrintAndPostDetailed.$claimItem.2_freOnly")}
-                }
+                @p(){@messages("usePrintAndPostWfhPolicyChange.postAndForm.p1", startYear)}
+                @p("govuk-body govuk-!-margin-bottom-2"){@messages("usePrintAndPostWfhPolicyChange.postAndForm.p2")}
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>@messages("usePrintAndPostWfhPolicyChange.postAndForm.bullet1")</li>
+                    <li>@messages("usePrintAndPostWfhPolicyChange.postAndForm.bullet2")</li>
+                </ul>
                 @p(){@messages(s"usePrintAndPostDetailed.$claimItem.3_freOnly")}
 
             } else if(List(UniformsClothingTools).contains(claimItem)){
