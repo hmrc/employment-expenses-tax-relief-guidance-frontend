@@ -80,15 +80,14 @@ class UsePrintAndPostFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
 
-  "The correct content is displayed for title and heading" in {
+  "The correct title and heading is displayed" in {
     val doc = asDocument(createView())
     assertPageTitleEqualsMessage(doc, "usePrintAndPostDetailed.title_freOnly")
     assertContainsMessages(doc, messages(s"$messageKeyPrefix.heading_freOnly"))
 
   }
 
-  "The correct content is displayed when working from home policy change is enabled" in {
-    when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(true)
+  "The correct page content is displayed" in {
     when(mockAppConfig.earliestTaxYear).thenReturn(claimStartYear)
     val doc = asDocument(createView())
     assertContainsMessages(doc, messages(s"$workFromHomePolicyChangePostPrefix.p1"))
@@ -97,18 +96,6 @@ class UsePrintAndPostFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar
     assertContainsMessages(doc, messages(s"$workFromHomePolicyChangeSharedPrefix.bullet1"))
     assertContainsMessages(doc, messages(s"$workFromHomePolicyChangeSharedPrefix.bullet2"))
     assertContainsMessages(doc, messages(s"$workFromHomePolicyChangePostPrefix.submit.link"))
-  }
-
-  "The correct content is displayed for working from home when working from home policy change is disabled" in {
-    when(mockAppConfig.workingFromHomePolicyChangeEnabled).thenReturn(false)
-    when(mockAppConfig.employeeExpensesClaimByPostUrl).thenReturn(
-      "https://www.gov.uk/guidance/send-an-income-tax-relief-claim-for-job-expenses-by-post-or-phone"
-    )
-    val doc = asDocument(createView())
-    assertContainsMessages(doc, messages(s"$messageKeyPrefix.homeWorking.1_freOnly"))
-    assertContainsMessages(doc, messages(s"$messageKeyPrefix.homeWorking.2_freOnly"))
-    assertContainsMessages(doc, messages(s"$messageKeyPrefix.homeWorking.3_freOnly"))
-    assertContainsMessages(doc, messages("usePrintAndPostDetailed.link.label_freOnly"))
   }
 
   "The correct content is displayed for only uniformsClothingToolsView" in {

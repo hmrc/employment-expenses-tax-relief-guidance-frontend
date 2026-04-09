@@ -50,7 +50,7 @@ import views.behaviours.NewViewBehaviours
 import views.html.UseIformFreOnlyView
 import controllers.routes
 import org.scalatest.BeforeAndAfterEach
-import play.api.inject
+import play.api.{Application, inject}
 import uk.gov.hmrc.time.TaxYear
 
 class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar with BeforeAndAfterEach {
@@ -76,14 +76,14 @@ class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar with B
 
   val claimStartYear: String = TaxYear.current.back(4).startYear.toString
 
-  val application = applicationBuilder()
+  val application: Application = applicationBuilder()
     .configure("metrics.enabled" -> false)
     .overrides(inject.bind[FrontendAppConfig].toInstance(appConfig))
     .build()
 
   def createView(): Html = view.apply(claimingListFor)(fakeRequest, messages)
 
-  def createViewHomeworking(): Html = view.apply(claimingListForHomeWorking)(fakeRequest, messages)
+  def createFREOnlyView(): Html = view.apply(claimingListForHomeWorking)(fakeRequest, messages)
 
   val view: UseIformFreOnlyView = application.injector.instanceOf[UseIformFreOnlyView]
 
@@ -102,24 +102,15 @@ class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar with B
       "https://tax.service.gov.uk/digital-forms/form/tax-relief-for-expenses-of-employment/draft/guide"
     )
     when(appConfig.pegaServiceJourney).thenReturn(false)
-    when(appConfig.workingFromHomePolicyChangeEnabled).thenReturn(false)
   }
 
-  "The correct title and header are displayed" in {
+  "the correct title and header are displayed" in {
     val doc = asDocument(createView())
     assertPageTitleEqualsMessage(doc, "usePrintAndPostDetailed.title_freOnly_iform")
     assertContainsMessages(doc, messages(s"$messageKeyPrefix.heading_freOnly_iform"))
   }
 
-  "when pegaJourneyEnabled is enabled - new content is displayed for only WorkingHome" in {
-    when(appConfig.pegaServiceJourney).thenReturn(true)
-
-    val doc = asDocument(view.apply(claimingListForHomeWorking)(fakeRequest, messages))
-    assertContainsMessages(doc, messages(s"$messageKeyPrefix.para1_freOnly_pegaService"))
-  }
-
-  "when workFromHomePolicyChange is enabled and the claim list contains multiple expenses including work from home the correct content is displayed" in {
-    when(appConfig.workingFromHomePolicyChangeEnabled).thenReturn(true)
+  "the correct content is displayed when the claim list contains multiple expenses including work from home" in {
     when(appConfig.earliestTaxYear).thenReturn(claimStartYear)
     val doc = asDocument(createView())
     assertContainsMessages(doc, messages(s"$wfhPolicyChangeFormPrefix.p1"))
@@ -132,26 +123,8 @@ class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar with B
     doc.getElementById("startyourclaim").text mustBe messages("usePrintAndPostDetailed.link.label")
   }
 
-  "when pegaJourneyEnabled is disabled - new content is displayed for only WorkingHome" in {
-    val doc = asDocument(view.apply(claimingListForHomeWorking)(fakeRequest, messages))
-    assertContainsMessages(doc, messages(s"$messageKeyPrefix.para1_freOnly_iform"))
-  }
-
-  "when pegaJourneyEnabled is enabled - old content is displayed for  merged Journey" in {
-    val doc = asDocument(createView())
-    assertContainsMessages(doc, messages(s"$messageKeyPrefix.para1_freOnly_iform"))
-  }
-
-  "The correct content is displayed" in {
-    val doc = asDocument(createView())
-    assertContainsMessages(doc, messages(s"$messageKeyPrefix.homeWorking.1_freOnly"))
-    assertContainsMessages(doc, messages(s"$messageKeyPrefix.homeWorking.2_freOnly"))
-    assertContainsMessages(doc, messages(s"$messageKeyPrefix.homeWorking.3_freOnly"))
-  }
-
   "The correct content is displayed for uniformsClothingToolsView" in {
     val doc = asDocument(createView())
-
     assertContainsMessages(doc, messages(s"$messageKeyPrefix.uniformsClothingTools.1_freOnly_iform"))
   }
 
@@ -170,7 +143,7 @@ class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar with B
     assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.title_freOnly_iform")
   }
 
-  "when pegaJourneyEnabled is dissabled - Include a call to action button with the correct link to IForm service" in {
+  "when pegaJourneyEnabled is disabled - Include a call to action button with the correct link to IForm service" in {
     val doc             = asDocument(view.apply(claimingListForHomeWorking)(fakeRequest, messages))
     val button: Element = doc.getElementById("startyourclaim")
     button.attr("href") must be(appConfig.employeeExpensesClaimByIformUrl)
