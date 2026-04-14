@@ -74,6 +74,10 @@ class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar with B
     HomeWorking
   )
 
+  val claimingListForFeesSubscriptions = List(
+    FeesSubscriptions
+  )
+
   val claimStartYear: String = TaxYear.current.back(4).startYear.toString
 
   val application: Application = applicationBuilder()
@@ -81,9 +85,7 @@ class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar with B
     .overrides(inject.bind[FrontendAppConfig].toInstance(appConfig))
     .build()
 
-  def createView(): Html = view.apply(claimingListFor)(fakeRequest, messages)
-
-  def createFREOnlyView(): Html = view.apply(claimingListForHomeWorking)(fakeRequest, messages)
+  def createView(): Html = view.apply(claimingListFor, appConfig.employeeExpensesClaimByIformUrl)(fakeRequest, messages)
 
   val view: UseIformFreOnlyView = application.injector.instanceOf[UseIformFreOnlyView]
 
@@ -137,16 +139,26 @@ class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar with B
 
   "when pegaJourneyEnabled is enabled - Include a call to action button with the correct link to Pega service" in {
     when(appConfig.pegaServiceJourney).thenReturn(true)
-    val doc             = asDocument(view.apply(claimingListForHomeWorking)(fakeRequest, messages))
+    val doc = asDocument(
+      view.apply(claimingListForHomeWorking, appConfig.employeeExpensesClaimByPegaServicesUrl)(fakeRequest, messages)
+    )
     val button: Element = doc.getElementById("startyourclaim")
     button.attr("href") must be(appConfig.employeeExpensesClaimByPegaServicesUrl)
     assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.title_freOnly_iform")
   }
 
   "when pegaJourneyEnabled is disabled - Include a call to action button with the correct link to IForm service" in {
-    val doc             = asDocument(view.apply(claimingListForHomeWorking)(fakeRequest, messages))
+    val doc             = asDocument(createView())
     val button: Element = doc.getElementById("startyourclaim")
     button.attr("href") must be(appConfig.employeeExpensesClaimByIformUrl)
+    assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.title_freOnly_iform")
+  }
+
+  "Include a call to action button with the correct link to iForm when claiming for FeesSubscriptions" in {
+    val redirectionLink = s"${appConfig.employeeExpensesClaimByIformUrl}?claiming-for=professional-fees"
+    val doc = asDocument(view.apply(claimingListForFeesSubscriptions, redirectionLink)(fakeRequest, messages))
+    val button: Element = doc.getElementById("startyourclaim")
+    button.attr("href") must be(s"${appConfig.employeeExpensesClaimByIformUrl}?claiming-for=professional-fees")
     assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.title_freOnly_iform")
   }
 
