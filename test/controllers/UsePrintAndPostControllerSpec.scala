@@ -225,7 +225,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
         } yield ()
       }
 
-      "redirection to ifron with query params when user claims for FeesSubscriptions " in {
+      "redirection to iform with query params when user claims for FeesSubscriptions " in {
         when(appConfig.employeeExpensesClaimByIformUrl).thenReturn("iform-url")
         val redirectionLink = controller.redirectionLink(List(FeesSubscriptions))
         redirectionLink must include("iform-url")
@@ -233,14 +233,14 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
 
       }
 
-      "redirection to ifron without query params when when user claims for TravelExpenses " in {
+      "redirection to iform without query params when user claims for TravelExpenses " in {
         when(appConfig.employeeExpensesClaimByIformUrl).thenReturn("iform-url")
         val redirectionLink = controller.redirectionLink(List(TravelExpenses))
         redirectionLink must include("iform-url")
 
       }
 
-      "redirection to pega url when when user claims for HomeWorking " in {
+      "redirection to pega url when user claims for HomeWorking " in {
         when(appConfig.pegaServiceJourney).thenReturn(true)
         when(appConfig.employeeExpensesClaimByPegaServicesUrl).thenReturn("pega-url")
         val redirectionLink = controller.redirectionLink(List(HomeWorking))
