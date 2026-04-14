@@ -28,7 +28,7 @@
     p  : playComponents.p,
     submitButton: playComponents.submit_button
 )
-@(claimingFor: List[ClaimingFor],redirectionLink :String)(implicit request: Request[_], messages: Messages)
+@(claimingFor: List[ClaimingFor], redirectionLink: String)(implicit request: Request[_], messages: Messages)
 
 @startYear = @{appConfig.earliestTaxYear}
 
