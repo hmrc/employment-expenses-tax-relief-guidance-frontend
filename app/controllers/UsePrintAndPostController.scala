@@ -19,6 +19,8 @@ package controllers
 import config.FrontendAppConfig
 import controllers.actions._
 import controllers.helpers.ClaimingForListBuilder
+import models.ClaimingFor
+import models.ClaimingFor.{FeesSubscriptions, HomeWorking}
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
@@ -41,9 +43,16 @@ class UsePrintAndPostController @Inject() (
     val sortedList = claimingForListBuilder.buildClaimingForList(request.userAnswers)
     request.userAnswers.moreThanFiveJobs match {
       case Some(true) => Ok(freOnlyPrintAndPostView(sortedList))
-      case _          => Ok(freOnlyIformView(sortedList))
+      case _          => Ok(freOnlyIformView(sortedList, redirectionLink(sortedList)))
     }
   }
+
+  def redirectionLink(claimingFor: List[ClaimingFor]): String =
+    claimingFor match {
+      case List(HomeWorking) if appConfig.pegaServiceJourney => appConfig.employeeExpensesClaimByPegaServicesUrl
+      case List(FeesSubscriptions) => s"${appConfig.employeeExpensesClaimByIformUrl}?claiming-for=professional-fees"
+      case _                       => appConfig.employeeExpensesClaimByIformUrl
+    }
 
   def printAndPostGuidance: Action[AnyContent] = getData.andThen(requireData) {
     Redirect(appConfig.employeeExpensesClaimByPostUrl)

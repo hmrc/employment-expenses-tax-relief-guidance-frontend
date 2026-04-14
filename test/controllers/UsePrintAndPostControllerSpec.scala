@@ -21,7 +21,7 @@ import config.FrontendAppConfig
 import controllers.helpers.ClaimingForListBuilder
 import identifiers._
 import models.ClaimingFor
-import models.ClaimingFor.MileageFuel
+import models.ClaimingFor.{FeesSubscriptions, HomeWorking, MileageFuel, TravelExpenses}
 import org.mockito.ArgumentMatchers.{any, eq => eqTo}
 import org.mockito.Mockito.{reset, verify, when}
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
@@ -61,6 +61,8 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
     .build()
 
   private val claimingForList = ClaimingFor.values.filterNot(_ == MileageFuel)
+  private val controller      = application.injector.instanceOf[UsePrintAndPostController]
+  val redirectionLink: String = controller.redirectionLink(claimingForList)
 
   override def beforeEach(): Unit = {
     super.beforeEach()
@@ -85,7 +87,8 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
       .thenReturn(HtmlFormat.empty)
     when(usePrintAndPostFreOnlyView.apply(any[List[ClaimingFor]])(any[Request[_]], any[Messages]))
       .thenReturn(HtmlFormat.empty)
-    when(useIformFreOnlyView.apply(any[List[ClaimingFor]])(any[Request[_]], any[Messages])).thenReturn(HtmlFormat.empty)
+    when(useIformFreOnlyView.apply(any[List[ClaimingFor]], any[String])(any[Request[_]], any[Messages]))
+      .thenReturn(HtmlFormat.empty)
   }
 
   override def afterAll(): Unit = {
@@ -126,7 +129,10 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
             result <- route(application, testRequest).value
 
             _ = result.header.status mustBe OK
-            _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList))(any[Request[_]], any[Messages])
+            _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList), eqTo(redirectionLink))(
+              any[Request[_]],
+              any[Messages]
+            )
           } yield ()
         }
 
@@ -138,7 +144,10 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
             result <- route(application, testRequest).value
 
             _ = result.header.status mustBe OK
-            _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList))(any[Request[_]], any[Messages])
+            _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList), eqTo(redirectionLink))(
+              any[Request[_]],
+              any[Messages]
+            )
           } yield ()
         }
       }
@@ -169,7 +178,10 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
             result <- route(application, testRequest).value
 
             _ = result.header.status mustBe OK
-            _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList))(any[Request[_]], any[Messages])
+            _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList), eqTo(redirectionLink))(
+              any[Request[_]],
+              any[Messages]
+            )
           } yield ()
         }
 
@@ -181,7 +193,10 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
             result <- route(application, testRequest).value
 
             _ = result.header.status mustBe OK
-            _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList))(any[Request[_]], any[Messages])
+            _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList), eqTo(redirectionLink))(
+              any[Request[_]],
+              any[Messages]
+            )
           } yield ()
         }
       }
@@ -208,6 +223,29 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
           _ = result.header.status mustBe OK
           _ = verify(usePrintAndPostView).apply(eqTo(false), eqTo(false))(any[Request[_]], any[Messages])
         } yield ()
+      }
+
+      "redirection to ifron with query params when user claims for FeesSubscriptions " in {
+        when(appConfig.employeeExpensesClaimByIformUrl).thenReturn("iform-url")
+        val redirectionLink = controller.redirectionLink(List(FeesSubscriptions))
+        redirectionLink must include("iform-url")
+        redirectionLink must include("claiming-for")
+
+      }
+
+      "redirection to ifron without query params when when user claims for TravelExpenses " in {
+        when(appConfig.employeeExpensesClaimByIformUrl).thenReturn("iform-url")
+        val redirectionLink = controller.redirectionLink(List(TravelExpenses))
+        redirectionLink must include("iform-url")
+
+      }
+
+      "redirection to pega url when when user claims for HomeWorking " in {
+        when(appConfig.pegaServiceJourney).thenReturn(true)
+        when(appConfig.employeeExpensesClaimByPegaServicesUrl).thenReturn("pega-url")
+        val redirectionLink = controller.redirectionLink(List(HomeWorking))
+        redirectionLink must include("pega-url")
+
       }
     }
   }
