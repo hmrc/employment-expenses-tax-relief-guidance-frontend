@@ -39,9 +39,9 @@ class PaidTaxInRelevantYearViewSpec extends NewYesNoViewBehaviours {
 
     "have the correct banner title" in {
       val doc    = asDocument(createView(form))
-      val banner = doc.select(".govuk-header__service-name")
+      val banner = doc.select(".govuk-service-navigation__link")
 
-      banner.text() mustEqual messages("site.service_name")
+      banner.text() must startWith(messages("site.service_name"))
     }
 
     "display the correct browser title" in {

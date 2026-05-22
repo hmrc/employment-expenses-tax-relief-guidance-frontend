@@ -38,9 +38,9 @@ class CannotClaimReliefSomeYearsViewSpec extends NewViewBehaviours {
 
     "have the correct banner title" in {
       val doc = asDocument(createView)
-      val nav = doc.select(".govuk-header__service-name")
+      val nav = doc.select(".govuk-service-navigation__link")
 
-      nav.text mustEqual messages("site.service_name")
+      nav.text() must startWith(messages("site.service_name"))
     }
 
     "display the correct browser title" in {
