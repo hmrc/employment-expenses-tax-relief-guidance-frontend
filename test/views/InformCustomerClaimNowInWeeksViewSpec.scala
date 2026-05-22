@@ -52,9 +52,9 @@ class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours with Mocki
 
     "have the correct banner title" in {
       val doc    = asDocument(createView())
-      val banner = doc.select(".govuk-header__service-name")
+      val banner = doc.select(".govuk-service-navigation__link")
 
-      banner.text() mustEqual messages("service.name")
+      banner.text() must startWith(messages("site.service_name"))
     }
 
     "show content" when {
