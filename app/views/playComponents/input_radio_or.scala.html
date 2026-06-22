@@ -29,41 +29,53 @@
     isPageHeading: Boolean = true
 )(implicit messages: Messages)
 
-<div class="govuk-form-group @if(field.hasErrors){govuk-form-group--error}">
-    <fieldset class="govuk-fieldset" id="@{field.id}">
-        <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-            @if(isPageHeading) {
-                <h1 class="@{legendClass.get}">@legend</h1>
-            } else {
-                <span class="@{legendClass.get}">@legend</span>
-            }
-        </legend>
-        @if(hint.nonEmpty){
-            <p class="govuk-hint">@{hint.get}</p>
-        }
-        @field.errors.map { error =>
-            <p class="govuk-error-message" id="error-message-@{field.id}-input">
-                <span class="govuk-visually-hidden">@messages("error.inline.prefix"):</span> @messages(error.message, error.args: _*)
-            </p>
-        }
-        <div class="govuk-radios" data-module="govuk-radios">
-            @for(input <- inputs) {
-                @if(input != inputs.last) {
-                    <div class="govuk-radios__item">
-                        <input class="govuk-radios__input" id="@{input.id}" name="@{field.id}" type="radio" value="@{input.value}">
-                        <label class="govuk-label govuk-radios__label" for="@{input.id}">
-                            @input.message.html
-                        </label>
-                    </div>
+@defining({
+  val hintId      = s"${field.id}-hint"
+  val errorId     = s"${field.id}-error"
+  val describedBy = Seq(
+    hint.map(_ => hintId),
+    if (field.hasErrors) Some(errorId) else None
+  ).flatten.mkString(" ")
+  (hintId, errorId, describedBy)
+}) { case (hintId, errorId, describedBy) =>
+
+    <div class="govuk-form-group @if(field.hasErrors){govuk-form-group--error}">
+        <fieldset class="govuk-fieldset" id="@{field.id}" @if(describedBy.nonEmpty){aria-describedby="@describedBy"}>
+            <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                @if(isPageHeading) {
+                    <h1 class="@{legendClass.get}">@legend</h1>
+                } else {
+                    <span class="@{legendClass.get}">@legend</span>
                 }
+            </legend>
+            @if(hint.nonEmpty){
+                <p class="govuk-hint" id="@hintId">@{hint.get}</p>
             }
-            <div class="govuk-radios__divider">@messages("site.or")</div>
-            <div class="govuk-radios__item">
-                <input class="govuk-radios__input" id="@{inputs.last.id}" name="@{field.id}" type="radio" value="@{inputs.last.value}">
-                <label class="govuk-label govuk-radios__label" for="@{inputs.last.id}">
-                    @inputs.last.message.html
-                </label>
+            @field.errors.map { error =>
+                <p class="govuk-error-message" id="@errorId">
+                    <span class="govuk-visually-hidden">@messages("error.inline.prefix"):</span> @messages(error.message, error.args: _*)
+                </p>
+            }
+            <div class="govuk-radios" data-module="govuk-radios">
+                @for(input <- inputs) {
+                    @if(input != inputs.last) {
+                        <div class="govuk-radios__item">
+                            <input class="govuk-radios__input" id="@{input.id}" name="@{field.id}" type="radio" value="@{input.value}">
+                            <label class="govuk-label govuk-radios__label" for="@{input.id}">
+                                @input.message.html
+                            </label>
+                        </div>
+                    }
+                }
+                <div class="govuk-radios__divider">@messages("site.or")</div>
+                <div class="govuk-radios__item">
+                    <input class="govuk-radios__input" id="@{inputs.last.id}" name="@{field.id}" type="radio" value="@{inputs.last.value}">
+                    <label class="govuk-label govuk-radios__label" for="@{inputs.last.id}">
+                        @inputs.last.message.html
+                    </label>
+                </div>
             </div>
-        </div>
-    </fieldset>
-</div>
+        </fieldset>
+    </div>
+    
+}

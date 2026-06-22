@@ -20,7 +20,6 @@
     layout: Layout,
     formHelper: uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF,
     errorSummary: playComponents.error_summary,
-    heading: playComponents.heading,
     inputRadioOr: playComponents.input_radio_or,
     submitButton: playComponents.submit_button
 )
@@ -35,16 +34,13 @@
 
         @errorSummary(form.errors, Some("employerPaid.noExpenses"))
 
-        @heading(messages(s"employerPaidBackAnyExpenses.heading"))
-
-        <p class="govuk-body">@messages("employerPaidBackAnyExpenses.info")</p>
-
         @inputRadioOr(
             field = form("value"),
             legend = messages("employerPaidBackAnyExpenses.heading"),
-            legendClass = Some("govuk-visually-hidden"),
+            legendClass = Some("govuk-fieldset__heading"),
+            hint = Some(messages("employerPaidBackAnyExpenses.info")),
             inputs = EmployerPaid.options.toSeq,
-            isPageHeading = false
+            isPageHeading = true
         )
 
         @submitButton()
