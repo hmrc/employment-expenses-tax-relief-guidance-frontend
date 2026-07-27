@@ -16,7 +16,6 @@
 
 package controllers
 
-import config.FrontendAppConfig
 import connectors.DataCacheConnector
 import controllers.actions._
 import forms.RegisteredForSelfAssessmentFormProvider
@@ -39,8 +38,7 @@ class RegisteredForSelfAssessmentController @Inject() (
     requireData: DataRequiredAction,
     formProvider: RegisteredForSelfAssessmentFormProvider,
     val controllerComponents: MessagesControllerComponents,
-    view: RegisteredForSelfAssessmentView,
-    appConfig: FrontendAppConfig
+    view: RegisteredForSelfAssessmentView
 )(implicit ec: ExecutionContext)
     extends FrontendBaseController
     with I18nSupport {

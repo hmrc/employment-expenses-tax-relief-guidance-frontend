@@ -29,8 +29,6 @@ trait NewQuestionViewBehaviours[A] extends NewViewBehaviours {
 
   def pageWithTextFields(
       createView: (Form[A]) => HtmlFormat.Appendable,
-      messageKeyPrefix: String,
-      expectedFormAction: String,
       fields: String*
   ) =
 

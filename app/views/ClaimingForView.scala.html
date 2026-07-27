@@ -38,7 +38,7 @@
 
     @heading(messages(s"claimingFor.heading"))
 
-    @formHelper(action = ClaimingForController.onSubmit()) {
+    @formHelper(action = routes.ClaimingForController.onSubmit()) {
         @if(appConfig.freOnlyJourneyEnabled) {
             
             @govukInsetText(InsetText(

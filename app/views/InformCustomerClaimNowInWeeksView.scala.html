@@ -52,7 +52,7 @@
    
     <p class="govuk-body">@messages("informCustomerClaimNowInWeeks.para3")</p>
 
-    @formHelper(action = InformCustomerClaimNowInWeeksController.onSubmit(), Symbol("autoComplete") -> "off") {
+    @formHelper(action = routes.InformCustomerClaimNowInWeeksController.onSubmit(), Symbol("autoComplete") -> "off") {
         @button(Button(content = Text(messages("site.save_and_continue")), preventDoubleClick  = Some(true)))
     }
 }

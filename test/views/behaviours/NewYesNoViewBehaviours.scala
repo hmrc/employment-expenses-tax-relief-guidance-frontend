@@ -24,7 +24,6 @@ trait NewYesNoViewBehaviours extends NewQuestionViewBehaviours[Boolean] {
   def yesNoPage(
       createView: (Form[Boolean]) => HtmlFormat.Appendable,
       messageKeyPrefix: String,
-      expectedFormAction: String,
       headingArgs: Any*
   ): Unit =
 

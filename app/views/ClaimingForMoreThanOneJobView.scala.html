@@ -31,7 +31,7 @@
     pageTitle = s"${errorPrefix(form)} ${messages("claimingForMoreThanOneJob.title")}"
 ) {
 
-    @formHelper(action = ClaimingForMoreThanOneJobController.onSubmit()) {
+    @formHelper(action = routes.ClaimingForMoreThanOneJobController.onSubmit()) {
     @errorSummary(form.errors)
 
     @inputRadio(

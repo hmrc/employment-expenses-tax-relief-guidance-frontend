@@ -17,7 +17,6 @@
 @this(
     layout: Layout,
     errorSummary: playComponents.error_summary,
-    heading: playComponents.heading,
     inputYesNoRadio: playComponents.input_yes_no,
     formHelper: uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF,
     submitButton: playComponents.submit_button
@@ -31,7 +30,7 @@
 
     @errorSummary(form.errors)
 
-    @formHelper(action = MoreThanFiveJobsController.onSubmit()) {
+    @formHelper(action = routes.MoreThanFiveJobsController.onSubmit()) {
 
         @inputYesNoRadio(
             field = form("value"),

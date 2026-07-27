@@ -30,7 +30,7 @@
     pageTitle = s"${errorPrefix(form)} ${messages(s"willPayTax.title")}"
 ) {
 
-    @formHelper(action = WillPayTaxController.onSubmit()) {
+    @formHelper(action = routes.WillPayTaxController.onSubmit()) {
         @errorSummary(form.errors)
 
         @inputYesNoRadio(

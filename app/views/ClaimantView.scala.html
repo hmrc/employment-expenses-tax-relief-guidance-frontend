@@ -46,7 +46,7 @@
         summary = Text(messages("claimant.hidden.summary")),
         content = HtmlContent(detailsContent)
     ))
-    @formHelper(action = ClaimantController.onSubmit()) {
+    @formHelper(action = routes.ClaimantController.onSubmit()) {
         @inputRadio(
             field = form("value"),
             inline = true,
