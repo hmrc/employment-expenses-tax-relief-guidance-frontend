@@ -23,7 +23,7 @@
         submitButton: playComponents.submit_button
 )
 
-@(fuelCosts: Boolean = false, mileageCosts: Boolean = false)(implicit request: Request[_], messages: Messages)
+@(fuelCosts: Boolean = false, mileageCosts: Boolean = false)(implicit request: Request[?], messages: Messages)
 
 @vehicleText = @{
     if(fuelCosts && mileageCosts) messages("usePrintAndPost.fuelAndMileage")

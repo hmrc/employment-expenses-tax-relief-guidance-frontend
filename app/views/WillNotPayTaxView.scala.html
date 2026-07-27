@@ -24,7 +24,7 @@
     heading: playComponents.heading
 )
 
-@(nextPage: Call)(implicit request: Request[_], messages: Messages)
+@(nextPage: Call)(implicit request: Request[?], messages: Messages)
 
 @link = {<a class="govuk-link" href="@routes.RegisteredForSelfAssessmentController.onPageLoad()">@messages("willNotPayTax.link2", TaxYear.current.startYear.toString, TaxYear.current.finishYear.toString)</a>}
 

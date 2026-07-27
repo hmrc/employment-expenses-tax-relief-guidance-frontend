@@ -23,7 +23,7 @@
     appConfig: FrontendAppConfig
 )
 
-@(nextPage: Call)(implicit request: Request[_], messages: Messages)
+@(nextPage: Call)(implicit request: Request[?], messages: Messages)
 
 @year = {@appConfig.earliestTaxYear}
 

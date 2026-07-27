@@ -58,7 +58,7 @@ class ClaimantController @Inject() (
     form
       .bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors))),
+        (formWithErrors: Form[?]) => Future.successful(BadRequest(view(formWithErrors))),
         value =>
           dataCacheConnector
             .save[Claimant](request.sessionId, ClaimantId, value)

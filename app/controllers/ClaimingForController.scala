@@ -69,7 +69,7 @@ class ClaimingForController @Inject() (
     form
       .bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors, backLinkEnabled))),
+        (formWithErrors: Form[?]) => Future.successful(BadRequest(view(formWithErrors, backLinkEnabled))),
         value =>
           dataCacheConnector
             .save[Set[ClaimingFor]](request.sessionId, ClaimingForId, value)

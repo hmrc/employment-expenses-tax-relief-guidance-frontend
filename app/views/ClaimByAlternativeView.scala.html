@@ -23,7 +23,7 @@ frontendAppConfig: FrontendAppConfig,
 heading: playComponents.heading
 )
 
-@()(implicit request: Request[_], messages: Messages)
+@()(implicit request: Request[?], messages: Messages)
 
 @claimOnlineLink = {<a class="govuk-link" href="@frontendAppConfig.employeeExpensesClaimByIformUrl">@messages("claimByAlternative.onlineFormLinkText")</a>}
 

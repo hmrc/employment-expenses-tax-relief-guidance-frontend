@@ -46,7 +46,7 @@ class ClaimingForViewSpec extends CheckboxViewBehaviours[ClaimingFor] with Mocki
   }
 
   // Create the view using the provided form and application
-  def createView(form: Form[_], freJourneyEnabled: Boolean): Html = {
+  def createView(form: Form[?], freJourneyEnabled: Boolean): Html = {
     val app                   = createApp(freJourneyEnabled)
     val view: ClaimingForView = app.injector.instanceOf[ClaimingForView]
     val result                = view.apply(form)(fakeRequest, messages)

@@ -22,7 +22,7 @@
     heading: playComponents.heading
 )
 
-@(startYear: String, endYear: String)(implicit request: Request[_], messages: Messages)
+@(startYear: String, endYear: String)(implicit request: Request[?], messages: Messages)
 
 @year = {@appConfig.earliestTaxYear}
 

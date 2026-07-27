@@ -64,7 +64,7 @@ class UseCompanyCarController @Inject() (
       form
         .bindFromRequest()
         .fold(
-          (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors, useOfOwnCar))),
+          (formWithErrors: Form[?]) => Future.successful(BadRequest(view(formWithErrors, useOfOwnCar))),
           value =>
             dataCacheConnector
               .save[Boolean](request.sessionId, UseCompanyCarId, value)

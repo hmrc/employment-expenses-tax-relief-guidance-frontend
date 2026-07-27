@@ -32,7 +32,7 @@ class MoreThanFiveJobsViewSpec extends NewYesNoViewBehaviours {
 
   val form = new MoreThanFiveJobsFormProvider()()
 
-  def createView(form: Form[_]) = view.apply(form)(fakeRequest, messages)
+  def createView(form: Form[?]) = view.apply(form)(fakeRequest, messages)
 
   "MoreThanFiveJobs view" must {
 

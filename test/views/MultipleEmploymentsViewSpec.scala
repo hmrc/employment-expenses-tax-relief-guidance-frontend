@@ -34,7 +34,7 @@ class ClaimingForMoreThanOneJobViewSpec extends NewViewBehaviours {
 
   val form = new ClaimingForMoreThanOneJobFormProvider()()
 
-  def createView(form: Form[_]): Html = view.apply(form)(fakeRequest, messages)
+  def createView(form: Form[?]): Html = view.apply(form)(fakeRequest, messages)
 
   "ClaimingForMoreThanOneJob view" must {
 

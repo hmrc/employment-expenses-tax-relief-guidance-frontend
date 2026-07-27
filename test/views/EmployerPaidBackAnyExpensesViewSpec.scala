@@ -32,7 +32,7 @@ class EmployerPaidBackAnyExpensesViewSpec extends NewViewBehaviours {
 
   val form = new EmployerPaidBackAnyExpensesFormProvider()()
 
-  def createView(form: Form[_]): Html = view.apply(form, None)(fakeRequest, messages)
+  def createView(form: Form[?]): Html = view.apply(form, None)(fakeRequest, messages)
 
   "EmployerPaidBackAnyExpenses view" must {
 

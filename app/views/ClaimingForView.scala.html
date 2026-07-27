@@ -28,7 +28,7 @@
     appConfig: FrontendAppConfig
 )
 
-@(form: Form[_], backLinkEnabled: Boolean = false)(implicit request: Request[_], messages: Messages)
+@(form: Form[?], backLinkEnabled: Boolean = false)(implicit request: Request[?], messages: Messages)
 
 @layout(
     pageTitle = s"${errorPrefix(form)} ${messages(s"claimingFor.title")}",

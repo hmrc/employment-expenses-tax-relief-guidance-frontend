@@ -26,7 +26,7 @@
     h2 : playComponents.h2,
     p  : playComponents.p,
 )
-@(claimingFor: List[ClaimingFor], redirectionLink: String)(implicit request: Request[_], messages: Messages)
+@(claimingFor: List[ClaimingFor], redirectionLink: String)(implicit request: Request[?], messages: Messages)
 
 @startYear = @{appConfig.earliestTaxYear}
 

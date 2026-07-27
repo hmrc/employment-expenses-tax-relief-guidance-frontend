@@ -34,7 +34,7 @@ class ClaimAnyOtherExpenseViewSpec extends NewViewBehaviours {
 
   val form = new ClaimAnyOtherExpenseFormProvider()()
 
-  def createView(form: Form[_]): Html = view.apply(form)(fakeRequest, messages)
+  def createView(form: Form[?]): Html = view.apply(form)(fakeRequest, messages)
 
   "ClaimAnyOtherExpenseViewSpec view" must {
 

@@ -43,7 +43,7 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
   val view = application.injector.instanceOf[ClaimOnlineView]
 
   def createView(journey: OnwardJourney, selectedList: List[ClaimingFor])(
-      implicit request: play.api.mvc.Request[_],
+      implicit request: play.api.mvc.Request[?],
       messages: play.api.i18n.Messages
   ) =
     view.apply(journey, selectedList)

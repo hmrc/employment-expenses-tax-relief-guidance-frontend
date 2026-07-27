@@ -25,7 +25,7 @@
     govukInsetText : GovukInsetText,
     appConfig: FrontendAppConfig
 )
-@(onwardJourney: OnwardJourney, claimingFor: List[ClaimingFor])(implicit request: Request[_], messages: Messages)
+@(onwardJourney: OnwardJourney, claimingFor: List[ClaimingFor])(implicit request: Request[?], messages: Messages)
 
 @list = @{
     claimingFor.flatMap(journey => {

@@ -27,7 +27,7 @@
     submitButton: playComponents.submit_button
 )
 
-@(form: Form[_])(implicit request: Request[_], messages: Messages)
+@(form: Form[?])(implicit request: Request[?], messages: Messages)
 
 @detailsContent = {
     <p class="govuk-body">@messages("claimant.hidden.guidance1")</p>
