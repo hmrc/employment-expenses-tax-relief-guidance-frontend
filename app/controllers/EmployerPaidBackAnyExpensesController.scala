@@ -42,7 +42,7 @@ class EmployerPaidBackAnyExpensesController @Inject() (
     val controllerComponents: MessagesControllerComponents,
     view: EmployerPaidBackAnyExpensesView,
     appConfig: FrontendAppConfig
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport
     with Enumerable.Implicits {

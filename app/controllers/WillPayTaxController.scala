@@ -40,7 +40,7 @@ class WillPayTaxController @Inject() (
     formProvider: WillPayTaxFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: WillPayTaxView
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport {
 

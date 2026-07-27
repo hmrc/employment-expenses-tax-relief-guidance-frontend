@@ -40,7 +40,7 @@ class ClaimingForMoreThanOneJobController @Inject() (
     formProvider: ClaimingForMoreThanOneJobFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: ClaimingForMoreThanOneJobView
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport {
 

@@ -38,7 +38,7 @@ class UseOwnCarController @Inject() (
     formProvider: UseOwnCarFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: UseOwnCarView
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport {
 

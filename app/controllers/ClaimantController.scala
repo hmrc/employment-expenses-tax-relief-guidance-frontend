@@ -39,7 +39,7 @@ class ClaimantController @Inject() (
     formProvider: ClaimantFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: ClaimantView
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport
     with Enumerable.Implicits {

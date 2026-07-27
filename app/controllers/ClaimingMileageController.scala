@@ -38,7 +38,7 @@ class ClaimingMileageController @Inject() (
     formProvider: ClaimingMileageFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: ClaimingMileageView
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport {
 

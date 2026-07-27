@@ -39,7 +39,7 @@ class RegisteredForSelfAssessmentController @Inject() (
     formProvider: RegisteredForSelfAssessmentFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: RegisteredForSelfAssessmentView
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport {
 

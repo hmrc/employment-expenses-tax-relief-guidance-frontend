@@ -34,7 +34,7 @@ class ChangeUniformsWorkClothingToolsController @Inject() (
     getData: DataRetrievalAction,
     requireData: DataRequiredAction,
     val controllerComponents: MessagesControllerComponents
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport
     with Enumerable.Implicits {

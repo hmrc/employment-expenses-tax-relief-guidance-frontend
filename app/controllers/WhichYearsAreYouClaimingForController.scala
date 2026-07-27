@@ -38,7 +38,7 @@ class WhichYearsAreYouClaimingForController @Inject() (
     formProvider: WhichYearsAreYouClaimingForFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: WhichYearsAreYouClaimingForView
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport {
 

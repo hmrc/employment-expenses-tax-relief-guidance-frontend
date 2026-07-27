@@ -38,7 +38,7 @@ class ClaimingOverPayAsYouEarnThresholdController @Inject() (
     formProvider: ClaimingOverPayAsYouEarnThresholdFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: ClaimingOverPayAsYouEarnThresholdView
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport {
 

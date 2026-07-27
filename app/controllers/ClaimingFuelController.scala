@@ -38,7 +38,7 @@ class ClaimingFuelController @Inject() (
     formProvider: ClaimingFuelFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: ClaimingFuelView
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport {
 

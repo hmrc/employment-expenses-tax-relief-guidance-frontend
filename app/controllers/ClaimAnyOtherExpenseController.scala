@@ -40,7 +40,7 @@ class ClaimAnyOtherExpenseController @Inject() (
     formProvider: ClaimAnyOtherExpenseFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: ClaimAnyOtherExpenseView
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport
     with Enumerable.Implicits

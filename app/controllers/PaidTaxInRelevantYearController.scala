@@ -40,7 +40,7 @@ class PaidTaxInRelevantYearController @Inject() (
     formProvider: PaidTaxInRelevantYearFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: PaidTaxInRelevantYearView
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport {
 
