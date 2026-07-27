@@ -35,7 +35,7 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
   private val frontendAppConfig = mock[FrontendAppConfig]
   private val userAnswers       = mock[UserAnswers]
 
-  private val navigator = new Navigator(navigatorHelper)(frontendAppConfig)
+  private val navigator = new Navigator(navigatorHelper)(using frontendAppConfig)
 
   override def beforeEach(): Unit =
     reset[Object](navigatorHelper, frontendAppConfig, userAnswers)

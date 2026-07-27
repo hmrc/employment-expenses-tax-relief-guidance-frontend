@@ -29,7 +29,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class ErrorHandler @Inject() (
     val messagesApi: MessagesApi,
     view: ErrorTemplate
-)(implicit val ec: ExecutionContext)
+)(using override val ec: ExecutionContext)
     extends FrontendErrorHandler
     with I18nSupport {
 

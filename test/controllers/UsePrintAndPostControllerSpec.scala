@@ -79,7 +79,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
 
     when(claimingForListBuilder.buildClaimingForList(any[UserAnswers])).thenReturn(claimingForList)
 
-    when(cacheMap.getEntry(any[String])(any)).thenReturn(None)
+    when(cacheMap.getEntry(any[String])(using any)).thenReturn(None)
 
     when(usePrintAndPostView.apply(any[Boolean], any[Boolean])(any[Request[?]], any[Messages]))
       .thenReturn(HtmlFormat.empty)
@@ -108,7 +108,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
         "UserAnswers contain non-empty moreThanFiveJobs equal to true" in {
           when(appConfig.freOnlyJourneyEnabled).thenReturn(true)
           when(appConfig.onlineJourneyShutterEnabled).thenReturn(true)
-          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(any[Reads[Boolean]]))
+          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(using any[Reads[Boolean]]))
             .thenReturn(Some(true))
 
           for {
@@ -122,7 +122,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
         "UserAnswers contain non-empty moreThanFiveJobs equal to false" in {
           when(appConfig.freOnlyJourneyEnabled).thenReturn(true)
           when(appConfig.onlineJourneyShutterEnabled).thenReturn(true)
-          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(any[Reads[Boolean]]))
+          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(using any[Reads[Boolean]]))
             .thenReturn(Some(false))
 
           for {
@@ -157,7 +157,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
         "UserAnswers contain non-empty moreThanFiveJobs equal to true" in {
           when(appConfig.freOnlyJourneyEnabled).thenReturn(true)
           when(appConfig.onlineJourneyShutterEnabled).thenReturn(false)
-          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(any[Reads[Boolean]]))
+          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(using any[Reads[Boolean]]))
             .thenReturn(Some(true))
 
           for {
@@ -171,7 +171,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
         "UserAnswers contain non-empty moreThanFiveJobs equal to false" in {
           when(appConfig.freOnlyJourneyEnabled).thenReturn(true)
           when(appConfig.onlineJourneyShutterEnabled).thenReturn(false)
-          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(any[Reads[Boolean]]))
+          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(using any[Reads[Boolean]]))
             .thenReturn(Some(false))
 
           for {

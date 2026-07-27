@@ -27,13 +27,13 @@ import utils.{CacheMap, CascadeUpsert}
 import scala.concurrent.{ExecutionContext, Future}
 
 class DataCacheConnectorImpl @Inject() (val sessionRepository: SessionRepository, val cascadeUpsert: CascadeUpsert)(
-    using  executionContext: ExecutionContext
+    using executionContext: ExecutionContext
 ) extends DataCacheConnector {
 
   def save(cacheMap: CacheMap): Future[CacheMap] =
     sessionRepository().upsert(cacheMap).map(_ => cacheMap)
 
-  def save[A](cacheId: String, key: Identifier, value: A)(using  fmt: Format[A]): Future[CacheMap] =
+  def save[A](cacheId: String, key: Identifier, value: A)(using fmt: Format[A]): Future[CacheMap] =
     sessionRepository().get(cacheId).flatMap { optionalCacheMap =>
       val updatedCacheMap = cascadeUpsert(key, value, optionalCacheMap.getOrElse(new CacheMap(cacheId, Map())))
       sessionRepository().upsert(updatedCacheMap).map(_ => updatedCacheMap)

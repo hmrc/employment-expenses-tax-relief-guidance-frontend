@@ -48,7 +48,7 @@ class ClaimingMileageControllerSpec
 
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
-    when(mockDataCacheConnector.save(any(), any(), any())(any())).thenReturn(Future(new CacheMap("id", Map())))
+    when(mockDataCacheConnector.save(any(), any(), any())(using any())).thenReturn(Future(new CacheMap("id", Map())))
   }
 
   "ClaimingMileage Controller" must {
