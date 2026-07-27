@@ -33,7 +33,7 @@ object Enumerable {
 
   trait Implicits {
 
-    implicit def reads[A](using ev: Enumerable[A]): Reads[A] =
+    implicit def reads[A](implicit ev: Enumerable[A]): Reads[A] =
       Reads {
         case JsString(str) =>
           ev.withName(str).map(s => JsSuccess(s)).getOrElse(JsError("error.invalid"))

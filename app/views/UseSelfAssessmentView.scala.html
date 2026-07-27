@@ -22,7 +22,7 @@
     appConfig: FrontendAppConfig
 )
 
-@(backButtonOverride: Option[String])(using request: Request[?], messages: Messages)
+@(backButtonOverride: Option[String])(implicit request: Request[?], messages: Messages)
 
 @layout(
   pageTitle = messages(s"useSelfAssessment.title")

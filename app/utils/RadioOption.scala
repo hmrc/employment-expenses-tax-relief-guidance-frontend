@@ -21,10 +21,10 @@ import play.twirl.api.{Html, HtmlFormat}
 
 case class Message(key: String, args: Any*) {
 
-  def html(using messages: Messages): HtmlFormat.Appendable =
+  def html(implicit messages: Messages): HtmlFormat.Appendable =
     Html(string)
 
-  def string(using messages: Messages): String =
+  def string(implicit messages: Messages): String =
     messages(key, args*)
 
 }

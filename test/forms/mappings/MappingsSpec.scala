@@ -32,7 +32,7 @@ object MappingsSpec {
 
     val values: Set[Foo] = Set(Bar, Baz)
 
-  given fooEnumerable: Enumerable[Foo] =
+    implicit val fooEnumerable: Enumerable[Foo] =
       Enumerable(values.toSeq.map(v => v.toString -> v)*)
 
   }

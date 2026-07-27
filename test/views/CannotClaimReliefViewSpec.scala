@@ -37,7 +37,7 @@ class CannotClaimReliefViewSpec extends NewViewBehaviours with MockitoSugar {
 
   val view: CannotClaimReliefView = application.injector.instanceOf[CannotClaimReliefView]
 
-  def createView()(using request: play.api.mvc.Request[?], messages: play.api.i18n.Messages) =
+  def createView()(implicit request: play.api.mvc.Request[?], messages: play.api.i18n.Messages) =
     view.apply()
 
   "CannotClaimRelief view" must {

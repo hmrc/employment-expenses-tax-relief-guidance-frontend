@@ -27,7 +27,7 @@
     govukDetails : GovukDetails,
 )
 
-@(form: Form[?])(using request: Request[?], messages: Messages)
+@(form: Form[?])(implicit request: Request[?], messages: Messages)
 
 @detailsContent = {
     <h2 class="govuk-heading-s">@messages("claimingMileage.hidden.cars.heading")</h2>

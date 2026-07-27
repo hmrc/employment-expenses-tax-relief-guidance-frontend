@@ -27,7 +27,7 @@
     hint: Option[String] = None,
     inputs: Seq[RadioOption],
     isPageHeading: Boolean = true
-)(using messages: Messages)
+)(implicit messages: Messages)
 
 @defining({
   val hintId      = s"${field.id}-hint"

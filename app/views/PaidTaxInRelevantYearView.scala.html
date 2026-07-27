@@ -27,7 +27,7 @@
 
 @(
     form: Form[?]
-)(using request: Request[?], messages: Messages)
+)(implicit request: Request[?], messages: Messages)
 
 @year = {@appConfig.earliestTaxYear}
 

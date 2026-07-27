@@ -23,7 +23,7 @@
     buttonLink: playComponents.button_link
 )
 
-@()(using request: Request[?], messages: Messages)
+@()(implicit request: Request[?], messages: Messages)
 
 @layout(
     pageTitle = messages(s"saCheckDisclaimerCurrentYear.title")

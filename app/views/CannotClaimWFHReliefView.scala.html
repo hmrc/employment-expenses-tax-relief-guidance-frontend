@@ -19,7 +19,7 @@
     heading: playComponents.heading
 )
 
-@()(using request: Request[?], messages: Messages)
+@()(implicit request: Request[?], messages: Messages)
 
 @layout(
     pageTitle = messages(s"cannotClaimWfhRelief.title")

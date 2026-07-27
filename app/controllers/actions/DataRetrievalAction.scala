@@ -29,11 +29,11 @@ import scala.concurrent.{ExecutionContext, Future}
 class DataRetrievalActionImpl @Inject() (
     val dataCacheConnector: DataCacheConnector,
     controllerComponents: MessagesControllerComponents
-)(using val executionContext: ExecutionContext)
+)(implicit val executionContext: ExecutionContext)
     extends DataRetrievalAction {
 
   override protected def transform[A](request: Request[A]): Future[OptionalDataRequest[A]] = {
-    given hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
+    implicit val hc: HeaderCarrier = HeaderCarrierConverter.fromRequestAndSession(request, request.session)
 
     hc.sessionId match {
       case None => Future.failed(new IllegalStateException())

@@ -27,7 +27,7 @@
     p  : playComponents.p,
     submitButton: playComponents.submit_button
 )
-@(claimingFor: List[ClaimingFor])(using request: Request[?], messages: Messages)
+@(claimingFor: List[ClaimingFor])(implicit request: Request[?], messages: Messages)
 
 @list = @{
     claimingFor.flatMap(x => Some(messages(s"claimingFor.$x")))

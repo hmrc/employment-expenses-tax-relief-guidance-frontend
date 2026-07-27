@@ -21,7 +21,7 @@ import org.apache.pekko.stream.Materializer
 
 trait MaterializerSupport {
 
- given system: ActorSystem        = ActorSystem("Sys")
- given materializer: Materializer = Materializer(system)
+  implicit val system: ActorSystem        = ActorSystem("Sys")
+  implicit val materializer: Materializer = Materializer(system)
 
 }
