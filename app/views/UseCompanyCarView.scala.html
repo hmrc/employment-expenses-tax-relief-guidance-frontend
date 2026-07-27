@@ -24,7 +24,7 @@
     submitButton: playComponents.submit_button
 )
 
-@(form: Form[?], useOfOwnCar: UseOfOwnCar)(implicit request: Request[?], messages: Messages)
+@(form: Form[?], useOfOwnCar: UseOfOwnCar)(using request: Request[?], messages: Messages)
 
 @layout(
     pageTitle = s"${errorPrefix(form)} ${messages(s"useCompanyCar.$useOfOwnCar.title")}"

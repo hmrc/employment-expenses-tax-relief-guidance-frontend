@@ -83,7 +83,7 @@ trait Formatters {
     }
 
   private[mappings] def enumerableFormatter[A](requiredKey: String, invalidKey: String)(
-      implicit ev: Enumerable[A]
+      using ev: Enumerable[A]
   ): Formatter[A] =
     new Formatter[A] {
 
