@@ -144,7 +144,7 @@ object ClaimingFor {
   }
 
   implicit val enumerable: Enumerable[ClaimingFor] =
-    Enumerable(values.map(v => v.toString -> v): _*)
+    Enumerable(values.map(v => v.toString -> v)*)
 
   val mappings: Map[String, ClaimingFor] = Map(
     HomeWorking.toString           -> HomeWorking,

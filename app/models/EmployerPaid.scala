@@ -35,6 +35,6 @@ object EmployerPaid {
   val options: Set[RadioOption] = values.map(value => RadioOption("employerPaid", value.toString))
 
   implicit val enumerable: Enumerable[EmployerPaid] =
-    Enumerable(values.toSeq.map(v => v.toString -> v): _*)
+    Enumerable(values.toSeq.map(v => v.toString -> v)*)
 
 }

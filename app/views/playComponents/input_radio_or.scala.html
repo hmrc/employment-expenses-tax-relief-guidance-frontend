@@ -53,7 +53,7 @@
             }
             @field.errors.map { error =>
                 <p class="govuk-error-message" id="@errorId">
-                    <span class="govuk-visually-hidden">@messages("error.inline.prefix"):</span> @messages(error.message, error.args: _*)
+                    <span class="govuk-visually-hidden">@messages("error.inline.prefix"):</span> @messages(error.message, error.args*)
                 </p>
             }
             <div class="govuk-radios" data-module="govuk-radios">

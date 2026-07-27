@@ -25,7 +25,7 @@ case class Message(key: String, args: Any*) {
     Html(string)
 
   def string(implicit messages: Messages): String =
-    messages(key, args: _*)
+    messages(key, args*)
 
 }
 

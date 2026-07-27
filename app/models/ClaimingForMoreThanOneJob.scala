@@ -34,6 +34,6 @@ object ClaimingForMoreThanOneJob extends Enumerable.Implicits {
     values.map(value => RadioOption("claimingForMoreThanOneJob", value.toString))
 
   implicit val enumerable: Enumerable[ClaimingForMoreThanOneJob] =
-    Enumerable(values.map(v => v.toString -> v): _*)
+    Enumerable(values.map(v => v.toString -> v)*)
 
 }
