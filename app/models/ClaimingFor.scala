@@ -46,7 +46,7 @@ object ClaimingFor {
   )
 
   def options(onlineJourneyShutterEnabled: Boolean, freOnlyJourneyEnabled: Boolean)(
-      implicit messages: Messages
+      using messages: Messages
   ): List[CheckboxItem] = {
 
     val feesOption = {

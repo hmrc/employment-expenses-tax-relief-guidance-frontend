@@ -28,7 +28,7 @@ import play.api.mvc.Call
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class Navigator @Inject() (navigatorHelper: NavigatorHelper)(implicit appConfig: FrontendAppConfig) {
+class Navigator @Inject() (navigatorHelper: NavigatorHelper)(using appConfig: FrontendAppConfig) {
 
   private def claimingForRouting(userAnswers: UserAnswers) = userAnswers.claimingFor match {
     case Some(_) if appConfig.onlineJourneyShutterEnabled => routes.ClaimantController.onPageLoad()

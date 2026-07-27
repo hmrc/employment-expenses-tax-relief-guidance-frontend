@@ -27,20 +27,20 @@ class CascadeUpsert {
   val funcMap: Map[Identifier, (JsValue, CacheMap) => CacheMap] =
     Map()
 
-  def apply[A](key: Identifier, value: A, originalCacheMap: CacheMap)(implicit fmt: Format[A]): CacheMap =
+  def apply[A](key: Identifier, value: A, originalCacheMap: CacheMap)(using fmt: Format[A]): CacheMap =
     funcMap
       .get(key)
       .fold(clearDownstreamIfChanged(key, value, originalCacheMap))(fn => fn(Json.toJson(value), originalCacheMap))
 
-  def addRepeatedValue[A](key: Identifier, value: A, originalCacheMap: CacheMap)(implicit fmt: Format[A]): CacheMap = {
+  def addRepeatedValue[A](key: Identifier, value: A, originalCacheMap: CacheMap)(using fmt: Format[A]): CacheMap = {
     val values = originalCacheMap.getEntry[Seq[A]](key.toString).getOrElse(Seq()) :+ value
     originalCacheMap.copy(data = originalCacheMap.data + (key.toString -> Json.toJson(values)))
   }
 
-  private def store[A](key: Identifier, value: A, cacheMap: CacheMap)(implicit fmt: Format[A]) =
+  private def store[A](key: Identifier, value: A, cacheMap: CacheMap)(using fmt: Format[A]) =
     cacheMap.copy(data = cacheMap.data + (key.toString -> Json.toJson(value)))
 
-  private def clearDownstreamIfChanged[A](key: Identifier, value: A, cacheMap: CacheMap)(implicit fmt: Format[A]) = {
+  private def clearDownstreamIfChanged[A](key: Identifier, value: A, cacheMap: CacheMap)(using fmt: Format[A]) = {
     val mapToStore = if (cacheMap.getEntry[A](key.toString).contains(value)) {
       cacheMap
     } else {

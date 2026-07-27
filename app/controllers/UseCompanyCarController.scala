@@ -75,7 +75,7 @@ class UseCompanyCarController @Inject() (
 
   private def getUseOfOwnCar(
       block: UseOfOwnCar => Future[Result]
-  )(implicit request: DataRequest[AnyContent]): Future[Result] =
+  )(using request: DataRequest[AnyContent]): Future[Result] =
 
     request.userAnswers.useOwnCar match {
       case Some(true)  => block(UsingOwnCar)
