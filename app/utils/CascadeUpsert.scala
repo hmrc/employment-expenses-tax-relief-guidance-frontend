@@ -18,8 +18,8 @@ package utils
 
 import javax.inject.Singleton
 
-import play.api.libs.json._
-import identifiers._
+import play.api.libs.json.*
+import identifiers.*
 
 @Singleton
 class CascadeUpsert {

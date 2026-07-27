@@ -19,7 +19,7 @@ package views
 import views.behaviours.NewViewBehaviours
 import views.html.CannotClaimReliefView
 import config.FrontendAppConfig
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.Application

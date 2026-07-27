@@ -16,8 +16,8 @@
 
 package utils
 
-import identifiers._
-import models._
+import identifiers.*
+import models.*
 
 class UserAnswers(val cacheMap: CacheMap) extends Enumerable.Implicits {
   def willPayTax: Option[Boolean] = cacheMap.getEntry[Boolean](WillPayTaxId.toString)

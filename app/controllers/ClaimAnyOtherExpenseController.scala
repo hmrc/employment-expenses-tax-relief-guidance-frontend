@@ -17,7 +17,7 @@
 package controllers
 
 import connectors.DataCacheConnector
-import controllers.actions._
+import controllers.actions.*
 import forms.ClaimAnyOtherExpenseFormProvider
 import identifiers.ClaimAnyOtherExpenseId
 

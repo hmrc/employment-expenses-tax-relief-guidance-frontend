@@ -16,10 +16,10 @@
 
 package utils
 
-import play.api.libs.json._
+import play.api.libs.json.*
 import base.SpecBase
-import identifiers._
-import models._
+import identifiers.*
+import models.*
 
 class CascadeUpsertSpec extends SpecBase {
 

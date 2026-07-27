@@ -17,7 +17,7 @@
 package controllers
 
 import connectors.DataCacheConnector
-import controllers.actions._
+import controllers.actions.*
 import forms.ClaimingOverPayAsYouEarnThresholdFormProvider
 import identifiers.ClaimingOverPayAsYouEarnThresholdId
 import javax.inject.Inject

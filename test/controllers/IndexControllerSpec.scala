@@ -17,7 +17,7 @@
 package controllers
 
 import base.SpecBase
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import utils.{Navigator, NavigatorHelper}
 
 class IndexControllerSpec extends SpecBase {

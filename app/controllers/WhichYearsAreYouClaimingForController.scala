@@ -17,7 +17,7 @@
 package controllers
 
 import connectors.DataCacheConnector
-import controllers.actions._
+import controllers.actions.*
 import forms.WhichYearsAreYouClaimingForFormProvider
 import identifiers.WhichYearsAreYouClaimingForId
 import play.api.data.Form

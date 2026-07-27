@@ -17,7 +17,7 @@
 package controllers
 
 import base.SpecBase
-import models.ClaimingForMoreThanOneJob._
+import models.ClaimingForMoreThanOneJob.*
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.when
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
@@ -25,7 +25,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.mvc.Call
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import scala.concurrent.ExecutionContext.Implicits.global
 import connectors.DataCacheConnector
 import forms.ClaimingForMoreThanOneJobFormProvider

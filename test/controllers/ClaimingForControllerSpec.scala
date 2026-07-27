@@ -19,7 +19,7 @@ package controllers
 import base.SpecBase
 import connectors.DataCacheConnector
 import identifiers.ClaimingForId
-import models.ClaimingFor._
+import models.ClaimingFor.*
 import org.mockito.ArgumentMatchers.any
 import org.mockito.Mockito.{reset, when}
 import org.scalatest.BeforeAndAfterEach
@@ -29,7 +29,7 @@ import play.api.inject.bind
 import play.api.libs.json.{JsArray, JsString}
 import play.api.mvc.Call
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import utils.{CacheMap, Navigator, NavigatorSupport}
 
 import scala.concurrent.ExecutionContext.Implicits.global

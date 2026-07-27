@@ -17,7 +17,7 @@
 package controllers
 
 import config.FrontendAppConfig
-import controllers.actions._
+import controllers.actions.*
 import controllers.helpers.ClaimingForListBuilder
 import models.ClaimingFor
 import models.ClaimingFor.{FeesSubscriptions, HomeWorking}

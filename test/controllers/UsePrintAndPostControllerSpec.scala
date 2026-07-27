@@ -19,7 +19,7 @@ package controllers
 import base.SpecBase
 import config.FrontendAppConfig
 import controllers.helpers.ClaimingForListBuilder
-import identifiers._
+import identifiers.*
 import models.ClaimingFor
 import models.ClaimingFor.{FeesSubscriptions, HomeWorking, MileageFuel, TravelExpenses}
 import org.mockito.ArgumentMatchers.{any, eq => eqTo}
@@ -31,7 +31,7 @@ import play.api.inject.bind
 import play.api.libs.json.Reads
 import play.api.mvc.Request
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import play.twirl.api.HtmlFormat
 import utils.{CacheMap, UserAnswers}
 import views.html.{UseIformFreOnlyView, UsePrintAndPostDetailedView, UsePrintAndPostFreOnlyView, UsePrintAndPostView}

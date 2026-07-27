@@ -16,7 +16,7 @@
 
 package utils
 
-import play.api.libs.json._
+import play.api.libs.json.*
 
 case class CacheMap(id: String, data: Map[String, JsValue]) {
 

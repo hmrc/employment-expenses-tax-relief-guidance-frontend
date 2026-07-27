@@ -18,8 +18,8 @@ package utils
 
 import config.FrontendAppConfig
 import controllers.routes
-import identifiers._
-import models.ClaimingFor._
+import identifiers.*
+import models.ClaimingFor.*
 import models.ClaimingForMoreThanOneJob.{MoreThanOneJob, OneJob}
 import models.EmployerPaid.{AllExpenses, NoExpenses, SomeExpenses}
 import models.{Claimant, ClaimingFor}

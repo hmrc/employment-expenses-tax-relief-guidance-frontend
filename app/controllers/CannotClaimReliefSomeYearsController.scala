@@ -16,7 +16,7 @@
 
 package controllers
 
-import controllers.actions._
+import controllers.actions.*
 import identifiers.CannotClaimReliefSomeYearsId
 import javax.inject.Inject
 import play.api.i18n.I18nSupport

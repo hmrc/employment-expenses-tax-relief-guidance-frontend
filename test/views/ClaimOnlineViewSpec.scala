@@ -18,7 +18,7 @@ package views
 
 import config.FrontendAppConfig
 import models.ClaimingFor
-import models.ClaimingFor._
+import models.ClaimingFor.*
 import org.jsoup.nodes.Element
 import org.mockito.Mockito.when
 import org.scalatestplus.mockito.MockitoSugar

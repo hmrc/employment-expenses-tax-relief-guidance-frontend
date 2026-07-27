@@ -17,7 +17,7 @@
 package controllers
 
 import config.FrontendAppConfig
-import controllers.actions._
+import controllers.actions.*
 
 import javax.inject.Inject
 import play.api.i18n.I18nSupport

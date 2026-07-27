@@ -24,14 +24,14 @@ class RichFieldSpec extends AnyWordSpec with Matchers {
 
   val multiForm: Form[Set[String]] = {
 
-    import play.api.data.Forms._
+    import play.api.data.Forms.*
 
     Form("value" -> set(text))
   }
 
   val singleForm: Form[String] = {
 
-    import play.api.data.Forms._
+    import play.api.data.Forms.*
 
     Form("value" -> text)
   }

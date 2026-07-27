@@ -16,7 +16,7 @@
 
 package controllers
 
-import controllers.actions._
+import controllers.actions.*
 import forms.ClaimingForMoreThanOneJobFormProvider
 import identifiers.ClaimingForMoreThanOneJobId
 import connectors.DataCacheConnector

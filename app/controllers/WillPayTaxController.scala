@@ -18,7 +18,7 @@ package controllers
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.actions._
+import controllers.actions.*
 import forms.WillPayTaxFormProvider
 import identifiers.WillPayTaxId
 import javax.inject.Inject
