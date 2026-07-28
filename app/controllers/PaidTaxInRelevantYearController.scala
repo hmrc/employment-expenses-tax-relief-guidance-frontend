@@ -47,7 +47,7 @@ class PaidTaxInRelevantYearController @Inject() (
     with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { request =>
-    given DataRequest[_]    = request
+    given DataRequest[?]    = request
     val form: Form[Boolean] = formProvider(appConfig.earliestTaxYear)
 
     val preparedForm = request.userAnswers.paidTaxInRelevantYear match {
@@ -58,7 +58,7 @@ class PaidTaxInRelevantYearController @Inject() (
   }
 
   def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { request =>
-    given DataRequest[_]    = request
+    given DataRequest[?]    = request
     val form: Form[Boolean] = formProvider(appConfig.earliestTaxYear)
 
     form

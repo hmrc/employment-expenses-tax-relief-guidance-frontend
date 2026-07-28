@@ -39,7 +39,7 @@ class WillNotPayTaxController @Inject() (
     with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { request =>
-    given DataRequest[_] = request
+    given DataRequest[?] = request
     val nextPage         = navigator.nextPage(WillNotPayTaxId)(request.userAnswers)
 
     Future.successful(Ok(view(nextPage)))

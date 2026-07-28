@@ -38,7 +38,7 @@ class ClaimOnlineController @Inject() (
     with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
-    given DataRequest[_] = request
+    given DataRequest[?] = request
     val claimingFor      = request.userAnswers.claimingFor.getOrElse(List())
 
     val isMergedJourney = claimingFor

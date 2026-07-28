@@ -49,7 +49,7 @@ class ClaimingForMoreThanOneJobController @Inject() (
 
   def onPageLoad: Action[AnyContent] =
     getData.andThen(requireData) { request =>
-      given DataRequest[_] = request
+      given DataRequest[?] = request
       val preparedForm = request.userAnswers.claimingForMoreThanOneJob match {
         case None        => form
         case Some(value) => form.fill(value)
@@ -60,7 +60,7 @@ class ClaimingForMoreThanOneJobController @Inject() (
 
   def onSubmit: Action[AnyContent] =
     getData.andThen(requireData).async { request =>
-      given DataRequest[_] = request
+      given DataRequest[?] = request
       form
         .bindFromRequest()
         .fold(

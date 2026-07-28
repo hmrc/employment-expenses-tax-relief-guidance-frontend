@@ -34,7 +34,7 @@ class CannotClaimReliefController @Inject() (
     with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
-    given DataRequest[_] = request
+    given DataRequest[?] = request
     Ok(view())
   }
 

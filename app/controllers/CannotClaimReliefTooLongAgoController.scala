@@ -35,7 +35,7 @@ class CannotClaimReliefTooLongAgoController @Inject() (
     with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
-    given DataRequest[_] = request
+    given DataRequest[?] = request
     val startYear        = TaxYear.current.startYear.toString
     val endYear          = TaxYear.current.finishYear.toString
 

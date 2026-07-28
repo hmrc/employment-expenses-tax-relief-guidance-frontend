@@ -49,7 +49,7 @@ class ClaimantController @Inject() (
   val form: Form[Claimant] = formProvider()
 
   def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
-    given DataRequest[_] = request
+    given DataRequest[?] = request
     val preparedForm = request.userAnswers.claimant match {
       case None        => form
       case Some(value) => form.fill(value)
@@ -58,7 +58,7 @@ class ClaimantController @Inject() (
   }
 
   def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { request =>
-    given DataRequest[_] = request
+    given DataRequest[?] = request
     form
       .bindFromRequest()
       .fold(
