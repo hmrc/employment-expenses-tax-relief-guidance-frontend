@@ -21,6 +21,7 @@ import controllers.actions.*
 import controllers.helpers.ClaimingForListBuilder
 import models.ClaimingFor
 import models.ClaimingFor.{FeesSubscriptions, HomeWorking}
+import models.requests.DataRequest
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
@@ -39,8 +40,9 @@ class UsePrintAndPostController @Inject() (
 ) extends FrontendBaseController
     with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
-    val sortedList = claimingForListBuilder.buildClaimingForList(request.userAnswers)
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
+    given DataRequest[_] = request
+    val sortedList       = claimingForListBuilder.buildClaimingForList(request.userAnswers)
     request.userAnswers.moreThanFiveJobs match {
       case Some(true) => Ok(freOnlyPrintAndPostView(sortedList))
       case _          => Ok(freOnlyIformView(sortedList, redirectionLink(sortedList)))

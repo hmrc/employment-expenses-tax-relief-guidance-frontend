@@ -34,7 +34,7 @@ class LanguageSwitchController @Inject() (
 
   private def languageMap: Map[String, Lang] = appConfig.languageMap
 
-  def switchToLanguage(language: String): Action[AnyContent] = Action { implicit request =>
+  def switchToLanguage(language: String): Action[AnyContent] = Action { request =>
     val enabled = isWelshEnabled
     val lang = if (enabled) {
       languageMap.getOrElse(language, Lang.defaultLang)

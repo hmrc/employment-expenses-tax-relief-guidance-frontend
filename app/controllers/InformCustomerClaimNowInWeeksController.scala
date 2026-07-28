@@ -18,6 +18,8 @@ package controllers
 
 import controllers.actions.{DataRequiredAction, DataRetrievalAction}
 import identifiers.InformCustomerClaimNowInWeeksId
+import models.requests.DataRequest
+
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -34,9 +36,12 @@ class InformCustomerClaimNowInWeeksController @Inject() (
 ) extends FrontendBaseController
     with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = getData.andThen(requireData)(implicit request => Ok(informClaimNowInWeeksView()))
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
+    given DataRequest[_] = request
+    Ok(informClaimNowInWeeksView())
+  }
 
-  def onSubmit: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData) { request =>
     Redirect(navigator.nextPage(InformCustomerClaimNowInWeeksId)(request.userAnswers))
   }
 

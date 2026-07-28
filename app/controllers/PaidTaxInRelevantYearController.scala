@@ -21,6 +21,8 @@ import connectors.DataCacheConnector
 import controllers.actions.*
 import forms.PaidTaxInRelevantYearFormProvider
 import identifiers.PaidTaxInRelevantYearId
+import models.requests.DataRequest
+
 import javax.inject.Inject
 import play.api.data.Form
 import play.api.i18n.I18nSupport
@@ -44,7 +46,8 @@ class PaidTaxInRelevantYearController @Inject() (
     extends FrontendBaseController
     with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { request =>
+    given DataRequest[_]    = request
     val form: Form[Boolean] = formProvider(appConfig.earliestTaxYear)
 
     val preparedForm = request.userAnswers.paidTaxInRelevantYear match {
@@ -54,7 +57,8 @@ class PaidTaxInRelevantYearController @Inject() (
     Future.successful(Ok(view(preparedForm)))
   }
 
-  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { request =>
+    given DataRequest[_]    = request
     val form: Form[Boolean] = formProvider(appConfig.earliestTaxYear)
 
     form

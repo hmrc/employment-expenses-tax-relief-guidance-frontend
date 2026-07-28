@@ -19,6 +19,7 @@ package controllers
 import connectors.DataCacheConnector
 import controllers.actions.{DataRequiredAction, DataRetrievalAction}
 import identifiers.{ChangeUniformsWorkClothingToolsId, ClaimingForId}
+
 import javax.inject.Inject
 import models.ClaimingFor
 import play.api.i18n.I18nSupport
@@ -39,7 +40,7 @@ class ChangeUniformsWorkClothingToolsController @Inject() (
     with I18nSupport
     with Enumerable.Implicits {
 
-  def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { request =>
     dataCacheConnector
       .save[Set[ClaimingFor]](request.sessionId, ClaimingForId, Set(ClaimingFor.UniformsClothingTools))
       .map(cacheMap => Redirect(navigator.nextPage(ChangeUniformsWorkClothingToolsId)(new UserAnswers(cacheMap))))

@@ -43,7 +43,7 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
   val view = application.injector.instanceOf[ClaimOnlineView]
 
   def createView(journey: OnwardJourney, selectedList: List[ClaimingFor])(
-      implicit request: play.api.mvc.Request[?],
+      using request: play.api.mvc.Request[?],
       messages: play.api.i18n.Messages
   ) =
     view.apply(journey, selectedList)
@@ -60,7 +60,7 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
 
       val doc = asDocument(
         createView(OnwardJourney.IForm, List(HomeWorking, UniformsClothingTools, MileageFuel, TravelExpenses))(
-          fakeRequest,
+          using fakeRequest,
           messages
         )
       )
@@ -82,7 +82,9 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
       when(mockAppConfig.workingFromHomeExpensesUrl).thenReturn("http://example.com/working-from-home")
 
       val doc =
-        asDocument(createView(OnwardJourney.FixedRateExpenses, List(UniformsClothingTools))(fakeRequest, messages))
+        asDocument(
+          createView(OnwardJourney.FixedRateExpenses, List(UniformsClothingTools))(using fakeRequest, messages)
+        )
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be(mockAppConfig.employeeExpensesUrl)
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
@@ -145,7 +147,9 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
       when(mockAppConfig.workingFromHomeExpensesUrl).thenReturn("http://example.com/working-from-home")
 
       val doc =
-        asDocument(createView(OnwardJourney.FixedRateExpenses, List(UniformsClothingTools))(fakeRequest, messages))
+        asDocument(
+          createView(OnwardJourney.FixedRateExpenses, List(UniformsClothingTools))(using fakeRequest, messages)
+        )
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be(mockAppConfig.freOnlyPegaUrl)
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")

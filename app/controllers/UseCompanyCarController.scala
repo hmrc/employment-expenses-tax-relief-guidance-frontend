@@ -45,7 +45,8 @@ class UseCompanyCarController @Inject() (
     extends FrontendBaseController
     with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { request =>
+    given DataRequest[AnyContent] = request
     getUseOfOwnCar { useOfOwnCar =>
       val form: Form[Boolean] = formProvider(useOfOwnCar)
 
@@ -57,7 +58,8 @@ class UseCompanyCarController @Inject() (
     }
   }
 
-  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { request =>
+    given DataRequest[AnyContent] = request
     getUseOfOwnCar { useOfOwnCar =>
       val form: Form[Boolean] = formProvider(useOfOwnCar)
 

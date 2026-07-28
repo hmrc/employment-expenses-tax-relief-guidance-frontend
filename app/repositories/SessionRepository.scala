@@ -37,13 +37,13 @@ case class DatedCacheMap(id: String, data: Map[String, JsValue], lastUpdated: In
 
 object DatedCacheMap extends MongoDateTimeFormats {
 
-  implicit val formats: OFormat[DatedCacheMap] = Json.format[DatedCacheMap]
+  given formats: OFormat[DatedCacheMap] = Json.format[DatedCacheMap]
 
   def apply(cacheMap: CacheMap): DatedCacheMap = DatedCacheMap(cacheMap.id, cacheMap.data)
 }
 
 class ReactiveMongoRepository(appConfig: FrontendAppConfig, mongo: MongoComponent)(
-    implicit executionContext: ExecutionContext
+    using executionContext: ExecutionContext
 ) extends PlayMongoRepository[DatedCacheMap](
       collectionName = appConfig.serviceName,
       mongoComponent = mongo,
@@ -85,7 +85,7 @@ class ReactiveMongoRepository(appConfig: FrontendAppConfig, mongo: MongoComponen
 
 @Singleton
 class SessionRepository @Inject() (appConfig: FrontendAppConfig, mongo: MongoComponent)(
-    implicit executionContext: ExecutionContext
+    using executionContext: ExecutionContext
 ) {
 
   private lazy val sessionRepository = new ReactiveMongoRepository(appConfig, mongo)

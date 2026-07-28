@@ -67,7 +67,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
       controllerComponents
     )
 
-  implicit def messages: Messages = messagesApi.preferred(fakeRequest)
+  given messages: Messages = messagesApi.preferred(fakeRequest)
 
   protected def applicationBuilder(cacheMap: Option[CacheMap] = None): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()

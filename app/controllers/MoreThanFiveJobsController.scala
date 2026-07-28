@@ -20,6 +20,8 @@ import connectors.DataCacheConnector
 import controllers.actions.*
 import forms.MoreThanFiveJobsFormProvider
 import identifiers.MoreThanFiveJobsId
+import models.requests.DataRequest
+
 import javax.inject.Inject
 import play.api.data.Form
 import play.api.i18n.I18nSupport
@@ -44,7 +46,8 @@ class MoreThanFiveJobsController @Inject() (
 
   val form: Form[Boolean] = formProvider()
 
-  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
+    given DataRequest[_] = request
     val preparedForm = request.userAnswers.moreThanFiveJobs match {
       case None        => form
       case Some(value) => form.fill(value)
@@ -52,7 +55,8 @@ class MoreThanFiveJobsController @Inject() (
     Ok(view(preparedForm))
   }
 
-  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { request =>
+    given DataRequest[_] = request
     form
       .bindFromRequest()
       .fold(

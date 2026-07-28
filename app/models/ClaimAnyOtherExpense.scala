@@ -39,7 +39,7 @@ object ClaimAnyOtherExpense extends Enumerable.Implicits {
     )
   }
 
-  implicit val enumerable: Enumerable[ClaimAnyOtherExpense] =
+  given enumerable: Enumerable[ClaimAnyOtherExpense] =
     Enumerable(values.map(v => v.toString -> v)*)
 
 }

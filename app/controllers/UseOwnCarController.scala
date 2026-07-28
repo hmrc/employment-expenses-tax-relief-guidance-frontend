@@ -20,6 +20,8 @@ import connectors.DataCacheConnector
 import controllers.actions.*
 import forms.UseOwnCarFormProvider
 import identifiers.UseOwnCarId
+import models.requests.DataRequest
+
 import javax.inject.Inject
 import play.api.data.Form
 import play.api.i18n.I18nSupport
@@ -42,7 +44,8 @@ class UseOwnCarController @Inject() (
     extends FrontendBaseController
     with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
+    given DataRequest[_]    = request
     val form: Form[Boolean] = formProvider()
 
     val preparedForm = request.userAnswers.useOwnCar match {
@@ -52,7 +55,8 @@ class UseOwnCarController @Inject() (
     Ok(view(preparedForm))
   }
 
-  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { request =>
+    given DataRequest[_]    = request
     val form: Form[Boolean] = formProvider()
 
     form

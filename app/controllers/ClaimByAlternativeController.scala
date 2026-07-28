@@ -17,6 +17,7 @@
 package controllers
 
 import controllers.actions.*
+import models.requests.DataRequest
 
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
@@ -32,6 +33,9 @@ class ClaimByAlternativeController @Inject() (
 ) extends FrontendBaseController
     with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = getData.andThen(requireData)(implicit request => Ok(view()))
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
+    given DataRequest[_] = request
+    Ok(view())
+  }
 
 }

@@ -20,8 +20,10 @@ import connectors.DataCacheConnector
 import controllers.actions.*
 import forms.ClaimantFormProvider
 import identifiers.ClaimantId
+
 import javax.inject.Inject
 import models.Claimant
+import models.requests.DataRequest
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -46,7 +48,8 @@ class ClaimantController @Inject() (
 
   val form: Form[Claimant] = formProvider()
 
-  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
+    given DataRequest[_] = request
     val preparedForm = request.userAnswers.claimant match {
       case None        => form
       case Some(value) => form.fill(value)
@@ -54,7 +57,8 @@ class ClaimantController @Inject() (
     Ok(view(preparedForm))
   }
 
-  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { request =>
+    given DataRequest[_] = request
     form
       .bindFromRequest()
       .fold(

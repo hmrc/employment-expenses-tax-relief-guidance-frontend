@@ -20,6 +20,7 @@ import connectors.DataCacheConnector
 import controllers.actions.*
 import forms.RegisteredForSelfAssessmentFormProvider
 import identifiers.RegisteredForSelfAssessmentId
+import models.requests.DataRequest
 
 import javax.inject.Inject
 import play.api.data.Form
@@ -43,7 +44,8 @@ class RegisteredForSelfAssessmentController @Inject() (
     extends FrontendBaseController
     with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
+    given DataRequest[_]    = request
     val form: Form[Boolean] = formProvider()
 
     val preparedForm = request.userAnswers.registeredForSelfAssessment match {
@@ -54,7 +56,8 @@ class RegisteredForSelfAssessmentController @Inject() (
     Ok(view(preparedForm))
   }
 
-  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { request =>
+    given DataRequest[_] = request
     formProvider()
       .bindFromRequest()
       .fold(

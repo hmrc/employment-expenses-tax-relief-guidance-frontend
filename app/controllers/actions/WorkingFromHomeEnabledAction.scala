@@ -27,7 +27,7 @@ import scala.concurrent.{ExecutionContext, Future}
 class WorkingFromHomeEnabledActionImpl @Inject() (
     controllerComponents: MessagesControllerComponents,
     frontendAppConfig: FrontendAppConfig
-)(implicit val executionContext: ExecutionContext)
+)(using override val executionContext: ExecutionContext)
     extends WorkingFromHomeEnabledAction {
 
   override def invokeBlock[A](request: Request[A], block: Request[A] => Future[Result]): Future[Result] =

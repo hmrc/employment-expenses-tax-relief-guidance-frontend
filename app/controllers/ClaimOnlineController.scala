@@ -21,6 +21,7 @@ import controllers.actions.*
 
 import javax.inject.Inject
 import models.ClaimingFor.*
+import models.requests.DataRequest
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
@@ -36,8 +37,9 @@ class ClaimOnlineController @Inject() (
 ) extends FrontendBaseController
     with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
-    val claimingFor = request.userAnswers.claimingFor.getOrElse(List())
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
+    given DataRequest[_] = request
+    val claimingFor      = request.userAnswers.claimingFor.getOrElse(List())
 
     val isMergedJourney = claimingFor
       .filterNot(claim =>

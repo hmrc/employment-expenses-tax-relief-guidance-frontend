@@ -21,6 +21,7 @@ import forms.ClaimingForMoreThanOneJobFormProvider
 import identifiers.ClaimingForMoreThanOneJobId
 import connectors.DataCacheConnector
 import models.ClaimingForMoreThanOneJob
+import models.requests.DataRequest
 
 import javax.inject.Inject
 import utils.{Navigator, UserAnswers}
@@ -47,7 +48,8 @@ class ClaimingForMoreThanOneJobController @Inject() (
   val form: Form[ClaimingForMoreThanOneJob] = formProvider()
 
   def onPageLoad: Action[AnyContent] =
-    getData.andThen(requireData) { implicit request =>
+    getData.andThen(requireData) { request =>
+      given DataRequest[_] = request
       val preparedForm = request.userAnswers.claimingForMoreThanOneJob match {
         case None        => form
         case Some(value) => form.fill(value)
@@ -57,7 +59,8 @@ class ClaimingForMoreThanOneJobController @Inject() (
     }
 
   def onSubmit: Action[AnyContent] =
-    getData.andThen(requireData).async { implicit request =>
+    getData.andThen(requireData).async { request =>
+      given DataRequest[_] = request
       form
         .bindFromRequest()
         .fold(

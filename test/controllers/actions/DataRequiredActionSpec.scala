@@ -25,13 +25,13 @@ import play.api.test.Helpers.*
 import utils.UserAnswers
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
 class DataRequiredActionSpec extends SpecBase with MockitoSugar with ScalaFutures {
 
   val sessionId = "abc"
 
-  class Harness() extends DataRequiredActionImpl() {
+  class Harness(using ec: ExecutionContext) extends DataRequiredActionImpl(ec) {
     def callRefine[A](request: OptionalDataRequest[A]): Future[Either[Result, DataRequest[A]]] = refine(request)
   }
 

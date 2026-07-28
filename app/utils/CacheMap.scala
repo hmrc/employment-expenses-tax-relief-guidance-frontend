@@ -35,5 +35,5 @@ case class CacheMap(id: String, data: Map[String, JsValue]) {
 }
 
 object CacheMap {
-  implicit val formats: OFormat[CacheMap] = Json.format[CacheMap]
+  given formats: OFormat[CacheMap] = Json.format[CacheMap]
 }

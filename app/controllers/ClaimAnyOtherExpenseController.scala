@@ -20,6 +20,7 @@ import connectors.DataCacheConnector
 import controllers.actions.*
 import forms.ClaimAnyOtherExpenseFormProvider
 import identifiers.ClaimAnyOtherExpenseId
+import models.requests.OptionalDataRequest
 
 import javax.inject.Inject
 import play.api.Logging
@@ -52,7 +53,8 @@ class ClaimAnyOtherExpenseController @Inject() (
     Redirect(routes.ClaimAnyOtherExpenseController.onPageLoad())
   }
 
-  def onPageLoad: Action[AnyContent] = flowEnabled.andThen(getData) { implicit request =>
+  def onPageLoad: Action[AnyContent] = flowEnabled.andThen(getData) { request =>
+    given OptionalDataRequest[_] = request
     val preparedForm = request.userAnswers.flatMap(_.claimAnyOtherExpense) match {
       case None        => form
       case Some(value) => form.fill(value)
@@ -60,7 +62,8 @@ class ClaimAnyOtherExpenseController @Inject() (
     Ok(view(preparedForm))
   }
 
-  def onSubmit: Action[AnyContent] = flowEnabled.andThen(getData).async { implicit request =>
+  def onSubmit: Action[AnyContent] = flowEnabled.andThen(getData).async { request =>
+    given OptionalDataRequest[_] = request
     form
       .bindFromRequest()
       .fold(
