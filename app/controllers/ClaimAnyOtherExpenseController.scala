@@ -54,7 +54,7 @@ class ClaimAnyOtherExpenseController @Inject() (
   }
 
   def onPageLoad: Action[AnyContent] = flowEnabled.andThen(getData) { request =>
-    given OptionalDataRequest[?] = request
+    given OptionalDataRequest[AnyContent] = request
     val preparedForm = request.userAnswers.flatMap(_.claimAnyOtherExpense) match {
       case None        => form
       case Some(value) => form.fill(value)
@@ -63,7 +63,7 @@ class ClaimAnyOtherExpenseController @Inject() (
   }
 
   def onSubmit: Action[AnyContent] = flowEnabled.andThen(getData).async { request =>
-    given OptionalDataRequest[?] = request
+    given OptionalDataRequest[AnyContent] = request
     form
       .bindFromRequest()
       .fold(

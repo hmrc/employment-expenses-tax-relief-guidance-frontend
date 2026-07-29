@@ -37,8 +37,8 @@ class NotEntitledSomeYearsController @Inject() (
     with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
-    given DataRequest[?] = request
-    val nextPage         = navigator.nextPage(NotEntitledSomeYearsId)(request.userAnswers)
+    given DataRequest[AnyContent] = request
+    val nextPage                  = navigator.nextPage(NotEntitledSomeYearsId)(request.userAnswers)
     Ok(view(nextPage))
   }
 

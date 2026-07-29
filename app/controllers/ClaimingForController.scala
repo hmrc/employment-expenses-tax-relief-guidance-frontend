@@ -46,8 +46,8 @@ class ClaimingForController @Inject() (
     with Enumerable.Implicits {
 
   def onPageLoad: Action[AnyContent] = getData { request =>
-    given OptionalDataRequest[?] = request
-    val form                     = formProvider()
+    given OptionalDataRequest[AnyContent] = request
+    val form                              = formProvider()
     val preparedForm = request.userAnswers.flatMap(_.claimingFor) match {
       case None        => form
       case Some(value) => form.fill(value.toSet)
@@ -62,8 +62,8 @@ class ClaimingForController @Inject() (
   }
 
   def onSubmit: Action[AnyContent] = getData.async { request =>
-    given OptionalDataRequest[?] = request
-    val form                     = formProvider()
+    given OptionalDataRequest[AnyContent] = request
+    val form                              = formProvider()
 
     val backLinkEnabled: Boolean = request.userAnswers.flatMap(_.claimAnyOtherExpense) match {
       case None | Some(true) => false

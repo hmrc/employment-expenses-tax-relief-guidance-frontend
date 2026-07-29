@@ -47,8 +47,8 @@ class WillPayTaxController @Inject() (
     with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { request =>
-    given DataRequest[?]    = request
-    val form: Form[Boolean] = formProvider(appConfig.earliestTaxYear)
+    given DataRequest[AnyContent] = request
+    val form: Form[Boolean]       = formProvider(appConfig.earliestTaxYear)
 
     val preparedForm = request.userAnswers.willPayTax match {
       case None        => form
@@ -58,8 +58,8 @@ class WillPayTaxController @Inject() (
   }
 
   def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { request =>
-    given DataRequest[?]    = request
-    val form: Form[Boolean] = formProvider(appConfig.earliestTaxYear)
+    given DataRequest[AnyContent] = request
+    val form: Form[Boolean]       = formProvider(appConfig.earliestTaxYear)
 
     form
       .bindFromRequest()

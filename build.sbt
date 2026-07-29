@@ -45,7 +45,8 @@ lazy val root = (project in file("."))
     scalacOptions ++= Seq("-feature"),
     libraryDependencies ++= AppDependencies(),
     dependencyOverrides += "commons-codec" % "commons-codec" % "1.12",
-    retrieveManaged                       := true
+    retrieveManaged                       := true,
+    Test / parallelExecution := false
   )
 
 lazy val testSettings: Seq[Def.Setting[?]] = Seq(

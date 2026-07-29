@@ -37,7 +37,7 @@ class InformCustomerClaimNowInWeeksController @Inject() (
     with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
-    given DataRequest[?] = request
+    given DataRequest[AnyContent] = request
     Ok(informClaimNowInWeeksView())
   }
 

@@ -45,8 +45,8 @@ class ClaimingMileageController @Inject() (
     with I18nSupport {
 
   def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
-    given DataRequest[?]    = request
-    val form: Form[Boolean] = formProvider()
+    given DataRequest[AnyContent] = request
+    val form: Form[Boolean]       = formProvider()
 
     val preparedForm = request.userAnswers.claimingMileage match {
       case None        => form
@@ -56,8 +56,8 @@ class ClaimingMileageController @Inject() (
   }
 
   def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { request =>
-    given DataRequest[?]    = request
-    val form: Form[Boolean] = formProvider()
+    given DataRequest[AnyContent] = request
+    val form: Form[Boolean]       = formProvider()
 
     form
       .bindFromRequest()
