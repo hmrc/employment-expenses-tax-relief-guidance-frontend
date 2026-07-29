@@ -32,7 +32,7 @@ class WhichYearsAreYouClaimingForViewSpec extends NewYesNoViewBehaviours {
 
   val form: Form[Boolean] = new WhichYearsAreYouClaimingForFormProvider()()
 
-  def createView(form: Form[?]) = view.apply(form)(fakeRequest, messages)
+  def createView(form: Form[?]) = view.apply(form)(using fakeRequest, messages)
 
   "WhichYearsAreYouClaimingFor view" must {
 

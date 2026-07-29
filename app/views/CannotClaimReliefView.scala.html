@@ -22,7 +22,7 @@
         appConfig: FrontendAppConfig
 )
 
-@()(implicit request: Request[?], messages: Messages)
+@()(using request: Request[?], messages: Messages)
 
     @layout(
         pageTitle = if(appConfig.freOnlyJourneyEnabled) messages(s"cannotClaimRelief.title") else messages(s"cannotClaimRelief.title_old")

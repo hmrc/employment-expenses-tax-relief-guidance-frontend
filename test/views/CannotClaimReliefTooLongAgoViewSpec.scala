@@ -31,7 +31,7 @@ class CannotClaimReliefTooLongAgoViewSpec extends NewViewBehaviours {
   val application = applicationBuilder().build()
   val view        = application.injector.instanceOf[CannotClaimReliefTooLongAgoView]
 
-  def createView = view.apply(startYear, endYear)(fakeRequest, messages)
+  def createView = view.apply(startYear, endYear)(using fakeRequest, messages)
 
   val taxReliefForEmployeesUrl = frontendAppConfig.taxReliefForEmployeesUrl
 

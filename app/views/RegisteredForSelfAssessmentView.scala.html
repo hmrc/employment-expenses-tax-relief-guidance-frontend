@@ -27,7 +27,7 @@
     submitButton: playComponents.submit_button,
 )
 
-@(form: Form[?])(implicit request: Request[?], messages: Messages)
+@(form: Form[?])(using request: Request[?], messages: Messages)
 
 @detailsContent = {
     <p class="govuk-body">@messages(s"registeredForSelfAssessment.accordion.guidance1")</p>

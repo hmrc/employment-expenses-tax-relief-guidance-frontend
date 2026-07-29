@@ -20,7 +20,7 @@
     buttonLink: playComponents.button_link
 )
 
-@(nextPage: Call)(implicit request: Request[?], messages: Messages)
+@(nextPage: Call)(using request: Request[?], messages: Messages)
 
 @layout(
     pageTitle = messages(s"notEntitledSomeYears.title")

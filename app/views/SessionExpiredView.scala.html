@@ -20,7 +20,7 @@
     buttonLink: playComponents.button_link
 )
 
-@(startAgain: Call)(implicit request: Request[?], messages: Messages)
+@(startAgain: Call)(using request: Request[?], messages: Messages)
 
 @layout(
     pageTitle = messages("session_expired.title"),

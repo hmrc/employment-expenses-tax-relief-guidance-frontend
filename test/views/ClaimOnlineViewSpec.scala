@@ -99,7 +99,7 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
 
       val view = application.injector.instanceOf[ClaimOnlineView]
       val doc =
-        asDocument(view(OnwardJourney.ProfessionalSubscriptions, List(FeesSubscriptions))(fakeRequest, messages))
+        asDocument(view(OnwardJourney.ProfessionalSubscriptions, List(FeesSubscriptions))(using fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be(mockAppConfig.professionalSubscriptionsUrl)
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
@@ -113,7 +113,8 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
       when(mockAppConfig.workingFromHomeExpensesUrl).thenReturn("http://example.com/working-from-home")
 
       val view = application.injector.instanceOf[ClaimOnlineView]
-      val doc  = asDocument(view(OnwardJourney.WorkingFromHomeExpensesOnly, List(HomeWorking))(fakeRequest, messages))
+      val doc =
+        asDocument(view(OnwardJourney.WorkingFromHomeExpensesOnly, List(HomeWorking))(using fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be(mockAppConfig.workingFromHomeExpensesUrl)
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")
@@ -127,7 +128,8 @@ class ClaimOnlineViewSpec extends NewViewBehaviours with MockitoSugar {
       when(mockAppConfig.workingFromHomeExpensesUrl).thenReturn("http://example.com/working-from-home")
 
       val view = application.injector.instanceOf[ClaimOnlineView]
-      val doc  = asDocument(view(OnwardJourney.WorkingFromHomeExpensesOnly, List(HomeWorking))(fakeRequest, messages))
+      val doc =
+        asDocument(view(OnwardJourney.WorkingFromHomeExpensesOnly, List(HomeWorking))(using fakeRequest, messages))
       val button: Element = doc.getElementById("continue")
       button.attr("href") must be(s"${mockAppConfig.workingFromHomeExpensesUrl}")
       assertPageTitleEqualsMessage(doc, "claimOnline.heading")

@@ -33,7 +33,7 @@ class ClaimingOverPayAsYouEarnThresholdViewSpec extends NewYesNoViewBehaviours {
 
   val form = new ClaimingOverPayAsYouEarnThresholdFormProvider()()
 
-  def createView(form: Form[?]): Html = view.apply(form)(fakeRequest, messages)
+  def createView(form: Form[?]): Html = view.apply(form)(using fakeRequest, messages)
 
   "ClaimingOverPayAsYouEarnThreshold view" must {
 

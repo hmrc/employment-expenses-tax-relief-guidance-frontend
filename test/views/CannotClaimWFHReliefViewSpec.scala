@@ -26,7 +26,7 @@ class CannotClaimWFHReliefViewSpec extends NewViewBehaviours {
   val application = applicationBuilder().build()
   val view        = application.injector.instanceOf[CannotClaimWFHReliefView]
 
-  def createView = view.apply()(fakeRequest, messages)
+  def createView = view.apply()(using fakeRequest, messages)
 
   "CannotClaimWFHRelief view" must
     behave.like(pageWithBackLink(createView))

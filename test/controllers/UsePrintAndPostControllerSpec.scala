@@ -81,13 +81,13 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
 
     when(cacheMap.getEntry(any[String])(using any)).thenReturn(None)
 
-    when(usePrintAndPostView.apply(any[Boolean], any[Boolean])(any[Request[?]], any[Messages]))
+    when(usePrintAndPostView.apply(any[Boolean], any[Boolean])(using any[Request[?]], any[Messages]))
       .thenReturn(HtmlFormat.empty)
-    when(usePrintAndPostDetailedView.apply(any[List[ClaimingFor]])(any[Request[?]], any[Messages]))
+    when(usePrintAndPostDetailedView.apply(any[List[ClaimingFor]])(using any[Request[?]], any[Messages]))
       .thenReturn(HtmlFormat.empty)
-    when(usePrintAndPostFreOnlyView.apply(any[List[ClaimingFor]])(any[Request[?]], any[Messages]))
+    when(usePrintAndPostFreOnlyView.apply(any[List[ClaimingFor]])(using any[Request[?]], any[Messages]))
       .thenReturn(HtmlFormat.empty)
-    when(useIformFreOnlyView.apply(any[List[ClaimingFor]], any[String])(any[Request[?]], any[Messages]))
+    when(useIformFreOnlyView.apply(any[List[ClaimingFor]], any[String])(using any[Request[?]], any[Messages]))
       .thenReturn(HtmlFormat.empty)
   }
 
@@ -115,7 +115,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
             result <- route(application, testRequest).value
 
             _ = result.header.status mustBe OK
-            _ = verify(usePrintAndPostFreOnlyView).apply(eqTo(claimingForList))(any[Request[?]], any[Messages])
+            _ = verify(usePrintAndPostFreOnlyView).apply(eqTo(claimingForList))(using any[Request[?]], any[Messages])
           } yield ()
         }
 
@@ -130,7 +130,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
 
             _ = result.header.status mustBe OK
             _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList), eqTo(redirectionLink))(
-              any[Request[?]],
+              using any[Request[?]],
               any[Messages]
             )
           } yield ()
@@ -145,7 +145,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
 
             _ = result.header.status mustBe OK
             _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList), eqTo(redirectionLink))(
-              any[Request[?]],
+              using any[Request[?]],
               any[Messages]
             )
           } yield ()
@@ -164,7 +164,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
             result <- route(application, testRequest).value
 
             _ = result.header.status mustBe OK
-            _ = verify(usePrintAndPostFreOnlyView).apply(eqTo(claimingForList))(any[Request[?]], any[Messages])
+            _ = verify(usePrintAndPostFreOnlyView).apply(eqTo(claimingForList))(using any[Request[?]], any[Messages])
           } yield ()
         }
 
@@ -179,7 +179,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
 
             _ = result.header.status mustBe OK
             _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList), eqTo(redirectionLink))(
-              any[Request[?]],
+              using any[Request[?]],
               any[Messages]
             )
           } yield ()
@@ -194,7 +194,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
 
             _ = result.header.status mustBe OK
             _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList), eqTo(redirectionLink))(
-              any[Request[?]],
+              using any[Request[?]],
               any[Messages]
             )
           } yield ()
@@ -209,7 +209,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
           result <- route(application, testRequest).value
 
           _ = result.header.status mustBe OK
-          _ = verify(usePrintAndPostDetailedView).apply(eqTo(claimingForList))(any[Request[?]], any[Messages])
+          _ = verify(usePrintAndPostDetailedView).apply(eqTo(claimingForList))(using any[Request[?]], any[Messages])
         } yield ()
       }
 
@@ -221,7 +221,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
           result <- route(application, testRequest).value
 
           _ = result.header.status mustBe OK
-          _ = verify(usePrintAndPostView).apply(eqTo(false), eqTo(false))(any[Request[?]], any[Messages])
+          _ = verify(usePrintAndPostView).apply(eqTo(false), eqTo(false))(using any[Request[?]], any[Messages])
         } yield ()
       }
 
