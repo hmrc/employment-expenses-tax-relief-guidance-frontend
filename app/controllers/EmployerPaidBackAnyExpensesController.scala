@@ -66,7 +66,7 @@ class EmployerPaidBackAnyExpensesController @Inject() (
       None
     }
 
-    Ok(view(preparedForm, backButtonOverride))
+    Ok(view(preparedForm))
   }
 
   def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { request =>
@@ -74,7 +74,7 @@ class EmployerPaidBackAnyExpensesController @Inject() (
     form
       .bindFromRequest()
       .fold(
-        (formWithErrors: Form[?]) => Future.successful(BadRequest(view(formWithErrors, None))),
+        (formWithErrors: Form[?]) => Future.successful(BadRequest(view(formWithErrors))),
         value =>
           dataCacheConnector
             .save[EmployerPaid](request.sessionId, EmployerPaidBackAnyExpensesId, value)

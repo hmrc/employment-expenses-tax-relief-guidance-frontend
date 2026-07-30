@@ -42,7 +42,7 @@ class WillNotPayTaxController @Inject() (
     given DataRequest[AnyContent] = request
     val nextPage                  = navigator.nextPage(WillNotPayTaxId)(request.userAnswers)
 
-    Future.successful(Ok(view(nextPage)))
+    Future.successful(Ok(view()))
   }
 
 }
