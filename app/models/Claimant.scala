@@ -32,7 +32,7 @@ object Claimant {
 
   val options: Set[RadioOption] = values.map(value => RadioOption("claimant", value.toString))
 
-  given enumerable: Enumerable[Claimant] =
+  given Enumerable[Claimant] =
     Enumerable(values.toSeq.map(v => v.toString -> v)*)
 
 }

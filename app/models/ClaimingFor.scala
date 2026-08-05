@@ -143,7 +143,7 @@ object ClaimingFor {
     )
   }
 
-  given enumerable: Enumerable[ClaimingFor] =
+  given Enumerable[ClaimingFor] =
     Enumerable(values.map(v => v.toString -> v)*)
 
   val mappings: Map[String, ClaimingFor] = Map(
