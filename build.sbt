@@ -18,6 +18,7 @@ lazy val root = (project in file("."))
       "-Wconf:msg=unused import&src=html/.*:s",
       "-Wconf:cat=deprecation:s",
       "-Wconf:msg=Flag.*repeatedly:s",
+      "-Wconf:msg=.*unused import.*&src=.*routes.*:s",
       "-explain"
     )
   )
