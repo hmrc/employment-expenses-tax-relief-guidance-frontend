@@ -79,7 +79,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
 
     when(claimingForListBuilder.buildClaimingForList(any[UserAnswers])).thenReturn(claimingForList)
 
-    when(cacheMap.getEntry(any[String])(any[Reads[_]])).thenReturn(None)
+    when(cacheMap.getEntry(any[String])(any)).thenReturn(None)
 
     when(usePrintAndPostView.apply(any[Boolean], any[Boolean])(any[Request[_]], any[Messages]))
       .thenReturn(HtmlFormat.empty)

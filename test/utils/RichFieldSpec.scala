@@ -25,7 +25,6 @@ class RichFieldSpec extends AnyWordSpec with Matchers {
   val multiForm: Form[Set[String]] = {
 
     import play.api.data.Forms._
-    import play.api.data._
 
     Form("value" -> set(text))
   }
@@ -33,7 +32,6 @@ class RichFieldSpec extends AnyWordSpec with Matchers {
   val singleForm: Form[String] = {
 
     import play.api.data.Forms._
-    import play.api.data._
 
     Form("value" -> text)
   }

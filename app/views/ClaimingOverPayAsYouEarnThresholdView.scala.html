@@ -30,7 +30,7 @@
 
     @errorSummary(form.errors)
 
-    @formHelper(action = ClaimingOverPayAsYouEarnThresholdController.onSubmit()) {
+    @formHelper(action = routes.ClaimingOverPayAsYouEarnThresholdController.onSubmit()) {
 
         @inputYesNoRadio(
             field = form("value"),

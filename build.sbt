@@ -6,7 +6,7 @@ import uk.gov.hmrc.DefaultBuildSettings
 lazy val appName: String = "employment-expenses-tax-relief-guidance-frontend"
 
 ThisBuild / majorVersion := 0
-ThisBuild / scalaVersion := "2.13.18"
+ThisBuild / scalaVersion := "3.3.7"
 
 lazy val root = (project in file("."))
   .enablePlugins(PlayScala, SbtDistributablesPlugin)
@@ -14,10 +14,12 @@ lazy val root = (project in file("."))
   .settings(inConfig(Test)(testSettings) *)
   .settings(
     scalacOptions ++= Seq(
-      "-Wconf:cat=unused-imports&src=html/.*:s",
-      "-Wconf:cat=unused-imports&src=routes/.*:s",
-      "-Wconf:cat=unused-imports&src=.*routes.*:s",
-      "-Wconf:cat=unused-privates&src=.*routes.*:s"
+      "-Wconf:src=routes/.*:s",
+      "-Wconf:msg=unused import&src=html/.*:s",
+      "-Wconf:cat=deprecation:s",
+      "-Wconf:msg=Flag.*repeatedly:s",
+      "-Wconf:msg=.*unused import.*&src=.*routes.*:s",
+      "-explain"
     )
   )
   .settings(

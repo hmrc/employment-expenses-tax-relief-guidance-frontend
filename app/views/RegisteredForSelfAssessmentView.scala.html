@@ -52,7 +52,7 @@
     pageTitle = s"${errorPrefix(form)} ${messages(s"registeredForSelfAssessment.title")}"
 ) {
 
-    @formHelper(action = RegisteredForSelfAssessmentController.onSubmit()) {
+    @formHelper(action = routes.RegisteredForSelfAssessmentController.onSubmit()) {
 
         @errorSummary(form.errors)
 
