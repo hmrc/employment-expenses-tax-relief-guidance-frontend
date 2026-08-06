@@ -16,8 +16,10 @@
 
 package controllers
 
-import controllers.actions._
+import controllers.actions.*
 import identifiers.NotEntitledSomeYearsId
+import models.requests.DataRequest
+
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -34,8 +36,9 @@ class NotEntitledSomeYearsController @Inject() (
 ) extends FrontendBaseController
     with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
-    val nextPage = navigator.nextPage(NotEntitledSomeYearsId)(request.userAnswers)
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
+    given DataRequest[AnyContent] = request
+    val nextPage                  = navigator.nextPage(NotEntitledSomeYearsId)(request.userAnswers)
     Ok(view(nextPage))
   }
 

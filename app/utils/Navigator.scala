@@ -18,8 +18,8 @@ package utils
 
 import config.FrontendAppConfig
 import controllers.routes
-import identifiers._
-import models.ClaimingFor._
+import identifiers.*
+import models.ClaimingFor.*
 import models.ClaimingForMoreThanOneJob.{MoreThanOneJob, OneJob}
 import models.EmployerPaid.{AllExpenses, NoExpenses, SomeExpenses}
 import models.{Claimant, ClaimingFor}
@@ -28,7 +28,7 @@ import play.api.mvc.Call
 import javax.inject.{Inject, Singleton}
 
 @Singleton
-class Navigator @Inject() (navigatorHelper: NavigatorHelper)(implicit appConfig: FrontendAppConfig) {
+class Navigator @Inject() (navigatorHelper: NavigatorHelper)(using appConfig: FrontendAppConfig) {
 
   private def claimingForRouting(userAnswers: UserAnswers) = userAnswers.claimingFor match {
     case Some(_) if appConfig.onlineJourneyShutterEnabled => routes.ClaimantController.onPageLoad()

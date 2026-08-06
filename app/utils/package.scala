@@ -18,7 +18,7 @@ import play.api.data.Field
 
 package object utils {
 
-  implicit class RichField(field: Field) {
+  extension (field: Field) {
 
     def values: Seq[String] =
       field.value.toSeq ++ field.indexes.flatMap(i => field(s"[$i]").value)

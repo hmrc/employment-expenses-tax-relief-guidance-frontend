@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import controllers.routes._
+@import controllers.routes.*
 
 @this(
     layout: Layout,
@@ -25,7 +25,7 @@
     submitButton: playComponents.submit_button
  )
 
-@(form: Form[_])(implicit request: Request[_], messages: Messages)
+@(form: Form[?])(using request: Request[?], messages: Messages)
 
 @layout(
     pageTitle = s"${errorPrefix(form)} ${messages(s"claimingFuel.title")}"

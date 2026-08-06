@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import controllers.routes._
+@import controllers.routes.*
 @import uk.gov.hmrc.time.TaxYear
 
 @this(
@@ -23,7 +23,7 @@
     buttonLink: playComponents.button_link
 )
 
-@()(implicit request: Request[_], messages: Messages)
+@()(using request: Request[?], messages: Messages)
 
 @layout(
     pageTitle = messages(s"saCheckDisclaimerCurrentYear.title")

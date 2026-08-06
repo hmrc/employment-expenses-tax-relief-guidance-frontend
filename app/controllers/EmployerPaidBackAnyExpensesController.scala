@@ -18,12 +18,13 @@ package controllers
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.actions._
+import controllers.actions.*
 import forms.EmployerPaidBackAnyExpensesFormProvider
 import identifiers.EmployerPaidBackAnyExpensesId
 
 import javax.inject.Inject
 import models.EmployerPaid
+import models.requests.DataRequest
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -42,14 +43,15 @@ class EmployerPaidBackAnyExpensesController @Inject() (
     val controllerComponents: MessagesControllerComponents,
     view: EmployerPaidBackAnyExpensesView,
     appConfig: FrontendAppConfig
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport
     with Enumerable.Implicits {
 
   val form: Form[EmployerPaid] = formProvider()
 
-  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
+    given DataRequest[AnyContent] = request
     val preparedForm = request.userAnswers.employerPaidBackAnyExpenses match {
       case None        => form
       case Some(value) => form.fill(value)
@@ -64,14 +66,15 @@ class EmployerPaidBackAnyExpensesController @Inject() (
       None
     }
 
-    Ok(view(preparedForm, backButtonOverride))
+    Ok(view(preparedForm))
   }
 
-  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { request =>
+    given DataRequest[AnyContent] = request
     form
       .bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors, None))),
+        (formWithErrors: Form[?]) => Future.successful(BadRequest(view(formWithErrors))),
         value =>
           dataCacheConnector
             .save[EmployerPaid](request.sessionId, EmployerPaidBackAnyExpensesId, value)

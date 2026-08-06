@@ -19,11 +19,13 @@ package views
 import views.behaviours.NewViewBehaviours
 import views.html.CannotClaimReliefView
 import config.FrontendAppConfig
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.Application
+import play.api.i18n.Messages
 import play.api.inject.bind
+import play.api.mvc.{AnyContent, Request}
 
 class CannotClaimReliefViewSpec extends NewViewBehaviours with MockitoSugar {
 
@@ -37,7 +39,7 @@ class CannotClaimReliefViewSpec extends NewViewBehaviours with MockitoSugar {
 
   val view: CannotClaimReliefView = application.injector.instanceOf[CannotClaimReliefView]
 
-  def createView()(implicit request: play.api.mvc.Request[_], messages: play.api.i18n.Messages) =
+  def createView()(using request: play.api.mvc.Request[?], messages: play.api.i18n.Messages) =
     view.apply()
 
   "CannotClaimRelief view" must {
@@ -46,8 +48,8 @@ class CannotClaimReliefViewSpec extends NewViewBehaviours with MockitoSugar {
       when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(false)
       when(mockAppConfig.jobExpensesGuidanceUrl).thenReturn("http://guidance.url")
       when(mockAppConfig.jobExpensesGuidanceUrl).thenReturn("http://guidance.url")
-      implicit val request  = fakeRequest
-      implicit val messages = this.messages
+      given Request[AnyContent] = fakeRequest
+      given Messages            = this.messages
 
       val viewWithFalseFlag = createView()
 
@@ -61,8 +63,8 @@ class CannotClaimReliefViewSpec extends NewViewBehaviours with MockitoSugar {
     "render correctly when freOnlyJourneyEnabled is true" in {
       when(mockAppConfig.freOnlyJourneyEnabled).thenReturn(true)
 
-      implicit val request  = fakeRequest
-      implicit val messages = this.messages
+      given Request[AnyContent] = fakeRequest
+      given Messages            = this.messages
 
       val viewWithTrueFlag = createView()
 

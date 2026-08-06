@@ -28,7 +28,7 @@ class NotEntitledViewSpec extends NewViewBehaviours {
 
   val view = application.injector.instanceOf[NotEntitledView]
 
-  def createView: HtmlFormat.Appendable = view.apply()(fakeRequest, messages)
+  def createView: HtmlFormat.Appendable = view.apply()(using fakeRequest, messages)
 
   val taxReliefForEmployeesUrl = frontendAppConfig.taxReliefForEmployeesUrl
 

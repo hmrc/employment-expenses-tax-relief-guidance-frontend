@@ -22,10 +22,10 @@ import play.api.libs.json.{Json, Reads, Writes}
 trait MongoDateTimeFormats {
   import play.api.libs.json.__
 
-  implicit val localDateTimeRead: Reads[Instant] =
+  given Reads[Instant] =
     (__ \ "$date").read[Long].map((millis: Long) => Instant.ofEpochMilli(millis))
 
-  implicit val localDateTimeWrite: Writes[Instant] = (dateTime: Instant) =>
+  given Writes[Instant] = (dateTime: Instant) =>
     Json.obj(
       "$date" -> dateTime
     )

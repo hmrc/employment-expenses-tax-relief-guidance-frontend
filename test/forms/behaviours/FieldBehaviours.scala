@@ -24,7 +24,7 @@ import play.api.data.{Form, FormError}
 
 trait FieldBehaviours extends FormSpec with ScalaCheckPropertyChecks with Generators {
 
-  def fieldThatBindsValidData(form: Form[_], fieldName: String, validDataGenerator: Gen[String]): Unit =
+  def fieldThatBindsValidData(form: Form[?], fieldName: String, validDataGenerator: Gen[String]): Unit =
 
     "bind valid data" in
       forAll(validDataGenerator -> "validDataItem") { (dataItem: String) =>
@@ -32,7 +32,7 @@ trait FieldBehaviours extends FormSpec with ScalaCheckPropertyChecks with Genera
         result.value.value shouldBe dataItem
       }
 
-  def mandatoryField(form: Form[_], fieldName: String, requiredError: FormError): Unit = {
+  def mandatoryField(form: Form[?], fieldName: String, requiredError: FormError): Unit = {
 
     "not bind when key is not present at all" in {
 

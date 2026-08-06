@@ -46,7 +46,7 @@ class UsePrintAndPostDetailedViewSpec extends NewViewBehaviours {
     Other
   )
 
-  def createView = view.apply(claimingListFor)(fakeRequest, messages)
+  def createView = view.apply(claimingListFor)(using fakeRequest, messages)
 
   "UsePrintAndPost view" must {
     behave.like(normalPage(createView, messageKeyPrefix))

@@ -20,7 +20,7 @@ import com.google.inject.Inject
 import config.FrontendAppConfig
 import play.api.Configuration
 import play.api.i18n.{I18nSupport, Lang}
-import play.api.mvc._
+import play.api.mvc.*
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 
 class LanguageSwitchController @Inject() (
@@ -34,7 +34,7 @@ class LanguageSwitchController @Inject() (
 
   private def languageMap: Map[String, Lang] = appConfig.languageMap
 
-  def switchToLanguage(language: String): Action[AnyContent] = Action { implicit request =>
+  def switchToLanguage(language: String): Action[AnyContent] = Action { request =>
     val enabled = isWelshEnabled
     val lang = if (enabled) {
       languageMap.getOrElse(language, Lang.defaultLang)

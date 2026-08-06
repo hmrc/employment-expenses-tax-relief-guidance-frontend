@@ -16,11 +16,12 @@
 
 package controllers
 
-import controllers.actions._
+import controllers.actions.*
 import forms.ClaimingForMoreThanOneJobFormProvider
 import identifiers.ClaimingForMoreThanOneJobId
 import connectors.DataCacheConnector
 import models.ClaimingForMoreThanOneJob
+import models.requests.DataRequest
 
 import javax.inject.Inject
 import utils.{Navigator, UserAnswers}
@@ -40,14 +41,15 @@ class ClaimingForMoreThanOneJobController @Inject() (
     formProvider: ClaimingForMoreThanOneJobFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: ClaimingForMoreThanOneJobView
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport {
 
   val form: Form[ClaimingForMoreThanOneJob] = formProvider()
 
   def onPageLoad: Action[AnyContent] =
-    getData.andThen(requireData) { implicit request =>
+    getData.andThen(requireData) { request =>
+      given DataRequest[AnyContent] = request
       val preparedForm = request.userAnswers.claimingForMoreThanOneJob match {
         case None        => form
         case Some(value) => form.fill(value)
@@ -57,11 +59,12 @@ class ClaimingForMoreThanOneJobController @Inject() (
     }
 
   def onSubmit: Action[AnyContent] =
-    getData.andThen(requireData).async { implicit request =>
+    getData.andThen(requireData).async { request =>
+      given DataRequest[AnyContent] = request
       form
         .bindFromRequest()
         .fold(
-          (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors))),
+          (formWithErrors: Form[?]) => Future.successful(BadRequest(view(formWithErrors))),
           value =>
             dataCacheConnector
               .save[ClaimingForMoreThanOneJob](request.sessionId, ClaimingForMoreThanOneJobId, value)

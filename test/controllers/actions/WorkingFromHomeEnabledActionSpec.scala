@@ -32,7 +32,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 class WorkingFromHomeEnabledActionSpec extends SpecBase with MockitoSugar with ScalaFutures with MaterializerSupport {
 
-  implicit val executionContext: ExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
+  given ExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
 
   val BLOCK_EXECUTED_MESSAGE = ""
 

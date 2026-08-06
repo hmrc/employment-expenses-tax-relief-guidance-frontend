@@ -42,7 +42,7 @@ class DisclaimerViewSpec extends NewViewBehaviours with MockitoSugar {
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
 
-  def createView(): Html = view.apply()(fakeRequest, messages)
+  def createView(): Html = view.apply()(using fakeRequest, messages)
 
   val earliestTaxYear: String =
     TaxYear.current.back(4).startYear.toString

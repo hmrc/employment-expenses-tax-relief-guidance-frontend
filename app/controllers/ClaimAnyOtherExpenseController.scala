@@ -17,9 +17,10 @@
 package controllers
 
 import connectors.DataCacheConnector
-import controllers.actions._
+import controllers.actions.*
 import forms.ClaimAnyOtherExpenseFormProvider
 import identifiers.ClaimAnyOtherExpenseId
+import models.requests.OptionalDataRequest
 
 import javax.inject.Inject
 import play.api.Logging
@@ -40,7 +41,7 @@ class ClaimAnyOtherExpenseController @Inject() (
     formProvider: ClaimAnyOtherExpenseFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: ClaimAnyOtherExpenseView
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport
     with Enumerable.Implicits
@@ -52,7 +53,8 @@ class ClaimAnyOtherExpenseController @Inject() (
     Redirect(routes.ClaimAnyOtherExpenseController.onPageLoad())
   }
 
-  def onPageLoad: Action[AnyContent] = flowEnabled.andThen(getData) { implicit request =>
+  def onPageLoad: Action[AnyContent] = flowEnabled.andThen(getData) { request =>
+    given OptionalDataRequest[AnyContent] = request
     val preparedForm = request.userAnswers.flatMap(_.claimAnyOtherExpense) match {
       case None        => form
       case Some(value) => form.fill(value)
@@ -60,11 +62,12 @@ class ClaimAnyOtherExpenseController @Inject() (
     Ok(view(preparedForm))
   }
 
-  def onSubmit: Action[AnyContent] = flowEnabled.andThen(getData).async { implicit request =>
+  def onSubmit: Action[AnyContent] = flowEnabled.andThen(getData).async { request =>
+    given OptionalDataRequest[AnyContent] = request
     form
       .bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors))),
+        (formWithErrors: Form[?]) => Future.successful(BadRequest(view(formWithErrors))),
         value =>
           dataCacheConnector
             .save[Boolean](request.sessionId, ClaimAnyOtherExpenseId, value)

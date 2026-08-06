@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage._
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.*
 
 @this(
     hmrcStandardPage: HmrcStandardPage,
@@ -26,7 +26,7 @@
     pageTitle: String,
     backLinkEnabled: Boolean = true,
     timeoutEnabled: Boolean = true
-)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+)(contentBlock: Html)(using request: RequestHeader, messages: Messages)
 
 @headBlock = {
     <meta name="format-detection" content="telephone=no" />

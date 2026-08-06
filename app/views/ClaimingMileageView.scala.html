@@ -15,7 +15,7 @@
  *@
 
 @import models.Claimant
-@import controllers.routes._
+@import controllers.routes.*
 
 @this(
     layout: Layout,
@@ -27,7 +27,7 @@
     govukDetails : GovukDetails,
 )
 
-@(form: Form[_])(implicit request: Request[_], messages: Messages)
+@(form: Form[?])(using request: Request[?], messages: Messages)
 
 @detailsContent = {
     <h2 class="govuk-heading-s">@messages("claimingMileage.hidden.cars.heading")</h2>

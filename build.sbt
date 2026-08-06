@@ -24,16 +24,16 @@ lazy val root = (project in file("."))
   )
   .settings(
     name := appName,
-    RoutesKeys.routesImport += "models._",
+    RoutesKeys.routesImport += "models.*",
     TwirlKeys.templateImports ++= Seq(
       "play.twirl.api.HtmlFormat",
-      "play.twirl.api.HtmlFormat._",
-      "views.ViewUtils._",
-      "controllers.routes._",
-      "uk.gov.hmrc.govukfrontend.views.html.components._",
-      "uk.gov.hmrc.govukfrontend.views.html.components.implicits._",
-      "uk.gov.hmrc.hmrcfrontend.views.html.components._",
-      "uk.gov.hmrc.hmrcfrontend.views.html.helpers._"
+      "play.twirl.api.HtmlFormat.*",
+      "views.ViewUtils.*",
+      "controllers.routes.*",
+      "uk.gov.hmrc.govukfrontend.views.html.components.*",
+      "uk.gov.hmrc.govukfrontend.views.html.components.implicits.*",
+      "uk.gov.hmrc.hmrcfrontend.views.html.components.*",
+      "uk.gov.hmrc.hmrcfrontend.views.html.helpers.*"
     ),
     PlayKeys.playDefaultPort := 8787,
     ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*filters.*;.*handlers.*;.*components.*;.*repositories.*;" +
@@ -48,7 +48,7 @@ lazy val root = (project in file("."))
     retrieveManaged                       := true
   )
 
-lazy val testSettings: Seq[Def.Setting[_]] = Seq(
+lazy val testSettings: Seq[Def.Setting[?]] = Seq(
   fork := true,
   javaOptions ++= Seq(
     "-Dconfig.resource=test.application.conf"

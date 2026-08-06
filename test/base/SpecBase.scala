@@ -17,14 +17,14 @@
 package base
 
 import config.FrontendAppConfig
-import controllers.actions._
+import controllers.actions.*
 import controllers.routes
 import identifiers.ClaimantId
 import models.{Claimant, EmployerPaid}
 import models.Claimant.You
 import models.EmployerPaid.NoExpenses
 import org.scalatestplus.play.PlaySpec
-import org.scalatestplus.play.guice._
+import org.scalatestplus.play.guice.*
 import play.api.i18n.{Messages, MessagesApi}
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.inject.{Injector, bind}
@@ -67,7 +67,7 @@ trait SpecBase extends PlaySpec with GuiceOneAppPerSuite {
       controllerComponents
     )
 
-  implicit def messages: Messages = messagesApi.preferred(fakeRequest)
+  given messages: Messages = messagesApi.preferred(fakeRequest)
 
   protected def applicationBuilder(cacheMap: Option[CacheMap] = None): GuiceApplicationBuilder =
     new GuiceApplicationBuilder()

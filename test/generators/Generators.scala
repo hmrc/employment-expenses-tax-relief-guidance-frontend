@@ -17,12 +17,12 @@
 package generators
 
 import org.scalacheck.{Arbitrary, Gen, Shrink}
-import Gen._
-import Arbitrary._
+import Gen.*
+import Arbitrary.*
 
 trait Generators {
 
-  implicit val dontShrink: Shrink[String] = Shrink.shrinkAny
+  given Shrink[String] = Shrink.shrinkAny
 
   def genIntersperseString(gen: Gen[String], value: String, frequencyV: Int = 1, frequencyN: Int = 10): Gen[String] = {
 

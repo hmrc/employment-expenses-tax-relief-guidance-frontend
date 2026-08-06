@@ -17,9 +17,10 @@
 package controllers
 
 import connectors.DataCacheConnector
-import controllers.actions._
+import controllers.actions.*
 import forms.RegisteredForSelfAssessmentFormProvider
 import identifiers.RegisteredForSelfAssessmentId
+import models.requests.DataRequest
 
 import javax.inject.Inject
 import play.api.data.Form
@@ -39,12 +40,13 @@ class RegisteredForSelfAssessmentController @Inject() (
     formProvider: RegisteredForSelfAssessmentFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: RegisteredForSelfAssessmentView
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
-    val form: Form[Boolean] = formProvider()
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
+    given DataRequest[AnyContent] = request
+    val form: Form[Boolean]       = formProvider()
 
     val preparedForm = request.userAnswers.registeredForSelfAssessment match {
       case None        => form
@@ -54,11 +56,12 @@ class RegisteredForSelfAssessmentController @Inject() (
     Ok(view(preparedForm))
   }
 
-  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { request =>
+    given DataRequest[AnyContent] = request
     formProvider()
       .bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors))),
+        (formWithErrors: Form[?]) => Future.successful(BadRequest(view(formWithErrors))),
         value =>
           dataCacheConnector
             .save[Boolean](request.sessionId, RegisteredForSelfAssessmentId, value)

@@ -19,6 +19,7 @@ package controllers
 import connectors.DataCacheConnector
 import controllers.actions.{DataRequiredAction, DataRetrievalAction}
 import identifiers.{ChangeOtherExpensesId, ClaimingForId}
+
 import javax.inject.Inject
 import models.ClaimingFor
 import play.api.i18n.I18nSupport
@@ -34,12 +35,12 @@ class ChangeOtherExpensesController @Inject() (
     getData: DataRetrievalAction,
     requireData: DataRequiredAction,
     val controllerComponents: MessagesControllerComponents
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport
     with Enumerable.Implicits {
 
-  def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { request =>
     dataCacheConnector
       .save[Set[ClaimingFor]](request.sessionId, ClaimingForId, Set(ClaimingFor.Other))
       .map(cacheMap => Redirect(navigator.nextPage(ChangeOtherExpensesId)(new UserAnswers(cacheMap))))

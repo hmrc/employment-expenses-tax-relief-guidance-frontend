@@ -33,7 +33,7 @@ trait NewYesNoViewBehaviours extends NewQuestionViewBehaviours[Boolean] {
           val doc     = asDocument(createView(form))
           val legends = doc.getElementsByTag("legend")
           legends.size mustBe 1
-          legends.first.text contains messages(s"$messageKeyPrefix.heading", headingArgs: _*)
+          legends.first.text contains messages(s"$messageKeyPrefix.heading", headingArgs*)
         }
 
         "contain an input for the value" in {

@@ -18,9 +18,11 @@ package controllers
 
 import config.FrontendAppConfig
 import connectors.DataCacheConnector
-import controllers.actions._
+import controllers.actions.*
 import forms.WillPayTaxFormProvider
 import identifiers.WillPayTaxId
+import models.requests.DataRequest
+
 import javax.inject.Inject
 import play.api.data.Form
 import play.api.i18n.I18nSupport
@@ -40,12 +42,13 @@ class WillPayTaxController @Inject() (
     formProvider: WillPayTaxFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: WillPayTaxView
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
-    val form: Form[Boolean] = formProvider(appConfig.earliestTaxYear)
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { request =>
+    given DataRequest[AnyContent] = request
+    val form: Form[Boolean]       = formProvider(appConfig.earliestTaxYear)
 
     val preparedForm = request.userAnswers.willPayTax match {
       case None        => form
@@ -54,13 +57,14 @@ class WillPayTaxController @Inject() (
     Future.successful(Ok(view(preparedForm)))
   }
 
-  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
-    val form: Form[Boolean] = formProvider(appConfig.earliestTaxYear)
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { request =>
+    given DataRequest[AnyContent] = request
+    val form: Form[Boolean]       = formProvider(appConfig.earliestTaxYear)
 
     form
       .bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors))),
+        (formWithErrors: Form[?]) => Future.successful(BadRequest(view(formWithErrors))),
         value =>
           dataCacheConnector
             .save[Boolean](request.sessionId, WillPayTaxId, value)

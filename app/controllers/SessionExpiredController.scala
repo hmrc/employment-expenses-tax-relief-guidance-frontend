@@ -19,7 +19,7 @@ package controllers
 import config.FrontendAppConfig
 import javax.inject.Inject
 import play.api.i18n.I18nSupport
-import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents}
+import play.api.mvc.{Action, AnyContent, Call, MessagesControllerComponents, Request}
 import uk.gov.hmrc.play.bootstrap.frontend.controller.FrontendBaseController
 import utils.Navigator
 import views.html.SessionExpiredView
@@ -32,7 +32,8 @@ class SessionExpiredController @Inject() (
 ) extends FrontendBaseController
     with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = Action { implicit request =>
+  def onPageLoad: Action[AnyContent] = Action { request =>
+    given Request[AnyContent] = request
     if (appConfig.workingFromHomeExpensesOnlyEnabled) {
       Ok(view(Call("GET", appConfig.taxReliefForEmployeesUrl)))
     } else {

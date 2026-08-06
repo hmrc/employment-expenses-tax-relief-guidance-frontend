@@ -33,7 +33,7 @@ class PaidTaxInRelevantYearViewSpec extends NewYesNoViewBehaviours {
 
   val form = new PaidTaxInRelevantYearFormProvider()(frontendAppConfig.earliestTaxYear)
 
-  def createView(form: Form[_]): Html = view.apply(form)(fakeRequest, messages)
+  def createView(form: Form[?]): Html = view.apply(form)(using fakeRequest, messages)
 
   "PaidTaxInRelevantYear view" must {
 
