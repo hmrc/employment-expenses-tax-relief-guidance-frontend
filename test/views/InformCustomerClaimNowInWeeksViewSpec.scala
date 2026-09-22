@@ -36,7 +36,7 @@ class InformCustomerClaimNowInWeeksViewSpec extends NewViewBehaviours with Mocki
 
   val view: InformCustomerClaimNowInWeeksView = application.injector.instanceOf[InformCustomerClaimNowInWeeksView]
 
-  def createView(): Html = view.apply()(fakeRequest, messages)
+  def createView(): Html = view.apply()(using fakeRequest, messages)
 
   val para1 = "If you work at home one or more days in a week, you can claim for that whole week."
 

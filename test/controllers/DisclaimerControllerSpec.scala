@@ -19,7 +19,7 @@ package controllers
 import base.SpecBase
 import play.api.inject.bind
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import utils.{Navigator, NavigatorSupport}
 
 class DisclaimerControllerSpec extends SpecBase with NavigatorSupport {

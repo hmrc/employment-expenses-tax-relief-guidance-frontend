@@ -46,7 +46,7 @@ object ClaimingFor {
   )
 
   def options(onlineJourneyShutterEnabled: Boolean, freOnlyJourneyEnabled: Boolean)(
-      implicit messages: Messages
+      using messages: Messages
   ): List[CheckboxItem] = {
 
     val feesOption = {
@@ -143,8 +143,8 @@ object ClaimingFor {
     )
   }
 
-  implicit val enumerable: Enumerable[ClaimingFor] =
-    Enumerable(values.map(v => v.toString -> v): _*)
+  given Enumerable[ClaimingFor] =
+    Enumerable(values.map(v => v.toString -> v)*)
 
   val mappings: Map[String, ClaimingFor] = Map(
     HomeWorking.toString           -> HomeWorking,

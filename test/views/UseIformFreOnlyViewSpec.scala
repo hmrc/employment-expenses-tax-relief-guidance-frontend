@@ -85,7 +85,8 @@ class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar with B
     .overrides(inject.bind[FrontendAppConfig].toInstance(appConfig))
     .build()
 
-  def createView(): Html = view.apply(claimingListFor, appConfig.employeeExpensesClaimByIformUrl)(fakeRequest, messages)
+  def createView(): Html =
+    view.apply(claimingListFor, appConfig.employeeExpensesClaimByIformUrl)(using fakeRequest, messages)
 
   val view: UseIformFreOnlyView = application.injector.instanceOf[UseIformFreOnlyView]
 
@@ -140,7 +141,10 @@ class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar with B
   "when pegaJourneyEnabled is enabled - Include a call to action button with the correct link to Pega service" in {
     when(appConfig.pegaServiceJourney).thenReturn(true)
     val doc = asDocument(
-      view.apply(claimingListForHomeWorking, appConfig.employeeExpensesClaimByPegaServicesUrl)(fakeRequest, messages)
+      view.apply(claimingListForHomeWorking, appConfig.employeeExpensesClaimByPegaServicesUrl)(
+        using fakeRequest,
+        messages
+      )
     )
     val button: Element = doc.getElementById("startyourclaim")
     button.attr("href") must be(appConfig.employeeExpensesClaimByPegaServicesUrl)
@@ -156,7 +160,7 @@ class UseIformFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar with B
 
   "Include a call to action button with the correct link to iForm when claiming for FeesSubscriptions" in {
     val redirectionLink = s"${appConfig.employeeExpensesClaimByIformUrl}?claiming-for=professional-fees"
-    val doc = asDocument(view.apply(claimingListForFeesSubscriptions, redirectionLink)(fakeRequest, messages))
+    val doc = asDocument(view.apply(claimingListForFeesSubscriptions, redirectionLink)(using fakeRequest, messages))
     val button: Element = doc.getElementById("startyourclaim")
     button.attr("href") must be(s"${appConfig.employeeExpensesClaimByIformUrl}?claiming-for=professional-fees")
     assertPageTitleEqualsMessage(doc, s"$messageKeyPrefix.title_freOnly_iform")

@@ -18,7 +18,7 @@ package config
 
 import com.google.inject.AbstractModule
 import connectors.{DataCacheConnector, DataCacheConnectorImpl}
-import controllers.actions._
+import controllers.actions.*
 
 class Module extends AbstractModule {
 

@@ -33,7 +33,7 @@ class RegisterForSelfAssessmentViewSpec extends NewViewBehaviours {
 
   def onwardRoute: Call = routes.IndexController.onPageLoad
 
-  def createView: HtmlFormat.Appendable = view.apply(onwardRoute)(fakeRequest, messages)
+  def createView: HtmlFormat.Appendable = view.apply()(using fakeRequest, messages)
 
   "RegisterForSelfAssessment view" must {
 

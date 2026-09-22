@@ -32,7 +32,7 @@ class FakeDataRetrievalAction @Inject() (cacheMapToReturn: Option[CacheMap], mcc
       case Some(cacheMap) => Future(OptionalDataRequest(request, "id", Some(new UserAnswers(cacheMap))))
     }
 
-  override protected implicit val executionContext: ExecutionContext =
+  override protected given executionContext: ExecutionContext =
     scala.concurrent.ExecutionContext.Implicits.global
 
   override def parser: BodyParser[AnyContent] = mcc.parsers.anyContent // Helpers.stubBodyParser[AnyContent]()

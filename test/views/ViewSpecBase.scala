@@ -26,7 +26,7 @@ trait ViewSpecBase extends SpecBase {
   def asDocument(html: Html): Document = Jsoup.parse(html.toString())
 
   def assertEqualsMessage(doc: Document, cssSelector: String, expectedMessageKey: String, args: Any*) =
-    assertEqualsValue(doc, cssSelector, messages(expectedMessageKey, args: _*))
+    assertEqualsValue(doc, cssSelector, messages(expectedMessageKey, args*))
 
   def assertEqualsValue(doc: Document, cssSelector: String, expectedValue: String) = {
     val elements = doc.select(cssSelector)
@@ -40,7 +40,7 @@ trait ViewSpecBase extends SpecBase {
   def assertPageTitleEqualsMessage(doc: Document, expectedMessageKey: String, args: Any*) = {
     val headers = doc.getElementsByTag("h1")
     headers.size mustBe 1
-    headers.first.text.replaceAll("\u00a0", " ") mustBe messages(expectedMessageKey, args: _*).replaceAll("&nbsp;", " ")
+    headers.first.text.replaceAll("\u00a0", " ") mustBe messages(expectedMessageKey, args*).replaceAll("&nbsp;", " ")
   }
 
   def assertContainsText(doc: Document, text: String) =

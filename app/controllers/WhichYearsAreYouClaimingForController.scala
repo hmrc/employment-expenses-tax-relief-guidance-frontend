@@ -17,9 +17,10 @@
 package controllers
 
 import connectors.DataCacheConnector
-import controllers.actions._
+import controllers.actions.*
 import forms.WhichYearsAreYouClaimingForFormProvider
 import identifiers.WhichYearsAreYouClaimingForId
+import models.requests.DataRequest
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -38,11 +39,13 @@ class WhichYearsAreYouClaimingForController @Inject() (
     formProvider: WhichYearsAreYouClaimingForFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: WhichYearsAreYouClaimingForView
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { implicit request =>
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData) { request =>
+    given DataRequest[AnyContent] = request
+
     val form: Form[Boolean] = formProvider()
 
     val preparedForm = request.userAnswers.whichYearsAreYouClaimingFor match {
@@ -52,13 +55,14 @@ class WhichYearsAreYouClaimingForController @Inject() (
     Ok(view(preparedForm))
   }
 
-  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
-    val form: Form[Boolean] = formProvider()
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { request =>
+    given DataRequest[AnyContent] = request
+    val form: Form[Boolean]       = formProvider()
 
     form
       .bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors))),
+        (formWithErrors: Form[?]) => Future.successful(BadRequest(view(formWithErrors))),
         value =>
           dataCacheConnector
             .save[Boolean](request.sessionId, WhichYearsAreYouClaimingForId, value)

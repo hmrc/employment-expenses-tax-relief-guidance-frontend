@@ -19,7 +19,7 @@ package controllers
 import base.SpecBase
 import config.FrontendAppConfig
 import controllers.helpers.ClaimingForListBuilder
-import identifiers._
+import identifiers.*
 import models.ClaimingFor
 import models.ClaimingFor.{FeesSubscriptions, HomeWorking, MileageFuel, TravelExpenses}
 import org.mockito.ArgumentMatchers.{any, eq => eqTo}
@@ -31,7 +31,7 @@ import play.api.inject.bind
 import play.api.libs.json.Reads
 import play.api.mvc.Request
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import play.twirl.api.HtmlFormat
 import utils.{CacheMap, UserAnswers}
 import views.html.{UseIformFreOnlyView, UsePrintAndPostDetailedView, UsePrintAndPostFreOnlyView, UsePrintAndPostView}
@@ -79,15 +79,15 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
 
     when(claimingForListBuilder.buildClaimingForList(any[UserAnswers])).thenReturn(claimingForList)
 
-    when(cacheMap.getEntry(any[String])(any)).thenReturn(None)
+    when(cacheMap.getEntry(any[String])(using any)).thenReturn(None)
 
-    when(usePrintAndPostView.apply(any[Boolean], any[Boolean])(any[Request[_]], any[Messages]))
+    when(usePrintAndPostView.apply(any[Boolean], any[Boolean])(using any[Request[?]], any[Messages]))
       .thenReturn(HtmlFormat.empty)
-    when(usePrintAndPostDetailedView.apply(any[List[ClaimingFor]])(any[Request[_]], any[Messages]))
+    when(usePrintAndPostDetailedView.apply(any[List[ClaimingFor]])(using any[Request[?]], any[Messages]))
       .thenReturn(HtmlFormat.empty)
-    when(usePrintAndPostFreOnlyView.apply(any[List[ClaimingFor]])(any[Request[_]], any[Messages]))
+    when(usePrintAndPostFreOnlyView.apply(any[List[ClaimingFor]])(using any[Request[?]], any[Messages]))
       .thenReturn(HtmlFormat.empty)
-    when(useIformFreOnlyView.apply(any[List[ClaimingFor]], any[String])(any[Request[_]], any[Messages]))
+    when(useIformFreOnlyView.apply(any[List[ClaimingFor]], any[String])(using any[Request[?]], any[Messages]))
       .thenReturn(HtmlFormat.empty)
   }
 
@@ -108,21 +108,21 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
         "UserAnswers contain non-empty moreThanFiveJobs equal to true" in {
           when(appConfig.freOnlyJourneyEnabled).thenReturn(true)
           when(appConfig.onlineJourneyShutterEnabled).thenReturn(true)
-          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(any[Reads[Boolean]]))
+          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(using any[Reads[Boolean]]))
             .thenReturn(Some(true))
 
           for {
             result <- route(application, testRequest).value
 
             _ = result.header.status mustBe OK
-            _ = verify(usePrintAndPostFreOnlyView).apply(eqTo(claimingForList))(any[Request[_]], any[Messages])
+            _ = verify(usePrintAndPostFreOnlyView).apply(eqTo(claimingForList))(using any[Request[?]], any[Messages])
           } yield ()
         }
 
         "UserAnswers contain non-empty moreThanFiveJobs equal to false" in {
           when(appConfig.freOnlyJourneyEnabled).thenReturn(true)
           when(appConfig.onlineJourneyShutterEnabled).thenReturn(true)
-          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(any[Reads[Boolean]]))
+          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(using any[Reads[Boolean]]))
             .thenReturn(Some(false))
 
           for {
@@ -130,7 +130,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
 
             _ = result.header.status mustBe OK
             _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList), eqTo(redirectionLink))(
-              any[Request[_]],
+              using any[Request[?]],
               any[Messages]
             )
           } yield ()
@@ -145,7 +145,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
 
             _ = result.header.status mustBe OK
             _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList), eqTo(redirectionLink))(
-              any[Request[_]],
+              using any[Request[?]],
               any[Messages]
             )
           } yield ()
@@ -157,21 +157,21 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
         "UserAnswers contain non-empty moreThanFiveJobs equal to true" in {
           when(appConfig.freOnlyJourneyEnabled).thenReturn(true)
           when(appConfig.onlineJourneyShutterEnabled).thenReturn(false)
-          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(any[Reads[Boolean]]))
+          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(using any[Reads[Boolean]]))
             .thenReturn(Some(true))
 
           for {
             result <- route(application, testRequest).value
 
             _ = result.header.status mustBe OK
-            _ = verify(usePrintAndPostFreOnlyView).apply(eqTo(claimingForList))(any[Request[_]], any[Messages])
+            _ = verify(usePrintAndPostFreOnlyView).apply(eqTo(claimingForList))(using any[Request[?]], any[Messages])
           } yield ()
         }
 
         "UserAnswers contain non-empty moreThanFiveJobs equal to false" in {
           when(appConfig.freOnlyJourneyEnabled).thenReturn(true)
           when(appConfig.onlineJourneyShutterEnabled).thenReturn(false)
-          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(any[Reads[Boolean]]))
+          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(using any[Reads[Boolean]]))
             .thenReturn(Some(false))
 
           for {
@@ -179,7 +179,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
 
             _ = result.header.status mustBe OK
             _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList), eqTo(redirectionLink))(
-              any[Request[_]],
+              using any[Request[?]],
               any[Messages]
             )
           } yield ()
@@ -194,7 +194,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
 
             _ = result.header.status mustBe OK
             _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList), eqTo(redirectionLink))(
-              any[Request[_]],
+              using any[Request[?]],
               any[Messages]
             )
           } yield ()
@@ -209,7 +209,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
           result <- route(application, testRequest).value
 
           _ = result.header.status mustBe OK
-          _ = verify(usePrintAndPostDetailedView).apply(eqTo(claimingForList))(any[Request[_]], any[Messages])
+          _ = verify(usePrintAndPostDetailedView).apply(eqTo(claimingForList))(using any[Request[?]], any[Messages])
         } yield ()
       }
 
@@ -221,7 +221,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
           result <- route(application, testRequest).value
 
           _ = result.header.status mustBe OK
-          _ = verify(usePrintAndPostView).apply(eqTo(false), eqTo(false))(any[Request[_]], any[Messages])
+          _ = verify(usePrintAndPostView).apply(eqTo(false), eqTo(false))(using any[Request[?]], any[Messages])
         } yield ()
       }
 

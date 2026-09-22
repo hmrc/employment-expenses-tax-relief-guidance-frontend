@@ -21,7 +21,7 @@
 @(
     errors: Seq[FormError],
     errorKey: Option[String] = None
-)(implicit messages: Messages)
+)(using messages: Messages)
 
 @if(errors.nonEmpty) {
     @govukErrorSummary(ErrorSummary(
@@ -29,7 +29,7 @@
         errorList   = for(error <- errors) yield {
             ErrorLink(
                 href    = errorKey.orElse(Some(error.key)).map(key => s"#$key"),
-                content = Text(messages(error.message, error.args:_*))
+                content = Text(messages(error.message, error.args *))
             )
         }
     ))

@@ -17,7 +17,7 @@
 package controllers
 
 import connectors.DataCacheConnector
-import controllers.actions._
+import controllers.actions.*
 import forms.UseCompanyCarFormProvider
 import identifiers.UseCompanyCarId
 
@@ -41,11 +41,12 @@ class UseCompanyCarController @Inject() (
     formProvider: UseCompanyCarFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: UseCompanyCarView
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport {
 
-  def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+  def onPageLoad: Action[AnyContent] = getData.andThen(requireData).async { request =>
+    given DataRequest[AnyContent] = request
     getUseOfOwnCar { useOfOwnCar =>
       val form: Form[Boolean] = formProvider(useOfOwnCar)
 
@@ -57,14 +58,15 @@ class UseCompanyCarController @Inject() (
     }
   }
 
-  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { implicit request =>
+  def onSubmit: Action[AnyContent] = getData.andThen(requireData).async { request =>
+    given DataRequest[AnyContent] = request
     getUseOfOwnCar { useOfOwnCar =>
       val form: Form[Boolean] = formProvider(useOfOwnCar)
 
       form
         .bindFromRequest()
         .fold(
-          (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors, useOfOwnCar))),
+          (formWithErrors: Form[?]) => Future.successful(BadRequest(view(formWithErrors, useOfOwnCar))),
           value =>
             dataCacheConnector
               .save[Boolean](request.sessionId, UseCompanyCarId, value)
@@ -75,7 +77,7 @@ class UseCompanyCarController @Inject() (
 
   private def getUseOfOwnCar(
       block: UseOfOwnCar => Future[Result]
-  )(implicit request: DataRequest[AnyContent]): Future[Result] =
+  )(using request: DataRequest[AnyContent]): Future[Result] =
 
     request.userAnswers.useOwnCar match {
       case Some(true)  => block(UsingOwnCar)

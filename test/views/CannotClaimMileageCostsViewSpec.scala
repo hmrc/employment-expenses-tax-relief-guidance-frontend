@@ -27,7 +27,7 @@ class CannotClaimMileageCostsViewSpec extends NewViewBehaviours {
 
   val view = application.injector.instanceOf[CannotClaimMileageCostsView]
 
-  def createView = view.apply()(fakeRequest, messages)
+  def createView = view.apply()(using fakeRequest, messages)
 
   val buisnessMileageFuelCostsUrl = frontendAppConfig.buisnessMileageFuelCostsUrl
 

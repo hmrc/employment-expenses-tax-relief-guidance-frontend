@@ -22,7 +22,7 @@
     appConfig: FrontendAppConfig
 )
 
-@(nextPage: Call)(implicit request: Request[_], messages: Messages)
+@()(using request: Request[?], messages: Messages)
 
 @saLink = {<a  class="govuk-link" rel="noreferrer noopener" target="_blank" href=@appConfig.fileSelfAssessmentLoginUrl>@messages("registerForSelfAssessment.link.external.label")</a>}
 

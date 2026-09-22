@@ -29,7 +29,7 @@ trait FormSpec extends AnyWordSpec with OptionValues with Matchers {
 
   def earliestTaxYear = TaxYear.current.back(4).startYear.toString
 
-  def checkForError(form: Form[_], data: Map[String, String], expectedErrors: Seq[FormError]) =
+  def checkForError(form: Form[?], data: Map[String, String], expectedErrors: Seq[FormError]) =
 
     form
       .bind(data)

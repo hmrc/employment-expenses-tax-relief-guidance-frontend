@@ -18,7 +18,7 @@ package controllers
 
 import base.SpecBase
 import connectors.DataCacheConnector
-import controllers.actions._
+import controllers.actions.*
 import forms.PaidTaxInRelevantYearFormProvider
 import identifiers.{ClaimantId, PaidTaxInRelevantYearId}
 import org.mockito.ArgumentMatchers.any
@@ -29,7 +29,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import play.api.inject.bind
 import play.api.libs.json.{JsBoolean, JsString}
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import utils.{CacheMap, Navigator, NavigatorSupport}
 
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -51,7 +51,7 @@ class PaidTaxInRelevantYearControllerSpec
 
   override def beforeEach(): Unit = {
     reset(mockDataCacheConnector)
-    when(mockDataCacheConnector.save(any(), any(), any())(any())).thenReturn(Future(new CacheMap("id", Map())))
+    when(mockDataCacheConnector.save(any(), any(), any())(using any())).thenReturn(Future(new CacheMap("id", Map())))
   }
 
   val formProvider = new PaidTaxInRelevantYearFormProvider()

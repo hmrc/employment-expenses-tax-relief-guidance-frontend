@@ -17,11 +17,13 @@
 package controllers
 
 import connectors.DataCacheConnector
-import controllers.actions._
+import controllers.actions.*
 import forms.ClaimingForFormProvider
 import identifiers.ClaimingForId
+
 import javax.inject.Inject
 import models.ClaimingFor
+import models.requests.OptionalDataRequest
 import play.api.data.Form
 import play.api.i18n.I18nSupport
 import play.api.mvc.{Action, AnyContent, MessagesControllerComponents}
@@ -38,13 +40,14 @@ class ClaimingForController @Inject() (
     formProvider: ClaimingForFormProvider,
     val controllerComponents: MessagesControllerComponents,
     view: ClaimingForView
-)(implicit ec: ExecutionContext)
+)(using ExecutionContext)
     extends FrontendBaseController
     with I18nSupport
     with Enumerable.Implicits {
 
-  def onPageLoad: Action[AnyContent] = getData { implicit request =>
-    val form = formProvider()
+  def onPageLoad: Action[AnyContent] = getData { request =>
+    given OptionalDataRequest[AnyContent] = request
+    val form                              = formProvider()
     val preparedForm = request.userAnswers.flatMap(_.claimingFor) match {
       case None        => form
       case Some(value) => form.fill(value.toSet)
@@ -58,8 +61,9 @@ class ClaimingForController @Inject() (
     Ok(view(preparedForm, backLinkEnabled))
   }
 
-  def onSubmit: Action[AnyContent] = getData.async { implicit request =>
-    val form = formProvider()
+  def onSubmit: Action[AnyContent] = getData.async { request =>
+    given OptionalDataRequest[AnyContent] = request
+    val form                              = formProvider()
 
     val backLinkEnabled: Boolean = request.userAnswers.flatMap(_.claimAnyOtherExpense) match {
       case None | Some(true) => false
@@ -69,7 +73,7 @@ class ClaimingForController @Inject() (
     form
       .bindFromRequest()
       .fold(
-        (formWithErrors: Form[_]) => Future.successful(BadRequest(view(formWithErrors, backLinkEnabled))),
+        (formWithErrors: Form[?]) => Future.successful(BadRequest(view(formWithErrors, backLinkEnabled))),
         value =>
           dataCacheConnector
             .save[Set[ClaimingFor]](request.sessionId, ClaimingForId, value)

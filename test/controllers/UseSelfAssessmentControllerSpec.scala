@@ -19,7 +19,7 @@ package controllers
 import base.SpecBase
 import identifiers.{ClaimantId, ClaimingForCurrentYearId, RegisteredForSelfAssessmentId}
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import play.api.libs.json.{JsBoolean, JsString}
 import utils.CacheMap
 

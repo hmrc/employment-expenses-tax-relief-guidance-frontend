@@ -18,12 +18,12 @@ package utils
 
 import config.FrontendAppConfig
 import controllers.routes
-import identifiers._
+import identifiers.*
 import models.ClaimingForMoreThanOneJob.{MoreThanOneJob, OneJob}
 import models.EmployerPaid.{AllExpenses, NoExpenses, SomeExpenses}
 import models.{Claimant, ClaimingFor}
 import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito._
+import org.mockito.Mockito.*
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.must.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -35,7 +35,7 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
   private val frontendAppConfig = mock[FrontendAppConfig]
   private val userAnswers       = mock[UserAnswers]
 
-  private val navigator = new Navigator(navigatorHelper)(frontendAppConfig)
+  private val navigator = new Navigator(navigatorHelper)(using frontendAppConfig)
 
   override def beforeEach(): Unit =
     reset[Object](navigatorHelper, frontendAppConfig, userAnswers)

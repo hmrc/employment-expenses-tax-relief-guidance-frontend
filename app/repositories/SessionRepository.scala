@@ -21,12 +21,12 @@ import config.FrontendAppConfig
 import javax.inject.{Inject, Singleton}
 import java.time.Instant
 import org.mongodb.scala.model.{IndexModel, IndexOptions, UpdateOptions}
-import org.mongodb.scala.model.Indexes._
+import org.mongodb.scala.model.Indexes.*
 import play.api.libs.json.{JsValue, Json, OFormat}
 import uk.gov.hmrc.mongo.MongoComponent
 import uk.gov.hmrc.mongo.play.json.PlayMongoRepository
-import org.mongodb.scala.model.Filters._
-import org.mongodb.scala.model.Updates._
+import org.mongodb.scala.model.Filters.*
+import org.mongodb.scala.model.Updates.*
 import uk.gov.hmrc.mongo.play.json.Codecs
 import utils.CacheMap
 
@@ -37,13 +37,13 @@ case class DatedCacheMap(id: String, data: Map[String, JsValue], lastUpdated: In
 
 object DatedCacheMap extends MongoDateTimeFormats {
 
-  implicit val formats: OFormat[DatedCacheMap] = Json.format[DatedCacheMap]
+  given formats: OFormat[DatedCacheMap] = Json.format[DatedCacheMap]
 
   def apply(cacheMap: CacheMap): DatedCacheMap = DatedCacheMap(cacheMap.id, cacheMap.data)
 }
 
 class ReactiveMongoRepository(appConfig: FrontendAppConfig, mongo: MongoComponent)(
-    implicit executionContext: ExecutionContext
+    using executionContext: ExecutionContext
 ) extends PlayMongoRepository[DatedCacheMap](
       collectionName = appConfig.serviceName,
       mongoComponent = mongo,
@@ -85,7 +85,7 @@ class ReactiveMongoRepository(appConfig: FrontendAppConfig, mongo: MongoComponen
 
 @Singleton
 class SessionRepository @Inject() (appConfig: FrontendAppConfig, mongo: MongoComponent)(
-    implicit executionContext: ExecutionContext
+    using executionContext: ExecutionContext
 ) {
 
   private lazy val sessionRepository = new ReactiveMongoRepository(appConfig, mongo)

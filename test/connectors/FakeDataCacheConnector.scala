@@ -26,7 +26,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 object FakeDataCacheConnector extends DataCacheConnector {
   override def save(cacheMap: CacheMap): Future[CacheMap] = ???
 
-  override def save[A](cacheId: String, key: Identifier, value: A)(implicit fmt: Format[A]): Future[CacheMap] = Future(
+  override def save[A](cacheId: String, key: Identifier, value: A)(using fmt: Format[A]): Future[CacheMap] = Future(
     CacheMap(cacheId, Map())
   )
 
@@ -36,18 +36,18 @@ object FakeDataCacheConnector extends DataCacheConnector {
 
   override def fetchBySessionId(sessionId: String): Future[Option[CacheMap]] = ???
 
-  override def getEntry[A](cacheId: String, key: Identifier)(implicit fmt: Format[A]): Future[Option[A]] = ???
+  override def getEntry[A](cacheId: String, key: Identifier)(using fmt: Format[A]): Future[Option[A]] = ???
 
   override def addToCollection[A](cacheId: String, collectionKey: Identifier, value: A)(
-      implicit fmt: Format[A]
+      using fmt: Format[A]
   ): Future[CacheMap] = Future(CacheMap(cacheId, Map()))
 
   override def removeFromCollection[A](cacheId: String, collectionKey: Identifier, item: A)(
-      implicit fmt: Format[A]
+      using fmt: Format[A]
   ): Future[CacheMap] = Future(CacheMap(cacheId, Map()))
 
   override def replaceInCollection[A](cacheId: String, collectionKey: Identifier, index: Int, item: A)(
-      implicit fmt: Format[A]
+      using fmt: Format[A]
   ): Future[CacheMap] = Future(CacheMap(cacheId, Map()))
 
 }

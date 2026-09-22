@@ -27,7 +27,7 @@ class SaCheckDisclaimerAllYearsViewSpec extends NewViewBehaviours {
 
   val view = application.injector.instanceOf[SaCheckDisclaimerAllYearsView]
 
-  def createView = view.apply()(fakeRequest, messages)
+  def createView = view.apply()(using fakeRequest, messages)
 
   "UseSelfAssessment view" must {
 

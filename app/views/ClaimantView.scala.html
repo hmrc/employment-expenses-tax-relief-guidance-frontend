@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import controllers.routes._
+@import controllers.routes.*
 @import models.Claimant
 
 @this(
@@ -27,7 +27,7 @@
     submitButton: playComponents.submit_button
 )
 
-@(form: Form[_])(implicit request: Request[_], messages: Messages)
+@(form: Form[?])(using request: Request[?], messages: Messages)
 
 @detailsContent = {
     <p class="govuk-body">@messages("claimant.hidden.guidance1")</p>

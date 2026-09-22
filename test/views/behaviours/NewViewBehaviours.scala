@@ -22,7 +22,7 @@ import views.NewViewSpecBase
 trait NewViewBehaviours extends NewViewSpecBase {
 
   protected def getFullTitle(messageKey: String, args: Any*) =
-    messages(messageKey, args: _*) + " – " + messages("service.name") + " – " + messages("site.gov.uk")
+    messages(messageKey, args*) + " – " + messages("service.name") + " – " + messages("site.gov.uk")
 
   def normalPage(view: HtmlFormat.Appendable, messageKeyPrefix: String, expectedGuidanceKeys: String*) =
 

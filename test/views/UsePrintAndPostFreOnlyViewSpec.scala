@@ -74,7 +74,7 @@ class UsePrintAndPostFreOnlyViewSpec extends NewViewBehaviours with MockitoSugar
       .overrides(bind[FrontendAppConfig].toInstance(mockAppConfig))
       .build()
 
-  def createView(): Html = view.apply(claimingListFor)(fakeRequest, messages)
+  def createView(): Html = view.apply(claimingListFor)(using fakeRequest, messages)
 
   val view: UsePrintAndPostFreOnlyView = application.injector.instanceOf[UsePrintAndPostFreOnlyView]
 

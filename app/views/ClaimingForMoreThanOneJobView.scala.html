@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import controllers.routes._
+@import controllers.routes.*
 @import uk.gov.hmrc.govukfrontend.views.html.components.FormWithCSRF
 
 @this(
@@ -25,7 +25,7 @@
    inputRadio: playComponents.input_radio
 )
 
-@(form: Form[_])(implicit request: Request[_], messages: Messages)
+@(form: Form[?])(using request: Request[?], messages: Messages)
 
 @layout(
     pageTitle = s"${errorPrefix(form)} ${messages("claimingForMoreThanOneJob.title")}"

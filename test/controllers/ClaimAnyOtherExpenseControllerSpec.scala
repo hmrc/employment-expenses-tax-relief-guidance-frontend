@@ -25,7 +25,7 @@ import play.api.inject.bind
 import play.api.libs.json.JsBoolean
 import play.api.mvc.Call
 import play.api.test.FakeRequest
-import play.api.test.Helpers._
+import play.api.test.Helpers.*
 import utils.{CacheMap, Navigator, NavigatorSupport}
 
 class ClaimAnyOtherExpenseControllerSpec

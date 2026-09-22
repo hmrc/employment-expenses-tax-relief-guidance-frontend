@@ -35,7 +35,7 @@ class UseCompanyCarViewSpec extends NewYesNoViewBehaviours {
 
   val form = new UseCompanyCarFormProvider()(useOfOwnCar)
 
-  def createView(form: Form[_]) = view.apply(form, useOfOwnCar)(fakeRequest, messages)
+  def createView(form: Form[?]) = view.apply(form, useOfOwnCar)(using fakeRequest, messages)
 
   "UseCompanyCar view" must {
 
