@@ -22,6 +22,8 @@ POST       /which-years-are-you-claiming-for            controllers.WhichYearsAr
 GET        /inform-customer-claim-now-in-weeks          controllers.InformCustomerClaimNowInWeeksController.onPageLoad()
 POST       /inform-customer-claim-now-in-weeks          controllers.InformCustomerClaimNowInWeeksController.onSubmit()
 
+GET        /sa-check-disclaimer-current-year            controllers.SaCheckDisclaimerCurrentYearController.onPageLoad()
+
 GET        /more-than-2500                              controllers.ClaimingOverPayAsYouEarnThresholdController.onPageLoad()
 POST       /more-than-2500                              controllers.ClaimingOverPayAsYouEarnThresholdController.onSubmit()
 

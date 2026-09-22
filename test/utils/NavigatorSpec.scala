@@ -969,36 +969,6 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
         }
       }
     }
-
-    "provided with SaCheckDisclaimerAllYearsId identifier" when {
-
-      "UserAnswers.whichYearsAreYouClaimingFor is true" must {
-        "return Call to ClaimingMileageController" in {
-          when(userAnswers.claimingForCurrentYear).thenReturn(Some(true))
-
-          navigator.nextPage(SaCheckDisclaimerAllYearsId)(userAnswers) mustBe
-            routes.SaCheckDisclaimerAllYearsController.onPageLoad()
-        }
-      }
-
-      "UserAnswers.whichYearsAreYouClaimingFor is false" must {
-        "return Call to UseCompanyCarController" in {
-          when(userAnswers.claimingForCurrentYear).thenReturn(Some(false))
-
-          navigator.nextPage(SaCheckDisclaimerAllYearsId)(userAnswers) mustBe
-            routes.UseSelfAssessmentController.onPageLoad()
-        }
-      }
-
-      "UserAnswers.whichYearsAreYouClaimingFor is empty" must {
-        "return Call to SessionExpiredController" in {
-          when(userAnswers.claimingForCurrentYear).thenReturn(None)
-
-          navigator.nextPage(SaCheckDisclaimerAllYearsId)(userAnswers) mustBe
-            routes.SessionExpiredController.onPageLoad
-        }
-      }
-    }
   }
 
 }

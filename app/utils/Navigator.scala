@@ -182,13 +182,6 @@ class Navigator @Inject() (navigatorHelper: NavigatorHelper)(implicit appConfig:
       case _           => routes.SessionExpiredController.onPageLoad
     }
 
-  private def saCheckDisclaimerAllYearsRouting(userAnswers: UserAnswers) =
-    userAnswers.claimingForCurrentYear match {
-      case Some(true)  => routes.SaCheckDisclaimerAllYearsController.onPageLoad()
-      case Some(false) => routes.UseSelfAssessmentController.onPageLoad()
-      case _           => routes.SessionExpiredController.onPageLoad
-    }
-
   private val routeMap: Map[Identifier, UserAnswers => Call] = Map(
     ClaimingForId                       -> claimingForRouting,
     ClaimantId                          -> claimantRouting,
@@ -208,8 +201,7 @@ class Navigator @Inject() (navigatorHelper: NavigatorHelper)(implicit appConfig:
     InformCustomerClaimNowInWeeksId     -> informCustomerClaimNowInWeeksRouting,
     WillNotPayTaxId                     -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
     RegisterForSelfAssessmentId         -> (_ => routes.EmployerPaidBackAnyExpensesController.onPageLoad()),
-    ClaimingForCurrentYearId            -> claimingForCurrentYearControllerRouting,
-    SaCheckDisclaimerAllYearsId         -> saCheckDisclaimerAllYearsRouting
+    ClaimingForCurrentYearId            -> claimingForCurrentYearControllerRouting
   )
 
   private def isMergedJourney(userAnswers: UserAnswers): Boolean = {
