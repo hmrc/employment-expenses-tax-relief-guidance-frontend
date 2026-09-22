@@ -48,10 +48,6 @@ class ClaimAnyOtherExpenseController @Inject() (
 
   val form: Form[Boolean] = formProvider()
 
-  def redirectToHome: Action[AnyContent] = flowEnabled.andThen(getData) {
-    Redirect(routes.ClaimAnyOtherExpenseController.onPageLoad())
-  }
-
   def onPageLoad: Action[AnyContent] = flowEnabled.andThen(getData) { implicit request =>
     val preparedForm = request.userAnswers.flatMap(_.claimAnyOtherExpense) match {
       case None        => form

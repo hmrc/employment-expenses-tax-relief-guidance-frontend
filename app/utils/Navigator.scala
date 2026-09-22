@@ -194,7 +194,6 @@ class Navigator @Inject() (navigatorHelper: NavigatorHelper)(implicit appConfig:
     ClaimantId                          -> claimantRouting,
     ClaimAnyOtherExpenseId              -> claimAnyOtherExpenseRouting,
     PaidTaxInRelevantYearId             -> paidTaxInRelevantYearRouting,
-    NotEntitledSomeYearsId              -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
     RegisteredForSelfAssessmentId       -> registeredForSelfAssessmentRouting,
     ClaimingOverPayAsYouEarnThresholdId -> claimingOverPayAsYouEarnThresholdRouting,
     MoreThanFiveJobsId                  -> moreThanFiveJobsRouting,
@@ -209,8 +208,6 @@ class Navigator @Inject() (navigatorHelper: NavigatorHelper)(implicit appConfig:
     InformCustomerClaimNowInWeeksId     -> informCustomerClaimNowInWeeksRouting,
     WillNotPayTaxId                     -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
     RegisterForSelfAssessmentId         -> (_ => routes.EmployerPaidBackAnyExpensesController.onPageLoad()),
-    ChangeOtherExpensesId               -> (_ => routes.ClaimantController.onPageLoad()),
-    ChangeUniformsWorkClothingToolsId   -> (_ => routes.ClaimantController.onPageLoad()),
     ClaimingForCurrentYearId            -> claimingForCurrentYearControllerRouting,
     SaCheckDisclaimerAllYearsId         -> saCheckDisclaimerAllYearsRouting
   )

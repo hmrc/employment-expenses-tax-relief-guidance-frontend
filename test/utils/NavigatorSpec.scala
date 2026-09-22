@@ -245,13 +245,6 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
       }
     }
 
-    "provided with NotEntitledSomeYearsId identifier" must {
-      "return Call to RegisteredForSelfAssessmentController" in {
-        navigator.nextPage(NotEntitledSomeYearsId)(userAnswers) mustBe
-          routes.RegisteredForSelfAssessmentController.onPageLoad()
-      }
-    }
-
     "provided with RegisteredForSelfAssessmentId identifier" when {
 
       "UserAnswers.registeredForSelfAssessment is true" must {
@@ -944,20 +937,6 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
       "return Call to UseCompanyCarController" in {
         navigator.nextPage(RegisterForSelfAssessmentId)(userAnswers) mustBe
           routes.EmployerPaidBackAnyExpensesController.onPageLoad()
-      }
-    }
-
-    "provided with ChangeOtherExpensesId identifier" must {
-      "return Call to UseCompanyCarController" in {
-        navigator.nextPage(ChangeOtherExpensesId)(userAnswers) mustBe
-          routes.ClaimantController.onPageLoad()
-      }
-    }
-
-    "provided with ChangeUniformsWorkClothingToolsId identifier" must {
-      "return Call to UseCompanyCarController" in {
-        navigator.nextPage(ChangeUniformsWorkClothingToolsId)(userAnswers) mustBe
-          routes.ClaimantController.onPageLoad()
       }
     }
 
