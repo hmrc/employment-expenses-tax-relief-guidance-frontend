@@ -947,13 +947,6 @@ class NavigatorSpec extends AnyWordSpec with Matchers with MockitoSugar with Bef
       }
     }
 
-    "provided with ChangeOtherExpensesId identifier" must {
-      "return Call to UseCompanyCarController" in {
-        navigator.nextPage(ChangeOtherExpensesId)(userAnswers) mustBe
-          routes.ClaimantController.onPageLoad()
-      }
-    }
-
     "provided with ChangeUniformsWorkClothingToolsId identifier" must {
       "return Call to UseCompanyCarController" in {
         navigator.nextPage(ChangeUniformsWorkClothingToolsId)(userAnswers) mustBe

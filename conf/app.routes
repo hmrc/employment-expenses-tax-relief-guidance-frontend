@@ -50,14 +50,10 @@ GET        /cannot-claim-expenses-paid-back             controllers.CannotClaimR
 GET        /employer-paid-back-any-expenses             controllers.EmployerPaidBackAnyExpensesController.onPageLoad()
 POST       /employer-paid-back-any-expenses             controllers.EmployerPaidBackAnyExpensesController.onSubmit()
 
-GET        /cannot-claim-for-all-years                  controllers.CannotClaimReliefSomeYearsController.onPageLoad()
-
 GET        /cannot-claim-too-long-ago                   controllers.CannotClaimReliefTooLongAgoController.onPageLoad()
 
 GET        /paid-tax-in-year                            controllers.PaidTaxInRelevantYearController.onPageLoad()
 POST       /paid-tax-in-year                            controllers.PaidTaxInRelevantYearController.onSubmit()
-
-GET        /did-not-pay-tax-in-year                     controllers.NotEntitledController.onPageLoad()
 
 GET        /claim-years-paid-tax                        controllers.NotEntitledSomeYearsController.onPageLoad()
 
@@ -84,8 +80,6 @@ GET        /will-not-pay-tax-in-year                    controllers.WillNotPayTa
 
 GET        /pay-or-will-pay-tax-in-year                 controllers.WillPayTaxController.onPageLoad()
 POST       /pay-or-will-pay-tax-in-year                 controllers.WillPayTaxController.onSubmit()
-
-GET        /change-other-expenses                       controllers.ChangeOtherExpensesController.onPageLoad()
 
 GET        /change-uniforms-work-clothing-tools         controllers.ChangeUniformsWorkClothingToolsController.onPageLoad()
 

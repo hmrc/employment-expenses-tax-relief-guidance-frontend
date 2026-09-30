@@ -209,7 +209,6 @@ class Navigator @Inject() (navigatorHelper: NavigatorHelper)(using appConfig: Fr
     InformCustomerClaimNowInWeeksId     -> informCustomerClaimNowInWeeksRouting,
     WillNotPayTaxId                     -> (_ => routes.RegisteredForSelfAssessmentController.onPageLoad()),
     RegisterForSelfAssessmentId         -> (_ => routes.EmployerPaidBackAnyExpensesController.onPageLoad()),
-    ChangeOtherExpensesId               -> (_ => routes.ClaimantController.onPageLoad()),
     ChangeUniformsWorkClothingToolsId   -> (_ => routes.ClaimantController.onPageLoad()),
     ClaimingForCurrentYearId            -> claimingForCurrentYearControllerRouting,
     SaCheckDisclaimerAllYearsId         -> saCheckDisclaimerAllYearsRouting
