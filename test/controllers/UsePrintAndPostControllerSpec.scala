@@ -89,6 +89,9 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
       .thenReturn(HtmlFormat.empty)
     when(useIformFreOnlyView.apply(any[List[ClaimingFor]], any[String])(using any[Request[?]], any[Messages]))
       .thenReturn(HtmlFormat.empty)
+    when(appConfig.freOnlyJourneyEnabled).thenReturn(true)
+    when(appConfig.onlineJourneyShutterEnabled).thenReturn(true)
+    when(appConfig.pegaServiceJourney).thenReturn(false)
   }
 
   override def afterAll(): Unit = {
