@@ -22,8 +22,8 @@ import controllers.helpers.ClaimingForListBuilder
 import identifiers.*
 import models.ClaimingFor
 import models.ClaimingFor.{FeesSubscriptions, HomeWorking, MileageFuel, TravelExpenses}
-import org.mockito.ArgumentMatchers.{any, eq => eqTo}
-import org.mockito.Mockito.{reset, verify, when}
+import org.mockito.ArgumentMatchers.{any, eq as eqTo}
+import org.mockito.Mockito.{doReturn, reset, verify, when}
 import org.scalatest.{BeforeAndAfterAll, BeforeAndAfterEach}
 import org.scalatestplus.mockito.MockitoSugar.mock
 import play.api.i18n.Messages
@@ -89,11 +89,11 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
       .thenReturn(HtmlFormat.empty)
     when(useIformFreOnlyView.apply(any[List[ClaimingFor]], any[String])(using any[Request[?]], any[Messages]))
       .thenReturn(HtmlFormat.empty)
-    when(appConfig.freOnlyJourneyEnabled).thenReturn(true)
-    when(appConfig.onlineJourneyShutterEnabled).thenReturn(true)
-    when(appConfig.pegaServiceJourney).thenReturn(false)
-    when(appConfig.employeeExpensesClaimByIformUrl).thenReturn("iform-url")
-    when(appConfig.employeeExpensesClaimByPegaServicesUrl).thenReturn("pega-url")
+    doReturn(true).when(appConfig).freOnlyJourneyEnabled
+    doReturn(true).when(appConfig).onlineJourneyShutterEnabled
+    doReturn(false).when(appConfig).pegaServiceJourney
+    doReturn("iform-url").when(appConfig).employeeExpensesClaimByIformUrl
+    doReturn("pega-url").when(appConfig).employeeExpensesClaimByPegaServicesUrl
   }
 
   override def afterAll(): Unit = {
@@ -111,8 +111,8 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
       "both freOnlyJourney and onlineJourneyShutter are enabled" when {
 
         "UserAnswers contain non-empty moreThanFiveJobs equal to true" in {
-          when(appConfig.freOnlyJourneyEnabled).thenReturn(true)
-          when(appConfig.onlineJourneyShutterEnabled).thenReturn(true)
+          doReturn(true).when(appConfig).freOnlyJourneyEnabled
+          doReturn(true).when(appConfig).onlineJourneyShutterEnabled
           when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(using any[Reads[Boolean]]))
             .thenReturn(Some(true))
 
@@ -125,8 +125,8 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
         }
 
         "UserAnswers contain non-empty moreThanFiveJobs equal to false" in {
-          when(appConfig.freOnlyJourneyEnabled).thenReturn(true)
-          when(appConfig.onlineJourneyShutterEnabled).thenReturn(true)
+          doReturn(true).when(appConfig).freOnlyJourneyEnabled
+          doReturn(true).when(appConfig).onlineJourneyShutterEnabled
           when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(using any[Reads[Boolean]]))
             .thenReturn(Some(false))
 
@@ -142,8 +142,8 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
         }
 
         "UserAnswers does NOT contain moreThanFiveJobs field" in {
-          when(appConfig.freOnlyJourneyEnabled).thenReturn(true)
-          when(appConfig.onlineJourneyShutterEnabled).thenReturn(true)
+          doReturn(true).when(appConfig).freOnlyJourneyEnabled
+          doReturn(true).when(appConfig).onlineJourneyShutterEnabled
 
           for {
             result <- route(application, testRequest).value
@@ -160,8 +160,8 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
       "freOnlyJourney is enabled but onlineJourneyShutter is disabled" when {
 
         "UserAnswers contain non-empty moreThanFiveJobs equal to true" in {
-          when(appConfig.freOnlyJourneyEnabled).thenReturn(true)
-          when(appConfig.onlineJourneyShutterEnabled).thenReturn(false)
+          doReturn(true).when(appConfig).freOnlyJourneyEnabled
+          doReturn(false).when(appConfig).onlineJourneyShutterEnabled
           when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(using any[Reads[Boolean]]))
             .thenReturn(Some(true))
 
@@ -174,8 +174,8 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
         }
 
         "UserAnswers contain non-empty moreThanFiveJobs equal to false" in {
-          when(appConfig.freOnlyJourneyEnabled).thenReturn(true)
-          when(appConfig.onlineJourneyShutterEnabled).thenReturn(false)
+          doReturn(true).when(appConfig).freOnlyJourneyEnabled
+          doReturn(false).when(appConfig).onlineJourneyShutterEnabled
           when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(using any[Reads[Boolean]]))
             .thenReturn(Some(false))
 
@@ -191,8 +191,8 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
         }
 
         "UserAnswers does NOT contain moreThanFiveJobs field" in {
-          when(appConfig.freOnlyJourneyEnabled).thenReturn(true)
-          when(appConfig.onlineJourneyShutterEnabled).thenReturn(false)
+          doReturn(true).when(appConfig).freOnlyJourneyEnabled
+          doReturn(false).when(appConfig).onlineJourneyShutterEnabled
 
           for {
             result <- route(application, testRequest).value
@@ -207,8 +207,8 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
       }
 
       "freOnlyJourney is disabled but onlineJourneyShutter is enabled" in {
-        when(appConfig.freOnlyJourneyEnabled).thenReturn(false)
-        when(appConfig.onlineJourneyShutterEnabled).thenReturn(true)
+        doReturn(false).when(appConfig).freOnlyJourneyEnabled
+        doReturn(true).when(appConfig).onlineJourneyShutterEnabled
 
         for {
           result <- route(application, testRequest).value
@@ -219,8 +219,8 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
       }
 
       "both freOnlyJourney and onlineJourneyShutter are disabled" in {
-        when(appConfig.freOnlyJourneyEnabled).thenReturn(false)
-        when(appConfig.onlineJourneyShutterEnabled).thenReturn(false)
+        doReturn(false).when(appConfig).freOnlyJourneyEnabled
+        doReturn(false).when(appConfig).onlineJourneyShutterEnabled
 
         for {
           result <- route(application, testRequest).value
@@ -231,7 +231,7 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
       }
 
       "redirection to iform with query params when user claims for FeesSubscriptions " in {
-        when(appConfig.employeeExpensesClaimByIformUrl).thenReturn("iform-url")
+        doReturn("iform-url").when(appConfig).employeeExpensesClaimByIformUrl
         val redirectionLink = controller.redirectionLink(List(FeesSubscriptions))
         redirectionLink must include("iform-url")
         redirectionLink must include("claiming-for")
@@ -239,15 +239,15 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
       }
 
       "redirection to iform without query params when user claims for TravelExpenses " in {
-        when(appConfig.employeeExpensesClaimByIformUrl).thenReturn("iform-url")
+        doReturn("iform-url").when(appConfig).employeeExpensesClaimByIformUrl
         val redirectionLink = controller.redirectionLink(List(TravelExpenses))
         redirectionLink must include("iform-url")
 
       }
 
       "redirection to pega url when user claims for HomeWorking " in {
-        when(appConfig.pegaServiceJourney).thenReturn(true)
-        when(appConfig.employeeExpensesClaimByPegaServicesUrl).thenReturn("pega-url")
+        doReturn(true).when(appConfig).pegaServiceJourney
+        doReturn("pega-url").when(appConfig).employeeExpensesClaimByPegaServicesUrl
         val redirectionLink = controller.redirectionLink(List(HomeWorking))
         redirectionLink must include("pega-url")
 
