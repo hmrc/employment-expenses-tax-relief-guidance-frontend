@@ -92,6 +92,8 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
     when(appConfig.freOnlyJourneyEnabled).thenReturn(true)
     when(appConfig.onlineJourneyShutterEnabled).thenReturn(true)
     when(appConfig.pegaServiceJourney).thenReturn(false)
+    when(appConfig.employeeExpensesClaimByIformUrl).thenReturn("iform-url")
+    when(appConfig.employeeExpensesClaimByPegaServicesUrl).thenReturn("pega-url")
   }
 
   override def afterAll(): Unit = {
