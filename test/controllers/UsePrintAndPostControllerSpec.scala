@@ -34,7 +34,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.*
 import play.twirl.api.HtmlFormat
 import utils.{CacheMap, UserAnswers}
-import views.html.{UseIformFreOnlyView, UsePrintAndPostDetailedView, UsePrintAndPostFreOnlyView, UsePrintAndPostView}
+import views.html.{UseIformFreOnlyView, UsePrintAndPostFreOnlyView}
 
 import scala.concurrent.ExecutionContext.Implicits.global
 
@@ -44,17 +44,13 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
   private val cacheMap               = mock[CacheMap]
   private val appConfig              = mock[FrontendAppConfig]
 
-  private val usePrintAndPostView         = mock[UsePrintAndPostView]
-  private val usePrintAndPostDetailedView = mock[UsePrintAndPostDetailedView]
-  private val usePrintAndPostFreOnlyView  = mock[UsePrintAndPostFreOnlyView]
-  private val useIformFreOnlyView         = mock[UseIformFreOnlyView]
+  private val usePrintAndPostFreOnlyView = mock[UsePrintAndPostFreOnlyView]
+  private val useIformFreOnlyView        = mock[UseIformFreOnlyView]
 
   private val application = applicationBuilder(Some(cacheMap))
     .overrides(
       bind[ClaimingForListBuilder].toInstance(claimingForListBuilder),
       bind[FrontendAppConfig].toInstance(appConfig),
-      bind[UsePrintAndPostView].toInstance(usePrintAndPostView),
-      bind[UsePrintAndPostDetailedView].toInstance(usePrintAndPostDetailedView),
       bind[UsePrintAndPostFreOnlyView].toInstance(usePrintAndPostFreOnlyView),
       bind[UseIformFreOnlyView].toInstance(useIformFreOnlyView)
     )
@@ -71,8 +67,6 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
       claimingForListBuilder,
       cacheMap,
       appConfig,
-      usePrintAndPostView,
-      usePrintAndPostDetailedView,
       usePrintAndPostFreOnlyView,
       useIformFreOnlyView
     )
@@ -81,19 +75,14 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
 
     when(cacheMap.getEntry(any[String])(using any)).thenReturn(None)
 
-    when(usePrintAndPostView.apply(any[Boolean], any[Boolean])(using any[Request[?]], any[Messages]))
-      .thenReturn(HtmlFormat.empty)
-    when(usePrintAndPostDetailedView.apply(any[List[ClaimingFor]])(using any[Request[?]], any[Messages]))
-      .thenReturn(HtmlFormat.empty)
     when(usePrintAndPostFreOnlyView.apply(any[List[ClaimingFor]])(using any[Request[?]], any[Messages]))
       .thenReturn(HtmlFormat.empty)
     when(useIformFreOnlyView.apply(any[List[ClaimingFor]], any[String])(using any[Request[?]], any[Messages]))
       .thenReturn(HtmlFormat.empty)
-    doReturn(true).when(appConfig).freOnlyJourneyEnabled
-    doReturn(true).when(appConfig).onlineJourneyShutterEnabled
-    doReturn(false).when(appConfig).pegaServiceJourney
-    doReturn("iform-url").when(appConfig).employeeExpensesClaimByIformUrl
-    doReturn("pega-url").when(appConfig).employeeExpensesClaimByPegaServicesUrl
+    when(appConfig.pegaServiceJourney).thenReturn(false)
+    when(appConfig.employeeExpensesClaimByIformUrl).thenReturn("iform-url")
+    when(appConfig.employeeExpensesClaimByPegaServicesUrl).thenReturn("pega-url")
+    when(appConfig.employeeExpensesClaimByPostUrl).thenReturn("print-and-post-form-url")
   }
 
   override def afterAll(): Unit = {
@@ -108,150 +97,88 @@ class UsePrintAndPostControllerSpec extends SpecBase with BeforeAndAfterEach wit
 
     "return OK and the correct view for a GET" when {
 
-      "both freOnlyJourney and onlineJourneyShutter are enabled" when {
-
-        "UserAnswers contain non-empty moreThanFiveJobs equal to true" in {
-          doReturn(true).when(appConfig).freOnlyJourneyEnabled
-          doReturn(true).when(appConfig).onlineJourneyShutterEnabled
-          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(using any[Reads[Boolean]]))
-            .thenReturn(Some(true))
-
-          for {
-            result <- route(application, testRequest).value
-
-            _ = result.header.status mustBe OK
-            _ = verify(usePrintAndPostFreOnlyView).apply(eqTo(claimingForList))(using any[Request[?]], any[Messages])
-          } yield ()
-        }
-
-        "UserAnswers contain non-empty moreThanFiveJobs equal to false" in {
-          doReturn(true).when(appConfig).freOnlyJourneyEnabled
-          doReturn(true).when(appConfig).onlineJourneyShutterEnabled
-          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(using any[Reads[Boolean]]))
-            .thenReturn(Some(false))
-
-          for {
-            result <- route(application, testRequest).value
-
-            _ = result.header.status mustBe OK
-            _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList), eqTo(redirectionLink))(
-              using any[Request[?]],
-              any[Messages]
-            )
-          } yield ()
-        }
-
-        "UserAnswers does NOT contain moreThanFiveJobs field" in {
-          doReturn(true).when(appConfig).freOnlyJourneyEnabled
-          doReturn(true).when(appConfig).onlineJourneyShutterEnabled
-
-          for {
-            result <- route(application, testRequest).value
-
-            _ = result.header.status mustBe OK
-            _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList), eqTo(redirectionLink))(
-              using any[Request[?]],
-              any[Messages]
-            )
-          } yield ()
-        }
-      }
-
-      "freOnlyJourney is enabled but onlineJourneyShutter is disabled" when {
-
-        "UserAnswers contain non-empty moreThanFiveJobs equal to true" in {
-          doReturn(true).when(appConfig).freOnlyJourneyEnabled
-          doReturn(false).when(appConfig).onlineJourneyShutterEnabled
-          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(using any[Reads[Boolean]]))
-            .thenReturn(Some(true))
-
-          for {
-            result <- route(application, testRequest).value
-
-            _ = result.header.status mustBe OK
-            _ = verify(usePrintAndPostFreOnlyView).apply(eqTo(claimingForList))(using any[Request[?]], any[Messages])
-          } yield ()
-        }
-
-        "UserAnswers contain non-empty moreThanFiveJobs equal to false" in {
-          doReturn(true).when(appConfig).freOnlyJourneyEnabled
-          doReturn(false).when(appConfig).onlineJourneyShutterEnabled
-          when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(using any[Reads[Boolean]]))
-            .thenReturn(Some(false))
-
-          for {
-            result <- route(application, testRequest).value
-
-            _ = result.header.status mustBe OK
-            _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList), eqTo(redirectionLink))(
-              using any[Request[?]],
-              any[Messages]
-            )
-          } yield ()
-        }
-
-        "UserAnswers does NOT contain moreThanFiveJobs field" in {
-          doReturn(true).when(appConfig).freOnlyJourneyEnabled
-          doReturn(false).when(appConfig).onlineJourneyShutterEnabled
-
-          for {
-            result <- route(application, testRequest).value
-
-            _ = result.header.status mustBe OK
-            _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList), eqTo(redirectionLink))(
-              using any[Request[?]],
-              any[Messages]
-            )
-          } yield ()
-        }
-      }
-
-      "freOnlyJourney is disabled but onlineJourneyShutter is enabled" in {
-        doReturn(false).when(appConfig).freOnlyJourneyEnabled
-        doReturn(true).when(appConfig).onlineJourneyShutterEnabled
+      "UserAnswers contain non-empty moreThanFiveJobs equal to true" in {
+        when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(using any[Reads[Boolean]]))
+          .thenReturn(Some(true))
 
         for {
           result <- route(application, testRequest).value
 
           _ = result.header.status mustBe OK
-          _ = verify(usePrintAndPostDetailedView).apply(eqTo(claimingForList))(using any[Request[?]], any[Messages])
+          _ = verify(usePrintAndPostFreOnlyView).apply(eqTo(claimingForList))(using any[Request[?]], any[Messages])
         } yield ()
       }
 
-      "both freOnlyJourney and onlineJourneyShutter are disabled" in {
-        doReturn(false).when(appConfig).freOnlyJourneyEnabled
-        doReturn(false).when(appConfig).onlineJourneyShutterEnabled
+      "UserAnswers contain non-empty moreThanFiveJobs equal to false" in {
+        when(cacheMap.getEntry[Boolean](eqTo(MoreThanFiveJobsId.toString))(using any[Reads[Boolean]]))
+          .thenReturn(Some(false))
 
         for {
           result <- route(application, testRequest).value
 
           _ = result.header.status mustBe OK
-          _ = verify(usePrintAndPostView).apply(eqTo(false), eqTo(false))(using any[Request[?]], any[Messages])
+          _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList), eqTo(redirectionLink))(
+            using any[Request[?]],
+            any[Messages]
+          )
         } yield ()
       }
 
-      "redirection to iform with query params when user claims for FeesSubscriptions " in {
-        doReturn("iform-url").when(appConfig).employeeExpensesClaimByIformUrl
-        val redirectionLink = controller.redirectionLink(List(FeesSubscriptions))
-        redirectionLink must include("iform-url")
-        redirectionLink must include("claiming-for")
+      "UserAnswers does NOT contain moreThanFiveJobs field" in {
 
+        for {
+          result <- route(application, testRequest).value
+
+          _ = result.header.status mustBe OK
+          _ = verify(useIformFreOnlyView).apply(eqTo(claimingForList), eqTo(redirectionLink))(
+            using any[Request[?]],
+            any[Messages]
+          )
+        } yield ()
       }
+    }
 
-      "redirection to iform without query params when user claims for TravelExpenses " in {
-        doReturn("iform-url").when(appConfig).employeeExpensesClaimByIformUrl
-        val redirectionLink = controller.redirectionLink(List(TravelExpenses))
-        redirectionLink must include("iform-url")
+    "redirection to iform with query params when user claims for FeesSubscriptions " in {
+      when(appConfig.employeeExpensesClaimByIformUrl).thenReturn("iform-url")
 
-      }
+      val redirectionLink = controller.redirectionLink(List(FeesSubscriptions))
+      redirectionLink must include("iform-url")
+      redirectionLink must include("claiming-for")
 
-      "redirection to pega url when user claims for HomeWorking " in {
-        doReturn(true).when(appConfig).pegaServiceJourney
-        doReturn("pega-url").when(appConfig).employeeExpensesClaimByPegaServicesUrl
-        val redirectionLink = controller.redirectionLink(List(HomeWorking))
-        redirectionLink must include("pega-url")
+    }
 
-      }
+    "redirection to iform without query params when user claims for TravelExpenses " in {
+      when(appConfig.employeeExpensesClaimByIformUrl).thenReturn("iform-url")
+
+      val redirectionLink = controller.redirectionLink(List(TravelExpenses))
+      redirectionLink must include("iform-url")
+
+    }
+
+    "redirection to pega url when user claims for HomeWorking " in {
+      when(appConfig.pegaServiceJourney).thenReturn(true)
+      when(appConfig.employeeExpensesClaimByPegaServicesUrl).thenReturn("pega-url")
+
+      val redirectionLink = controller.redirectionLink(List(HomeWorking))
+      redirectionLink must include("pega-url")
+
+    }
+  }
+
+  "printAndPostGuidance" must {
+
+    def redirectPrintAndPostForm = routes.UsePrintAndPostController.printAndPostGuidance().url
+    def testRequest              = FakeRequest(GET, redirectPrintAndPostForm)
+
+    "redirect to the print and post form url" in {
+      when(appConfig.employeeExpensesClaimByPostUrl).thenReturn("print-and-post-form-url")
+
+      for {
+        result <- route(application, testRequest).value
+
+        _ = result.header.status mustBe OK
+        _ = redirectionLink must include("print-and-post-form-url")
+      } yield ()
     }
   }
 
