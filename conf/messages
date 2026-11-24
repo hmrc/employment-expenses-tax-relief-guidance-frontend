@@ -239,11 +239,11 @@ claimingFor.buyingEquipment = Buying other equipment
 claimingFor.buyingEquipment.description = You can only claim tax relief on equipment costs if it is needed for your job and used only for work. If it doesn''t meet the criteria, you may be able to claim through {0} capital allowances (opens in a new window or tab){1}.
 claimingFor.other = Other expenses
 
-claimingFuel.title = Do you want to claim money you spent on fuel for your company vehicle?
-claimingFuel.heading = Do you want to claim money you spent on fuel for your company vehicle?
-claimingFuel.guidance = Fuel includes electricity. You cannot claim for:
-claimingFuel.bullet1 = money you spent to get to and from your normal place of work
-claimingFuel.bullet2 = mileage allowance for things like road tax, MOTs and repairs
+claimingFuel.title = Fuel for your company vehicle
+claimingFuel.heading = Fuel for your company vehicle
+claimingFuel.question = Do you want to claim money you spend on fuel for your company vehicle?
+claimingFuel.p1 = You may be able to claim tax relief on the money you spendon the fuel for your company vehicle. Fuel includes electricity.
+claimingFuel.p2 = You cannot claim for money you spend to get to and from your normal place of work or mileage allowance or things like road tax, MOTs and repairs.
 claimingFuel.error.required = Select yes if you want to claim money you spent on fuel for your company vehicle
 
 claimingMileage.title = Do you want to claim the approved mileage rate for using your own vehicle for work?
