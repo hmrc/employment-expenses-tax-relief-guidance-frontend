@@ -36,7 +36,9 @@ class ClaimingFuelViewSpec extends NewYesNoViewBehaviours {
 
   "ClaimingFuel view" must {
 
-    behave.like(normalPage(createView(form), messageKeyPrefix, "guidance", "bullet1", "bullet2"))
+    behave.like(normalPage(createView(form), messageKeyPrefix))
+
+    behave.like(pageWithBodyText(createView(form), s"$messageKeyPrefix.p1", s"$messageKeyPrefix.p2"))
 
     behave.like(yesNoPage(createView, messageKeyPrefix, routes.ClaimingFuelController.onSubmit().url))
 

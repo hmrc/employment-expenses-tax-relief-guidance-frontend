@@ -243,11 +243,11 @@ claimingFor.buyingEquipment = Prynu offer eraill
 claimingFor.buyingEquipment.description = Dim ond os oes angen yr offer arnoch at ddiben eich swydd y gallwch hawlio rhyddhad treth, a bod yr offer hyn dim ond yn cael eu defnyddio at ddiben gwaith. Os nad ydynt yn bodloni’r meini prawf, efallai y bydd modd i chi hawlio gan ddefnyddio {0} lwfansau cyfalaf (yn agor ffenestr neu dab newydd){1}.
 claimingFor.other = Treuliau eraill
 
-claimingFuel.title = A ydych eisiau hawlio’r arian y gwnaethoch ei wario ar danwydd ar gyfer eich cerbyd cwmni?
-claimingFuel.heading = A ydych eisiau hawlio’r arian y gwnaethoch ei wario ar danwydd ar gyfer eich cerbyd cwmni?
-claimingFuel.guidance = Mae tanwydd yn cynnwys trydan. Ni allwch hawlio’r canlynol:
-claimingFuel.bullet1 = arian rydych yn ei wario i gyrraedd a gadael eich man gwaith arferol
-claimingFuel.bullet2 = lwfans milltiroedd ar gyfer pethau fel treth ffordd, MOT ac atgyweiriadau
+claimingFuel.title = Tanwydd ar gyfer cerbyd eich cwmni
+claimingFuel.heading = Tanwydd ar gyfer cerbyd eich cwmni
+claimingFuel.question = A ydych eisiau hawlio’r arian y gwnaethoch ei wario ar danwydd ar gyfer eich cerbyd cwmni?
+claimingFuel.p1 = Mae’n bosibl y gallwch hawlio rhyddhad treth ar yr arian rydych yn ei wario ar danwydd ar gyfer cerbyd eich cwmni. Mae tanwydd yn cynnwys trydan.
+claimingFuel.p2 = Ni allwch hawlio arian rydych yn ei wario ar deithio yn ôl ac ymlaen i’ch man gwaith arferol, na lwfans milltiroedd, na phethau fel treth ffordd, profion MOT a gwaith atgyweirio.
 claimingFuel.error.required = Dewiswch ‘Iawn’ os ydych eisiau hawlio arian rydych wedi’i wario ar danwydd ar gyfer eich cerbyd cwmni
 
 claimingMileage.title = A ydych eisiau hawlio’r gyfradd milltiroedd gymeradwy am ddefnyddio’ch cerbyd eich hunan ar gyfer gwaith?

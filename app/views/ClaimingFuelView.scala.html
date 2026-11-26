@@ -32,17 +32,15 @@
 ) {
     @errorSummary(form.errors)
     @heading(messages(s"claimingFuel.heading"))
-    <p class="govuk-body">@messages(s"claimingFuel.guidance")</p>
-    <ul class="govuk-list govuk-list--bullet">
-        <li>@messages(s"claimingFuel.bullet1")</li>
-        <li>@messages(s"claimingFuel.bullet2")</li>
-    </ul>
+    <p class="govuk-body">@messages("claimingFuel.p1")</p>
+    <p class="govuk-body govuk-!-margin-bottom-8">@messages("claimingFuel.p2")</p>
+
     @formHelper(action = routes.ClaimingFuelController.onSubmit(), Symbol("autoComplete") -> "off") {
         @inputYesNoRadio(
             field = form("value"),
-            label = messages(s"claimingFuel.heading"),
+            label = messages(s"claimingFuel.question"),
             headingIsLegend = false,
-            labelClass = Some("govuk-visually-hidden")
+            labelClass=Some(" govuk-fieldset__legend--m")
         )
         @submitButton()
     }
