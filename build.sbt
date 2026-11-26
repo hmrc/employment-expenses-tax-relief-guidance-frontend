@@ -44,7 +44,7 @@ lazy val root = (project in file("."))
     ScoverageKeys.coverageHighlighting     := true,
     scalacOptions ++= Seq("-feature"),
     libraryDependencies ++= AppDependencies(),
-    dependencyOverrides += "commons-codec" % "commons-codec" % "1.12",
+    dependencyOverrides += "commons-codec" % "commons-codec" % "1.23.0",
     retrieveManaged                       := true
   )
 
